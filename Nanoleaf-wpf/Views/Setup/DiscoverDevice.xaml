@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Nanoleaf_wpf.Views.Setup"
         mc:Ignorable="d"
         Title="DiscoverDevice" Height="450" Width="800">
-    <Grid>
+    <Grid Background="{StaticResource NanoleafBlack}">
         
     </Grid>
 </Window>

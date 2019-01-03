@@ -103,5 +103,24 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="BrandAssets\Affiliate Assets\affiliate-button_green.svg" />
+    <Content Include="BrandAssets\Affiliate Assets\affiliate-button_grey.svg" />
+    <Content Include="BrandAssets\Brand Assets\Works-with-nanoleaf-badge_colour.svg" />
+    <Content Include="BrandAssets\Brand Assets\Works-with-nanoleaf-badge_mono-GREY.svg" />
+    <Content Include="BrandAssets\Brand Assets\Works-with-nanoleaf-badge_mono-WHITE.svg" />
+    <Content Include="BrandAssets\Brand Assets\Works-with-nanoleaf-icon_COLOUR.svg" />
+    <Content Include="BrandAssets\Brand Assets\Works-with-nanoleaf-icon_mono-GREY.svg" />
+    <Content Include="BrandAssets\Brand Assets\Works-with-nanoleaf-icon_mono-WHITE.svg" />
+    <Content Include="BrandAssets\Device Management Icons\Aurora-dev-mgmt_green.svg" />
+    <Content Include="BrandAssets\Device Management Icons\Aurora-dev-mgmt_grey.svg" />
+    <Content Include="BrandAssets\Device Management Icons\Aurora-dev-mgmt_white.svg" />
+    <Content Include="BrandAssets\Device Management Icons\Smart-hub-dev-mgmt_green.svg" />
+    <Content Include="BrandAssets\Device Management Icons\Smart-hub-dev-mgmt_grey.svg" />
+    <Content Include="BrandAssets\Device Management Icons\Smart-hub-dev-mgmt_white.svg" />
+    <Content Include="BrandAssets\Device Management Icons\Smart-ivy-dev-mgmt_green.svg" />
+    <Content Include="BrandAssets\Device Management Icons\Smart-ivy-dev-mgmt_grey.svg" />
+    <Content Include="BrandAssets\Device Management Icons\Smart-ivy-dev-mgmt_white.svg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

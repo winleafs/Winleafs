@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:Nanoleaf_wpf"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <SolidColorBrush x:Key="NanoleafBlack" Color="#2D2F30"/>
+        <SolidColorBrush x:Key="NanoleafGreen" Color="#3FAE29"/>
     </Application.Resources>
 </Application>
