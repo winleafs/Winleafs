@@ -121,6 +121,8 @@
     <Content Include="BrandAssets\Device Management Icons\Smart-ivy-dev-mgmt_green.svg" />
     <Content Include="BrandAssets\Device Management Icons\Smart-ivy-dev-mgmt_grey.svg" />
     <Content Include="BrandAssets\Device Management Icons\Smart-ivy-dev-mgmt_white.svg" />
+    <Resource Include="Icons\appbar.refresh.png" />
+    <Resource Include="Icons\Instructions.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
