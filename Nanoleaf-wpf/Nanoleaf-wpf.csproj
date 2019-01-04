@@ -55,8 +55,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Views\Setup\DiscoverDevice.xaml.cs">
-      <DependentUpon>DiscoverDevice.xaml</DependentUpon>
+    <Compile Include="Models\Device.cs" />
+    <Compile Include="Views\Setup\AuthorizeDeviceControl.xaml.cs">
+      <DependentUpon>AuthorizeDeviceControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Setup\DiscoverDeviceControl.xaml.cs">
+      <DependentUpon>DiscoverDeviceControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Setup\SetupWindow.xaml.cs">
+      <DependentUpon>SetupWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -72,7 +79,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\Setup\DiscoverDevice.xaml">
+    <Page Include="Views\Setup\AuthorizeDeviceControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Setup\DiscoverDeviceControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Setup\SetupWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
