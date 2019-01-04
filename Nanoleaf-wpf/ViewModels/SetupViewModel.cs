@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Nanoleaf_wpf.ViewModels
 {
-    pubic class SetupViewModel
+    public class SetupViewModel
     {
     }
 }
