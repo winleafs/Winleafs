@@ -5,19 +5,19 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Nanoleaf_wpf.Views.Setup"
              mc:Ignorable="d" 
-             d:DesignHeight="430" d:DesignWidth="400">
+             d:DesignHeight="730" d:DesignWidth="600">
 
     <Grid Background="{StaticResource NanoleafBlack}">
-        <Label Content="Step 1: Select your Nanoleaf device from the list below" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <ListBox HorizontalAlignment="Left" Height="339" Margin="10,41,0,0" VerticalAlignment="Top" Width="375" ItemsSource="{Binding Devices}" Background="#FF1E1E1E" BorderBrush="Gray" SelectionMode="Single">
+        <Label Content="Step 1: Select your Nanoleaf device from the list below" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
+        <ListBox x:Name="Devices" HorizontalAlignment="Left" Height="641" Margin="10,47,0,0" VerticalAlignment="Top" Width="580" ItemsSource="{Binding Devices}" Background="#FF1E1E1E" BorderBrush="Gray" SelectionMode="Single">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
                     <Setter Property="Foreground" Value="White"></Setter>
-                    <Setter Property="FontSize" Value="20"></Setter>
+                    <Setter Property="FontSize" Value="18"></Setter>
                     <Setter Property="Height" Value="30"></Setter>
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
                     <!--<Setter Property="HorizontalAlignment" Value="Center"></Setter>-->
-                    
+
                     <!-- To use custom hover and select effects -->
                     <Setter Property="Template">
                         <Setter.Value>
@@ -39,9 +39,9 @@
                 </Style>
             </ListBox.ItemContainerStyle>
         </ListBox>
-        <Button Content="Cancel" HorizontalAlignment="Left" Margin="10,385,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Cancel_Click"/>
-        <Button Content="Continue" HorizontalAlignment="Left" Margin="301,385,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Continue_Click"/>
-        <Button HorizontalAlignment="Left" Margin="356,10,0,0" VerticalAlignment="Top" Width="29" Height="26" Background="{x:Null}" BorderBrush="{x:Null}" Click="Refresh_Click" ToolTip="Refresh list">
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="10,693,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Cancel_Click"/>
+        <Button Content="Continue" HorizontalAlignment="Left" Margin="506,693,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Continue_Click"/>
+        <Button HorizontalAlignment="Left" Margin="540,4,0,0" VerticalAlignment="Top" Width="40" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Click="Refresh_Click" ToolTip="Refresh list">
             <Image Source="../../Icons/appbar.refresh.png"></Image>
         </Button>
     </Grid>

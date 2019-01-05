@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Nanoleaf_wpf.Views.Setup"
         mc:Ignorable="d"
-        Title="DiscoverDevice" Height="460" Width="410" ResizeMode="NoResize"
+        Title="DiscoverDevice" Height="760" Width="610" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner">
     <Grid>
         <local:DiscoverDeviceControl x:Name="DiscoverDevice" Loaded="DiscoverDevice_Loaded"/>

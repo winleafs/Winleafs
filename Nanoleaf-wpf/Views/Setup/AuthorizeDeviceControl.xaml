@@ -5,12 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Nanoleaf_wpf.Views.Setup"
              mc:Ignorable="d" 
-             d:DesignHeight="430" d:DesignWidth="400">
+             d:DesignHeight="730" d:DesignWidth="600">
 
     <Grid Background="{StaticResource NanoleafBlack}">
-        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Step 2: Hold to on-off button of your Nanoleaf device for 5-7 seconds until the LED starts flasing in a pattern" VerticalAlignment="Top" Foreground="White"/>
-        <TextBlock HorizontalAlignment="Left" Margin="10,47,0,0" TextWrapping="Wrap" Text="Step 3: Click the button below within 30 seconds" VerticalAlignment="Top" Foreground="White"/>
-        <Button Content="Pair" HorizontalAlignment="Left" Margin="150,100,0,0" VerticalAlignment="Top" Width="100" Background="{StaticResource NanoleafGreen}" Foreground="White" FontSize="25" BorderBrush="{x:Null}" Click="Pair_Click"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Step 2: Hold to on-off button of your Nanoleaf device for 5-7 seconds until the LED starts flasing in a pattern" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,95,0,0" TextWrapping="Wrap" Text="Step 3: Click the button below within 30 seconds" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
+        <Button Content="Pair" HorizontalAlignment="Left" Margin="250,227,0,0" VerticalAlignment="Top" Width="100" Background="{StaticResource NanoleafGreen}" Foreground="White" FontSize="25" BorderBrush="{x:Null}" Click="Pair_Click"/>
 
     </Grid>
 </UserControl>

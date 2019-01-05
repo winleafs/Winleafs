@@ -12,11 +12,9 @@ namespace Nanoleaf_wpf.ViewModels
     {
         public ObservableCollection<Device> Devices { get; set; }
 
-        public void LoadDummy()
+        public SetupViewModel()
         {
             Devices = new ObservableCollection<Device>();
-            Devices.Add(new Device() { Name = "test1", IpAddress = "111.1.11.1" });
-            Devices.Add(new Device() { Name = "test2", IpAddress = "123.222.222.222" });
         }
     }
 }
