@@ -1,4 +1,5 @@
 ﻿using Nanoleaf_wpf.Models.Scheduling;
+using System.Linq;
 using System.Windows.Controls;
 
 namespace Nanoleaf_wpf.Views.Scheduling
@@ -15,12 +16,7 @@ namespace Nanoleaf_wpf.Views.Scheduling
         {
             InitializeComponent();
             DataContext = this; //With this we can use the variables in the view
-        }
-
-        //This method will be called by the parent window to fill this window with the events the user defined
-        public void FillEvents(Program program)
-        {
-            Program = program;
+            Program = new Program(); //Placeholder
         }
 
         private void Plus_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -29,9 +25,37 @@ namespace Nanoleaf_wpf.Views.Scheduling
             addTriggerWindow.Show();
         }
 
-        public void TriggerAdded(TriggerType triggerType, int hour, int minute, string effect)
+        public void TriggerAdded(TriggerType triggerType, int hours, int minutes, string effect)
         {
+            Program.Triggers.Add(new Trigger
+            {
+                Effect = effect,
+                Minutes = minutes,
+                Hours = hours,
+                Type = triggerType
+            });
 
+            Program.Triggers = Program.Triggers.OrderBy(t => t.Hours).ThenBy(t => t.Minutes).ToList();
+
+            BuildProgramList();
+        }
+
+        private void BuildProgramList()
+        {
+            EventList.Children.Clear();
+            TimeList.Children.Clear();
+
+            foreach (var trigger in Program.Triggers)
+            {
+                if (trigger.Type == TriggerType.Time)
+                {
+                    TimeList.Children.Add(new TriggerUserControl(trigger));
+                }
+                else
+                {
+                    EventList.Children.Add(new TriggerUserControl(trigger));
+                }
+            }
         }
     }
 }

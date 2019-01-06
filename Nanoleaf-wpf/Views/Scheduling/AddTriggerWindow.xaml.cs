@@ -70,6 +70,7 @@ namespace Nanoleaf_wpf.Views.Scheduling
         {
             //TODO: add checks
             _parent.TriggerAdded(_triggerType, Convert.ToInt32(Hours.Text), Convert.ToInt32(Minutes.Text), SelectedEffect);
+            Close();
         }
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)

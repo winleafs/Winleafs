@@ -69,6 +69,9 @@
     <Compile Include="Views\Scheduling\ManageScheduleWindow.xaml.cs">
       <DependentUpon>ManageScheduleWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Scheduling\TriggerUserControl.xaml.cs">
+      <DependentUpon>TriggerUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Setup\DiscoverDevice.xaml.cs">
       <DependentUpon>DiscoverDevice.xaml</DependentUpon>
     </Compile>
@@ -95,6 +98,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Scheduling\ManageScheduleWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Scheduling\TriggerUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
