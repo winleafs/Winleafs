@@ -55,6 +55,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\Scheduling\Program.cs" />
+    <Compile Include="Models\Scheduling\Schedule.cs" />
+    <Compile Include="Models\Scheduling\Trigger.cs" />
+    <Compile Include="Models\Scheduling\TriggerType.cs" />
+    <Compile Include="Views\Scheduling\DayUserControl.xaml.cs">
+      <DependentUpon>DayUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Scheduling\ManageScheduleWindow.xaml.cs">
+      <DependentUpon>ManageScheduleWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Setup\DiscoverDevice.xaml.cs">
       <DependentUpon>DiscoverDevice.xaml</DependentUpon>
     </Compile>
@@ -72,6 +82,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\Scheduling\DayUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Scheduling\ManageScheduleWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Setup\DiscoverDevice.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
