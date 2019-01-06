@@ -30,6 +30,11 @@
         <local:DayUserControl Grid.Row="1" Grid.Column="6" NameOfDay="Sunday" />
 
         <Border Grid.Row="1" Grid.Column="0" BorderBrush="White" BorderThickness="0 0 1 0"/>
+        <Border Grid.Row="1" Grid.Column="1" BorderBrush="White" BorderThickness="0 0 1 0"/>
+        <Border Grid.Row="1" Grid.Column="2" BorderBrush="White" BorderThickness="0 0 1 0"/>
+        <Border Grid.Row="1" Grid.Column="3" BorderBrush="White" BorderThickness="0 0 1 0"/>
+        <Border Grid.Row="1" Grid.Column="4" BorderBrush="White" BorderThickness="0 0 1 0"/>
+        <Border Grid.Row="1" Grid.Column="5" BorderBrush="White" BorderThickness="0 0 1 0"/>
 
         <Grid Grid.Row="0" Grid.ColumnSpan="7">
             <Border BorderBrush="White" BorderThickness="0 0 0 1"/>

@@ -8,11 +8,14 @@
              Width="200" Height="Auto">
     <Grid>
         <Label Content="{Binding NameOfDay}" Foreground="White" FontSize="20"/>
-        <Expander Header="Event based" HorizontalAlignment="Stretch" MinHeight="100" VerticalAlignment="Top" Foreground="White" Margin="5,30,0,0">
+        <Expander Header="Event based" HorizontalAlignment="Stretch" VerticalAlignment="Top" Foreground="White" Margin="5,30,0,0">
             <Grid/>
         </Expander>
-        <Expander Header="Time based" HorizontalAlignment="Stretch" MinHeight="100" VerticalAlignment="Top" Foreground="White" Margin="5,130,0,0">
+        <Expander Header="Time based" HorizontalAlignment="Stretch" VerticalAlignment="Top" Foreground="White" Margin="5,50,0,0">
             <Grid/>
         </Expander>
+        <Button HorizontalAlignment="Left" Margin="170,5,0,0" VerticalAlignment="Top" Width="25" Height="25" Background="{x:Null}" BorderBrush="{x:Null}" Click="Plus_Click">
+            <Path Stretch="Fill" Fill="White" Stroke="{x:Null}" StrokeThickness="0.5" Data="M3.875,0 L5.125,0 5.125,3.875 9,3.875 9,5.125 5.125,5.125 5.125,9 3.875,9 3.875,5.125 0,5.125 0,3.875 3.875,3.875 3.875,0 z" />
+        </Button>
     </Grid>
 </UserControl>
