@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Nanoleaf_wpf.Views.Scheduling"
         mc:Ignorable="d"
-        Title="ManageScheduleWindow" Height="600" Width="1400">
+        Title="ManageScheduleWindow" Height="600" Width="1616" MinWidth="410">
+    
     <Grid Background="{StaticResource NanoleafBlack}">
         <Grid.RowDefinitions>
             <RowDefinition Height="35" />
@@ -13,34 +14,44 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200" />
-            <ColumnDefinition Width="200" />
-            <ColumnDefinition Width="200" />
-            <ColumnDefinition Width="200" />
-            <ColumnDefinition Width="200" />
-            <ColumnDefinition Width="200" />
-            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+            
+        <local:EventUserControl Grid.Row="1" Grid.Column="0" />
 
-        <local:DayUserControl Grid.Row="1" Grid.Column="0" NameOfDay="Monday" />
-        <local:DayUserControl Grid.Row="1" Grid.Column="1" NameOfDay="Tuesday" />
-        <local:DayUserControl Grid.Row="1" Grid.Column="2" NameOfDay="Wednesday" />
-        <local:DayUserControl Grid.Row="1" Grid.Column="3" NameOfDay="Thursday" />
-        <local:DayUserControl Grid.Row="1" Grid.Column="4" NameOfDay="Friday" />
-        <local:DayUserControl Grid.Row="1" Grid.Column="5" NameOfDay="Saturday" />
-        <local:DayUserControl Grid.Row="1" Grid.Column="6" NameOfDay="Sunday" />
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Grid.Row="1" Grid.Column="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition MinWidth="200" />
+                    <ColumnDefinition MinWidth="200" />
+                    <ColumnDefinition MinWidth="200" />
+                    <ColumnDefinition MinWidth="200" />
+                    <ColumnDefinition MinWidth="200" />
+                    <ColumnDefinition MinWidth="200" />
+                    <ColumnDefinition MinWidth="200" />
+                </Grid.ColumnDefinitions>
 
-        <Border Grid.Row="1" Grid.Column="0" BorderBrush="White" BorderThickness="0 0 1 0"/>
-        <Border Grid.Row="1" Grid.Column="1" BorderBrush="White" BorderThickness="0 0 1 0"/>
-        <Border Grid.Row="1" Grid.Column="2" BorderBrush="White" BorderThickness="0 0 1 0"/>
-        <Border Grid.Row="1" Grid.Column="3" BorderBrush="White" BorderThickness="0 0 1 0"/>
-        <Border Grid.Row="1" Grid.Column="4" BorderBrush="White" BorderThickness="0 0 1 0"/>
-        <Border Grid.Row="1" Grid.Column="5" BorderBrush="White" BorderThickness="0 0 1 0"/>
+                <local:DayUserControl Grid.Row="1" Grid.Column="0" NameOfDay="Monday" />
+                <local:DayUserControl Grid.Row="1" Grid.Column="1" NameOfDay="Tuesday" />
+                <local:DayUserControl Grid.Row="1" Grid.Column="2" NameOfDay="Wednesday" />
+                <local:DayUserControl Grid.Row="1" Grid.Column="3" NameOfDay="Thursday" />
+                <local:DayUserControl Grid.Row="1" Grid.Column="4" NameOfDay="Friday" />
+                <local:DayUserControl Grid.Row="1" Grid.Column="5" NameOfDay="Saturday" />
+                <local:DayUserControl Grid.Row="1" Grid.Column="6" NameOfDay="Sunday" />
 
-        <Grid Grid.Row="0" Grid.ColumnSpan="7">
+                <Border Grid.Row="1" Grid.Column="0" BorderBrush="White" BorderThickness="1 0 1 0"/>
+                <Border Grid.Row="1" Grid.Column="1" BorderBrush="White" BorderThickness="0 0 1 0"/>
+                <Border Grid.Row="1" Grid.Column="2" BorderBrush="White" BorderThickness="0 0 1 0"/>
+                <Border Grid.Row="1" Grid.Column="3" BorderBrush="White" BorderThickness="0 0 1 0"/>
+                <Border Grid.Row="1" Grid.Column="4" BorderBrush="White" BorderThickness="0 0 1 0"/>
+                <Border Grid.Row="1" Grid.Column="5" BorderBrush="White" BorderThickness="0 0 1 0"/>
+            </Grid>
+        </ScrollViewer>
+
+        <Grid Grid.Row="0" Grid.ColumnSpan="8">
             <Border BorderBrush="White" BorderThickness="0 0 0 1"/>
             <Label Content="Name:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
             <TextBox HorizontalAlignment="Left" Height="23" Margin="72,8,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="300"/>
-
         </Grid>
     </Grid>
 </Window>

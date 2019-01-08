@@ -4,6 +4,7 @@
     {
         Time = 0,
         Sunrise = 1,
-        Sunset = 2
+        Sunset = 2,
+        Event = 3
     }
 }

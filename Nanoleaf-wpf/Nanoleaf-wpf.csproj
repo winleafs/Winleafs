@@ -56,12 +56,17 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\Effect.cs" />
+    <Compile Include="Models\Scheduling\Triggers\IEventTrigger.cs" />
+    <Compile Include="Models\Scheduling\Triggers\ITrigger.cs" />
     <Compile Include="Models\Scheduling\Program.cs" />
     <Compile Include="Models\Scheduling\Schedule.cs" />
-    <Compile Include="Models\Scheduling\Trigger.cs" />
+    <Compile Include="Models\Scheduling\Triggers\TimeTrigger.cs" />
     <Compile Include="Models\Scheduling\TriggerType.cs" />
     <Compile Include="Views\Scheduling\AddTriggerWindow.xaml.cs">
       <DependentUpon>AddTriggerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Scheduling\EventUserControl.xaml.cs">
+      <DependentUpon>EventUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Scheduling\DayUserControl.xaml.cs">
       <DependentUpon>DayUserControl.xaml</DependentUpon>
@@ -92,6 +97,10 @@
     <Page Include="Views\Scheduling\AddTriggerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Scheduling\EventUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Scheduling\DayUserControl.xaml">
       <SubType>Designer</SubType>

@@ -12,7 +12,7 @@ namespace Nanoleaf_wpf.Views.Scheduling
     /// <summary>
     /// Interaction logic for AddTriggerWindow.xaml
     /// </summary>
-    public partial class AddTriggerWindow : Window
+    public partial class AddTimeTriggerWindow : Window
     {
         private DayUserControl _parent;
 
@@ -39,7 +39,7 @@ namespace Nanoleaf_wpf.Views.Scheduling
             }
         }
 
-        public AddTriggerWindow(DayUserControl parent)
+        public AddTimeTriggerWindow(DayUserControl parent)
         {
             _parent = parent;
             DataContext = this;

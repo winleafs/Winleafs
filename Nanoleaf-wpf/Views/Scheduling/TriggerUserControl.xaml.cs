@@ -1,4 +1,5 @@
 ﻿using Nanoleaf_wpf.Models.Scheduling;
+using Nanoleaf_wpf.Models.Scheduling.Triggers;
 using System.Windows.Controls;
 
 namespace Nanoleaf_wpf.Views.Scheduling
@@ -9,14 +10,14 @@ namespace Nanoleaf_wpf.Views.Scheduling
     public partial class TriggerUserControl : UserControl
     {
         public string TriggerName { get; set; }
-        public string EffectName { get; set; }
+        public string Description { get; set; }
 
-        public TriggerUserControl(Trigger trigger)
+        public TriggerUserControl(ITrigger trigger)
         {
             InitializeComponent();
 
             TriggerName = trigger.GetDisplayName();
-            EffectName = trigger.Effect;
+            Description = trigger.GetDescription();
 
             DataContext = this;
         }

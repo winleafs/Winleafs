@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Nanoleaf_wpf.Models.Scheduling.Triggers;
+using System.Collections.Generic;
 
 namespace Nanoleaf_wpf.Models.Scheduling
 {
@@ -16,6 +17,11 @@ namespace Nanoleaf_wpf.Models.Scheduling
         /// </summary>
         public bool Active { get; set; }
 
+        /// <summary>
+        /// A schedule has a list of time-independent event triggers
+        /// </summary>
+        public List<IEventTrigger> EventTriggers { get; set; }
+
         public Schedule()
         {
             Programs = new List<Program>();
@@ -28,6 +34,8 @@ namespace Nanoleaf_wpf.Models.Scheduling
             Programs.Add(new Program());
             Programs.Add(new Program());
             Programs.Add(new Program());
+
+            EventTriggers = new List<IEventTrigger>();
         }
     }
 }
