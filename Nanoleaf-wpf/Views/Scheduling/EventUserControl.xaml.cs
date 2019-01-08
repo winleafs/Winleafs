@@ -1,7 +1,5 @@
-﻿using Nanoleaf_wpf.Models.Scheduling;
-using Nanoleaf_wpf.Models.Scheduling.Triggers;
+﻿using Nanoleaf_wpf.Models.Scheduling.Triggers;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Controls;
 
 namespace Nanoleaf_wpf.Views.Scheduling
@@ -11,7 +9,7 @@ namespace Nanoleaf_wpf.Views.Scheduling
     /// </summary>
     public partial class EventUserControl : UserControl
     {
-        public List<IEventTrigger> Triggers;
+        public List<IEventTrigger> EventTriggers;
 
         public EventUserControl()
         {
@@ -33,7 +31,7 @@ namespace Nanoleaf_wpf.Views.Scheduling
         {
             TriggerList.Children.Clear();
 
-            foreach (var trigger in Triggers)
+            foreach (var trigger in EventTriggers)
             {
                 TriggerList.Children.Add(new TriggerUserControl(trigger));
             }
