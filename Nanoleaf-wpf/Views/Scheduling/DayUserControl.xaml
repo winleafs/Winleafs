@@ -7,17 +7,20 @@
              mc:Ignorable="d" 
              Width="200" Height="Auto">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="35" />
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="35" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="0"  Content="{Binding NameOfDay}" Foreground="White" FontSize="20"/>
-        <Button  Grid.Row="0"  HorizontalAlignment="Left" Margin="170,5,0,0" VerticalAlignment="Top" Width="25" Height="25" Background="{x:Null}" BorderBrush="{x:Null}" Click="Plus_Click">
-            <Path Stretch="Fill" Fill="White" Stroke="{x:Null}" StrokeThickness="0.5" Data="M3.875,0 L5.125,0 5.125,3.875 9,3.875 9,5.125 5.125,5.125 5.125,9 3.875,9 3.875,5.125 0,5.125 0,3.875 3.875,3.875 3.875,0 z" />
+        <Label Grid.Row="0" Grid.Column="0" Content="{Binding NameOfDay}" Foreground="White" FontSize="20"/>
+        <Button  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="35" Height="35" Background="{x:Null}" BorderBrush="{x:Null}" Click="Plus_Click">
+            <Image Source="../../Icons/appbar.add.png"></Image>
         </Button>
-        <StackPanel Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,5,0,0" x:Name="TriggerList">
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,5,0,0" x:Name="TriggerList">
         </StackPanel>
     </Grid>
 </UserControl>

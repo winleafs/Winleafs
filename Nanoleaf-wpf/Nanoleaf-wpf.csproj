@@ -65,8 +65,12 @@
     <Compile Include="Models\Scheduling\Schedule.cs" />
     <Compile Include="Models\Scheduling\Triggers\TimeTrigger.cs" />
     <Compile Include="Models\Scheduling\Triggers\TriggerType.cs" />
-    <Compile Include="Views\Scheduling\AddTriggerWindow.xaml.cs">
-      <DependentUpon>AddTriggerWindow.xaml</DependentUpon>
+    <Compile Include="Models\WorkMode.cs" />
+    <Compile Include="Views\MainWindows\ScheduleItemUserControl.xaml.cs">
+      <DependentUpon>ScheduleItemUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Scheduling\AddTimeTriggerWindow.xaml.cs">
+      <DependentUpon>AddTimeTriggerWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Scheduling\EventUserControl.xaml.cs">
       <DependentUpon>EventUserControl.xaml</DependentUpon>
@@ -83,7 +87,7 @@
     <Compile Include="Views\Setup\DiscoverDevice.xaml.cs">
       <DependentUpon>DiscoverDevice.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\MainWindow.xaml">
+    <Page Include="Views\MainWindows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -93,11 +97,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\MainWindow.xaml.cs">
+    <Compile Include="Views\MainWindows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\Scheduling\AddTriggerWindow.xaml">
+    <Page Include="Views\MainWindows\ScheduleItemUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Scheduling\AddTimeTriggerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -167,6 +175,9 @@
     <Content Include="BrandAssets\Device Management Icons\Smart-ivy-dev-mgmt_green.svg" />
     <Content Include="BrandAssets\Device Management Icons\Smart-ivy-dev-mgmt_grey.svg" />
     <Content Include="BrandAssets\Device Management Icons\Smart-ivy-dev-mgmt_white.svg" />
+    <Resource Include="Icons\appbar.add.png" />
+    <Resource Include="Icons\appbar.delete.png" />
+    <Resource Include="Icons\appbar.edit.png" />
     <Resource Include="Icons\appbar.refresh.png" />
     <Resource Include="Icons\Instructions.txt" />
   </ItemGroup>

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Nanoleaf_wpf.Views.Scheduling"
         mc:Ignorable="d"
         Title="ManageScheduleWindow" Height="600" Width="1616" MinWidth="410">
-    
+
     <Grid Background="{StaticResource NanoleafBlack}">
         <Grid.RowDefinitions>
             <RowDefinition Height="35" />
@@ -16,8 +16,8 @@
             <ColumnDefinition Width="200" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-            
-        <local:EventUserControl Grid.Row="1" Grid.Column="0" />
+
+        <local:EventUserControl Grid.Row="1" Grid.Column="0" x:Name="EventUserControl"/>
 
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Grid.Row="1" Grid.Column="1">
             <Grid>
@@ -31,13 +31,13 @@
                     <ColumnDefinition MinWidth="200" />
                 </Grid.ColumnDefinitions>
 
-                <local:DayUserControl Grid.Row="1" Grid.Column="0" NameOfDay="Monday" />
-                <local:DayUserControl Grid.Row="1" Grid.Column="1" NameOfDay="Tuesday" />
-                <local:DayUserControl Grid.Row="1" Grid.Column="2" NameOfDay="Wednesday" />
-                <local:DayUserControl Grid.Row="1" Grid.Column="3" NameOfDay="Thursday" />
-                <local:DayUserControl Grid.Row="1" Grid.Column="4" NameOfDay="Friday" />
-                <local:DayUserControl Grid.Row="1" Grid.Column="5" NameOfDay="Saturday" />
-                <local:DayUserControl Grid.Row="1" Grid.Column="6" NameOfDay="Sunday" />
+                <local:DayUserControl Grid.Row="1" Grid.Column="0" NameOfDay="Monday" IndexOfDay="0" x:Name="MondayUserControl"/>
+                <local:DayUserControl Grid.Row="1" Grid.Column="1" NameOfDay="Tuesday" IndexOfDay="1" x:Name="TuesdayUserControl"/>
+                <local:DayUserControl Grid.Row="1" Grid.Column="2" NameOfDay="Wednesday" IndexOfDay="2" x:Name="WednesdayUserControl"/>
+                <local:DayUserControl Grid.Row="1" Grid.Column="3" NameOfDay="Thursday" IndexOfDay="3" x:Name="ThursdayUserControl"/>
+                <local:DayUserControl Grid.Row="1" Grid.Column="4" NameOfDay="Friday" IndexOfDay="4" x:Name="FridayUserControl"/>
+                <local:DayUserControl Grid.Row="1" Grid.Column="5" NameOfDay="Saturday" IndexOfDay="5" x:Name="SaturdayUserControl"/>
+                <local:DayUserControl Grid.Row="1" Grid.Column="6" NameOfDay="Sunday" IndexOfDay="6" x:Name="SundayUserControl"/>
 
                 <Border Grid.Row="1" Grid.Column="0" BorderBrush="White" BorderThickness="1 0 1 0"/>
                 <Border Grid.Row="1" Grid.Column="1" BorderBrush="White" BorderThickness="0 0 1 0"/>
@@ -49,9 +49,11 @@
         </ScrollViewer>
 
         <Grid Grid.Row="0" Grid.ColumnSpan="8">
-            <Border BorderBrush="White" BorderThickness="0 0 0 1"/>
+            <Border BorderBrush="White" BorderThickness="0 0 0 1">
+            </Border>
             <Label Content="Name:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
-            <TextBox HorizontalAlignment="Left" Height="23" Margin="72,8,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="300"/>
+            <TextBox HorizontalAlignment="Left" Height="23" Margin="72,8,0,0" TextWrapping="Wrap" Text="{Binding Schedule.Name}" VerticalAlignment="Top" Width="300"/>
+            <Button Content="Save" Width="100" Background="{StaticResource NanoleafGreen}" BorderBrush="{x:Null}" Margin="380,2,0,0" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Foreground="White" Click="Save_Click"/>
         </Grid>
     </Grid>
 </Window>

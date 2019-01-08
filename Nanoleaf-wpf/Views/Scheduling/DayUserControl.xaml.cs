@@ -11,13 +11,14 @@ namespace Nanoleaf_wpf.Views.Scheduling
     public partial class DayUserControl : UserControl
     {
         public string NameOfDay { get; set; }
+        public int IndexOfDay { get; set; }
+
         public Program Program { get; set; }
 
         public DayUserControl()
         {
             InitializeComponent();
             DataContext = this; //With this we can use the variables in the view
-            Program = new Program(); //Placeholder
         }
 
         private void Plus_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -38,10 +39,10 @@ namespace Nanoleaf_wpf.Views.Scheduling
 
             Program.Triggers = Program.Triggers.OrderBy(t => t.Hours).ThenBy(t => t.Minutes).ToList();
 
-            BuildProgramList();
+            BuildTriggerList();
         }
 
-        private void BuildProgramList()
+        public void BuildTriggerList()
         {
             TriggerList.Children.Clear();
 

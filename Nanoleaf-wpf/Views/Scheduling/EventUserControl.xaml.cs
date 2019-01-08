@@ -24,10 +24,10 @@ namespace Nanoleaf_wpf.Views.Scheduling
         {
             //TODO: add trigger
 
-            BuildProgramList();
+            BuildTriggerList();
         }
 
-        private void BuildProgramList()
+        public void BuildTriggerList()
         {
             TriggerList.Children.Clear();
 

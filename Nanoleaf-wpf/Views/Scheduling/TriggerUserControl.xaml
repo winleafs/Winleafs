@@ -10,10 +10,7 @@
         <Label Content="{Binding TriggerName}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Height="26" Width="50"/>
         <Label Content="{Binding Description}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Height="26" Width="115" Margin="55,0,0,0"/>
         <Button HorizontalAlignment="Left" Margin="172,0,0,0" VerticalAlignment="Top" Width="26" Background="{x:Null}" BorderBrush="{x:Null}" Height="26">
-            <Path Data="M0,0.5 L1,0.5"
-          StrokeThickness="4"
-          Stretch="Fill"
-          Stroke="White" />
+            <Image Source="../../Icons/appbar.delete.png"></Image>
         </Button>
     </Grid>
 </UserControl>
