@@ -1,9 +1,8 @@
 ﻿using Nanoleaf_Models.Enums;
+using Nanoleaf_Models.Models;
 using Nanoleaf_Models.Models.Scheduling;
 using Nanoleaf_wpf.Views.Scheduling;
-using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Windows;
 
@@ -22,35 +21,38 @@ namespace Nanoleaf_wpf.Views.MainWindows
         {
             InitializeComponent();
 
-            LoadSchedules();
+            LoadSettings();
         }
 
-        private void LoadSchedules()
+        private void LoadSettings()
         {
-            //TODO: move this logic to Service layer after the Model layer is completed
             try
             {
-                _schedules = JsonConvert.DeserializeObject<List<Schedule>>(Properties.Settings.Default[SCHEDULESETTINGKEY].ToString());
-                BuildScheduleList();
+                var settings = UserSettings.LoadSettings();
+
+                Nanoleaf_Models.Models.Effects.Effect.Effects = settings.Effects;
+                _schedules = settings.Schedules;
             }
-            catch (JsonException e)
+            catch (NoSettingsFileException)
             {
-                //TODO: handle json exception
-            }
-            catch (SettingsPropertyNotFoundException)
-            {
-                //There is no setting yet, create the setting
+                Nanoleaf_Models.Models.Effects.Effect.Effects = new List<Nanoleaf_Models.Models.Effects.Effect>();
+
+                //TODO: should load from settings, and a user can call a manual function to update the effects and the effects should be loaded when pairing a device
+                Nanoleaf_Models.Models.Effects.Effect.Effects.Add(new Nanoleaf_Models.Models.Effects.Effect { Name = "Flames" });
+                Nanoleaf_Models.Models.Effects.Effect.Effects.Add(new Nanoleaf_Models.Models.Effects.Effect { Name = "Forest" });
+                Nanoleaf_Models.Models.Effects.Effect.Effects.Add(new Nanoleaf_Models.Models.Effects.Effect { Name = "Nemo" });
+                Nanoleaf_Models.Models.Effects.Effect.Effects.Add(new Nanoleaf_Models.Models.Effects.Effect { Name = "Snowfall" });
+                Nanoleaf_Models.Models.Effects.Effect.Effects.Add(new Nanoleaf_Models.Models.Effects.Effect { Name = "Inner Peace" });
+                Nanoleaf_Models.Models.Effects.Effect.Effects = Nanoleaf_Models.Models.Effects.Effect.Effects.OrderBy(eff => eff.Name).ToList();
+
                 _schedules = new List<Schedule>();
-                new SettingsProperty(SCHEDULESETTINGKEY);
             }
-        }
+            catch (SettingsFileJsonException)
+            {
+                //TODO: handle
+            }
 
-        private void SaveSchedules()
-        {
-            var json = JsonConvert.SerializeObject(_schedules);
-
-            Properties.Settings.Default[SCHEDULESETTINGKEY] = json;
-            Properties.Settings.Default.Save();
+            BuildScheduleList();
         }
 
         private void AddSchedule_Click(object sender, RoutedEventArgs e)
@@ -65,14 +67,19 @@ namespace Nanoleaf_wpf.Views.MainWindows
             _schedules = _schedules.OrderBy(s => s.Name).ToList();
 
             BuildScheduleList();
-            SaveSchedules();
+            SaveSettings();
         }
 
         public void UpdatedSchedule()
         {
             //TODO: check if it is needed to update the list, expectation is no since c# works with refs
             BuildScheduleList();
-            SaveSchedules();
+            SaveSettings();
+        }
+
+        private void SaveSettings()
+        {
+            UserSettings.SaveSettings(_schedules, Nanoleaf_Models.Models.Effects.Effect.Effects);
         }
 
         private void BuildScheduleList()
