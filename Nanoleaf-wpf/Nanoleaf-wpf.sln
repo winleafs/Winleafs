@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3. Nanoleaf-wpf", "3. Nanoleaf-wpf.csproj", "{2BF6B8F3-55BD-4090-9945-1EC5D8D817CF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nanoleaf-wpf", "Nanoleaf-wpf.csproj", "{2BF6B8F3-55BD-4090-9945-1EC5D8D817CF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2. Nanoleaf-Api", "..\Nanoleaf-Api\2. Nanoleaf-Api.csproj", "{FDDFE2AD-81E1-432C-8173-7A8C89BF20F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nanoleaf-Api", "..\Nanoleaf-Api\Nanoleaf-Api.csproj", "{FDDFE2AD-81E1-432C-8173-7A8C89BF20F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1. Nanoleaf-Models", "..\Nanoleaf-Models\1. Nanoleaf-Models.csproj", "{D47A3540-3E21-4F5B-8B57-A9F9EA31426E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nanoleaf-Models", "..\Nanoleaf-Models\Nanoleaf-Models.csproj", "{D47A3540-3E21-4F5B-8B57-A9F9EA31426E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

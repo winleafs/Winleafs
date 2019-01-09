@@ -1,0 +1,21 @@
+﻿<Window x:Class="Nanoleaf_wpf.Views.MainWindows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Nanoleaf_wpf"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <DockPanel Background="{StaticResource NanoleafBlack}">
+        <Grid DockPanel.Dock="Left">
+            <Label Content="Schedules" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
+            <Button  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="35" Height="35" Background="{x:Null}" BorderBrush="{x:Null}" Click="AddSchedule_Click" Margin="275,11,0,0">
+                <Image Source="../../Icons/appbar.add.png"/>
+            </Button>
+            <StackPanel HorizontalAlignment="Left" Height="Auto" Margin="10,47,0,0" VerticalAlignment="Stretch" Width="300" x:Name="ScheduleList">
+                <Border BorderBrush="White" BorderThickness="0 1 1 0" Height="Auto"/>
+            </StackPanel>
+            
+        </Grid>
+    </DockPanel>
+</Window>

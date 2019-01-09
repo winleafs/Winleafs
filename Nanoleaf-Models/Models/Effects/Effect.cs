@@ -6,6 +6,9 @@ namespace Nanoleaf_Models.Models.Effects
 {
     public class Effect
     {
+        //Static list of all effects, good enough for now, needs refactor when we want to support multiple devices
+        public static List<Effect> Effects { get; set; }
+
         [JsonProperty("animName")]
         public string Name { get; set; }
 
@@ -35,5 +38,10 @@ namespace Nanoleaf_Models.Models.Effects
 
         [JsonProperty("direction")]
         public string Direction { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

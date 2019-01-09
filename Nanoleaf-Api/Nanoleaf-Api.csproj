@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Nanoleaf-Models\1. Nanoleaf-Models.csproj" />
+    <ProjectReference Include="..\Nanoleaf-Models\Nanoleaf-Models.csproj" />
   </ItemGroup>
 
 </Project>
