@@ -4,7 +4,7 @@ using System.Text;
 
 using Newtonsoft.Json;
 
-namespace Nanoleaf_Api.Models.Effects
+namespace Nanoleaf_Models.Models.Effects
 {
     public class Pallete
     {
