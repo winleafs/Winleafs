@@ -1,5 +1,4 @@
-﻿using Nanoleaf_wpf.Models.Scheduling;
-using Nanoleaf_wpf.Models.Scheduling.Triggers;
+﻿using Nanoleaf_Models.Models.Scheduling.Triggers;
 using System.Windows.Controls;
 
 namespace Nanoleaf_wpf.Views.Scheduling

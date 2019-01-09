@@ -1,4 +1,4 @@
-﻿namespace Nanoleaf_wpf.Models
+﻿namespace Nanoleaf_Models.Enums
 {
     public enum WorkMode
     {

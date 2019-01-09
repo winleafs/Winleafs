@@ -1,4 +1,5 @@
-﻿using Nanoleaf_wpf.Models.Scheduling.Triggers;
+﻿using Nanoleaf_Models.Enums;
+using Nanoleaf_Models.Models.Scheduling.Triggers;
 using System.Collections.Generic;
 using System.Windows.Controls;
 

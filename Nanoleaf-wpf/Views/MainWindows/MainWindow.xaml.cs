@@ -1,5 +1,5 @@
-﻿using Nanoleaf_wpf.Models;
-using Nanoleaf_wpf.Models.Scheduling;
+﻿using Nanoleaf_Models.Enums;
+using Nanoleaf_Models.Models.Scheduling;
 using Nanoleaf_wpf.Views.Scheduling;
 using Newtonsoft.Json;
 using System.Collections.Generic;

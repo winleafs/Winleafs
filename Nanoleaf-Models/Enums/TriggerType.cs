@@ -1,4 +1,4 @@
-﻿namespace Nanoleaf_wpf.Models.Scheduling.Triggers
+﻿namespace Nanoleaf_Models.Enums
 {
     public enum TriggerType
     {

@@ -1,4 +1,6 @@
-﻿namespace Nanoleaf_wpf.Models.Scheduling.Triggers
+﻿using Nanoleaf_Models.Enums;
+
+namespace Nanoleaf_Models.Models.Scheduling.Triggers
 {
     public class TimeTrigger : ITrigger
     {

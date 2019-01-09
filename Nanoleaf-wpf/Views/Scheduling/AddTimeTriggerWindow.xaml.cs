@@ -1,4 +1,4 @@
-﻿using Nanoleaf_wpf.Models.Scheduling.Triggers;
+﻿using Nanoleaf_Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,5 +1,5 @@
-﻿using Nanoleaf_wpf.Models;
-using Nanoleaf_wpf.Models.Scheduling;
+﻿using Nanoleaf_Models.Enums;
+using Nanoleaf_Models.Models.Scheduling;
 using Nanoleaf_wpf.Views.MainWindows;
 using System.Collections.Generic;
 using System.Windows;

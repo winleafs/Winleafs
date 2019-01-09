@@ -1,4 +1,4 @@
-﻿using Nanoleaf_wpf.Models.Scheduling;
+﻿using Nanoleaf_Models.Models.Scheduling;
 using System;
 using System.Windows.Controls;
 

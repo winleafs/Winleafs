@@ -58,14 +58,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\Effect.cs" />
-    <Compile Include="Models\Scheduling\Triggers\IEventTrigger.cs" />
-    <Compile Include="Models\Scheduling\Triggers\ITrigger.cs" />
-    <Compile Include="Models\Scheduling\Program.cs" />
-    <Compile Include="Models\Scheduling\Schedule.cs" />
-    <Compile Include="Models\Scheduling\Triggers\TimeTrigger.cs" />
-    <Compile Include="Models\Scheduling\Triggers\TriggerType.cs" />
-    <Compile Include="Models\WorkMode.cs" />
     <Compile Include="Views\MainWindows\ScheduleItemUserControl.xaml.cs">
       <DependentUpon>ScheduleItemUserControl.xaml</DependentUpon>
     </Compile>
@@ -179,6 +171,12 @@
     <Resource Include="Icons\appbar.edit.png" />
     <Resource Include="Icons\appbar.refresh.png" />
     <Resource Include="Icons\Instructions.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Nanoleaf-Models\Nanoleaf-Models.csproj">
+      <Project>{D47A3540-3E21-4F5B-8B57-A9F9EA31426E}</Project>
+      <Name>Nanoleaf-Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

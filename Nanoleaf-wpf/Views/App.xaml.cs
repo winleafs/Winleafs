@@ -1,4 +1,4 @@
-﻿using Nanoleaf_wpf.Models;
+﻿using Nanoleaf_Models.Models.Effects;
 using Nanoleaf_wpf.Views.MainWindows;
 using System.Collections.Generic;
 using System.Data;
