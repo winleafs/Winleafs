@@ -9,15 +9,15 @@
         Title="Add trigger" Height="210" Width="240">
     <Grid Background="{StaticResource NanoleafBlack}">
         <Label Content="Trigger:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
-        <ComboBox HorizontalAlignment="Left" Margin="91,18,0,0" VerticalAlignment="Top" Width="120" SelectedItem="{Binding TriggerType}" ItemsSource="{Binding TriggerTypes}" />
+        <ComboBox HorizontalAlignment="Left" Margin="91,18,0,0" VerticalAlignment="Top" Width="120" SelectedItem="{Binding TriggerType}" ItemsSource="{Binding TriggerTypes}"/>
 
         <Button Content="Cancel" HorizontalAlignment="Left" Margin="10,135,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Cancel_Click"/>
         <Button Content="Add" HorizontalAlignment="Left" Margin="129,135,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Add_Click"/>
         <Grid Height="49" Margin="10,47,0.333,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" x:Name="TimeGrid">
             <Label Content="Time:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Foreground="White"/>
-            <TextBox HorizontalAlignment="Left" Height="23" Margin="44,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="47" x:Name="Hours" PreviewTextInput="NumberValidationTextBox"/>
+            <TextBox HorizontalAlignment="Left" Height="23" Margin="44,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="47" x:Name="Hours" PreviewTextInput="NumberValidationTextBox" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White"/>
             <Label Content=":" HorizontalAlignment="Left" Margin="96,-5,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Height="30"/>
-            <TextBox HorizontalAlignment="Left" Height="23" Margin="115,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="47" x:Name="Minutes" PreviewTextInput="NumberValidationTextBox"/>
+            <TextBox HorizontalAlignment="Left" Height="23" Margin="115,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="47" x:Name="Minutes" PreviewTextInput="NumberValidationTextBox" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White"/>
         </Grid>
         <Label Content="Effect:" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
         <ComboBox HorizontalAlignment="Left" Margin="91,101,0,0" VerticalAlignment="Top" Width="120"  SelectedItem="{Binding SelectedEffect}" ItemsSource="{Binding Source={x:Static models:Effect.Effects}}"/>
