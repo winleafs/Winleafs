@@ -1,9 +1,8 @@
 ﻿using Nanoleaf_Models.Enums;
+using Nanoleaf_Models.Models;
 using Nanoleaf_Models.Models.Scheduling;
 using Nanoleaf_wpf.Views.Scheduling;
-using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Windows;
 
@@ -14,7 +13,7 @@ namespace Nanoleaf_wpf.Views.MainWindows
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<Schedule> _schedules;
+        private UserSettings _userSettings;
 
         public static readonly string SCHEDULESETTINGKEY = "SCHEDULES";
 
@@ -22,35 +21,21 @@ namespace Nanoleaf_wpf.Views.MainWindows
         {
             InitializeComponent();
 
-            LoadSchedules();
+            LoadSettings();
         }
 
-        private void LoadSchedules()
+        private void LoadSettings()
         {
-            //TODO: move this logic to Service layer after the Model layer is completed
             try
             {
-                _schedules = JsonConvert.DeserializeObject<List<Schedule>>(Properties.Settings.Default[SCHEDULESETTINGKEY].ToString());
-                BuildScheduleList();
+                _userSettings = UserSettings.LoadSettings();
             }
-            catch (JsonException e)
+            catch (SettingsFileJsonException)
             {
-                //TODO: handle json exception
+                //TODO: handle
             }
-            catch (SettingsPropertyNotFoundException)
-            {
-                //There is no setting yet, create the setting
-                _schedules = new List<Schedule>();
-                new SettingsProperty(SCHEDULESETTINGKEY);
-            }
-        }
 
-        private void SaveSchedules()
-        {
-            var json = JsonConvert.SerializeObject(_schedules);
-
-            Properties.Settings.Default[SCHEDULESETTINGKEY] = json;
-            Properties.Settings.Default.Save();
+            BuildScheduleList();
         }
 
         private void AddSchedule_Click(object sender, RoutedEventArgs e)
@@ -61,28 +46,38 @@ namespace Nanoleaf_wpf.Views.MainWindows
 
         public void AddedSchedule(Schedule schedule)
         {
-            _schedules.Add(schedule);
-            _schedules = _schedules.OrderBy(s => s.Name).ToList();
+            _userSettings.AddSchedule(schedule);            
 
             BuildScheduleList();
-            SaveSchedules();
         }
 
         public void UpdatedSchedule()
         {
-            //TODO: check if it is needed to update the list, expectation is no since c# works with refs
+            _userSettings.SaveSettings();
             BuildScheduleList();
-            SaveSchedules();
         }
 
         private void BuildScheduleList()
         {
             ScheduleList.Children.Clear();
 
-            foreach (var schedule in _schedules)
+            foreach (var schedule in _userSettings.Schedules)
             {
-                ScheduleList.Children.Add(new ScheduleItemUserControl(schedule));
+                ScheduleList.Children.Add(new ScheduleItemUserControl(this, schedule));
             }
+        }
+
+        public void EditSchedule(Schedule schedule)
+        {
+            var scheduleWindow = new ManageScheduleWindow(this, WorkMode.Edit, schedule);
+            scheduleWindow.Show();
+        }
+
+        public void DeleteSchedule(Schedule schedule)
+        {
+            _userSettings.DeleteSchedule(schedule);
+
+            BuildScheduleList();
         }
     }
 }

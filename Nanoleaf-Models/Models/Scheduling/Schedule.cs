@@ -1,4 +1,5 @@
 ﻿using Nanoleaf_Models.Models.Scheduling.Triggers;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace Nanoleaf_Models.Models.Scheduling
@@ -22,18 +23,21 @@ namespace Nanoleaf_Models.Models.Scheduling
         /// </summary>
         public List<IEventTrigger> EventTriggers { get; set; }
 
-        public Schedule()
+        public Schedule(bool addPrograms = false)
         {
             Programs = new List<Program>();
 
-            //Add a program for each day of the week
-            Programs.Add(new Program());
-            Programs.Add(new Program());
-            Programs.Add(new Program());
-            Programs.Add(new Program());
-            Programs.Add(new Program());
-            Programs.Add(new Program());
-            Programs.Add(new Program());
+            if (addPrograms)
+            {
+                //Add a program for each day of the week
+                Programs.Add(new Program());
+                Programs.Add(new Program());
+                Programs.Add(new Program());
+                Programs.Add(new Program());
+                Programs.Add(new Program());
+                Programs.Add(new Program());
+                Programs.Add(new Program());
+            }
 
             EventTriggers = new List<IEventTrigger>();
         }
