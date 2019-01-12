@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Nanoleaf_wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"
+        Closing="Window_Closing" >
     <DockPanel Background="{StaticResource NanoleafBlack}">
         <Grid DockPanel.Dock="Left">
             <Label Content="Schedules" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>

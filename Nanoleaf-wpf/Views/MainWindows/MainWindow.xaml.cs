@@ -1,10 +1,14 @@
-﻿using Nanoleaf_Models.Enums;
+﻿using Hardcodet.Wpf.TaskbarNotification;
+using Nanoleaf_Models.Enums;
 using Nanoleaf_Models.Models;
 using Nanoleaf_Models.Models.Scheduling;
 using Nanoleaf_wpf.Views.Scheduling;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Nanoleaf_wpf.Views.MainWindows
 {
@@ -14,12 +18,16 @@ namespace Nanoleaf_wpf.Views.MainWindows
     public partial class MainWindow : Window
     {
         private UserSettings _userSettings;
+        private TaskbarIcon _taskbarIcon;
 
         public static readonly string SCHEDULESETTINGKEY = "SCHEDULES";
 
         public MainWindow()
         {
             InitializeComponent();
+
+            _taskbarIcon = (TaskbarIcon)FindResource("NotifyIcon");
+            _taskbarIcon.DoubleClickCommand = new TaskbarDoubleClickCommand(this);
 
             LoadSettings();
         }
@@ -46,7 +54,7 @@ namespace Nanoleaf_wpf.Views.MainWindows
 
         public void AddedSchedule(Schedule schedule)
         {
-            _userSettings.AddSchedule(schedule);            
+            _userSettings.AddSchedule(schedule);
 
             BuildScheduleList();
         }
@@ -78,6 +86,35 @@ namespace Nanoleaf_wpf.Views.MainWindows
             _userSettings.DeleteSchedule(schedule);
 
             BuildScheduleList();
+        }
+
+        public void Window_Closing(object sender, CancelEventArgs e)
+        {
+            _taskbarIcon.Visibility = Visibility.Visible;
+            e.Cancel = true;
+            Hide();
+        }
+
+        private class TaskbarDoubleClickCommand : ICommand
+        {
+            private MainWindow _window;
+
+            public TaskbarDoubleClickCommand(MainWindow window)
+            {
+                _window = window;
+            }
+
+            public void Execute(object parameter)
+            {
+                _window.Show();
+            }
+
+            public bool CanExecute(object parameter)
+            {
+                return true;
+            }
+
+            public event EventHandler CanExecuteChanged; //Must be included for the interface
         }
     }
 }
