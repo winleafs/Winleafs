@@ -23,7 +23,11 @@ namespace Nanoleaf_wpf.Views.Scheduling
 
             if (schedule == null)
             {
-                Schedule = new Schedule();
+                Schedule = new Schedule(true);
+            }
+            else
+            {
+                Schedule = schedule;
             }
 
             DataContext = Schedule;
@@ -33,10 +37,10 @@ namespace Nanoleaf_wpf.Views.Scheduling
             var dayUserControls = new List<DayUserControl>();
             dayUserControls.Add(MondayUserControl);
             dayUserControls.Add(TuesdayUserControl);
-            dayUserControls.Add(TuesdayUserControl);
+            dayUserControls.Add(WednesdayUserControl);
             dayUserControls.Add(ThursdayUserControl);
             dayUserControls.Add(FridayUserControl);
-            dayUserControls.Add(MondayUserControl);
+            dayUserControls.Add(SaturdayUserControl);
             dayUserControls.Add(SundayUserControl);
 
             foreach (var dayUserControl in dayUserControls)

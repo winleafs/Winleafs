@@ -13,7 +13,7 @@ namespace Nanoleaf_wpf.Views.MainWindows
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<Schedule> _schedules;
+        private UserSettings _userSettings;
 
         public static readonly string SCHEDULESETTINGKEY = "SCHEDULES";
 
@@ -28,24 +28,7 @@ namespace Nanoleaf_wpf.Views.MainWindows
         {
             try
             {
-                var settings = UserSettings.LoadSettings();
-
-                Nanoleaf_Models.Models.Effects.Effect.Effects = settings.Effects;
-                _schedules = settings.Schedules;
-            }
-            catch (NoSettingsFileException)
-            {
-                Nanoleaf_Models.Models.Effects.Effect.Effects = new List<Nanoleaf_Models.Models.Effects.Effect>();
-
-                //TODO: should load from settings, and a user can call a manual function to update the effects and the effects should be loaded when pairing a device
-                Nanoleaf_Models.Models.Effects.Effect.Effects.Add(new Nanoleaf_Models.Models.Effects.Effect { Name = "Flames" });
-                Nanoleaf_Models.Models.Effects.Effect.Effects.Add(new Nanoleaf_Models.Models.Effects.Effect { Name = "Forest" });
-                Nanoleaf_Models.Models.Effects.Effect.Effects.Add(new Nanoleaf_Models.Models.Effects.Effect { Name = "Nemo" });
-                Nanoleaf_Models.Models.Effects.Effect.Effects.Add(new Nanoleaf_Models.Models.Effects.Effect { Name = "Snowfall" });
-                Nanoleaf_Models.Models.Effects.Effect.Effects.Add(new Nanoleaf_Models.Models.Effects.Effect { Name = "Inner Peace" });
-                Nanoleaf_Models.Models.Effects.Effect.Effects = Nanoleaf_Models.Models.Effects.Effect.Effects.OrderBy(eff => eff.Name).ToList();
-
-                _schedules = new List<Schedule>();
+                _userSettings = UserSettings.LoadSettings();
             }
             catch (SettingsFileJsonException)
             {
@@ -63,33 +46,38 @@ namespace Nanoleaf_wpf.Views.MainWindows
 
         public void AddedSchedule(Schedule schedule)
         {
-            _schedules.Add(schedule);
-            _schedules = _schedules.OrderBy(s => s.Name).ToList();
+            _userSettings.AddSchedule(schedule);            
 
             BuildScheduleList();
-            SaveSettings();
         }
 
         public void UpdatedSchedule()
         {
-            //TODO: check if it is needed to update the list, expectation is no since c# works with refs
+            _userSettings.SaveSettings();
             BuildScheduleList();
-            SaveSettings();
-        }
-
-        private void SaveSettings()
-        {
-            UserSettings.SaveSettings(_schedules, Nanoleaf_Models.Models.Effects.Effect.Effects);
         }
 
         private void BuildScheduleList()
         {
             ScheduleList.Children.Clear();
 
-            foreach (var schedule in _schedules)
+            foreach (var schedule in _userSettings.Schedules)
             {
-                ScheduleList.Children.Add(new ScheduleItemUserControl(schedule));
+                ScheduleList.Children.Add(new ScheduleItemUserControl(this, schedule));
             }
+        }
+
+        public void EditSchedule(Schedule schedule)
+        {
+            var scheduleWindow = new ManageScheduleWindow(this, WorkMode.Edit, schedule);
+            scheduleWindow.Show();
+        }
+
+        public void DeleteSchedule(Schedule schedule)
+        {
+            _userSettings.DeleteSchedule(schedule);
+
+            BuildScheduleList();
         }
     }
 }

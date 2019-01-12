@@ -4,6 +4,7 @@ using System;
 using Nanoleaf_Models.Models.Scheduling;
 using Nanoleaf_Models.Models.Effects;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace Nanoleaf_Models.Models
 {
@@ -14,50 +15,69 @@ namespace Nanoleaf_Models.Models
         public List<Schedule> Schedules { get; set; }
         public List<Effect> Effects { get; set; }
 
-        public static void SaveSettings(List<Schedule> schedules, List<Effect> effects)
-        {
-            var settings = new UserSettings
-            {
-                Schedules = schedules,
-                Effects = effects
-            };
-
-            var json = JsonConvert.SerializeObject(settings);
-
-            File.WriteAllText(SettingsFileName, json);
-        }
-
         public static UserSettings LoadSettings()
         {
             if (!File.Exists(SettingsFileName))
             {
-                throw new NoSettingsFileException();
-            }
+                var userSettings = new UserSettings();
 
-            try
-            {
-                var json = File.ReadAllText(SettingsFileName);
+                userSettings.Effects = new List<Effect>();
 
-                return JsonConvert.DeserializeObject<UserSettings>(json);
+                //TODO: should load from settings, and a user can call a manual function to update the effects and the effects should be loaded when pairing a device
+                userSettings.Effects.Add(new Effect { Name = "Flames" });
+                userSettings.Effects.Add(new Effect { Name = "Forest" });
+                userSettings.Effects.Add(new Effect { Name = "Nemo" });
+                userSettings.Effects.Add(new Effect { Name = "Snowfall" });
+                userSettings.Effects.Add(new Effect { Name = "Inner Peace" });
+                userSettings.Effects = userSettings.Effects.OrderBy(eff => eff.Name).ToList();
+                Effect.Effects = userSettings.Effects;
+
+                userSettings.Schedules = new List<Schedule>();
+                return userSettings;
             }
-            catch
+            else
             {
-                throw new SettingsFileJsonException();
+                try
+                {
+                    var json = File.ReadAllText(SettingsFileName);
+
+                    var userSettings = JsonConvert.DeserializeObject<UserSettings>(json);
+
+                    Effect.Effects = userSettings.Effects;
+
+                    return userSettings;
+                }
+                catch
+                {
+                    throw new SettingsFileJsonException();
+                }
             }
+        }
+
+        public void SaveSettings()
+        {
+            var json = JsonConvert.SerializeObject(this);
+
+            File.WriteAllText(SettingsFileName, json);
+        }
+
+        public void AddSchedule(Schedule schedule)
+        {
+            Schedules.Add(schedule);
+            Schedules = Schedules.OrderBy(s => s.Name).ToList();
+            SaveSettings();
+        }
+
+        public void DeleteSchedule(Schedule schedule)
+        {
+            Schedules.Remove(schedule);
+            SaveSettings();
         }
     }
 
     public class SettingsFileJsonException : Exception
     {
         public SettingsFileJsonException() : base("Error loading settings, corrupt JSON")
-        {
-
-        }
-    }
-
-    public class NoSettingsFileException : Exception
-    {
-        public NoSettingsFileException() : base("Error loading settings, no settings file yet")
         {
 
         }
