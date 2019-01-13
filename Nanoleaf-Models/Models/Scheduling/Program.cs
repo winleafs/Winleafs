@@ -1,5 +1,7 @@
-﻿using Nanoleaf_Models.Models.Scheduling.Triggers;
+﻿using Nanoleaf_Models.Enums;
+using Nanoleaf_Models.Models.Scheduling.Triggers;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Nanoleaf_Models.Models.Scheduling
 {
@@ -10,6 +12,19 @@ namespace Nanoleaf_Models.Models.Scheduling
         public Program()
         {
             Triggers = new List<TimeTrigger>();
+        }
+
+        public void AddTrigger(TriggerType triggerType, int hours, int minutes, string effect)
+        {
+            Triggers.Add(new TimeTrigger
+            {
+                Effect = effect,
+                Minutes = minutes,
+                Hours = hours,
+                TriggerType = triggerType
+            });
+
+            Triggers = Triggers.OrderBy(t => t.Hours).ThenBy(t => t.Minutes).ToList();
         }
     }
 }

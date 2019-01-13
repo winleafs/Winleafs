@@ -10,12 +10,23 @@ namespace Nanoleaf_Models.Models
 {
     public class UserSettings
     {
+        private static UserSettings Settings { get; set; }
         private static readonly string SettingsFileName = "Settings.txt";
 
         public List<Schedule> Schedules { get; set; }
         public List<Effect> Effects { get; set; }
 
-        public static UserSettings LoadSettings()
+        public static UserSettings GetSettings()
+        {
+            if (Settings == null)
+            {
+                LoadSettings();
+            }
+
+            return Settings;
+        }
+
+        public static void LoadSettings()
         {
             if (!File.Exists(SettingsFileName))
             {
@@ -33,7 +44,7 @@ namespace Nanoleaf_Models.Models
                 Effect.Effects = userSettings.Effects;
 
                 userSettings.Schedules = new List<Schedule>();
-                return userSettings;
+                Settings = userSettings;
             }
             else
             {
@@ -45,7 +56,7 @@ namespace Nanoleaf_Models.Models
 
                     Effect.Effects = userSettings.Effects;
 
-                    return userSettings;
+                    Settings = userSettings;
                 }
                 catch
                 {
@@ -63,6 +74,10 @@ namespace Nanoleaf_Models.Models
 
         public void AddSchedule(Schedule schedule)
         {
+            schedule.Active = true;
+
+            Schedules.ForEach(s => s.Active = false);
+
             Schedules.Add(schedule);
             Schedules = Schedules.OrderBy(s => s.Name).ToList();
             SaveSettings();

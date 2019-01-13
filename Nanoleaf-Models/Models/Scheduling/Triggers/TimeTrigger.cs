@@ -30,14 +30,9 @@ namespace Nanoleaf_Models.Models.Scheduling.Triggers
             return Effect;
         }
 
-        public bool ShouldTrigger()
-        {
-            throw new System.NotImplementedException();
-        }
-
         public void Trigger()
         {
-            throw new System.NotImplementedException();
+            //TODO: actually apply effect, perhaps check first which effect is active so we dont apply the same effect twice
         }
 
         public TriggerType GetTriggerType()

@@ -9,8 +9,6 @@ namespace Nanoleaf_Models.Models.Scheduling.Triggers
     {
         TriggerType GetTriggerType();
 
-        bool ShouldTrigger();
-
         void Trigger();
 
         /// <summary>
@@ -19,7 +17,7 @@ namespace Nanoleaf_Models.Models.Scheduling.Triggers
         string GetDisplayName();
 
         /// <summary>
-        /// used by the view to determine the description
+        /// Used by the view to determine the description
         /// </summary>
         string GetDescription();
     }

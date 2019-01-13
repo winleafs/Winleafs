@@ -177,6 +177,10 @@
     <Resource Include="Icons\Instructions.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Nanoleaf-Api\Nanoleaf-Api.csproj">
+      <Project>{FDDFE2AD-81E1-432C-8173-7A8C89BF20F0}</Project>
+      <Name>Nanoleaf-Api</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Nanoleaf-Models\Nanoleaf-Models.csproj">
       <Project>{D47A3540-3E21-4F5B-8B57-A9F9EA31426E}</Project>
       <Name>Nanoleaf-Models</Name>

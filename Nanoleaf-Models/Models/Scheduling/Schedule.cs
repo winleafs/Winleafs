@@ -1,5 +1,4 @@
 ﻿using Nanoleaf_Models.Models.Scheduling.Triggers;
-using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace Nanoleaf_Models.Models.Scheduling

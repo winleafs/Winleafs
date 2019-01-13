@@ -13,4 +13,8 @@
     <ProjectReference Include="..\Nanoleaf-Models\Nanoleaf-Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Events\" />
+  </ItemGroup>
+
 </Project>

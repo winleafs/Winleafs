@@ -1,12 +1,11 @@
 ﻿using Hardcodet.Wpf.TaskbarNotification;
+using Nanoleaf_Api.Timers;
 using Nanoleaf_Models.Enums;
 using Nanoleaf_Models.Models;
 using Nanoleaf_Models.Models.Scheduling;
 using Nanoleaf_wpf.Views.Scheduling;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
@@ -17,7 +16,6 @@ namespace Nanoleaf_wpf.Views.MainWindows
     /// </summary>
     public partial class MainWindow : Window
     {
-        private UserSettings _userSettings;
         private TaskbarIcon _taskbarIcon;
 
         public static readonly string SCHEDULESETTINGKEY = "SCHEDULES";
@@ -28,20 +26,6 @@ namespace Nanoleaf_wpf.Views.MainWindows
 
             _taskbarIcon = (TaskbarIcon)FindResource("NotifyIcon");
             _taskbarIcon.DoubleClickCommand = new TaskbarDoubleClickCommand(this);
-
-            LoadSettings();
-        }
-
-        private void LoadSettings()
-        {
-            try
-            {
-                _userSettings = UserSettings.LoadSettings();
-            }
-            catch (SettingsFileJsonException)
-            {
-                //TODO: handle
-            }
 
             BuildScheduleList();
         }
@@ -54,14 +38,17 @@ namespace Nanoleaf_wpf.Views.MainWindows
 
         public void AddedSchedule(Schedule schedule)
         {
-            _userSettings.AddSchedule(schedule);
+            UserSettings.GetSettings().AddSchedule(schedule);
+
+            //Update the TimeTriggerTimer to follow the correct schedule
+            TimeTriggerTimer.Timer.SetTodaysProgram();
 
             BuildScheduleList();
         }
 
         public void UpdatedSchedule()
         {
-            _userSettings.SaveSettings();
+            UserSettings.GetSettings().SaveSettings();
             BuildScheduleList();
         }
 
@@ -69,7 +56,7 @@ namespace Nanoleaf_wpf.Views.MainWindows
         {
             ScheduleList.Children.Clear();
 
-            foreach (var schedule in _userSettings.Schedules)
+            foreach (var schedule in UserSettings.GetSettings().Schedules)
             {
                 ScheduleList.Children.Add(new ScheduleItemUserControl(this, schedule));
             }
@@ -83,7 +70,10 @@ namespace Nanoleaf_wpf.Views.MainWindows
 
         public void DeleteSchedule(Schedule schedule)
         {
-            _userSettings.DeleteSchedule(schedule);
+            UserSettings.GetSettings().DeleteSchedule(schedule);
+
+            //Update the TimeTriggerTimer to follow the correct schedule
+            TimeTriggerTimer.Timer.SetTodaysProgram();
 
             BuildScheduleList();
         }
