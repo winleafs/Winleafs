@@ -77,7 +77,7 @@ namespace Nanoleaf_Api.Timers
                         activeTrigger = _todaysProgram.Triggers[i];
                     }
 
-                    activeTrigger.Trigger(); //Perhaps we need to move this code to here because of circular dependencies
+                    activeTrigger.Trigger(); //Perhaps we need to move the actual triggering code to here because of circular dependencies (and model should not be in charge of controlling the panels anyway)
                 }
             }
         }
