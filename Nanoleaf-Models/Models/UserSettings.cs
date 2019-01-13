@@ -10,21 +10,25 @@ namespace Nanoleaf_Models.Models
 {
     public class UserSettings
     {
-        private static UserSettings Settings { get; set; }
+        private static UserSettings _settings { get; set; }
+
+        public static UserSettings Settings
+        {
+            get
+            {
+                if (_settings == null)
+                {
+                    LoadSettings();
+                }
+
+                return _settings;
+            }
+        }
+
         private static readonly string SettingsFileName = "Settings.txt";
 
         public List<Schedule> Schedules { get; set; }
         public List<Effect> Effects { get; set; }
-
-        public static UserSettings GetSettings()
-        {
-            if (Settings == null)
-            {
-                LoadSettings();
-            }
-
-            return Settings;
-        }
 
         public static void LoadSettings()
         {
@@ -44,7 +48,7 @@ namespace Nanoleaf_Models.Models
                 Effect.Effects = userSettings.Effects;
 
                 userSettings.Schedules = new List<Schedule>();
-                Settings = userSettings;
+                _settings = userSettings;
             }
             else
             {
@@ -56,7 +60,7 @@ namespace Nanoleaf_Models.Models
 
                     Effect.Effects = userSettings.Effects;
 
-                    Settings = userSettings;
+                    _settings = userSettings;
                 }
                 catch
                 {
@@ -74,12 +78,19 @@ namespace Nanoleaf_Models.Models
 
         public void AddSchedule(Schedule schedule)
         {
-            schedule.Active = true;
-
             Schedules.ForEach(s => s.Active = false);
+            schedule.Active = true;
 
             Schedules.Add(schedule);
             Schedules = Schedules.OrderBy(s => s.Name).ToList();
+            SaveSettings();
+        }
+
+        public void ActivateSchedule(Schedule schedule)
+        {
+            Schedules.ForEach(s => s.Active = false);
+
+            schedule.Active = true;
             SaveSettings();
         }
 

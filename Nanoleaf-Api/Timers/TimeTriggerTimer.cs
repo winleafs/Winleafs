@@ -34,15 +34,13 @@ namespace Nanoleaf_Api.Timers
 
         public void SetTodaysProgram()
         {
-            var userSettings = UserSettings.GetSettings();
-
-            if (userSettings.Schedules.Any(s => s.Active))
+            if (UserSettings.Settings.Schedules.Any(s => s.Active))
             {
                 var dayOfWeek = DateTime.Now.DayOfWeek; //Sunday = 0
 
                 var index = dayOfWeek == DayOfWeek.Sunday ? 6 : (int)dayOfWeek - 1;
 
-                _todaysProgram = userSettings.Schedules.FirstOrDefault(s => s.Active).Programs[index];
+                _todaysProgram = UserSettings.Settings.Schedules.FirstOrDefault(s => s.Active).Programs[index];
 
                 OnTimedEvent(_timer, null);
             }

@@ -38,7 +38,7 @@ namespace Nanoleaf_wpf.Views.MainWindows
 
         public void AddedSchedule(Schedule schedule)
         {
-            UserSettings.GetSettings().AddSchedule(schedule);
+            UserSettings.Settings.AddSchedule(schedule);
 
             //Update the TimeTriggerTimer to follow the correct schedule
             TimeTriggerTimer.Timer.SetTodaysProgram();
@@ -48,7 +48,7 @@ namespace Nanoleaf_wpf.Views.MainWindows
 
         public void UpdatedSchedule()
         {
-            UserSettings.GetSettings().SaveSettings();
+            UserSettings.Settings.SaveSettings();
             BuildScheduleList();
         }
 
@@ -56,7 +56,7 @@ namespace Nanoleaf_wpf.Views.MainWindows
         {
             ScheduleList.Children.Clear();
 
-            foreach (var schedule in UserSettings.GetSettings().Schedules)
+            foreach (var schedule in UserSettings.Settings.Schedules)
             {
                 ScheduleList.Children.Add(new ScheduleItemUserControl(this, schedule));
             }
@@ -70,7 +70,7 @@ namespace Nanoleaf_wpf.Views.MainWindows
 
         public void DeleteSchedule(Schedule schedule)
         {
-            UserSettings.GetSettings().DeleteSchedule(schedule);
+            UserSettings.Settings.DeleteSchedule(schedule);
 
             //Update the TimeTriggerTimer to follow the correct schedule
             TimeTriggerTimer.Timer.SetTodaysProgram();
@@ -83,6 +83,14 @@ namespace Nanoleaf_wpf.Views.MainWindows
             _taskbarIcon.Visibility = Visibility.Visible;
             e.Cancel = true;
             Hide();
+        }
+
+        public void ActivateSchedule(Schedule schedule)
+        {
+            UserSettings.Settings.ActivateSchedule(schedule);
+            TimeTriggerTimer.Timer.SetTodaysProgram();
+
+            BuildScheduleList();
         }
 
         private class TaskbarDoubleClickCommand : ICommand

@@ -1,6 +1,7 @@
 ﻿using Nanoleaf_Models.Models.Scheduling;
 using System;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Nanoleaf_wpf.Views.MainWindows
 {
@@ -10,7 +11,7 @@ namespace Nanoleaf_wpf.Views.MainWindows
     public partial class ScheduleItemUserControl : UserControl
     {
         private MainWindow _parent;
-        public Schedule Schedule { get; set; }
+        public Schedule Schedule { get; set; } //Must stay public since its used in the view
 
         public ScheduleItemUserControl(MainWindow parent, Schedule schedule)
         {
@@ -19,6 +20,11 @@ namespace Nanoleaf_wpf.Views.MainWindows
 
             InitializeComponent();
             DataContext = this;
+
+            if (Schedule.Active)
+            {
+                Background = (Brush)new BrushConverter().ConvertFromInvariantString("#7F3F6429");
+            }
         }
 
         private void Edit_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -29,6 +35,11 @@ namespace Nanoleaf_wpf.Views.MainWindows
         private void Delete_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             _parent.DeleteSchedule(Schedule);
+        }
+
+        private void ActiveSchedule_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            _parent.ActivateSchedule(Schedule);
         }
     }
 }
