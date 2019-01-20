@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using Tmds.MDns;
 
 namespace Nanoleaf_wpf.Views.Setup
 {
@@ -16,14 +17,18 @@ namespace Nanoleaf_wpf.Views.Setup
     public partial class SetupWindow : Window
     {
         private SetupViewModel setupViewModel;
+        private List<Device> discoveredDevices;
 
         public SetupWindow()
         {
             InitializeComponent();
 
             setupViewModel = new SetupViewModel();
+            discoveredDevices = new List<Device>();
 
-            UpdateDevices();
+            ServiceBrowser serviceBrowser = new ServiceBrowser();
+            serviceBrowser.ServiceAdded += onServiceAdded;
+            serviceBrowser.StartBrowse("_nanoleafapi._tcp");
         }
 
         private void DiscoverDevice_Loaded(object sender, RoutedEventArgs e)
@@ -39,25 +44,17 @@ namespace Nanoleaf_wpf.Views.Setup
 
         public void Refresh_Click(object sender, RoutedEventArgs e)
         {
-            UpdateDevices();
+            //UpdateDevices();
         }
 
-        private void UpdateDevices()
+        private void onServiceAdded(object sender, ServiceAnnouncementEventArgs e)
         {
-            Task.Run(ScanDevices); //Run async method in different thread
+            discoveredDevices.Add(new Device { Name = e.Announcement.Hostname, IpAddress = string.Join(", ", e.Announcement.Addresses) });
+            BuildDeviceList();
         }
 
-        private async Task ScanDevices()
+        private void BuildDeviceList()
         {
-            var devices = await SSDPScanner.SearchForDevices();
-            var discoveredDevices = new ObservableCollection<Device>();
-
-            foreach (var device in devices)
-            {
-                discoveredDevices.Add(new Device { Name = $"{device.DeviceType} - {device.FriendlyName}", IpAddress = device.PresentationUrl.AbsoluteUri });
-            }
-
-            //Use main thread to update UI
             Dispatcher.Invoke(() =>
             {
                 setupViewModel.Devices.Clear();

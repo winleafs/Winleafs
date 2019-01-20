@@ -49,6 +49,9 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="Tmds.MDns, Version=0.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Tmds.MDns.0.7.0\lib\net45\Tmds.MDns.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -59,7 +62,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\Device.cs" />
-    <Compile Include="Network\SSDPScanner.cs" />
     <Compile Include="Views\Setup\AuthorizeDeviceControl.xaml.cs">
       <DependentUpon>AuthorizeDeviceControl.xaml</DependentUpon>
     </Compile>
