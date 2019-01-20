@@ -1,7 +1,5 @@
 ﻿using Nanoleaf_Models.Models;
-using Nanoleaf_Models.Models.Scheduling;
 using System;
-using System.Linq;
 using System.Timers;
 
 namespace Nanoleaf_Api.Timers
@@ -12,12 +10,8 @@ namespace Nanoleaf_Api.Timers
 
         private Timer _timer;
 
-        private Program _todaysProgram;
-
         public TimeTriggerTimer()
         {
-            SetTodaysProgram();
-
             // Create a timer with a one minute interval.
             _timer = new Timer(60000);
             // Hook up the Elapsed event for the timer. 
@@ -32,54 +26,47 @@ namespace Nanoleaf_Api.Timers
             Timer = new TimeTriggerTimer();
         }
 
-        public void SetTodaysProgram()
+        public void FireTimer()
         {
-            if (UserSettings.Settings.Schedules.Any(s => s.Active))
-            {
-                var dayOfWeek = DateTime.Now.DayOfWeek; //Sunday = 0
-
-                var index = dayOfWeek == DayOfWeek.Sunday ? 6 : (int)dayOfWeek - 1;
-
-                _todaysProgram = UserSettings.Settings.Schedules.FirstOrDefault(s => s.Active).Programs[index];
-
-                OnTimedEvent(_timer, null);
-            }
-            else //It is possible that a user deletes the active schedule, then _toadysProrgam should be set to null
-            {
-                _todaysProgram = null;
-            }
+            OnTimedEvent(this, null);
         }
 
         private void OnTimedEvent(object source, ElapsedEventArgs e)
         {
-            if (_todaysProgram != null)
+            foreach (var device in UserSettings.Settings.Devices)
             {
-                if (_todaysProgram.Triggers.Count == 0)
+                var todaysProgram = device.GetTodaysProgram();
+
+                if (todaysProgram != null)
                 {
-                    //Send off command here
-                }
-                else
-                {
-                    var now = DateTime.Now;
-
-                    var hour = now.Hour;
-                    var minute = now.Minute;
-
-                    var activeTrigger = _todaysProgram.Triggers[0];
-
-                    for (var i = 1; i < _todaysProgram.Triggers.Count; i++)
+                    if (todaysProgram.Triggers.Count == 0)
                     {
-                        if (_todaysProgram.Triggers[i].Hours > hour || (_todaysProgram.Triggers[i].Hours == hour && _todaysProgram.Triggers[i].Minutes > minute))
+                        //Send off command here
+                    }
+                    else
+                    {
+                        var now = DateTime.Now;
+
+                        var hour = now.Hour;
+                        var minute = now.Minute;
+
+                        var activeTrigger = todaysProgram.Triggers[0];
+
+                        for (var i = 1; i < todaysProgram.Triggers.Count; i++)
                         {
-                            break;
+                            if (todaysProgram.Triggers[i].Hours > hour || (todaysProgram.Triggers[i].Hours == hour && todaysProgram.Triggers[i].Minutes > minute))
+                            {
+                                break;
+                            }
+
+                            activeTrigger = todaysProgram.Triggers[i];
                         }
 
-                        activeTrigger = _todaysProgram.Triggers[i];
+                        activeTrigger.Trigger(); //Perhaps we need to move the actual triggering code to here because of circular dependencies (and model should not be in charge of controlling the panels anyway)
                     }
-
-                    activeTrigger.Trigger(); //Perhaps we need to move the actual triggering code to here because of circular dependencies (and model should not be in charge of controlling the panels anyway)
                 }
             }
+            
         }
     }
 }

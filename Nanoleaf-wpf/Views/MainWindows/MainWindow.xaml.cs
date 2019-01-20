@@ -40,8 +40,7 @@ namespace Nanoleaf_wpf.Views.MainWindows
         {
             UserSettings.Settings.AddSchedule(schedule);
 
-            //Update the TimeTriggerTimer to follow the correct schedule
-            TimeTriggerTimer.Timer.SetTodaysProgram();
+            TimeTriggerTimer.Timer.FireTimer(); //Fire the timer to immediately update the schedule
 
             BuildScheduleList();
         }
@@ -49,6 +48,9 @@ namespace Nanoleaf_wpf.Views.MainWindows
         public void UpdatedSchedule()
         {
             UserSettings.Settings.SaveSettings();
+
+            TimeTriggerTimer.Timer.FireTimer(); //Fire the timer to immediately update the schedule
+
             BuildScheduleList();
         }
 
@@ -56,7 +58,7 @@ namespace Nanoleaf_wpf.Views.MainWindows
         {
             ScheduleList.Children.Clear();
 
-            foreach (var schedule in UserSettings.Settings.Schedules)
+            foreach (var schedule in UserSettings.Settings.ActviceDevice.Schedules)
             {
                 ScheduleList.Children.Add(new ScheduleItemUserControl(this, schedule));
             }
@@ -72,8 +74,7 @@ namespace Nanoleaf_wpf.Views.MainWindows
         {
             UserSettings.Settings.DeleteSchedule(schedule);
 
-            //Update the TimeTriggerTimer to follow the correct schedule
-            TimeTriggerTimer.Timer.SetTodaysProgram();
+            TimeTriggerTimer.Timer.FireTimer(); //Fire the timer to immediately update the schedule
 
             BuildScheduleList();
         }
@@ -88,7 +89,8 @@ namespace Nanoleaf_wpf.Views.MainWindows
         public void ActivateSchedule(Schedule schedule)
         {
             UserSettings.Settings.ActivateSchedule(schedule);
-            TimeTriggerTimer.Timer.SetTodaysProgram();
+
+            TimeTriggerTimer.Timer.FireTimer(); //Fire the timer to immediately update the schedule
 
             BuildScheduleList();
         }

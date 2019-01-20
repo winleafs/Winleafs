@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Nanoleaf_wpf.Views.Scheduling"
-        xmlns:models="clr-namespace:Nanoleaf_Models.Models.Effects;assembly=Nanoleaf-Models"
         mc:Ignorable="d"
         Title="Add trigger" Height="210" Width="240">
     <Grid Background="{StaticResource NanoleafBlack}">
@@ -20,6 +19,6 @@
             <TextBox HorizontalAlignment="Left" Height="23" Margin="115,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="47" x:Name="Minutes" PreviewTextInput="NumberValidationTextBox" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White"/>
         </Grid>
         <Label Content="Effect:" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
-        <ComboBox HorizontalAlignment="Left" Margin="91,101,0,0" VerticalAlignment="Top" Width="120"  SelectedItem="{Binding SelectedEffect}" ItemsSource="{Binding Source={x:Static models:Effect.Effects}}"/>
+        <ComboBox HorizontalAlignment="Left" Margin="91,101,0,0" VerticalAlignment="Top" Width="120"  SelectedItem="{Binding SelectedEffect}" ItemsSource="{Binding Effects}"/>
     </Grid>
 </Window>

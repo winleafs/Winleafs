@@ -1,4 +1,6 @@
 ﻿using Nanoleaf_Models.Enums;
+using Nanoleaf_Models.Models;
+using Nanoleaf_Models.Models.Effects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,9 +40,13 @@ namespace Nanoleaf_wpf.Views.Scheduling
             }
         }
 
+        public List<Effect> Effects { get; set; }
+
         public AddTimeTriggerWindow(DayUserControl parent)
         {
             _parent = parent;
+            Effects = UserSettings.Settings.ActviceDevice.Effects;
+
             DataContext = this;
 
             InitializeComponent();

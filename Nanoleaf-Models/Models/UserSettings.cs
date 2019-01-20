@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System;
 using Nanoleaf_Models.Models.Scheduling;
-using Nanoleaf_Models.Models.Effects;
 using Newtonsoft.Json;
 using System.Linq;
+using Nanoleaf_Models.Models.Effects;
 
 namespace Nanoleaf_Models.Models
 {
     public class UserSettings
     {
+        private static readonly string SettingsFileName = "Settings.txt";
+
         private static UserSettings _settings { get; set; }
 
         public static UserSettings Settings
@@ -25,10 +27,19 @@ namespace Nanoleaf_Models.Models
             }
         }
 
-        private static readonly string SettingsFileName = "Settings.txt";
+        public List<Device> Devices { get; set; }
 
-        public List<Schedule> Schedules { get; set; }
-        public List<Effect> Effects { get; set; }
+        /// <summary>
+        /// Used in the GUI to determine which device is currently being edited
+        /// </summary>
+        [JsonIgnore]
+        public Device ActviceDevice
+        {
+            get
+            {
+                return Devices.FirstOrDefault(d => d.ActiveInGUI);
+            }
+        }
 
         public static void LoadSettings()
         {
@@ -36,18 +47,8 @@ namespace Nanoleaf_Models.Models
             {
                 var userSettings = new UserSettings();
 
-                userSettings.Effects = new List<Effect>();
+                userSettings.Devices = new List<Device>();
 
-                //TODO: should load from settings, and a user can call a manual function to update the effects and the effects should be loaded when pairing a device
-                userSettings.Effects.Add(new Effect { Name = "Flames" });
-                userSettings.Effects.Add(new Effect { Name = "Forest" });
-                userSettings.Effects.Add(new Effect { Name = "Nemo" });
-                userSettings.Effects.Add(new Effect { Name = "Snowfall" });
-                userSettings.Effects.Add(new Effect { Name = "Inner Peace" });
-                userSettings.Effects = userSettings.Effects.OrderBy(eff => eff.Name).ToList();
-                Effect.Effects = userSettings.Effects;
-
-                userSettings.Schedules = new List<Schedule>();
                 _settings = userSettings;
             }
             else
@@ -57,8 +58,6 @@ namespace Nanoleaf_Models.Models
                     var json = File.ReadAllText(SettingsFileName);
 
                     var userSettings = JsonConvert.DeserializeObject<UserSettings>(json);
-
-                    Effect.Effects = userSettings.Effects;
 
                     _settings = userSettings;
                 }
@@ -78,17 +77,18 @@ namespace Nanoleaf_Models.Models
 
         public void AddSchedule(Schedule schedule)
         {
-            Schedules.ForEach(s => s.Active = false);
+            var device = ActviceDevice;
+            device.Schedules.ForEach(s => s.Active = false);
             schedule.Active = true;
 
-            Schedules.Add(schedule);
-            Schedules = Schedules.OrderBy(s => s.Name).ToList();
+            device.Schedules.Add(schedule);
+            device.Schedules = device.Schedules.OrderBy(s => s.Name).ToList();
             SaveSettings();
         }
 
         public void ActivateSchedule(Schedule schedule)
         {
-            Schedules.ForEach(s => s.Active = false);
+            ActviceDevice.Schedules.ForEach(s => s.Active = false);
 
             schedule.Active = true;
             SaveSettings();
@@ -96,7 +96,7 @@ namespace Nanoleaf_Models.Models
 
         public void DeleteSchedule(Schedule schedule)
         {
-            Schedules.Remove(schedule);
+            ActviceDevice.Schedules.Remove(schedule);
             SaveSettings();
         }
     }
