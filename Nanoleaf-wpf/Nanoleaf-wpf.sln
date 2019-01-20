@@ -5,7 +5,9 @@ VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nanoleaf-wpf", "Nanoleaf-wpf.csproj", "{2BF6B8F3-55BD-4090-9945-1EC5D8D817CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nanoleaf-Api", "..\Nanoleaf-Api\Nanoleaf-Api.csproj", "{FDDFE2AD-81E1-432C-8173-7A8C89BF20F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nanoleaf-Api", "..\Nanoleaf-Api\Nanoleaf-Api.csproj", "{FDDFE2AD-81E1-432C-8173-7A8C89BF20F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nanoleaf-Api-Test", "..\Nanoleaf-Api-Test\Nanoleaf-Api-Test.csproj", "{B680085F-F093-4257-BC9B-46B5FA1B0A54}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{FDDFE2AD-81E1-432C-8173-7A8C89BF20F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDDFE2AD-81E1-432C-8173-7A8C89BF20F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDDFE2AD-81E1-432C-8173-7A8C89BF20F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B680085F-F093-4257-BC9B-46B5FA1B0A54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B680085F-F093-4257-BC9B-46B5FA1B0A54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B680085F-F093-4257-BC9B-46B5FA1B0A54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B680085F-F093-4257-BC9B-46B5FA1B0A54}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
