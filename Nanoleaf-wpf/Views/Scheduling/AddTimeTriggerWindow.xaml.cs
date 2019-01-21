@@ -18,8 +18,20 @@ namespace Nanoleaf_wpf.Views.Scheduling
         private DayUserControl _parent;
 
         private TriggerType _triggerType { get; set; }
+        
+        private int _brightness { get; set; }
 
         public string SelectedEffect { get; set; }
+
+        public int Brightness
+        {
+            get { return _brightness; }
+            set
+            {
+                _brightness = value;
+                BrightnessLabel.Content = value.ToString();
+            }
+        }
 
         public TriggerType TriggerType
         {
@@ -46,6 +58,7 @@ namespace Nanoleaf_wpf.Views.Scheduling
         {
             _parent = parent;
             Effects = UserSettings.Settings.ActviceDevice.Effects;
+            Effects.Insert(0, new Effect { Name = Nanoleaf_Models.Models.Effects.Effect.NONEEFFECTNAME });
 
             DataContext = this;
 
@@ -74,7 +87,7 @@ namespace Nanoleaf_wpf.Views.Scheduling
         private void Add_Click(object sender, RoutedEventArgs e)
         {
             //TODO: add checks
-            _parent.TriggerAdded(_triggerType, Convert.ToInt32(Hours.Text), Convert.ToInt32(Minutes.Text), SelectedEffect);
+            _parent.TriggerAdded(_triggerType, Convert.ToInt32(Hours.Text), Convert.ToInt32(Minutes.Text), SelectedEffect, _brightness);
             Close();
         }
 

@@ -26,9 +26,9 @@ namespace Nanoleaf_wpf.Views.Scheduling
             addTriggerWindow.Show();
         }
 
-        public void TriggerAdded(TriggerType triggerType, int hours, int minutes, string effect)
+        public void TriggerAdded(TriggerType triggerType, int hours, int minutes, string effect, int brightness)
         {
-            Program.AddTrigger(triggerType, hours, minutes, effect);
+            Program.AddTrigger(triggerType, hours, minutes, effect, brightness);
 
             BuildTriggerList();
         }
