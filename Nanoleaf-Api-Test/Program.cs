@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Nanoleaf_Api;
+using Nanoleaf_Api.Endpoints;
 
 namespace Nanoleaf_Api_Test
 {
