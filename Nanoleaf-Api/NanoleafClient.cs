@@ -28,6 +28,11 @@ namespace Nanoleaf_Api
 
         private IEffectsEndpoint _effectsEndpoint;
 
+        public NanoleafClient(string ip, int port)
+        {
+            _baseUri = new Uri($"http://{ip}:{port}");
+        }
+
         // Don't like this style and want to rework it.
         public IEffectsEndpoint EffectsEndpoint
         {

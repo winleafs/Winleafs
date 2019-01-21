@@ -7,6 +7,6 @@ namespace Nanoleaf_Api.Endpoints.Interfaces
 {
     public interface IAuthorizationEndpoint
     {
-        Task<string> GetAuthToken(string ip, int port);
+        Task<string> GetAuthToken();
     }
 }

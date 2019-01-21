@@ -13,9 +13,8 @@ namespace Nanoleaf_Api.Endpoints
             Client = client;
         }
 
-        public async Task<string> GetAuthToken(string ip, int port)
+        public async Task<string> GetAuthToken()
         {
-            Client._baseUri = new Uri($"http://{ip}:{port}");
             var client = new RestClient(Client._baseUri);
             var request = new RestRequest("api/v1/new", Method.POST);
             var response = await client.ExecuteTaskAsync(request);
