@@ -27,7 +27,17 @@ namespace Nanoleaf_Models.Models
             }
         }
 
+        #region Stored properties
         public List<Device> Devices { get; set; }
+
+        public string Lat { get; set; }
+        public string Long { get; set; }
+
+        public int SunriseHour { get; set; }
+        public int SunriseMinute { get; set; }
+        public int SunsetHour { get; set; }
+        public int SunsetMinute { get; set; }
+        #endregion
 
         /// <summary>
         /// Used in the GUI to determine which device is currently being edited
@@ -108,6 +118,40 @@ namespace Nanoleaf_Models.Models
         public void DeleteSchedule(Schedule schedule)
         {
             ActviceDevice.Schedules.Remove(schedule);
+            SaveSettings();
+        }
+
+        public void UpdateSunriseSunset(int sunriseHour, int sunriseMinute, int sunsetHour, int sunsetMinute)
+        {
+            SunriseHour = sunriseHour;
+            SunriseMinute = sunriseMinute;
+            SunsetHour = sunsetHour;
+            SunsetMinute = sunsetMinute;
+
+            //Update each sunset and sunrise trigger to the new times
+            foreach (var device in Devices)
+            {
+                foreach (var schedule in device.Schedules)
+                {
+                    foreach (var program in schedule.Programs)
+                    {
+                        foreach (var trigger in program.Triggers)
+                        {
+                            if (trigger.TriggerType == Enums.TriggerType.Sunrise)
+                            {
+                                trigger.Hours = SunriseHour;
+                                trigger.Minutes = SunriseMinute;
+                            }
+                            else if (trigger.TriggerType == Enums.TriggerType.Sunset)
+                            {
+                                trigger.Hours = SunsetHour;
+                                trigger.Minutes = SunsetMinute;
+                            }
+                        }
+                    }
+                }
+            }
+            
             SaveSettings();
         }
     }
