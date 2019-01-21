@@ -11,6 +11,8 @@ namespace Nanoleaf_Models.Models.Scheduling.Triggers
 
         public string Effect { get; set; }
 
+        public int Brightness { get; set; }
+
         public string GetDisplayName()
         {
             if (TriggerType == TriggerType.Time)

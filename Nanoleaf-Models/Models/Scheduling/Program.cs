@@ -14,14 +14,15 @@ namespace Nanoleaf_Models.Models.Scheduling
             Triggers = new List<TimeTrigger>();
         }
 
-        public void AddTrigger(TriggerType triggerType, int hours, int minutes, string effect)
+        public void AddTrigger(TriggerType triggerType, int hours, int minutes, string effect, int brightness)
         {
             Triggers.Add(new TimeTrigger
             {
                 Effect = effect,
                 Minutes = minutes,
                 Hours = hours,
-                TriggerType = triggerType
+                TriggerType = triggerType,
+                Brightness = brightness
             });
 
             Triggers = Triggers.OrderBy(t => t.Hours).ThenBy(t => t.Minutes).ToList();
