@@ -68,11 +68,22 @@ namespace Nanoleaf_Models.Models
             }
         }
 
+        public static bool HasSettings()
+        {
+            return File.Exists(SettingsFileName);
+        }
+
         public void SaveSettings()
         {
             var json = JsonConvert.SerializeObject(this);
 
             File.WriteAllText(SettingsFileName, json);
+        }
+
+        public void AddDevice(Device device)
+        {
+            Devices.Add(device);
+            SaveSettings();
         }
 
         public void AddSchedule(Schedule schedule)

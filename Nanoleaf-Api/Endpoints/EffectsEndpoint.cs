@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 using Nanoleaf_Api.Endpoints.Interfaces;
-using Nanoleaf_Api.Models.Effects;
-
-using Newtonsoft.Json;
-
+using Nanoleaf_Models.Models.Effects;
 using RestSharp;
 
 namespace Nanoleaf_Api.Endpoints

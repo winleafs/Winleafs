@@ -1,0 +1,15 @@
+﻿<Window x:Class="Nanoleaf_wpf.Views.Setup.SetupWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Nanoleaf_wpf.Views.Setup"
+        mc:Ignorable="d"
+        Title="DiscoverDevice" Height="760" Width="610" ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner">
+    <Grid>
+        <local:DiscoverDeviceControl x:Name="DiscoverDevice" Loaded="DiscoverDevice_Loaded"/>
+        <local:AuthorizeDeviceControl x:Name="AuthorizeDevice" Loaded="AuthorizeDevice_Loaded" Visibility="Hidden"/>
+        <local:NameDeviceControl x:Name="NameDevice" Loaded="NameDevice_Loaded" Visibility="Hidden"/>
+    </Grid>
+</Window>

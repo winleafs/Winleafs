@@ -10,6 +10,7 @@ namespace Nanoleaf_Models.Models
     {
         public string Name { get; set; }
         public string AuthToken { get; set; }
+        public int Port { get; set; }
         public string IPAddress { get; set; }
 
         /// <summary>
@@ -25,14 +26,6 @@ namespace Nanoleaf_Models.Models
             Schedules = new List<Schedule>();
 
             Effects = new List<Effect>();
-
-            //TODO: should load from settings, and a user can call a manual function to update the effects and the effects should be loaded when pairing a device
-            Effects.Add(new Effect { Name = "Flames" });
-            Effects.Add(new Effect { Name = "Forest" });
-            Effects.Add(new Effect { Name = "Nemo" });
-            Effects.Add(new Effect { Name = "Snowfall" });
-            Effects.Add(new Effect { Name = "Inner Peace" });
-            Effects = Effects.OrderBy(eff => eff.Name).ToList();
         }
 
         public Program GetTodaysProgram()
@@ -49,6 +42,24 @@ namespace Nanoleaf_Models.Models
             {
                 return null;
             }
+        }
+
+        public void LoadEffectsFromNameList(IEnumerable<string> effectNames)
+        {
+            foreach (var effectName in effectNames)
+            {
+                Effects.Add(new Effect { Name = effectName });
+            }
+
+            Effects = Effects.OrderBy(eff => eff.Name).ToList();
+        }
+
+        /// <summary>
+        /// Used by setup view
+        /// </summary>
+        public override string ToString()
+        {
+            return $"{Name} ({IPAddress}:{Port})";
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Nanoleaf_Api.Timers;
 using Nanoleaf_Models.Models;
 using Nanoleaf_wpf.Views.MainWindows;
+using Nanoleaf_wpf.Views.Setup;
 using System.Windows;
 
 namespace Nanoleaf_wpf
@@ -11,6 +12,19 @@ namespace Nanoleaf_wpf
     public partial class App : Application
     {
         void App_Startup(object sender, StartupEventArgs e)
+        {
+            if (!UserSettings.HasSettings())
+            {
+                var setupWindow = new SetupWindow();
+                setupWindow.Show();
+            }
+            else
+            {
+                NormalStartup();
+            }
+        }
+
+        public static void NormalStartup()
         {
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
@@ -25,8 +39,6 @@ namespace Nanoleaf_wpf
             }
 
             TimeTriggerTimer.InitializeTimer();
-
-            //TODO: start timer to repeatedly try to get connection with lights            
         }
     }
 }

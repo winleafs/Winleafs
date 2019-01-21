@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="Nanoleaf_wpf.Views.Setup.DiscoverDeviceControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Nanoleaf_wpf.Views.Setup"
+             mc:Ignorable="d" 
+             d:DesignHeight="730" d:DesignWidth="600">
+
+    <Grid Background="{StaticResource NanoleafBlack}">
+        <Label Content="Step 1: Select your Nanoleaf device from the list below" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
+        <ListBox x:Name="Devices" HorizontalAlignment="Left" Height="641" Margin="10,47,0,0" VerticalAlignment="Top" Width="580" ItemsSource="{Binding Devices}" Background="#FF1E1E1E" BorderBrush="Gray" SelectionMode="Single">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Foreground" Value="White"></Setter>
+                    <Setter Property="FontSize" Value="18"></Setter>
+                    <Setter Property="Height" Value="30"></Setter>
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                    <!--<Setter Property="HorizontalAlignment" Value="Center"></Setter>-->
+
+                    <!-- To use custom hover and select effects -->
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                                    <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" TargetName="Bd" Value="#7F3FAE29"></Setter>
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="true">
+                                        <Setter Property="Background" TargetName="Bd" Value="#7F3F6429"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="10,693,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Cancel_Click"/>
+        <Button Content="Continue" HorizontalAlignment="Left" Margin="506,693,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Continue_Click"/>
+    </Grid>
+</UserControl>
