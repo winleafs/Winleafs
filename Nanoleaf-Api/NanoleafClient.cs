@@ -28,9 +28,10 @@ namespace Nanoleaf_Api
 
         private IEffectsEndpoint _effectsEndpoint;
 
-        public NanoleafClient(string ip, int port)
+        public NanoleafClient(string ip, int port, string token = null)
         {
             _baseUri = new Uri($"http://{ip}:{port}");
+            _token = token;
         }
 
         // Don't like this style and want to rework it.
