@@ -14,7 +14,7 @@ namespace Nanoleaf_Api_Test
         {
             var nanoLeafClient = new NanoleafClient();
             Console.WriteLine("Authorizing..");
-            nanoLeafClient.AuthorizeAsync("192.168.178.160", 16021).GetAwaiter().GetResult();
+            nanoLeafClient.AuthorizationEndpoint.GetAuthToken("192.168.178.160", 16021).GetAwaiter().GetResult();
             Console.WriteLine("Authorized!");
             Console.WriteLine("Getting effects...");
             var effects = nanoLeafClient.EffectsEndpoint.GetEffectsListAsync().GetAwaiter().GetResult();
