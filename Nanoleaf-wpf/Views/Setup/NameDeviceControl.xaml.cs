@@ -4,13 +4,13 @@ using System.Windows.Controls;
 namespace Nanoleaf_wpf.Views.Setup
 {
     /// <summary>
-    /// Interaction logic for DiscoverDevice.xaml
+    /// Interaction logic for NameDeviceControl.xaml
     /// </summary>
-    public partial class DiscoverDeviceControl : UserControl
+    public partial class NameDeviceControl : UserControl
     {
         public SetupWindow ParentWindow { get; set; }
 
-        public DiscoverDeviceControl()
+        public NameDeviceControl()
         {
             InitializeComponent();
         }
@@ -20,9 +20,9 @@ namespace Nanoleaf_wpf.Views.Setup
             ParentWindow.Cancel_Click(sender, e);
         }
 
-        private void Continue_Click(object sender, RoutedEventArgs e)
+        private void Finish_Click(object sender, RoutedEventArgs e)
         {
-            ParentWindow.Continue_Click(sender, e);
+            ParentWindow.Finish_Click(sender, e);
         }
     }
 }

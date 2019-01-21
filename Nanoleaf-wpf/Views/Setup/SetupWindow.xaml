@@ -10,5 +10,6 @@
     <Grid>
         <local:DiscoverDeviceControl x:Name="DiscoverDevice" Loaded="DiscoverDevice_Loaded"/>
         <local:AuthorizeDeviceControl x:Name="AuthorizeDevice" Loaded="AuthorizeDevice_Loaded" Visibility="Hidden"/>
+        <local:NameDeviceControl x:Name="NameDevice" Loaded="NameDevice_Loaded" Visibility="Hidden"/>
     </Grid>
 </Window>

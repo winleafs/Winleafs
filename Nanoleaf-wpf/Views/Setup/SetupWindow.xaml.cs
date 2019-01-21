@@ -1,10 +1,9 @@
-﻿using Nanoleaf_wpf.Models;
-using Nanoleaf_wpf.Network;
+﻿using Nanoleaf_Api;
+using Nanoleaf_Models.Models;
 using Nanoleaf_wpf.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using Tmds.MDns;
@@ -18,6 +17,8 @@ namespace Nanoleaf_wpf.Views.Setup
     {
         private SetupViewModel setupViewModel;
         private List<Device> discoveredDevices;
+        private NanoleafClient nanoleafClient;
+        private Device selectedDevice;
 
         public SetupWindow()
         {
@@ -31,25 +32,48 @@ namespace Nanoleaf_wpf.Views.Setup
             serviceBrowser.StartBrowse("_nanoleafapi._tcp");
         }
 
-        private void DiscoverDevice_Loaded(object sender, RoutedEventArgs e)
+        public void Finish_Click(object sender, RoutedEventArgs e)
         {
-            DiscoverDevice.ParentWindow = this;
-            DiscoverDevice.DataContext = setupViewModel;
+            selectedDevice.Name = setupViewModel.Name;
+            selectedDevice.ActiveInGUI = true;
+
+            UserSettings.Settings.AddDevice(selectedDevice);
+
+            App.NormalStartup();
+
+            Close();
         }
 
         public void Pair_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            Task.Run(() => Pair());
         }
 
-        public void Refresh_Click(object sender, RoutedEventArgs e)
+        private async void Pair()
         {
-            //UpdateDevices();
+            try
+            {
+                var authToken = await nanoleafClient.AuthorizationEndpoint.GetAuthToken();
+                var effects = await nanoleafClient.EffectsEndpoint.GetEffectsListAsync();
+
+                Dispatcher.Invoke(() =>
+                {
+                    selectedDevice.AuthToken = authToken;
+                    selectedDevice.LoadEffectsFromNameList(effects);
+
+                    AuthorizeDevice.Visibility = Visibility.Hidden;
+                    NameDevice.Visibility = Visibility.Visible;
+                });
+            }
+            catch
+            {
+                MessageBox.Show("Something went wrong when connecting to your lights. Please follow the steps carefully.");
+            }
         }
 
         private void onServiceAdded(object sender, ServiceAnnouncementEventArgs e)
         {
-            discoveredDevices.Add(new Device { Name = e.Announcement.Hostname, IpAddress = string.Join(", ", e.Announcement.Addresses) });
+            discoveredDevices.Add(new Device { Name = e.Announcement.Hostname, IPAddress = e.Announcement.Addresses.First().ToString(), Port = e.Announcement.Port });
             BuildDeviceList();
         }
 
@@ -75,15 +99,31 @@ namespace Nanoleaf_wpf.Views.Setup
         {
             if (DiscoverDevice.Devices.SelectedItem != null)
             {
-                AuthorizeDevice.ParentWindow = this;
                 AuthorizeDevice.Visibility = Visibility.Visible;
                 DiscoverDevice.Visibility = Visibility.Hidden;
+
+                selectedDevice = (Device)DiscoverDevice.Devices.SelectedItem;
+
+                nanoleafClient = new NanoleafClient(selectedDevice.IPAddress, selectedDevice.Port);
             }
         }
 
         private void AuthorizeDevice_Loaded(object sender, RoutedEventArgs e)
         {
+            AuthorizeDevice.ParentWindow = this;
+            AuthorizeDevice.DataContext = setupViewModel;
+        }
 
+        private void DiscoverDevice_Loaded(object sender, RoutedEventArgs e)
+        {
+            DiscoverDevice.ParentWindow = this;
+            DiscoverDevice.DataContext = setupViewModel;
+        }
+
+        private void NameDevice_Loaded(object sender, RoutedEventArgs e)
+        {
+            NameDevice.ParentWindow = this;
+            NameDevice.DataContext = setupViewModel;
         }
     }
 }

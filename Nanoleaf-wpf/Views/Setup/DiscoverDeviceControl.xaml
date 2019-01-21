@@ -41,8 +41,5 @@
         </ListBox>
         <Button Content="Cancel" HorizontalAlignment="Left" Margin="10,693,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Cancel_Click"/>
         <Button Content="Continue" HorizontalAlignment="Left" Margin="506,693,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Continue_Click"/>
-        <Button HorizontalAlignment="Left" Margin="540,4,0,0" VerticalAlignment="Top" Width="40" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Click="Refresh_Click" ToolTip="Refresh list">
-            <Image Source="../../Icons/appbar.refresh.png"></Image>
-        </Button>
     </Grid>
 </UserControl>
