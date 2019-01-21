@@ -35,8 +35,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Rssdp, Version=4.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Rssdp.4.0.2\lib\net45\Rssdp.dll</HintPath>
+    <Reference Include="Hardcodet.Wpf.TaskbarNotification, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Hardcodet.NotifyIcon.Wpf.1.0.8\lib\net451\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -61,6 +64,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Views\MainWindows\ScheduleItemUserControl.xaml.cs">
+      <DependentUpon>ScheduleItemUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Scheduling\AddTimeTriggerWindow.xaml.cs">
+      <DependentUpon>AddTimeTriggerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Scheduling\EventUserControl.xaml.cs">
+      <DependentUpon>EventUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Scheduling\DayUserControl.xaml.cs">
+      <DependentUpon>DayUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Scheduling\ManageScheduleWindow.xaml.cs">
+      <DependentUpon>ManageScheduleWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Scheduling\TriggerUserControl.xaml.cs">
+      <DependentUpon>TriggerUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Setup\DiscoverDevice.xaml.cs">
+      <DependentUpon>DiscoverDevice.xaml</DependentUpon>
     <Compile Include="Models\Device.cs" />
     <Compile Include="Views\Setup\AuthorizeDeviceControl.xaml.cs">
       <DependentUpon>AuthorizeDeviceControl.xaml</DependentUpon>
@@ -71,20 +94,44 @@
     <Compile Include="Views\Setup\SetupWindow.xaml.cs">
       <DependentUpon>SetupWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\MainWindow.xaml">
+    <Page Include="Views\MainWindows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="Network\APIService.cs" />
     <Compile Include="ViewModels\SetupViewModel.cs" />
     <Compile Include="Views\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\MainWindow.xaml.cs">
+    <Compile Include="Views\MainWindows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\MainWindows\ScheduleItemUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Scheduling\AddTimeTriggerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Scheduling\EventUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Scheduling\DayUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Scheduling\ManageScheduleWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Scheduling\TriggerUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Setup\DiscoverDevice.xaml">
     <Page Include="Views\Setup\AuthorizeDeviceControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -143,8 +190,22 @@
     <Content Include="BrandAssets\Device Management Icons\Smart-ivy-dev-mgmt_green.svg" />
     <Content Include="BrandAssets\Device Management Icons\Smart-ivy-dev-mgmt_grey.svg" />
     <Content Include="BrandAssets\Device Management Icons\Smart-ivy-dev-mgmt_white.svg" />
+    <Resource Include="Icons\icon.ico" />
+    <Resource Include="Icons\appbar.add.png" />
+    <Resource Include="Icons\appbar.delete.png" />
+    <Resource Include="Icons\appbar.edit.png" />
     <Resource Include="Icons\appbar.refresh.png" />
     <Resource Include="Icons\Instructions.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Nanoleaf-Api\Nanoleaf-Api.csproj">
+      <Project>{FDDFE2AD-81E1-432C-8173-7A8C89BF20F0}</Project>
+      <Name>Nanoleaf-Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nanoleaf-Models\Nanoleaf-Models.csproj">
+      <Project>{D47A3540-3E21-4F5B-8B57-A9F9EA31426E}</Project>
+      <Name>Nanoleaf-Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
