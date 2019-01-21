@@ -14,7 +14,7 @@ namespace Nanoleaf_Api.Timers
         {
             // Create a timer with a one minute interval.
             _timer = new Timer(60000);
-            // Hook up the Elapsed event for the timer. 
+            // Hook up the Elapsed event for the timer.
             _timer.Elapsed += OnTimedEvent;
             _timer.AutoReset = true;
             _timer.Enabled = true;
@@ -66,7 +66,7 @@ namespace Nanoleaf_Api.Timers
                     }
                 }
             }
-            
+
         }
     }
 }

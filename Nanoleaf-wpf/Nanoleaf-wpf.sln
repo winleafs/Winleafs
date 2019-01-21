@@ -8,7 +8,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nanoleaf-Api", "..\Nanoleaf-Api\Nanoleaf-Api.csproj", "{FDDFE2AD-81E1-432C-8173-7A8C89BF20F0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nanoleaf-Api-Test", "..\Nanoleaf-Api-Test\Nanoleaf-Api-Test.csproj", "{B680085F-F093-4257-BC9B-46B5FA1B0A54}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nanoleaf-Models", "..\Nanoleaf-Models\Nanoleaf-Models.csproj", "{D47A3540-3E21-4F5B-8B57-A9F9EA31426E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0 Api", "0 Api", "{EFD64713-560F-4F71-ADFD-047E2CF359BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nanoleaf-Api-Fake", "..\Nanoleaf-Api-Fake\Nanoleaf-Api-Fake.csproj", "{F8878D69-D799-438B-9594-1AB2DCBCE10E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,9 +37,18 @@ Global
 		{D47A3540-3E21-4F5B-8B57-A9F9EA31426E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D47A3540-3E21-4F5B-8B57-A9F9EA31426E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D47A3540-3E21-4F5B-8B57-A9F9EA31426E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8878D69-D799-438B-9594-1AB2DCBCE10E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8878D69-D799-438B-9594-1AB2DCBCE10E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8878D69-D799-438B-9594-1AB2DCBCE10E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8878D69-D799-438B-9594-1AB2DCBCE10E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FDDFE2AD-81E1-432C-8173-7A8C89BF20F0} = {EFD64713-560F-4F71-ADFD-047E2CF359BB}
+		{B680085F-F093-4257-BC9B-46B5FA1B0A54} = {EFD64713-560F-4F71-ADFD-047E2CF359BB}
+		{F8878D69-D799-438B-9594-1AB2DCBCE10E} = {EFD64713-560F-4F71-ADFD-047E2CF359BB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {80386817-4CBF-4EC3-A38E-31251DEB6BF9}
