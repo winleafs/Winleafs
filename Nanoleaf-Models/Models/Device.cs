@@ -8,8 +8,9 @@ namespace Nanoleaf_Models.Models
 {
     public class Device
     {
-        public string IPAddress { get; set; }
         public string Name { get; set; }
+        public string AuthToken { get; set; }
+        public string IPAddress { get; set; }
 
         /// <summary>
         /// Determines which of the devices is currently active and being edited in the GUI
