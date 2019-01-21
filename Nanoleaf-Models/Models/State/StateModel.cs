@@ -4,7 +4,7 @@ using System.Text;
 
 using Newtonsoft.Json;
 
-namespace Nanoleaf_Api.Models.State
+namespace Nanoleaf_Models.Models.State
 {
     public class StateModel
     {
