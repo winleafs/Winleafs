@@ -4,7 +4,7 @@ using System.Text;
 
 using Newtonsoft.Json;
 
-namespace Nanoleaf_Api.Models.Layouts
+namespace Nanoleaf_Models.Models.Layouts
 {
     public class Layout
     {

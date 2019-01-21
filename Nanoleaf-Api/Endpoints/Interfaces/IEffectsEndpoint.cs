@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Nanoleaf_Api.Models.Effects;
+using Nanoleaf_Models.Models.Effects;
 
 namespace Nanoleaf_Api.Endpoints.Interfaces
 {

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Nanoleaf_Models.Models.State;
 using System.Threading.Tasks;
-
-using Nanoleaf_Api.Models.State;
 
 namespace Nanoleaf_Api.Endpoints.Interfaces
 {

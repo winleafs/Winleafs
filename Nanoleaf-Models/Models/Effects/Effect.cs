@@ -2,7 +2,7 @@
 
 using Newtonsoft.Json;
 
-namespace Nanoleaf_Api.Models.Effects
+namespace Nanoleaf_Models.Models.Effects
 {
     public class Effect
     {
@@ -35,5 +35,10 @@ namespace Nanoleaf_Api.Models.Effects
 
         [JsonProperty("direction")]
         public string Direction { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }
