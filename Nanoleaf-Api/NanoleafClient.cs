@@ -18,6 +18,8 @@ namespace Nanoleaf_Api
         IEffectsEndpoint EffectsEndpoint { get; }
 
         IAuthorizationEndpoint AuthorizationEndpoint { get; }
+
+        ISunsetEndpoint SunsetEndpoint { get; }
     }
 
     public class NanoleafClient : INanoleafClient
@@ -62,5 +64,7 @@ namespace Nanoleaf_Api
                 return _authorizationEndpoint;
             }
         }
+
+        public ISunsetEndpoint SunsetEndpoint => new SunsetEndpoint();
     }
 }
