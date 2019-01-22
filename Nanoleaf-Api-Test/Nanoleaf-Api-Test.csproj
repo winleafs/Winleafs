@@ -36,8 +36,8 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\Nanoleaf-wpf\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="RestSharp, Version=106.6.6.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
-      <HintPath>..\Nanoleaf-wpf\packages\RestSharp.106.6.6\lib\net452\RestSharp.dll</HintPath>
+    <Reference Include="RestSharp, Version=106.6.7.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\Nanoleaf-wpf\packages\RestSharp.106.6.7\lib\net452\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -61,6 +61,10 @@
     <ProjectReference Include="..\Nanoleaf-Api\Nanoleaf-Api.csproj">
       <Project>{fddfe2ad-81e1-432c-8173-7a8c89bf20f0}</Project>
       <Name>Nanoleaf-Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nanoleaf-Models\Nanoleaf-Models.csproj">
+      <Project>{D47A3540-3E21-4F5B-8B57-A9F9EA31426E}</Project>
+      <Name>Nanoleaf-Models</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
