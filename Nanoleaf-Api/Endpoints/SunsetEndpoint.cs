@@ -15,7 +15,7 @@ namespace Nanoleaf_Api.Endpoints
 {
     public class SunsetEndpoint : ISunsetEndpoint
     {
-        public async Task<SunsetTimes> GetSunsetSunrise(float lat, float lon)
+        public async Task<SunsetTimes> GetSunsetSunrise(double lat, double lon)
         {
             var client = new RestClient("https://api.sunrise-sunset.org");
             var request = new RestRequest($"/json?lat={Format(lat)}&lng={Format(lon)}", Method.GET);
@@ -29,7 +29,7 @@ namespace Nanoleaf_Api.Endpoints
         /// </summary>
         /// <param name="number">The number wanting to be converted.</param>
         /// <returns>The number with only 7 digits.</returns>
-        private static string Format(float number)
+        private static string Format(double number)
         {
             return Math.Round(number, 7).ToString("N7");
         }

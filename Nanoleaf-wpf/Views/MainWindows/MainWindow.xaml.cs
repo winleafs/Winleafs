@@ -3,6 +3,7 @@ using Nanoleaf_Api.Timers;
 using Nanoleaf_Models.Enums;
 using Nanoleaf_Models.Models;
 using Nanoleaf_Models.Models.Scheduling;
+using Nanoleaf_wpf.Views.Options;
 using Nanoleaf_wpf.Views.Scheduling;
 using System;
 using System.ComponentModel;
@@ -91,6 +92,12 @@ namespace Nanoleaf_wpf.Views.MainWindows
             TimeTriggerTimer.Timer.FireTimer(); //Fire the timer to immediately update the schedule
 
             BuildScheduleList();
+        }
+
+        private void Options_Click(object sender, RoutedEventArgs e)
+        {
+            var optionsWindow = new OptionsWindow();
+            optionsWindow.Show();
         }
 
         private class TaskbarDoubleClickCommand : ICommand

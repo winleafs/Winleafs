@@ -30,13 +30,13 @@ namespace Nanoleaf_Models.Models
         #region Stored properties
         public List<Device> Devices { get; set; }
 
-        public float? Latitude { get; set; }
-        public float? Longitude { get; set; }
+        public double? Latitude { get; set; }
+        public double? Longitude { get; set; }
 
-        public int SunriseHour { get; set; }
-        public int SunriseMinute { get; set; }
-        public int SunsetHour { get; set; }
-        public int SunsetMinute { get; set; }
+        public int? SunriseHour { get; set; }
+        public int? SunriseMinute { get; set; }
+        public int? SunsetHour { get; set; }
+        public int? SunsetMinute { get; set; }
 
         public bool StartAtWindowsStartup { get; set; }
         #endregion
@@ -141,13 +141,13 @@ namespace Nanoleaf_Models.Models
                         {
                             if (trigger.TriggerType == Enums.TriggerType.Sunrise)
                             {
-                                trigger.Hours = SunriseHour;
-                                trigger.Minutes = SunriseMinute;
+                                trigger.Hours = sunriseHour;
+                                trigger.Minutes = sunriseMinute;
                             }
                             else if (trigger.TriggerType == Enums.TriggerType.Sunset)
                             {
-                                trigger.Hours = SunsetHour;
-                                trigger.Minutes = SunsetMinute;
+                                trigger.Hours = sunsetHour;
+                                trigger.Minutes = sunsetMinute;
                             }
                         }
                     }

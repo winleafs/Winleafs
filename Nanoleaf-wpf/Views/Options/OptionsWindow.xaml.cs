@@ -1,5 +1,8 @@
-﻿using Nanoleaf_Models.Models;
+﻿using Nanoleaf_Api.Endpoints;
+using Nanoleaf_Models.Models;
 using Nanoleaf_wpf.ViewModels;
+using System;
+using System.Globalization;
 using System.Windows;
 
 namespace Nanoleaf_wpf.Views.Options
@@ -32,7 +35,54 @@ namespace Nanoleaf_wpf.Views.Options
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            
+            double latitude = 0;
+            double longitude = 0;
+            try
+            {
+                latitude = Convert.ToDouble(OptionsViewModel.Latitude, CultureInfo.InvariantCulture);
+            }
+            catch
+            {
+                MessageBox.Show("Please enter a valid value for latitude");
+                return;
+            }
+
+            try
+            {
+                longitude = Convert.ToDouble(OptionsViewModel.Longitude, CultureInfo.InvariantCulture);
+            }
+            catch
+            {
+                MessageBox.Show("Please enter a valid value for longitude");
+                return;
+            }
+
+            if (latitude != UserSettings.Settings.Latitude || longitude != UserSettings.Settings.Longitude)
+            {
+                var endpoint = new SunsetEndpoint();
+
+                try
+                {
+                    var sunTimes = endpoint.GetSunsetSunrise(latitude, longitude).GetAwaiter().GetResult();
+
+                    UserSettings.Settings.UpdateSunriseSunset(sunTimes.SunriseHour, sunTimes.SunriseMinute, sunTimes.SunsetHour, sunTimes.SunsetMinute);
+                }
+                catch
+                {
+                    MessageBox.Show("Something went wrong when updating the sunrise and sunset times");
+                    return;
+                }
+            }
+
+            if (UserSettings.Settings.StartAtWindowsStartup != OptionsViewModel.StartAtWindowsStartUp)
+            {
+                //Enable/disable windows startup here
+
+                UserSettings.Settings.StartAtWindowsStartup = OptionsViewModel.StartAtWindowsStartUp;
+            }
+
+            UserSettings.Settings.SaveSettings();
+            Close();
         }
     }
 }

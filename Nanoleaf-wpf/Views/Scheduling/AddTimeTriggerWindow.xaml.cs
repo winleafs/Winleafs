@@ -86,6 +86,12 @@ namespace Nanoleaf_wpf.Views.Scheduling
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
+            if (!UserSettings.Settings.SunriseHour.HasValue)
+            {
+                MessageBox.Show("Please fill in your location before creating a time based trigger");
+                return;
+            }
+
             //TODO: add checks
             _parent.TriggerAdded(_triggerType, Convert.ToInt32(Hours.Text), Convert.ToInt32(Minutes.Text), SelectedEffect, _brightness);
             Close();

@@ -9,6 +9,6 @@ namespace Nanoleaf_Api.Endpoints.Interfaces
 {
     public interface ISunsetEndpoint
     {
-        Task<SunsetTimes> GetSunsetSunrise(float lat, float lon);
+        Task<SunsetTimes> GetSunsetSunrise(double lat, double lon);
     }
 }
