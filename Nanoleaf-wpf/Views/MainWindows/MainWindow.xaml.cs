@@ -18,8 +18,6 @@ namespace Nanoleaf_wpf.Views.MainWindows
     {
         private TaskbarIcon _taskbarIcon;
 
-        public static readonly string SCHEDULESETTINGKEY = "SCHEDULES";
-
         public MainWindow()
         {
             InitializeComponent();

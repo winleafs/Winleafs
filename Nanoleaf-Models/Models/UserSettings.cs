@@ -30,13 +30,15 @@ namespace Nanoleaf_Models.Models
         #region Stored properties
         public List<Device> Devices { get; set; }
 
-        public string Lat { get; set; }
-        public string Long { get; set; }
+        public float? Latitude { get; set; }
+        public float? Longitude { get; set; }
 
         public int SunriseHour { get; set; }
         public int SunriseMinute { get; set; }
         public int SunsetHour { get; set; }
         public int SunsetMinute { get; set; }
+
+        public bool StartAtWindowsStartup { get; set; }
         #endregion
 
         /// <summary>

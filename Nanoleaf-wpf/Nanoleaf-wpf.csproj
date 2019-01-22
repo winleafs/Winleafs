@@ -68,8 +68,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModels\OptionsViewModel.cs" />
     <Compile Include="Views\MainWindows\ScheduleItemUserControl.xaml.cs">
       <DependentUpon>ScheduleItemUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Options\OptionsWindow.xaml.cs">
+      <DependentUpon>OptionsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Scheduling\AddTimeTriggerWindow.xaml.cs">
       <DependentUpon>AddTimeTriggerWindow.xaml</DependentUpon>
@@ -112,6 +116,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\MainWindows\ScheduleItemUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Options\OptionsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -214,5 +222,6 @@
       <Name>Nanoleaf-Models</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
