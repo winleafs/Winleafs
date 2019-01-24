@@ -1,8 +1,10 @@
-﻿using Nanoleaf_Api.Endpoints;
+﻿using Microsoft.Win32;
+using Nanoleaf_Api.Endpoints;
 using Nanoleaf_Models.Models;
 using Nanoleaf_wpf.ViewModels;
 using System;
 using System.Globalization;
+using System.Security.AccessControl;
 using System.Windows;
 
 namespace Nanoleaf_wpf.Views.Options
@@ -12,7 +14,11 @@ namespace Nanoleaf_wpf.Views.Options
     /// </summary>
     public partial class OptionsWindow : Window
     {
+        private static readonly string _appName = "NanoleafWPF";
+
         public OptionsViewModel OptionsViewModel { get; set; }
+
+        private RegistryKey _startupKey;
 
         public OptionsWindow()
         {
@@ -24,6 +30,8 @@ namespace Nanoleaf_wpf.Views.Options
                 Latitude = UserSettings.Settings.Latitude?.ToString("N7", CultureInfo.InvariantCulture),
                 Longitude = UserSettings.Settings.Longitude?.ToString("N7", CultureInfo.InvariantCulture)
             };
+
+            _startupKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", RegistryKeyPermissionCheck.ReadWriteSubTree, RegistryRights.FullControl);
 
             DataContext = OptionsViewModel;
         }
@@ -79,7 +87,16 @@ namespace Nanoleaf_wpf.Views.Options
 
             if (UserSettings.Settings.StartAtWindowsStartup != OptionsViewModel.StartAtWindowsStartUp)
             {
-                //Enable/disable windows startup here
+                if (OptionsViewModel.StartAtWindowsStartUp)
+                {
+                    _startupKey.SetValue(_appName, $"{System.Reflection.Assembly.GetExecutingAssembly().Location} -s");
+                }
+                else
+                {
+                    _startupKey.DeleteValue(_appName, false);
+                }
+
+                _startupKey.Close();
 
                 UserSettings.Settings.StartAtWindowsStartup = OptionsViewModel.StartAtWindowsStartUp;
             }
