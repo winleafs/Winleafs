@@ -25,6 +25,7 @@ namespace Nanoleaf_wpf.Views.MainWindows
 
             _taskbarIcon = (TaskbarIcon)FindResource("NotifyIcon");
             _taskbarIcon.DoubleClickCommand = new TaskbarDoubleClickCommand(this);
+            _taskbarIcon.Visibility = Visibility.Visible;
 
             BuildScheduleList();
         }
@@ -80,9 +81,8 @@ namespace Nanoleaf_wpf.Views.MainWindows
 
         public void Window_Closing(object sender, CancelEventArgs e)
         {
-            _taskbarIcon.Visibility = Visibility.Visible;
-            e.Cancel = true;
             Hide();
+            e.Cancel = true;
         }
 
         public void ActivateSchedule(Schedule schedule)

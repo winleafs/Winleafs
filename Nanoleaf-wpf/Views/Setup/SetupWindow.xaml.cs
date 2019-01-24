@@ -39,7 +39,7 @@ namespace Nanoleaf_wpf.Views.Setup
 
             UserSettings.Settings.AddDevice(selectedDevice);
 
-            App.NormalStartup();
+            App.NormalStartup(null);
 
             Close();
         }

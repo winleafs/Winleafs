@@ -20,14 +20,24 @@ namespace Nanoleaf_wpf
             }
             else
             {
-                NormalStartup();
+                NormalStartup(e);
             }
         }
 
-        public static void NormalStartup()
+        public static void NormalStartup(StartupEventArgs e)
         {
+            var silent = false;
+            if (e != null && e.Args.Length > 0)
+            {
+                silent = e.Equals("-s");
+            }
+
             MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
+
+            if (!silent)
+            {
+                mainWindow.Show();
+            }
 
             try
             {
