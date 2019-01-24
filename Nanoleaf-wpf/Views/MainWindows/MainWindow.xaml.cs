@@ -23,9 +23,8 @@ namespace Nanoleaf_wpf.Views.MainWindows
         {
             InitializeComponent();
 
-            _taskbarIcon = (TaskbarIcon)FindResource("NotifyIcon");
+            _taskbarIcon = (TaskbarIcon)FindResource("NotifyIcon"); //https://www.codeproject.com/Articles/36468/WPF-NotifyIcon-2
             _taskbarIcon.DoubleClickCommand = new TaskbarDoubleClickCommand(this);
-            _taskbarIcon.Visibility = Visibility.Visible;
 
             BuildScheduleList();
         }

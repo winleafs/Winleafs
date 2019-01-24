@@ -50,5 +50,10 @@ namespace Nanoleaf_wpf
 
             TimeTriggerTimer.InitializeTimer();
         }
+
+        private void Quit_Click(object sender, RoutedEventArgs e)
+        {
+            Current.Shutdown();
+        }
     }
 }
