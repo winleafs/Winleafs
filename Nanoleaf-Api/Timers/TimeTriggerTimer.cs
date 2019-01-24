@@ -54,7 +54,7 @@ namespace Nanoleaf_Api.Timers
 
                         for (var i = 1; i < todaysProgram.Triggers.Count; i++)
                         {
-                            if (todaysProgram.Triggers[i].Hours > hour || (todaysProgram.Triggers[i].Hours == hour && todaysProgram.Triggers[i].Minutes > minute))
+                            if (todaysProgram.Triggers[i].ActualHours > hour || (todaysProgram.Triggers[i].ActualHours == hour && todaysProgram.Triggers[i].ActualMinutes > minute))
                             {
                                 break;
                             }
@@ -62,7 +62,7 @@ namespace Nanoleaf_Api.Timers
                             activeTrigger = todaysProgram.Triggers[i];
                         }
 
-                        activeTrigger.Trigger(); //Perhaps we need to move the actual triggering code to here because of circular dependencies (and model should not be in charge of controlling the panels anyway)
+                        //Trigger the active trigger here
                     }
                 }
             }

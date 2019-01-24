@@ -1,8 +1,10 @@
 ﻿using Nanoleaf_Models.Enums;
 using Nanoleaf_Models.Models;
 using Nanoleaf_Models.Models.Effects;
+using Nanoleaf_Models.Models.Scheduling.Triggers;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -71,11 +73,15 @@ namespace Nanoleaf_wpf.Views.Scheduling
         {
             if (_triggerType == TriggerType.Time)
             {
-                TimeGrid.Visibility = Visibility.Visible;
+                BeforeRadioButton.Visibility = Visibility.Hidden;
+                AfterRadioButton.Visibility = Visibility.Hidden;
+                TimeLabel.Content = "Time:";
             }
             else
             {
-                TimeGrid.Visibility = Visibility.Hidden;
+                BeforeRadioButton.Visibility = Visibility.Visible;
+                AfterRadioButton.Visibility = Visibility.Visible;
+                TimeLabel.Content = "Extra time:";
             }
         }
 
@@ -86,14 +92,70 @@ namespace Nanoleaf_wpf.Views.Scheduling
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            if (!UserSettings.Settings.SunriseHour.HasValue)
+            int hours = 0;
+            int minutes = 0;
+            try
             {
-                MessageBox.Show("Please fill in your location before creating a time based trigger");
+                hours = Convert.ToInt32(Hours.Text, CultureInfo.InvariantCulture);
+
+                if (hours < 0 || hours > 23)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Please enter a valid value for hours, between 0 and 23");
                 return;
             }
 
-            //TODO: add checks
-            _parent.TriggerAdded(_triggerType, Convert.ToInt32(Hours.Text), Convert.ToInt32(Minutes.Text), SelectedEffect, _brightness);
+            try
+            {
+                minutes = Convert.ToInt32(Minutes.Text, CultureInfo.InvariantCulture);
+
+                if (minutes < 0 || minutes > 59)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Please enter a valid value for minutes, between 0 and 59");
+                return;
+            }
+
+            if (TriggerType == TriggerType.Sunrise || TriggerType == TriggerType.Sunset)
+            {
+                var beforeAfter = BeforeRadioButton.IsChecked.Value ? BeforeAfter.Before : (AfterRadioButton.IsChecked.Value ? BeforeAfter.After : BeforeAfter.None);
+
+                _parent.TriggerAdded(new TimeTrigger
+                {
+                    TriggerType = TriggerType,
+                    BeforeAfter = beforeAfter,
+                    Brightness = _brightness,
+                    Effect = SelectedEffect,
+                    ExtraHours = hours,
+                    ExtraMinutes = minutes,
+                    Hours = TriggerType == TriggerType.Sunrise ? UserSettings.Settings.SunriseHour.Value : UserSettings.Settings.SunsetHour.Value,
+                    Minutes = TriggerType == TriggerType.Sunrise ? UserSettings.Settings.SunriseMinute.Value : UserSettings.Settings.SunsetMinute.Value
+                });
+            }
+            else
+            {
+                _parent.TriggerAdded(new TimeTrigger
+                {
+                    TriggerType = TriggerType,
+                    BeforeAfter = BeforeAfter.None,
+                    Brightness = _brightness,
+                    Effect = SelectedEffect,
+                    ExtraHours = 0,
+                    ExtraMinutes = 0,
+                    Hours = hours,
+                    Minutes = minutes
+                });                
+            }
+
+            
             Close();
         }
 

@@ -9,8 +9,6 @@ namespace Nanoleaf_Models.Models.Scheduling.Triggers
     {
         TriggerType GetTriggerType();
 
-        void Trigger();
-
         /// <summary>
         /// Used by the view to determine the display name
         /// </summary>

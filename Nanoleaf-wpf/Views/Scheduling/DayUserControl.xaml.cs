@@ -1,5 +1,8 @@
 ﻿using Nanoleaf_Models.Enums;
+using Nanoleaf_Models.Models;
 using Nanoleaf_Models.Models.Scheduling;
+using Nanoleaf_Models.Models.Scheduling.Triggers;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Nanoleaf_wpf.Views.Scheduling
@@ -22,13 +25,19 @@ namespace Nanoleaf_wpf.Views.Scheduling
 
         private void Plus_Click(object sender, System.Windows.RoutedEventArgs e)
         {
+            if (!UserSettings.Settings.SunriseHour.HasValue)
+            {
+                MessageBox.Show("Please fill in your location before creating a time based trigger");
+                return;
+            }
+
             var addTriggerWindow = new AddTimeTriggerWindow(this);
             addTriggerWindow.Show();
         }
 
-        public void TriggerAdded(TriggerType triggerType, int hours, int minutes, string effect, int brightness)
+        public void TriggerAdded(TimeTrigger trigger)
         {
-            Program.AddTrigger(triggerType, hours, minutes, effect, brightness);
+            Program.AddTrigger(trigger);
 
             BuildTriggerList();
         }
