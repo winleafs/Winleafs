@@ -14,8 +14,6 @@ namespace Nanoleaf_wpf.Views.Options
     /// </summary>
     public partial class OptionsWindow : Window
     {
-        private static readonly string _appName = "NanoleafWPF";
-
         public OptionsViewModel OptionsViewModel { get; set; }
 
         private RegistryKey _startupKey;
@@ -89,11 +87,11 @@ namespace Nanoleaf_wpf.Views.Options
             {
                 if (OptionsViewModel.StartAtWindowsStartUp)
                 {
-                    _startupKey.SetValue(_appName, $"{System.Reflection.Assembly.GetExecutingAssembly().Location} -s");
+                    _startupKey.SetValue(UserSettings.APPLICATIONNAME, $"{System.Reflection.Assembly.GetExecutingAssembly().Location} -s");
                 }
                 else
                 {
-                    _startupKey.DeleteValue(_appName, false);
+                    _startupKey.DeleteValue(UserSettings.APPLICATIONNAME, false);
                 }
 
                 _startupKey.Close();

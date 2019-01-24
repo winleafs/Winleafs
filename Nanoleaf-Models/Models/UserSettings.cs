@@ -4,13 +4,15 @@ using System;
 using Nanoleaf_Models.Models.Scheduling;
 using Newtonsoft.Json;
 using System.Linq;
-using Nanoleaf_Models.Models.Effects;
 
 namespace Nanoleaf_Models.Models
 {
     public class UserSettings
     {
-        private static readonly string SettingsFileName = "Settings.txt";
+        public static readonly string APPLICATIONNAME = "Winleafs";
+
+        private static readonly string SettingsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), APPLICATIONNAME);
+        private static readonly string SettingsFileName = Path.Combine(SettingsFolder, "Settings.txt");
 
         private static UserSettings _settings { get; set; }
 
@@ -55,7 +57,7 @@ namespace Nanoleaf_Models.Models
 
         public static void LoadSettings()
         {
-            if (!File.Exists(SettingsFileName))
+            if (!HasSettings())
             {
                 var userSettings = new UserSettings();
 
@@ -88,6 +90,11 @@ namespace Nanoleaf_Models.Models
         public void SaveSettings()
         {
             var json = JsonConvert.SerializeObject(this);
+
+            if (!Directory.Exists(SettingsFolder))
+            {
+                Directory.CreateDirectory(SettingsFolder);
+            }
 
             File.WriteAllText(SettingsFileName, json);
         }
