@@ -21,8 +21,8 @@ namespace Nanoleaf_wpf.Views.Options
             OptionsViewModel = new OptionsViewModel
             {
                 StartAtWindowsStartUp = UserSettings.Settings.StartAtWindowsStartup,
-                Latitude = UserSettings.Settings.Latitude?.ToString("N7"),
-                Longitude = UserSettings.Settings.Longitude?.ToString("N7")
+                Latitude = UserSettings.Settings.Latitude?.ToString("N7", CultureInfo.InvariantCulture),
+                Longitude = UserSettings.Settings.Longitude?.ToString("N7", CultureInfo.InvariantCulture)
             };
 
             DataContext = OptionsViewModel;
@@ -72,6 +72,9 @@ namespace Nanoleaf_wpf.Views.Options
                     MessageBox.Show("Something went wrong when updating the sunrise and sunset times");
                     return;
                 }
+
+                UserSettings.Settings.Latitude = latitude;
+                UserSettings.Settings.Longitude = longitude;
             }
 
             if (UserSettings.Settings.StartAtWindowsStartup != OptionsViewModel.StartAtWindowsStartUp)
