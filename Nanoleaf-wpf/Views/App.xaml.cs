@@ -29,7 +29,7 @@ namespace Nanoleaf_wpf
             var silent = false;
             if (e != null && e.Args.Length > 0)
             {
-                silent = e.Equals("-s");
+                silent = e.Args[0].Equals("-s");
             }
 
             MainWindow mainWindow = new MainWindow();
