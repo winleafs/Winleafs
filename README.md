@@ -3,7 +3,6 @@ Windows application for nanoleaf lights
 
 ## TODO
 - Add option to schedule to turn off lights at application/Windows shutdown
-- Polly to update sunset/sunrise times at application startup
 - Activate timetriggers
 - Add basic logging
 
