@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using Nanoleaf_Api.Endpoints;
 using Nanoleaf_Api.Endpoints.Interfaces;
-
+using Nanoleaf_Models.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -24,6 +24,8 @@ namespace Nanoleaf_Api
 
     public class NanoleafClient : INanoleafClient
     {
+        private static Dictionary<string, INanoleafClient> _clients = new Dictionary<string, INanoleafClient>();
+
         internal Uri _baseUri;
 
         internal string _token = "";
@@ -34,6 +36,16 @@ namespace Nanoleaf_Api
         {
             _baseUri = new Uri($"http://{ip}:{port}");
             _token = token;
+        }
+
+        public static INanoleafClient GetClientForDevice(Device device)
+        {
+            if (!_clients.ContainsKey(device.IPAddress))
+            {
+                _clients.Add(device.IPAddress, new NanoleafClient(device.IPAddress, device.Port, device.AuthToken));
+            }
+
+            return _clients[device.IPAddress];
         }
 
         // Don't like this style and want to rework it.

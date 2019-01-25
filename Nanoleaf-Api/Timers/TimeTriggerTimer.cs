@@ -1,5 +1,6 @@
 ﻿using Nanoleaf_Models.Models;
 using System;
+using System.Threading.Tasks;
 using System.Timers;
 
 namespace Nanoleaf_Api.Timers
@@ -19,6 +20,8 @@ namespace Nanoleaf_Api.Timers
             _timer.AutoReset = true;
             _timer.Enabled = true;
             _timer.Start();
+
+            FireTimer();
         }
 
         public static void InitializeTimer()
@@ -32,6 +35,11 @@ namespace Nanoleaf_Api.Timers
         }
 
         private void OnTimedEvent(object source, ElapsedEventArgs e)
+        {
+            Task.Run(() => SetEffectsForDevices());
+        }
+
+        private async Task SetEffectsForDevices()
         {
             foreach (var device in UserSettings.Settings.Devices)
             {
@@ -62,11 +70,20 @@ namespace Nanoleaf_Api.Timers
                             activeTrigger = todaysProgram.Triggers[i];
                         }
 
-                        //Trigger the active trigger here
+                        var client = NanoleafClient.GetClientForDevice(device);
+                        try
+                        {
+                            await client.EffectsEndpoint.SetSelectedEffectAsync(activeTrigger.Effect);
+                        }
+                        catch
+                        {
+
+                        }
+
+                        //TODO: set brightness
                     }
                 }
             }
-            
         }
     }
 }

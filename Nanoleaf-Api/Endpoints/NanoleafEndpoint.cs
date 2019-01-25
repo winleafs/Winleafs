@@ -41,13 +41,13 @@ namespace Nanoleaf_Api.Endpoints
         protected async Task<object> SendRequest(string endpoint, Method method, Type returnType = null, object body = null)
         {
             var restClient = new RestClient(Client._baseUri);
-            var request = new RestRequest($"api/v1/{Client._token}{endpoint}", method);
+            var request = new RestRequest($"api/v1/{Client._token}/{endpoint}", method);
             if (body != null)
             {
                 request.AddJsonBody(body);
             }
 
-            var response = await restClient.ExecuteTaskAsync(request);
+            var response = await restClient.ExecuteTaskAsync(request).ConfigureAwait(false);
 
             return returnType == null ? null : JsonConvert.DeserializeObject(response.Content, returnType);
         }
