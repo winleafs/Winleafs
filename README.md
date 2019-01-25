@@ -8,7 +8,7 @@ Windows application for nanoleaf lights
 - Make windows blocking
 - Window titles
 
-## Future fetaures (in no particular order):
+## Future features (in no particular order):
 - Override schedule at any time you want
 - Support multiple devices
 - Spotify link
