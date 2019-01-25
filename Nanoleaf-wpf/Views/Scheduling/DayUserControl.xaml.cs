@@ -32,7 +32,7 @@ namespace Nanoleaf_wpf.Views.Scheduling
             }
 
             var addTriggerWindow = new AddTimeTriggerWindow(this);
-            addTriggerWindow.Show();
+            addTriggerWindow.ShowDialog();
         }
 
         public void TriggerAdded(TimeTrigger trigger)

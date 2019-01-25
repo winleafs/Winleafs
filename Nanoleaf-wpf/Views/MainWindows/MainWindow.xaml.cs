@@ -32,7 +32,7 @@ namespace Nanoleaf_wpf.Views.MainWindows
         private void AddSchedule_Click(object sender, RoutedEventArgs e)
         {
             var scheduleWindow = new ManageScheduleWindow(this, WorkMode.Add);
-            scheduleWindow.Show();
+            scheduleWindow.ShowDialog();
         }
 
         public void AddedSchedule(Schedule schedule)
@@ -66,7 +66,7 @@ namespace Nanoleaf_wpf.Views.MainWindows
         public void EditSchedule(Schedule schedule)
         {
             var scheduleWindow = new ManageScheduleWindow(this, WorkMode.Edit, schedule);
-            scheduleWindow.Show();
+            scheduleWindow.ShowDialog();
         }
 
         public void DeleteSchedule(Schedule schedule)
@@ -96,7 +96,7 @@ namespace Nanoleaf_wpf.Views.MainWindows
         private void Options_Click(object sender, RoutedEventArgs e)
         {
             var optionsWindow = new OptionsWindow();
-            optionsWindow.Show();
+            optionsWindow.ShowDialog();
         }
 
         private class TaskbarDoubleClickCommand : ICommand

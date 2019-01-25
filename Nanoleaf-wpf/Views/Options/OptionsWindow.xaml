@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Nanoleaf_wpf.Views.Options"
         mc:Ignorable="d"
-        Title="Options" Height="250" Width="400">
+        Title="Winleafs Options" Height="250" Width="400">
     <Grid Background="{StaticResource NanoleafBlack}">
         <CheckBox Content="Start at Windows startup" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="{Binding StartAtWindowsStartUp}">
             <CheckBox.LayoutTransform>
