@@ -32,13 +32,6 @@ namespace Nanoleaf_wpf
                 silent = e.Args[0].Equals("-s");
             }
 
-            MainWindow mainWindow = new MainWindow();
-
-            if (!silent)
-            {
-                mainWindow.Show();
-            }
-
             try
             {
                 UserSettings.LoadSettings();
@@ -46,6 +39,15 @@ namespace Nanoleaf_wpf
             catch (SettingsFileJsonException)
             {
                 //TODO: handle
+            }
+
+            SunTimesUpdater.UpdateSunTimes();
+
+            MainWindow mainWindow = new MainWindow();
+
+            if (!silent)
+            {
+                mainWindow.Show();
             }
 
             TimeTriggerTimer.InitializeTimer();
