@@ -6,7 +6,7 @@ namespace Nanoleaf_Models.Models.Effects
 {
     public class Effect
     {
-        public static readonly string NONEEFFECTNAME = "None";
+        public static readonly string OFFEFFECTNAME = "Turn lights off";
 
         [JsonProperty("animName")]
         public string Name { get; set; }

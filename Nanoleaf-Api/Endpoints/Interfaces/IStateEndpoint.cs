@@ -9,7 +9,7 @@ namespace Nanoleaf_Api.Endpoints.Interfaces
         /// Gets the state of the Nanoleaf.
         /// </summary>
         /// <returns>A value to indicate whether the Nanoleaf is on or off.</returns>
-        Task<bool> GetState();
+        Task<OnOffModel> GetState();
 
         /// <summary>
         /// Sets the state of the Nanoleaf.
@@ -17,6 +17,13 @@ namespace Nanoleaf_Api.Endpoints.Interfaces
         /// <param name="state">The state that the Nanoleaf should be.</param>
         /// <returns>An awaitable task.</returns>
         Task SetState(bool state);
+
+        /// <summary>
+        /// Sets the state of the Nanoleaf but checks the current state before setting the state.
+        /// </summary>
+        /// <param name="state">The state that the Nanoleaf should be.</param>
+        /// <returns>An awaitable task.</returns>
+        Task SetStateWithStateCheck(bool state)
 
         /// <summary>
         /// Gets the current brightness of the Nanoleaf.
@@ -30,7 +37,7 @@ namespace Nanoleaf_Api.Endpoints.Interfaces
         /// <param name="value">The value wanting the brightness to be set to.</param>
         /// <param name="duration">The duration for how long the brightness should be set to.</param>
         /// <returns>An awaitable task.</returns>
-        Task SetBrightness(int value, int duration);
+        Task SetBrightness(int value, int? duration = null);
 
         /// <summary>
         /// Increment the brightness of the Nanoleaf.

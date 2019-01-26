@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 using Newtonsoft.Json;
 
 namespace Nanoleaf_Models.Models.State
 {
     public class StateModel
     {
-        [JsonProperty("state")]
+        [JsonProperty("value")]
         public int Value { get; set; }
 
         [JsonProperty("max")]

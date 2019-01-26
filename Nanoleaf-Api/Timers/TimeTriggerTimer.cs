@@ -1,4 +1,5 @@
 ﻿using Nanoleaf_Models.Models;
+using Nanoleaf_Models.Models.Effects;
 using System;
 using System.Threading.Tasks;
 using System.Timers;
@@ -47,9 +48,12 @@ namespace Nanoleaf_Api.Timers
 
                 if (todaysProgram != null)
                 {
+                    var client = NanoleafClient.GetClientForDevice(device);
+
                     if (todaysProgram.Triggers.Count == 0)
                     {
-                        //Send off command here
+                        //Today has no trigger so it can be turned off if it is not off already
+                        await client.StateEndpoint.SetStateWithStateCheck(false);
                     }
                     else
                     {
@@ -70,17 +74,24 @@ namespace Nanoleaf_Api.Timers
                             activeTrigger = todaysProgram.Triggers[i];
                         }
 
-                        var client = NanoleafClient.GetClientForDevice(device);
                         try
                         {
-                            await client.EffectsEndpoint.SetSelectedEffectAsync(activeTrigger.Effect);
+                            if (activeTrigger.Effect.Equals(Effect.OFFEFFECTNAME))
+                            {
+                                await client.StateEndpoint.SetStateWithStateCheck(false);
+                            }
+                            else
+                            {
+                                await client.StateEndpoint.SetStateWithStateCheck(true); //Turn on device if it is not on
+                                await client.EffectsEndpoint.SetSelectedEffectAsync(activeTrigger.Effect);
+                                await client.StateEndpoint.SetBrightness(activeTrigger.Brightness);
+                            }
+
                         }
                         catch
                         {
-
+                            //TODO: exception handling
                         }
-
-                        //TODO: set brightness
                     }
                 }
             }

@@ -1,15 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 using Nanoleaf_Api.Endpoints;
 using Nanoleaf_Api.Endpoints.Interfaces;
 using Nanoleaf_Models.Models;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-
-using RestSharp;
 
 namespace Nanoleaf_Api
 {
@@ -18,6 +12,8 @@ namespace Nanoleaf_Api
         IEffectsEndpoint EffectsEndpoint { get; }
 
         IAuthorizationEndpoint AuthorizationEndpoint { get; }
+
+        IStateEndpoint StateEndpoint { get; }
 
         ISunsetEndpoint SunsetEndpoint { get; }
     }
@@ -74,6 +70,21 @@ namespace Nanoleaf_Api
                 }
 
                 return _authorizationEndpoint;
+            }
+        }
+
+        private IStateEndpoint _stateEndpoint;
+
+        public IStateEndpoint StateEndpoint
+        {
+            get
+            {
+                if (_stateEndpoint == null)
+                {
+                    _stateEndpoint = new StateEndpoint(this);
+                }
+
+                return _stateEndpoint;
             }
         }
 

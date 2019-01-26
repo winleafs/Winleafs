@@ -1,5 +1,5 @@
 # Winleafs
-Windows application for nanoleaf lights
+Windows application for Nanoleaf lights
 
 ## TODO
 - Add option to schedule to turn off lights at application/Windows shutdown (needs state endpoint)
@@ -14,3 +14,4 @@ Windows application for nanoleaf lights
 - Spotify link
 - Steam link
 - Add custom effect to make the lights the color of your windows screen
+- Add migration method for settings file

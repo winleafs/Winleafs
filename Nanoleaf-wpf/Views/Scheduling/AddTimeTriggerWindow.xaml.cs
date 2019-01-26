@@ -59,8 +59,8 @@ namespace Nanoleaf_wpf.Views.Scheduling
         public AddTimeTriggerWindow(DayUserControl parent)
         {
             _parent = parent;
-            Effects = UserSettings.Settings.ActviceDevice.Effects;
-            Effects.Insert(0, new Effect { Name = Nanoleaf_Models.Models.Effects.Effect.NONEEFFECTNAME });
+            Effects = new List<Effect>(UserSettings.Settings.ActviceDevice.Effects);
+            Effects.Insert(0, new Effect { Name = Nanoleaf_Models.Models.Effects.Effect.OFFEFFECTNAME });
 
             DataContext = this;
 
