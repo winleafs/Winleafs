@@ -1,5 +1,6 @@
 ﻿using Nanoleaf_Models.Models.Effects;
 using Nanoleaf_Models.Models.Scheduling;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,15 @@ namespace Nanoleaf_Models.Models
 
         public List<Schedule> Schedules { get; set; }
         public List<Effect> Effects { get; set; }
+
+        [JsonIgnore]
+        public Schedule ActiveSchedule
+        {
+            get
+            {
+                return Schedules.FirstOrDefault(s => s.Active);
+            }
+        }
 
         public Device()
         {

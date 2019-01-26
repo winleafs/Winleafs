@@ -1,7 +1,9 @@
-﻿using Nanoleaf_Api.Timers;
+﻿using Nanoleaf_Api;
+using Nanoleaf_Api.Timers;
 using Nanoleaf_Models.Models;
 using Nanoleaf_wpf.Views.MainWindows;
 using Nanoleaf_wpf.Views.Setup;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace Nanoleaf_wpf
@@ -56,6 +58,34 @@ namespace Nanoleaf_wpf
         private void Quit_Click(object sender, RoutedEventArgs e)
         {
             Current.Shutdown();
+        }
+
+        private void Application_Exit(object sender, ExitEventArgs e)
+        {
+            var task = Task.Run(() => TurnOffLights());
+            task.Wait(); //We actually want the code to execute directly instead of waiting
+        }
+
+        /// <summary>
+        /// On Windows shutdown
+        /// </summary>
+        private void Application_SessionEnding(object sender, SessionEndingCancelEventArgs e)
+        {
+            var task = Task.Run(() => TurnOffLights());
+            task.Wait(); //We actually want the code to execute directly instead of waiting
+        }
+
+        private async Task TurnOffLights()
+        {
+            //Check if any lights need to be turned off
+            foreach (var device in UserSettings.Settings.Devices)
+            {
+                if (device.ActiveSchedule != null && device.ActiveSchedule.TurnOffAtApplicationShutdown)
+                {
+                    var client = NanoleafClient.GetClientForDevice(device);
+                    await client.StateEndpoint.SetStateWithStateCheck(false);
+                }
+            }
         }
     }
 }

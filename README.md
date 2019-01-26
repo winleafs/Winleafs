@@ -2,7 +2,6 @@
 Windows application for Nanoleaf lights
 
 ## TODO
-- Add option to schedule to turn off lights at application/Windows shutdown (needs state endpoint)
 - Add basic logging
 - Figure out why Vibrant sunrise does not work
 - Adding and deleting triggers now is permanent without saving while it should only be permanent on saving

@@ -18,6 +18,11 @@ namespace Nanoleaf_Models.Models.Scheduling
         public bool Active { get; set; }
 
         /// <summary>
+        /// Indicates whether the lights should be turned off when shutting down the application or Windows
+        /// </summary>
+        public bool TurnOffAtApplicationShutdown { get; set; }
+
+        /// <summary>
         /// A schedule has a list of time-independent event triggers
         /// </summary>
         public List<IEventTrigger> EventTriggers { get; set; }

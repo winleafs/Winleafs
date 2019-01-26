@@ -53,7 +53,12 @@
             </Border>
             <Label Content="Name:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
             <TextBox HorizontalAlignment="Left" Height="23" Margin="72,8,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="300" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White"/>
-            <Button Content="Save" Width="100" Background="{StaticResource NanoleafGreen}" BorderBrush="{x:Null}" Margin="380,2,0,0" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Foreground="White" Click="Save_Click"/>
+            <Button Content="Save" Width="100" Background="{StaticResource NanoleafGreen}" BorderBrush="{x:Null}" Margin="811,1,0,0" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Foreground="White" Click="Save_Click"/>
+            <CheckBox Content="Turn lights off at application/Windows shutdown" HorizontalAlignment="Left" Margin="381,6,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="{Binding TurnOffAtApplicationShutdown}">
+                <CheckBox.LayoutTransform>
+                    <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
+                </CheckBox.LayoutTransform>
+            </CheckBox>
         </Grid>
     </Grid>
 </Window>
