@@ -42,13 +42,20 @@ namespace Nanoleaf_wpf.Views.Scheduling
             BuildTriggerList();
         }
 
+        public void DeleteTrigger(TimeTrigger trigger)
+        {
+            Program.Triggers.Remove(trigger);
+
+            BuildTriggerList();
+        }
+
         public void BuildTriggerList()
         {
             TriggerList.Children.Clear();
 
             foreach (var trigger in Program.Triggers)
             {
-                TriggerList.Children.Add(new TriggerUserControl(trigger));
+                TriggerList.Children.Add(new TimeTriggerUserControl(this, trigger));
             }
         }
     }

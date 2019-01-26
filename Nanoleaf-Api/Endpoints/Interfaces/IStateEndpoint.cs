@@ -23,7 +23,7 @@ namespace Nanoleaf_Api.Endpoints.Interfaces
         /// </summary>
         /// <param name="state">The state that the Nanoleaf should be.</param>
         /// <returns>An awaitable task.</returns>
-        Task SetStateWithStateCheck(bool state)
+        Task SetStateWithStateCheck(bool state);
 
         /// <summary>
         /// Gets the current brightness of the Nanoleaf.

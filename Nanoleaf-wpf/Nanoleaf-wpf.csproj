@@ -93,8 +93,8 @@
     <Compile Include="Views\Scheduling\ManageScheduleWindow.xaml.cs">
       <DependentUpon>ManageScheduleWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Scheduling\TriggerUserControl.xaml.cs">
-      <DependentUpon>TriggerUserControl.xaml</DependentUpon>
+    <Compile Include="Views\Scheduling\TimeTriggerUserControl.xaml.cs">
+      <DependentUpon>TimeTriggerUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Setup\AuthorizeDeviceControl.xaml.cs">
       <DependentUpon>AuthorizeDeviceControl.xaml</DependentUpon>
@@ -145,7 +145,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Scheduling\TriggerUserControl.xaml">
+    <Page Include="Views\Scheduling\TimeTriggerUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

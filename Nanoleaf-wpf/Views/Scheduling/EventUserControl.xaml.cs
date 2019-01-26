@@ -34,7 +34,8 @@ namespace Nanoleaf_wpf.Views.Scheduling
 
             foreach (var trigger in EventTriggers)
             {
-                TriggerList.Children.Add(new TriggerUserControl(trigger));
+                //TODO: add event trigger user controls
+                //TriggerList.Children.Add(new TimeTriggerUserControl(trigger));
             }
         }
     }
