@@ -4,8 +4,6 @@ Windows application for Nanoleaf lights
 ## TODO
 - Add option to schedule to turn off lights at application/Windows shutdown (needs state endpoint)
 - Add basic logging
-- Add state endpoint to set the brightness for time triggers
-- Add check at time triggers to check if the device is turned on (needs state endpoint)
 - Figure out why Vibrant sunrise does not work
 
 ## Future features (in no particular order):
