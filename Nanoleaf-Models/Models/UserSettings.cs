@@ -88,6 +88,15 @@ namespace Nanoleaf_Models.Models
             return File.Exists(SettingsFileName);
         }
 
+        public static void DeleteSettings()
+        {
+            if (HasSettings())
+            {
+                File.Delete(SettingsFileName);
+                _settings = null;
+            }
+        }
+
         public void SaveSettings()
         {
             var json = JsonConvert.SerializeObject(this);

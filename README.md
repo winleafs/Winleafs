@@ -3,7 +3,6 @@ Windows application for Nanoleaf lights
 
 ## TODO
 - Figure out why Vibrant sunrise does not work
-- Make a method to reset all settings
 
 ## Future features (in no particular order):
 - Support multiple devices

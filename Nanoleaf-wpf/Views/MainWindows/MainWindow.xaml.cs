@@ -100,6 +100,11 @@ namespace Nanoleaf_wpf.Views.MainWindows
             optionsWindow.ShowDialog();
         }
 
+        private void Reset_Click(object sender, RoutedEventArgs e)
+        {
+            App.ResetAllSettings(this);
+        }
+
         private class TaskbarDoubleClickCommand : ICommand
         {
             private MainWindow _window;

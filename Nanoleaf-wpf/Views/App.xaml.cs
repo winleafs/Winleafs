@@ -101,5 +101,14 @@ namespace Nanoleaf_wpf
         {
             _logger.Fatal("Unhandled exception occurred", e);
         }
+
+        public static void ResetAllSettings(MainWindow mainWindow)
+        {
+            UserSettings.DeleteSettings();
+            var setupWindow = new SetupWindow();
+            setupWindow.Show();
+
+            mainWindow.Close();
+        }
     }
 }

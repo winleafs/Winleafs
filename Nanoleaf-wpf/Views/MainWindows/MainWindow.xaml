@@ -15,12 +15,13 @@
             </Button>
             <StackPanel HorizontalAlignment="Left" Height="Auto" Margin="10,47,0,0" VerticalAlignment="Stretch" Width="300" x:Name="ScheduleList">
                 <Border BorderBrush="White" BorderThickness="0 1 1 0" Height="Auto"/>
-            </StackPanel>            
+            </StackPanel>
         </Grid>
         <Grid>
             <Button Content="Options" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Options_Click"/>
+            <Button Content="Reset all settings" HorizontalAlignment="Left" Margin="367,384,0,0" VerticalAlignment="Top" Width="106" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Reset_Click"/>
             <local:OverrideScheduleUserControl Margin="10,42,73,323" Height="55" Width="400"/>
         </Grid>
-        
+
     </DockPanel>
 </Window>
