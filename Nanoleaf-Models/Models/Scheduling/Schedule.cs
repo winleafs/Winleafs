@@ -47,10 +47,18 @@ namespace Nanoleaf_Models.Models.Scheduling
             EventTriggers = new List<IEventTrigger>();
         }
 
-        /*private Program GetTodaysProgram()
+        private bool ScheduleHasTriggers()
         {
-            return Programs[GetTodaysProgramIndex()];
-        }*/
+            foreach (var program in Programs)
+            {
+                if (program.Triggers.Count > 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
 
         private int GetTodaysProgramIndex()
         {
@@ -61,27 +69,34 @@ namespace Nanoleaf_Models.Models.Scheduling
 
         public TimeTrigger GetActiveTrigger()
         {
-            var now = DateTime.Now;
-
-            var todaysIndex = GetTodaysProgramIndex();
-
-            var currentTrigger = GetCurrentTimeTriggerForProgram(now, now, Programs[todaysIndex]); //First check if any trigger of today should be active
-
-            if (currentTrigger == null) //We need to look in previous days for the trigger that should be active
+            if (ScheduleHasTriggers())
             {
-                var dayIndex = todaysIndex == 0 ? 6 : todaysIndex - 1;
-                var dateOfProgram = now.AddDays(-1);
+                var now = DateTime.Now;
 
-                while (currentTrigger == null)
+                var todaysIndex = GetTodaysProgramIndex();
+
+                var currentTrigger = GetCurrentTimeTriggerForProgram(now, now, Programs[todaysIndex]); //First check if any trigger of today should be active
+
+                if (currentTrigger == null) //We need to look in previous days for the trigger that should be active
                 {
-                    currentTrigger = GetCurrentTimeTriggerForProgram(now, dateOfProgram, Programs[dayIndex]);
+                    var dayIndex = todaysIndex == 0 ? 6 : todaysIndex - 1;
+                    var dateOfProgram = now.AddDays(-1);
 
-                    dayIndex = dayIndex == 0 ? 6 : dayIndex - 1;
-                    dateOfProgram = dateOfProgram.AddDays(-1);
+                    while (currentTrigger == null)
+                    {
+                        currentTrigger = GetCurrentTimeTriggerForProgram(now, dateOfProgram, Programs[dayIndex]);
+
+                        dayIndex = dayIndex == 0 ? 6 : dayIndex - 1;
+                        dateOfProgram = dateOfProgram.AddDays(-1);
+                    }
                 }
-            }
 
-            return currentTrigger;
+                return currentTrigger;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         private TimeTrigger GetCurrentTimeTriggerForProgram(DateTime now, DateTime dateOfProgram, Program program)
