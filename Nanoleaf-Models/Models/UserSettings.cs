@@ -106,11 +106,15 @@ namespace Nanoleaf_Models.Models
             SaveSettings();
         }
 
-        public void AddSchedule(Schedule schedule)
+        public void AddSchedule(Schedule schedule, bool makeActive)
         {
             var device = ActviceDevice;
-            device.Schedules.ForEach(s => s.Active = false);
-            schedule.Active = true;
+
+            if (makeActive)
+            {
+                device.Schedules.ForEach(s => s.Active = false);
+                schedule.Active = true;
+            }
 
             device.Schedules.Add(schedule);
             device.Schedules = device.Schedules.OrderBy(s => s.Name).ToList();

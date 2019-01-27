@@ -1,6 +1,7 @@
 ﻿using Nanoleaf_Models.Enums;
 using Nanoleaf_Models.Models.Scheduling;
 using Nanoleaf_wpf.Views.MainWindows;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Windows;
 
@@ -16,18 +17,23 @@ namespace Nanoleaf_wpf.Views.Scheduling
 
         public Schedule Schedule { get; set; }
 
+        private Schedule _originalSchedule;
+
         public ManageScheduleWindow(MainWindow parent, WorkMode workMode, Schedule schedule = null)
         {
             _parent = parent;
             _workMode = workMode;
 
-            if (schedule == null)
+            if (_workMode == WorkMode.Add)
             {
                 Schedule = new Schedule(true);
             }
             else
             {
-                Schedule = schedule;
+                _originalSchedule = schedule;
+
+                var serialized = JsonConvert.SerializeObject(schedule); //Deep copy the schedule when editing
+                Schedule = JsonConvert.DeserializeObject<Schedule>(serialized);
             }
 
             DataContext = Schedule;
@@ -61,7 +67,7 @@ namespace Nanoleaf_wpf.Views.Scheduling
             }
             else
             {
-                _parent.UpdatedSchedule();
+                _parent.UpdatedSchedule(_originalSchedule, Schedule);
             }
 
             Close();

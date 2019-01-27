@@ -37,16 +37,17 @@ namespace Nanoleaf_wpf.Views.MainWindows
 
         public void AddedSchedule(Schedule schedule)
         {
-            UserSettings.Settings.AddSchedule(schedule);
+            UserSettings.Settings.AddSchedule(schedule, true);
 
             ScheduleTimer.Timer.FireTimer(); //Fire the timer to immediately update the schedule
 
             BuildScheduleList();
         }
 
-        public void UpdatedSchedule()
+        public void UpdatedSchedule(Schedule originalSchedule, Schedule newSchedule)
         {
-            UserSettings.Settings.SaveSettings();
+            UserSettings.Settings.DeleteSchedule(originalSchedule);
+            UserSettings.Settings.AddSchedule(newSchedule, false);
 
             ScheduleTimer.Timer.FireTimer(); //Fire the timer to immediately update the schedule
 
