@@ -1,5 +1,5 @@
-﻿using Nanoleaf_Models.Enums;
-using Nanoleaf_Models.Models.Scheduling.Triggers;
+﻿using Nanoleaf_Models.Models.Scheduling.Triggers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,7 +17,16 @@ namespace Nanoleaf_Models.Models.Scheduling
         public void AddTrigger(TimeTrigger trigger)
         {
             Triggers.Add(trigger);
-            Triggers = Triggers.OrderBy(t => t.Hours).ThenBy(t => t.Minutes).ToList();
+            ReorderTriggers();
+        }
+
+        /// <summary>
+        /// Returns the TimeTrigger that should be active at this moment
+        /// </summary>
+        public void ReorderTriggers()
+        {
+            var now = DateTime.Now;
+            Triggers = Triggers.OrderBy(t => t.GetActualDateTime(now)).ToList();
         }
     }
 }

@@ -32,28 +32,6 @@ namespace Nanoleaf_Models.Models.Scheduling.Triggers
             }
         }
 
-        /// <summary>
-        /// Returns the actual trigger hour, with the extra hours and minutes taken into account
-        /// </summary>
-        public int ActualHours
-        {
-            get
-            {
-                return GetActualDateTime().Hour;
-            }
-        }
-
-        /// <summary>
-        /// Returns the actual trigger minute, with the extra hours and minutes taken into account
-        /// </summary>
-        public int ActualMinutes
-        {
-            get
-            {
-                return GetActualDateTime().Minute;
-            }
-        }
-
         public string GetDescription()
         {
             return Effect;
@@ -67,9 +45,9 @@ namespace Nanoleaf_Models.Models.Scheduling.Triggers
         /// <summary>
         /// Returns a date time object for the actual time of this trigger
         /// </summary>
-        private DateTime GetActualDateTime()
+        public DateTime GetActualDateTime(DateTime dateOfProgram)
         {
-            var date = new DateTime(2018, 1, 1, Hours, Minutes, 0);
+            var date = new DateTime(dateOfProgram.Year, dateOfProgram.Month, dateOfProgram.Day, Hours, Minutes, 0);
 
             if (BeforeAfter == BeforeAfter.After)
             {
