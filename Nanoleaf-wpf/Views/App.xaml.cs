@@ -3,6 +3,7 @@ using Nanoleaf_Api.Timers;
 using Nanoleaf_Models.Models;
 using Nanoleaf_wpf.Views.MainWindows;
 using Nanoleaf_wpf.Views.Setup;
+using NLog;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -13,6 +14,8 @@ namespace Nanoleaf_wpf
     /// </summary>
     public partial class App : Application
     {
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
+
         void App_Startup(object sender, StartupEventArgs e)
         {
             if (!UserSettings.HasSettings())
@@ -86,6 +89,11 @@ namespace Nanoleaf_wpf
                     await client.StateEndpoint.SetStateWithStateCheck(false);
                 }
             }
+        }
+
+        private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            _logger.Fatal("Unhandled exception occurred", e);
         }
     }
 }

@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 using Newtonsoft.Json;
-
+using NLog;
 using RestSharp;
 
 namespace Nanoleaf_Api.Endpoints
@@ -15,6 +12,8 @@ namespace Nanoleaf_Api.Endpoints
     /// </summary>
     public abstract class NanoleafEndpoint
     {
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
+
         protected NanoleafClient Client { get; set; }
 
         /// <summary>
@@ -46,6 +45,8 @@ namespace Nanoleaf_Api.Endpoints
             {
                 request.AddJsonBody(body);
             }
+
+            _logger.Info($"Sending following request: Address: {Client._baseUri}, URL: {request.Resource}, Method: {method.ToString()}, Body: {(body != null ? body.ToString() : "")}");
 
             var response = await restClient.ExecuteTaskAsync(request).ConfigureAwait(false);
 

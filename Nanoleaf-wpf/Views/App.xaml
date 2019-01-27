@@ -5,7 +5,8 @@
              xmlns:tb="http://www.hardcodet.net/taskbar"
              Startup="App_Startup"
              Exit="Application_Exit"
-             SessionEnding="Application_SessionEnding">
+             SessionEnding="Application_SessionEnding"
+             DispatcherUnhandledException="Application_DispatcherUnhandledException">
     <Application.Resources>
         <SolidColorBrush x:Key="NanoleafBlack" Color="#2D2F30"/>
         <SolidColorBrush x:Key="NanoleafGreen" Color="#3FAE29"/>

@@ -1,5 +1,6 @@
 ﻿using Nanoleaf_Models.Models;
 using Nanoleaf_Models.Models.Effects;
+using NLog;
 using System;
 using System.Threading.Tasks;
 using System.Timers;
@@ -8,6 +9,8 @@ namespace Nanoleaf_Api.Timers
 {
     public class TimeTriggerTimer
     {
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
+
         public static TimeTriggerTimer Timer { get; set; }
 
         private Timer _timer;
@@ -88,9 +91,9 @@ namespace Nanoleaf_Api.Timers
                             }
 
                         }
-                        catch
+                        catch (Exception e)
                         {
-                            //TODO: exception handling
+                            _logger.Error(e, $"Time trigger failed for device {device.Name} with trigger effect {activeTrigger.Effect}");
                         }
                     }
                 }
