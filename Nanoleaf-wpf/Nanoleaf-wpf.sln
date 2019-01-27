@@ -8,7 +8,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nanoleaf-Api", "..\Nanoleaf-Api\Nanoleaf-Api.csproj", "{FDDFE2AD-81E1-432C-8173-7A8C89BF20F0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nanoleaf-Api-Test", "..\Nanoleaf-Api-Test\Nanoleaf-Api-Test.csproj", "{B680085F-F093-4257-BC9B-46B5FA1B0A54}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nanoleaf-Models", "..\Nanoleaf-Models\Nanoleaf-Models.csproj", "{D47A3540-3E21-4F5B-8B57-A9F9EA31426E}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup-x86", "..\Setup\Setup.vdproj", "{356B3E30-C14B-4DCE-9844-AF4965EABDCC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +35,8 @@ Global
 		{D47A3540-3E21-4F5B-8B57-A9F9EA31426E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D47A3540-3E21-4F5B-8B57-A9F9EA31426E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D47A3540-3E21-4F5B-8B57-A9F9EA31426E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{356B3E30-C14B-4DCE-9844-AF4965EABDCC}.Debug|Any CPU.ActiveCfg = Debug
+		{356B3E30-C14B-4DCE-9844-AF4965EABDCC}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
