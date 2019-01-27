@@ -1,4 +1,5 @@
-﻿using Nanoleaf_Models.Models.Effects;
+﻿using Nanoleaf_Models.Enums;
+using Nanoleaf_Models.Models.Effects;
 using Nanoleaf_Models.Models.Scheduling;
 using Newtonsoft.Json;
 using System;
@@ -18,6 +19,11 @@ namespace Nanoleaf_Models.Models
         /// Determines which of the devices is currently active and being edited in the GUI
         /// </summary>
         public bool ActiveInGUI { get; set; }
+
+        /// <summary>
+        /// OperationMode is Schedule by default but user can override it to Manual
+        /// </summary>
+        public OperationMode OperationMode { get; set; }
 
         public List<Schedule> Schedules { get; set; }
         public List<Effect> Effects { get; set; }

@@ -4,6 +4,7 @@ using System;
 using Nanoleaf_Models.Models.Scheduling;
 using Newtonsoft.Json;
 using System.Linq;
+using Nanoleaf_Models.Enums;
 
 namespace Nanoleaf_Models.Models
 {
@@ -75,9 +76,9 @@ namespace Nanoleaf_Models.Models
 
                     _settings = userSettings;
                 }
-                catch
+                catch (Exception e)
                 {
-                    throw new SettingsFileJsonException();
+                    throw new SettingsFileJsonException(e);
                 }
             }
         }
@@ -146,12 +147,12 @@ namespace Nanoleaf_Models.Models
                     {
                         foreach (var trigger in program.Triggers)
                         {
-                            if (trigger.TriggerType == Enums.TriggerType.Sunrise)
+                            if (trigger.TriggerType == TriggerType.Sunrise)
                             {
                                 trigger.Hours = sunriseHour;
                                 trigger.Minutes = sunriseMinute;
                             }
-                            else if (trigger.TriggerType == Enums.TriggerType.Sunset)
+                            else if (trigger.TriggerType == TriggerType.Sunset)
                             {
                                 trigger.Hours = sunsetHour;
                                 trigger.Minutes = sunsetMinute;
@@ -163,11 +164,22 @@ namespace Nanoleaf_Models.Models
             
             SaveSettings();
         }
+
+        /// <summary>
+        /// Resets all operation modes of all device to Schedule, used at application startup (then users can switch to manual during runtime)
+        /// </summary>
+        public void ResetOperationModes()
+        {
+            foreach (var device in Devices)
+            {
+                device.OperationMode = OperationMode.Schedule;
+            }
+        }
     }
 
     public class SettingsFileJsonException : Exception
     {
-        public SettingsFileJsonException() : base("Error loading settings, corrupt JSON")
+        public SettingsFileJsonException(Exception e) : base("Error loading settings, corrupt JSON", e)
         {
 
         }

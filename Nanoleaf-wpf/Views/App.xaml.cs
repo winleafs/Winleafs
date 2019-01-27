@@ -41,12 +41,20 @@ namespace Nanoleaf_wpf
             {
                 UserSettings.LoadSettings();
             }
-            catch (SettingsFileJsonException)
+            catch (SettingsFileJsonException ex)
             {
-                //TODO: handle
+                _logger.Fatal("Corrupt settings file found", ex);
+
+                //TODO: add message box to show to user
+
+                return;
             }
 
+            UserSettings.Settings.ResetOperationModes();
+
             SunTimesUpdater.UpdateSunTimes();
+
+            ScheduleTimer.InitializeTimer();
 
             MainWindow mainWindow = new MainWindow();
 
@@ -54,8 +62,6 @@ namespace Nanoleaf_wpf
             {
                 mainWindow.Show();
             }
-
-            TimeTriggerTimer.InitializeTimer();
         }
 
         private void Quit_Click(object sender, RoutedEventArgs e)

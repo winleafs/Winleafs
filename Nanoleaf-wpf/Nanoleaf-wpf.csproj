@@ -83,6 +83,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ViewModels\OptionsViewModel.cs" />
+    <Compile Include="Views\MainWindows\OverrideScheduleUserControl.xaml.cs">
+      <DependentUpon>OverrideScheduleUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainWindows\ScheduleItemUserControl.xaml.cs">
       <DependentUpon>ScheduleItemUserControl.xaml</DependentUpon>
     </Compile>
@@ -129,6 +132,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\MainWindows\OverrideScheduleUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindows\ScheduleItemUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -39,7 +39,7 @@ namespace Nanoleaf_wpf.Views.MainWindows
         {
             UserSettings.Settings.AddSchedule(schedule);
 
-            TimeTriggerTimer.Timer.FireTimer(); //Fire the timer to immediately update the schedule
+            ScheduleTimer.Timer.FireTimer(); //Fire the timer to immediately update the schedule
 
             BuildScheduleList();
         }
@@ -48,7 +48,7 @@ namespace Nanoleaf_wpf.Views.MainWindows
         {
             UserSettings.Settings.SaveSettings();
 
-            TimeTriggerTimer.Timer.FireTimer(); //Fire the timer to immediately update the schedule
+            ScheduleTimer.Timer.FireTimer(); //Fire the timer to immediately update the schedule
 
             BuildScheduleList();
         }
@@ -73,7 +73,7 @@ namespace Nanoleaf_wpf.Views.MainWindows
         {
             UserSettings.Settings.DeleteSchedule(schedule);
 
-            TimeTriggerTimer.Timer.FireTimer(); //Fire the timer to immediately update the schedule
+            ScheduleTimer.Timer.FireTimer(); //Fire the timer to immediately update the schedule
 
             BuildScheduleList();
         }
@@ -88,7 +88,7 @@ namespace Nanoleaf_wpf.Views.MainWindows
         {
             UserSettings.Settings.ActivateSchedule(schedule);
 
-            TimeTriggerTimer.Timer.FireTimer(); //Fire the timer to immediately update the schedule
+            ScheduleTimer.Timer.FireTimer(); //Fire the timer to immediately update the schedule
 
             BuildScheduleList();
         }

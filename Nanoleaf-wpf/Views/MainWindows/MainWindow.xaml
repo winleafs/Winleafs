@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Nanoleaf_wpf"
+        xmlns:local="clr-namespace:Nanoleaf_wpf.Views.MainWindows"
         mc:Ignorable="d"
         Title="Winleafs" Height="450" Width="800"
         Closing="Window_Closing" >
@@ -19,6 +19,7 @@
         </Grid>
         <Grid>
             <Button Content="Options" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Options_Click"/>
+            <local:OverrideScheduleUserControl Margin="10,42,73,323" Height="55" Width="400"/>
         </Grid>
         
     </DockPanel>
