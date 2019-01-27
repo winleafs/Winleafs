@@ -1,6 +1,8 @@
 # Winleafs
 Windows application for Nanoleaf lights
 
+Installers can be found here: https://github.com/StijnOostdam/Nanoleaf-wpf/releases
+
 ## TODO
 - Figure out why Vibrant sunrise does not work
 - Add option to copy schedules to other days
