@@ -3,6 +3,7 @@ Windows application for Nanoleaf lights
 
 ## TODO
 - Figure out why Vibrant sunrise does not work
+- Add option to copy schedules to other days
 
 ## Future features (in no particular order):
 - Support multiple devices
