@@ -7,6 +7,7 @@ Installers can be found here: https://github.com/StijnOostdam/Nanoleaf-wpf/relea
 - Figure out why Vibrant sunrise does not work
 - Add option to copy schedules to other days
 - Add check when adding time triggers to prevent adding triggers on the same time
+- Improve trigger user control to also show actual datetime next to sunrise/sunset
 
 ## Future features (in no particular order):
 - Support multiple devices
