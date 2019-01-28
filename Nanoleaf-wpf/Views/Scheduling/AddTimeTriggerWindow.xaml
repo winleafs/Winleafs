@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Winleafs Add trigger" Height="250" Width="240">
     <Grid Background="{StaticResource NanoleafBlack}">
-        <Label Content="{x:Static local:Resources.Trigger}:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
+        <Label Content="{x:Static local:Resources.Trigger}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
         <ComboBox HorizontalAlignment="Left" Margin="91,18,0,0" VerticalAlignment="Top" Width="120" SelectedItem="{Binding TriggerType}" ItemsSource="{Binding TriggerTypes}"/>
 
         <Button Content="{x:Static local:Resources.Cancel}" HorizontalAlignment="Left" Margin="10,184,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Cancel_Click"/>
