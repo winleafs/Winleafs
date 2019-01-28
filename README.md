@@ -20,3 +20,4 @@ Installers can be found here: https://github.com/StijnOostdam/Nanoleaf-wpf/relea
 - Add identify call to setup window
 - Show effects as they are shown in the app
 - Support multiple languages
+- Upgrade to dotnet Core 3.0
