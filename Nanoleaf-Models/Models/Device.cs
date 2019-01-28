@@ -1,6 +1,7 @@
 ﻿using Nanoleaf_Models.Enums;
 using Nanoleaf_Models.Models.Effects;
 using Nanoleaf_Models.Models.Scheduling;
+using Nanoleaf_Models.Models.Scheduling.Triggers;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -44,15 +45,11 @@ namespace Nanoleaf_Models.Models
             Effects = new List<Effect>();
         }
 
-        public Program GetTodaysProgram()
+        public TimeTrigger GetActiveTrigger()
         {
             if (Schedules.Any(s => s.Active))
             {
-                var dayOfWeek = DateTime.Now.DayOfWeek; //Sunday = 0
-
-                var index = dayOfWeek == DayOfWeek.Sunday ? 6 : (int)dayOfWeek - 1;
-
-                return Schedules.FirstOrDefault(s => s.Active).Programs[index];
+                return Schedules.FirstOrDefault(s => s.Active).GetActiveTrigger();
             }
             else //It is possible that a user deletes the active schedule, then there is no active program
             {

@@ -171,6 +171,8 @@ namespace Nanoleaf_Models.Models
                                 trigger.Minutes = sunsetMinute;
                             }
                         }
+
+                        program.ReorderTriggers(); // Puts all triggers of all programs in correct order, this is needed since the times of triggers can change due to sunrise and sunset times
                     }
                 }
             }
