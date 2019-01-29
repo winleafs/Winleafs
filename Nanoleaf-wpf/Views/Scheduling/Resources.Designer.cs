@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Nanoleaf_wpf.Views.Scheduling {
+namespace Winleafs.Wpf.Views.Scheduling {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Nanoleaf_wpf.Views.Scheduling {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Nanoleaf_wpf.Views.Scheduling.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Winleafs.Wpf.Views.Scheduling.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

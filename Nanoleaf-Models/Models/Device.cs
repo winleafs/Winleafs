@@ -1,13 +1,14 @@
-﻿using Nanoleaf_Models.Enums;
-using Nanoleaf_Models.Models.Effects;
-using Nanoleaf_Models.Models.Scheduling;
-using Nanoleaf_Models.Models.Scheduling.Triggers;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Nanoleaf_Models.Models
+using Newtonsoft.Json;
+
+using Winleafs.Models.Enums;
+using Winleafs.Models.Models.Effects;
+using Winleafs.Models.Models.Scheduling;
+using Winleafs.Models.Models.Scheduling.Triggers;
+
+namespace Winleafs.Models.Models
 {
     public class Device
     {

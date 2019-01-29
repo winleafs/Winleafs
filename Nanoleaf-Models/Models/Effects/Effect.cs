@@ -2,7 +2,7 @@
 
 using Newtonsoft.Json;
 
-namespace Nanoleaf_Models.Models.Effects
+namespace Winleafs.Models.Models.Effects
 {
     public class Effect
     {

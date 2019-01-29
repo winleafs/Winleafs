@@ -1,9 +1,8 @@
-﻿<UserControl x:Class="Nanoleaf_wpf.Views.Scheduling.DayUserControl"
+﻿<UserControl x:Class="Winleafs.Wpf.Views.Scheduling.DayUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Nanoleaf_wpf.Views.Scheduling"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
              Width="200" Height="Auto">
     <Grid>

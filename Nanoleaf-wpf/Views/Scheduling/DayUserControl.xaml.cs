@@ -1,11 +1,11 @@
-﻿using Nanoleaf_Models.Enums;
-using Nanoleaf_Models.Models;
-using Nanoleaf_Models.Models.Scheduling;
-using Nanoleaf_Models.Models.Scheduling.Triggers;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace Nanoleaf_wpf.Views.Scheduling
+using Winleafs.Models.Models;
+using Winleafs.Models.Models.Scheduling;
+using Winleafs.Models.Models.Scheduling.Triggers;
+
+namespace Winleafs.Wpf.Views.Scheduling
 {
     /// <summary>
     /// Interaction logic for DayUserControl.xaml

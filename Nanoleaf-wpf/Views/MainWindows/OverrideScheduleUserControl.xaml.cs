@@ -1,16 +1,19 @@
-﻿using Nanoleaf_Api;
-using Nanoleaf_Api.Timers;
-using Nanoleaf_Models.Enums;
-using Nanoleaf_Models.Models;
-using Nanoleaf_Models.Models.Effects;
-using NLog;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Nanoleaf_wpf.Views.MainWindows
+using Winleafs.Api;
+using Winleafs.Api.Timers;
+
+using Winleafs.Models.Enums;
+using Winleafs.Models.Models;
+using Winleafs.Models.Models.Effects;
+
+using NLog;
+
+namespace Winleafs.Wpf.Views.MainWindows
 {
     /// <summary>
     /// Interaction logic for OverrideScheduleUserControl.xaml
@@ -40,7 +43,7 @@ namespace Nanoleaf_wpf.Views.MainWindows
             InitializeComponent();
 
             Effects = new List<Effect>(UserSettings.Settings.ActviceDevice.Effects);
-            Effects.Insert(0, new Effect { Name = Nanoleaf_Models.Models.Effects.Effect.OFFEFFECTNAME });
+            Effects.Insert(0, new Effect { Name = Winleafs.Models.Models.Effects.Effect.OFFEFFECTNAME });
 
             DataContext = this;
 
@@ -49,7 +52,7 @@ namespace Nanoleaf_wpf.Views.MainWindows
 
         private void Override_Click(object sender, RoutedEventArgs e)
         {
-            Task.Run(() => Override());            
+            Task.Run(() => Override());
         }
 
         private void StopOverride_Click(object sender, RoutedEventArgs e)
@@ -70,7 +73,7 @@ namespace Nanoleaf_wpf.Views.MainWindows
                 {
                     var client = NanoleafClient.GetClientForDevice(UserSettings.Settings.ActviceDevice);
 
-                    if (SelectedEffect == Nanoleaf_Models.Models.Effects.Effect.OFFEFFECTNAME)
+                    if (SelectedEffect == Models.Models.Effects.Effect.OFFEFFECTNAME)
                     {
                         await client.StateEndpoint.SetStateWithStateCheck(false);
                     }
@@ -88,7 +91,7 @@ namespace Nanoleaf_wpf.Views.MainWindows
                     _logger.Error(e, "Error during overriding schedule");
                     MessageBox.Show("An unexpected error occurred during overriding.");
                 }
-            }            
+            }
         }
     }
 }

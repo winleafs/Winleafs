@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Nanoleaf_wpf.Views.MainWindows {
+namespace Winleafs.Wpf.Views.MainWindows {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Nanoleaf_wpf.Views.MainWindows {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Nanoleaf_wpf.Views.MainWindows.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Winleafs.Wpf.Views.MainWindows.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

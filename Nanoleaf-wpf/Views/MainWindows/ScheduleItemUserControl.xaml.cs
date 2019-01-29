@@ -1,9 +1,9 @@
-﻿using Nanoleaf_Models.Models.Scheduling;
-using System;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace Nanoleaf_wpf.Views.MainWindows
+using Winleafs.Models.Models.Scheduling;
+
+namespace Winleafs.Wpf.Views.MainWindows
 {
     /// <summary>
     /// Interaction logic for ScheduleItemUserControl.xaml

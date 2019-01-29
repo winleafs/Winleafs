@@ -1,7 +1,8 @@
-﻿using Nanoleaf_Models.Enums;
-using System;
+﻿using System;
 
-namespace Nanoleaf_Models.Models.Scheduling.Triggers
+using Winleafs.Models.Enums;
+
+namespace Winleafs.Models.Models.Scheduling.Triggers
 {
     public class TimeTrigger : ITrigger
     {

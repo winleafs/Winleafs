@@ -1,8 +1,4 @@
-﻿using Nanoleaf_Models.Enums;
-using Nanoleaf_Models.Models;
-using Nanoleaf_Models.Models.Effects;
-using Nanoleaf_Models.Models.Scheduling.Triggers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -10,7 +6,12 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 
-namespace Nanoleaf_wpf.Views.Scheduling
+using Winleafs.Models.Enums;
+using Winleafs.Models.Models;
+using Winleafs.Models.Models.Effects;
+using Winleafs.Models.Models.Scheduling.Triggers;
+
+namespace Winleafs.Wpf.Views.Scheduling
 {
     /// <summary>
     /// Interaction logic for AddTriggerWindow.xaml
@@ -20,7 +21,7 @@ namespace Nanoleaf_wpf.Views.Scheduling
         private DayUserControl _parent;
 
         private TriggerType _triggerType { get; set; }
-        
+
         private int _brightness { get; set; }
 
         public string SelectedEffect { get; set; }
@@ -60,7 +61,7 @@ namespace Nanoleaf_wpf.Views.Scheduling
         {
             _parent = parent;
             Effects = new List<Effect>(UserSettings.Settings.ActviceDevice.Effects);
-            Effects.Insert(0, new Effect { Name = Nanoleaf_Models.Models.Effects.Effect.OFFEFFECTNAME });
+            Effects.Insert(0, new Effect { Name = Models.Models.Effects.Effect.OFFEFFECTNAME });
 
             DataContext = this;
 
@@ -152,10 +153,10 @@ namespace Nanoleaf_wpf.Views.Scheduling
                     ExtraMinutes = 0,
                     Hours = hours,
                     Minutes = minutes
-                });                
+                });
             }
 
-            
+
             Close();
         }
 

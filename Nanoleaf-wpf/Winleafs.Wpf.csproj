@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{2BF6B8F3-55BD-4090-9945-1EC5D8D817CF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Nanoleaf_wpf</RootNamespace>
-    <AssemblyName>Nanoleaf-wpf</AssemblyName>
+    <RootNamespace>Winleafs.Wpf</RootNamespace>
+    <AssemblyName>Winleafs.Wpf</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -276,13 +276,13 @@
     <Resource Include="Icons\Instructions.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Nanoleaf-Api\Nanoleaf-Api.csproj">
+    <ProjectReference Include="..\Nanoleaf-Api\Winleafs.Api.csproj">
       <Project>{FDDFE2AD-81E1-432C-8173-7A8C89BF20F0}</Project>
-      <Name>Nanoleaf-Api</Name>
+      <Name>Winleafs.Api</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Nanoleaf-Models\Nanoleaf-Models.csproj">
+    <ProjectReference Include="..\Nanoleaf-Models\Winleafs.Models.csproj">
       <Project>{D47A3540-3E21-4F5B-8B57-A9F9EA31426E}</Project>
-      <Name>Nanoleaf-Models</Name>
+      <Name>Winleafs.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

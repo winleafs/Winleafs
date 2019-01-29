@@ -1,10 +1,12 @@
-﻿using Nanoleaf_Api.Endpoints;
-using Nanoleaf_Models.Models;
-using Polly;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 
-namespace Nanoleaf_Api.Timers
+using Polly;
+
+using Winleafs.Api.Endpoints;
+using Winleafs.Models.Models;
+
+namespace Winleafs.Api.Timers
 {
     public class SunTimesUpdater
     {

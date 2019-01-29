@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Nanoleaf_Models.Models.Effects;
 
-namespace Nanoleaf_Api.Endpoints.Interfaces
+using Winleafs.Models.Models.Effects;
+
+namespace Winleafs.Api.Endpoints.Interfaces
 {
     public interface IEffectsEndpoint
     {

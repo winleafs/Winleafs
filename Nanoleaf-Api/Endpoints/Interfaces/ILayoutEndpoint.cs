@@ -1,7 +1,8 @@
-﻿using Nanoleaf_Models.Models.Layouts;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-namespace Nanoleaf_Api.Endpoints.Interfaces
+using Winleafs.Models.Models.Layouts;
+
+namespace Winleafs.Api.Endpoints.Interfaces
 {
     public interface ILayoutEndpoint
     {

@@ -1,7 +1,8 @@
-﻿using Nanoleaf_Models.Models.State;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-namespace Nanoleaf_Api.Endpoints.Interfaces
+using Winleafs.Models.Models.State;
+
+namespace Winleafs.Api.Endpoints.Interfaces
 {
     public interface IStateEndpoint
     {

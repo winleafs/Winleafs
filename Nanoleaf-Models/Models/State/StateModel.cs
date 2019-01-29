@@ -1,7 +1,7 @@
 ﻿
 using Newtonsoft.Json;
 
-namespace Nanoleaf_Models.Models.State
+namespace Winleafs.Models.Models.State
 {
     public class StateModel
     {

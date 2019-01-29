@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-using Nanoleaf_Models.Models.Sunset;
+using Winleafs.Models.Models.Sunset;
 
-namespace Nanoleaf_Api.Endpoints.Interfaces
+namespace Winleafs.Api.Endpoints.Interfaces
 {
     public interface ISunsetEndpoint
     {

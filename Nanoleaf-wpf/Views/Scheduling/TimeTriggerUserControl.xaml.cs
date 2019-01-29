@@ -1,7 +1,8 @@
-﻿using Nanoleaf_Models.Models.Scheduling.Triggers;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
-namespace Nanoleaf_wpf.Views.Scheduling
+using Winleafs.Models.Models.Scheduling.Triggers;
+
+namespace Winleafs.Wpf.Views.Scheduling
 {
     /// <summary>
     /// Interaction logic for TriggerUserControl.xaml

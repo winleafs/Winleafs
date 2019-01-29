@@ -1,10 +1,12 @@
-﻿using System;
-using System.Threading.Tasks;
-using Nanoleaf_Api.Endpoints.Interfaces;
+﻿using System.Threading.Tasks;
+
 using Newtonsoft.Json.Linq;
+
 using RestSharp;
 
-namespace Nanoleaf_Api.Endpoints
+using Winleafs.Api.Endpoints.Interfaces;
+
+namespace Winleafs.Api.Endpoints
 {
     public class AuthorizationEndpoint : NanoleafEndpoint, IAuthorizationEndpoint
     {

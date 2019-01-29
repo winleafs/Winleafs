@@ -1,8 +1,9 @@
-﻿using Nanoleaf_Models.Models.Scheduling.Triggers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace Nanoleaf_Models.Models.Scheduling
+using Winleafs.Models.Models.Scheduling.Triggers;
+
+namespace Winleafs.Models.Models.Scheduling
 {
     public class Schedule
     {

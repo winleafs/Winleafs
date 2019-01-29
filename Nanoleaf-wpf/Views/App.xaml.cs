@@ -1,13 +1,17 @@
-﻿using Nanoleaf_Api;
-using Nanoleaf_Api.Timers;
-using Nanoleaf_Models.Models;
-using Nanoleaf_wpf.Views.MainWindows;
-using Nanoleaf_wpf.Views.Setup;
-using NLog;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows;
 
-namespace Nanoleaf_wpf
+using Winleafs.Api;
+using Winleafs.Api.Timers;
+
+using Winleafs.Models.Models;
+
+using NLog;
+
+using Winleafs.Wpf.Views.MainWindows;
+using Winleafs.Wpf.Views.Setup;
+
+namespace Winleafs.Wpf.Views
 {
     /// <summary>
     /// Interaction logic for App.xaml

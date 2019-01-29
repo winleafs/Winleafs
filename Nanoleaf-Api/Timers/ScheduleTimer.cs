@@ -1,12 +1,14 @@
-﻿using Nanoleaf_Models.Enums;
-using Nanoleaf_Models.Models;
-using Nanoleaf_Models.Models.Effects;
-using NLog;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using System.Timers;
 
-namespace Nanoleaf_Api.Timers
+using NLog;
+
+using Winleafs.Models.Enums;
+using Winleafs.Models.Models;
+using Winleafs.Models.Models.Effects;
+
+namespace Winleafs.Api.Timers
 {
     public class ScheduleTimer
     {
