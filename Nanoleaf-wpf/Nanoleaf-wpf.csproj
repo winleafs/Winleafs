@@ -86,11 +86,21 @@
     <Compile Include="Views\MainWindows\OverrideScheduleUserControl.xaml.cs">
       <DependentUpon>OverrideScheduleUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\MainWindows\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainWindows\ScheduleItemUserControl.xaml.cs">
       <DependentUpon>ScheduleItemUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Options\OptionsWindow.xaml.cs">
       <DependentUpon>OptionsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Options\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Views\Scheduling\AddTimeTriggerWindow.xaml.cs">
       <DependentUpon>AddTimeTriggerWindow.xaml</DependentUpon>
@@ -104,6 +114,11 @@
     <Compile Include="Views\Scheduling\ManageScheduleWindow.xaml.cs">
       <DependentUpon>ManageScheduleWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Scheduling\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Scheduling\TimeTriggerUserControl.xaml.cs">
       <DependentUpon>TimeTriggerUserControl.xaml</DependentUpon>
     </Compile>
@@ -115,6 +130,11 @@
     </Compile>
     <Compile Include="Views\Setup\NameDeviceControl.xaml.cs">
       <DependentUpon>NameDeviceControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Setup\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Views\Setup\SetupWindow.xaml.cs">
       <DependentUpon>SetupWindow.xaml</DependentUpon>
@@ -202,6 +222,22 @@
     <Content Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Views\MainWindows\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Options\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Scheduling\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Setup\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

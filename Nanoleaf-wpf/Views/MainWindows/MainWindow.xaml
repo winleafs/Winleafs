@@ -9,7 +9,7 @@
         Closing="Window_Closing" >
     <DockPanel Background="{StaticResource NanoleafBlack}">
         <Grid DockPanel.Dock="Left">
-            <Label Content="Schedules" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
+            <Label Content="{x:Static local:Resources.Schedules}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
             <Button  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="35" Height="35" Background="{x:Null}" BorderBrush="{x:Null}" Click="AddSchedule_Click" Margin="275,11,0,0">
                 <Image Source="../../Icons/appbar.add.png"/>
             </Button>
@@ -18,8 +18,8 @@
             </StackPanel>
         </Grid>
         <Grid>
-            <Button Content="Options" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Options_Click"/>
-            <Button Content="Reset all settings" HorizontalAlignment="Left" Margin="367,384,0,0" VerticalAlignment="Top" Width="106" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Reset_Click"/>
+            <Button Content="{x:Static local:Resources.Options}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Options_Click"/>
+            <Button Content="{x:Static local:Resources.ResetAllSettings}" HorizontalAlignment="Left" Margin="367,384,0,0" VerticalAlignment="Top" Width="106" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Reset_Click"/>
             <local:OverrideScheduleUserControl Margin="10,42,73,323" Height="55" Width="400"/>
         </Grid>
 
