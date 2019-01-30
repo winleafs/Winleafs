@@ -1,7 +1,7 @@
 # Winleafs
 Windows application for Nanoleaf lights
 
-Installers can be found here: https://github.com/StijnOostdam/Nanoleaf-wpf/releases
+Installers can be found here: https://github.com/StijnOostdam/Winleafs/releases
 
 ## TODO
 - Figure out why Vibrant sunrise does not work
