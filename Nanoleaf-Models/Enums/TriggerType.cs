@@ -1,4 +1,4 @@
-﻿namespace Nanoleaf_Models.Enums
+﻿namespace Winleafs.Models.Enums
 {
     public enum TriggerType
     {

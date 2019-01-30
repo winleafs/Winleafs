@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-using Nanoleaf_Api;
-using Nanoleaf_Api.Endpoints;
-
-namespace Nanoleaf_Api_Test
+namespace Winleafs.Api.Test
 {
     class Program
     {

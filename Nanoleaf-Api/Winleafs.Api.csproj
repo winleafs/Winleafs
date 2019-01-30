@@ -2,7 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>Nanoleaf_Api</RootNamespace>
+    <RootNamespace>Winleafs.Api</RootNamespace>
+    <AssemblyName>Winleafs.Api</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,11 +14,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Nanoleaf-Models\Nanoleaf-Models.csproj" />
+    <Folder Include="Events\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Events\" />
+    <ProjectReference Include="..\Nanoleaf-Models\Winleafs.Models.csproj" />
   </ItemGroup>
 
 </Project>

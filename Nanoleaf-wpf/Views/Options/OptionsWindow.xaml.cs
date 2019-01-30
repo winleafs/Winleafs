@@ -1,13 +1,17 @@
-﻿using Microsoft.Win32;
-using Nanoleaf_Api.Endpoints;
-using Nanoleaf_Models.Models;
-using Nanoleaf_wpf.ViewModels;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Security.AccessControl;
 using System.Windows;
 
-namespace Nanoleaf_wpf.Views.Options
+using Microsoft.Win32;
+
+using Winleafs.Api.Endpoints;
+
+using Winleafs.Models.Models;
+
+using Winleafs.Wpf.ViewModels;
+
+namespace Winleafs.Wpf.Views.Options
 {
     /// <summary>
     /// Interaction logic for OptionsWindow.xaml

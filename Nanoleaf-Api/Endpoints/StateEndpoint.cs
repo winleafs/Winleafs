@@ -1,12 +1,12 @@
-﻿using Nanoleaf_Api.Endpoints.Interfaces;
-using Nanoleaf_Models.Models.State;
-using RestSharp;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 using System.Threading.Tasks;
 
-namespace Nanoleaf_Api.Endpoints
+using RestSharp;
+
+using Winleafs.Api.Endpoints.Interfaces;
+using Winleafs.Models.Models.State;
+
+namespace Winleafs.Api.Endpoints
 {
     public class StateEndpoint : NanoleafEndpoint, IStateEndpoint
     {

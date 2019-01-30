@@ -1,16 +1,20 @@
-﻿using Hardcodet.Wpf.TaskbarNotification;
-using Nanoleaf_Api.Timers;
-using Nanoleaf_Models.Enums;
-using Nanoleaf_Models.Models;
-using Nanoleaf_Models.Models.Scheduling;
-using Nanoleaf_wpf.Views.Options;
-using Nanoleaf_wpf.Views.Scheduling;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 
-namespace Nanoleaf_wpf.Views.MainWindows
+using Hardcodet.Wpf.TaskbarNotification;
+
+using Winleafs.Api.Timers;
+
+using Winleafs.Models.Enums;
+using Winleafs.Models.Models;
+using Winleafs.Models.Models.Scheduling;
+
+using Winleafs.Wpf.Views.Options;
+using Winleafs.Wpf.Views.Scheduling;
+
+namespace Winleafs.Wpf.Views.MainWindows
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

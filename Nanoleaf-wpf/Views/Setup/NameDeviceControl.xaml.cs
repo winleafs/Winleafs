@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace Nanoleaf_wpf.Views.Setup
+namespace Winleafs.Wpf.Views.Setup
 {
     /// <summary>
     /// Interaction logic for NameDeviceControl.xaml

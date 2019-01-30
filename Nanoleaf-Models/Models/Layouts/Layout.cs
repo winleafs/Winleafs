@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 using Newtonsoft.Json;
 
-namespace Nanoleaf_Models.Models.Layouts
+namespace Winleafs.Models.Models.Layouts
 {
     public class Layout
     {

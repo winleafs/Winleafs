@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Nanoleaf_Api.Endpoints;
-using Nanoleaf_Api.Endpoints.Interfaces;
-using Nanoleaf_Models.Models;
+using Winleafs.Api.Endpoints;
+using Winleafs.Api.Endpoints.Interfaces;
+using Winleafs.Models.Models;
 
-namespace Nanoleaf_Api
+namespace Winleafs.Api
 {
     public interface INanoleafClient
     {

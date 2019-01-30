@@ -1,6 +1,6 @@
-﻿using Nanoleaf_Models.Enums;
+﻿using Winleafs.Models.Enums;
 
-namespace Nanoleaf_Models.Models.Scheduling.Triggers
+namespace Winleafs.Models.Models.Scheduling.Triggers
 {
     /// <summary>
     /// Trigger interface, all trigger should implement these methods

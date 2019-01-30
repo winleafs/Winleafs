@@ -1,12 +1,14 @@
-﻿using System.IO;
+﻿using System;
 using System.Collections.Generic;
-using System;
-using Nanoleaf_Models.Models.Scheduling;
-using Newtonsoft.Json;
+using System.IO;
 using System.Linq;
-using Nanoleaf_Models.Enums;
 
-namespace Nanoleaf_Models.Models
+using Newtonsoft.Json;
+
+using Winleafs.Models.Enums;
+using Winleafs.Models.Models.Scheduling;
+
+namespace Winleafs.Models.Models
 {
     public class UserSettings
     {

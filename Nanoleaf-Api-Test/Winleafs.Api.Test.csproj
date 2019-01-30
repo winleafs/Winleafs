@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B680085F-F093-4257-BC9B-46B5FA1B0A54}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Nanoleaf_Api_Test</RootNamespace>
-    <AssemblyName>Nanoleaf-Api-Test</AssemblyName>
+    <RootNamespace>Winleafs.Api.Test</RootNamespace>
+    <AssemblyName>Winleafs.Api.Test</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -58,13 +58,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Nanoleaf-Api\Nanoleaf-Api.csproj">
+    <ProjectReference Include="..\Nanoleaf-Api\Winleafs.Api.csproj">
       <Project>{fddfe2ad-81e1-432c-8173-7a8c89bf20f0}</Project>
-      <Name>Nanoleaf-Api</Name>
+      <Name>Winleafs.Api</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Nanoleaf-Models\Nanoleaf-Models.csproj">
+    <ProjectReference Include="..\Nanoleaf-Models\Winleafs.Models.csproj">
       <Project>{D47A3540-3E21-4F5B-8B57-A9F9EA31426E}</Project>
-      <Name>Nanoleaf-Models</Name>
+      <Name>Winleafs.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

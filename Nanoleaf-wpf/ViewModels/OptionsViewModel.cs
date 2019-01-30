@@ -1,4 +1,4 @@
-﻿namespace Nanoleaf_wpf.ViewModels
+﻿namespace Winleafs.Wpf.ViewModels
 {
     public class OptionsViewModel
     {

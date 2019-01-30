@@ -1,14 +1,17 @@
-﻿using Nanoleaf_Api;
-using Nanoleaf_Models.Models;
-using Nanoleaf_wpf.ViewModels;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+
+using Winleafs.Api;
+
+using Winleafs.Models.Models;
+
 using Tmds.MDns;
 
-namespace Nanoleaf_wpf.Views.Setup
+using Winleafs.Wpf.ViewModels;
+
+namespace Winleafs.Wpf.Views.Setup
 {
     /// <summary>
     /// Interaction logic for Setup.xaml

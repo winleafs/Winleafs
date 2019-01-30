@@ -1,11 +1,14 @@
-﻿using Nanoleaf_Models.Enums;
-using Nanoleaf_Models.Models.Scheduling;
-using Nanoleaf_wpf.Views.MainWindows;
-using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows;
 
-namespace Nanoleaf_wpf.Views.Scheduling
+using Winleafs.Models.Enums;
+using Winleafs.Models.Models.Scheduling;
+
+using Newtonsoft.Json;
+
+using Winleafs.Wpf.Views.MainWindows;
+
+namespace Winleafs.Wpf.Views.Scheduling
 {
     /// <summary>
     /// Interaction logic for ManageScheduleWindow.xaml

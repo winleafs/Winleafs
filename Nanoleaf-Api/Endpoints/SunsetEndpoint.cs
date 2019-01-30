@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-
-using Nanoleaf_Api.Endpoints.Interfaces;
-
-using Nanoleaf_Models.Models.Sunset;
 
 using Newtonsoft.Json.Linq;
 
 using RestSharp;
 
-namespace Nanoleaf_Api.Endpoints
+using Winleafs.Api.Endpoints.Interfaces;
+using Winleafs.Models.Models.Sunset;
+
+namespace Winleafs.Api.Endpoints
 {
     public class SunsetEndpoint : ISunsetEndpoint
     {

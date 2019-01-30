@@ -1,7 +1,8 @@
-﻿using Nanoleaf_Models.Models;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 
-namespace Nanoleaf_wpf.ViewModels
+using Winleafs.Models.Models;
+
+namespace Winleafs.Wpf.ViewModels
 {
     public class SetupViewModel
     {

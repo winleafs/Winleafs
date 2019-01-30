@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Nanoleaf_wpf.Views.Options {
+namespace Winleafs.Wpf.Views.Options {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Nanoleaf_wpf.Views.Options {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Nanoleaf_wpf.Views.Options.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Winleafs.Wpf.Views.Options.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
