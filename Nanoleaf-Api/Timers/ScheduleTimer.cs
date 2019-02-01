@@ -22,7 +22,7 @@ namespace Winleafs.Api.Timers
         {
             // Create a timer with a one minute interval.
             _timer = new Timer(60000);
-            // Hook up the Elapsed event for the timer. 
+            // Hook up the Elapsed event for the timer.
             _timer.Elapsed += OnTimedEvent;
             _timer.AutoReset = true;
             _timer.Enabled = true;
@@ -59,7 +59,7 @@ namespace Winleafs.Api.Timers
                     if (activeTrigger == null)
                     {
                         //There are no triggers so the lights can be turned off if it is not off already
-                        await client.StateEndpoint.SetStateWithStateCheck(false);
+                        await client.StateEndpoint.SetStateWithStateCheckAsync(false);
                     }
                     else
                     {
@@ -67,13 +67,13 @@ namespace Winleafs.Api.Timers
                         {
                             if (activeTrigger.Effect.Equals(Effect.OFFEFFECTNAME))
                             {
-                                await client.StateEndpoint.SetStateWithStateCheck(false);
+                                await client.StateEndpoint.SetStateWithStateCheckAsync(false);
                             }
                             else
                             {
-                                await client.StateEndpoint.SetStateWithStateCheck(true); //Turn on device if it is not on
+                                await client.StateEndpoint.SetStateWithStateCheckAsync(true); //Turn on device if it is not on
                                 await client.EffectsEndpoint.SetSelectedEffectAsync(activeTrigger.Effect);
-                                await client.StateEndpoint.SetBrightness(activeTrigger.Brightness);
+                                await client.StateEndpoint.SetBrightnessAsync(activeTrigger.Brightness);
                             }
 
                         }

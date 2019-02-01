@@ -15,57 +15,112 @@ namespace Winleafs.Api.Endpoints
             Client = client;
         }
 
-        public Task<StateModel> GetBrightness()
+		public StateModel GetBrightness()
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<StateModel> GetBrightnessAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<string> GetColorMode()
+		public string GetColorMode()
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<string> GetColorModeAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<StateModel> GetColorTemperature()
+		public StateModel GetcolorTemperature()
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<StateModel> GetColorTemperatureAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<StateModel> GetHue()
+		public StateModel GetHue()
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<StateModel> GetHueAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<StateModel> GetSaturation()
+		public StateModel GetSaturation()
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<StateModel> GetSaturationAsync()
         {
             throw new NotImplementedException();
         }
 
-        public async Task<OnOffModel> GetState()
+		public OnOffModel GetState()
+		{
+			return GetStateAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+		}
+
+		public async Task<OnOffModel> GetStateAsync()
         {
             return await SendRequest<OnOffModel>("/state/on", Method.GET);
         }
 
-        public Task IncrementBrightness(int increment)
+		public void IncrementBrightness(int increment)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task IncrementBrightnessAsync(int increment)
         {
             throw new NotImplementedException();
         }
 
-        public Task IncrementColorTemperature(int increment)
+        public Task IncrementColorTemperatureAsync(int increment)
         {
             throw new NotImplementedException();
         }
 
-        public Task IncrementHue(int increment)
+		public void IncrementColorTemprature(int increment)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void IncrementHue(int increment)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task IncrementHueAsync(int increment)
         {
             throw new NotImplementedException();
         }
 
-        public Task IncrementSaturation(int increment)
+		public void IncrementSaturation(int increment)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task IncrementSaturationAsync(int increment)
         {
             throw new NotImplementedException();
         }
 
-        public Task SetBrightness(int value, int? duration = null)
+		public void SetBrightness(int value, int? duration = null)
+		{
+			SetBrightnessAsync(value, duration).ConfigureAwait(false).GetAwaiter().GetResult();
+		}
+
+		public Task SetBrightnessAsync(int value, int? duration = null)
         {
             if (duration.HasValue)
             {
@@ -74,36 +129,61 @@ namespace Winleafs.Api.Endpoints
             else
             {
                 return SendRequest("state", Method.PUT, body: "{\"brightness\": {\"value\":" + value.ToString() + "}}");
-            }            
+            }
         }
 
-        public Task SetColorTemperature(int value)
+		public void SetColorTemperature(int value)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task SetColorTemperatureAsync(int value)
         {
             throw new NotImplementedException();
         }
 
-        public Task SetHue(int value)
+		public void SetHue(int value)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task SetHueAsync(int value)
         {
             throw new NotImplementedException();
         }
 
-        public Task SetSaturation(int value)
+		public void SetSaturation(int value)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task SetSaturationAsync(int value)
         {
             throw new NotImplementedException();
         }
 
-        public Task SetState(bool state)
+		public void SetState(bool state)
+		{
+			SetStateAsync(state).ConfigureAwait(false).GetAwaiter().GetResult();
+		}
+
+		public Task SetStateAsync(bool state)
         {
             return SendRequest("state", Method.PUT, body: "{\"on\": {\"value\":" + state.ToString().ToLower() + "}}");
         }
 
-        public async Task SetStateWithStateCheck(bool state)
+		public void SetStateWithStateCheck(bool state)
+		{
+			SetStateWithStateCheckAsync(state).ConfigureAwait(false).GetAwaiter().GetResult();
+		}
+
+		public async Task SetStateWithStateCheckAsync(bool state)
         {
-            var currentState = (await GetState()).IsTurnedOn;
+            var currentState = (await GetStateAsync()).IsTurnedOn;
 
             if (currentState != state)
             {
-                await SetState(state);
+                await SetStateAsync(state);
             }
         }
     }

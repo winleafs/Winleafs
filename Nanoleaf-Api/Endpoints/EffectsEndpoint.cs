@@ -21,19 +21,40 @@ namespace Winleafs.Api.Endpoints
             return await SendRequest<List<string>>("/effects/effectsList", Method.GET);
         }
 
-        public Task<string> GetSelectedEffectAsync()
+		public IEnumerable<string> GetEffectsList()
+		{
+			return GetEffectsListAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+		}
+
+		public Task<string> GetSelectedEffectAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task SetSelectedEffectAsync(string effectName)
+		public string GetSelectedEffect()
+		{
+			return GetSelectedEffectAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+		}
+
+		public Task SetSelectedEffectAsync(string effectName)
         {
             return SendRequest("effects", Method.PUT, body: "{\"select\": \"" + effectName + "\"}");
         }
 
-        public Task<Effect> GetEffectDetailsAsync(string effectName)
+		public void SetSelectedEffect(string effectName)
+		{
+			SetSelectedEffectAsync(effectName).ConfigureAwait(false).GetAwaiter().GetResult();
+		}
+
+
+		public Task<Effect> GetEffectDetailsAsync(string effectName)
         {
             throw new NotImplementedException();
         }
-    }
+
+		public Effect GetEffectDetails(string effectName)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

@@ -4,6 +4,8 @@ namespace Winleafs.Api.Endpoints.Interfaces
 {
     public interface IAuthorizationEndpoint
     {
-        Task<string> GetAuthToken();
+        Task<string> GetAuthTokenAsync();
+
+		string GetAuthToken();
     }
 }

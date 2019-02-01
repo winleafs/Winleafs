@@ -10,27 +10,51 @@ namespace Winleafs.Api.Endpoints.Interfaces
         /// Gets the state of the Nanoleaf.
         /// </summary>
         /// <returns>A value to indicate whether the Nanoleaf is on or off.</returns>
-        Task<OnOffModel> GetState();
+        Task<OnOffModel> GetStateAsync();
+
+		/// <summary>
+		/// Gets the state of the Nanoleaf.
+		/// </summary>
+		/// <returns>A value to indicate whether the Nanoleaf is on or off.</returns>
+		OnOffModel GetState();
 
         /// <summary>
         /// Sets the state of the Nanoleaf.
         /// </summary>
         /// <param name="state">The state that the Nanoleaf should be.</param>
         /// <returns>An awaitable task.</returns>
-        Task SetState(bool state);
+        Task SetStateAsync(bool state);
+
+		/// <summary>
+		/// Sets the state of the Nanoleaf.
+		/// </summary>
+		/// <param name="state">The state that the Nanoleaf should be.</param>
+		void SetState(bool state);
 
         /// <summary>
         /// Sets the state of the Nanoleaf but checks the current state before setting the state.
         /// </summary>
         /// <param name="state">The state that the Nanoleaf should be.</param>
         /// <returns>An awaitable task.</returns>
-        Task SetStateWithStateCheck(bool state);
+        Task SetStateWithStateCheckAsync(bool state);
+
+		/// <summary>
+		/// Sets the state of the Nanoleaf but checks the current state before setting the state.
+		/// </summary>
+		/// <param name="state">The state that the Nanoleaf should be.</param>
+		void SetStateWithStateCheck(bool state);
 
         /// <summary>
         /// Gets the current brightness of the Nanoleaf.
         /// </summary>
         /// <returns>The current brightness.</returns>
-        Task<StateModel> GetBrightness();
+        Task<StateModel> GetBrightnessAsync();
+
+		/// <summary>
+		/// Gets the current brightness of the Nanoleaf.
+		/// </summary>
+		/// <returns>The current brightness.</returns>
+		StateModel GetBrightness();
 
         /// <summary>
         /// Sets the brightness of the Nanoleaf.
@@ -38,79 +62,152 @@ namespace Winleafs.Api.Endpoints.Interfaces
         /// <param name="value">The value wanting the brightness to be set to.</param>
         /// <param name="duration">The duration for how long the brightness should be set to.</param>
         /// <returns>An awaitable task.</returns>
-        Task SetBrightness(int value, int? duration = null);
+        Task SetBrightnessAsync(int value, int? duration = null);
+
+		/// <summary>
+		/// Sets the brightness of the Nanoleaf.
+		/// </summary>
+		/// <param name="value">The value wanting the brightness to be set to.</param>
+		/// <param name="duration">The duration for how long the brightness should be set to.</param>
+		void SetBrightness(int value, int? duration = null);
 
         /// <summary>
         /// Increment the brightness of the Nanoleaf.
         /// </summary>
         /// <param name="increment">How much should be added to the current brightness.</param>
         /// <returns>An awaitable task.</returns>
-        Task IncrementBrightness(int increment);
+        Task IncrementBrightnessAsync(int increment);
+
+		/// <summary>
+		/// Increment the brightness of the Nanoleaf.
+		/// </summary>
+		/// <param name="increment">How much should be added to the current brightness.</param>
+		void IncrementBrightness(int increment);
 
         /// <summary>
         /// Gets the current hue of the Nanoleaf.
         /// </summary>
         /// <returns>The hue of the Nanoleaf.</returns>
-        Task<StateModel> GetHue();
+        Task<StateModel> GetHueAsync();
+
+		/// <summary>
+		/// Gets the current hue of the Nanoleaf.
+		/// </summary>
+		/// <returns>The hue of the Nanoleaf.</returns>
+		StateModel GetHue();
 
         /// <summary>
         /// Sets the hue of the Nanoleaf.
         /// </summary>
         /// <param name="value">The value the hue should be set to.</param>
         /// <returns>An awaitable task.</returns>
-        Task SetHue(int value);
+        Task SetHueAsync(int value);
+
+		/// <summary>
+		/// Sets the hue of the Nanoleaf.
+		/// </summary>
+		/// <param name="value">The value the hue should be set to.</param>
+		void SetHue(int value);
 
         /// <summary>
         /// Increments the hue of the Nanoleaf.
         /// </summary>
         /// <param name="increment">The increment that should be added to the current value.</param>
         /// <returns>An awaitable task.</returns>
-        Task IncrementHue(int increment);
+        Task IncrementHueAsync(int increment);
+
+		/// <summary>
+		/// Increments the hue of the Nanoleaf.
+		/// </summary>
+		/// <param name="increment">The increment that should be added to the current value.</param>
+		void IncrementHue(int increment);
 
         /// <summary>
         /// Gets the current saturation of the Nanoleaf.
         /// </summary>
         /// <returns>The saturation of the Nanoleaf.</returns>
-        Task<StateModel> GetSaturation();
+        Task<StateModel> GetSaturationAsync();
+
+		/// <summary>
+		/// Gets the current saturation of the Nanoleaf.
+		/// </summary>
+		/// <returns>The saturation of the Nanoleaf.</returns>
+		StateModel GetSaturation();
 
         /// <summary>
         /// Sets the saturation of the Nanoleaf.
         /// </summary>
         /// <param name="value">The value wanting it to be set to.</param>
         /// <returns>An awaitable task.</returns>
-        Task SetSaturation(int value);
+        Task SetSaturationAsync(int value);
+
+		/// <summary>
+		/// Sets the saturation of the Nanoleaf.
+		/// </summary>
+		/// <param name="value">The value wanting it to be set to.</param>
+		void SetSaturation(int value);
 
         /// <summary>
         /// Increments the saturation of the Nanoleaf.
         /// </summary>
         /// <param name="increment">The amount wanting to be incremented with.</param>
         /// <returns>An awaitable task.</returns>
-        Task IncrementSaturation(int increment);
+        Task IncrementSaturationAsync(int increment);
+
+		/// <summary>
+		/// Increments the saturation of the Nanoleaf.
+		/// </summary>
+		/// <param name="increment">The amount wanting to be incremented with.</param>
+		void IncrementSaturation(int increment);
 
         /// <summary>
         /// Gets the current color temperature of the Nanoleaf.
         /// </summary>
         /// <returns>The color temperature of the Nanoleaf.</returns>
-        Task<StateModel> GetColorTemperature();
+        Task<StateModel> GetColorTemperatureAsync();
+
+		/// <summary>
+		/// Gets the current color temperature of the Nanoleaf.
+		/// </summary>
+		/// <returns>The color temperature of the Nanoleaf.</returns>
+		StateModel GetcolorTemperature();
 
         /// <summary>
         /// Sets the color temperature of the Nanoleaf.
         /// </summary>
         /// <param name="value">The value wanting it to be set to.</param>
         /// <returns>An awaitable task.</returns>
-        Task SetColorTemperature(int value);
+        Task SetColorTemperatureAsync(int value);
+
+		/// <summary>
+		/// Sets the color temperature of the Nanoleaf.
+		/// </summary>
+		/// <param name="value">The value wanting it to be set to.</param>
+		void SetColorTemperature(int value);
 
         /// <summary>
         /// Increments the color temperature of the Nanoleaf.
         /// </summary>
         /// <param name="increment">The amount wanting to be incremented with.</param>
         /// <returns>An awaitable task.</returns>
-        Task IncrementColorTemperature(int increment);
+        Task IncrementColorTemperatureAsync(int increment);
+
+		/// <summary>
+		/// Increments the color temperature of the Nanoleaf.
+		/// </summary>
+		/// <param name="increment">The amount wanting to be incremented with.</param>
+		void IncrementColorTemprature(int increment);
 
         /// <summary>
         /// Gets the current color mode of the Nanoleaf.
         /// </summary>
         /// <returns>The color mode of the Nanoleaf.</returns>
-        Task<string> GetColorMode();
+        Task<string> GetColorModeAsync();
+
+		/// <summary>
+		/// Gets the current color mode of the Nanoleaf.
+		/// </summary>
+		/// <returns>The color mode of the Nanoleaf.</returns>
+		string GetColorMode();
     }
 }

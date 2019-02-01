@@ -75,13 +75,13 @@ namespace Winleafs.Wpf.Views.MainWindows
 
                     if (SelectedEffect == Models.Models.Effects.Effect.OFFEFFECTNAME)
                     {
-                        await client.StateEndpoint.SetStateWithStateCheck(false);
+                        await client.StateEndpoint.SetStateWithStateCheckAsync(false);
                     }
                     else
                     {
-                        await client.StateEndpoint.SetStateWithStateCheck(true); //Turn on device if it is not on
+                        await client.StateEndpoint.SetStateWithStateCheckAsync(true); //Turn on device if it is not on
                         await client.EffectsEndpoint.SetSelectedEffectAsync(SelectedEffect);
-                        await client.StateEndpoint.SetBrightness(_brightness);
+                        await client.StateEndpoint.SetBrightnessAsync(_brightness);
                     }
 
                     UserSettings.Settings.ActviceDevice.OperationMode = OperationMode.Manual;

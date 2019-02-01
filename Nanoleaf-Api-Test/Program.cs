@@ -8,7 +8,7 @@ namespace Winleafs.Api.Test
         {
             var nanoLeafClient = new NanoleafClient("192.168.178.160", 16021);
             Console.WriteLine("Authorizing..");
-            nanoLeafClient.AuthorizationEndpoint.GetAuthToken().GetAwaiter().GetResult();
+            nanoLeafClient.AuthorizationEndpoint.GetAuthTokenAsync().GetAwaiter().GetResult();
             Console.WriteLine("Authorized!");
             Console.WriteLine("Getting effects...");
             var effects = nanoLeafClient.EffectsEndpoint.GetEffectsListAsync().GetAwaiter().GetResult();

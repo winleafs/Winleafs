@@ -12,7 +12,7 @@ namespace Winleafs.Api.Endpoints
 {
     public class SunsetEndpoint : ISunsetEndpoint
     {
-        public async Task<SunsetTimes> GetSunsetSunrise(double lat, double lon)
+        public async Task<SunsetTimes> GetSunsetSunriseAsync(double lat, double lon)
         {
             var client = new RestClient("https://api.sunrise-sunset.org");
             var request = new RestRequest($"/json?lat={Format(lat)}&lng={Format(lon)}", Method.GET);
@@ -30,5 +30,10 @@ namespace Winleafs.Api.Endpoints
         {
             return Math.Round(number, 7).ToString("N7");
         }
-    }
+
+		public SunsetTimes GetSunsetSunrise(double lat, double lon)
+		{
+			return GetSunsetSunriseAsync(lat, lon).ConfigureAwait(false).GetAwaiter().GetResult();
+		}
+	}
 }
