@@ -59,7 +59,7 @@ namespace Winleafs.Api.Timers
                     if (activeTrigger == null)
                     {
                         //There are no triggers so the lights can be turned off if it is not off already
-                        await client.StateEndpoint.SetStateWithStateCheck(false);
+                        await client.StateEndpoint.SetStateWithStateCheckAsync(false);
                     }
                     else
                     {
@@ -67,11 +67,11 @@ namespace Winleafs.Api.Timers
                         {
                             if (activeTrigger.Effect.Equals(Effect.OFFEFFECTNAME))
                             {
-                                await client.StateEndpoint.SetStateWithStateCheck(false);
+                                await client.StateEndpoint.SetStateWithStateCheckAsync(false);
                             }
                             else
                             {
-                                await client.StateEndpoint.SetStateWithStateCheck(true); //Turn on device if it is not on
+                                await client.StateEndpoint.SetStateWithStateCheckAsync(true); //Turn on device if it is not on
                                 await client.EffectsEndpoint.SetSelectedEffectAsync(activeTrigger.Effect);
                                 await client.StateEndpoint.SetBrightness(activeTrigger.Brightness);
                             }

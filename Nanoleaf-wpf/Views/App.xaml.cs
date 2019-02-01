@@ -96,7 +96,7 @@ namespace Winleafs.Wpf.Views
                 if (device.ActiveSchedule != null && device.ActiveSchedule.TurnOffAtApplicationShutdown)
                 {
                     var client = NanoleafClient.GetClientForDevice(device);
-                    await client.StateEndpoint.SetStateWithStateCheck(false);
+                    await client.StateEndpoint.SetStateWithStateCheckAsync(false);
                 }
             }
         }
