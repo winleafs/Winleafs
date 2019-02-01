@@ -81,7 +81,7 @@ namespace Winleafs.Wpf.Views.MainWindows
                     {
                         await client.StateEndpoint.SetStateWithStateCheckAsync(true); //Turn on device if it is not on
                         await client.EffectsEndpoint.SetSelectedEffectAsync(SelectedEffect);
-                        await client.StateEndpoint.SetBrightness(_brightness);
+                        await client.StateEndpoint.SetBrightnessAsync(_brightness);
                     }
 
                     UserSettings.Settings.ActviceDevice.OperationMode = OperationMode.Manual;

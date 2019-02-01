@@ -22,7 +22,7 @@ namespace Winleafs.Api.Timers
         {
             // Create a timer with a one minute interval.
             _timer = new Timer(60000);
-            // Hook up the Elapsed event for the timer. 
+            // Hook up the Elapsed event for the timer.
             _timer.Elapsed += OnTimedEvent;
             _timer.AutoReset = true;
             _timer.Enabled = true;
@@ -73,7 +73,7 @@ namespace Winleafs.Api.Timers
                             {
                                 await client.StateEndpoint.SetStateWithStateCheckAsync(true); //Turn on device if it is not on
                                 await client.EffectsEndpoint.SetSelectedEffectAsync(activeTrigger.Effect);
-                                await client.StateEndpoint.SetBrightness(activeTrigger.Brightness);
+                                await client.StateEndpoint.SetBrightnessAsync(activeTrigger.Brightness);
                             }
 
                         }

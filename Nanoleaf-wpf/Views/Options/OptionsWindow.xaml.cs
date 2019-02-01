@@ -73,7 +73,7 @@ namespace Winleafs.Wpf.Views.Options
 
                 try
                 {
-                    var sunTimes = endpoint.GetSunsetSunrise(latitude, longitude).GetAwaiter().GetResult();
+                    var sunTimes = endpoint.GetSunsetSunriseAsync(latitude, longitude).GetAwaiter().GetResult();
 
                     UserSettings.Settings.UpdateSunriseSunset(sunTimes.SunriseHour, sunTimes.SunriseMinute, sunTimes.SunsetHour, sunTimes.SunsetMinute);
                 }
