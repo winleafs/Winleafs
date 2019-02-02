@@ -196,7 +196,7 @@ namespace Winleafs.Api.Endpoints.Interfaces
 		/// Increments the color temperature of the Nanoleaf.
 		/// </summary>
 		/// <param name="increment">The amount wanting to be incremented with.</param>
-		void IncrementColorTemprature(int increment);
+		void IncrementColorTemperature(int increment);
 
         /// <summary>
         /// Gets the current color mode of the Nanoleaf.
