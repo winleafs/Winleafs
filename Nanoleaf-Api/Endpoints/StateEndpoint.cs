@@ -41,7 +41,7 @@ namespace Winleafs.Api.Endpoints
         }
 
 	    /// <inheritdoc />
-	    public StateModel GetcolorTemperature()
+	    public StateModel GetColorTemperature()
 		{
 			throw new NotImplementedException();
 		}

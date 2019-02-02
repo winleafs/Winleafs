@@ -12,10 +12,7 @@ namespace Winleafs.Api.Endpoints.Interfaces
         /// <returns>The current Nanoleaf layout.</returns>
         Task<Layout> GetLayoutAsync();
 
-		/// <summary>
-		/// Gets the current Nanoleaf layout.
-		/// </summary>
-		/// <returns>The current Nanoleaf layout.</returns>
+	    /// <inheritdoc cref="GetLayoutAsync"/>
 		Layout GetLayout();
 
         /// <summary>
@@ -24,9 +21,7 @@ namespace Winleafs.Api.Endpoints.Interfaces
         /// <returns>An awaitable task.</returns>
         Task IdentifyAsync();
 
-		/// <summary>
-		/// Causes the panels to flash in unison. This is typically used to help users differentiate between multiple panels.
-		/// </summary>
+	    /// <inheritdoc cref="IdentifyAsync"/>
 		void Identify();
     }
 }
