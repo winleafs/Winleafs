@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
 
 using Winleafs.Models.Models;
@@ -16,6 +17,7 @@ namespace Winleafs.Wpf.Views.Scheduling
         public int IndexOfDay { get; set; }
 
         public Program Program { get; set; }
+        public ManageScheduleWindow ParentWindow { get; set; }
 
         public DayUserControl()
         {
@@ -57,6 +59,56 @@ namespace Winleafs.Wpf.Views.Scheduling
             {
                 TriggerList.Children.Add(new TimeTriggerUserControl(this, trigger));
             }
+        }
+
+        private void AllDays_Click(object sender, RoutedEventArgs e)
+        {
+            ParentWindow.CopyProgramToDays(Program, new List<int> { 0, 1, 2, 3, 4, 5, 6 });
+        }
+
+        private void Weekdays_Click(object sender, RoutedEventArgs e)
+        {
+            ParentWindow.CopyProgramToDays(Program, new List<int> { 0, 1, 2, 3, 4});
+        }
+
+        private void Weekends_Click(object sender, RoutedEventArgs e)
+        {
+            ParentWindow.CopyProgramToDays(Program, new List<int> { 5, 6 });
+        }
+
+        private void Monday_Click(object sender, RoutedEventArgs e)
+        {
+            ParentWindow.CopyProgramToDays(Program, new List<int> { 0 });
+        }
+
+        private void Tuesday_Click(object sender, RoutedEventArgs e)
+        {
+            ParentWindow.CopyProgramToDays(Program, new List<int> { 1 });
+        }
+
+        private void Wednesday_Click(object sender, RoutedEventArgs e)
+        {
+            ParentWindow.CopyProgramToDays(Program, new List<int> { 2 });
+        }
+
+        private void Thursday_Click(object sender, RoutedEventArgs e)
+        {
+            ParentWindow.CopyProgramToDays(Program, new List<int> { 3 });
+        }
+
+        private void Friday_Click(object sender, RoutedEventArgs e)
+        {
+            ParentWindow.CopyProgramToDays(Program, new List<int> { 4 });
+        }
+
+        private void Saturday_Click(object sender, RoutedEventArgs e)
+        {
+            ParentWindow.CopyProgramToDays(Program, new List<int> { 5 });
+        }
+
+        private void Sunday_Click(object sender, RoutedEventArgs e)
+        {
+            ParentWindow.CopyProgramToDays(Program, new List<int> { 6 });
         }
     }
 }

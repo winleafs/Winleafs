@@ -126,6 +126,36 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="CopyToAllDays" xml:space="preserve">
+    <value>Copy to all days</value>
+  </data>
+  <data name="CopyToFriday" xml:space="preserve">
+    <value>Copy to Friday</value>
+  </data>
+  <data name="CopyToMonday" xml:space="preserve">
+    <value>Copy to Monday</value>
+  </data>
+  <data name="CopyToSaturday" xml:space="preserve">
+    <value>Copy to Saturday</value>
+  </data>
+  <data name="CopyToSunday" xml:space="preserve">
+    <value>Copy to Sunday</value>
+  </data>
+  <data name="CopyToThursday" xml:space="preserve">
+    <value>Copy to Thursday</value>
+  </data>
+  <data name="CopyToTuesday" xml:space="preserve">
+    <value>Copy to Tuesday</value>
+  </data>
+  <data name="CopyToWednesday" xml:space="preserve">
+    <value>Copy to Wednesday</value>
+  </data>
+  <data name="CopyToWeekdays" xml:space="preserve">
+    <value>Copy to weekdays</value>
+  </data>
+  <data name="CopyToWeekends" xml:space="preserve">
+    <value>Copy to weekends</value>
+  </data>
   <data name="Effect" xml:space="preserve">
     <value>Effect:</value>
   </data>

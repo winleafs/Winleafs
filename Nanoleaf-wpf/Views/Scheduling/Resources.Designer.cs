@@ -88,6 +88,96 @@ namespace Winleafs.Wpf.Views.Scheduling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy to all days.
+        /// </summary>
+        public static string CopyToAllDays {
+            get {
+                return ResourceManager.GetString("CopyToAllDays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy to Friday.
+        /// </summary>
+        public static string CopyToFriday {
+            get {
+                return ResourceManager.GetString("CopyToFriday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy to Monday.
+        /// </summary>
+        public static string CopyToMonday {
+            get {
+                return ResourceManager.GetString("CopyToMonday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy to Saturday.
+        /// </summary>
+        public static string CopyToSaturday {
+            get {
+                return ResourceManager.GetString("CopyToSaturday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy to Sunday.
+        /// </summary>
+        public static string CopyToSunday {
+            get {
+                return ResourceManager.GetString("CopyToSunday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy to Thursday.
+        /// </summary>
+        public static string CopyToThursday {
+            get {
+                return ResourceManager.GetString("CopyToThursday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy to Tuesday.
+        /// </summary>
+        public static string CopyToTuesday {
+            get {
+                return ResourceManager.GetString("CopyToTuesday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy to Wednesday.
+        /// </summary>
+        public static string CopyToWednesday {
+            get {
+                return ResourceManager.GetString("CopyToWednesday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy to weekdays.
+        /// </summary>
+        public static string CopyToWeekdays {
+            get {
+                return ResourceManager.GetString("CopyToWeekdays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy to weekends.
+        /// </summary>
+        public static string CopyToWeekends {
+            get {
+                return ResourceManager.GetString("CopyToWeekends", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Effect:.
         /// </summary>
         public static string Effect {

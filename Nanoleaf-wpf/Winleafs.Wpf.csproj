@@ -82,6 +82,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Helpers\ContextMenuLeftClickBehavior.cs" />
     <Compile Include="ViewModels\OptionsViewModel.cs" />
     <Compile Include="Views\MainWindows\OverrideScheduleUserControl.xaml.cs">
       <DependentUpon>OverrideScheduleUserControl.xaml</DependentUpon>
@@ -219,6 +220,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="Icons\appbar.page.copy.png" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

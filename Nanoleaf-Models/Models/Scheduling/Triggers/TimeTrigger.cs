@@ -55,13 +55,13 @@ namespace Winleafs.Models.Models.Scheduling.Triggers
 
             if (BeforeAfter == BeforeAfter.After)
             {
-                date.AddHours(ExtraHours);
-                date.AddMinutes(ExtraMinutes);
+                date = date.AddHours(ExtraHours);
+                date = date.AddMinutes(ExtraMinutes);
             }
             else if (BeforeAfter == BeforeAfter.Before)
             {
-                date.AddHours(-ExtraHours);
-                date.AddMinutes(-ExtraMinutes);
+                date = date.AddHours(-ExtraHours);
+                date = date.AddMinutes(-ExtraMinutes);
             }
 
             return date;

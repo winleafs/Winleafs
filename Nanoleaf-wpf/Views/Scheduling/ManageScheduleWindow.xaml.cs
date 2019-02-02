@@ -22,6 +22,8 @@ namespace Winleafs.Wpf.Views.Scheduling
 
         private Schedule _originalSchedule;
 
+        private List<DayUserControl> _dayUserControls;
+
         public ManageScheduleWindow(MainWindow parent, WorkMode workMode, Schedule schedule = null)
         {
             _parent = parent;
@@ -43,23 +45,29 @@ namespace Winleafs.Wpf.Views.Scheduling
 
             InitializeComponent();
 
-            var dayUserControls = new List<DayUserControl>();
-            dayUserControls.Add(MondayUserControl);
-            dayUserControls.Add(TuesdayUserControl);
-            dayUserControls.Add(WednesdayUserControl);
-            dayUserControls.Add(ThursdayUserControl);
-            dayUserControls.Add(FridayUserControl);
-            dayUserControls.Add(SaturdayUserControl);
-            dayUserControls.Add(SundayUserControl);
+            _dayUserControls = new List<DayUserControl>();
+            _dayUserControls.Add(MondayUserControl);
+            _dayUserControls.Add(TuesdayUserControl);
+            _dayUserControls.Add(WednesdayUserControl);
+            _dayUserControls.Add(ThursdayUserControl);
+            _dayUserControls.Add(FridayUserControl);
+            _dayUserControls.Add(SaturdayUserControl);
+            _dayUserControls.Add(SundayUserControl);
 
-            foreach (var dayUserControl in dayUserControls)
-            {
-                dayUserControl.Program = Schedule.Programs[dayUserControl.IndexOfDay];
-                dayUserControl.BuildTriggerList();
-            }
+            SetupDayUserControls();
 
             EventUserControl.EventTriggers = Schedule.EventTriggers;
             EventUserControl.BuildTriggerList();
+        }
+
+        private void SetupDayUserControls()
+        {
+            foreach (var dayUserControl in _dayUserControls)
+            {
+                dayUserControl.Program = Schedule.Programs[dayUserControl.IndexOfDay];
+                dayUserControl.ParentWindow = this;
+                dayUserControl.BuildTriggerList();
+            }
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
@@ -74,6 +82,19 @@ namespace Winleafs.Wpf.Views.Scheduling
             }
 
             Close();
+        }
+
+        public void CopyProgramToDays(Program program, List<int> indexes)
+        {
+            foreach (var i in indexes)
+            {
+                var serialized = JsonConvert.SerializeObject(program); //Deep copy the program such that the programs do not interfere with eachother
+                var newProgram = JsonConvert.DeserializeObject<Program>(serialized);
+
+                Schedule.Programs[i] = newProgram;
+            }
+
+            SetupDayUserControls();
         }
     }
 }

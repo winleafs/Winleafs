@@ -3,11 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:scheduling="clr-namespace:Winleafs.Wpf.Views.Scheduling"
+             xmlns:helpers="clr-namespace:Winleafs.Wpf.Helpers"
              mc:Ignorable="d" 
              Width="200" Height="Auto">
-    <Grid>
+
+    <Grid>        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="35" />
             <ColumnDefinition Width="35" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -16,10 +20,27 @@
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0" Grid.Column="0" Content="{Binding NameOfDay}" Foreground="White" FontSize="20"/>
-        <Button  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="35" Height="35" Background="{x:Null}" BorderBrush="{x:Null}" Click="Plus_Click">
+        <Button Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="35" Height="35" Background="{x:Null}" BorderBrush="{x:Null}" helpers:ContextMenuLeftClickBehavior.IsLeftClickEnabled="True">
+            <Image Source="../../Icons/appbar.page.copy.png"></Image>
+            <Button.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="{x:Static scheduling:Resources.CopyToAllDays}" Click="AllDays_Click"/>
+                    <MenuItem Header="{x:Static scheduling:Resources.CopyToWeekdays}" Click="Weekdays_Click"/>
+                    <MenuItem Header="{x:Static scheduling:Resources.CopyToWeekends}" Click="Weekends_Click"/>
+                    <MenuItem Header="{x:Static scheduling:Resources.CopyToMonday}" Click="Monday_Click"/>
+                    <MenuItem Header="{x:Static scheduling:Resources.CopyToTuesday}" Click="Tuesday_Click"/>
+                    <MenuItem Header="{x:Static scheduling:Resources.CopyToWednesday}" Click="Wednesday_Click"/>
+                    <MenuItem Header="{x:Static scheduling:Resources.CopyToThursday}" Click="Thursday_Click"/>
+                    <MenuItem Header="{x:Static scheduling:Resources.CopyToFriday}" Click="Friday_Click"/>
+                    <MenuItem Header="{x:Static scheduling:Resources.CopyToSaturday}" Click="Saturday_Click"/>
+                    <MenuItem Header="{x:Static scheduling:Resources.CopyToSunday}" Click="Sunday_Click"/>
+                </ContextMenu>
+            </Button.ContextMenu>
+        </Button>
+        <Button Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="35" Height="35" Background="{x:Null}" BorderBrush="{x:Null}" Click="Plus_Click">
             <Image Source="../../Icons/appbar.add.png"></Image>
         </Button>
-        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,5,0,0" x:Name="TriggerList">
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,5,0,0" x:Name="TriggerList">
         </StackPanel>
     </Grid>
 </UserControl>
