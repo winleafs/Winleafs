@@ -10,11 +10,6 @@ namespace Winleafs.Models.Models.Scheduling.Triggers
         TriggerType GetTriggerType();
 
         /// <summary>
-        /// Used by the view to determine the display name
-        /// </summary>
-        string GetDisplayName();
-
-        /// <summary>
         /// Used by the view to determine the description
         /// </summary>
         string GetDescription();

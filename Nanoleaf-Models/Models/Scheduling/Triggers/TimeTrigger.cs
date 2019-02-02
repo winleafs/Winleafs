@@ -19,23 +19,18 @@ namespace Winleafs.Models.Models.Scheduling.Triggers
         public int ExtraHours { get; set; }
         public int ExtraMinutes { get; set; }
 
-        public string GetDisplayName()
+        public string GetDescription()
         {
-            if (TriggerType == TriggerType.Time)
+            if (ExtraHours > 0 || ExtraMinutes > 0)
             {
-                var hours = Hours < 10 ? $"0{Hours}" : Hours.ToString();
-                var minutes = Minutes < 10 ? $"0{Minutes}" : Minutes.ToString();
-                return $"{hours}:{minutes}";
+                var extraHours = ExtraHours < 10 ? $"0{ExtraHours}" : ExtraHours.ToString();
+                var extraMinutes = ExtraMinutes < 10 ? $"0{ExtraMinutes}" : ExtraMinutes.ToString();
+                return $"{TriggerType.ToString()} ({(BeforeAfter == BeforeAfter.Before ? "-" : "+")} {extraHours}:{extraMinutes}): {GetActualDateTime().ToString("HH:mm")}";
             }
             else
             {
-                return TriggerType.ToString();
+                return $"{TriggerType.ToString()}: {GetActualDateTime().ToString("HH:mm")}";
             }
-        }
-
-        public string GetDescription()
-        {
-            return Effect;
         }
 
         public TriggerType GetTriggerType()
@@ -44,7 +39,15 @@ namespace Winleafs.Models.Models.Scheduling.Triggers
         }
 
         /// <summary>
-        /// Returns a date time object for the actual time of this trigger
+        /// Returns a DateTime object for the actual time of this trigger, with the year, month and day set to the current date
+        /// </summary>
+        public DateTime GetActualDateTime()
+        {
+            return GetActualDateTime(DateTime.Now);
+        }
+
+        /// <summary>
+        /// Returns a DateTime object for the actual time of this trigger
         /// </summary>
         public DateTime GetActualDateTime(DateTime dateOfProgram)
         {

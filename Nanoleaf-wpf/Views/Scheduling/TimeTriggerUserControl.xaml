@@ -4,12 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
-             d:DesignHeight="26" d:DesignWidth="200">
+             d:DesignHeight="52" d:DesignWidth="200">
     <Grid>
-        <Label Content="{Binding TriggerName}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Height="26" Width="50"/>
-        <Label Content="{Binding Description}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Height="26" Width="115" Margin="55,0,0,0"/>
+        <Label Content="{Binding Description}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Height="26" Width="172"/>
+        <Label Content="{Binding EffectName}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Height="26" Width="200" Margin="0,26,0,0"/>
         <Button HorizontalAlignment="Left" Margin="172,0,0,0" VerticalAlignment="Top" Width="26" Background="{x:Null}" BorderBrush="{x:Null}" Height="26" Click="Delete_Click">
             <Image Source="../../Icons/appbar.delete.png"></Image>
         </Button>
+        <Border BorderThickness="0 1 0 0" BorderBrush="White"/>
     </Grid>
 </UserControl>

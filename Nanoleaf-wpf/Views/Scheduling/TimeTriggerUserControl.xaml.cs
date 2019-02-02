@@ -12,8 +12,8 @@ namespace Winleafs.Wpf.Views.Scheduling
         private TimeTrigger _trigger;
         private DayUserControl _parent;
 
-        public string TriggerName { get; set; }
         public string Description { get; set; }
+        public string EffectName { get; set; }
 
         public TimeTriggerUserControl(DayUserControl parent, TimeTrigger trigger)
         {
@@ -22,8 +22,8 @@ namespace Winleafs.Wpf.Views.Scheduling
 
             InitializeComponent();
 
-            TriggerName = trigger.GetDisplayName();
             Description = trigger.GetDescription();
+            EffectName = trigger.Effect;
 
             DataContext = this;
         }
