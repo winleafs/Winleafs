@@ -125,11 +125,13 @@ namespace Winleafs.Wpf.Views.Scheduling
                 return;
             }
 
+            var addSucceeded = false;
+
             if (TriggerType == TriggerType.Sunrise || TriggerType == TriggerType.Sunset)
             {
                 var beforeAfter = BeforeRadioButton.IsChecked.Value ? BeforeAfter.Before : (AfterRadioButton.IsChecked.Value ? BeforeAfter.After : BeforeAfter.None);
 
-                _parent.TriggerAdded(new TimeTrigger
+                addSucceeded = _parent.TriggerAdded(new TimeTrigger
                 {
                     TriggerType = TriggerType,
                     BeforeAfter = beforeAfter,
@@ -143,7 +145,7 @@ namespace Winleafs.Wpf.Views.Scheduling
             }
             else
             {
-                _parent.TriggerAdded(new TimeTrigger
+                addSucceeded = _parent.TriggerAdded(new TimeTrigger
                 {
                     TriggerType = TriggerType,
                     BeforeAfter = BeforeAfter.None,
@@ -156,8 +158,14 @@ namespace Winleafs.Wpf.Views.Scheduling
                 });
             }
 
-
-            Close();
+            if (!addSucceeded)
+            {
+                MessageBox.Show("The trigger you are trying to add overlaps with an existing trigger on this day");
+            }
+            else
+            {
+                Close();
+            }
         }
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)

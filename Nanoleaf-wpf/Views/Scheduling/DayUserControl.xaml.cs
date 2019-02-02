@@ -37,11 +37,21 @@ namespace Winleafs.Wpf.Views.Scheduling
             addTriggerWindow.ShowDialog();
         }
 
-        public void TriggerAdded(TimeTrigger trigger)
+        /// <summary>
+        /// Adds a trigger to the program, returns false when overlaps and adding failed
+        /// </summary>
+        public bool TriggerAdded(TimeTrigger trigger)
         {
-            Program.AddTrigger(trigger);
+            if (!Program.TriggerOverlaps(trigger))
+            {
+                Program.AddTrigger(trigger);
 
-            BuildTriggerList();
+                BuildTriggerList();
+
+                return true;
+            }
+
+            return false;
         }
 
         public void DeleteTrigger(TimeTrigger trigger)
