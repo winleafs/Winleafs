@@ -222,7 +222,7 @@
     </EmbeddedResource>
     <Resource Include="Icons\appbar.page.copy.png" />
     <Content Include="NLog.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="Views\MainWindows\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

@@ -10,6 +10,7 @@ using Winleafs.Models.Models;
 using Tmds.MDns;
 
 using Winleafs.Wpf.ViewModels;
+using NLog;
 
 namespace Winleafs.Wpf.Views.Setup
 {
@@ -18,6 +19,8 @@ namespace Winleafs.Wpf.Views.Setup
     /// </summary>
     public partial class SetupWindow : Window
     {
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
+
         private SetupViewModel setupViewModel;
         private List<Device> discoveredDevices;
         private NanoleafClient nanoleafClient;
@@ -76,6 +79,8 @@ namespace Winleafs.Wpf.Views.Setup
 
         private void onServiceAdded(object sender, ServiceAnnouncementEventArgs e)
         {
+            _logger.Info($"Discovered following device: {e.Announcement.Hostname}, IPs: {e.Announcement.Addresses}, Port: {e.Announcement.Port}");
+
             discoveredDevices.Add(new Device { Name = e.Announcement.Hostname, IPAddress = e.Announcement.Addresses.First().ToString(), Port = e.Announcement.Port });
             BuildDeviceList();
         }
