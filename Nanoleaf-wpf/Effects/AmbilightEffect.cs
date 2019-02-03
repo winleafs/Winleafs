@@ -111,6 +111,8 @@ namespace Winleafs.Wpf.Effects
             int bppModifier = bm.PixelFormat == PixelFormat.Format24bppRgb ? 3 : 4; // cutting corners, will fail on anything else but 32 and 24 bit images
 
             BitmapData srcData = bm.LockBits(new Rectangle(0, 0, bm.Width, bm.Height), ImageLockMode.ReadOnly, bm.PixelFormat);
+
+            bm.Dispose();
             int stride = srcData.Stride;
             IntPtr Scan0 = srcData.Scan0;
 
