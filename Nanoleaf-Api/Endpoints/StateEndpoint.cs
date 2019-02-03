@@ -186,5 +186,15 @@ namespace Winleafs.Api.Endpoints
                 await SetStateAsync(state);
             }
         }
+
+        public void SetHueAndSaturation(int hue, int saturation)
+        {
+            SetHueAndSaturationAsync(hue, saturation).ConfigureAwait(false).GetAwaiter().GetResult();
+        }
+
+        public Task SetHueAndSaturationAsync(int hue, int saturation)
+        {
+            return SendRequest("state", Method.PUT, body: "{\"sat\": {\"value\":" + saturation.ToString() + "}, \"hue\": {\"value\":" + hue.ToString() + "}}");
+        }
     }
 }

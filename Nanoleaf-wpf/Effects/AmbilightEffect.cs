@@ -31,7 +31,7 @@ namespace Winleafs.Wpf.Effects
         {
             _nanoleafClient = NanoleafClient.GetClientForDevice(device);
 
-            _timer = new System.Timers.Timer(1000);
+            _timer = new System.Timers.Timer(100);
             _timer.Elapsed += OnTimedEvent;
             _timer.AutoReset = true;
             _timer.Enabled = true;
@@ -55,13 +55,10 @@ namespace Winleafs.Wpf.Effects
         public async Task SetColor()
         {
             var color = CalculateAverageColor(CaptureScreen());
-
             var hue = (int)color.GetHue();
             var sat = (int)(color.GetSaturation() * 100);
 
-            //TODO: check if this is possible in 1 api call
-            await _nanoleafClient.StateEndpoint.SetHueAsync(hue);
-            await _nanoleafClient.StateEndpoint.SetSaturationAsync(sat);
+            await _nanoleafClient.StateEndpoint.SetHueAndSaturationAsync(hue, sat);
         }
 
         public Bitmap CaptureScreen()
@@ -81,7 +78,7 @@ namespace Winleafs.Wpf.Effects
                                         0,
                                         Screen.PrimaryScreen.Bounds.Size,
                                         CopyPixelOperation.SourceCopy);
-
+            
             return bmpScreenshot;
         }
 
