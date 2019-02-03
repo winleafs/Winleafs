@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Winleafs.Wpf.Views.Options"
         mc:Ignorable="d"
-        Title="Winleafs Options" Height="250" Width="400">
+        Title="Winleafs Options" Height="450" Width="405">
     <Grid Background="{StaticResource NanoleafBlack}">
         <CheckBox Content="{x:Static local:Resources.StartAtWindowsStartup}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="{Binding StartAtWindowsStartUp}">
             <CheckBox.LayoutTransform>
@@ -17,7 +17,12 @@
         <Label Content="{x:Static local:Resources.Longitude}" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="119,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" x:Name="Longitude" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White" Text="{Binding Longitude}"/>
 
-        <Button Content="{x:Static local:Resources.Cancel}" HorizontalAlignment="Left" Margin="10,184,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Cancel_Click"/>
-        <Button Content="{x:Static local:Resources.Save}" HorizontalAlignment="Left" Margin="299,184,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Save_Click"/>
+        <Button Content="{x:Static local:Resources.Cancel}" HorizontalAlignment="Left" Margin="10,384,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Cancel_Click"/>
+        <Button Content="{x:Static local:Resources.Save}" HorizontalAlignment="Left" Margin="299,384,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Save_Click"/>
+        <Label Content="{x:Static local:Resources.AmbilightRefreshRatePerSecond}" HorizontalAlignment="Left" Margin="10,149,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
+        <Label Content="{Binding AmbilightRefreshRatePerSecond}" HorizontalAlignment="Left" Margin="320,149,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
+        <Slider HorizontalAlignment="Left" Margin="90,186,0,0" VerticalAlignment="Top" Width="200" Minimum="1" Maximum="10" Value="{Binding AmbilightRefreshRatePerSecond}" IsSnapToTickEnabled="True" TickFrequency="1"/>
+        <Label Content="{x:Static local:Resources.AmbilightMonitor}" HorizontalAlignment="Left" Margin="10,215,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
+        <ComboBox HorizontalAlignment="Left" Margin="17,252,0,0" VerticalAlignment="Top" Width="366" SelectedItem="{Binding SelectedMonitor}" ItemsSource="{Binding MonitorNames}"/>
     </Grid>
 </Window>

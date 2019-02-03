@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
@@ -26,15 +27,28 @@ namespace Winleafs.Wpf.Effects
 
         private INanoleafClient _nanoleafClient;
         private System.Timers.Timer _timer;
+        private Rectangle _screenBounds;
 
         public AmbilightEffect(Device device)
         {
             _nanoleafClient = NanoleafClient.GetClientForDevice(device);
 
-            _timer = new System.Timers.Timer(100);
+            var timerRefreshRate = 1000;
+
+            if (UserSettings.Settings.AmbilightRefreshRatePerSecond > 0 && UserSettings.Settings.AmbilightRefreshRatePerSecond <= 10)
+            {
+                timerRefreshRate = 1000 / UserSettings.Settings.AmbilightRefreshRatePerSecond;
+            }
+
+            _timer = new System.Timers.Timer(timerRefreshRate);
             _timer.Elapsed += OnTimedEvent;
             _timer.AutoReset = true;
             _timer.Enabled = true;
+
+            var monitorInfo = new MonitorInfo();
+            EnumDisplaySettings(Screen.AllScreens[UserSettings.Settings.AmbilightMonitorIndex].DeviceName, -1, ref monitorInfo);
+
+            _screenBounds = new Rectangle(monitorInfo.dmPositionX, monitorInfo.dmPositionY, monitorInfo.dmPelsWidth, monitorInfo.dmPelsHeight);
         }
 
         public void Start()
@@ -63,17 +77,19 @@ namespace Winleafs.Wpf.Effects
 
         public Bitmap CaptureScreen()
         {
+            //Note: these objects need to be initialized new everytime
+
             //Create a new bitmap.
-            var bmpScreenshot = new Bitmap(Screen.PrimaryScreen.Bounds.Width,
-                                           Screen.PrimaryScreen.Bounds.Height,
+            var bmpScreenshot = new Bitmap(_screenBounds.Width,
+                                           _screenBounds.Height,
                                            PixelFormat.Format32bppArgb);
 
             // Create a graphics object from the bitmap.
             var gfxScreenshot = Graphics.FromImage(bmpScreenshot);
 
             // Take the screenshot from the upper left corner to the right bottom corner.
-            gfxScreenshot.CopyFromScreen(Screen.PrimaryScreen.Bounds.X,
-                                        Screen.PrimaryScreen.Bounds.Y,
+            gfxScreenshot.CopyFromScreen(_screenBounds.X,
+                                        _screenBounds.Y,
                                         0,
                                         0,
                                         Screen.PrimaryScreen.Bounds.Size,
@@ -130,6 +146,47 @@ namespace Winleafs.Wpf.Effects
             int avgB = (int)(totals[0] / count);
 
             return Color.FromArgb(avgR, avgG, avgB);
+        }
+
+        [DllImport("user32.dll")]
+        public static extern bool EnumDisplaySettings(string lpszDeviceName, int iModeNum, ref MonitorInfo monitorInfo);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct MonitorInfo
+        {
+            private const int CCHDEVICENAME = 0x20;
+            private const int CCHFORMNAME = 0x20;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 0x20)]
+            public string dmDeviceName;
+            public short dmSpecVersion;
+            public short dmDriverVersion;
+            public short dmDriverExtra;
+            public int dmFields;
+            public int dmPositionX;
+            public int dmPositionY;
+            public ScreenOrientation dmDisplayOrientation;
+            public int dmDisplayFixedOutput;
+            public short dmColor;
+            public short dmDuplex;
+            public short dmYResolution;
+            public short dmTTOption;
+            public short dmCollate;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 0x20)]
+            public string dmFormName;
+            public short dmLogPixels;
+            public int dmBitsPerPel;
+            public int dmPelsWidth;
+            public int dmPelsHeight;
+            public int dmDisplayFlags;
+            public int dmDisplayFrequency;
+            public int dmICMMethod;
+            public int dmICMIntent;
+            public int dmMediaType;
+            public int dmDitherType;
+            public int dmReserved1;
+            public int dmReserved2;
+            public int dmPanningWidth;
+            public int dmPanningHeight;
         }
     }
 }

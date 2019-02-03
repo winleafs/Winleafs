@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AmbilightMonitor" xml:space="preserve">
+    <value>Ambilight monitor:</value>
+  </data>
+  <data name="AmbilightRefreshRatePerSecond" xml:space="preserve">
+    <value>Ambilight refresh rate per second:</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>

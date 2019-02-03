@@ -44,6 +44,9 @@ namespace Winleafs.Models.Models
         public int? SunsetMinute { get; set; }
 
         public bool StartAtWindowsStartup { get; set; }
+
+        public int AmbilightRefreshRatePerSecond { get; set; }
+        public int AmbilightMonitorIndex { get; set; }
         #endregion
 
         /// <summary>
@@ -64,7 +67,10 @@ namespace Winleafs.Models.Models
             {
                 var userSettings = new UserSettings();
 
+                //Set defaults here
                 userSettings.Devices = new List<Device>();
+                userSettings.AmbilightRefreshRatePerSecond = 1;
+                userSettings.AmbilightMonitorIndex = 0;
 
                 _settings = userSettings;
             }

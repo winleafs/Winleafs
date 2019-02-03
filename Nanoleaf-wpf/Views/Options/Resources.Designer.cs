@@ -61,6 +61,24 @@ namespace Winleafs.Wpf.Views.Options {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ambilight monitor:.
+        /// </summary>
+        public static string AmbilightMonitor {
+            get {
+                return ResourceManager.GetString("AmbilightMonitor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ambilight refresh rate per second:.
+        /// </summary>
+        public static string AmbilightRefreshRatePerSecond {
+            get {
+                return ResourceManager.GetString("AmbilightRefreshRatePerSecond", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string Cancel {
