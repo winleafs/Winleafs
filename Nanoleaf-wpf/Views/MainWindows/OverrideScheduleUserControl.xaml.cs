@@ -12,6 +12,7 @@ using Winleafs.Models.Models;
 using Winleafs.Models.Models.Effects;
 
 using NLog;
+using Winleafs.Wpf.Effects;
 
 namespace Winleafs.Wpf.Views.MainWindows
 {
@@ -43,7 +44,8 @@ namespace Winleafs.Wpf.Views.MainWindows
             InitializeComponent();
 
             Effects = new List<Effect>(UserSettings.Settings.ActviceDevice.Effects);
-            Effects.Insert(0, new Effect { Name = Winleafs.Models.Models.Effects.Effect.OFFEFFECTNAME });
+            Effects.Insert(0, new Effect { Name = Models.Models.Effects.Effect.AMBILIGHTEFFECTNAME });
+            Effects.Insert(0, new Effect { Name = Models.Models.Effects.Effect.OFFEFFECTNAME });
 
             DataContext = this;
 
@@ -76,6 +78,10 @@ namespace Winleafs.Wpf.Views.MainWindows
                     if (SelectedEffect == Models.Models.Effects.Effect.OFFEFFECTNAME)
                     {
                         await client.StateEndpoint.SetStateWithStateCheckAsync(false);
+                    }
+                    else if (SelectedEffect == Models.Models.Effects.Effect.AMBILIGHTEFFECTNAME)
+                    {
+                        AmbilightEffect.GetEffectForDevice(UserSettings.Settings.ActviceDevice).Start();
                     }
                     else
                     {

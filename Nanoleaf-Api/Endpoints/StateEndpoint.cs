@@ -139,7 +139,7 @@ namespace Winleafs.Api.Endpoints
 
 		public Task SetColorTemperatureAsync(int value)
         {
-            throw new NotImplementedException();
+            return SendRequest("state", Method.PUT, body: "{\"ct\": {\"value\":" + value.ToString() + "}}");
         }
 
 		public void SetHue(int value)
@@ -149,7 +149,7 @@ namespace Winleafs.Api.Endpoints
 
 		public Task SetHueAsync(int value)
         {
-            throw new NotImplementedException();
+            return SendRequest("state", Method.PUT, body: "{\"hue\": {\"value\":" + value.ToString() + "}}");
         }
 
 		public void SetSaturation(int value)
@@ -159,7 +159,7 @@ namespace Winleafs.Api.Endpoints
 
 		public Task SetSaturationAsync(int value)
         {
-            throw new NotImplementedException();
+            return SendRequest("state", Method.PUT, body: "{\"sat\": {\"value\":" + value.ToString() + "}}");
         }
 
 		public void SetState(bool state)
