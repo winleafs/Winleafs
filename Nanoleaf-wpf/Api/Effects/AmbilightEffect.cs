@@ -83,7 +83,7 @@ namespace Winleafs.Wpf.Api.Effects
             int red = 0;
             int green = 0;
             int blue = 0;
-            int minDiversion = 15; // drop pixels that do not differ by at least minDiversion between color values (white, gray or black)
+            int minDiversion = 50; // drop pixels that do not differ by at least minDiversion between color values (white, gray or black)
             int dropped = 0; // keep track of dropped pixels
             long[] totals = new long[] { 0, 0, 0 };
             int bppModifier = bm.PixelFormat == PixelFormat.Format24bppRgb ? 3 : 4; // cutting corners, will fail on anything else but 32 and 24 bit images
