@@ -10,17 +10,20 @@ namespace Winleafs.Api.Endpoints
 {
     public class AuthorizationEndpoint : NanoleafEndpoint, IAuthorizationEndpoint
     {
+        /// <inheritdoc />
         public AuthorizationEndpoint(NanoleafClient client)
         {
             Client = client;
         }
 
-		public string GetAuthToken()
+        /// <inheritdoc />
+        public string GetAuthToken()
 		{
 			return GetAuthTokenAsync().ConfigureAwait(false).GetAwaiter().GetResult();
 		}
 
-		public async Task<string> GetAuthTokenAsync()
+        /// <inheritdoc />
+        public async Task<string> GetAuthTokenAsync()
         {
             var client = new RestClient(Client._baseUri);
             var request = new RestRequest("api/v1/new", Method.POST);
