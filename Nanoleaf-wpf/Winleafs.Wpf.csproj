@@ -85,8 +85,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Api\Effects\CustomEffects.cs" />
+    <Compile Include="Api\Effects\ICustomEffect.cs" />
+    <Compile Include="Api\Effects\TurnOffEffect.cs" />
+    <Compile Include="Api\ScheduleTimer.cs" />
     <Compile Include="Helpers\ContextMenuLeftClickBehavior.cs" />
-    <Compile Include="Effects\AmbilightEffect.cs" />
+    <Compile Include="Api\Effects\AmbilightEffect.cs" />
     <Compile Include="ViewModels\OptionsViewModel.cs" />
     <Compile Include="Views\MainWindows\OverrideScheduleUserControl.xaml.cs">
       <DependentUpon>OverrideScheduleUserControl.xaml</DependentUpon>

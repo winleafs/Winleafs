@@ -5,12 +5,10 @@ using System.Windows.Input;
 
 using Hardcodet.Wpf.TaskbarNotification;
 
-using Winleafs.Api.Timers;
-
 using Winleafs.Models.Enums;
 using Winleafs.Models.Models;
 using Winleafs.Models.Models.Scheduling;
-
+using Winleafs.Wpf.Api;
 using Winleafs.Wpf.Views.Options;
 using Winleafs.Wpf.Views.Scheduling;
 

@@ -3,35 +3,24 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
 using Winleafs.Api;
 using Winleafs.Models.Models;
 
-namespace Winleafs.Wpf.Effects
+namespace Winleafs.Wpf.Api.Effects
 {
-    public class AmbilightEffect
+    public class AmbilightEffect : ICustomEffect
     {
-        private static Dictionary<string, AmbilightEffect> _effectsForClients = new Dictionary<string, AmbilightEffect>();
-
-        public static AmbilightEffect GetEffectForDevice(Device device)
-        {
-            if (!_effectsForClients.ContainsKey(device.IPAddress))
-            {
-                _effectsForClients.Add(device.IPAddress, new AmbilightEffect(device));
-            }
-
-            return _effectsForClients[device.IPAddress];
-        }
-
         private INanoleafClient _nanoleafClient;
         private System.Timers.Timer _timer;
         private Rectangle _screenBounds;
 
-        public AmbilightEffect(Device device)
+        public AmbilightEffect(INanoleafClient nanoleafClient)
         {
-            _nanoleafClient = NanoleafClient.GetClientForDevice(device);
+            _nanoleafClient = nanoleafClient;
 
             var timerRefreshRate = 1000;
 
@@ -43,7 +32,6 @@ namespace Winleafs.Wpf.Effects
             _timer = new System.Timers.Timer(timerRefreshRate);
             _timer.Elapsed += OnTimedEvent;
             _timer.AutoReset = true;
-            _timer.Enabled = true;
 
             var monitorInfo = new MonitorInfo();
             EnumDisplaySettings(Screen.AllScreens[UserSettings.Settings.AmbilightMonitorIndex].DeviceName, -1, ref monitorInfo);
@@ -51,22 +39,12 @@ namespace Winleafs.Wpf.Effects
             _screenBounds = new Rectangle(monitorInfo.dmPositionX, monitorInfo.dmPositionY, monitorInfo.dmPelsWidth, monitorInfo.dmPelsHeight);
         }
 
-        public void Start()
-        {
-            _timer.Start();
-        }
-
-        public void Stop()
-        {
-            _timer.Stop();
-        }
-
         private void OnTimedEvent(object source, ElapsedEventArgs e)
         {
             Task.Run(() => SetColor());
         }
 
-        public async Task SetColor()
+        private async Task SetColor()
         {
             var color = CalculateAverageColor(CaptureScreen());
             var hue = (int)color.GetHue();
@@ -75,7 +53,7 @@ namespace Winleafs.Wpf.Effects
             await _nanoleafClient.StateEndpoint.SetHueAndSaturationAsync(hue, sat);
         }
 
-        public Bitmap CaptureScreen()
+        private Bitmap CaptureScreen()
         {
             //Note: these objects need to be initialized new everytime
 
@@ -112,7 +90,6 @@ namespace Winleafs.Wpf.Effects
 
             BitmapData srcData = bm.LockBits(new Rectangle(0, 0, bm.Width, bm.Height), ImageLockMode.ReadOnly, bm.PixelFormat);
 
-            bm.Dispose();
             int stride = srcData.Stride;
             IntPtr Scan0 = srcData.Scan0;
 
@@ -142,6 +119,8 @@ namespace Winleafs.Wpf.Effects
                 }
             }
 
+            bm.Dispose();
+
             int count = width * height - dropped;
             int avgR = (int)(totals[2] / count);
             int avgG = (int)(totals[1] / count);
@@ -152,6 +131,32 @@ namespace Winleafs.Wpf.Effects
 
         [DllImport("user32.dll")]
         public static extern bool EnumDisplaySettings(string lpszDeviceName, int iModeNum, ref MonitorInfo monitorInfo);
+
+        public string GetName()
+        {
+            return $"{CustomEffects.EffectNamePreface}Ambilight";
+        }
+
+        public async Task Activate()
+        {
+            _timer.Start();
+        }
+
+        public async Task Deactivate()
+        {
+            _timer.Stop();
+            Thread.Sleep(500); //Give the last command the time to complete, 500 is based on testing and a high value (better safe then sorry)
+        }
+
+        public bool IsContinuous()
+        {
+            return true;
+        }
+
+        public bool IsActive()
+        {
+            return _timer.Enabled;
+        }
 
         [StructLayout(LayoutKind.Sequential)]
         public struct MonitorInfo

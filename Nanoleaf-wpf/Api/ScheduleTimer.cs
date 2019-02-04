@@ -3,12 +3,12 @@ using System.Threading.Tasks;
 using System.Timers;
 
 using NLog;
-
+using Winleafs.Api;
 using Winleafs.Models.Enums;
 using Winleafs.Models.Models;
-using Winleafs.Models.Models.Effects;
+using Winleafs.Wpf.Api.Effects;
 
-namespace Winleafs.Api.Timers
+namespace Winleafs.Wpf.Api
 {
     public class ScheduleTimer
     {
@@ -65,13 +65,24 @@ namespace Winleafs.Api.Timers
                     {
                         try
                         {
-                            if (activeTrigger.Effect.Equals(Effect.OFFEFFECTNAME))
+                            var customEffects = CustomEffects.GetCustomEffectsForDevice(UserSettings.Settings.ActviceDevice);
+
+                            if (customEffects.HasActiveEffects(activeTrigger.Effect))
                             {
-                                await client.StateEndpoint.SetStateWithStateCheckAsync(false);
+                                await customEffects.DeactivateAllEffects();
+                            }
+
+                            if (customEffects.EffectIsCustomEffect(activeTrigger.Effect))
+                            {
+                                var customEffect = customEffects.GetCustomEffect(activeTrigger.Effect);
+
+                                if (!customEffect.IsActive())
+                                {
+                                    await customEffect.Activate();
+                                }
                             }
                             else
                             {
-                                await client.StateEndpoint.SetStateWithStateCheckAsync(true); //Turn on device if it is not on
                                 await client.EffectsEndpoint.SetSelectedEffectAsync(activeTrigger.Effect);
                                 await client.StateEndpoint.SetBrightnessAsync(activeTrigger.Brightness);
                             }

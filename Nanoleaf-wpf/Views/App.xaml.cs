@@ -2,7 +2,6 @@
 using System.Windows;
 
 using Winleafs.Api;
-using Winleafs.Api.Timers;
 
 using Winleafs.Models.Models;
 
@@ -10,6 +9,8 @@ using NLog;
 
 using Winleafs.Wpf.Views.MainWindows;
 using Winleafs.Wpf.Views.Setup;
+using Winleafs.Api.Helpers;
+using Winleafs.Wpf.Api;
 
 namespace Winleafs.Wpf.Views
 {
@@ -103,7 +104,7 @@ namespace Winleafs.Wpf.Views
 
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            _logger.Fatal("Unhandled exception occurred", e);
+            _logger.Fatal(e.Exception, "Unhandled exception occurred");
         }
 
         public static void ResetAllSettings(MainWindow mainWindow)

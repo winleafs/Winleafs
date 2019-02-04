@@ -5,14 +5,14 @@ using System.Windows;
 using System.Windows.Controls;
 
 using Winleafs.Api;
-using Winleafs.Api.Timers;
 
 using Winleafs.Models.Enums;
 using Winleafs.Models.Models;
 using Winleafs.Models.Models.Effects;
 
 using NLog;
-using Winleafs.Wpf.Effects;
+using Winleafs.Wpf.Api.Effects;
+using Winleafs.Wpf.Api;
 
 namespace Winleafs.Wpf.Views.MainWindows
 {
@@ -44,8 +44,7 @@ namespace Winleafs.Wpf.Views.MainWindows
             InitializeComponent();
 
             Effects = new List<Effect>(UserSettings.Settings.ActviceDevice.Effects);
-            Effects.Insert(0, new Effect { Name = Models.Models.Effects.Effect.AMBILIGHTEFFECTNAME });
-            Effects.Insert(0, new Effect { Name = Models.Models.Effects.Effect.OFFEFFECTNAME });
+            Effects.InsertRange(0, CustomEffects.GetCustomEffectAsEffects(UserSettings.Settings.ActviceDevice));
 
             DataContext = this;
 
@@ -59,8 +58,20 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         private void StopOverride_Click(object sender, RoutedEventArgs e)
         {
+            Task.Run(() => StopOverride());
+        }
+
+        private async Task StopOverride()
+        {
             if (UserSettings.Settings.ActviceDevice.OperationMode == OperationMode.Manual)
             {
+                var customEffects = CustomEffects.GetCustomEffectsForDevice(UserSettings.Settings.ActviceDevice);
+
+                if (customEffects.HasActiveEffects())
+                {
+                    await customEffects.DeactivateAllEffects();
+                }
+
                 UserSettings.Settings.ActviceDevice.OperationMode = OperationMode.Schedule;
 
                 ScheduleTimer.Timer.FireTimer();
@@ -73,22 +84,29 @@ namespace Winleafs.Wpf.Views.MainWindows
             {
                 try
                 {
+                    var customEffects = CustomEffects.GetCustomEffectsForDevice(UserSettings.Settings.ActviceDevice);
                     var client = NanoleafClient.GetClientForDevice(UserSettings.Settings.ActviceDevice);
 
-                    if (SelectedEffect == Models.Models.Effects.Effect.OFFEFFECTNAME)
+                    if (customEffects.HasActiveEffects(SelectedEffect))
                     {
-                        await client.StateEndpoint.SetStateWithStateCheckAsync(false);
+                        await customEffects.DeactivateAllEffects();
                     }
-                    else if (SelectedEffect == Models.Models.Effects.Effect.AMBILIGHTEFFECTNAME)
+
+                    if (customEffects.EffectIsCustomEffect(SelectedEffect))
                     {
-                        AmbilightEffect.GetEffectForDevice(UserSettings.Settings.ActviceDevice).Start();
+                        var customEffect = customEffects.GetCustomEffect(SelectedEffect);
+
+                        if (!customEffect.IsActive())
+                        {
+                            await customEffect.Activate();
+                        }
                     }
                     else
                     {
-                        await client.StateEndpoint.SetStateWithStateCheckAsync(true); //Turn on device if it is not on
                         await client.EffectsEndpoint.SetSelectedEffectAsync(SelectedEffect);
-                        await client.StateEndpoint.SetBrightnessAsync(_brightness);
                     }
+
+                    await client.StateEndpoint.SetBrightnessAsync(_brightness);
 
                     UserSettings.Settings.ActviceDevice.OperationMode = OperationMode.Manual;
                 }

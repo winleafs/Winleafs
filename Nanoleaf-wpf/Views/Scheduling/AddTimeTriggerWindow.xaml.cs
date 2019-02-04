@@ -10,6 +10,7 @@ using Winleafs.Models.Enums;
 using Winleafs.Models.Models;
 using Winleafs.Models.Models.Effects;
 using Winleafs.Models.Models.Scheduling.Triggers;
+using Winleafs.Wpf.Api.Effects;
 
 namespace Winleafs.Wpf.Views.Scheduling
 {
@@ -61,7 +62,7 @@ namespace Winleafs.Wpf.Views.Scheduling
         {
             _parent = parent;
             Effects = new List<Effect>(UserSettings.Settings.ActviceDevice.Effects);
-            Effects.Insert(0, new Effect { Name = Models.Models.Effects.Effect.OFFEFFECTNAME });
+            Effects.InsertRange(0, CustomEffects.GetCustomEffectAsEffects(UserSettings.Settings.ActviceDevice));
 
             DataContext = this;
 
