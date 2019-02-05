@@ -1,10 +1,14 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
 using Hardcodet.Wpf.TaskbarNotification;
 
+using NLog;
+
+using Winleafs.Api;
 using Winleafs.Api.Timers;
 
 using Winleafs.Models.Enums;
@@ -129,6 +133,27 @@ namespace Winleafs.Wpf.Views.MainWindows
             }
 
             public event EventHandler CanExecuteChanged; //Must be included for the interface
+        }
+
+        private async void Reload_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var device = UserSettings.Settings.ActviceDevice;
+                var nanoleafClient = new NanoleafClient(device.IPAddress, device.Port, device.AuthToken);
+                var effects = await nanoleafClient.EffectsEndpoint.GetEffectsListAsync();
+                device.Effects.Clear();
+                device.LoadEffectsFromNameList(effects);
+                // TODO Remove me for a popup
+                MessageBox.Show(MainWindows.Resources.ReloadSuccessful);
+            }
+            catch(Exception exception)
+            {
+                MessageBox.Show(MainWindows.Resources.ReloadFailed);
+                LogManager.GetCurrentClassLogger().Error(exception, "Failed to reload effects list");
+            }
+
+
         }
     }
 }
