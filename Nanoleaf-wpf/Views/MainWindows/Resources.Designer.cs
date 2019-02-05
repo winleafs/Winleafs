@@ -61,7 +61,7 @@ namespace Winleafs.Wpf.Views.MainWindows {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Brightness:.
+        ///   Looks up a localized string similar to Brightness.
         /// </summary>
         public static string Brightness {
             get {
@@ -88,7 +88,7 @@ namespace Winleafs.Wpf.Views.MainWindows {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Override schedule:.
+        ///   Looks up a localized string similar to Override schedule.
         /// </summary>
         public static string OverrideSchedule {
             get {

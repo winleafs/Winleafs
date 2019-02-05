@@ -121,10 +121,10 @@
     <value>Cancel</value>
   </data>
   <data name="Latitude" xml:space="preserve">
-    <value>Latitude:</value>
+    <value>Latitude</value>
   </data>
   <data name="Longitude" xml:space="preserve">
-    <value>Longitude:</value>
+    <value>Longitude</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
