@@ -130,5 +130,10 @@ namespace Winleafs.Wpf.Views.MainWindows
 
             public event EventHandler CanExecuteChanged; //Must be included for the interface
         }
+
+        private void Reload_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

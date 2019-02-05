@@ -97,6 +97,15 @@ namespace Winleafs.Wpf.Views.MainWindows {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reload effects.
+        /// </summary>
+        public static string ReloadEffects {
+            get {
+                return ResourceManager.GetString("ReloadEffects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reset all settings.
         /// </summary>
         public static string ResetAllSettings {

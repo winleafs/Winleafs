@@ -129,6 +129,9 @@
   <data name="OverrideSchedule" xml:space="preserve">
     <value>Override schedule:</value>
   </data>
+  <data name="ReloadEffects" xml:space="preserve">
+    <value>Reload effects</value>
+  </data>
   <data name="ResetAllSettings" xml:space="preserve">
     <value>Reset all settings</value>
   </data>
