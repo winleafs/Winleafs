@@ -16,7 +16,8 @@
             <StackPanel HorizontalAlignment="Left" Height="Auto" Margin="10,47,0,0" VerticalAlignment="Stretch" Width="300" x:Name="ScheduleList">
                 <Border BorderBrush="White" BorderThickness="0 1 1 0" Height="Auto"/>
             </StackPanel>
-            <Label Content="{x:Static mainWindows:Resources.Stuck}" ToolTip="{x:Static mainWindows:Resources.StuckMessage}" HorizontalAlignment="Left" Margin="315,374,-109,0" VerticalAlignment="Top" FontSize="10" Foreground="White" Width="104" Height="37"/>
+            <Button Content="{x:Static mainWindows:Resources.Stuck}" ToolTip="{x:Static mainWindows:Resources.StuckMessage}" HorizontalAlignment="Left" Margin="315,374,-109,0" VerticalAlignment="Top" FontSize="10"
+                    Width="104" Height="37" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Stuck_Click"/>
         </Grid>
         <Grid>
             <Button Content="{x:Static mainWindows:Resources.Options}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Options_Click"/>

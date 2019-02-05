@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using System.Windows.Input;
 
@@ -129,6 +131,16 @@ namespace Winleafs.Wpf.Views.MainWindows
             }
 
             public event EventHandler CanExecuteChanged; //Must be included for the interface
+        }
+
+        private void Stuck_Click(object sender, RoutedEventArgs e)
+        {
+            // Unsure if this would be needed but don't want to execute any program.
+            // Doing this won't do much and it will be difficult to execute a program like this but it's better than nothing.
+            if (!File.Exists(UserSettings.SettingsFolder))
+            {
+                Process.Start(UserSettings.SettingsFolder);
+            }
         }
     }
 }
