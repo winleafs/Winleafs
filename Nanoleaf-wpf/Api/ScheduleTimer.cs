@@ -67,10 +67,13 @@ namespace Winleafs.Wpf.Api
                         {
                             var customEffects = CustomEffects.GetCustomEffectsForDevice(UserSettings.Settings.ActviceDevice);
 
+                            //DO NOT change the order of disabling effects, then setting brightness and then enabling effects
                             if (customEffects.HasActiveEffects(activeTrigger.Effect))
                             {
                                 await customEffects.DeactivateAllEffects();
                             }
+
+                            await client.StateEndpoint.SetBrightnessAsync(activeTrigger.Brightness);
 
                             if (customEffects.EffectIsCustomEffect(activeTrigger.Effect))
                             {
@@ -84,7 +87,6 @@ namespace Winleafs.Wpf.Api
                             else
                             {
                                 await client.EffectsEndpoint.SetSelectedEffectAsync(activeTrigger.Effect);
-                                await client.StateEndpoint.SetBrightnessAsync(activeTrigger.Brightness);
                             }
 
                         }

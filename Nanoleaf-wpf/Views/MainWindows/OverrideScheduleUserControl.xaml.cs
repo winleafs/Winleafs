@@ -87,10 +87,13 @@ namespace Winleafs.Wpf.Views.MainWindows
                     var customEffects = CustomEffects.GetCustomEffectsForDevice(UserSettings.Settings.ActviceDevice);
                     var client = NanoleafClient.GetClientForDevice(UserSettings.Settings.ActviceDevice);
 
+                    //DO NOT change the order of disabling effects, then setting brightness and then enabling effects
                     if (customEffects.HasActiveEffects(SelectedEffect))
                     {
                         await customEffects.DeactivateAllEffects();
                     }
+
+                    await client.StateEndpoint.SetBrightnessAsync(_brightness);
 
                     if (customEffects.EffectIsCustomEffect(SelectedEffect))
                     {
@@ -105,8 +108,6 @@ namespace Winleafs.Wpf.Views.MainWindows
                     {
                         await client.EffectsEndpoint.SetSelectedEffectAsync(SelectedEffect);
                     }
-
-                    await client.StateEndpoint.SetBrightnessAsync(_brightness);
 
                     UserSettings.Settings.ActviceDevice.OperationMode = OperationMode.Manual;
                 }
