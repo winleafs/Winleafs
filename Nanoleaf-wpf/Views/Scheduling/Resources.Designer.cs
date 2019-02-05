@@ -70,7 +70,7 @@ namespace Winleafs.Wpf.Views.Scheduling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Brightness:.
+        ///   Looks up a localized string similar to Brightness.
         /// </summary>
         public static string Brightness {
             get {
@@ -178,7 +178,7 @@ namespace Winleafs.Wpf.Views.Scheduling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Effect:.
+        ///   Looks up a localized string similar to Effect.
         /// </summary>
         public static string Effect {
             get {
@@ -196,7 +196,7 @@ namespace Winleafs.Wpf.Views.Scheduling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Name:.
+        ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string Name {
             get {
@@ -214,7 +214,7 @@ namespace Winleafs.Wpf.Views.Scheduling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Time:.
+        ///   Looks up a localized string similar to Time.
         /// </summary>
         public static string Time {
             get {
@@ -223,7 +223,7 @@ namespace Winleafs.Wpf.Views.Scheduling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Trigger:.
+        ///   Looks up a localized string similar to Trigger.
         /// </summary>
         public static string Trigger {
             get {
