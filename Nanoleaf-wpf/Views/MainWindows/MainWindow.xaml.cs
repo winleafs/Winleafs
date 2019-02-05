@@ -8,7 +8,7 @@ using System.Windows.Input;
 using Hardcodet.Wpf.TaskbarNotification;
 
 using NLog;
-
+using Winleafs.Api;
 using Winleafs.Models.Enums;
 using Winleafs.Models.Models;
 using Winleafs.Models.Models.Scheduling;
@@ -138,11 +138,14 @@ namespace Winleafs.Wpf.Views.MainWindows
             try
             {
                 var device = UserSettings.Settings.ActviceDevice;
-                var nanoleafClient = new NanoleafClient(device.IPAddress, device.Port, device.AuthToken);
+                var nanoleafClient = NanoleafClient.GetClientForDevice(device);
                 var effects = await nanoleafClient.EffectsEndpoint.GetEffectsListAsync();
-                device.Effects.Clear();
+
                 device.LoadEffectsFromNameList(effects);
-                // TODO Remove me for a popup
+
+                UserSettings.Settings.SaveSettings();
+
+                // TODO Replace me for a popup
                 MessageBox.Show(MainWindows.Resources.ReloadSuccessful);
             }
             catch(Exception exception)
