@@ -23,6 +23,7 @@
             <Button Content="{x:Static mainWindows:Resources.Options}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Options_Click"/>
             <Button Content="{x:Static mainWindows:Resources.ResetAllSettings}" HorizontalAlignment="Left" Margin="366,384,0,0" VerticalAlignment="Top" Width="106" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Reset_Click"/>
             <mainWindows:OverrideScheduleUserControl Margin="10,42,73,323" Height="55" Width="400"/>
+            <Button Content="{x:Static mainWindows:Resources.ReloadEffects}" HorizontalAlignment="Left" Margin="99,10,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Reload_Click"/>
         </Grid>
 
     </DockPanel>

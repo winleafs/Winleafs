@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Brightness" xml:space="preserve">
-    <value>Brightness:</value>
+    <value>Brightness</value>
   </data>
   <data name="Options" xml:space="preserve">
     <value>Options</value>
@@ -127,7 +127,16 @@
     <value>Override</value>
   </data>
   <data name="OverrideSchedule" xml:space="preserve">
-    <value>Override schedule:</value>
+    <value>Override schedule</value>
+  </data>
+  <data name="ReloadEffects" xml:space="preserve">
+    <value>Reload effects</value>
+  </data>
+  <data name="ReloadFailed" xml:space="preserve">
+    <value>Failed to reload the effects</value>
+  </data>
+  <data name="ReloadSuccessful" xml:space="preserve">
+    <value>Effects have successfully been reloaded</value>
   </data>
   <data name="ResetAllSettings" xml:space="preserve">
     <value>Reset all settings</value>

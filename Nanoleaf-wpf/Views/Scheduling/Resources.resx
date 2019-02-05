@@ -121,7 +121,7 @@
     <value>Add</value>
   </data>
   <data name="Brightness" xml:space="preserve">
-    <value>Brightness:</value>
+    <value>Brightness</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
@@ -157,22 +157,22 @@
     <value>Copy to weekends</value>
   </data>
   <data name="Effect" xml:space="preserve">
-    <value>Effect:</value>
+    <value>Effect</value>
   </data>
   <data name="Events" xml:space="preserve">
     <value>Events</value>
   </data>
   <data name="Name" xml:space="preserve">
-    <value>Name:</value>
+    <value>Name</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
   <data name="Time" xml:space="preserve">
-    <value>Time:</value>
+    <value>Time</value>
   </data>
   <data name="Trigger" xml:space="preserve">
-    <value>Trigger:</value>
+    <value>Trigger</value>
   </data>
   <data name="TurnLightsOff" xml:space="preserve">
     <value>Turn lights off at application/Windows shutdown</value>

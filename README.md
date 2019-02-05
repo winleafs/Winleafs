@@ -20,3 +20,8 @@ Canvas support currently not guaranteed.
 TODOs and future features can be found on the [GitHub projects board](https://github.com/StijnOostdam/Winleafs/projects/1).
 
 [Donations](https://www.paypal.me/winleafs)
+
+## Bugs
+
+The Nanoleaf device must be connected to the same router as your Windows device.
+This means that 2.4Ghz and 5Ghz networks are also seperated as the Nanoleaf connects to 2.4Ghz
