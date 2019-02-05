@@ -106,6 +106,24 @@ namespace Winleafs.Wpf.Views.MainWindows {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to reload the effects.
+        /// </summary>
+        public static string ReloadFailed {
+            get {
+                return ResourceManager.GetString("ReloadFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Effects have successfully been reloaded.
+        /// </summary>
+        public static string ReloadSuccessful {
+            get {
+                return ResourceManager.GetString("ReloadSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reset all settings.
         /// </summary>
         public static string ResetAllSettings {
