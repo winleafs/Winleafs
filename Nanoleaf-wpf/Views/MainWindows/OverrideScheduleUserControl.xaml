@@ -7,11 +7,11 @@
              mc:Ignorable="d"
              d:DesignHeight="55" d:DesignWidth="400">
     <Grid>
-        <Label Content="{x:Static local:Resources.OverrideSchedule}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="{x:Static local:Resources.OverrideSchedule}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"/>
         <ComboBox HorizontalAlignment="Left" Margin="108,4,0,0" VerticalAlignment="Top" Width="200" SelectedItem="{Binding SelectedEffect}" ItemsSource="{Binding Effects}"/>
         <Button Content="{x:Static local:Resources.Override}" HorizontalAlignment="Left" Margin="313,0,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Override_Click"/>
         <Button Content="{x:Static local:Resources.Stop}" HorizontalAlignment="Left" Margin="313,27,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="StopOverride_Click"/>
-        <Label Content="{x:Static local:Resources.Brightness}" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="{x:Static local:Resources.Brightness}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" Foreground="White"/>
         <Label x:Name="BrightnessLabel" HorizontalAlignment="Left" Margin="74,27,0,0" VerticalAlignment="Top" Foreground="White"/>
         <Slider HorizontalAlignment="Left" Margin="108,31,0,0" VerticalAlignment="Top" Width="200" Minimum="0" Maximum="100" Value="{Binding Brightness}" IsSnapToTickEnabled="True" TickFrequency="1"/>
     </Grid>

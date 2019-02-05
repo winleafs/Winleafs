@@ -88,7 +88,7 @@ namespace Winleafs.Wpf.Views.Options {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Latitude:.
+        ///   Looks up a localized string similar to Latitude.
         /// </summary>
         public static string Latitude {
             get {
@@ -97,7 +97,7 @@ namespace Winleafs.Wpf.Views.Options {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Longitude:.
+        ///   Looks up a localized string similar to Longitude.
         /// </summary>
         public static string Longitude {
             get {

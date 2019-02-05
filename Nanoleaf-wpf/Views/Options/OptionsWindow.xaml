@@ -12,9 +12,9 @@
                 <ScaleTransform ScaleX="2" ScaleY="2" />
             </CheckBox.LayoutTransform>
         </CheckBox>
-        <Label Content="{x:Static local:Resources.Latitude}" HorizontalAlignment="Left" Margin="10,56,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
+        <Label Content="{x:Static local:Resources.Latitude}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,56,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="119,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" x:Name="Latitude" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White" Text="{Binding Latitude}"/>
-        <Label Content="{x:Static local:Resources.Longitude}" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
+        <Label Content="{x:Static local:Resources.Longitude}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="119,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" x:Name="Longitude" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White" Text="{Binding Longitude}"/>
 
         <Button Content="{x:Static local:Resources.Cancel}" HorizontalAlignment="Left" Margin="10,384,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Cancel_Click"/>

@@ -12,10 +12,7 @@ namespace Winleafs.Api.Endpoints.Interfaces
         /// <returns>A value to indicate whether the Nanoleaf is on or off.</returns>
         Task<OnOffModel> GetStateAsync();
 
-		/// <summary>
-		/// Gets the state of the Nanoleaf.
-		/// </summary>
-		/// <returns>A value to indicate whether the Nanoleaf is on or off.</returns>
+	    /// <inheritdoc cref="GetStateAsync"/>
 		OnOffModel GetState();
 
         /// <summary>
@@ -25,10 +22,7 @@ namespace Winleafs.Api.Endpoints.Interfaces
         /// <returns>An awaitable task.</returns>
         Task SetStateAsync(bool state);
 
-		/// <summary>
-		/// Sets the state of the Nanoleaf.
-		/// </summary>
-		/// <param name="state">The state that the Nanoleaf should be.</param>
+	    /// <inheritdoc cref="SetStateAsync"/>
 		void SetState(bool state);
 
         /// <summary>
@@ -38,10 +32,7 @@ namespace Winleafs.Api.Endpoints.Interfaces
         /// <returns>An awaitable task.</returns>
         Task SetStateWithStateCheckAsync(bool state);
 
-		/// <summary>
-		/// Sets the state of the Nanoleaf but checks the current state before setting the state.
-		/// </summary>
-		/// <param name="state">The state that the Nanoleaf should be.</param>
+	    /// <inheritdoc cref="SetStateWithStateCheckAsync"/>
 		void SetStateWithStateCheck(bool state);
 
         /// <summary>
@@ -50,10 +41,7 @@ namespace Winleafs.Api.Endpoints.Interfaces
         /// <returns>The current brightness.</returns>
         Task<StateModel> GetBrightnessAsync();
 
-		/// <summary>
-		/// Gets the current brightness of the Nanoleaf.
-		/// </summary>
-		/// <returns>The current brightness.</returns>
+	    /// <inheritdoc cref="GetBrightnessAsync"/>
 		StateModel GetBrightness();
 
         /// <summary>
@@ -64,11 +52,7 @@ namespace Winleafs.Api.Endpoints.Interfaces
         /// <returns>An awaitable task.</returns>
         Task SetBrightnessAsync(int value, int? duration = null);
 
-		/// <summary>
-		/// Sets the brightness of the Nanoleaf.
-		/// </summary>
-		/// <param name="value">The value wanting the brightness to be set to.</param>
-		/// <param name="duration">The duration for how long the brightness should be set to.</param>
+	    /// <inheritdoc cref="SetBrightnessAsync"/>
 		void SetBrightness(int value, int? duration = null);
 
         /// <summary>
@@ -78,10 +62,7 @@ namespace Winleafs.Api.Endpoints.Interfaces
         /// <returns>An awaitable task.</returns>
         Task IncrementBrightnessAsync(int increment);
 
-		/// <summary>
-		/// Increment the brightness of the Nanoleaf.
-		/// </summary>
-		/// <param name="increment">How much should be added to the current brightness.</param>
+	    /// <inheritdoc cref="IncrementBrightnessAsync"/>
 		void IncrementBrightness(int increment);
 
         /// <summary>
@@ -90,10 +71,7 @@ namespace Winleafs.Api.Endpoints.Interfaces
         /// <returns>The hue of the Nanoleaf.</returns>
         Task<StateModel> GetHueAsync();
 
-		/// <summary>
-		/// Gets the current hue of the Nanoleaf.
-		/// </summary>
-		/// <returns>The hue of the Nanoleaf.</returns>
+	    /// <inheritdoc cref="GetHueAsync"/>
 		StateModel GetHue();
 
         /// <summary>
@@ -103,10 +81,7 @@ namespace Winleafs.Api.Endpoints.Interfaces
         /// <returns>An awaitable task.</returns>
         Task SetHueAsync(int value);
 
-		/// <summary>
-		/// Sets the hue of the Nanoleaf.
-		/// </summary>
-		/// <param name="value">The value the hue should be set to.</param>
+	    /// <inheritdoc cref="SetHueAsync"/>
 		void SetHue(int value);
 
         /// <summary>
@@ -116,10 +91,7 @@ namespace Winleafs.Api.Endpoints.Interfaces
         /// <returns>An awaitable task.</returns>
         Task IncrementHueAsync(int increment);
 
-		/// <summary>
-		/// Increments the hue of the Nanoleaf.
-		/// </summary>
-		/// <param name="increment">The increment that should be added to the current value.</param>
+	    /// <inheritdoc cref="IncrementHueAsync"/>
 		void IncrementHue(int increment);
 
         /// <summary>
@@ -128,10 +100,7 @@ namespace Winleafs.Api.Endpoints.Interfaces
         /// <returns>The saturation of the Nanoleaf.</returns>
         Task<StateModel> GetSaturationAsync();
 
-		/// <summary>
-		/// Gets the current saturation of the Nanoleaf.
-		/// </summary>
-		/// <returns>The saturation of the Nanoleaf.</returns>
+	    /// <inheritdoc cref="GetSaturationAsync"/>
 		StateModel GetSaturation();
 
         /// <summary>
@@ -141,10 +110,7 @@ namespace Winleafs.Api.Endpoints.Interfaces
         /// <returns>An awaitable task.</returns>
         Task SetSaturationAsync(int value);
 
-		/// <summary>
-		/// Sets the saturation of the Nanoleaf.
-		/// </summary>
-		/// <param name="value">The value wanting it to be set to.</param>
+	    /// <inheritdoc cref="SetSaturationAsync"/>
 		void SetSaturation(int value);
 
         /// <summary>
@@ -154,10 +120,7 @@ namespace Winleafs.Api.Endpoints.Interfaces
         /// <returns>An awaitable task.</returns>
         Task IncrementSaturationAsync(int increment);
 
-		/// <summary>
-		/// Increments the saturation of the Nanoleaf.
-		/// </summary>
-		/// <param name="increment">The amount wanting to be incremented with.</param>
+	    /// <inheritdoc cref="IncrementSaturationAsync"/>
 		void IncrementSaturation(int increment);
 
         /// <summary>
@@ -166,11 +129,8 @@ namespace Winleafs.Api.Endpoints.Interfaces
         /// <returns>The color temperature of the Nanoleaf.</returns>
         Task<StateModel> GetColorTemperatureAsync();
 
-		/// <summary>
-		/// Gets the current color temperature of the Nanoleaf.
-		/// </summary>
-		/// <returns>The color temperature of the Nanoleaf.</returns>
-		StateModel GetcolorTemperature();
+	    /// <inheritdoc cref="GetColorTemperatureAsync"/>
+		StateModel GetColorTemperature();
 
         /// <summary>
         /// Sets the color temperature of the Nanoleaf.
@@ -179,10 +139,7 @@ namespace Winleafs.Api.Endpoints.Interfaces
         /// <returns>An awaitable task.</returns>
         Task SetColorTemperatureAsync(int value);
 
-		/// <summary>
-		/// Sets the color temperature of the Nanoleaf.
-		/// </summary>
-		/// <param name="value">The value wanting it to be set to.</param>
+	    /// <inheritdoc cref="SetColorTemperatureAsync"/>
 		void SetColorTemperature(int value);
 
         /// <summary>
@@ -192,11 +149,8 @@ namespace Winleafs.Api.Endpoints.Interfaces
         /// <returns>An awaitable task.</returns>
         Task IncrementColorTemperatureAsync(int increment);
 
-		/// <summary>
-		/// Increments the color temperature of the Nanoleaf.
-		/// </summary>
-		/// <param name="increment">The amount wanting to be incremented with.</param>
-		void IncrementColorTemprature(int increment);
+	    /// <inheritdoc cref="IncrementColorTemperatureAsync"/>
+		void IncrementColorTemperature(int increment);
 
         /// <summary>
         /// Gets the current color mode of the Nanoleaf.
@@ -204,10 +158,7 @@ namespace Winleafs.Api.Endpoints.Interfaces
         /// <returns>The color mode of the Nanoleaf.</returns>
         Task<string> GetColorModeAsync();
 
-		/// <summary>
-		/// Gets the current color mode of the Nanoleaf.
-		/// </summary>
-		/// <returns>The color mode of the Nanoleaf.</returns>
+	    /// <inheritdoc cref="GetColorModeAsync"/>
 		string GetColorMode();
 
         /// <summary>
