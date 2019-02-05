@@ -149,5 +149,25 @@ namespace Winleafs.Wpf.Views.MainWindows {
                 return ResourceManager.GetString("Stop", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encountering issues?
+        ///Hover over me!.
+        /// </summary>
+        public static string Stuck {
+            get {
+                return ResourceManager.GetString("Stuck", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Try deleting the Settings.txt file in %appdata%/Winleafs.
+        ///Click on this button to open the folder..
+        /// </summary>
+        public static string StuckMessage {
+            get {
+                return ResourceManager.GetString("StuckMessage", resourceCulture);
+            }
+        }
     }
 }

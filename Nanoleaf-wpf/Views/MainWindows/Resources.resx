@@ -147,4 +147,12 @@
   <data name="Stop" xml:space="preserve">
     <value>Stop</value>
   </data>
+  <data name="Stuck" xml:space="preserve">
+    <value>Encountering issues?
+Hover over me!</value>
+  </data>
+  <data name="StuckMessage" xml:space="preserve">
+    <value>Try deleting the Settings.txt file in %appdata%/Winleafs.
+Click on this button to open the folder.</value>
+  </data>
 </root>

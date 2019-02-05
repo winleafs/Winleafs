@@ -14,7 +14,7 @@ namespace Winleafs.Models.Models
     {
         public static readonly string APPLICATIONNAME = "Winleafs";
 
-        private static readonly string SettingsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), APPLICATIONNAME);
+        public static readonly string SettingsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), APPLICATIONNAME);
         private static readonly string SettingsFileName = Path.Combine(SettingsFolder, "Settings.txt");
 
         private static UserSettings _settings { get; set; }
@@ -178,7 +178,7 @@ namespace Winleafs.Models.Models
                     }
                 }
             }
-            
+
             SaveSettings();
         }
 
