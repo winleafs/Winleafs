@@ -119,7 +119,7 @@ namespace Winleafs.Wpf.Api.Effects
                 }
             }
 
-            bm.Dispose();
+            bm.Dispose(); //Dispose must stay here, moving it above the unsafe block causes crashes
 
             int count = width * height - dropped;
             int avgR = (int)(totals[2] / count);
