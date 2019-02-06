@@ -18,3 +18,9 @@ Canvas support currently not guaranteed.
 ## TODOs & Future features
 
 TODOs and future features can be found on the [GitHub projects board](https://github.com/StijnOostdam/Winleafs/projects/1).
+
+## APIs used
+
+- [Icanhazip](http://icanhazip.com)
+- [IP-API](http://ip-api.com/)
+- [Sunset Sunrise](https://sunrise-sunset.org/api)
