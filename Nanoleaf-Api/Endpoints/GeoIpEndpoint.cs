@@ -3,9 +3,10 @@ using System.Net;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using RestSharp;
+using Winleafs.Api.Endpoints.Interfaces;
 using Winleafs.Models.Models.GeoIp;
 
-namespace Winleafs.Api.Endpoints.Interfaces
+namespace Winleafs.Api.Endpoints
 {
     public class GeoIpEndpoint : IGeoIpEndpoint
     {
@@ -47,7 +48,7 @@ namespace Winleafs.Api.Endpoints.Interfaces
 
         private Task<string> GetIpASync()
         {
-            return new WebClient().DownloadDataAsync(IPAPI);
+            return new WebClient().DownloadStringTaskAsync(IPAPI);
         }
     }
 }
