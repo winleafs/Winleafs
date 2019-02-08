@@ -97,6 +97,15 @@ namespace Winleafs.Wpf.Views.Options {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Set location by IP.
+        /// </summary>
+        public static string SetLocationByIp {
+            get {
+                return ResourceManager.GetString("SetLocationByIp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start at Windows startup.
         /// </summary>
         public static string StartAtWindowsStartup {

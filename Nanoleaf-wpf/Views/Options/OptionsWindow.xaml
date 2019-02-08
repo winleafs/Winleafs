@@ -19,5 +19,6 @@
 
         <Button Content="{x:Static local:Resources.Cancel}" HorizontalAlignment="Left" Margin="10,184,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Cancel_Click"/>
         <Button Content="{x:Static local:Resources.Save}" HorizontalAlignment="Left" Margin="299,184,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Save_Click"/>
+        <Button Content="{x:Static local:Resources.SetLocationByIp}" HorizontalAlignment="Left" Margin="10,152,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="GeoIp_Click"/>
     </Grid>
 </Window>
