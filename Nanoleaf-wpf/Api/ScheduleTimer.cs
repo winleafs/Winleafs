@@ -52,48 +52,18 @@ namespace Winleafs.Wpf.Api
             {
                 if (device.OperationMode == OperationMode.Schedule)
                 {
-                    var client = NanoleafClient.GetClientForDevice(device);
 
                     var activeTrigger = device.GetActiveTrigger();
 
                     if (activeTrigger == null)
                     {
+                        var client = NanoleafClient.GetClientForDevice(device);
                         //There are no triggers so the lights can be turned off if it is not off already
                         await client.StateEndpoint.SetStateWithStateCheckAsync(false);
                     }
                     else
                     {
-                        try
-                        {
-                            var customEffects = CustomEffects.GetCustomEffectsForDevice(UserSettings.Settings.ActviceDevice);
-
-                            //DO NOT change the order of disabling effects, then setting brightness and then enabling effects
-                            if (customEffects.HasActiveEffects(activeTrigger.Effect))
-                            {
-                                await customEffects.DeactivateAllEffects();
-                            }
-
-                            await client.StateEndpoint.SetBrightnessAsync(activeTrigger.Brightness);
-
-                            if (customEffects.EffectIsCustomEffect(activeTrigger.Effect))
-                            {
-                                var customEffect = customEffects.GetCustomEffect(activeTrigger.Effect);
-
-                                if (!customEffect.IsActive())
-                                {
-                                    await customEffect.Activate();
-                                }
-                            }
-                            else
-                            {
-                                await client.EffectsEndpoint.SetSelectedEffectAsync(activeTrigger.Effect);
-                            }
-
-                        }
-                        catch (Exception e)
-                        {
-                            _logger.Error(e, $"Time trigger failed for device {device.Name} with trigger effect {activeTrigger.Effect}");
-                        }
+                        await EffectActivator.ActiveEffect(device, activeTrigger.Effect, activeTrigger.Brightness);
                     }
                 }
             }

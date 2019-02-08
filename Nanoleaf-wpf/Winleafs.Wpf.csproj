@@ -86,6 +86,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Api\EffectActivator.cs" />
     <Compile Include="Api\Effects\CustomEffects.cs" />
     <Compile Include="Api\Effects\ICustomEffect.cs" />
     <Compile Include="Api\Effects\TurnOffEffect.cs" />
