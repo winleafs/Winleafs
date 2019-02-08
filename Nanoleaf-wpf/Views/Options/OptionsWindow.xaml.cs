@@ -13,6 +13,8 @@ using Winleafs.Wpf.ViewModels;
 
 namespace Winleafs.Wpf.Views.Options
 {
+    using Winleafs.Api;
+
     /// <summary>
     /// Interaction logic for OptionsWindow.xaml
     /// </summary>
@@ -105,6 +107,16 @@ namespace Winleafs.Wpf.Views.Options
 
             UserSettings.Settings.SaveSettings();
             Close();
+        }
+
+        private void GeoIp_Click(object sender, RoutedEventArgs e)
+        {
+            var nanoleafClient = NanoleafClient.GetClientForDevice(UserSettings.Settings.ActviceDevice);
+            var geoIpData = nanoleafClient.GeoIpEndpoint.GetGeoIpData();
+            OptionsViewModel.Latitude = geoIpData.Latitude.ToString("N7", CultureInfo.InvariantCulture);
+            OptionsViewModel.Longitude = geoIpData.Longitude.ToString("N7", CultureInfo.InvariantCulture);
+
+            DataContext = OptionsViewModel;
         }
     }
 }

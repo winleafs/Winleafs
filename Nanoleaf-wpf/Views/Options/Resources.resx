@@ -129,6 +129,10 @@
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="SetLocationByIp" xml:space="preserve">
+    <value>Set location
+by IP Adress</value>
+  </data>
   <data name="StartAtWindowsStartup" xml:space="preserve">
     <value>Start at Windows startup</value>
   </data>
