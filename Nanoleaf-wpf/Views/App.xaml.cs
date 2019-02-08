@@ -11,6 +11,9 @@ using Winleafs.Wpf.Views.MainWindows;
 using Winleafs.Wpf.Views.Setup;
 using Winleafs.Api.Helpers;
 using Winleafs.Wpf.Api;
+using System.Diagnostics;
+using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace Winleafs.Wpf.Views
 {
@@ -21,8 +24,25 @@ namespace Winleafs.Wpf.Views
     {
         private static Logger _logger = LogManager.GetCurrentClassLogger();
 
+        [DllImport("User32")]
+        private static extern int ShowWindow(int hwnd, int nCmdShow);
+
+        private const int SW_SHOW = 5;
+
+        private static bool PerformRegularShutdownOprations = true;
+
         void App_Startup(object sender, StartupEventArgs e)
         {
+            Process process = Process.GetCurrentProcess();            
+            int count = Process.GetProcesses().Where(p => p.ProcessName == process.ProcessName).Count();
+
+            if (count > 1)
+            {
+                PerformRegularShutdownOprations = false;
+                Current.Shutdown();
+                return;
+            }
+
             if (!UserSettings.HasSettings())
             {
                 var setupWindow = new SetupWindow();
@@ -76,8 +96,11 @@ namespace Winleafs.Wpf.Views
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
-            var task = Task.Run(() => TurnOffLights());
-            task.Wait(); //We actually want the code to execute directly instead of waiting
+            if (PerformRegularShutdownOprations)
+            {
+                var task = Task.Run(() => TurnOffLights());
+                task.Wait(); //We actually want the code to execute directly instead of waiting
+            }
         }
 
         /// <summary>
@@ -85,8 +108,11 @@ namespace Winleafs.Wpf.Views
         /// </summary>
         private void Application_SessionEnding(object sender, SessionEndingCancelEventArgs e)
         {
-            var task = Task.Run(() => TurnOffLights());
-            task.Wait(); //We actually want the code to execute directly instead of waiting
+            if (PerformRegularShutdownOprations)
+            {
+                var task = Task.Run(() => TurnOffLights());
+                task.Wait(); //We actually want the code to execute directly instead of waiting
+            }
         }
 
         private async Task TurnOffLights()
