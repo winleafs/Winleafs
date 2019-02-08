@@ -61,7 +61,7 @@ namespace Winleafs.Wpf.Views.MainWindows {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Brightness:.
+        ///   Looks up a localized string similar to Brightness.
         /// </summary>
         public static string Brightness {
             get {
@@ -88,11 +88,38 @@ namespace Winleafs.Wpf.Views.MainWindows {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Override schedule:.
+        ///   Looks up a localized string similar to Override schedule.
         /// </summary>
         public static string OverrideSchedule {
             get {
                 return ResourceManager.GetString("OverrideSchedule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reload effects.
+        /// </summary>
+        public static string ReloadEffects {
+            get {
+                return ResourceManager.GetString("ReloadEffects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to reload the effects.
+        /// </summary>
+        public static string ReloadFailed {
+            get {
+                return ResourceManager.GetString("ReloadFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Effects have successfully been reloaded.
+        /// </summary>
+        public static string ReloadSuccessful {
+            get {
+                return ResourceManager.GetString("ReloadSuccessful", resourceCulture);
             }
         }
         
@@ -120,6 +147,26 @@ namespace Winleafs.Wpf.Views.MainWindows {
         public static string Stop {
             get {
                 return ResourceManager.GetString("Stop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encountering issues?
+        ///Hover over me!.
+        /// </summary>
+        public static string Stuck {
+            get {
+                return ResourceManager.GetString("Stuck", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Try deleting the Settings.txt file in %appdata%/Winleafs.
+        ///Click on this button to open the folder..
+        /// </summary>
+        public static string StuckMessage {
+            get {
+                return ResourceManager.GetString("StuckMessage", resourceCulture);
             }
         }
     }

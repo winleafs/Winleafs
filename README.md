@@ -24,3 +24,10 @@ TODOs and future features can be found on the [GitHub projects board](https://gi
 - [Icanhazip](http://icanhazip.com)
 - [IP-API](http://ip-api.com/)
 - [Sunset Sunrise](https://sunrise-sunset.org/api)
+
+[Donations](https://www.paypal.me/winleafs)
+
+## Bugs
+If you are experiencing proglems, try deleting the settings file from %appdata%/Winleafs. Note: this removes all settings and schedules.
+
+1. The Nanoleaf device must be connected to the same router as your Windows device. This means that 2.4Ghz and 5Ghz networks are also seperated as the Nanoleaf connects to 2.4Ghz

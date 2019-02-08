@@ -10,117 +10,140 @@ namespace Winleafs.Api.Endpoints
 {
     public class StateEndpoint : NanoleafEndpoint, IStateEndpoint
     {
-        public StateEndpoint(NanoleafClient client)
+	    /// <inheritdoc />
+	    public StateEndpoint(NanoleafClient client)
         {
             Client = client;
         }
 
-		public StateModel GetBrightness()
+	    /// <inheritdoc />
+	    public StateModel GetBrightness()
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<StateModel> GetBrightnessAsync()
+	    /// <inheritdoc />
+	    public Task<StateModel> GetBrightnessAsync()
         {
             throw new NotImplementedException();
         }
 
-		public string GetColorMode()
+	    /// <inheritdoc />
+	    public string GetColorMode()
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<string> GetColorModeAsync()
+	    /// <inheritdoc />
+	    public Task<string> GetColorModeAsync()
         {
             throw new NotImplementedException();
         }
 
-		public StateModel GetcolorTemperature()
+	    /// <inheritdoc />
+	    public StateModel GetColorTemperature()
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<StateModel> GetColorTemperatureAsync()
+	    /// <inheritdoc />
+	    public Task<StateModel> GetColorTemperatureAsync()
         {
             throw new NotImplementedException();
         }
 
-		public StateModel GetHue()
+	    /// <inheritdoc />
+	    public StateModel GetHue()
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<StateModel> GetHueAsync()
+	    /// <inheritdoc />
+	    public Task<StateModel> GetHueAsync()
         {
             throw new NotImplementedException();
         }
 
-		public StateModel GetSaturation()
+	    /// <inheritdoc />
+	    public StateModel GetSaturation()
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<StateModel> GetSaturationAsync()
+	    /// <inheritdoc />
+	    public Task<StateModel> GetSaturationAsync()
         {
             throw new NotImplementedException();
         }
 
-		public OnOffModel GetState()
+	    /// <inheritdoc />
+	    public OnOffModel GetState()
 		{
 			return GetStateAsync().ConfigureAwait(false).GetAwaiter().GetResult();
 		}
 
-		public async Task<OnOffModel> GetStateAsync()
+	    /// <inheritdoc />
+	    public async Task<OnOffModel> GetStateAsync()
         {
             return await SendRequest<OnOffModel>("/state/on", Method.GET);
         }
 
-		public void IncrementBrightness(int increment)
+	    /// <inheritdoc />
+	    public void IncrementBrightness(int increment)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task IncrementBrightnessAsync(int increment)
+	    /// <inheritdoc />
+	    public Task IncrementBrightnessAsync(int increment)
         {
             throw new NotImplementedException();
         }
 
-        public Task IncrementColorTemperatureAsync(int increment)
+	    /// <inheritdoc />
+	    public Task IncrementColorTemperatureAsync(int increment)
         {
             throw new NotImplementedException();
         }
 
-		public void IncrementColorTemprature(int increment)
+	    /// <inheritdoc />
+	    public void IncrementColorTemperature(int increment)
 		{
 			throw new NotImplementedException();
 		}
 
-		public void IncrementHue(int increment)
+	    /// <inheritdoc />
+	    public void IncrementHue(int increment)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task IncrementHueAsync(int increment)
+	    /// <inheritdoc />
+	    public Task IncrementHueAsync(int increment)
         {
             throw new NotImplementedException();
         }
 
-		public void IncrementSaturation(int increment)
+	    /// <inheritdoc />
+	    public void IncrementSaturation(int increment)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task IncrementSaturationAsync(int increment)
+	    /// <inheritdoc />
+	    public Task IncrementSaturationAsync(int increment)
         {
             throw new NotImplementedException();
         }
 
-		public void SetBrightness(int value, int? duration = null)
+	    /// <inheritdoc />
+	    public void SetBrightness(int value, int? duration = null)
 		{
 			SetBrightnessAsync(value, duration).ConfigureAwait(false).GetAwaiter().GetResult();
 		}
 
-		public Task SetBrightnessAsync(int value, int? duration = null)
+	    /// <inheritdoc />
+	    public Task SetBrightnessAsync(int value, int? duration = null)
         {
             if (duration.HasValue)
             {
@@ -132,12 +155,14 @@ namespace Winleafs.Api.Endpoints
             }
         }
 
-		public void SetColorTemperature(int value)
+	    /// <inheritdoc />
+	    public void SetColorTemperature(int value)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task SetColorTemperatureAsync(int value)
+	    /// <inheritdoc />
+	    public Task SetColorTemperatureAsync(int value)
         {
             throw new NotImplementedException();
         }
