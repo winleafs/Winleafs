@@ -97,7 +97,8 @@ namespace Winleafs.Wpf.Views.Options {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set location by IP.
+        ///   Looks up a localized string similar to Set location
+        ///by IP Adress.
         /// </summary>
         public static string SetLocationByIp {
             get {
