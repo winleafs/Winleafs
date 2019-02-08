@@ -13,12 +13,12 @@
         </Hyperlink>
         </TextBlock>
         <TextBlock>
-            <Hyperlink NavigateUri="https://sunrise-sunset.org/api">
+            <Hyperlink NavigateUri="http://icanhazip.com">
                 <Label Content="{x:Static local:Resources.IpApi}" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
             </Hyperlink>
         </TextBlock>
         <TextBlock>
-            <Hyperlink NavigateUri="https://sunrise-sunset.org/api">
+            <Hyperlink NavigateUri="http://ip-api.com/">
                 <Label Content="{x:Static local:Resources.LocationApi}" HorizontalAlignment="Left" Margin="10,150,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
             </Hyperlink>
         </TextBlock>
