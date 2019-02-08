@@ -70,11 +70,29 @@ namespace Winleafs.Wpf.Views.Options {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ICanHazIp - Getting the user&apos;s IP..
+        /// </summary>
+        public static string IpApi {
+            get {
+                return ResourceManager.GetString("IpApi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Latitude.
         /// </summary>
         public static string Latitude {
             get {
                 return ResourceManager.GetString("Latitude", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IP-API - Getting the location of the user by IP..
+        /// </summary>
+        public static string LocationApi {
+            get {
+                return ResourceManager.GetString("LocationApi", resourceCulture);
             }
         }
         
@@ -102,6 +120,15 @@ namespace Winleafs.Wpf.Views.Options {
         public static string StartAtWindowsStartup {
             get {
                 return ResourceManager.GetString("StartAtWindowsStartup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sunset Sunrise - Getting the sunset and sunrise times..
+        /// </summary>
+        public static string SunsetApi {
+            get {
+                return ResourceManager.GetString("SunsetApi", resourceCulture);
             }
         }
     }

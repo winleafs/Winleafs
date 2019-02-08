@@ -95,6 +95,9 @@
     <Compile Include="Views\MainWindows\ScheduleItemUserControl.xaml.cs">
       <DependentUpon>ScheduleItemUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Options\ApiUsedWindow.xaml.cs">
+      <DependentUpon>ApiUsedWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Options\OptionsWindow.xaml.cs">
       <DependentUpon>OptionsWindow.xaml</DependentUpon>
     </Compile>
@@ -158,6 +161,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainWindows\ScheduleItemUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Options\ApiUsedWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

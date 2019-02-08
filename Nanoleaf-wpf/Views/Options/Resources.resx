@@ -120,8 +120,14 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="IpApi" xml:space="preserve">
+    <value>ICanHazIp - Getting the user's IP.</value>
+  </data>
   <data name="Latitude" xml:space="preserve">
     <value>Latitude</value>
+  </data>
+  <data name="LocationApi" xml:space="preserve">
+    <value>IP-API - Getting the location of the user by IP.</value>
   </data>
   <data name="Longitude" xml:space="preserve">
     <value>Longitude</value>
@@ -131,5 +137,8 @@
   </data>
   <data name="StartAtWindowsStartup" xml:space="preserve">
     <value>Start at Windows startup</value>
+  </data>
+  <data name="SunsetApi" xml:space="preserve">
+    <value>Sunset Sunrise - Getting the sunset and sunrise times.</value>
   </data>
 </root>
