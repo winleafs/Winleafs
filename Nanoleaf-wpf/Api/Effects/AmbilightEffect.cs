@@ -78,17 +78,17 @@ namespace Winleafs.Wpf.Api.Effects
 
         private Color CalculateAverageColor(Bitmap bm)
         {
-            int width = bm.Width;
-            int height = bm.Height;
+            //Variable initialization all outside the loop, since initializing is slower than allocating
             int red = 0;
             int green = 0;
             int blue = 0;
+            int idx = 0;
             int minDiversion = 50; // drop pixels that do not differ by at least minDiversion between color values (white, gray or black)
             int dropped = 0; // keep track of dropped pixels
-            long[] totals = new long[] { 0, 0, 0 };
-            int bppModifier = bm.PixelFormat == PixelFormat.Format24bppRgb ? 3 : 4; // cutting corners, will fail on anything else but 32 and 24 bit images
+            long totalRed = 0, totalGreen = 0, totalBlue = 0;
+            int bppModifier = 4; //bm.PixelFormat == PixelFormat.Format24bppRgb ? 3 : 4; //cutting corners, will fail on anything else but 32 and 24 bit images. In this case the bitmap is always 32 bit.
 
-            BitmapData srcData = bm.LockBits(new Rectangle(0, 0, bm.Width, bm.Height), ImageLockMode.ReadOnly, bm.PixelFormat);
+            BitmapData srcData = bm.LockBits(new Rectangle(0, 0, _screenBounds.Width, _screenBounds.Height), ImageLockMode.ReadOnly, bm.PixelFormat);
 
             int stride = srcData.Stride;
             IntPtr Scan0 = srcData.Scan0;
@@ -97,19 +97,20 @@ namespace Winleafs.Wpf.Api.Effects
             {
                 byte* p = (byte*)(void*)Scan0;
 
-                for (int y = 0; y < height; y++)
+                for (int y = 0; y < _screenBounds.Height; y++)
                 {
-                    for (int x = 0; x < width; x++)
+                    for (int x = 0; x < _screenBounds.Width; x++)
                     {
-                        int idx = (y * stride) + x * bppModifier;
+                        idx = (y * stride) + x * bppModifier;
                         red = p[idx + 2];
                         green = p[idx + 1];
                         blue = p[idx];
+
                         if (Math.Abs(red - green) > minDiversion || Math.Abs(red - blue) > minDiversion || Math.Abs(green - blue) > minDiversion)
                         {
-                            totals[2] += red;
-                            totals[1] += green;
-                            totals[0] += blue;
+                            totalRed += red;
+                            totalGreen += green;
+                            totalBlue += blue;
                         }
                         else
                         {
@@ -121,12 +122,8 @@ namespace Winleafs.Wpf.Api.Effects
 
             bm.Dispose(); //Dispose must stay here, moving it above the unsafe block causes crashes
 
-            int count = width * height - dropped;
-            int avgR = (int)(totals[2] / count);
-            int avgG = (int)(totals[1] / count);
-            int avgB = (int)(totals[0] / count);
-
-            return Color.FromArgb(avgR, avgG, avgB);
+            int count = _screenBounds.Width * _screenBounds.Height - dropped;
+            return Color.FromArgb((int)(totalRed / count), (int)(totalGreen / count), (int)(totalBlue / count));
         }
 
         [DllImport("user32.dll")]
