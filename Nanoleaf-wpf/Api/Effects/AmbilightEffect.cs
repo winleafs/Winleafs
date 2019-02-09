@@ -142,7 +142,7 @@ namespace Winleafs.Wpf.Api.Effects
         public async Task Deactivate()
         {
             _timer.Stop();
-            Thread.Sleep(500); //Give the last command the time to complete, 500 is based on testing and a high value (better safe then sorry)
+            Thread.Sleep(1000); //Give the last command the time to complete, 1000 is based on testing and a high value (better safe then sorry)
         }
 
         public bool IsContinuous()
