@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Security.AccessControl;
 using System.Windows;
-
+using System.Windows.Forms;
 using Microsoft.Win32;
 
 using Winleafs.Api.Endpoints;
@@ -13,6 +14,8 @@ using Winleafs.Wpf.ViewModels;
 
 namespace Winleafs.Wpf.Views.Options
 {
+    using System.Diagnostics;
+    using System.Windows.Navigation;
     using Winleafs.Api;
 
     /// <summary>
@@ -28,11 +31,16 @@ namespace Winleafs.Wpf.Views.Options
         {
             InitializeComponent();
 
+            var monitors = Screen.AllScreens;
+
             OptionsViewModel = new OptionsViewModel
             {
                 StartAtWindowsStartUp = UserSettings.Settings.StartAtWindowsStartup,
                 Latitude = UserSettings.Settings.Latitude?.ToString("N7", CultureInfo.InvariantCulture),
-                Longitude = UserSettings.Settings.Longitude?.ToString("N7", CultureInfo.InvariantCulture)
+                Longitude = UserSettings.Settings.Longitude?.ToString("N7", CultureInfo.InvariantCulture),
+                AmbilightRefreshRatePerSecond = UserSettings.Settings.AmbilightRefreshRatePerSecond,
+                MonitorNames = monitors.Select(m => m.DeviceName).ToList(),
+                SelectedMonitor = monitors[UserSettings.Settings.AmbilightMonitorIndex].DeviceName
             };
 
             _startupKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", RegistryKeyPermissionCheck.ReadWriteSubTree, RegistryRights.FullControl);
@@ -47,6 +55,7 @@ namespace Winleafs.Wpf.Views.Options
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
+            #region LatLong
             double latitude = 0;
             double longitude = 0;
             try
@@ -55,7 +64,7 @@ namespace Winleafs.Wpf.Views.Options
             }
             catch
             {
-                MessageBox.Show("Please enter a valid value for latitude");
+                System.Windows.MessageBox.Show("Please enter a valid value for latitude");
                 return;
             }
 
@@ -65,7 +74,7 @@ namespace Winleafs.Wpf.Views.Options
             }
             catch
             {
-                MessageBox.Show("Please enter a valid value for longitude");
+                System.Windows.MessageBox.Show("Please enter a valid value for longitude");
                 return;
             }
 
@@ -81,14 +90,16 @@ namespace Winleafs.Wpf.Views.Options
                 }
                 catch
                 {
-                    MessageBox.Show("Something went wrong when updating the sunrise and sunset times");
+                    System.Windows.MessageBox.Show("Something went wrong when updating the sunrise and sunset times");
                     return;
                 }
 
                 UserSettings.Settings.Latitude = latitude;
                 UserSettings.Settings.Longitude = longitude;
             }
+            #endregion
 
+            #region StartAtWindowsStartup
             if (UserSettings.Settings.StartAtWindowsStartup != OptionsViewModel.StartAtWindowsStartUp)
             {
                 if (OptionsViewModel.StartAtWindowsStartUp)
@@ -104,8 +115,18 @@ namespace Winleafs.Wpf.Views.Options
 
                 UserSettings.Settings.StartAtWindowsStartup = OptionsViewModel.StartAtWindowsStartUp;
             }
+            #endregion
 
-            UserSettings.Settings.SaveSettings();
+            #region Ambilight
+            UserSettings.Settings.AmbilightRefreshRatePerSecond = OptionsViewModel.AmbilightRefreshRatePerSecond;
+
+            var monitors = Screen.AllScreens;
+            var selectedMonitor = monitors.FirstOrDefault(m => m.DeviceName.Equals(OptionsViewModel.SelectedMonitor));
+
+            UserSettings.Settings.AmbilightMonitorIndex = Array.IndexOf(monitors, selectedMonitor);
+            #endregion
+
+           UserSettings.Settings.SaveSettings();
             Close();
         }
 
@@ -117,6 +138,12 @@ namespace Winleafs.Wpf.Views.Options
             OptionsViewModel.Longitude = geoIpData.Longitude.ToString("N7", CultureInfo.InvariantCulture);
 
             DataContext = OptionsViewModel;
+        }
+
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+            e.Handled = true;
         }
     }
 }

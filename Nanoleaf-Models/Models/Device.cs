@@ -60,6 +60,8 @@ namespace Winleafs.Models.Models
 
         public void LoadEffectsFromNameList(IEnumerable<string> effectNames)
         {
+            Effects.Clear();
+
             foreach (var effectName in effectNames)
             {
                 Effects.Add(new Effect { Name = effectName });

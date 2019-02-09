@@ -21,11 +21,13 @@ TODOs and future features can be found on the [GitHub projects board](https://gi
 
 ## APIs used
 
-- [Icanhazip](http://icanhazip.com)
-- [IP-API](http://ip-api.com/)
-- [Sunset Sunrise](https://sunrise-sunset.org/api)
+- [Icanhazip](http://icanhazip.com) To retrieve your IP address
+- [IP-API](http://ip-api.com/) To get your location based on your IP address
+- [Sunset Sunrise](https://sunrise-sunset.org/api) To get sunrise and sunset times based on your location
 
-[Donations](https://www.paypal.me/winleafs)
+## Support
+
+[Donate with Paypal](https://www.paypal.me/winleafs)
 
 ## Bugs
 If you are experiencing proglems, try deleting the settings file from %appdata%/Winleafs. Note: this removes all settings and schedules.

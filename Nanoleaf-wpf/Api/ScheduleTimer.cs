@@ -3,12 +3,12 @@ using System.Threading.Tasks;
 using System.Timers;
 
 using NLog;
-
+using Winleafs.Api;
 using Winleafs.Models.Enums;
 using Winleafs.Models.Models;
-using Winleafs.Models.Models.Effects;
+using Winleafs.Wpf.Api.Effects;
 
-namespace Winleafs.Api.Timers
+namespace Winleafs.Wpf.Api
 {
     public class ScheduleTimer
     {
@@ -52,35 +52,18 @@ namespace Winleafs.Api.Timers
             {
                 if (device.OperationMode == OperationMode.Schedule)
                 {
-                    var client = NanoleafClient.GetClientForDevice(device);
 
                     var activeTrigger = device.GetActiveTrigger();
 
                     if (activeTrigger == null)
                     {
+                        var client = NanoleafClient.GetClientForDevice(device);
                         //There are no triggers so the lights can be turned off if it is not off already
                         await client.StateEndpoint.SetStateWithStateCheckAsync(false);
                     }
                     else
                     {
-                        try
-                        {
-                            if (activeTrigger.Effect.Equals(Effect.OFFEFFECTNAME))
-                            {
-                                await client.StateEndpoint.SetStateWithStateCheckAsync(false);
-                            }
-                            else
-                            {
-                                await client.StateEndpoint.SetStateWithStateCheckAsync(true); //Turn on device if it is not on
-                                await client.EffectsEndpoint.SetSelectedEffectAsync(activeTrigger.Effect);
-                                await client.StateEndpoint.SetBrightnessAsync(activeTrigger.Brightness);
-                            }
-
-                        }
-                        catch (Exception e)
-                        {
-                            _logger.Error(e, $"Time trigger failed for device {device.Name} with trigger effect {activeTrigger.Effect}");
-                        }
+                        await EffectActivator.ActiveEffect(device, activeTrigger.Effect, activeTrigger.Brightness);
                     }
                 }
             }

@@ -5,20 +5,84 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Winleafs.Wpf.Views.Options"
         mc:Ignorable="d"
-        Title="Winleafs Options" Height="250" Width="500">
-    <Grid Background="{StaticResource NanoleafBlack}">
-        <CheckBox Content="{x:Static local:Resources.StartAtWindowsStartup}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="{Binding StartAtWindowsStartUp}">
-            <CheckBox.LayoutTransform>
-                <ScaleTransform ScaleX="2" ScaleY="2" />
-            </CheckBox.LayoutTransform>
-        </CheckBox>
-        <Label Content="{x:Static local:Resources.Latitude}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,56,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="119,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" x:Name="Latitude" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White" Text="{Binding Latitude}"/>
-        <Label Content="{x:Static local:Resources.Longitude}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="119,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" x:Name="Longitude" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White" Text="{Binding Longitude}"/>
+        Title="Winleafs Options" Height="450" Width="500">
 
-        <Button Content="{x:Static local:Resources.Cancel}" HorizontalAlignment="Left" Margin="10,184,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Cancel_Click"/>
-        <Button Content="{x:Static local:Resources.Save}" HorizontalAlignment="Left" Margin="388,184,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Save_Click"/>
-        <Button Content="{x:Static local:Resources.SetLocationByIp}" HorizontalAlignment="Left" Margin="388,86,0,0" VerticalAlignment="Top" Width="84" Height="44" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="GeoIp_Click"/>
+    <Window.Resources>
+        <Style TargetType="{x:Type TabItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <Grid>
+                            <Border Name="Border" Background="{StaticResource NanoleafGreen}" BorderBrush="White" BorderThickness="1,1,1,0" >
+                                <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="12,2,12,2" RecognizesAccessKey="True">
+                                </ContentPresenter>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Foreground" Value="Black" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter Property="Foreground" Value="White" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    
+    <Grid Background="{StaticResource NanoleafBlack}">
+        <TabControl Background="{StaticResource NanoleafBlack}" Margin="0,0,0.333,41.667" BorderThickness="0,1,0,0">
+            <TabItem Header="{x:Static local:Resources.General}">
+                <Grid>
+                    <CheckBox Content="{x:Static local:Resources.StartAtWindowsStartup}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="{Binding StartAtWindowsStartUp}">
+                        <CheckBox.LayoutTransform>
+                            <ScaleTransform ScaleX="2" ScaleY="2" />
+                        </CheckBox.LayoutTransform>
+                    </CheckBox>
+                    <Label Content="{x:Static local:Resources.Latitude}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,56,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="119,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" x:Name="Latitude" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White" Text="{Binding Latitude}"/>
+                    <Label Content="{x:Static local:Resources.Longitude}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="119,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" x:Name="Longitude" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White" Text="{Binding Longitude}"/>
+                    <Button Content="{x:Static local:Resources.SetLocationByIp}" HorizontalAlignment="Left" Margin="388,86,0,0" VerticalAlignment="Top" Width="84" Height="44" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="GeoIp_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="{x:Static local:Resources.Ambilight}">
+                <Grid>
+                    <Label Content="{x:Static local:Resources.AmbilightRefreshRatePerSecond}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
+                    <Label Content="{Binding AmbilightRefreshRatePerSecond}" HorizontalAlignment="Left" Margin="320,10,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
+                    <Slider HorizontalAlignment="Left" Margin="102,52,0,0" VerticalAlignment="Top" Width="200" Minimum="1" Maximum="10" Value="{Binding AmbilightRefreshRatePerSecond}" IsSnapToTickEnabled="True" TickFrequency="1"/>
+                    <Label Content="{x:Static local:Resources.AmbilightMonitor}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,86,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
+                    <ComboBox HorizontalAlignment="Left" Margin="19,128,0,0" VerticalAlignment="Top" Width="366" SelectedItem="{Binding SelectedMonitor}" ItemsSource="{Binding MonitorNames}"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="{x:Static local:Resources.Disclaimer}">
+                <Grid>
+                    <Label Content="{x:Static local:Resources.WinleafsUsesAPIs}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
+                    <TextBlock Margin="11,52,420.333,268.667">
+                        <Hyperlink NavigateUri="http://icanhazip.com/" RequestNavigate="Hyperlink_RequestNavigate">
+                            Icanhazip
+                        </Hyperlink>
+                    </TextBlock>
+                    <Label Content="{x:Static local:Resources.IcanhazipExplanation}" HorizontalAlignment="Left" Margin="122,47,0,0" VerticalAlignment="Top" Foreground="White"/>
+                    <TextBlock Margin="9,82,420.333,238.667">
+                        <Hyperlink NavigateUri="http://ip-api.com/" RequestNavigate="Hyperlink_RequestNavigate">
+                            IP-API
+                        </Hyperlink>
+                    </TextBlock>
+                    <Label Content="{x:Static local:Resources.IPAPIExplanation}" HorizontalAlignment="Left" Margin="122,77,0,0" VerticalAlignment="Top" Foreground="White"/>
+                    <TextBlock Margin="9,112,368.333,208.667">
+                        <Hyperlink NavigateUri="https://sunrise-sunset.org/api" RequestNavigate="Hyperlink_RequestNavigate">
+                            Sunrise-sunset API
+                        </Hyperlink>
+                    </TextBlock>
+                    <Label Content="{x:Static local:Resources.SunsetSunriseAPIExplanation}" HorizontalAlignment="Left" Margin="122,107,0,0" VerticalAlignment="Top" Foreground="White"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+        <Button Content="{x:Static local:Resources.Cancel}" HorizontalAlignment="Left" Margin="10,384,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Cancel_Click"/>
+        <Button Content="{x:Static local:Resources.Save}" HorizontalAlignment="Left" Margin="399,384,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Save_Click"/>
     </Grid>
 </Window>

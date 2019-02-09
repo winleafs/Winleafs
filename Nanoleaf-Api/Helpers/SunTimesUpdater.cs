@@ -6,7 +6,7 @@ using Polly;
 using Winleafs.Api.Endpoints;
 using Winleafs.Models.Models;
 
-namespace Winleafs.Api.Timers
+namespace Winleafs.Api.Helpers
 {
     public class SunTimesUpdater
     {

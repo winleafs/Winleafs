@@ -6,8 +6,6 @@ namespace Winleafs.Models.Models.Effects
 {
     public class Effect
     {
-        public static readonly string OFFEFFECTNAME = "Turn lights off";
-
         [JsonProperty("animName")]
         public string Name { get; set; }
 

@@ -4,18 +4,15 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
-
+using System.Windows.Navigation;
 using Hardcodet.Wpf.TaskbarNotification;
 
 using NLog;
-
 using Winleafs.Api;
-using Winleafs.Api.Timers;
-
 using Winleafs.Models.Enums;
 using Winleafs.Models.Models;
 using Winleafs.Models.Models.Scheduling;
-
+using Winleafs.Wpf.Api;
 using Winleafs.Wpf.Views.Options;
 using Winleafs.Wpf.Views.Scheduling;
 
@@ -141,11 +138,14 @@ namespace Winleafs.Wpf.Views.MainWindows
             try
             {
                 var device = UserSettings.Settings.ActviceDevice;
-                var nanoleafClient = new NanoleafClient(device.IPAddress, device.Port, device.AuthToken);
+                var nanoleafClient = NanoleafClient.GetClientForDevice(device);
                 var effects = await nanoleafClient.EffectsEndpoint.GetEffectsListAsync();
-                device.Effects.Clear();
+
                 device.LoadEffectsFromNameList(effects);
-                // TODO Remove me for a popup
+
+                UserSettings.Settings.SaveSettings();
+
+                // TODO Replace me for a popup
                 MessageBox.Show(MainWindows.Resources.ReloadSuccessful);
             }
             catch(Exception exception)
@@ -165,6 +165,12 @@ namespace Winleafs.Wpf.Views.MainWindows
             {
                 Process.Start(UserSettings.SettingsFolder);
             }
+        }
+
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+            e.Handled = true;
         }
     }
 }

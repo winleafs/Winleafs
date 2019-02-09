@@ -117,8 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Ambilight" xml:space="preserve">
+    <value>Ambilight</value>
+  </data>
+  <data name="AmbilightMonitor" xml:space="preserve">
+    <value>Ambilight monitor</value>
+  </data>
+  <data name="AmbilightRefreshRatePerSecond" xml:space="preserve">
+    <value>Ambilight refresh rate per second</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
+  </data>
+  <data name="Disclaimer" xml:space="preserve">
+    <value>Disclaimer</value>
+  </data>
+  <data name="General" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="IcanhazipExplanation" xml:space="preserve">
+    <value>To retrieve your IP address</value>
+  </data>
+  <data name="IPAPIExplanation" xml:space="preserve">
+    <value>To get your location based on your IP address</value>
   </data>
   <data name="Latitude" xml:space="preserve">
     <value>Latitude</value>
@@ -135,5 +156,11 @@ by IP Adress</value>
   </data>
   <data name="StartAtWindowsStartup" xml:space="preserve">
     <value>Start at Windows startup</value>
+  </data>
+  <data name="SunsetSunriseAPIExplanation" xml:space="preserve">
+    <value>To get sunrise and sunset times based on your location</value>
+  </data>
+  <data name="WinleafsUsesAPIs" xml:space="preserve">
+    <value>Winleafs uses the following APIs</value>
   </data>
 </root>

@@ -164,7 +164,7 @@ namespace Winleafs.Api.Endpoints
 	    /// <inheritdoc />
 	    public Task SetColorTemperatureAsync(int value)
         {
-            throw new NotImplementedException();
+            return SendRequest("state", Method.PUT, body: "{\"ct\": {\"value\":" + value.ToString() + "}}");
         }
 
 		public void SetHue(int value)
@@ -174,7 +174,7 @@ namespace Winleafs.Api.Endpoints
 
 		public Task SetHueAsync(int value)
         {
-            throw new NotImplementedException();
+            return SendRequest("state", Method.PUT, body: "{\"hue\": {\"value\":" + value.ToString() + "}}");
         }
 
 		public void SetSaturation(int value)
@@ -184,7 +184,7 @@ namespace Winleafs.Api.Endpoints
 
 		public Task SetSaturationAsync(int value)
         {
-            throw new NotImplementedException();
+            return SendRequest("state", Method.PUT, body: "{\"sat\": {\"value\":" + value.ToString() + "}}");
         }
 
 		public void SetState(bool state)
@@ -210,6 +210,16 @@ namespace Winleafs.Api.Endpoints
             {
                 await SetStateAsync(state);
             }
+        }
+
+        public void SetHueAndSaturation(int hue, int saturation)
+        {
+            SetHueAndSaturationAsync(hue, saturation).ConfigureAwait(false).GetAwaiter().GetResult();
+        }
+
+        public Task SetHueAndSaturationAsync(int hue, int saturation)
+        {
+            return SendRequest("state", Method.PUT, body: "{\"sat\": {\"value\":" + saturation.ToString() + "}, \"hue\": {\"value\":" + hue.ToString() + "}}");
         }
     }
 }

@@ -160,5 +160,20 @@ namespace Winleafs.Api.Endpoints.Interfaces
 
 	    /// <inheritdoc cref="GetColorModeAsync"/>
 		string GetColorMode();
+
+        /// <summary>
+        /// Sets the hue and saturation of the Nanoleaf.
+        /// </summary>
+        /// <param name="hue">Hue in degrees</param>
+        /// <param name="saturation">Saturation in percentages, 0 to 100</param>
+        void SetHueAndSaturation(int hue, int saturation);
+
+        /// <summary>
+        /// Sets the hue and saturation of the Nanoleaf.
+        /// </summary>
+        /// <param name="hue">Hue in degrees</param>
+        /// <param name="saturation">Saturation in percentages, 0 to 100</param>
+        /// <returns>An awaitable task.</returns>
+        Task SetHueAndSaturationAsync(int hue, int saturation);
     }
 }
