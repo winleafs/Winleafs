@@ -10,7 +10,7 @@ Canvas support currently not guaranteed.
 - Make multiple weekly schedules for your Nanoleaf lights
 - Add time based triggers to automatically set your lights to an effect and brightness at your chosen time
 - Add triggers based on sunrise and sunset times (requires location)
-- Ambilight, make your lights the color of your monitor. Note: setting a high refresh rate can cost 10%-15% CPU performance.
+- Ambilight, make your lights the color of your monitor. Note: setting a high refresh rate can cost 1some CPU performance.
 - Start the program at Windows startup
 - Automatically turn off your lights when your PC shuts down
 - Override the schedule at any time
