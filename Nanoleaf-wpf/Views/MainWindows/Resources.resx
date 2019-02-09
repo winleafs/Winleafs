@@ -120,6 +120,9 @@
   <data name="Brightness" xml:space="preserve">
     <value>Brightness</value>
   </data>
+  <data name="Donate" xml:space="preserve">
+    <value>Donate</value>
+  </data>
   <data name="Options" xml:space="preserve">
     <value>Options</value>
   </data>

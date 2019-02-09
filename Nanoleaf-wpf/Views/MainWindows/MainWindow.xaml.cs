@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
-
+using System.Windows.Navigation;
 using Hardcodet.Wpf.TaskbarNotification;
 
 using NLog;
@@ -165,6 +165,12 @@ namespace Winleafs.Wpf.Views.MainWindows
             {
                 Process.Start(UserSettings.SettingsFolder);
             }
+        }
+
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+            e.Handled = true;
         }
     }
 }
