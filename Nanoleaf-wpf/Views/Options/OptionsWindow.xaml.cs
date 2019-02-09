@@ -14,6 +14,8 @@ using Winleafs.Wpf.ViewModels;
 
 namespace Winleafs.Wpf.Views.Options
 {
+    using System.Diagnostics;
+    using System.Windows.Navigation;
     using Winleafs.Api;
 
     /// <summary>
@@ -136,6 +138,12 @@ namespace Winleafs.Wpf.Views.Options
             OptionsViewModel.Longitude = geoIpData.Longitude.ToString("N7", CultureInfo.InvariantCulture);
 
             DataContext = OptionsViewModel;
+        }
+
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+            e.Handled = true;
         }
     }
 }

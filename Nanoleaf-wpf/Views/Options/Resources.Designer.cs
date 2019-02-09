@@ -61,7 +61,16 @@ namespace Winleafs.Wpf.Views.Options {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ambilight monitor:.
+        ///   Looks up a localized string similar to Ambilight.
+        /// </summary>
+        public static string Ambilight {
+            get {
+                return ResourceManager.GetString("Ambilight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ambilight monitor.
         /// </summary>
         public static string AmbilightMonitor {
             get {
@@ -70,7 +79,7 @@ namespace Winleafs.Wpf.Views.Options {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ambilight refresh rate per second:.
+        ///   Looks up a localized string similar to Ambilight refresh rate per second.
         /// </summary>
         public static string AmbilightRefreshRatePerSecond {
             get {
@@ -84,6 +93,42 @@ namespace Winleafs.Wpf.Views.Options {
         public static string Cancel {
             get {
                 return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disclaimer.
+        /// </summary>
+        public static string Disclaimer {
+            get {
+                return ResourceManager.GetString("Disclaimer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to General.
+        /// </summary>
+        public static string General {
+            get {
+                return ResourceManager.GetString("General", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To retrieve your IP address.
+        /// </summary>
+        public static string IcanhazipExplanation {
+            get {
+                return ResourceManager.GetString("IcanhazipExplanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To get your location based on your IP address.
+        /// </summary>
+        public static string IPAPIExplanation {
+            get {
+                return ResourceManager.GetString("IPAPIExplanation", resourceCulture);
             }
         }
         
@@ -130,6 +175,24 @@ namespace Winleafs.Wpf.Views.Options {
         public static string StartAtWindowsStartup {
             get {
                 return ResourceManager.GetString("StartAtWindowsStartup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To get sunrise and sunset times based on your location.
+        /// </summary>
+        public static string SunsetSunriseAPIExplanation {
+            get {
+                return ResourceManager.GetString("SunsetSunriseAPIExplanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Winleafs uses the following APIs.
+        /// </summary>
+        public static string WinleafsUsesAPIs {
+            get {
+                return ResourceManager.GetString("WinleafsUsesAPIs", resourceCulture);
             }
         }
     }
