@@ -126,18 +126,28 @@ namespace Winleafs.Wpf.Views.Options
             UserSettings.Settings.AmbilightMonitorIndex = Array.IndexOf(monitors, selectedMonitor);
             #endregion
 
-           UserSettings.Settings.SaveSettings();
+            UserSettings.Settings.SaveSettings();
             Close();
         }
 
         private void GeoIp_Click(object sender, RoutedEventArgs e)
         {
-            var nanoleafClient = NanoleafClient.GetClientForDevice(UserSettings.Settings.ActviceDevice);
-            var geoIpData = nanoleafClient.GeoIpEndpoint.GetGeoIpData();
-            OptionsViewModel.Latitude = geoIpData.Latitude.ToString("N7", CultureInfo.InvariantCulture);
-            OptionsViewModel.Longitude = geoIpData.Longitude.ToString("N7", CultureInfo.InvariantCulture);
+            try
+            {
+                var nanoleafClient = NanoleafClient.GetClientForDevice(UserSettings.Settings.ActviceDevice);
+                var geoIpData = nanoleafClient.GeoIpEndpoint.GetGeoIpData();
+                OptionsViewModel.Latitude = geoIpData.Latitude.ToString("N7", CultureInfo.InvariantCulture);
+                OptionsViewModel.Longitude = geoIpData.Longitude.ToString("N7", CultureInfo.InvariantCulture);
 
-            DataContext = OptionsViewModel;
+                LatitudeTextBox.Text = OptionsViewModel.Latitude;
+                LongitudeTextBox.Text = OptionsViewModel.Longitude;
+
+                System.Windows.MessageBox.Show($"Detected location: {geoIpData.City}, {geoIpData.Country}");
+            }
+            catch
+            {
+                System.Windows.MessageBox.Show("Error retrieving latitude and longitude");
+            }
         }
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)

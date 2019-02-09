@@ -4,8 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Winleafs.Wpf.Views.MainWindows"
-             mc:Ignorable="d"
-             d:DesignHeight="55" d:DesignWidth="400">
+             mc:Ignorable="d" d:DesignWidth="400" Height="60">
     <Grid>
         <Label Content="{x:Static local:Resources.OverrideSchedule}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"/>
         <ComboBox HorizontalAlignment="Left" Margin="108,4,0,0" VerticalAlignment="Top" Width="200" SelectedItem="{Binding SelectedEffect}" ItemsSource="{Binding Effects}"/>

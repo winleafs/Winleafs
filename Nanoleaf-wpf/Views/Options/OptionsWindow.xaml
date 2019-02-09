@@ -42,9 +42,9 @@
                         </CheckBox.LayoutTransform>
                     </CheckBox>
                     <Label Content="{x:Static local:Resources.Latitude}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,56,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="119,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" x:Name="Latitude" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White" Text="{Binding Latitude}"/>
+                    <TextBox x:Name="LatitudeTextBox" HorizontalAlignment="Left" Height="23" Margin="119,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White" Text="{Binding Latitude}"/>
                     <Label Content="{x:Static local:Resources.Longitude}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="119,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" x:Name="Longitude" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White" Text="{Binding Longitude}"/>
+                    <TextBox x:Name="LongitudeTextBox" HorizontalAlignment="Left" Height="23" Margin="119,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White" Text="{Binding Longitude}"/>
                     <Button Content="{x:Static local:Resources.SetLocationByIp}" HorizontalAlignment="Left" Margin="388,86,0,0" VerticalAlignment="Top" Width="84" Height="44" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="GeoIp_Click"/>
                 </Grid>
             </TabItem>
