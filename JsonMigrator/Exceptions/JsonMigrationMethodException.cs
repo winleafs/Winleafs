@@ -2,7 +2,7 @@
 
 namespace JsonMigrator.Exceptions
 {
-    class JsonMigrationMethodException : Exception
+    public class JsonMigrationMethodException : Exception
     {
         public JsonMigrationMethodException(string message) : base(message)
         {

@@ -54,27 +54,30 @@ namespace JsonMigrator
                 methodsWithMigrations.Add(migrationMethod, attribute);
             }
 
-            while (true)
+            if (methodsWithMigrations.Count > 0)
             {
-                if (!methodsWithMigrations.Values.Any(m => m.FromVersion.Equals(version)))
+                while (true)
                 {
-                    break; //break when there are no more migrations to execute
-                }
+                    if (!methodsWithMigrations.Values.Any(m => m.FromVersion.Equals(version)))
+                    {
+                        break; //break when there are no more migrations to execute
+                    }
 
-                var methodWithMigration = methodsWithMigrations.FirstOrDefault(m => m.Value.FromVersion.Equals(version));
+                    var methodWithMigration = methodsWithMigrations.FirstOrDefault(m => m.Value.FromVersion.Equals(version));
 
-                try
-                {
-                    token = (JToken)type.InvokeMember(methodWithMigration.Key.Name, BindingFlags.Static | BindingFlags.InvokeMethod | BindingFlags.NonPublic, null, null, new object[] { token });
+                    try
+                    {
+                        token = (JToken)type.InvokeMember(methodWithMigration.Key.Name, BindingFlags.Static | BindingFlags.InvokeMethod | BindingFlags.NonPublic, null, null, new object[] { token });
 
-                    version = methodWithMigration.Value.ToVersion;
-                    token["JsonVersion"] = version;
+                        version = methodWithMigration.Value.ToVersion;
+                        token["JsonVersion"] = version;
+                    }
+                    catch (Exception e)
+                    {
+                        throw new JsonMigrationException($"Error during execution of migration method {methodWithMigration.Key.Name}. See the inner exception for details", e);
+                    }
                 }
-                catch (Exception e)
-                {
-                    throw new JsonMigrationException($"Error during execution of migration method {methodWithMigration.Key.Name}. See the inner exception for details", e);
-                }
-            }
+            }            
         }
     }
 }

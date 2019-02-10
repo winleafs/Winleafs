@@ -14,5 +14,13 @@ namespace JsonMigrator.Tests
             var jtoken = JToken.Parse("{\"StringValue\":\"String1\",\"IntegerValue\":1}");
             JsonMigrator.Migrate<Dummy>(jtoken);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(JsonMigrationMethodException))]
+        public void NonStaticTest()
+        {
+            var jtoken = JToken.Parse("{\"JsonVersion\":\"1\",\"StringValue\":\"String1\",\"IntegerValue\":1}");
+            JsonMigrator.Migrate<Dummy>(jtoken);
+        }
     }
 }
