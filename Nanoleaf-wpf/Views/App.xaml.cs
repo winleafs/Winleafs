@@ -14,6 +14,7 @@ using Winleafs.Wpf.Api;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace Winleafs.Wpf.Views
 {
@@ -52,6 +53,8 @@ namespace Winleafs.Wpf.Views
             {
                 NormalStartup(e);
             }
+            
+            CheckForUpdate();
         }
 
         public static void NormalStartup(StartupEventArgs e)
@@ -140,6 +143,29 @@ namespace Winleafs.Wpf.Views
             setupWindow.Show();
 
             mainWindow.Close();
+        }
+
+        private static void CheckForUpdate()
+        {
+            // check if the user has done the setup yet, if not we assume he has the latest version for now.
+            // This will be redone at startup either way.
+            if (!UserSettings.Settings.Devices.Any())
+            {
+                return;
+            }
+            
+            var client = NanoleafClient.GetClientForDevice(UserSettings.Settings.Devices.First());
+            var release = client.ReleaseEndpoint.GetLatestVersion(UserSettings.Settings.UsePrerelease).GetAwaiter().GetResult();
+            
+            if (release == UserSettings.Settings.ApplicationVersion)
+            {
+                return;
+            }
+            
+            MessageBox.Show("New release available on https://github.com/StijnOostdam/Winleafs");
+            _logger.Info($"New version available upgrade from {UserSettings.Settings.ApplicationVersion} to {release}");
+
+            // Check release with current version.
         }
     }
 }
