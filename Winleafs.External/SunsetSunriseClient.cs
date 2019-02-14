@@ -7,7 +7,7 @@ using Winleafs.Models.Models.Sunset;
 
 namespace Winleafs.External
 {
-    public class SunsetClient : ISunsetClient
+    public class SunsetSunriseClient : ISunsetSunriseClient
     {
         /// <inheritdoc />
         public async Task<SunsetTimes> GetSunsetSunriseAsync(double lat, double lon)

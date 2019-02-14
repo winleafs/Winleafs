@@ -20,7 +20,7 @@ namespace Winleafs.External
                 var release = releases.OrderByDescending(x => x.CreatedAt).First();
                 return release.TagName;
             }
-            
+
             return (await githubClient.Repository.Release.GetLatest(USERNAME, REPOSITORY_NAME).ConfigureAwait(false)).TagName;
         }
     }

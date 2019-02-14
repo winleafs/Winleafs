@@ -21,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 Modules", "2 Modules", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 Application", "3 Application", "{AE438827-4763-4197-8475-9889DC4F529C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Winleafs.External", "Winleafs.External\Winleafs.External.csproj", "{D027CD07-DCD3-44F3-BE2D-BB1793B499EB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Winleafs.External", "..\Winleafs.External\Winleafs.External.csproj", "{D027CD07-DCD3-44F3-BE2D-BB1793B499EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Nanoleaf-Models\Winleafs.Models.csproj" />
-    <ProjectReference Include="..\Nanoleaf-wpf\Winleafs.External\Winleafs.External.csproj" />
+    <ProjectReference Include="..\Winleafs.External\Winleafs.External.csproj" />
   </ItemGroup>
 
 </Project>

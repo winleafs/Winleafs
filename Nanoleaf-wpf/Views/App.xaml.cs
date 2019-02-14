@@ -57,7 +57,6 @@ namespace Winleafs.Wpf.Views
                 NormalStartup(e);
             }
 
-            CheckForUpdate();
         }
 
         public static void NormalStartup(StartupEventArgs e)
@@ -93,6 +92,8 @@ namespace Winleafs.Wpf.Views
             {
                 mainWindow.Show();
             }
+
+            CheckForUpdate();
         }
 
         private void Quit_Click(object sender, RoutedEventArgs e)

@@ -80,7 +80,7 @@ namespace Winleafs.Wpf.Views.Options
 
             if (latitude != UserSettings.Settings.Latitude || longitude != UserSettings.Settings.Longitude)
             {
-                var client = new SunsetClient();
+                var client = new SunsetSunriseClient();
 
                 try
                 {

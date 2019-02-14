@@ -29,7 +29,7 @@ namespace Winleafs.Api.Helpers
 
         private static async Task RequestSunTimes()
         {
-            var client = new SunsetClient();
+            var client = new SunsetSunriseClient();
             var sunTimes = await client.GetSunsetSunriseAsync(UserSettings.Settings.Latitude.Value, UserSettings.Settings.Longitude.Value);
 
             UserSettings.Settings.UpdateSunriseSunset(sunTimes.SunriseHour, sunTimes.SunriseMinute, sunTimes.SunsetHour, sunTimes.SunsetMinute);

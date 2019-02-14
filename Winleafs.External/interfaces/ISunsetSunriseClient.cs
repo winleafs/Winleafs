@@ -3,7 +3,7 @@ using Winleafs.Models.Models.Sunset;
 
 namespace Winleafs.External.interfaces
 {
-    public interface ISunsetClient
+    public interface ISunsetSunriseClient
     {
         /// <summary>
         /// Gets the sunset and sunrise times based off the latitude and longitude.
