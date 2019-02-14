@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
 using Winleafs.Models.Models.GeoIp;
 
-namespace Winleafs.Api.Endpoints.Interfaces
+namespace Winleafs.External.interfaces
 {
-    public interface IGeoIpEndpoint
+    public interface IGeoIpClient
     {
         /// <inheritdoc cref="GetGeoIpDataAsync"/>
         GeoIpResult GetGeoIpData();

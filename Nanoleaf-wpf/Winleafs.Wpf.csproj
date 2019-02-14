@@ -296,6 +296,10 @@
       <Project>{D47A3540-3E21-4F5B-8B57-A9F9EA31426E}</Project>
       <Name>Winleafs.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="Winleafs.External\Winleafs.External.csproj">
+      <Project>{d027cd07-dcd3-44f3-be2d-bb1793b499eb}</Project>
+      <Name>Winleafs.External</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using Microsoft.Win32;
 
 using Winleafs.Api.Endpoints;
-
+using Winleafs.External;
 using Winleafs.Models.Models;
 
 using Winleafs.Wpf.ViewModels;
@@ -134,8 +134,8 @@ namespace Winleafs.Wpf.Views.Options
         {
             try
             {
-                var nanoleafClient = NanoleafClient.GetClientForDevice(UserSettings.Settings.ActviceDevice);
-                var geoIpData = nanoleafClient.GeoIpEndpoint.GetGeoIpData();
+                var geoIpClient = new GeoIpClient();
+                var geoIpData = geoIpClient.GetGeoIpData();
                 OptionsViewModel.Latitude = geoIpData.Latitude.ToString("N7", CultureInfo.InvariantCulture);
                 OptionsViewModel.Longitude = geoIpData.Longitude.ToString("N7", CultureInfo.InvariantCulture);
 
