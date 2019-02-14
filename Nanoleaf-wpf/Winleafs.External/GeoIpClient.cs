@@ -3,11 +3,12 @@ using System.Net;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using RestSharp;
+using Winleafs.External.interfaces;
 using Winleafs.Models.Models.GeoIp;
 
 namespace Winleafs.External
 {
-    public class GeoIpClient
+    public class GeoIpClient : IGeoIpClient
     {
         private const string IPAPI = "http://icanhazip.com";
         private static readonly Uri GeopIpUri = new Uri("http://ip-api.com/");

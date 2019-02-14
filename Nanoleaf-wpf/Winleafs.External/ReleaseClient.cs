@@ -1,10 +1,11 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Octokit;
+using Winleafs.External.interfaces;
 
 namespace Winleafs.External
 {
-    public class ReleaseClient
+    public class ReleaseClient : IReleaseClient
     {
         private const string USERNAME = "StijnOostdam";
         private const string REPOSITORY_NAME = "Winleafs";
