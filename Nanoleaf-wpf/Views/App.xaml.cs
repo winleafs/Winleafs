@@ -14,8 +14,10 @@ using Winleafs.Wpf.Api;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
 using Winleafs.External;
+
+using Application = System.Windows.Application;
+using MessageBox = System.Windows.MessageBox;
 
 namespace Winleafs.Wpf.Views
 {
@@ -35,7 +37,7 @@ namespace Winleafs.Wpf.Views
 
         void App_Startup(object sender, StartupEventArgs e)
         {
-            Process process = Process.GetCurrentProcess();            
+            Process process = Process.GetCurrentProcess();
             int count = Process.GetProcesses().Where(p => p.ProcessName == process.ProcessName).Count();
 
             if (count > 1)
@@ -54,7 +56,7 @@ namespace Winleafs.Wpf.Views
             {
                 NormalStartup(e);
             }
-            
+
             CheckForUpdate();
         }
 
@@ -150,12 +152,12 @@ namespace Winleafs.Wpf.Views
         {
             var client = new ReleaseClient();
             var release = client.GetLatestVersion().GetAwaiter().GetResult();
-            
+
             if (release == UserSettings.APPLICATIONVERSION)
             {
                 return;
             }
-            
+
             //TODO replace with popup.
             MessageBox.Show("New release available on https://github.com/StijnOostdam/Winleafs");
             _logger.Info($"New version available upgrade from {UserSettings.APPLICATIONVERSION} to {release}");

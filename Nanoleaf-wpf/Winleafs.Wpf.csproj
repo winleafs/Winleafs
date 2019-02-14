@@ -49,6 +49,9 @@
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>packages\NLog.4.5.11\lib\net45\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="Octokit, Version=0.32.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Octokit.0.32.0\lib\net45\Octokit.dll</HintPath>
+    </Reference>
     <Reference Include="Polly, Version=6.0.0.0, Culture=neutral, PublicKeyToken=c8a3ffc3f8f825cc, processorArchitecture=MSIL">
       <HintPath>packages\Polly.6.1.2\lib\netstandard2.0\Polly.dll</HintPath>
     </Reference>

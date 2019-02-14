@@ -80,11 +80,11 @@ namespace Winleafs.Wpf.Views.Options
 
             if (latitude != UserSettings.Settings.Latitude || longitude != UserSettings.Settings.Longitude)
             {
-                var endpoint = new SunsetEndpoint();
+                var client = new SunsetClient();
 
                 try
                 {
-                    var sunTimes = endpoint.GetSunsetSunriseAsync(latitude, longitude).GetAwaiter().GetResult();
+                    var sunTimes = client.GetSunsetSunriseAsync(latitude, longitude).GetAwaiter().GetResult();
 
                     UserSettings.Settings.UpdateSunriseSunset(sunTimes.SunriseHour, sunTimes.SunriseMinute, sunTimes.SunsetHour, sunTimes.SunsetMinute);
                 }

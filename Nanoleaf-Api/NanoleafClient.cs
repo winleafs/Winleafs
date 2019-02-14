@@ -15,12 +15,6 @@ namespace Winleafs.Api
         IAuthorizationEndpoint AuthorizationEndpoint { get; }
 
         IStateEndpoint StateEndpoint { get; }
-
-        ISunsetEndpoint SunsetEndpoint { get; }
-        
-        IGeoIpEndpoint GeoIpEndpoint { get; }
-        
-        IReleaseEndpoint ReleaseEndpoint { get; }
     }
 
     public class NanoleafClient : INanoleafClient
@@ -92,11 +86,5 @@ namespace Winleafs.Api
                 return _stateEndpoint;
             }
         }
-
-        public ISunsetEndpoint SunsetEndpoint => new SunsetEndpoint();
-        
-        public IGeoIpEndpoint GeoIpEndpoint => new GeoIpEndpoint();
-        
-        public IReleaseEndpoint ReleaseEndpoint => new ReleaseEndpoint();
     }
 }
