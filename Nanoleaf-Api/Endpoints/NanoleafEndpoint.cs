@@ -38,8 +38,9 @@ namespace Winleafs.Api.Endpoints
         /// <param name="method">The method that should be used.</param>
         /// <param name="returnType">The type which should be return. If null is provided null will be returned.</param>
         /// <param name="body">Optionally the body which should be provided.</param>
+        /// <param name="logRequest">Optionally can be used to disable logging, is on by default.</param>
         /// <returns>An awaitable task containing the wanted result.</returns>
-        protected async Task<object> SendRequest(string endpoint, Method method, Type returnType = null, object body = null)
+        protected async Task<object> SendRequest(string endpoint, Method method, Type returnType = null, object body = null, bool logRequest = true)
         {
             var restClient = new RestClient(Client._baseUri);
             var request = new RestRequest($"api/v1/{Client._token}/{endpoint}", method);
@@ -48,7 +49,11 @@ namespace Winleafs.Api.Endpoints
                 request.AddJsonBody(body);
             }
 
-            _logger.Info($"Sending following request: Address: {Client._baseUri}, URL: {request.Resource}, Method: {method.ToString()}, Body: {(body != null ? body.ToString() : "")}");
+            if (logRequest)
+            {
+                _logger.Info(
+                    $"Sending following request: Address: {Client._baseUri}, URL: {request.Resource}, Method: {method.ToString()}, Body: {(body != null ? body.ToString() : "")}");
+            }
 
             var response = await restClient.ExecuteTaskAsync(request).ConfigureAwait(false);
 

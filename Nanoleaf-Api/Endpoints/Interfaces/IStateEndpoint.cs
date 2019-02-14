@@ -173,7 +173,8 @@ namespace Winleafs.Api.Endpoints.Interfaces
         /// </summary>
         /// <param name="hue">Hue in degrees</param>
         /// <param name="saturation">Saturation in percentages, 0 to 100</param>
+        /// <param name="disableLogging">Set to true if the logging from the request should be disabled.</param>
         /// <returns>An awaitable task.</returns>
-        Task SetHueAndSaturationAsync(int hue, int saturation);
+        Task SetHueAndSaturationAsync(int hue, int saturation, bool logRequest = true);
     }
 }

@@ -50,7 +50,9 @@ namespace Winleafs.Wpf.Api.Effects
             var hue = (int)color.GetHue();
             var sat = (int)(color.GetSaturation() * 100);
 
-            await _nanoleafClient.StateEndpoint.SetHueAndSaturationAsync(hue, sat);
+            // Set log request to false to not spam logging and generate too much data.
+            // https://github.com/StijnOostdam/Winleafs/issues/40.
+            await _nanoleafClient.StateEndpoint.SetHueAndSaturationAsync(hue, sat, logRequest: false);
         }
 
         private Bitmap CaptureScreen()
