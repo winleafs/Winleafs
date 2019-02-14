@@ -13,6 +13,7 @@ namespace Winleafs.Models.Models
     public class UserSettings
     {
         public static readonly string APPLICATIONNAME = "Winleafs";
+        public static readonly string APPLICATIONVERSION = "v0.1.2";
 
         public static readonly string SettingsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), APPLICATIONNAME);
         private static readonly string SettingsFileName = Path.Combine(SettingsFolder, "Settings.txt");
@@ -47,9 +48,6 @@ namespace Winleafs.Models.Models
 
         public int AmbilightRefreshRatePerSecond { get; set; }
         public int AmbilightMonitorIndex { get; set; }
-        
-        public string ApplicationVersion { get; set; }
-        public bool UsePrerelease { get; set; }
         #endregion
 
         /// <summary>

@@ -18,10 +18,10 @@ namespace Winleafs.Api.Endpoints
             {
                 var releases = await githubClient.Repository.Release.GetAll(USERNAME, REPOSITORY_NAME);
                 var release = releases.OrderByDescending(x => x.CreatedAt).First();
-                return release.Name;
+                return release.TagName;
             }
             
-            return (await githubClient.Repository.Release.GetLatest(USERNAME, REPOSITORY_NAME).ConfigureAwait(false)).Name;
+            return (await githubClient.Repository.Release.GetLatest(USERNAME, REPOSITORY_NAME).ConfigureAwait(false)).TagName;
         }
     }
 }

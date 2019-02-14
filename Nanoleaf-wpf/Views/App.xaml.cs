@@ -155,15 +155,15 @@ namespace Winleafs.Wpf.Views
             }
             
             var client = NanoleafClient.GetClientForDevice(UserSettings.Settings.Devices.First());
-            var release = client.ReleaseEndpoint.GetLatestVersion(UserSettings.Settings.UsePrerelease).GetAwaiter().GetResult();
+            var release = client.ReleaseEndpoint.GetLatestVersion().GetAwaiter().GetResult();
             
-            if (release == UserSettings.Settings.ApplicationVersion)
+            if (release == UserSettings.APPLICATIONVERSION)
             {
                 return;
             }
             
             MessageBox.Show("New release available on https://github.com/StijnOostdam/Winleafs");
-            _logger.Info($"New version available upgrade from {UserSettings.Settings.ApplicationVersion} to {release}");
+            _logger.Info($"New version available upgrade from {UserSettings.APPLICATIONVERSION} to {release}");
 
             // Check release with current version.
         }
