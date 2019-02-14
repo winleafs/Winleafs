@@ -28,7 +28,11 @@ TODOs and future features can be found on the [GitHub projects board](https://gi
 
 ## Support
 
-[Donate with Paypal](https://www.paypal.me/winleafs)
+You can [donate to us using Paypal](https://www.paypal.me/winleafs). 
+Note: all donations will towards buying more Nanoleaf products for *"Testing purposes"*.
+
+You can also make a fork of this project and pick up a task from our projects board.
+We would HIGHLY appreciate if you'd contact us before picking up a task so we can avoid doing double work.
 
 ## Bugs
 If you are experiencing problems, try deleting the settings file from %appdata%/Winleafs. Note: this removes all settings and schedules.
