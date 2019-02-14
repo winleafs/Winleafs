@@ -1,12 +1,11 @@
 ﻿using System;
-using Octokit;
 
 namespace Winleafs.Api.Test
 {
     class Program
     {
         static void Main(string[] args)
-        {          
+        {
             var nanoLeafClient = new NanoleafClient("192.168.178.160", 16021);
             Console.WriteLine("Authorizing..");
             nanoLeafClient.AuthorizationEndpoint.GetAuthTokenAsync().GetAwaiter().GetResult();

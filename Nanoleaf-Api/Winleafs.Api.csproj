@@ -9,7 +9,6 @@
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     <PackageReference Include="NLog" Version="4.5.11" />
-    <PackageReference Include="Octokit" Version="0.32.0" />
     <PackageReference Include="Polly" Version="6.1.2" />
     <PackageReference Include="RestSharp" Version="106.6.7" />
   </ItemGroup>
