@@ -50,7 +50,10 @@ namespace Winleafs.Wpf.Api.Effects
             var hue = (int)color.GetHue();
             var sat = (int)(color.GetSaturation() * 100);
 
-            await _nanoleafClient.StateEndpoint.SetHueAndSaturationAsync(hue, sat);
+            // Sets the color of the nanoleaf with the logging disabled.
+            // Seeing as a maximum of 10 requests per second can be set this will generate a lot of unwanted log data.
+            // See https://github.com/StijnOostdam/Winleafs/issues/40.
+            await _nanoleafClient.StateEndpoint.SetHueAndSaturationAsync(hue, sat, disableLogging: true);
         }
 
         private Bitmap CaptureScreen()
