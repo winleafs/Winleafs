@@ -162,6 +162,7 @@ namespace Winleafs.Wpf.Views
                 return;
             }
             
+            //TODO replace with popup.
             MessageBox.Show("New release available on https://github.com/StijnOostdam/Winleafs");
             _logger.Info($"New version available upgrade from {UserSettings.APPLICATIONVERSION} to {release}");
 
