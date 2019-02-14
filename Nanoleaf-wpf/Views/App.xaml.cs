@@ -15,6 +15,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using Winleafs.External;
 
 namespace Winleafs.Wpf.Views
 {
@@ -147,15 +148,8 @@ namespace Winleafs.Wpf.Views
 
         private static void CheckForUpdate()
         {
-            // check if the user has done the setup yet, if not we assume he has the latest version for now.
-            // This will be redone at startup either way.
-            if (!UserSettings.Settings.Devices.Any())
-            {
-                return;
-            }
-            
-            var client = NanoleafClient.GetClientForDevice(UserSettings.Settings.Devices.First());
-            var release = client.ReleaseEndpoint.GetLatestVersion().GetAwaiter().GetResult();
+            var client = new ReleaseClient();
+            var release = client.GetLatestVersion().GetAwaiter().GetResult();
             
             if (release == UserSettings.APPLICATIONVERSION)
             {

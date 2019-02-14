@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 
-namespace Winleafs.Api.Endpoints.Interfaces
+namespace Winleafs.External.interfaces
 {
-    public interface IReleaseEndpoint
+    public interface IReleaseClient
     {
         /// <summary>
         /// Gets the latest version of the Winleafs application.
