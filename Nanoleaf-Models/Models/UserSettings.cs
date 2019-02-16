@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 
 using Newtonsoft.Json;
-
+using Newtonsoft.Json.Linq;
 using Winleafs.Models.Enums;
 using Winleafs.Models.Models.Scheduling;
 
@@ -86,7 +86,16 @@ namespace Winleafs.Models.Models
                 {
                     var json = File.ReadAllText(_settingsFileName);
 
-                    var userSettings = JsonConvert.DeserializeObject<UserSettings>(json);
+                    var jtoken = JToken.Parse(json);
+
+                    if (jtoken["JsonVerion"] == null) //TODO: move this to JsonMigrator?
+                    {
+                        jtoken["JsonVersion"] = _latestSettingsVersion;
+                    }
+
+                    jtoken = JsonMigrator.JsonMigrator.Migrate<UserSettings>(jtoken);
+
+                    var userSettings = jtoken.ToObject<UserSettings>();
 
                     _settings = userSettings;
                 }
