@@ -15,7 +15,9 @@ namespace Winleafs.Models.Models
         public static readonly string APPLICATIONNAME = "Winleafs";
 
         public static readonly string SettingsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), APPLICATIONNAME);
-        private static readonly string SettingsFileName = Path.Combine(SettingsFolder, "Settings.txt");
+
+        private static readonly string _settingsFileName = Path.Combine(SettingsFolder, "Settings.txt");
+        private static readonly string _latestSettingsVersion = "1";
 
         private static UserSettings _settings { get; set; }
 
@@ -33,6 +35,8 @@ namespace Winleafs.Models.Models
         }
 
         #region Stored properties
+        public string JsonVersion { get; set; }
+
         public List<Device> Devices { get; set; }
 
         public double? Latitude { get; set; }
@@ -49,6 +53,7 @@ namespace Winleafs.Models.Models
         public int AmbilightMonitorIndex { get; set; }
         #endregion
 
+        #region Methods
         /// <summary>
         /// Used in the GUI to determine which device is currently being edited
         /// </summary>
@@ -71,6 +76,7 @@ namespace Winleafs.Models.Models
                 userSettings.Devices = new List<Device>();
                 userSettings.AmbilightRefreshRatePerSecond = 1;
                 userSettings.AmbilightMonitorIndex = 0;
+                userSettings.JsonVersion = _latestSettingsVersion;
 
                 _settings = userSettings;
             }
@@ -78,7 +84,7 @@ namespace Winleafs.Models.Models
             {
                 try
                 {
-                    var json = File.ReadAllText(SettingsFileName);
+                    var json = File.ReadAllText(_settingsFileName);
 
                     var userSettings = JsonConvert.DeserializeObject<UserSettings>(json);
 
@@ -93,14 +99,14 @@ namespace Winleafs.Models.Models
 
         public static bool HasSettings()
         {
-            return File.Exists(SettingsFileName);
+            return File.Exists(_settingsFileName);
         }
 
         public static void DeleteSettings()
         {
             if (HasSettings())
             {
-                File.Delete(SettingsFileName);
+                File.Delete(_settingsFileName);
                 _settings = null;
             }
         }
@@ -114,7 +120,7 @@ namespace Winleafs.Models.Models
                 Directory.CreateDirectory(SettingsFolder);
             }
 
-            File.WriteAllText(SettingsFileName, json);
+            File.WriteAllText(_settingsFileName, json);
         }
 
         public void AddDevice(Device device)
@@ -198,6 +204,11 @@ namespace Winleafs.Models.Models
                 device.OperationMode = OperationMode.Schedule;
             }
         }
+        #endregion
+
+        #region Migration methods
+
+        #endregion
     }
 
     public class SettingsFileJsonException : Exception
