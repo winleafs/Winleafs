@@ -1,16 +1,13 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
-
 using Newtonsoft.Json.Linq;
-
 using RestSharp;
-
-using Winleafs.Api.Endpoints.Interfaces;
+using Winleafs.External.interfaces;
 using Winleafs.Models.Models.Sunset;
 
-namespace Winleafs.Api.Endpoints
+namespace Winleafs.External
 {
-    public class SunsetEndpoint : ISunsetEndpoint
+    public class SunsetSunriseClient : ISunsetSunriseClient
     {
         /// <inheritdoc />
         public async Task<SunsetTimes> GetSunsetSunriseAsync(double lat, double lon)
@@ -34,8 +31,8 @@ namespace Winleafs.Api.Endpoints
 
         /// <inheritdoc />
         public SunsetTimes GetSunsetSunrise(double lat, double lon)
-		{
-			return GetSunsetSunriseAsync(lat, lon).ConfigureAwait(false).GetAwaiter().GetResult();
-		}
-	}
+        {
+            return GetSunsetSunriseAsync(lat, lon).ConfigureAwait(false).GetAwaiter().GetResult();
+        }
+    }
 }

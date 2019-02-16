@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 Modules", "2 Modules", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 Application", "3 Application", "{AE438827-4763-4197-8475-9889DC4F529C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Winleafs.External", "..\Winleafs.External\Winleafs.External.csproj", "{D027CD07-DCD3-44F3-BE2D-BB1793B499EB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{D47A3540-3E21-4F5B-8B57-A9F9EA31426E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{356B3E30-C14B-4DCE-9844-AF4965EABDCC}.Debug|Any CPU.ActiveCfg = Debug
 		{356B3E30-C14B-4DCE-9844-AF4965EABDCC}.Release|Any CPU.ActiveCfg = Release
+		{D027CD07-DCD3-44F3-BE2D-BB1793B499EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D027CD07-DCD3-44F3-BE2D-BB1793B499EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D027CD07-DCD3-44F3-BE2D-BB1793B499EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D027CD07-DCD3-44F3-BE2D-BB1793B499EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,6 +60,7 @@ Global
 		{FDDFE2AD-81E1-432C-8173-7A8C89BF20F0} = {A630776E-B52F-4BF0-A90E-4CCB953FE8B9}
 		{B680085F-F093-4257-BC9B-46B5FA1B0A54} = {A630776E-B52F-4BF0-A90E-4CCB953FE8B9}
 		{D47A3540-3E21-4F5B-8B57-A9F9EA31426E} = {04253D20-9CA2-4737-8594-C73381F4B2FB}
+		{D027CD07-DCD3-44F3-BE2D-BB1793B499EB} = {A630776E-B52F-4BF0-A90E-4CCB953FE8B9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {80386817-4CBF-4EC3-A38E-31251DEB6BF9}

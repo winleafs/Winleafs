@@ -49,6 +49,9 @@
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>packages\NLog.4.5.11\lib\net45\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="Octokit, Version=0.32.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Octokit.0.32.0\lib\net45\Octokit.dll</HintPath>
+    </Reference>
     <Reference Include="Polly, Version=6.0.0.0, Culture=neutral, PublicKeyToken=c8a3ffc3f8f825cc, processorArchitecture=MSIL">
       <HintPath>packages\Polly.6.1.2\lib\netstandard2.0\Polly.dll</HintPath>
     </Reference>
@@ -295,6 +298,10 @@
     <ProjectReference Include="..\Nanoleaf-Models\Winleafs.Models.csproj">
       <Project>{D47A3540-3E21-4F5B-8B57-A9F9EA31426E}</Project>
       <Name>Winleafs.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Winleafs.External\Winleafs.External.csproj">
+      <Project>{d027cd07-dcd3-44f3-be2d-bb1793b499eb}</Project>
+      <Name>Winleafs.External</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

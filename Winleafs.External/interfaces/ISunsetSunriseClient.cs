@@ -1,10 +1,9 @@
-﻿using System.Threading.Tasks;
-
+using System.Threading.Tasks;
 using Winleafs.Models.Models.Sunset;
 
-namespace Winleafs.Api.Endpoints.Interfaces
+namespace Winleafs.External.interfaces
 {
-    public interface ISunsetEndpoint
+    public interface ISunsetSunriseClient
     {
         /// <summary>
         /// Gets the sunset and sunrise times based off the latitude and longitude.
@@ -15,6 +14,6 @@ namespace Winleafs.Api.Endpoints.Interfaces
         Task<SunsetTimes> GetSunsetSunriseAsync(double lat, double lon);
 
         /// <inheritdoc cref="GetSunsetSunriseAsync"/>
-		SunsetTimes GetSunsetSunrise(double lat, double lon);
+        SunsetTimes GetSunsetSunrise(double lat, double lon);
     }
 }
