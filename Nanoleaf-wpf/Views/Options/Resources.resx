@@ -163,4 +163,7 @@ by IP Adress</value>
   <data name="WinleafsUsesAPIs" xml:space="preserve">
     <value>Winleafs uses the following APIs</value>
   </data>
+  <data name="AmbilightResetMessage" xml:space="preserve">
+    <value>Note: changing the ambilight settings requires a restart of Winleafs</value>
+  </data>
 </root>

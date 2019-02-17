@@ -31,7 +31,7 @@
             </Setter>
         </Style>
     </Window.Resources>
-    
+
     <Grid Background="{StaticResource NanoleafBlack}">
         <TabControl Background="{StaticResource NanoleafBlack}" Margin="0,0,0.333,41.667" BorderThickness="0,1,0,0">
             <TabItem Header="{x:Static local:Resources.General}">
@@ -55,6 +55,7 @@
                     <Slider HorizontalAlignment="Left" Margin="102,52,0,0" VerticalAlignment="Top" Width="200" Minimum="1" Maximum="10" Value="{Binding AmbilightRefreshRatePerSecond}" IsSnapToTickEnabled="True" TickFrequency="1"/>
                     <Label Content="{x:Static local:Resources.AmbilightMonitor}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,86,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
                     <ComboBox HorizontalAlignment="Left" Margin="19,128,0,0" VerticalAlignment="Top" Width="366" SelectedItem="{Binding SelectedMonitor}" ItemsSource="{Binding MonitorNames}"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="10,287,0,0" TextWrapping="Wrap" Text="{x:Static local:Resources.AmbilightResetMessage}" VerticalAlignment="Top" Width="469" FontSize="20" Foreground="White"/>
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static local:Resources.Disclaimer}">
