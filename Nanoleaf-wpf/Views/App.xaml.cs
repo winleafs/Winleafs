@@ -21,6 +21,9 @@ using MessageBox = System.Windows.MessageBox;
 
 namespace Winleafs.Wpf.Views
 {
+    using System.Globalization;
+    using System.Threading;
+
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
@@ -85,6 +88,12 @@ namespace Winleafs.Wpf.Views
             SunTimesUpdater.UpdateSunTimes();
 
             ScheduleTimer.InitializeTimer();
+
+            if (!string.IsNullOrEmpty(UserSettings.Settings.UserLocale))
+            {
+                Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo(UserSettings.Settings.UserLocale);
+                Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(UserSettings.Settings.UserLocale);
+            }
 
             MainWindow mainWindow = new MainWindow();
 
