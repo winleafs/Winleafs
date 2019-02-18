@@ -196,6 +196,33 @@ namespace Winleafs.Wpf.Views.Scheduling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter a valid value for hours, between 0 and 23.
+        /// </summary>
+        public static string InvalidHoursValue {
+            get {
+                return ResourceManager.GetString("InvalidHoursValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a valid value for minutes, between 0 and 59.
+        /// </summary>
+        public static string InvalidMinutesValue {
+            get {
+                return ResourceManager.GetString("InvalidMinutesValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please fill in your location before creating a time based trigger.
+        /// </summary>
+        public static string LocationMissing {
+            get {
+                return ResourceManager.GetString("LocationMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string Name {
@@ -228,6 +255,15 @@ namespace Winleafs.Wpf.Views.Scheduling {
         public static string Trigger {
             get {
                 return ResourceManager.GetString("Trigger", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The trigger you are trying to add overlaps with an existing trigger on this day.
+        /// </summary>
+        public static string TriggerOverlaps {
+            get {
+                return ResourceManager.GetString("TriggerOverlaps", resourceCulture);
             }
         }
         
