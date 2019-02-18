@@ -89,14 +89,14 @@ namespace Winleafs.Wpf.Views
 
             ScheduleTimer.InitializeTimer();
 
-            //UserSettings.Settings.UserLocale = "nl";
+            UserSettings.Settings.UserLocale = "nl";
             if (!string.IsNullOrEmpty(UserSettings.Settings.UserLocale))
             {
                 Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo(UserSettings.Settings.UserLocale);
                 Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(UserSettings.Settings.UserLocale);
             }
 
-            MainWindow mainWindow = new MainWindow();
+            var mainWindow = new MainWindow();
 
             if (!silent)
             {

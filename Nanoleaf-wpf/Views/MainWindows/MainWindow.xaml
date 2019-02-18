@@ -16,20 +16,19 @@
             <StackPanel HorizontalAlignment="Left" Height="Auto" Margin="10,47,0,0" VerticalAlignment="Stretch" Width="300" x:Name="ScheduleList">
                 <Border BorderBrush="White" BorderThickness="0 1 1 0" Height="Auto"/>
             </StackPanel>
-            <Button Content="{x:Static mainWindows:Resources.Stuck}" ToolTip="{x:Static mainWindows:Resources.StuckMessage}" HorizontalAlignment="Left" Margin="315,374,-109,0" VerticalAlignment="Top" FontSize="10"
+            <Button Content="{x:Static mainWindows:Resources.Stuck}" ToolTip="{x:Static mainWindows:Resources.StuckMessage}" HorizontalAlignment="Left" Margin="315,0,-109,10" VerticalAlignment="Bottom" FontSize="10"
                     Width="120" Height="37" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Stuck_Click"/>
         </Grid>
         <Grid>
             <Button Content="{x:Static mainWindows:Resources.Options}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Options_Click"/>
-            <Button Content="{x:Static mainWindows:Resources.ResetAllSettings}" HorizontalAlignment="Right" Margin="0,384,10,0" VerticalAlignment="Top" Width="120" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Reset_Click"/>
-            <mainWindows:OverrideScheduleUserControl Margin="10,42,10,317" Height="60"/>
+            <Button Content="{x:Static mainWindows:Resources.ResetAllSettings}" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="120" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Reset_Click"/>
+            <mainWindows:OverrideScheduleUserControl HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,42,10,0" Height="60"/>
             <Button Content="{x:Static mainWindows:Resources.ReloadEffects}" HorizontalAlignment="Left" Margin="120,10,0,0" VerticalAlignment="Top" Width="100" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Reload_Click"/>
-            <TextBlock Margin="400,6,0.333,383.667">
+            <TextBlock HorizontalAlignment="Right"  VerticalAlignment="Top"  Margin="400,6,15,383.667">
                 <Hyperlink NavigateUri="https://www.paypal.me/winleafs" RequestNavigate="Hyperlink_RequestNavigate">
                     Donate
                 </Hyperlink>
             </TextBlock>
         </Grid>
-
     </DockPanel>
 </Window>
