@@ -17,5 +17,10 @@ namespace Winleafs.Wpf.Views.Popup
         {
             CreatePopup(PopupResource.Error, body);
         }
+
+        public static void CreateSuccessPopup(string body)
+        {
+            CreatePopup(PopupResource.Success, body);
+        }
     }
 }

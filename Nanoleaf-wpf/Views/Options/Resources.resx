@@ -163,4 +163,20 @@ by IP Adress</value>
   <data name="WinleafsUsesAPIs" xml:space="preserve">
     <value>Winleafs uses the following APIs</value>
   </data>
+  <data name="InvalidLatitude" xml:space="preserve">
+    <value>Please enter a valid value for latitude</value>
+  </data>
+  <data name="InvalidLongitude" xml:space="preserve">
+    <value>Please enter a valid value for longitude</value>
+  </data>
+  <data name="LatLongReceiveError" xml:space="preserve">
+    <value>Error retrieving latitude and longitude</value>
+  </data>
+  <data name="LocationDetected" xml:space="preserve">
+    <value>Detected Location: {0}, {1}</value>
+    <comment>Formatted string with 0: City and 1: Country</comment>
+  </data>
+  <data name="SunsetSunriseError" xml:space="preserve">
+    <value>Something went wrong when updating the sunrise and sunset times</value>
+  </data>
 </root>

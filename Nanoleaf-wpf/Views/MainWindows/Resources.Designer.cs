@@ -97,6 +97,15 @@ namespace Winleafs.Wpf.Views.MainWindows {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An unexpected error occurred during overriding..
+        /// </summary>
+        public static string OverrideError {
+            get {
+                return ResourceManager.GetString("OverrideError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Override schedule.
         /// </summary>
         public static string OverrideSchedule {
