@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Winleafs.Wpf.Views.Popup {
+namespace Winleafs.Wpf.Views {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Winleafs.Wpf.Views.Popup {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class PopupResource {
+    public class AppResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal PopupResource() {
+        internal AppResources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Winleafs.Wpf.Views.Popup {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Winleafs.Wpf.Views.Popup.PopupResource", typeof(PopupResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Winleafs.Wpf.Views.AppResources", typeof(AppResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,47 +61,11 @@ namespace Winleafs.Wpf.Views.Popup {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cancel.
+        ///   Looks up a localized string similar to The settings file has been corrupted, please try removing it at {0}.
         /// </summary>
-        public static string Cancel {
+        public static string CorruptSettings {
             get {
-                return ResourceManager.GetString("Cancel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error.
-        /// </summary>
-        public static string Error {
-            get {
-                return ResourceManager.GetString("Error", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to A new release is available, click the Ok button to navigate to the releases page..
-        /// </summary>
-        public static string NewRelease {
-            get {
-                return ResourceManager.GetString("NewRelease", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ok.
-        /// </summary>
-        public static string Ok {
-            get {
-                return ResourceManager.GetString("Ok", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Success.
-        /// </summary>
-        public static string Success {
-            get {
-                return ResourceManager.GetString("Success", resourceCulture);
+                return ResourceManager.GetString("CorruptSettings", resourceCulture);
             }
         }
     }

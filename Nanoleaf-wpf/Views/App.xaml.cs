@@ -21,6 +21,10 @@ using MessageBox = System.Windows.MessageBox;
 
 namespace Winleafs.Wpf.Views
 {
+    using System;
+
+    using Winleafs.Wpf.Views.Popup;
+
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
@@ -74,9 +78,7 @@ namespace Winleafs.Wpf.Views
             catch (SettingsFileJsonException ex)
             {
                 _logger.Fatal("Corrupt settings file found", ex);
-
-                //TODO: add message box to show to user
-
+                PopupCreator.CreateErrorPopup(string.Format(AppResources.CorruptSettings, UserSettings.SettingsFolder + "Settings.json"));
                 return;
             }
 

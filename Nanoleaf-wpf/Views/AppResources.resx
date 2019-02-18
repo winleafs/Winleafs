@@ -117,19 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="Error" xml:space="preserve">
-    <value>Error</value>
-  </data>
-  <data name="NewRelease" xml:space="preserve">
-    <value>A new release is available, click the Ok button to navigate to the releases page.</value>
-  </data>
-  <data name="Ok" xml:space="preserve">
-    <value>Ok</value>
-  </data>
-  <data name="Success" xml:space="preserve">
-    <value>Success</value>
+  <data name="CorruptSettings" xml:space="preserve">
+    <value>The settings file has been corrupted, please try removing it at {0}</value>
+    <comment>Formatted string with 0 being the path of the settings file.</comment>
   </data>
 </root>
