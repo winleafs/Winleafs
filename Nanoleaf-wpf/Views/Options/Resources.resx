@@ -179,4 +179,7 @@ by IP Adress</value>
   <data name="SunsetSunriseError" xml:space="preserve">
     <value>Something went wrong when updating the sunrise and sunset times</value>
   </data>
+  <data name="AmbilightResetMessage" xml:space="preserve">
+    <value>Note: changing the ambilight settings requires a restart of Winleafs</value>
+  </data>
 </root>

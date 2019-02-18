@@ -88,6 +88,15 @@ namespace Winleafs.Wpf.Views.Options {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Note: changing the ambilight settings requires a restart of Winleafs.
+        /// </summary>
+        public static string AmbilightResetMessage {
+            get {
+                return ResourceManager.GetString("AmbilightResetMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string Cancel {
