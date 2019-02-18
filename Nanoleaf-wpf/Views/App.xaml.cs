@@ -89,6 +89,7 @@ namespace Winleafs.Wpf.Views
 
             ScheduleTimer.InitializeTimer();
 
+            //UserSettings.Settings.UserLocale = "nl";
             if (!string.IsNullOrEmpty(UserSettings.Settings.UserLocale))
             {
                 Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo(UserSettings.Settings.UserLocale);

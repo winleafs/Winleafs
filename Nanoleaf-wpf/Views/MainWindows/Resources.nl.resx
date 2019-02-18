@@ -142,7 +142,8 @@
     <value>Stop</value>
   </data>
   <data name="Stuck" xml:space="preserve">
-    <value>Problemen met de applicatie?</value>
+    <value>Problemen met de app?
+Hover over deze knop.</value>
   </data>
   <data name="Options" xml:space="preserve">
     <value>Opties</value>
@@ -152,5 +153,9 @@
   </data>
   <data name="Brightness" xml:space="preserve">
     <value>Helderheid</value>
+  </data>
+  <data name="StuckMessage" xml:space="preserve">
+    <value>Proberen om de bestand Settings.txt in %appdata%/Winleafs te verwijderen.
+Druk op deze knop om naar de map te gaan.</value>
   </data>
 </root>
