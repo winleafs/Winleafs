@@ -131,5 +131,14 @@ namespace Winleafs.Wpf.Views.Setup {
                 return ResourceManager.GetString("Step3", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Something went wrong when connecting to your lights. Please follow the steps carefully..
+        /// </summary>
+        public static string UnknownError {
+            get {
+                return ResourceManager.GetString("UnknownError", resourceCulture);
+            }
+        }
     }
 }

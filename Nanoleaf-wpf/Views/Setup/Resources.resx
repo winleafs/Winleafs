@@ -141,4 +141,7 @@
   <data name="Step3" xml:space="preserve">
     <value>Step 3: Click the button below within 30 seconds</value>
   </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>Something went wrong when connecting to your lights. Please follow the steps carefully.</value>
+  </data>
 </root>
