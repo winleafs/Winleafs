@@ -47,7 +47,8 @@
                     <TextBox x:Name="LongitudeTextBox" HorizontalAlignment="Left" Height="23" Margin="150,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White" Text="{Binding Longitude}"/>
                     <Button Content="{x:Static local:Resources.SetLocationByIp}" HorizontalAlignment="Left" Margin="400,86,0,0" VerticalAlignment="Top" Width="84" Height="44" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="GeoIp_Click"/>
                     <ComboBox Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,160,0,0"  SelectedItem="{Binding SelectedLanguage}" ItemsSource="{Binding Languages}"/>
-                    <Label Content="{x:Static local:Resources.Cancel}" ContentStringFormat="{}{0}:" Margin="10, 155, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
+                    <Label Content="{x:Static local:Resources.Language}" ContentStringFormat="{}{0}:" Margin="10, 155, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
+                    <Label Content="{x:Static local:Resources.LanguageRestartNote}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 190,0,0" FontSize="15" Foreground="White"/>
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static local:Resources.Ambilight}">

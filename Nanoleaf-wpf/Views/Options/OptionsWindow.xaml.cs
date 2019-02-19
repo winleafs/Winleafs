@@ -143,9 +143,6 @@ namespace Winleafs.Wpf.Views.Options
             #region Language
 
             UserSettings.Settings.UserLocale = _languageDictionary[OptionsViewModel.SelectedLanguage];
-
-            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(UserSettings.Settings.UserLocale);
-            Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo(UserSettings.Settings.UserLocale);
             #endregion
 
             UserSettings.Settings.SaveSettings();

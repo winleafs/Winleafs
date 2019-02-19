@@ -166,4 +166,10 @@ per IP adres</value>
   <data name="AmbilightResetMessage" xml:space="preserve">
     <value>Opmerking: bij het aanpassen van de ambilight instellingen moet Winleafs worden herstart.</value>
   </data>
+  <data name="Language" xml:space="preserve">
+    <value>Taal</value>
+  </data>
+  <data name="LanguageRestartNote" xml:space="preserve">
+    <value>Opmerking: bij het veranderen van de taal moet de applicatie herstart worden.</value>
+  </data>
 </root>
