@@ -20,12 +20,6 @@ Canvas support currently not guaranteed.
 
 TODOs and future features can be found on the [GitHub projects board](https://github.com/StijnOostdam/Winleafs/projects/1).
 
-## APIs used
-
-- [Icanhazip](http://icanhazip.com) To retrieve your IP address
-- [IP-API](http://ip-api.com/) To get your location based on your IP address
-- [Sunset Sunrise](https://sunrise-sunset.org/api) To get sunrise and sunset times based on your location
-
 ## Support
 
 You can [donate to us using Paypal](https://www.paypal.me/winleafs). 
@@ -34,7 +28,16 @@ Note: all donations will towards buying more Nanoleaf products for *"Testing pur
 You can also make a fork of this project and pick up a task from our projects board.
 We would HIGHLY appreciate if you'd contact us before picking up a task so we can avoid doing double work.
 
+## Showcase
+- [Beat Saber Ambilight](https://www.youtube.com/watch?v=CRe0o0TNlT4)
+
 ## Bugs
 If you are experiencing problems, try deleting the settings file from %appdata%/Winleafs. Note: this removes all settings and schedules.
 
 1. The Nanoleaf device must be connected to the same router as your Windows device. This means that 2.4Ghz and 5Ghz networks are also seperated as the Nanoleaf connects to 2.4Ghz
+
+## APIs used
+
+- [Icanhazip](http://icanhazip.com) To retrieve your IP address
+- [IP-API](http://ip-api.com/) To get your location based on your IP address
+- [Sunset Sunrise](https://sunrise-sunset.org/api) To get sunrise and sunset times based on your location
