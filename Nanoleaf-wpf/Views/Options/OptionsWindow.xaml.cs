@@ -46,7 +46,7 @@ namespace Winleafs.Wpf.Views.Options
                 AmbilightRefreshRatePerSecond = UserSettings.Settings.AmbilightRefreshRatePerSecond,
                 MonitorNames = monitors.Select(m => m.DeviceName).ToList(),
                 SelectedMonitor = monitors[UserSettings.Settings.AmbilightMonitorIndex].DeviceName,
-                SelectedLanguage = UserSettings.Settings.UserLocale,
+                SelectedLanguage = FullNameForCulture(UserSettings.Settings.UserLocale),
                 Languages = _languageDictionary.Keys.ToList()
             };
 
@@ -173,6 +173,19 @@ namespace Winleafs.Wpf.Views.Options
         {
             Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
             e.Handled = true;
+        }
+
+        private string FullNameForCulture(string text)
+        {
+            foreach (var key in _languageDictionary.Keys)
+            {
+                if (_languageDictionary[key].Equals(text))
+                {
+                    return key;
+                }
+            }
+
+            return null;
         }
     }
 }
