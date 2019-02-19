@@ -214,6 +214,15 @@ namespace Winleafs.Models.Models
                 device.OperationMode = OperationMode.Schedule;
             }
         }
+
+        public void SetActiveDevice(string deviceName)
+        {
+            var newActiveDevice = Devices.FirstOrDefault(d => d.Name.Equals(deviceName));
+            ActviceDevice.ActiveInGUI = false;
+            newActiveDevice.ActiveInGUI = true;
+
+            SaveSettings();
+        }
         #endregion
 
         #region Migration methods

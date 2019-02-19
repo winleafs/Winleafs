@@ -18,7 +18,10 @@ using Winleafs.Wpf.Views.Scheduling;
 
 namespace Winleafs.Wpf.Views.MainWindows
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using Winleafs.Wpf.Views.Popup;
+    using Winleafs.Wpf.Views.Setup;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -26,6 +29,22 @@ namespace Winleafs.Wpf.Views.MainWindows
     public partial class MainWindow : Window
     {
         private TaskbarIcon _taskbarIcon;
+        private string _selectedDevice;
+
+        public string SelectedDevice
+        {
+            get
+            {
+                return _selectedDevice;
+            }
+            set
+            {
+                _selectedDevice = value;
+                SelectedDeviceChanged();
+            }
+        }
+
+        public List<string> DeviceNames { get; set; }
 
         public MainWindow()
         {
@@ -33,6 +52,18 @@ namespace Winleafs.Wpf.Views.MainWindows
 
             _taskbarIcon = (TaskbarIcon)FindResource("NotifyIcon"); //https://www.codeproject.com/Articles/36468/WPF-NotifyIcon-2
             _taskbarIcon.DoubleClickCommand = new TaskbarDoubleClickCommand(this);
+
+            SelectedDevice = UserSettings.Settings.ActviceDevice.Name;
+            DeviceNames = UserSettings.Settings.Devices.Select(d => d.Name).ToList();
+
+            BuildScheduleList();
+
+            DataContext = this;
+        }
+
+        private void SelectedDeviceChanged()
+        {
+            UserSettings.Settings.SetActiveDevice(_selectedDevice);
 
             BuildScheduleList();
         }
@@ -154,8 +185,12 @@ namespace Winleafs.Wpf.Views.MainWindows
                 PopupCreator.CreateErrorPopup(MainWindows.Resources.ReloadFailed);
                 LogManager.GetCurrentClassLogger().Error(exception, "Failed to reload effects list");
             }
+        }
 
-
+        private void AddDevice_Click(object sender, RoutedEventArgs e)
+        {
+            var setupWindow = new SetupWindow(false);
+            setupWindow.Show();
         }
 
         private void Stuck_Click(object sender, RoutedEventArgs e)
