@@ -120,28 +120,16 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
-  <data name="Continue" xml:space="preserve">
-    <value>Continue</value>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
   </data>
-  <data name="Finish" xml:space="preserve">
-    <value>Finish</value>
+  <data name="NewRelease" xml:space="preserve">
+    <value>A new release is available, click the Ok button to navigate to the releases page.</value>
   </data>
-  <data name="Pair" xml:space="preserve">
-    <value>Pair</value>
+  <data name="Ok" xml:space="preserve">
+    <value>Ok</value>
   </data>
-  <data name="PairingSuccessful" xml:space="preserve">
-    <value>Pairing successful! Please name your device:</value>
-  </data>
-  <data name="Step1" xml:space="preserve">
-    <value>Step 1: Select your Nanoleaf device from the list below</value>
-  </data>
-  <data name="Step2" xml:space="preserve">
-    <value>Step 2: Hold to on-off button of your Nanoleaf device for 5-7 seconds until the LED starts flasing in a pattern</value>
-  </data>
-  <data name="Step3" xml:space="preserve">
-    <value>Step 3: Click the button below within 30 seconds</value>
-  </data>
-  <data name="UnknownError" xml:space="preserve">
-    <value>Something went wrong when connecting to your lights. Please follow the steps carefully.</value>
+  <data name="Success" xml:space="preserve">
+    <value>Success</value>
   </data>
 </root>

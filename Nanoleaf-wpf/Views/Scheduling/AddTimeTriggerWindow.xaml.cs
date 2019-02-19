@@ -14,6 +14,8 @@ using Winleafs.Wpf.Api.Effects;
 
 namespace Winleafs.Wpf.Views.Scheduling
 {
+    using Winleafs.Wpf.Views.Popup;
+
     /// <summary>
     /// Interaction logic for AddTriggerWindow.xaml
     /// </summary>
@@ -107,7 +109,7 @@ namespace Winleafs.Wpf.Views.Scheduling
             }
             catch
             {
-                MessageBox.Show("Please enter a valid value for hours, between 0 and 23");
+                PopupCreator.CreateErrorPopup(Scheduling.Resources.InvalidHoursValue);
                 return;
             }
 
@@ -122,7 +124,7 @@ namespace Winleafs.Wpf.Views.Scheduling
             }
             catch
             {
-                MessageBox.Show("Please enter a valid value for minutes, between 0 and 59");
+                PopupCreator.CreateErrorPopup(Scheduling.Resources.InvalidMinutesValue);
                 return;
             }
 
@@ -161,7 +163,7 @@ namespace Winleafs.Wpf.Views.Scheduling
 
             if (!addSucceeded)
             {
-                MessageBox.Show("The trigger you are trying to add overlaps with an existing trigger on this day");
+                PopupCreator.CreateErrorPopup(Scheduling.Resources.TriggerOverlaps);
             }
             else
             {

@@ -18,6 +18,8 @@ using Winleafs.Wpf.Views.Scheduling;
 
 namespace Winleafs.Wpf.Views.MainWindows
 {
+    using Winleafs.Wpf.Views.Popup;
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -145,12 +147,11 @@ namespace Winleafs.Wpf.Views.MainWindows
 
                 UserSettings.Settings.SaveSettings();
 
-                // TODO Replace me for a popup
-                MessageBox.Show(MainWindows.Resources.ReloadSuccessful);
+                PopupCreator.CreateSuccessPopup(MainWindows.Resources.ReloadSuccessful);
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
-                MessageBox.Show(MainWindows.Resources.ReloadFailed);
+                PopupCreator.CreateErrorPopup(MainWindows.Resources.ReloadFailed);
                 LogManager.GetCurrentClassLogger().Error(exception, "Failed to reload effects list");
             }
 
