@@ -61,7 +61,7 @@
             <TabItem Header="{x:Static local:Resources.Disclaimer}">
                 <Grid>
                     <Label Content="{x:Static local:Resources.WinleafsUsesAPIs}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
-                    <TextBlock Margin="11,52,420.333,268.667">
+                    <TextBlock Margin="9,52,420.333,268.667">
                         <Hyperlink NavigateUri="http://icanhazip.com/" RequestNavigate="Hyperlink_RequestNavigate">
                             Icanhazip
                         </Hyperlink>
