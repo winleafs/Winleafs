@@ -129,6 +129,9 @@
   <data name="Override" xml:space="preserve">
     <value>Override</value>
   </data>
+  <data name="OverrideError" xml:space="preserve">
+    <value>An unexpected error occurred during overriding.</value>
+  </data>
   <data name="OverrideSchedule" xml:space="preserve">
     <value>Override schedule</value>
   </data>

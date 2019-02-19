@@ -14,6 +14,8 @@ using NLog;
 
 namespace Winleafs.Wpf.Views.Setup
 {
+    using Winleafs.Wpf.Views.Popup;
+
     /// <summary>
     /// Interaction logic for Setup.xaml
     /// </summary>
@@ -73,7 +75,7 @@ namespace Winleafs.Wpf.Views.Setup
             }
             catch
             {
-                MessageBox.Show("Something went wrong when connecting to your lights. Please follow the steps carefully.");
+                PopupCreator.CreateErrorPopup(Setup.Resources.UnknownError);
             }
         }
 

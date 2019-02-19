@@ -19,6 +19,7 @@ namespace Winleafs.Wpf.Views.Options
     using System.Threading;
     using System.Windows.Navigation;
     using Winleafs.Api;
+    using Winleafs.Wpf.Views.Popup;
 
     /// <summary>
     /// Interaction logic for OptionsWindow.xaml
@@ -75,7 +76,7 @@ namespace Winleafs.Wpf.Views.Options
             }
             catch
             {
-                System.Windows.MessageBox.Show("Please enter a valid value for latitude");
+                PopupCreator.CreateErrorPopup(Options.Resources.InvalidLatitude);
                 return;
             }
 
@@ -88,7 +89,7 @@ namespace Winleafs.Wpf.Views.Options
             }
             catch
             {
-                System.Windows.MessageBox.Show("Please enter a valid value for longitude");
+                PopupCreator.CreateErrorPopup(Options.Resources.InvalidLongitude);
                 return;
             }
 
@@ -104,7 +105,7 @@ namespace Winleafs.Wpf.Views.Options
                 }
                 catch
                 {
-                    System.Windows.MessageBox.Show("Something went wrong when updating the sunrise and sunset times");
+                    PopupCreator.CreateErrorPopup(Options.Resources.SunsetSunriseError);
                     return;
                 }
 
@@ -161,11 +162,12 @@ namespace Winleafs.Wpf.Views.Options
                 LatitudeTextBox.Text = OptionsViewModel.Latitude;
                 LongitudeTextBox.Text = OptionsViewModel.Longitude;
 
-                System.Windows.MessageBox.Show($"Detected location: {geoIpData.City}, {geoIpData.Country}");
+                PopupCreator.CreateSuccessPopup(string.Format(Options.Resources.LocationDetected, geoIpData.City, geoIpData.Country));
             }
             catch
             {
-                System.Windows.MessageBox.Show("Error retrieving latitude and longitude");
+
+                PopupCreator.CreateErrorPopup(Options.Resources.LatLongReceiveError);
             }
         }
 

@@ -16,6 +16,8 @@ using Winleafs.Wpf.Api;
 
 namespace Winleafs.Wpf.Views.MainWindows
 {
+    using Winleafs.Wpf.Views.Popup;
+
     /// <summary>
     /// Interaction logic for OverrideScheduleUserControl.xaml
     /// </summary>
@@ -91,7 +93,7 @@ namespace Winleafs.Wpf.Views.MainWindows
                 catch (Exception e)
                 {
                     _logger.Error(e, "Error during overriding schedule");
-                    MessageBox.Show("An unexpected error occurred during overriding.");
+                    PopupCreator.CreateErrorPopup(MainWindows.Resources.OverrideError);
                 }
             }
         }

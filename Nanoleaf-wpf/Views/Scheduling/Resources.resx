@@ -162,6 +162,15 @@
   <data name="Events" xml:space="preserve">
     <value>Events</value>
   </data>
+  <data name="InvalidHoursValue" xml:space="preserve">
+    <value>Please enter a valid value for hours, between 0 and 23</value>
+  </data>
+  <data name="InvalidMinutesValue" xml:space="preserve">
+    <value>Please enter a valid value for minutes, between 0 and 59</value>
+  </data>
+  <data name="LocationMissing" xml:space="preserve">
+    <value>Please fill in your location before creating a time based trigger</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
@@ -173,6 +182,9 @@
   </data>
   <data name="Trigger" xml:space="preserve">
     <value>Trigger</value>
+  </data>
+  <data name="TriggerOverlaps" xml:space="preserve">
+    <value>The trigger you are trying to add overlaps with an existing trigger on this day</value>
   </data>
   <data name="TurnLightsOff" xml:space="preserve">
     <value>Turn lights off at application/Windows shutdown</value>

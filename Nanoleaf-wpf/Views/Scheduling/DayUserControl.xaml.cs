@@ -8,6 +8,8 @@ using Winleafs.Models.Models.Scheduling.Triggers;
 
 namespace Winleafs.Wpf.Views.Scheduling
 {
+    using Winleafs.Wpf.Views.Popup;
+
     /// <summary>
     /// Interaction logic for DayUserControl.xaml
     /// </summary>
@@ -29,7 +31,7 @@ namespace Winleafs.Wpf.Views.Scheduling
         {
             if (!UserSettings.Settings.SunriseHour.HasValue)
             {
-                MessageBox.Show("Please fill in your location before creating a time based trigger");
+                PopupCreator.CreateErrorPopup(Scheduling.Resources.LocationMissing);
                 return;
             }
 

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Winleafs.Wpf.Views.Setup {
+namespace Winleafs.Wpf.Views.Popup {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Winleafs.Wpf.Views.Setup {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Resources {
+    public class PopupResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal PopupResource() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Winleafs.Wpf.Views.Setup {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Winleafs.Wpf.Views.Setup.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Winleafs.Wpf.Views.Popup.PopupResource", typeof(PopupResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -70,74 +70,38 @@ namespace Winleafs.Wpf.Views.Setup {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Continue.
+        ///   Looks up a localized string similar to Error.
         /// </summary>
-        public static string Continue {
+        public static string Error {
             get {
-                return ResourceManager.GetString("Continue", resourceCulture);
+                return ResourceManager.GetString("Error", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Finish.
+        ///   Looks up a localized string similar to A new release is available, click the Ok button to navigate to the releases page..
         /// </summary>
-        public static string Finish {
+        public static string NewRelease {
             get {
-                return ResourceManager.GetString("Finish", resourceCulture);
+                return ResourceManager.GetString("NewRelease", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pair.
+        ///   Looks up a localized string similar to Ok.
         /// </summary>
-        public static string Pair {
+        public static string Ok {
             get {
-                return ResourceManager.GetString("Pair", resourceCulture);
+                return ResourceManager.GetString("Ok", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pairing successful! Please name your device:.
+        ///   Looks up a localized string similar to Success.
         /// </summary>
-        public static string PairingSuccessful {
+        public static string Success {
             get {
-                return ResourceManager.GetString("PairingSuccessful", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Step 1: Select your Nanoleaf device from the list below.
-        /// </summary>
-        public static string Step1 {
-            get {
-                return ResourceManager.GetString("Step1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Step 2: Hold to on-off button of your Nanoleaf device for 5-7 seconds until the LED starts flasing in a pattern.
-        /// </summary>
-        public static string Step2 {
-            get {
-                return ResourceManager.GetString("Step2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Step 3: Click the button below within 30 seconds.
-        /// </summary>
-        public static string Step3 {
-            get {
-                return ResourceManager.GetString("Step3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Something went wrong when connecting to your lights. Please follow the steps carefully..
-        /// </summary>
-        public static string UnknownError {
-            get {
-                return ResourceManager.GetString("UnknownError", resourceCulture);
+                return ResourceManager.GetString("Success", resourceCulture);
             }
         }
     }

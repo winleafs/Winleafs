@@ -133,6 +133,24 @@ namespace Winleafs.Wpf.Views.Options {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter a valid value for latitude.
+        /// </summary>
+        public static string InvalidLatitude {
+            get {
+                return ResourceManager.GetString("InvalidLatitude", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a valid value for longitude.
+        /// </summary>
+        public static string InvalidLongitude {
+            get {
+                return ResourceManager.GetString("InvalidLongitude", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to To get your location based on your IP address.
         /// </summary>
         public static string IPAPIExplanation {
@@ -165,6 +183,24 @@ namespace Winleafs.Wpf.Views.Options {
         public static string Latitude {
             get {
                 return ResourceManager.GetString("Latitude", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error retrieving latitude and longitude.
+        /// </summary>
+        public static string LatLongReceiveError {
+            get {
+                return ResourceManager.GetString("LatLongReceiveError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detected Location: {0}, {1}.
+        /// </summary>
+        public static string LocationDetected {
+            get {
+                return ResourceManager.GetString("LocationDetected", resourceCulture);
             }
         }
         
@@ -211,6 +247,15 @@ namespace Winleafs.Wpf.Views.Options {
         public static string SunsetSunriseAPIExplanation {
             get {
                 return ResourceManager.GetString("SunsetSunriseAPIExplanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Something went wrong when updating the sunrise and sunset times.
+        /// </summary>
+        public static string SunsetSunriseError {
+            get {
+                return ResourceManager.GetString("SunsetSunriseError", resourceCulture);
             }
         }
         
