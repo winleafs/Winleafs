@@ -31,13 +31,13 @@
                     <ColumnDefinition MinWidth="200" />
                 </Grid.ColumnDefinitions>
 
-                <scheduling:DayUserControl Grid.Row="1" Grid.Column="0" NameOfDay="Monday" IndexOfDay="0" x:Name="MondayUserControl"/>
-                <scheduling:DayUserControl Grid.Row="1" Grid.Column="1" NameOfDay="Tuesday" IndexOfDay="1" x:Name="TuesdayUserControl"/>
-                <scheduling:DayUserControl Grid.Row="1" Grid.Column="2" NameOfDay="Wednesday" IndexOfDay="2" x:Name="WednesdayUserControl"/>
-                <scheduling:DayUserControl Grid.Row="1" Grid.Column="3" NameOfDay="Thursday" IndexOfDay="3" x:Name="ThursdayUserControl"/>
-                <scheduling:DayUserControl Grid.Row="1" Grid.Column="4" NameOfDay="Friday" IndexOfDay="4" x:Name="FridayUserControl"/>
-                <scheduling:DayUserControl Grid.Row="1" Grid.Column="5" NameOfDay="Saturday" IndexOfDay="5" x:Name="SaturdayUserControl"/>
-                <scheduling:DayUserControl Grid.Row="1" Grid.Column="6" NameOfDay="Sunday" IndexOfDay="6" x:Name="SundayUserControl"/>
+                <scheduling:DayUserControl Grid.Row="1" Grid.Column="0" NameOfDay="{x:Static scheduling:Resources.Monday}" IndexOfDay="0" x:Name="MondayUserControl"/>
+                <scheduling:DayUserControl Grid.Row="1" Grid.Column="1" NameOfDay="{x:Static scheduling:Resources.Tuesday}" IndexOfDay="1" x:Name="TuesdayUserControl"/>
+                <scheduling:DayUserControl Grid.Row="1" Grid.Column="2" NameOfDay="{x:Static scheduling:Resources.Wednesday}" IndexOfDay="2" x:Name="WednesdayUserControl"/>
+                <scheduling:DayUserControl Grid.Row="1" Grid.Column="3" NameOfDay="{x:Static scheduling:Resources.Thursday}" IndexOfDay="3" x:Name="ThursdayUserControl"/>
+                <scheduling:DayUserControl Grid.Row="1" Grid.Column="4" NameOfDay="{x:Static scheduling:Resources.Friday}" IndexOfDay="4" x:Name="FridayUserControl"/>
+                <scheduling:DayUserControl Grid.Row="1" Grid.Column="5" NameOfDay="{x:Static scheduling:Resources.Saturday}" IndexOfDay="5" x:Name="SaturdayUserControl"/>
+                <scheduling:DayUserControl Grid.Row="1" Grid.Column="6" NameOfDay="{x:Static scheduling:Resources.Sunday}" IndexOfDay="6" x:Name="SundayUserControl"/>
 
                 <Border Grid.Row="1" Grid.Column="0" BorderBrush="White" BorderThickness="1 0 1 0"/>
                 <Border Grid.Row="1" Grid.Column="1" BorderBrush="White" BorderThickness="0 0 1 0"/>
@@ -53,7 +53,7 @@
             </Border>
             <Label Content="{x:Static scheduling:Resources.Name}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
             <TextBox HorizontalAlignment="Left" Height="23" Margin="72,8,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="300" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White"/>
-            <Button Content="{x:Static scheduling:Resources.Save}" Width="100" Background="{StaticResource NanoleafGreen}" BorderBrush="{x:Null}" Margin="811,1,0,0" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Foreground="White" Click="Save_Click"/>
+            <Button Content="{x:Static scheduling:Resources.Save}" Width="100" Background="{StaticResource NanoleafGreen}" BorderBrush="{x:Null}" Margin="0,1,10,0" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="20" Foreground="White" Click="Save_Click"/>
             <CheckBox Content="{x:Static scheduling:Resources.TurnLightsOff}" HorizontalAlignment="Left" Margin="381,6,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="{Binding TurnOffAtApplicationShutdown}">
                 <CheckBox.LayoutTransform>
                     <ScaleTransform ScaleX="1.5" ScaleY="1.5" />

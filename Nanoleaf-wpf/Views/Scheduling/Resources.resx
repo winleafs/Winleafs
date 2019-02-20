@@ -162,6 +162,9 @@
   <data name="Events" xml:space="preserve">
     <value>Events</value>
   </data>
+  <data name="Friday" xml:space="preserve">
+    <value>Friday</value>
+  </data>
   <data name="InvalidHoursValue" xml:space="preserve">
     <value>Please enter a valid value for hours, between 0 and 23</value>
   </data>
@@ -171,11 +174,23 @@
   <data name="LocationMissing" xml:space="preserve">
     <value>Please fill in your location before creating a time based trigger</value>
   </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Monday</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>Saturday</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>Sunday</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Thursday</value>
   </data>
   <data name="Time" xml:space="preserve">
     <value>Time</value>
@@ -186,7 +201,13 @@
   <data name="TriggerOverlaps" xml:space="preserve">
     <value>The trigger you are trying to add overlaps with an existing trigger on this day</value>
   </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Tuesday</value>
+  </data>
   <data name="TurnLightsOff" xml:space="preserve">
     <value>Turn lights off at application/Windows shutdown</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Wednesday</value>
   </data>
 </root>
