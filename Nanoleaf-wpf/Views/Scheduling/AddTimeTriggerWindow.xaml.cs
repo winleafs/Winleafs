@@ -79,13 +79,13 @@ namespace Winleafs.Wpf.Views.Scheduling
             {
                 BeforeRadioButton.Visibility = Visibility.Hidden;
                 AfterRadioButton.Visibility = Visibility.Hidden;
-                TimeLabel.Content = "Time:";
+                TimeLabel.Content = Scheduling.Resources.Time;
             }
             else
             {
                 BeforeRadioButton.Visibility = Visibility.Visible;
                 AfterRadioButton.Visibility = Visibility.Visible;
-                TimeLabel.Content = "Extra time:";
+                TimeLabel.Content = Scheduling.Resources.ExtraTime;
             }
         }
 

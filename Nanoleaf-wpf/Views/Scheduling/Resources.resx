@@ -162,6 +162,9 @@
   <data name="Events" xml:space="preserve">
     <value>Events</value>
   </data>
+  <data name="ExtraTime" xml:space="preserve">
+    <value>Extra time</value>
+  </data>
   <data name="Friday" xml:space="preserve">
     <value>Friday</value>
   </data>

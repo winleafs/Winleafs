@@ -210,4 +210,7 @@
   <data name="Thursday" xml:space="preserve">
     <value>Donderdag</value>
   </data>
+  <data name="ExtraTime" xml:space="preserve">
+    <value>Extra tijd</value>
+  </data>
 </root>
