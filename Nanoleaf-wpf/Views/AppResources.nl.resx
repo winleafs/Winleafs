@@ -117,31 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Cancel" xml:space="preserve">
-    <value>Annuleren</value>
-  </data>
-  <data name="Continue" xml:space="preserve">
-    <value>Doorgaan</value>
-  </data>
-  <data name="Finish" xml:space="preserve">
-    <value>Afmaken</value>
-  </data>
-  <data name="Pair" xml:space="preserve">
-    <value>Linken</value>
-  </data>
-  <data name="PairingSuccessful" xml:space="preserve">
-    <value>Linken successvol! Geef uw apparaat een naam:</value>
-  </data>
-  <data name="Step1" xml:space="preserve">
-    <value>Stap 1: Selecteer uw apparaat in de onderstaande lijst:</value>
-  </data>
-  <data name="Step2" xml:space="preserve">
-    <value>Stap 2: Houd uw aan-uit knop op het Nanoleaf apparaat in voor 5 tot 7 seconden tot de LED lampjes gaan knipperen.</value>
-  </data>
-  <data name="Step3" xml:space="preserve">
-    <value>Stap3: Klik de onderstaande knop binnen 30 seconden.</value>
-  </data>
-  <data name="UnknownError" xml:space="preserve">
-    <value>Er is een probleem opgetreden tijdens het verbinden met de lampen, probeer de stappen zorgvuldig te volgen.</value>
+  <data name="CorruptSettings" xml:space="preserve">
+    <value>Het instellingen bestand is niet leesbaar, probeer het te verwijderen op locatie {0}</value>
   </data>
 </root>

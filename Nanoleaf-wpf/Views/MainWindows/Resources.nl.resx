@@ -158,4 +158,7 @@ Hover over deze knop.</value>
     <value>Proberen om de bestand Settings.txt in %appdata%/Winleafs te verwijderen.
 Druk op deze knop om naar de map te gaan.</value>
   </data>
+  <data name="OverrideError" xml:space="preserve">
+    <value>Een onverwacht probleem is opgetreden tijdens het overschrijven</value>
+  </data>
 </root>

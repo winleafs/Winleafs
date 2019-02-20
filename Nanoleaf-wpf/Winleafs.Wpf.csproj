@@ -265,6 +265,7 @@
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Views\AppResources.nl.resx" />
     <EmbeddedResource Include="Views\AppResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
@@ -279,6 +280,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Popup\PopupResource.nl.resx" />
     <EmbeddedResource Include="Views\Scheduling\Resources.nl.resx" />
     <EmbeddedResource Include="Views\Popup\PopupResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
