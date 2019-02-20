@@ -141,4 +141,7 @@
   <data name="Step3" xml:space="preserve">
     <value>Stap3: Klik de onderstaande knop binnen 30 seconden.</value>
   </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>Er is een probleem opgetreden tijdens het verbinden met de lampen, probeer de stappen zorgvuldig te volgen.</value>
+  </data>
 </root>

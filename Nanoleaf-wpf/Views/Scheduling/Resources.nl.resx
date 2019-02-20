@@ -177,4 +177,16 @@
   <data name="TurnLightsOff" xml:space="preserve">
     <value>Zet de lampen uit wanneer de applicatie/Windows wordt afgesloten.</value>
   </data>
+  <data name="InvalidHoursValue" xml:space="preserve">
+    <value>Vul een juiste tijd in voor de uren tussen 0 en 23.</value>
+  </data>
+  <data name="InvalidMinutesValue" xml:space="preserve">
+    <value>Vul een juiste waarde in voor de minuten tussen 0 en 59</value>
+  </data>
+  <data name="LocationMissing" xml:space="preserve">
+    <value>Vul eerst uw locatie in om een tijd gebaseerde trigger toe te voegen</value>
+  </data>
+  <data name="TriggerOverlaps" xml:space="preserve">
+    <value>De trigger die u probeert toe te voegen overlapt met een bestaande trigger op de dag</value>
+  </data>
 </root>

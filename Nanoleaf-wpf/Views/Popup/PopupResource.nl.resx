@@ -121,11 +121,10 @@
     <value>Annuleren</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>Error</value>
+    <value>Probleem</value>
   </data>
   <data name="NewRelease" xml:space="preserve">
-    <value>Een nieuwe versie is beschikbaar
-Druk op de Ok knop om naar de release pagina te gaan.</value>
+    <value>Een nieuwe versie is beschikbaar, druk op de Ok knop om naar de release pagina te gaan.</value>
   </data>
   <data name="Ok" xml:space="preserve">
     <value>Ok</value>

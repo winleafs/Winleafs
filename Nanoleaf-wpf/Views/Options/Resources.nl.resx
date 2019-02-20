@@ -172,4 +172,19 @@ per IP adres</value>
   <data name="LanguageRestartNote" xml:space="preserve">
     <value>Opmerking: bij het veranderen van de taal moet de applicatie herstart worden.</value>
   </data>
+  <data name="InvalidLatitude" xml:space="preserve">
+    <value>Voer een juiste waarde in voor de breedtegraad</value>
+  </data>
+  <data name="InvalidLongitude" xml:space="preserve">
+    <value>Voer een juiste waarde in voor de lengtegraad</value>
+  </data>
+  <data name="LatLongReceiveError" xml:space="preserve">
+    <value>Er is een probleem opgetreden bij het ophalen van de breedte- en lengtegraad</value>
+  </data>
+  <data name="LocationDetected" xml:space="preserve">
+    <value>Locatie gevonden {0}, {1}</value>
+  </data>
+  <data name="SunsetSunriseError" xml:space="preserve">
+    <value>Er is een probleem opgetreden bij het ophalen van de zonsopgang en zonsondergang tijden</value>
+  </data>
 </root>
