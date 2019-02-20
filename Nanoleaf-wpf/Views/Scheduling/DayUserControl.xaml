@@ -1,21 +1,21 @@
 ﻿<UserControl x:Class="Winleafs.Wpf.Views.Scheduling.DayUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:scheduling="clr-namespace:Winleafs.Wpf.Views.Scheduling"
              xmlns:helpers="clr-namespace:Winleafs.Wpf.Helpers"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              Width="200" Height="Auto">
 
-    <Grid>        
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="35" />
             <ColumnDefinition Width="35" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="35" />
+            <RowDefinition Height="40" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 

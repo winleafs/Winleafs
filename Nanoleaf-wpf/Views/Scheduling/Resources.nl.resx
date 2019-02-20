@@ -189,4 +189,25 @@
   <data name="TriggerOverlaps" xml:space="preserve">
     <value>De trigger die u probeert toe te voegen overlapt met een bestaande trigger op de dag</value>
   </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Maandag</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>Zaterdag</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>Zondag</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>Vrijdag</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Woensdag</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Dinsdag</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Donderdag</value>
+  </data>
 </root>
