@@ -11,7 +11,7 @@ namespace Winleafs.Wpf.Api
     {
         private static Logger _logger = LogManager.GetCurrentClassLogger();
 
-        public static async Task ActiveEffect(Device device, string effectName, int brightness)
+        public static async Task ActivateEffect(Device device, string effectName, int brightness)
         {
             try
             {
