@@ -4,8 +4,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-using Winleafs.Api;
-
 using Winleafs.Models.Enums;
 using Winleafs.Models.Models;
 using Winleafs.Models.Models.Effects;
@@ -67,14 +65,14 @@ namespace Winleafs.Wpf.Views.MainWindows
         {
             if (UserSettings.Settings.ActviceDevice.OperationMode == OperationMode.Manual)
             {
+                UserSettings.Settings.ActviceDevice.OperationMode = OperationMode.Schedule;
+
                 var customEffects = CustomEffects.GetCustomEffectsForDevice(UserSettings.Settings.ActviceDevice);
 
                 if (customEffects.HasActiveEffects())
                 {
                     await customEffects.DeactivateAllEffects();
                 }
-
-                UserSettings.Settings.ActviceDevice.OperationMode = OperationMode.Schedule;
 
                 ScheduleTimer.Timer.FireTimer();
             }
@@ -86,7 +84,11 @@ namespace Winleafs.Wpf.Views.MainWindows
             {
                 try
                 {
-                    await EffectActivator.ActiveEffect(UserSettings.Settings.ActviceDevice, SelectedEffect, Brightness);
+                    var device = UserSettings.Settings.ActviceDevice;
+                    device.OverrideEffect = SelectedEffect;
+                    device.OverrideBrightness = Brightness;
+
+                    await EffectActivator.ActivateEffect(device, SelectedEffect, Brightness);
 
                     UserSettings.Settings.ActviceDevice.OperationMode = OperationMode.Manual;
                 }

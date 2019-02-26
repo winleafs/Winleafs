@@ -63,7 +63,7 @@ namespace Winleafs.Wpf.Api
                     }
                     else
                     {
-                        await EffectActivator.ActiveEffect(device, activeTrigger.Effect, activeTrigger.Brightness);
+                        await EffectActivator.ActivateEffect(device, activeTrigger.Effect, activeTrigger.Brightness);
                     }
                 }
             }

@@ -99,6 +99,7 @@
     <Compile Include="Api\ScheduleTimer.cs" />
     <Compile Include="Helpers\ContextMenuLeftClickBehavior.cs" />
     <Compile Include="Api\Effects\AmbilightEffect.cs" />
+    <Compile Include="Helpers\ScreenGrabber.cs" />
     <Compile Include="ViewModels\OptionsViewModel.cs" />
     <Compile Include="Views\AppResources.Designer.cs">
       <AutoGen>True</AutoGen>
