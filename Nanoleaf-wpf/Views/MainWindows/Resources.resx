@@ -123,8 +123,14 @@
   <data name="AddDevice" xml:space="preserve">
     <value>Add device</value>
   </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>Are you sure? Removing {0} will also remove its schedules</value>
+  </data>
   <data name="Brightness" xml:space="preserve">
     <value>Brightness</value>
+  </data>
+  <data name="DeleteConfirmation" xml:space="preserve">
+    <value>Delete confirmation</value>
   </data>
   <data name="Donate" xml:space="preserve">
     <value>Donate</value>
@@ -149,6 +155,9 @@
   </data>
   <data name="ReloadSuccessful" xml:space="preserve">
     <value>Effects have successfully been reloaded</value>
+  </data>
+  <data name="RemoveDevice" xml:space="preserve">
+    <value>Remove this device</value>
   </data>
   <data name="ResetAllSettings" xml:space="preserve">
     <value>Reset all settings</value>

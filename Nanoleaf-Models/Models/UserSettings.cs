@@ -139,6 +139,13 @@ namespace Winleafs.Models.Models
             SaveSettings();
         }
 
+        public void DeleteActiveDevice()
+        {
+            var device = ActviceDevice;
+            Devices.Remove(device);
+            SaveSettings();
+        }
+
         public void AddSchedule(Schedule schedule, bool makeActive)
         {
             var device = ActviceDevice;
@@ -218,7 +225,12 @@ namespace Winleafs.Models.Models
         public void SetActiveDevice(string deviceName)
         {
             var newActiveDevice = Devices.FirstOrDefault(d => d.Name.Equals(deviceName));
-            ActviceDevice.ActiveInGUI = false;
+
+            if (ActviceDevice != null)
+            {
+                ActviceDevice.ActiveInGUI = false;
+            }
+            
             newActiveDevice.ActiveInGUI = true;
 
             SaveSettings();

@@ -118,7 +118,14 @@ namespace Winleafs.Wpf.Views.Setup
 
         public void Cancel_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            if (!UserSettings.HasSettings() || UserSettings.Settings.Devices.Count == 0)
+            { //If the user has no settings or devices, cancel click is a shutdown
+                Application.Current.Shutdown();
+            }
+            else
+            {
+                Close();
+            }
         }
 
         public void Continue_Click(object sender, RoutedEventArgs e)

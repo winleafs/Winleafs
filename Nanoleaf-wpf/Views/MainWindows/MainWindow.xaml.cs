@@ -19,6 +19,7 @@ using Winleafs.Wpf.Views.Scheduling;
 namespace Winleafs.Wpf.Views.MainWindows
 {
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using Winleafs.Wpf.Views.Popup;
     using Winleafs.Wpf.Views.Setup;
@@ -44,7 +45,13 @@ namespace Winleafs.Wpf.Views.MainWindows
             }
         }
 
-        public List<string> DeviceNames { get; set; }
+        private ObservableCollection<string> _deviceNames;
+
+        public ObservableCollection<string> DeviceNames
+        {
+            get { return _deviceNames; }
+            set { _deviceNames = value; }
+        }
 
         public MainWindow()
         {
@@ -54,7 +61,7 @@ namespace Winleafs.Wpf.Views.MainWindows
             _taskbarIcon.DoubleClickCommand = new TaskbarDoubleClickCommand(this);
 
             SelectedDevice = UserSettings.Settings.ActviceDevice.Name;
-            DeviceNames = UserSettings.Settings.Devices.Select(d => d.Name).ToList();
+            DeviceNames = new ObservableCollection<string>(UserSettings.Settings.Devices.Select(d => d.Name));
 
             BuildScheduleList();
 
@@ -63,9 +70,12 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         private void SelectedDeviceChanged()
         {
-            UserSettings.Settings.SetActiveDevice(_selectedDevice);
+            if (_selectedDevice != null)
+            {
+                UserSettings.Settings.SetActiveDevice(_selectedDevice);
 
-            BuildScheduleList();
+                BuildScheduleList();
+            }
         }
 
         private void AddSchedule_Click(object sender, RoutedEventArgs e)
@@ -207,6 +217,30 @@ namespace Winleafs.Wpf.Views.MainWindows
         {
             Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
             e.Handled = true;
+        }
+
+        private void RemoveDevice_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult messageBoxResult = MessageBox.Show(string.Format(MainWindows.Resources.AreYouSure, _selectedDevice), MainWindows.Resources.DeleteConfirmation, MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                UserSettings.Settings.DeleteActiveDevice();
+
+                if (UserSettings.Settings.Devices.Count > 0)
+                {
+                    DeviceNames.Remove(_selectedDevice);
+                    SelectedDevice = DeviceNames.FirstOrDefault();
+
+                    DevicesDropdown.SelectedItem = SelectedDevice;
+                }
+                else
+                {
+                    var setupWindow = new SetupWindow(true);
+                    setupWindow.Show();
+
+                    Close();
+                }
+            }
         }
     }
 }

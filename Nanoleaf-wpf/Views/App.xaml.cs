@@ -51,7 +51,7 @@ namespace Winleafs.Wpf.Views
                 return;
             }
 
-            if (!UserSettings.HasSettings())
+            if (!UserSettings.HasSettings() || UserSettings.Settings.Devices.Count == 0)
             {
                 var setupWindow = new SetupWindow(true);
                 setupWindow.Show();
