@@ -129,6 +129,12 @@
   <data name="Brightness" xml:space="preserve">
     <value>Brightness</value>
   </data>
+  <data name="CurrentBrightness" xml:space="preserve">
+    <value>Current brightness</value>
+  </data>
+  <data name="CurrentEffect" xml:space="preserve">
+    <value>Current effect</value>
+  </data>
   <data name="DeleteConfirmation" xml:space="preserve">
     <value>Delete confirmation</value>
   </data>

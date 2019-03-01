@@ -97,6 +97,24 @@ namespace Winleafs.Wpf.Views.MainWindows {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Current brightness.
+        /// </summary>
+        public static string CurrentBrightness {
+            get {
+                return ResourceManager.GetString("CurrentBrightness", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current effect.
+        /// </summary>
+        public static string CurrentEffect {
+            get {
+                return ResourceManager.GetString("CurrentEffect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete confirmation.
         /// </summary>
         public static string DeleteConfirmation {

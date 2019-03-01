@@ -24,7 +24,8 @@
         <Grid>
             <Button Content="{x:Static mainWindows:Resources.Options}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Options_Click"/>
             <Button Content="{x:Static mainWindows:Resources.ResetAllSettings}" HorizontalAlignment="Left" Margin="366,384,0,0" VerticalAlignment="Top" Width="106" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Reset_Click"/>
-            <mainWindows:OverrideScheduleUserControl Margin="10,42,73.333,318.667" Height="60" Width="400"/>
+            <mainWindows:OverrideScheduleUserControl x:Name="OverrideScheduleUserControl" Margin="10,112,73.333,248.667" Height="60" Width="400"/>
+            <mainWindows:CurrentEffectUserControl x:Name="CurrentEffectUserControl" Margin="10,37,73.333,313.667" Height="70" Width="400"/>
             <Button Content="{x:Static mainWindows:Resources.ReloadEffects}" HorizontalAlignment="Left" Margin="99,10,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Reload_Click"/>
             <Button Content="{x:Static mainWindows:Resources.AddDevice}" HorizontalAlignment="Left" Margin="188,10,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="AddDevice_Click"/>
             <TextBlock Margin="431,6,0.333,383.667">

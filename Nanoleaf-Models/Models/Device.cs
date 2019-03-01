@@ -92,5 +92,17 @@ namespace Winleafs.Models.Models
                 return GetActiveTrigger().Effect;
             }
         }
+
+        public int GetActiveBrightness()
+        {
+            if (OperationMode == OperationMode.Manual)
+            {
+                return OverrideBrightness;
+            }
+            else
+            {
+                return GetActiveTrigger().Brightness;
+            }
+        }
     }
 }

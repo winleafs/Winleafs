@@ -39,6 +39,8 @@ namespace Winleafs.Wpf.Views.MainWindows
             }
         }
 
+        public MainWindow MainWindow;
+
         public OverrideScheduleUserControl()
         {
             InitializeComponent();
@@ -75,6 +77,8 @@ namespace Winleafs.Wpf.Views.MainWindows
                 }
 
                 ScheduleTimer.Timer.FireTimer();
+
+                MainWindow.UpdateCurrentEffectLabels();
             }
         }
 
@@ -91,6 +95,8 @@ namespace Winleafs.Wpf.Views.MainWindows
                     await EffectActivator.ActivateEffect(device, SelectedEffect, Brightness);
 
                     UserSettings.Settings.ActviceDevice.OperationMode = OperationMode.Manual;
+
+                    MainWindow.UpdateCurrentEffectLabels();
                 }
                 catch (Exception e)
                 {

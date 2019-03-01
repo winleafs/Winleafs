@@ -45,13 +45,7 @@ namespace Winleafs.Wpf.Views.MainWindows
             }
         }
 
-        private ObservableCollection<string> _deviceNames;
-
-        public ObservableCollection<string> DeviceNames
-        {
-            get { return _deviceNames; }
-            set { _deviceNames = value; }
-        }
+        public ObservableCollection<string> DeviceNames { get; set; }
 
         public MainWindow()
         {
@@ -65,6 +59,8 @@ namespace Winleafs.Wpf.Views.MainWindows
 
             BuildScheduleList();
 
+            OverrideScheduleUserControl.MainWindow = this;
+
             DataContext = this;
         }
 
@@ -75,6 +71,8 @@ namespace Winleafs.Wpf.Views.MainWindows
                 UserSettings.Settings.SetActiveDevice(_selectedDevice);
 
                 BuildScheduleList();
+
+                CurrentEffectUserControl.UpdateLabels();
             }
         }
 
@@ -91,6 +89,8 @@ namespace Winleafs.Wpf.Views.MainWindows
             ScheduleTimer.Timer.FireTimer(); //Fire the timer to immediately update the schedule
 
             BuildScheduleList();
+
+            UpdateCurrentEffectLabels();
         }
 
         public void UpdatedSchedule(Schedule originalSchedule, Schedule newSchedule)
@@ -101,6 +101,8 @@ namespace Winleafs.Wpf.Views.MainWindows
             ScheduleTimer.Timer.FireTimer(); //Fire the timer to immediately update the schedule
 
             BuildScheduleList();
+
+            UpdateCurrentEffectLabels();
         }
 
         private void BuildScheduleList()
@@ -126,6 +128,8 @@ namespace Winleafs.Wpf.Views.MainWindows
             ScheduleTimer.Timer.FireTimer(); //Fire the timer to immediately update the schedule
 
             BuildScheduleList();
+
+            UpdateCurrentEffectLabels();
         }
 
         public void Window_Closing(object sender, CancelEventArgs e)
@@ -141,6 +145,8 @@ namespace Winleafs.Wpf.Views.MainWindows
             ScheduleTimer.Timer.FireTimer(); //Fire the timer to immediately update the schedule
 
             BuildScheduleList();
+
+            UpdateCurrentEffectLabels();
         }
 
         private void Options_Click(object sender, RoutedEventArgs e)
@@ -232,6 +238,8 @@ namespace Winleafs.Wpf.Views.MainWindows
                     SelectedDevice = DeviceNames.FirstOrDefault();
 
                     DevicesDropdown.SelectedItem = SelectedDevice;
+
+                    UpdateCurrentEffectLabels();
                 }
                 else
                 {
@@ -241,6 +249,11 @@ namespace Winleafs.Wpf.Views.MainWindows
                     Close();
                 }
             }
+        }
+
+        public void UpdateCurrentEffectLabels()
+        {
+            CurrentEffectUserControl.UpdateLabels();
         }
     }
 }
