@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-
+using JsonMigrator;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Winleafs.Models.Enums;
@@ -13,12 +13,12 @@ namespace Winleafs.Models.Models
     public class UserSettings
     {
         public static readonly string APPLICATIONNAME = "Winleafs";
-        public static readonly string APPLICATIONVERSION = "v0.2";
+        public static readonly string APPLICATIONVERSION = "v0.3.2";
 
         public static readonly string SettingsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), APPLICATIONNAME);
 
         private static readonly string _settingsFileName = Path.Combine(SettingsFolder, "Settings.txt");
-        private static readonly string _latestSettingsVersion = "1";
+        private static readonly string _latestSettingsVersion = "2";
 
         private static UserSettings _settings { get; set; }
 
@@ -101,6 +101,8 @@ namespace Winleafs.Models.Models
                     var userSettings = jtoken.ToObject<UserSettings>();
 
                     _settings = userSettings;
+
+                    _settings.SaveSettings();
                 }
                 catch (Exception e)
                 {
@@ -240,7 +242,11 @@ namespace Winleafs.Models.Models
         #endregion
 
         #region Migration methods
-
+        [Migration("1", "2")]
+        private static JToken Migration_1_2(JToken jToken)
+        {
+            return jToken; //Just update the version
+        }
         #endregion
     }
 
