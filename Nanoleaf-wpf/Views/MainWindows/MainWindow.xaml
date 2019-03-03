@@ -9,26 +9,31 @@
         Closing="Window_Closing" >
     <DockPanel Background="{StaticResource NanoleafBlack}">
         <Grid DockPanel.Dock="Left">
-            <Label Content="{x:Static mainWindows:Resources.Schedules}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
-            <Button  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="35" Height="35" Background="{x:Null}" BorderBrush="{x:Null}" Click="AddSchedule_Click" Margin="275,11,0,0">
+            <Label Content="{x:Static mainWindows:Resources.Schedules}" HorizontalAlignment="Left" Margin="10,52,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
+            <Button  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="35" Height="35" Background="{x:Null}" BorderBrush="{x:Null}" Click="AddSchedule_Click" Margin="275,51,0,0">
                 <Image Source="../../Icons/appbar.add.png"/>
             </Button>
-            <StackPanel HorizontalAlignment="Left" Height="Auto" Margin="10,47,0,0" VerticalAlignment="Stretch" Width="300" x:Name="ScheduleList">
+            <StackPanel HorizontalAlignment="Left" Height="Auto" Margin="10,86,0,-0.333" VerticalAlignment="Stretch" Width="300" x:Name="ScheduleList">
                 <Border BorderBrush="White" BorderThickness="0 1 1 0" Height="Auto"/>
             </StackPanel>
             <Button Content="{x:Static mainWindows:Resources.Stuck}" ToolTip="{x:Static mainWindows:Resources.StuckMessage}" HorizontalAlignment="Left" Margin="315,0,-109,10" VerticalAlignment="Bottom" FontSize="10"
                     Width="120" Height="37" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Stuck_Click"/>
+            <Label Content="{x:Static mainWindows:Resources.ActiveDevice}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
+            <ComboBox x:Name="DevicesDropdown" HorizontalAlignment="Left" Margin="140,10,0,0" VerticalAlignment="Top" Width="160" SelectedItem="{Binding SelectedDevice}" ItemsSource="{Binding DeviceNames}"/>
         </Grid>
         <Grid>
             <Button Content="{x:Static mainWindows:Resources.Options}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Options_Click"/>
             <Button Content="{x:Static mainWindows:Resources.ResetAllSettings}" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="120" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Reset_Click"/>
             <mainWindows:OverrideScheduleUserControl HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,42,10,0" Height="60"/>
+            <mainWindows:CurrentEffectUserControl x:Name="CurrentEffectUserControl" Margin="10,37,73.333,313.667" Height="70" Width="400"/>
             <Button Content="{x:Static mainWindows:Resources.ReloadEffects}" HorizontalAlignment="Left" Margin="120,10,0,0" VerticalAlignment="Top" Width="100" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Reload_Click"/>
+            <Button Content="{x:Static mainWindows:Resources.AddDevice}" HorizontalAlignment="Left" Margin="188,10,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="AddDevice_Click"/>
             <TextBlock HorizontalAlignment="Right"  VerticalAlignment="Top"  Margin="400,6,15,383.667">
                 <Hyperlink NavigateUri="https://www.paypal.me/winleafs" RequestNavigate="Hyperlink_RequestNavigate">
                     Donate
                 </Hyperlink>
             </TextBlock>
+            <Button Content="{x:Static mainWindows:Resources.RemoveDevice}" HorizontalAlignment="Left" Margin="245,384,0,0" VerticalAlignment="Top" Width="116" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="RemoveDevice_Click"/>
         </Grid>
     </DockPanel>
 </Window>

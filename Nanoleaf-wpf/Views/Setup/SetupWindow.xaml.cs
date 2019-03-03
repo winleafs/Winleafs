@@ -27,9 +27,12 @@ namespace Winleafs.Wpf.Views.Setup
         private List<Device> discoveredDevices;
         private NanoleafClient nanoleafClient;
         private Device selectedDevice;
+        private bool freshStartup;
 
-        public SetupWindow()
+        public SetupWindow(bool freshStartup)
         {
+            this.freshStartup = freshStartup;
+
             InitializeComponent();
 
             setupViewModel = new SetupViewModel();
@@ -42,12 +45,21 @@ namespace Winleafs.Wpf.Views.Setup
 
         public void Finish_Click(object sender, RoutedEventArgs e)
         {
+            if (UserSettings.HasSettings() && UserSettings.Settings.Devices.Any(d => d.Name.ToLower().Equals(setupViewModel.Name)))
+            {
+                PopupCreator.CreateErrorPopup(Setup.Resources.NameAlreadyExists);
+                return;
+            }
+
             selectedDevice.Name = setupViewModel.Name;
-            selectedDevice.ActiveInGUI = true;
+            selectedDevice.ActiveInGUI = freshStartup;
 
             UserSettings.Settings.AddDevice(selectedDevice);
 
-            App.NormalStartup(null);
+            if (freshStartup)
+            {
+                App.NormalStartup(null);
+            }
 
             Close();
         }
@@ -81,9 +93,13 @@ namespace Winleafs.Wpf.Views.Setup
 
         private void onServiceAdded(object sender, ServiceAnnouncementEventArgs e)
         {
-            _logger.Info($"Discovered following device: {e.Announcement.Hostname}, IPs: {e.Announcement.Addresses}, Port: {e.Announcement.Port}");
+            if (!UserSettings.HasSettings() || !UserSettings.Settings.Devices.Any(d => d.IPAddress.Equals(e.Announcement.Addresses.First().ToString())))
+            { //Only add devices that not have been added before
+                _logger.Info($"Discovered following device: {e.Announcement.Hostname}, IPs: {e.Announcement.Addresses}, Port: {e.Announcement.Port}");
 
-            discoveredDevices.Add(new Device { Name = e.Announcement.Hostname, IPAddress = e.Announcement.Addresses.First().ToString(), Port = e.Announcement.Port });
+                discoveredDevices.Add(new Device { Name = e.Announcement.Hostname, IPAddress = e.Announcement.Addresses.First().ToString(), Port = e.Announcement.Port });
+            }
+
             BuildDeviceList();
         }
 
@@ -102,7 +118,14 @@ namespace Winleafs.Wpf.Views.Setup
 
         public void Cancel_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            if (!UserSettings.HasSettings() || UserSettings.Settings.Devices.Count == 0)
+            { //If the user has no settings or devices, cancel click is a shutdown
+                Application.Current.Shutdown();
+            }
+            else
+            {
+                Close();
+            }
         }
 
         public void Continue_Click(object sender, RoutedEventArgs e)

@@ -30,6 +30,9 @@ namespace Winleafs.Models.Models
         public List<Schedule> Schedules { get; set; }
         public List<Effect> Effects { get; set; }
 
+        public string OverrideEffect { get; set; }
+        public int OverrideBrightness { get; set; }
+
         [JsonIgnore]
         public Schedule ActiveSchedule
         {
@@ -76,6 +79,37 @@ namespace Winleafs.Models.Models
         public override string ToString()
         {
             return $"{Name} ({IPAddress}:{Port})";
+        }
+
+        public string GetActiveEffect()
+        {
+            if (OperationMode == OperationMode.Manual)
+            {
+                return OverrideEffect;
+            }
+            else
+            {
+                var activeTrigger = GetActiveTrigger();
+
+                return activeTrigger != null ? GetActiveTrigger().Effect : null;
+            }
+        }
+
+        /// <summary>
+        /// Returns -1 when nothing is active
+        /// </summary>
+        public int GetActiveBrightness()
+        {
+            if (OperationMode == OperationMode.Manual)
+            {
+                return OverrideBrightness;
+            }
+            else
+            {
+                var activeTrigger = GetActiveTrigger();
+
+                return activeTrigger != null ? activeTrigger.Brightness : -1;
+            }
         }
     }
 }

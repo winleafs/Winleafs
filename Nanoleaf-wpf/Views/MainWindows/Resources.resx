@@ -117,11 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActiveDevice" xml:space="preserve">
+    <value>Active device</value>
+  </data>
+  <data name="AddDevice" xml:space="preserve">
+    <value>Add device</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>Are you sure? Removing {0} will also remove its schedules</value>
+  </data>
   <data name="Brightness" xml:space="preserve">
     <value>Brightness</value>
   </data>
+  <data name="CurrentBrightness" xml:space="preserve">
+    <value>Current brightness</value>
+  </data>
+  <data name="CurrentEffect" xml:space="preserve">
+    <value>Current effect</value>
+  </data>
+  <data name="DeleteConfirmation" xml:space="preserve">
+    <value>Delete confirmation</value>
+  </data>
   <data name="Donate" xml:space="preserve">
     <value>Donate</value>
+  </data>
+  <data name="Nothing" xml:space="preserve">
+    <value>Nothing</value>
   </data>
   <data name="Options" xml:space="preserve">
     <value>Options</value>
@@ -143,6 +164,9 @@
   </data>
   <data name="ReloadSuccessful" xml:space="preserve">
     <value>Effects have successfully been reloaded</value>
+  </data>
+  <data name="RemoveDevice" xml:space="preserve">
+    <value>Remove this device</value>
   </data>
   <data name="ResetAllSettings" xml:space="preserve">
     <value>Reset all settings</value>

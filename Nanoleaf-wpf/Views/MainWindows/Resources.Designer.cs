@@ -61,6 +61,33 @@ namespace Winleafs.Wpf.Views.MainWindows {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Active device.
+        /// </summary>
+        public static string ActiveDevice {
+            get {
+                return ResourceManager.GetString("ActiveDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add device.
+        /// </summary>
+        public static string AddDevice {
+            get {
+                return ResourceManager.GetString("AddDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure? Removing {0} will also remove its schedules.
+        /// </summary>
+        public static string AreYouSure {
+            get {
+                return ResourceManager.GetString("AreYouSure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Brightness.
         /// </summary>
         public static string Brightness {
@@ -70,11 +97,47 @@ namespace Winleafs.Wpf.Views.MainWindows {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Current brightness.
+        /// </summary>
+        public static string CurrentBrightness {
+            get {
+                return ResourceManager.GetString("CurrentBrightness", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current effect.
+        /// </summary>
+        public static string CurrentEffect {
+            get {
+                return ResourceManager.GetString("CurrentEffect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete confirmation.
+        /// </summary>
+        public static string DeleteConfirmation {
+            get {
+                return ResourceManager.GetString("DeleteConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Donate.
         /// </summary>
         public static string Donate {
             get {
                 return ResourceManager.GetString("Donate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nothing.
+        /// </summary>
+        public static string Nothing {
+            get {
+                return ResourceManager.GetString("Nothing", resourceCulture);
             }
         }
         
@@ -138,6 +201,15 @@ namespace Winleafs.Wpf.Views.MainWindows {
         public static string ReloadSuccessful {
             get {
                 return ResourceManager.GetString("ReloadSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove this device.
+        /// </summary>
+        public static string RemoveDevice {
+            get {
+                return ResourceManager.GetString("RemoveDevice", resourceCulture);
             }
         }
         

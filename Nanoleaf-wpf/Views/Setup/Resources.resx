@@ -126,6 +126,9 @@
   <data name="Finish" xml:space="preserve">
     <value>Finish</value>
   </data>
+  <data name="NameAlreadyExists" xml:space="preserve">
+    <value>This name already exists, choose an unique name</value>
+  </data>
   <data name="Pair" xml:space="preserve">
     <value>Pair</value>
   </data>

@@ -88,6 +88,15 @@ namespace Winleafs.Wpf.Views.Setup {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This name already exists, choose an unique name.
+        /// </summary>
+        public static string NameAlreadyExists {
+            get {
+                return ResourceManager.GetString("NameAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pair.
         /// </summary>
         public static string Pair {

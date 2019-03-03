@@ -54,9 +54,9 @@ namespace Winleafs.Wpf.Views
                 return;
             }
 
-            if (!UserSettings.HasSettings())
+            if (!UserSettings.HasSettings() || UserSettings.Settings.Devices.Count == 0)
             {
-                var setupWindow = new SetupWindow();
+                var setupWindow = new SetupWindow(true);
                 setupWindow.Show();
             }
             else
@@ -114,10 +114,17 @@ namespace Winleafs.Wpf.Views
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
-            if (PerformRegularShutdownOprations)
+            try
             {
-                var task = Task.Run(() => TurnOffLights());
-                task.Wait(); //We actually want the code to execute directly instead of waiting
+                if (PerformRegularShutdownOprations)
+                {
+                    var task = Task.Run(() => TurnOffLights());
+                    task.Wait(); //We actually want the code to execute directly instead of waiting
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.Fatal(ex, "Exception occurred during application exit");
             }
         }
 
@@ -126,10 +133,17 @@ namespace Winleafs.Wpf.Views
         /// </summary>
         private void Application_SessionEnding(object sender, SessionEndingCancelEventArgs e)
         {
-            if (PerformRegularShutdownOprations)
+            try
             {
-                var task = Task.Run(() => TurnOffLights());
-                task.Wait(); //We actually want the code to execute directly instead of waiting
+                if (PerformRegularShutdownOprations)
+                {
+                    var task = Task.Run(() => TurnOffLights());
+                    task.Wait(); //We actually want the code to execute directly instead of waiting
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.Fatal(ex, "Exception occurred during windows shutdown");
             }
         }
 
@@ -154,7 +168,7 @@ namespace Winleafs.Wpf.Views
         public static void ResetAllSettings(MainWindow mainWindow)
         {
             UserSettings.DeleteSettings();
-            var setupWindow = new SetupWindow();
+            var setupWindow = new SetupWindow(true);
             setupWindow.Show();
 
             mainWindow.Close();

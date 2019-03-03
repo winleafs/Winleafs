@@ -18,7 +18,11 @@ using Winleafs.Wpf.Views.Scheduling;
 
 namespace Winleafs.Wpf.Views.MainWindows
 {
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
     using Winleafs.Wpf.Views.Popup;
+    using Winleafs.Wpf.Views.Setup;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -26,6 +30,22 @@ namespace Winleafs.Wpf.Views.MainWindows
     public partial class MainWindow : Window
     {
         private TaskbarIcon _taskbarIcon;
+        private string _selectedDevice;
+
+        public string SelectedDevice
+        {
+            get
+            {
+                return _selectedDevice;
+            }
+            set
+            {
+                _selectedDevice = value;
+                SelectedDeviceChanged();
+            }
+        }
+
+        public ObservableCollection<string> DeviceNames { get; set; }
 
         public MainWindow()
         {
@@ -34,7 +54,26 @@ namespace Winleafs.Wpf.Views.MainWindows
             _taskbarIcon = (TaskbarIcon)FindResource("NotifyIcon"); //https://www.codeproject.com/Articles/36468/WPF-NotifyIcon-2
             _taskbarIcon.DoubleClickCommand = new TaskbarDoubleClickCommand(this);
 
+            SelectedDevice = UserSettings.Settings.ActviceDevice.Name;
+            DeviceNames = new ObservableCollection<string>(UserSettings.Settings.Devices.Select(d => d.Name));
+
             BuildScheduleList();
+
+            OverrideScheduleUserControl.MainWindow = this;
+
+            DataContext = this;
+        }
+
+        private void SelectedDeviceChanged()
+        {
+            if (_selectedDevice != null)
+            {
+                UserSettings.Settings.SetActiveDevice(_selectedDevice);
+
+                BuildScheduleList();
+
+                CurrentEffectUserControl.UpdateLabels();
+            }
         }
 
         private void AddSchedule_Click(object sender, RoutedEventArgs e)
@@ -50,6 +89,8 @@ namespace Winleafs.Wpf.Views.MainWindows
             ScheduleTimer.Timer.FireTimer(); //Fire the timer to immediately update the schedule
 
             BuildScheduleList();
+
+            UpdateCurrentEffectLabels();
         }
 
         public void UpdatedSchedule(Schedule originalSchedule, Schedule newSchedule)
@@ -60,6 +101,8 @@ namespace Winleafs.Wpf.Views.MainWindows
             ScheduleTimer.Timer.FireTimer(); //Fire the timer to immediately update the schedule
 
             BuildScheduleList();
+
+            UpdateCurrentEffectLabels();
         }
 
         private void BuildScheduleList()
@@ -85,6 +128,8 @@ namespace Winleafs.Wpf.Views.MainWindows
             ScheduleTimer.Timer.FireTimer(); //Fire the timer to immediately update the schedule
 
             BuildScheduleList();
+
+            UpdateCurrentEffectLabels();
         }
 
         public void Window_Closing(object sender, CancelEventArgs e)
@@ -100,6 +145,8 @@ namespace Winleafs.Wpf.Views.MainWindows
             ScheduleTimer.Timer.FireTimer(); //Fire the timer to immediately update the schedule
 
             BuildScheduleList();
+
+            UpdateCurrentEffectLabels();
         }
 
         private void Options_Click(object sender, RoutedEventArgs e)
@@ -154,8 +201,12 @@ namespace Winleafs.Wpf.Views.MainWindows
                 PopupCreator.CreateErrorPopup(MainWindows.Resources.ReloadFailed);
                 LogManager.GetCurrentClassLogger().Error(exception, "Failed to reload effects list");
             }
+        }
 
-
+        private void AddDevice_Click(object sender, RoutedEventArgs e)
+        {
+            var setupWindow = new SetupWindow(false);
+            setupWindow.Show();
         }
 
         private void Stuck_Click(object sender, RoutedEventArgs e)
@@ -172,6 +223,37 @@ namespace Winleafs.Wpf.Views.MainWindows
         {
             Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
             e.Handled = true;
+        }
+
+        private void RemoveDevice_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult messageBoxResult = MessageBox.Show(string.Format(MainWindows.Resources.AreYouSure, _selectedDevice), MainWindows.Resources.DeleteConfirmation, MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                UserSettings.Settings.DeleteActiveDevice();
+
+                if (UserSettings.Settings.Devices.Count > 0)
+                {
+                    DeviceNames.Remove(_selectedDevice);
+                    SelectedDevice = DeviceNames.FirstOrDefault();
+
+                    DevicesDropdown.SelectedItem = SelectedDevice;
+
+                    UpdateCurrentEffectLabels();
+                }
+                else
+                {
+                    var setupWindow = new SetupWindow(true);
+                    setupWindow.Show();
+
+                    Close();
+                }
+            }
+        }
+
+        public void UpdateCurrentEffectLabels()
+        {
+            CurrentEffectUserControl.UpdateLabels();
         }
     }
 }
