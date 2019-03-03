@@ -117,7 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AmbilightEffectName" xml:space="preserve">
+    <value>Ambilight</value>
+  </data>
   <data name="CorruptSettings" xml:space="preserve">
     <value>Uw instellingsbestand is niet leesbaar. Probeer het te verwijderen op de locatie {0}.</value>
+  </data>
+  <data name="TurnLightsOffEffectName" xml:space="preserve">
+    <value>Lichten uitzetten</value>
   </data>
 </root>

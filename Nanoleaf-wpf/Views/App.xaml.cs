@@ -17,7 +17,6 @@ using System.Runtime.InteropServices;
 using Winleafs.External;
 
 using Application = System.Windows.Application;
-using MessageBox = System.Windows.MessageBox;
 
 namespace Winleafs.Wpf.Views
 {
@@ -85,17 +84,17 @@ namespace Winleafs.Wpf.Views
                 return;
             }
 
-            UserSettings.Settings.ResetOperationModes();
-
-            SunTimesUpdater.UpdateSunTimes();
-
-            ScheduleTimer.InitializeTimer();
-
             if (!string.IsNullOrEmpty(UserSettings.Settings.UserLocale))
             {
                 Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo(UserSettings.Settings.UserLocale);
                 Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(UserSettings.Settings.UserLocale);
             }
+
+            UserSettings.Settings.ResetOperationModes();
+
+            SunTimesUpdater.UpdateSunTimes();
+
+            ScheduleTimer.InitializeTimer();
 
             var mainWindow = new MainWindow();
 

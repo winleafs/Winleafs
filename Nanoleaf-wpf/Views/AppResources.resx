@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AmbilightEffectName" xml:space="preserve">
+    <value>Ambilight</value>
+  </data>
   <data name="CorruptSettings" xml:space="preserve">
     <value>The settings file has been corrupted, please try removing it at {0}</value>
     <comment>Formatted string with 0 being the path of the settings file.</comment>
+  </data>
+  <data name="TurnLightsOffEffectName" xml:space="preserve">
+    <value>Turn lights off</value>
   </data>
 </root>

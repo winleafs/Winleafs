@@ -61,11 +61,29 @@ namespace Winleafs.Wpf.Views {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ambilight.
+        /// </summary>
+        public static string AmbilightEffectName {
+            get {
+                return ResourceManager.GetString("AmbilightEffectName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The settings file has been corrupted, please try removing it at {0}.
         /// </summary>
         public static string CorruptSettings {
             get {
                 return ResourceManager.GetString("CorruptSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turn lights off.
+        /// </summary>
+        public static string TurnLightsOffEffectName {
+            get {
+                return ResourceManager.GetString("TurnLightsOffEffectName", resourceCulture);
             }
         }
     }

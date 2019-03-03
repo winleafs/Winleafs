@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Winleafs.Api;
 using Winleafs.Models.Models;
 using Winleafs.Models.Models.Effects;
+using Winleafs.Wpf.Views;
 
 namespace Winleafs.Wpf.Api.Effects
 {
@@ -33,8 +34,8 @@ namespace Winleafs.Wpf.Api.Effects
             _nanoleafClient = NanoleafClient.GetClientForDevice(device);
 
             _customEffects = new Dictionary<string, ICustomEffect>();
-            _customEffects.Add($"{EffectNamePreface}Ambilight", new AmbilightEffect(_nanoleafClient));
-            _customEffects.Add($"{EffectNamePreface}Turn lights off", new TurnOffEffect(_nanoleafClient));
+            _customEffects.Add($"{EffectNamePreface}{AppResources.AmbilightEffectName}", new AmbilightEffect(_nanoleafClient));
+            _customEffects.Add($"{EffectNamePreface}{AppResources.TurnLightsOffEffectName}", new TurnOffEffect(_nanoleafClient));
         }
 
         public bool EffectIsCustomEffect(string effectName)
