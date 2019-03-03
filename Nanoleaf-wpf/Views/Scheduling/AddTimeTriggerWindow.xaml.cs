@@ -14,6 +14,7 @@ using Winleafs.Wpf.Api.Effects;
 
 namespace Winleafs.Wpf.Views.Scheduling
 {
+    using Winleafs.Wpf.Helpers;
     using Winleafs.Wpf.Views.Popup;
 
     /// <summary>
@@ -22,10 +23,9 @@ namespace Winleafs.Wpf.Views.Scheduling
     public partial class AddTimeTriggerWindow : Window
     {
         private DayUserControl _parent;
-
         private TriggerType _triggerType { get; set; }
-
         private int _brightness { get; set; }
+        private Dictionary<string, TriggerType> _triggerTypeMapping { get; set; } //Map display values to enum values
 
         public string SelectedEffect { get; set; }
 
@@ -39,25 +39,25 @@ namespace Winleafs.Wpf.Views.Scheduling
             }
         }
 
-        public TriggerType TriggerType
+        public string SelectedTriggerType
         {
-            get { return _triggerType; }
+            get { return EnumLocalizer.GetLocalizedEnum(_triggerType); }
             set
             {
-                _triggerType = value;
+                _triggerType = _triggerTypeMapping[value];
 
                 TriggerTypeChanged();
             }
         }
 
-        public IEnumerable<TriggerType> TriggerTypes
+        public IEnumerable<string> TriggerTypes
         {
             get
             {
-                return Enum.GetValues(typeof(TriggerType)).Cast<TriggerType>();
+                return _triggerTypeMapping.Keys;
             }
         }
-
+        
         public List<Effect> Effects { get; set; }
 
         public AddTimeTriggerWindow(DayUserControl parent)
@@ -66,11 +66,18 @@ namespace Winleafs.Wpf.Views.Scheduling
             Effects = new List<Effect>(UserSettings.Settings.ActviceDevice.Effects);
             Effects.InsertRange(0, CustomEffects.GetCustomEffectAsEffects(UserSettings.Settings.ActviceDevice));
 
+            _triggerTypeMapping = new Dictionary<string, TriggerType>();
+
+            foreach (var triggerType in Enum.GetValues(typeof(TriggerType)).Cast<TriggerType>())
+            {
+                _triggerTypeMapping.Add(EnumLocalizer.GetLocalizedEnum(triggerType), triggerType);
+            }
+
             DataContext = this;
 
             InitializeComponent();
 
-            TriggerType = TriggerType.Time;
+            SelectedTriggerType = EnumLocalizer.GetLocalizedEnum(TriggerType.Time);
         }
 
         private void TriggerTypeChanged()
@@ -130,27 +137,27 @@ namespace Winleafs.Wpf.Views.Scheduling
 
             var addSucceeded = false;
 
-            if (TriggerType == TriggerType.Sunrise || TriggerType == TriggerType.Sunset)
+            if (_triggerType == TriggerType.Sunrise || _triggerType == TriggerType.Sunset)
             {
                 var beforeAfter = BeforeRadioButton.IsChecked.Value ? BeforeAfter.Before : (AfterRadioButton.IsChecked.Value ? BeforeAfter.After : BeforeAfter.None);
 
                 addSucceeded = _parent.TriggerAdded(new TimeTrigger
                 {
-                    TriggerType = TriggerType,
+                    TriggerType = _triggerType,
                     BeforeAfter = beforeAfter,
                     Brightness = _brightness,
                     Effect = SelectedEffect,
                     ExtraHours = hours,
                     ExtraMinutes = minutes,
-                    Hours = TriggerType == TriggerType.Sunrise ? UserSettings.Settings.SunriseHour.Value : UserSettings.Settings.SunsetHour.Value,
-                    Minutes = TriggerType == TriggerType.Sunrise ? UserSettings.Settings.SunriseMinute.Value : UserSettings.Settings.SunsetMinute.Value
+                    Hours = _triggerType == TriggerType.Sunrise ? UserSettings.Settings.SunriseHour.Value : UserSettings.Settings.SunsetHour.Value,
+                    Minutes = _triggerType == TriggerType.Sunrise ? UserSettings.Settings.SunriseMinute.Value : UserSettings.Settings.SunsetMinute.Value
                 });
             }
             else
             {
                 addSucceeded = _parent.TriggerAdded(new TimeTrigger
                 {
-                    TriggerType = TriggerType,
+                    TriggerType = _triggerType,
                     BeforeAfter = BeforeAfter.None,
                     Brightness = _brightness,
                     Effect = SelectedEffect,

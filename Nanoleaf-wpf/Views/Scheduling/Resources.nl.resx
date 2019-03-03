@@ -213,4 +213,10 @@
   <data name="ExtraTime" xml:space="preserve">
     <value>Extra tijd</value>
   </data>
+  <data name="After" xml:space="preserve">
+    <value>Na</value>
+  </data>
+  <data name="Before" xml:space="preserve">
+    <value>Voor</value>
+  </data>
 </root>

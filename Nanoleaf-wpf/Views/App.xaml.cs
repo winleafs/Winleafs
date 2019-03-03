@@ -34,11 +34,6 @@ namespace Winleafs.Wpf.Views
     {
         private static Logger _logger = LogManager.GetCurrentClassLogger();
 
-        [DllImport("User32")]
-        private static extern int ShowWindow(int hwnd, int nCmdShow);
-
-        private const int SW_SHOW = 5;
-
         private static bool PerformRegularShutdownOprations = true;
 
         void App_Startup(object sender, StartupEventArgs e)

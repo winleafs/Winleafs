@@ -167,7 +167,7 @@ Druk op deze knop om naar de map te gaan.</value>
   <data name="AddDevice" xml:space="preserve">
     <value>Apparaat toevoegen</value>
   </data>
-  <data name="AreYouSure" xml:space="preserve">
+  <data name="DeleteDeviceAreYouSure" xml:space="preserve">
     <value>Weet je het zeker? Als je {0} verwijdert zullen ook de schemas verwijderd worden</value>
   </data>
   <data name="CurrentBrightness" xml:space="preserve">
@@ -184,5 +184,8 @@ Druk op deze knop om naar de map te gaan.</value>
   </data>
   <data name="RemoveDevice" xml:space="preserve">
     <value>Verwijder dit apparaat</value>
+  </data>
+  <data name="DeleteScheduleAreYouSure" xml:space="preserve">
+    <value>Weet je zeker dat je dit schema wilt verwijderen?</value>
   </data>
 </root>
