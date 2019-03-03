@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Winleafs.Wpf.Views.Scheduling"
         mc:Ignorable="d"
-        Title="Winleafs Add trigger" Height="250" Width="240">
+        Title="Winleafs Add trigger" Height="250" Width="240" ResizeMode="NoResize">
     <Grid Background="{StaticResource NanoleafBlack}">
         <Label Content="{x:Static local:Resources.Trigger}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
         <ComboBox HorizontalAlignment="Left" Margin="91,18,0,0" VerticalAlignment="Top" Width="120" SelectedItem="{Binding TriggerType}" ItemsSource="{Binding TriggerTypes}"/>

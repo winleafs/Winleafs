@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Winleafs.Wpf.Views.Options"
         mc:Ignorable="d"
-        Title="Winleafs Options" Height="450" Width="550">
+        Title="Winleafs Options" Height="450" Width="550" ResizeMode="CanMinimize">
 
     <Window.Resources>
         <Style TargetType="{x:Type TabItem}">

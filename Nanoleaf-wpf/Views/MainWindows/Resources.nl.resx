@@ -155,7 +155,7 @@ Hover over deze knop.</value>
     <value>Helderheid</value>
   </data>
   <data name="StuckMessage" xml:space="preserve">
-    <value>Proberen om de bestand Settings.txt in %appdata%/Winleafs te verwijderen.
+    <value>Probeer om het bestand Settings.txt in %appdata%/Winleafs te verwijderen.
 Druk op deze knop om naar de map te gaan.</value>
   </data>
   <data name="OverrideError" xml:space="preserve">

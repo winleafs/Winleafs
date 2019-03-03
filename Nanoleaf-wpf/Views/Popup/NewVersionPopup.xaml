@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Winleafs.Wpf.Views.Popup"
         mc:Ignorable="d"
-        Title="New version available" Height="200" Width="500">
+        Title="New version available" Height="200" Width="500" ResizeMode="NoResize">
     <Grid Background="{StaticResource NanoleafBlack}">
         <Button Content="{x:Static local:PopupResource.Ok}" HorizontalAlignment="Left" Margin="350,130,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Ok_Click"/>
         <TextBlock Text="{x:Static local:PopupResource.NewRelease}" HorizontalAlignment="Left" Margin="50,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="100" Width="400" Foreground="White" Name="PopupContent" TextAlignment="Center"/>
