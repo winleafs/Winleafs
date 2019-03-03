@@ -89,10 +89,15 @@ namespace Winleafs.Models.Models
             }
             else
             {
-                return GetActiveTrigger().Effect;
+                var activeTrigger = GetActiveTrigger();
+
+                return activeTrigger != null ? GetActiveTrigger().Effect : null;
             }
         }
 
+        /// <summary>
+        /// Returns -1 when nothing is active
+        /// </summary>
         public int GetActiveBrightness()
         {
             if (OperationMode == OperationMode.Manual)
@@ -101,7 +106,9 @@ namespace Winleafs.Models.Models
             }
             else
             {
-                return GetActiveTrigger().Brightness;
+                var activeTrigger = GetActiveTrigger();
+
+                return activeTrigger != null ? activeTrigger.Brightness : -1;
             }
         }
     }

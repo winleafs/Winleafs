@@ -133,6 +133,15 @@ namespace Winleafs.Wpf.Views.MainWindows {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nothing.
+        /// </summary>
+        public static string Nothing {
+            get {
+                return ResourceManager.GetString("Nothing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Options.
         /// </summary>
         public static string Options {
