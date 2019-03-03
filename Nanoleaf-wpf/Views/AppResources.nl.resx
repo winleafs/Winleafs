@@ -118,6 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CorruptSettings" xml:space="preserve">
-    <value>Uw installings bestand is niet leesbaar. Probeer het te verwijderen op de locatie {0}.</value>
+    <value>Uw instellingsbestand is niet leesbaar. Probeer het te verwijderen op de locatie {0}.</value>
   </data>
 </root>

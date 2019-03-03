@@ -121,7 +121,7 @@
     <value>Anuleren</value>
   </data>
   <data name="AmbilightRefreshRatePerSecond" xml:space="preserve">
-    <value>Ambilight vervessingen per seconden</value>
+    <value>Ambilight verversingen per seconden</value>
   </data>
   <data name="AmbilightMonitor" xml:space="preserve">
     <value>Ambilight monitor</value>
@@ -158,7 +158,7 @@ per IP adres</value>
     <value>Start bij Windows opstarten</value>
   </data>
   <data name="SunsetSunriseAPIExplanation" xml:space="preserve">
-    <value>Om zonsopgang en ondergang gebaseerd op uw locatie op te halen</value>
+    <value>Om zonsopgang- en zonsondergangtijden gebaseerd op uw locatie op te halen</value>
   </data>
   <data name="WinleafsUsesAPIs" xml:space="preserve">
     <value>Winleafs gebruikt de volgende APIs</value>
@@ -185,6 +185,6 @@ per IP adres</value>
     <value>Locatie gevonden {0}, {1}</value>
   </data>
   <data name="SunsetSunriseError" xml:space="preserve">
-    <value>Er is een probleem opgetreden bij het ophalen van de zonsopgang en zonsondergang tijden</value>
+    <value>Er is een probleem opgetreden bij het ophalen van de zonsopgang- en zonsondergangtijden</value>
   </data>
 </root>

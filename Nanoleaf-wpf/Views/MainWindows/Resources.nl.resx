@@ -161,4 +161,28 @@ Druk op deze knop om naar de map te gaan.</value>
   <data name="OverrideError" xml:space="preserve">
     <value>Een onverwacht probleem is opgetreden tijdens het overschrijven</value>
   </data>
+  <data name="ActiveDevice" xml:space="preserve">
+    <value>Actief apparaat</value>
+  </data>
+  <data name="AddDevice" xml:space="preserve">
+    <value>Apparaat toevoegen</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>Weet je het zeker? Als je {0} verwijdert zullen ook de schemas verwijderd worden</value>
+  </data>
+  <data name="CurrentBrightness" xml:space="preserve">
+    <value>Huidige helderheid</value>
+  </data>
+  <data name="CurrentEffect" xml:space="preserve">
+    <value>Huidig effect</value>
+  </data>
+  <data name="DeleteConfirmation" xml:space="preserve">
+    <value>Verwijderen bevestigen</value>
+  </data>
+  <data name="Nothing" xml:space="preserve">
+    <value>Niks</value>
+  </data>
+  <data name="RemoveDevice" xml:space="preserve">
+    <value>Verwijder dit apparaat</value>
+  </data>
 </root>

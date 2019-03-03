@@ -160,7 +160,7 @@
     <value>Effect</value>
   </data>
   <data name="Events" xml:space="preserve">
-    <value>Eventen</value>
+    <value>Events</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Naam</value>
@@ -178,7 +178,7 @@
     <value>Zet de lampen uit wanneer de applicatie/Windows wordt afgesloten.</value>
   </data>
   <data name="InvalidHoursValue" xml:space="preserve">
-    <value>Vul een juiste tijd in voor de uren tussen 0 en 23.</value>
+    <value>Vul een juiste waarde in voor de uren tussen 0 en 23.</value>
   </data>
   <data name="InvalidMinutesValue" xml:space="preserve">
     <value>Vul een juiste waarde in voor de minuten tussen 0 en 59</value>
