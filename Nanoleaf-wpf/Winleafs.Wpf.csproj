@@ -99,12 +99,23 @@
     <Compile Include="Api\ScheduleTimer.cs" />
     <Compile Include="Helpers\ContextMenuLeftClickBehavior.cs" />
     <Compile Include="Api\Effects\AmbilightEffect.cs" />
+    <Compile Include="Helpers\EnumLocalizer.cs" />
     <Compile Include="Helpers\ScreenGrabber.cs" />
     <Compile Include="ViewModels\OptionsViewModel.cs" />
     <Compile Include="Views\AppResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EnumResources.nl.Designer.cs">
+      <DependentUpon>EnumResources.nl.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\EnumResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EnumResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindows\CurrentEffectUserControl.xaml.cs">
       <DependentUpon>CurrentEffectUserControl.xaml</DependentUpon>
@@ -273,18 +284,31 @@
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Views\AppResources.nl.resx" />
     <EmbeddedResource Include="Views\AppResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\EnumResources.nl.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EnumResources.nl.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\EnumResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EnumResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\MainWindows\Resources.nl.resx" />
     <EmbeddedResource Include="Views\MainWindows\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Options\Resources.nl.resx" />
     <EmbeddedResource Include="Views\Options\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Popup\PopupResource.nl.resx" />
+    <EmbeddedResource Include="Views\Scheduling\Resources.nl.resx" />
     <EmbeddedResource Include="Views\Popup\PopupResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>PopupResource.Designer.cs</LastGenOutput>
@@ -293,6 +317,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Setup\Resources.nl.resx" />
     <EmbeddedResource Include="Views\Setup\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

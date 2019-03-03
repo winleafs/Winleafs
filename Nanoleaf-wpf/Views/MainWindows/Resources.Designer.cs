@@ -79,15 +79,6 @@ namespace Winleafs.Wpf.Views.MainWindows {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure? Removing {0} will also remove its schedules.
-        /// </summary>
-        public static string AreYouSure {
-            get {
-                return ResourceManager.GetString("AreYouSure", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Brightness.
         /// </summary>
         public static string Brightness {
@@ -120,6 +111,24 @@ namespace Winleafs.Wpf.Views.MainWindows {
         public static string DeleteConfirmation {
             get {
                 return ResourceManager.GetString("DeleteConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure? Removing {0} will also remove its schedules.
+        /// </summary>
+        public static string DeleteDeviceAreYouSure {
+            get {
+                return ResourceManager.GetString("DeleteDeviceAreYouSure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete this schedule?.
+        /// </summary>
+        public static string DeleteScheduleAreYouSure {
+            get {
+                return ResourceManager.GetString("DeleteScheduleAreYouSure", resourceCulture);
             }
         }
         

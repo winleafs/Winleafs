@@ -182,4 +182,10 @@ by IP Adress</value>
   <data name="AmbilightResetMessage" xml:space="preserve">
     <value>Note: changing the ambilight settings requires a restart of Winleafs</value>
   </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="LanguageRestartNote" xml:space="preserve">
+    <value>Note: Changing the language requires a restart to be applied.</value>
+  </data>
 </root>

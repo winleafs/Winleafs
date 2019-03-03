@@ -17,7 +17,6 @@ using System.Runtime.InteropServices;
 using Winleafs.External;
 
 using Application = System.Windows.Application;
-using MessageBox = System.Windows.MessageBox;
 
 namespace Winleafs.Wpf.Views
 {
@@ -25,17 +24,15 @@ namespace Winleafs.Wpf.Views
 
     using Winleafs.Wpf.Views.Popup;
 
+    using System.Globalization;
+    using System.Threading;
+
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application
     {
         private static Logger _logger = LogManager.GetCurrentClassLogger();
-
-        [DllImport("User32")]
-        private static extern int ShowWindow(int hwnd, int nCmdShow);
-
-        private const int SW_SHOW = 5;
 
         private static bool PerformRegularShutdownOprations = true;
 
@@ -82,13 +79,19 @@ namespace Winleafs.Wpf.Views
                 return;
             }
 
+            if (!string.IsNullOrEmpty(UserSettings.Settings.UserLocale))
+            {
+                Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo(UserSettings.Settings.UserLocale);
+                Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(UserSettings.Settings.UserLocale);
+            }
+
             UserSettings.Settings.ResetOperationModes();
 
             SunTimesUpdater.UpdateSunTimes();
 
             ScheduleTimer.InitializeTimer();
 
-            MainWindow mainWindow = new MainWindow();
+            var mainWindow = new MainWindow();
 
             if (!silent)
             {

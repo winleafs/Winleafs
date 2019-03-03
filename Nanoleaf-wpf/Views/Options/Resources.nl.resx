@@ -117,75 +117,74 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActiveDevice" xml:space="preserve">
-    <value>Active device</value>
+  <data name="Cancel" xml:space="preserve">
+    <value>Anuleren</value>
   </data>
-  <data name="AddDevice" xml:space="preserve">
-    <value>Add device</value>
+  <data name="AmbilightRefreshRatePerSecond" xml:space="preserve">
+    <value>Ambilight verversingen per seconden</value>
   </data>
-  <data name="Brightness" xml:space="preserve">
-    <value>Brightness</value>
+  <data name="AmbilightMonitor" xml:space="preserve">
+    <value>Ambilight monitor</value>
   </data>
-  <data name="CurrentBrightness" xml:space="preserve">
-    <value>Current brightness</value>
+  <data name="Ambilight" xml:space="preserve">
+    <value>Ambilight</value>
   </data>
-  <data name="CurrentEffect" xml:space="preserve">
-    <value>Current effect</value>
+  <data name="Disclaimer" xml:space="preserve">
+    <value>Disclaimer</value>
   </data>
-  <data name="DeleteConfirmation" xml:space="preserve">
-    <value>Delete confirmation</value>
+  <data name="General" xml:space="preserve">
+    <value>Algemeen</value>
   </data>
-  <data name="DeleteDeviceAreYouSure" xml:space="preserve">
-    <value>Are you sure? Removing {0} will also remove its schedules</value>
+  <data name="IcanhazipExplanation" xml:space="preserve">
+    <value>Om uw IP adres op te halen</value>
   </data>
-  <data name="DeleteScheduleAreYouSure" xml:space="preserve">
-    <value>Are you sure you want to delete this schedule?</value>
+  <data name="IPAPIExplanation" xml:space="preserve">
+    <value>Om uw locatie op te halen bij het IP adres</value>
   </data>
-  <data name="Donate" xml:space="preserve">
-    <value>Donate</value>
+  <data name="Latitude" xml:space="preserve">
+    <value>Breedtegraad</value>
   </data>
-  <data name="Nothing" xml:space="preserve">
-    <value>Nothing</value>
+  <data name="Longitude" xml:space="preserve">
+    <value>Lengtegraad</value>
   </data>
-  <data name="Options" xml:space="preserve">
-    <value>Options</value>
+  <data name="Save" xml:space="preserve">
+    <value>Opslaan</value>
   </data>
-  <data name="Override" xml:space="preserve">
-    <value>Override</value>
+  <data name="SetLocationByIp" xml:space="preserve">
+    <value>Zet locatie
+per IP adres</value>
   </data>
-  <data name="OverrideError" xml:space="preserve">
-    <value>An unexpected error occurred during overriding.</value>
+  <data name="StartAtWindowsStartup" xml:space="preserve">
+    <value>Start bij Windows opstarten</value>
   </data>
-  <data name="OverrideSchedule" xml:space="preserve">
-    <value>Override schedule</value>
+  <data name="SunsetSunriseAPIExplanation" xml:space="preserve">
+    <value>Om zonsopgang- en zonsondergangtijden gebaseerd op uw locatie op te halen</value>
   </data>
-  <data name="ReloadEffects" xml:space="preserve">
-    <value>Reload effects</value>
+  <data name="WinleafsUsesAPIs" xml:space="preserve">
+    <value>Winleafs gebruikt de volgende APIs</value>
   </data>
-  <data name="ReloadFailed" xml:space="preserve">
-    <value>Failed to reload the effects</value>
+  <data name="AmbilightResetMessage" xml:space="preserve">
+    <value>Opmerking: bij het aanpassen van de ambilight instellingen moet Winleafs worden herstart.</value>
   </data>
-  <data name="ReloadSuccessful" xml:space="preserve">
-    <value>Effects have successfully been reloaded</value>
+  <data name="Language" xml:space="preserve">
+    <value>Taal</value>
   </data>
-  <data name="RemoveDevice" xml:space="preserve">
-    <value>Remove this device</value>
+  <data name="LanguageRestartNote" xml:space="preserve">
+    <value>Opmerking: bij het veranderen van de taal moet de applicatie herstart worden.</value>
   </data>
-  <data name="ResetAllSettings" xml:space="preserve">
-    <value>Reset all settings</value>
+  <data name="InvalidLatitude" xml:space="preserve">
+    <value>Voer een juiste waarde in voor de breedtegraad</value>
   </data>
-  <data name="Schedules" xml:space="preserve">
-    <value>Schedules</value>
+  <data name="InvalidLongitude" xml:space="preserve">
+    <value>Voer een juiste waarde in voor de lengtegraad</value>
   </data>
-  <data name="Stop" xml:space="preserve">
-    <value>Stop</value>
+  <data name="LatLongReceiveError" xml:space="preserve">
+    <value>Er is een probleem opgetreden bij het ophalen van de breedte- en lengtegraad</value>
   </data>
-  <data name="Stuck" xml:space="preserve">
-    <value>Encountering issues?
-Hover over me!</value>
+  <data name="LocationDetected" xml:space="preserve">
+    <value>Locatie gevonden {0}, {1}</value>
   </data>
-  <data name="StuckMessage" xml:space="preserve">
-    <value>Try deleting the Settings.txt file in %appdata%/Winleafs.
-Click on this button to open the folder.</value>
+  <data name="SunsetSunriseError" xml:space="preserve">
+    <value>Er is een probleem opgetreden bij het ophalen van de zonsopgang- en zonsondergangtijden</value>
   </data>
 </root>

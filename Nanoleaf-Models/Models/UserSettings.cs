@@ -52,6 +52,8 @@ namespace Winleafs.Models.Models
 
         public int AmbilightRefreshRatePerSecond { get; set; }
         public int AmbilightMonitorIndex { get; set; }
+
+        public string UserLocale { get; set; }
         #endregion
 
         #region Methods

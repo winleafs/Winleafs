@@ -1,6 +1,7 @@
 ﻿using System.Windows.Controls;
 
 using Winleafs.Models.Models.Scheduling.Triggers;
+using Winleafs.Wpf.Helpers;
 
 namespace Winleafs.Wpf.Views.Scheduling
 {
@@ -22,7 +23,7 @@ namespace Winleafs.Wpf.Views.Scheduling
 
             InitializeComponent();
 
-            Description = trigger.GetDescription();
+            Description = $"{EnumLocalizer.GetLocalizedEnum(trigger.GetTriggerType())}: {trigger.GetDescription()}";
             EffectName = trigger.Effect;
 
             DataContext = this;

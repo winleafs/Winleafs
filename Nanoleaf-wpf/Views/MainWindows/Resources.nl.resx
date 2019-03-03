@@ -117,75 +117,75 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActiveDevice" xml:space="preserve">
-    <value>Active device</value>
-  </data>
-  <data name="AddDevice" xml:space="preserve">
-    <value>Add device</value>
-  </data>
-  <data name="Brightness" xml:space="preserve">
-    <value>Brightness</value>
-  </data>
-  <data name="CurrentBrightness" xml:space="preserve">
-    <value>Current brightness</value>
-  </data>
-  <data name="CurrentEffect" xml:space="preserve">
-    <value>Current effect</value>
-  </data>
-  <data name="DeleteConfirmation" xml:space="preserve">
-    <value>Delete confirmation</value>
-  </data>
-  <data name="DeleteDeviceAreYouSure" xml:space="preserve">
-    <value>Are you sure? Removing {0} will also remove its schedules</value>
-  </data>
-  <data name="DeleteScheduleAreYouSure" xml:space="preserve">
-    <value>Are you sure you want to delete this schedule?</value>
-  </data>
   <data name="Donate" xml:space="preserve">
-    <value>Donate</value>
-  </data>
-  <data name="Nothing" xml:space="preserve">
-    <value>Nothing</value>
-  </data>
-  <data name="Options" xml:space="preserve">
-    <value>Options</value>
-  </data>
-  <data name="Override" xml:space="preserve">
-    <value>Override</value>
-  </data>
-  <data name="OverrideError" xml:space="preserve">
-    <value>An unexpected error occurred during overriding.</value>
+    <value>Doneren</value>
   </data>
   <data name="OverrideSchedule" xml:space="preserve">
-    <value>Override schedule</value>
+    <value>Schema overschrijven</value>
   </data>
   <data name="ReloadEffects" xml:space="preserve">
-    <value>Reload effects</value>
+    <value>Effecten herladen</value>
   </data>
   <data name="ReloadFailed" xml:space="preserve">
-    <value>Failed to reload the effects</value>
+    <value>Probleem bij het herladen van effecten</value>
   </data>
   <data name="ReloadSuccessful" xml:space="preserve">
-    <value>Effects have successfully been reloaded</value>
-  </data>
-  <data name="RemoveDevice" xml:space="preserve">
-    <value>Remove this device</value>
+    <value>Effecten zijn herladen</value>
   </data>
   <data name="ResetAllSettings" xml:space="preserve">
-    <value>Reset all settings</value>
+    <value>Reset de instellingen</value>
   </data>
   <data name="Schedules" xml:space="preserve">
-    <value>Schedules</value>
+    <value>Schemas</value>
   </data>
   <data name="Stop" xml:space="preserve">
     <value>Stop</value>
   </data>
   <data name="Stuck" xml:space="preserve">
-    <value>Encountering issues?
-Hover over me!</value>
+    <value>Problemen met de app?
+Hover over deze knop.</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Opties</value>
+  </data>
+  <data name="Override" xml:space="preserve">
+    <value>Overschrijven</value>
+  </data>
+  <data name="Brightness" xml:space="preserve">
+    <value>Helderheid</value>
   </data>
   <data name="StuckMessage" xml:space="preserve">
-    <value>Try deleting the Settings.txt file in %appdata%/Winleafs.
-Click on this button to open the folder.</value>
+    <value>Probeer om het bestand Settings.txt in %appdata%/Winleafs te verwijderen.
+Druk op deze knop om naar de map te gaan.</value>
+  </data>
+  <data name="OverrideError" xml:space="preserve">
+    <value>Een onverwacht probleem is opgetreden tijdens het overschrijven</value>
+  </data>
+  <data name="ActiveDevice" xml:space="preserve">
+    <value>Actief apparaat</value>
+  </data>
+  <data name="AddDevice" xml:space="preserve">
+    <value>Apparaat toevoegen</value>
+  </data>
+  <data name="DeleteDeviceAreYouSure" xml:space="preserve">
+    <value>Weet je het zeker? Als je {0} verwijdert zullen ook de schemas verwijderd worden</value>
+  </data>
+  <data name="CurrentBrightness" xml:space="preserve">
+    <value>Huidige helderheid</value>
+  </data>
+  <data name="CurrentEffect" xml:space="preserve">
+    <value>Huidig effect</value>
+  </data>
+  <data name="DeleteConfirmation" xml:space="preserve">
+    <value>Verwijderen bevestigen</value>
+  </data>
+  <data name="Nothing" xml:space="preserve">
+    <value>Niks</value>
+  </data>
+  <data name="RemoveDevice" xml:space="preserve">
+    <value>Verwijder dit apparaat</value>
+  </data>
+  <data name="DeleteScheduleAreYouSure" xml:space="preserve">
+    <value>Weet je zeker dat je dit schema wilt verwijderen?</value>
   </data>
 </root>

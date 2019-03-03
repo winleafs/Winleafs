@@ -14,7 +14,9 @@ using Winleafs.Wpf.ViewModels;
 
 namespace Winleafs.Wpf.Views.Options
 {
+    using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Threading;
     using System.Windows.Navigation;
     using Winleafs.Api;
     using Winleafs.Wpf.Views.Popup;
@@ -27,6 +29,9 @@ namespace Winleafs.Wpf.Views.Options
         public OptionsViewModel OptionsViewModel { get; set; }
 
         private RegistryKey _startupKey;
+
+        private static readonly Dictionary<string, string> _languageDictionary =
+            new Dictionary<string, string>() { { "Nederlands", "nl" }, { "English", "en" }, };
 
         public OptionsWindow()
         {
@@ -41,7 +46,9 @@ namespace Winleafs.Wpf.Views.Options
                 Longitude = UserSettings.Settings.Longitude?.ToString("N7", CultureInfo.InvariantCulture),
                 AmbilightRefreshRatePerSecond = UserSettings.Settings.AmbilightRefreshRatePerSecond,
                 MonitorNames = monitors.Select(m => m.DeviceName).ToList(),
-                SelectedMonitor = monitors[UserSettings.Settings.AmbilightMonitorIndex].DeviceName
+                SelectedMonitor = monitors[UserSettings.Settings.AmbilightMonitorIndex].DeviceName,
+                SelectedLanguage = FullNameForCulture(UserSettings.Settings.UserLocale),
+                Languages = _languageDictionary.Keys.ToList()
             };
 
             _startupKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", RegistryKeyPermissionCheck.ReadWriteSubTree, RegistryRights.FullControl);
@@ -57,11 +64,15 @@ namespace Winleafs.Wpf.Views.Options
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             #region LatLong
+
             double latitude = 0;
             double longitude = 0;
             try
             {
-                latitude = Convert.ToDouble(OptionsViewModel.Latitude, CultureInfo.InvariantCulture);
+                if (!string.IsNullOrWhiteSpace(OptionsViewModel.Latitude))
+                {
+                    latitude = Convert.ToDouble(OptionsViewModel.Latitude, CultureInfo.InvariantCulture);
+                }
             }
             catch
             {
@@ -71,7 +82,10 @@ namespace Winleafs.Wpf.Views.Options
 
             try
             {
-                longitude = Convert.ToDouble(OptionsViewModel.Longitude, CultureInfo.InvariantCulture);
+                if (!string.IsNullOrWhiteSpace(OptionsViewModel.Longitude))
+                {
+                    longitude = Convert.ToDouble(OptionsViewModel.Longitude, CultureInfo.InvariantCulture);
+                }
             }
             catch
             {
@@ -79,7 +93,7 @@ namespace Winleafs.Wpf.Views.Options
                 return;
             }
 
-            if (latitude != UserSettings.Settings.Latitude || longitude != UserSettings.Settings.Longitude)
+            if ((latitude != UserSettings.Settings.Latitude || longitude != UserSettings.Settings.Longitude) && (latitude != 0  && longitude != 0))
             {
                 var client = new SunsetSunriseClient();
 
@@ -127,6 +141,11 @@ namespace Winleafs.Wpf.Views.Options
             UserSettings.Settings.AmbilightMonitorIndex = Array.IndexOf(monitors, selectedMonitor);
             #endregion
 
+            #region Language
+
+            UserSettings.Settings.UserLocale = _languageDictionary[OptionsViewModel.SelectedLanguage];
+            #endregion
+
             UserSettings.Settings.SaveSettings();
             Close();
         }
@@ -156,6 +175,19 @@ namespace Winleafs.Wpf.Views.Options
         {
             Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
             e.Handled = true;
+        }
+
+        private string FullNameForCulture(string text)
+        {
+            foreach (var key in _languageDictionary.Keys)
+            {
+                if (_languageDictionary[key].Equals(text))
+                {
+                    return key;
+                }
+            }
+
+            return null;
         }
     }
 }

@@ -25,11 +25,11 @@ namespace Winleafs.Models.Models.Scheduling.Triggers
             {
                 var extraHours = ExtraHours < 10 ? $"0{ExtraHours}" : ExtraHours.ToString();
                 var extraMinutes = ExtraMinutes < 10 ? $"0{ExtraMinutes}" : ExtraMinutes.ToString();
-                return $"{TriggerType.ToString()} ({(BeforeAfter == BeforeAfter.Before ? "-" : "+")} {extraHours}:{extraMinutes}): {GetActualDateTime().ToString("HH:mm")}";
+                return $"({(BeforeAfter == BeforeAfter.Before ? "-" : "+")} {extraHours}:{extraMinutes}) {GetActualDateTime().ToString("HH:mm")}";
             }
             else
             {
-                return $"{TriggerType.ToString()}: {GetActualDateTime().ToString("HH:mm")}";
+                return $"{GetActualDateTime().ToString("HH:mm")}";
             }
         }
 

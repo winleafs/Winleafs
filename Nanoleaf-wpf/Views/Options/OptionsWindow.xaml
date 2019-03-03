@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Winleafs.Wpf.Views.Options"
         mc:Ignorable="d"
-        Title="Winleafs Options" Height="450" Width="500">
+        Title="Winleafs Options" Height="450" Width="550" ResizeMode="CanMinimize">
 
     <Window.Resources>
         <Style TargetType="{x:Type TabItem}">
@@ -42,26 +42,33 @@
                         </CheckBox.LayoutTransform>
                     </CheckBox>
                     <Label Content="{x:Static local:Resources.Latitude}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,56,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
-                    <TextBox x:Name="LatitudeTextBox" HorizontalAlignment="Left" Height="23" Margin="119,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White" Text="{Binding Latitude}"/>
+                    <TextBox x:Name="LatitudeTextBox" HorizontalAlignment="Left" Height="23" Margin="150,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White" Text="{Binding Latitude}"/>
                     <Label Content="{x:Static local:Resources.Longitude}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
-                    <TextBox x:Name="LongitudeTextBox" HorizontalAlignment="Left" Height="23" Margin="119,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White" Text="{Binding Longitude}"/>
-                    <Button Content="{x:Static local:Resources.SetLocationByIp}" HorizontalAlignment="Left" Margin="388,86,0,0" VerticalAlignment="Top" Width="84" Height="44" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="GeoIp_Click"/>
+                    <TextBox x:Name="LongitudeTextBox" HorizontalAlignment="Left" Height="23" Margin="150,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White" Text="{Binding Longitude}"/>
+                    <Button Content="{x:Static local:Resources.SetLocationByIp}" HorizontalAlignment="Left" Margin="400,86,0,0" VerticalAlignment="Top" Width="84" Height="44" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="GeoIp_Click"/>
+                    <ComboBox Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,160,0,0"  SelectedItem="{Binding SelectedLanguage}" ItemsSource="{Binding Languages}"/>
+                    <Label Content="{x:Static local:Resources.Language}" ContentStringFormat="{}{0}:" Margin="10, 155, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
+                    <Label Content="{x:Static local:Resources.LanguageRestartNote}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 190,0,0" FontSize="15" Foreground="White"/>
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static local:Resources.Ambilight}">
                 <Grid>
-                    <Label Content="{x:Static local:Resources.AmbilightRefreshRatePerSecond}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
-                    <Label Content="{Binding AmbilightRefreshRatePerSecond}" HorizontalAlignment="Left" Margin="320,10,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
-                    <Slider HorizontalAlignment="Left" Margin="102,52,0,0" VerticalAlignment="Top" Width="200" Minimum="1" Maximum="10" Value="{Binding AmbilightRefreshRatePerSecond}" IsSnapToTickEnabled="True" TickFrequency="1"/>
-                    <Label Content="{x:Static local:Resources.AmbilightMonitor}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,86,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
-                    <ComboBox HorizontalAlignment="Left" Margin="19,128,0,0" VerticalAlignment="Top" Width="366" SelectedItem="{Binding SelectedMonitor}" ItemsSource="{Binding MonitorNames}"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="10,287,0,0" TextWrapping="Wrap" Text="{x:Static local:Resources.AmbilightResetMessage}" VerticalAlignment="Top" Width="469" FontSize="20" Foreground="White"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="16*"/>
+                        <ColumnDefinition Width="253*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="{x:Static local:Resources.AmbilightRefreshRatePerSecond}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White" Grid.ColumnSpan="2"/>
+                    <Label Content="{Binding AmbilightRefreshRatePerSecond}" HorizontalAlignment="Left" Margin="288,10,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White" Grid.Column="1"/>
+                    <Slider HorizontalAlignment="Left" Margin="70,52,0,0" VerticalAlignment="Top" Width="200" Minimum="1" Maximum="10" Value="{Binding AmbilightRefreshRatePerSecond}" IsSnapToTickEnabled="True" TickFrequency="1" Grid.Column="1"/>
+                    <Label Content="{x:Static local:Resources.AmbilightMonitor}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,86,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White" Grid.ColumnSpan="2"/>
+                    <ComboBox HorizontalAlignment="Left" Margin="19,128,0,0" VerticalAlignment="Top" Width="366" SelectedItem="{Binding SelectedMonitor}" ItemsSource="{Binding MonitorNames}" Grid.ColumnSpan="2"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="10,287,0,0" TextWrapping="Wrap" Text="{x:Static local:Resources.AmbilightResetMessage}" VerticalAlignment="Top" Width="469" FontSize="20" Foreground="White" Grid.ColumnSpan="2"/>
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static local:Resources.Disclaimer}">
                 <Grid>
                     <Label Content="{x:Static local:Resources.WinleafsUsesAPIs}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
-                    <TextBlock Margin="11,52,420.333,268.667">
+                    <TextBlock Margin="9,52,420.333,268.667">
                         <Hyperlink NavigateUri="http://icanhazip.com/" RequestNavigate="Hyperlink_RequestNavigate">
                             Icanhazip
                         </Hyperlink>
@@ -83,7 +90,7 @@
             </TabItem>
         </TabControl>
 
-        <Button Content="{x:Static local:Resources.Cancel}" HorizontalAlignment="Left" Margin="10,384,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Cancel_Click"/>
-        <Button Content="{x:Static local:Resources.Save}" HorizontalAlignment="Left" Margin="399,384,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Save_Click"/>
+        <Button Content="{x:Static local:Resources.Cancel}" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Cancel_Click"/>
+        <Button Content="{x:Static local:Resources.Save}" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Save_Click"/>
     </Grid>
 </Window>

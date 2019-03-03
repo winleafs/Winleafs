@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 using Winleafs.Models.Models.Scheduling;
@@ -34,7 +35,11 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         private void Delete_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            _parent.DeleteSchedule(Schedule);
+            MessageBoxResult messageBoxResult = MessageBox.Show(MainWindows.Resources.DeleteScheduleAreYouSure, MainWindows.Resources.DeleteConfirmation, MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                _parent.DeleteSchedule(Schedule);
+            }
         }
 
         private void ActiveSchedule_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)

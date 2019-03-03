@@ -14,5 +14,9 @@ namespace Winleafs.Wpf.ViewModels
         public List<string> MonitorNames { get; set; }
 
         public string SelectedMonitor { get; set; }
+
+        public string SelectedLanguage { get; set; }
+
+        public List<string> Languages { get; set; }
     }
 }

@@ -70,6 +70,24 @@ namespace Winleafs.Wpf.Views.Scheduling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to After.
+        /// </summary>
+        public static string After {
+            get {
+                return ResourceManager.GetString("After", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Before.
+        /// </summary>
+        public static string Before {
+            get {
+                return ResourceManager.GetString("Before", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Brightness.
         /// </summary>
         public static string Brightness {
@@ -196,6 +214,24 @@ namespace Winleafs.Wpf.Views.Scheduling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Extra time.
+        /// </summary>
+        public static string ExtraTime {
+            get {
+                return ResourceManager.GetString("ExtraTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Friday.
+        /// </summary>
+        public static string Friday {
+            get {
+                return ResourceManager.GetString("Friday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter a valid value for hours, between 0 and 23.
         /// </summary>
         public static string InvalidHoursValue {
@@ -223,6 +259,15 @@ namespace Winleafs.Wpf.Views.Scheduling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Monday.
+        /// </summary>
+        public static string Monday {
+            get {
+                return ResourceManager.GetString("Monday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string Name {
@@ -232,11 +277,38 @@ namespace Winleafs.Wpf.Views.Scheduling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Saturday.
+        /// </summary>
+        public static string Saturday {
+            get {
+                return ResourceManager.GetString("Saturday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sunday.
+        /// </summary>
+        public static string Sunday {
+            get {
+                return ResourceManager.GetString("Sunday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thursday.
+        /// </summary>
+        public static string Thursday {
+            get {
+                return ResourceManager.GetString("Thursday", resourceCulture);
             }
         }
         
@@ -268,11 +340,29 @@ namespace Winleafs.Wpf.Views.Scheduling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tuesday.
+        /// </summary>
+        public static string Tuesday {
+            get {
+                return ResourceManager.GetString("Tuesday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Turn lights off at application/Windows shutdown.
         /// </summary>
         public static string TurnLightsOff {
             get {
                 return ResourceManager.GetString("TurnLightsOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wednesday.
+        /// </summary>
+        public static string Wednesday {
+            get {
+                return ResourceManager.GetString("Wednesday", resourceCulture);
             }
         }
     }
