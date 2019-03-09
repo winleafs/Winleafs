@@ -143,7 +143,11 @@ namespace Winleafs.Wpf.Views.Options
 
             #region Language
 
-            UserSettings.Settings.UserLocale = _languageDictionary[OptionsViewModel.SelectedLanguage];
+            if (OptionsViewModel.SelectedLanguage != null)
+            {
+                UserSettings.Settings.UserLocale = _languageDictionary[OptionsViewModel.SelectedLanguage];
+            }
+
             #endregion
 
             UserSettings.Settings.SaveSettings();
