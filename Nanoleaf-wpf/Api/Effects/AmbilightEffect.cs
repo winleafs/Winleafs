@@ -51,7 +51,7 @@ namespace Winleafs.Wpf.Api.Effects
 
         public string GetName()
         {
-            return $"{CustomEffects.EffectNamePreface}Ambilight";
+            return $"{CustomEffectsCollection.EffectNamePreface}Ambilight";
         }
 
         public async Task Activate()

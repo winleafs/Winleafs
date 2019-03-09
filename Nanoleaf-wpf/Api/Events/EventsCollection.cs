@@ -2,11 +2,11 @@
 
 namespace Winleafs.Wpf.Api.Events
 {
-    public class Events
+    public class EventsCollection
     {
         private Dictionary<string, IEvent> _events;
 
-        public Events(Orchestrator orchestrator)
+        public EventsCollection(Orchestrator orchestrator)
         {
             _events = new Dictionary<string, IEvent>();
 
@@ -15,9 +15,9 @@ namespace Winleafs.Wpf.Api.Events
 
         public void StopAllEvents()
         {
-            foreach (var ievent in _events)
+            foreach (var ievent in _events.Values)
             {
-                ievent.Value.StopEffect();
+                ievent.StopEffect();
             }
         }
     }

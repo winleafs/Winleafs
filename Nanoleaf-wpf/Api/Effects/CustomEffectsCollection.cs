@@ -7,7 +7,7 @@ using Winleafs.Models.Models.Effects;
 
 namespace Winleafs.Wpf.Api.Effects
 {
-    public class CustomEffects
+    public class CustomEffectsCollection
     {
         #region static properties
         public static readonly string EffectNamePreface = "Winleafs - ";
@@ -16,7 +16,7 @@ namespace Winleafs.Wpf.Api.Effects
         private Dictionary<string, ICustomEffect> _customEffects;
         private INanoleafClient _nanoleafClient;
 
-        public CustomEffects(Device device)
+        public CustomEffectsCollection(Device device)
         {
             _nanoleafClient = NanoleafClient.GetClientForDevice(device);
 

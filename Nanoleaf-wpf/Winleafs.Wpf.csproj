@@ -92,13 +92,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Api\Effects\CustomEffects.cs" />
+    <Compile Include="Api\Effects\CustomEffectsCollection.cs" />
     <Compile Include="Api\Effects\ICustomEffect.cs" />
     <Compile Include="Api\Effects\TurnOffEffect.cs" />
-    <Compile Include="Api\Events\Events.cs" />
+    <Compile Include="Api\Events\EventsCollection.cs" />
     <Compile Include="Api\Events\IEvent.cs" />
     <Compile Include="Api\Events\TestProcessEvent.cs" />
     <Compile Include="Api\Orchestrator.cs" />
+    <Compile Include="Api\Orchestrators.cs" />
     <Compile Include="Api\ScheduleTimer.cs" />
     <Compile Include="Helpers\ContextMenuLeftClickBehavior.cs" />
     <Compile Include="Api\Effects\AmbilightEffect.cs" />
