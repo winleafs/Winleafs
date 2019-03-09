@@ -14,26 +14,28 @@ namespace Winleafs.Wpf.Api
     {
         private static Logger _logger = LogManager.GetCurrentClassLogger();
 
-        public static ScheduleTimer Timer { get; set; }
-
         private Timer _timer;
+        private Orchestrator _orchestrator;
 
-        public ScheduleTimer()
+        public ScheduleTimer(Orchestrator orchestrator)
         {
-            // Create a timer with a one minute interval.
+            _orchestrator = orchestrator;
+
             _timer = new Timer(60000);
-            // Hook up the Elapsed event for the timer.
             _timer.Elapsed += OnTimedEvent;
             _timer.AutoReset = true;
             _timer.Enabled = true;
-            _timer.Start();
+        }
 
+        public void StartTimer()
+        {
+            _timer.Start();
             FireTimer();
         }
 
-        public static void InitializeTimer()
+        public void StopTimer()
         {
-            Timer = new ScheduleTimer();
+            _timer.Stop();
         }
 
         public void FireTimer()
@@ -48,23 +50,19 @@ namespace Winleafs.Wpf.Api
 
         private async Task SetEffectsForDevices()
         {
-            foreach (var device in UserSettings.Settings.Devices)
+            if (_orchestrator.Device.OperationMode == OperationMode.Schedule)
             {
-                if (device.OperationMode == OperationMode.Schedule)
+                var activeTrigger = _orchestrator.Device.GetActiveTrigger();
+
+                if (activeTrigger == null)
                 {
-
-                    var activeTrigger = device.GetActiveTrigger();
-
-                    if (activeTrigger == null)
-                    {
-                        var client = NanoleafClient.GetClientForDevice(device);
-                        //There are no triggers so the lights can be turned off if it is not off already
-                        await client.StateEndpoint.SetStateWithStateCheckAsync(false);
-                    }
-                    else
-                    {
-                        await EffectActivator.ActivateEffect(device, activeTrigger.Effect, activeTrigger.Brightness);
-                    }
+                    var client = NanoleafClient.GetClientForDevice(_orchestrator.Device);
+                    //There are no triggers so the lights can be turned off if it is not off already
+                    await client.StateEndpoint.SetStateWithStateCheckAsync(false);
+                }
+                else
+                {
+                    await _orchestrator.ActivateEffect(activeTrigger.Effect, activeTrigger.Brightness);
                 }
             }
         }

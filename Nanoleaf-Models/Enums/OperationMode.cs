@@ -3,6 +3,7 @@
     public enum OperationMode
     {
         Manual,
-        Schedule
+        Schedule,
+        Event
     }
 }

@@ -14,6 +14,7 @@ using NLog;
 
 namespace Winleafs.Wpf.Views.Setup
 {
+    using Winleafs.Wpf.Api;
     using Winleafs.Wpf.Views.Popup;
 
     /// <summary>
@@ -59,6 +60,10 @@ namespace Winleafs.Wpf.Views.Setup
             if (freshStartup)
             {
                 App.NormalStartup(null);
+            }
+            else
+            {
+                Orchestrator.AddOrchestratorForDevice(selectedDevice);
             }
 
             Close();

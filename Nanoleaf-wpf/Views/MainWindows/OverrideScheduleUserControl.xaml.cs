@@ -46,7 +46,7 @@ namespace Winleafs.Wpf.Views.MainWindows
             InitializeComponent();
 
             Effects = new List<Effect>(UserSettings.Settings.ActviceDevice.Effects);
-            Effects.InsertRange(0, CustomEffects.GetCustomEffectAsEffects(UserSettings.Settings.ActviceDevice));
+            Effects.InsertRange(0, Orchestrator.GetOrchestratorForDevice(UserSettings.Settings.ActviceDevice).GetCustomEffectAsEffects());
 
             DataContext = this;
 
@@ -67,18 +67,12 @@ namespace Winleafs.Wpf.Views.MainWindows
         {
             if (UserSettings.Settings.ActviceDevice.OperationMode == OperationMode.Manual)
             {
-                UserSettings.Settings.ActviceDevice.OperationMode = OperationMode.Schedule;
+                var orchestrator = Orchestrator.GetOrchestratorForDevice(UserSettings.Settings.ActviceDevice);
 
-                var customEffects = CustomEffects.GetCustomEffectsForDevice(UserSettings.Settings.ActviceDevice);
-
-                if (customEffects.HasActiveEffects())
+                if (await orchestrator.TrySetOperationMode(OperationMode.Schedule, true))
                 {
-                    await customEffects.DeactivateAllEffects();
+                    MainWindow.UpdateCurrentEffectLabels();
                 }
-
-                ScheduleTimer.Timer.FireTimer();
-
-                MainWindow.UpdateCurrentEffectLabels();
             }
         }
 
@@ -88,15 +82,17 @@ namespace Winleafs.Wpf.Views.MainWindows
             {
                 try
                 {
-                    var device = UserSettings.Settings.ActviceDevice;
-                    device.OverrideEffect = SelectedEffect;
-                    device.OverrideBrightness = Brightness;
+                    var orchestrator = Orchestrator.GetOrchestratorForDevice(UserSettings.Settings.ActviceDevice);
 
-                    await EffectActivator.ActivateEffect(device, SelectedEffect, Brightness);
+                    if (await orchestrator.TrySetOperationMode(OperationMode.Manual, true))
+                    {
+                        orchestrator.Device.OverrideEffect = SelectedEffect;
+                        orchestrator.Device.OverrideBrightness = Brightness;
 
-                    UserSettings.Settings.ActviceDevice.OperationMode = OperationMode.Manual;
+                        await orchestrator.ActivateEffect(SelectedEffect, Brightness);
 
-                    MainWindow.UpdateCurrentEffectLabels();
+                        MainWindow.UpdateCurrentEffectLabels();
+                    }                    
                 }
                 catch (Exception e)
                 {
