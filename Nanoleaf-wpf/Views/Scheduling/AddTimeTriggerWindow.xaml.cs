@@ -14,6 +14,7 @@ using Winleafs.Wpf.Api.Effects;
 
 namespace Winleafs.Wpf.Views.Scheduling
 {
+    using Winleafs.Wpf.Api;
     using Winleafs.Wpf.Helpers;
     using Winleafs.Wpf.Views.Popup;
 
@@ -64,7 +65,7 @@ namespace Winleafs.Wpf.Views.Scheduling
         {
             _parent = parent;
             Effects = new List<Effect>(UserSettings.Settings.ActviceDevice.Effects);
-            Effects.InsertRange(0, CustomEffects.GetCustomEffectAsEffects(UserSettings.Settings.ActviceDevice));
+            Effects.InsertRange(0, OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActviceDevice).GetCustomEffectAsEffects());
 
             _triggerTypeMapping = new Dictionary<string, TriggerType>();
 

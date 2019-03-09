@@ -7,28 +7,16 @@ using Winleafs.Models.Models.Effects;
 
 namespace Winleafs.Wpf.Api.Effects
 {
-    public class CustomEffects
+    public class CustomEffectsCollection
     {
         #region static properties
         public static readonly string EffectNamePreface = "Winleafs - ";
-
-        private static Dictionary<string, CustomEffects> _customEffectsForDevices = new Dictionary<string, CustomEffects>();
-
-        public static CustomEffects GetCustomEffectsForDevice(Device device)
-        {
-            if (!_customEffectsForDevices.ContainsKey(device.IPAddress))
-            {
-                _customEffectsForDevices.Add(device.IPAddress, new CustomEffects(device));
-            }
-
-            return _customEffectsForDevices[device.IPAddress];
-        }
         #endregion
 
         private Dictionary<string, ICustomEffect> _customEffects;
         private INanoleafClient _nanoleafClient;
 
-        public CustomEffects(Device device)
+        public CustomEffectsCollection(Device device)
         {
             _nanoleafClient = NanoleafClient.GetClientForDevice(device);
 
@@ -63,11 +51,9 @@ namespace Winleafs.Wpf.Api.Effects
             }
         }
 
-        public static List<Effect> GetCustomEffectAsEffects(Device device)
+        public List<Effect> GetCustomEffectAsEffects()
         {
-            var customEffects = GetCustomEffectsForDevice(device);
-
-            return customEffects._customEffects.Keys.OrderBy(n => n).Select(n => new Effect { Name = n }).ToList();
+            return _customEffects.Keys.OrderBy(n => n).Select(n => new Effect { Name = n }).ToList();
         }
     }
 }
