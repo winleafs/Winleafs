@@ -99,7 +99,7 @@
     <Compile Include="Api\Events\IEvent.cs" />
     <Compile Include="Api\Events\TestProcessEvent.cs" />
     <Compile Include="Api\Orchestrator.cs" />
-    <Compile Include="Api\Orchestrators.cs" />
+    <Compile Include="Api\OrchestratorCollection.cs" />
     <Compile Include="Api\ScheduleTimer.cs" />
     <Compile Include="Helpers\ContextMenuLeftClickBehavior.cs" />
     <Compile Include="Api\Effects\AmbilightEffect.cs" />

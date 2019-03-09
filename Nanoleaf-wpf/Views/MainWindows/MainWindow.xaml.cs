@@ -86,7 +86,7 @@ namespace Winleafs.Wpf.Views.MainWindows
         {
             UserSettings.Settings.AddSchedule(schedule, true);
 
-            Orchestrators.FireScheduleTimerForActiveDevice(); //Fire the timer to immediately update the schedule
+            OrchestratorCollection.FireScheduleTimerForActiveDevice(); //Fire the timer to immediately update the schedule
 
             BuildScheduleList();
 
@@ -98,7 +98,7 @@ namespace Winleafs.Wpf.Views.MainWindows
             UserSettings.Settings.DeleteSchedule(originalSchedule);
             UserSettings.Settings.AddSchedule(newSchedule, false);
 
-            Orchestrators.FireScheduleTimerForActiveDevice(); //Fire the timer to immediately update the schedule
+            OrchestratorCollection.FireScheduleTimerForActiveDevice(); //Fire the timer to immediately update the schedule
 
             BuildScheduleList();
 
@@ -125,7 +125,7 @@ namespace Winleafs.Wpf.Views.MainWindows
         {
             UserSettings.Settings.DeleteSchedule(schedule);
 
-            Orchestrators.FireScheduleTimerForActiveDevice(); //Fire the timer to immediately update the schedule
+            OrchestratorCollection.FireScheduleTimerForActiveDevice(); //Fire the timer to immediately update the schedule
 
             BuildScheduleList();
 
@@ -142,7 +142,7 @@ namespace Winleafs.Wpf.Views.MainWindows
         {
             UserSettings.Settings.ActivateSchedule(schedule);
 
-            Orchestrators.FireScheduleTimerForActiveDevice(); //Fire the timer to immediately update the schedule
+            OrchestratorCollection.FireScheduleTimerForActiveDevice(); //Fire the timer to immediately update the schedule
 
             BuildScheduleList();
 

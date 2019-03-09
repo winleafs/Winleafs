@@ -63,7 +63,7 @@ namespace Winleafs.Wpf.Views.Setup
             }
             else
             {
-                Orchestrators.AddOrchestratorForDevice(selectedDevice);
+                OrchestratorCollection.AddOrchestratorForDevice(selectedDevice);
             }
 
             Close();

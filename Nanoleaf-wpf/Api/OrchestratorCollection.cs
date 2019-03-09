@@ -3,7 +3,7 @@ using Winleafs.Models.Models;
 
 namespace Winleafs.Wpf.Api
 {
-    public static class Orchestrators
+    public static class OrchestratorCollection
     {
         private static Dictionary<string, Orchestrator> _orchestratorForDevices = new Dictionary<string, Orchestrator>();
 

@@ -89,7 +89,7 @@ namespace Winleafs.Wpf.Views
 
             SunTimesUpdater.UpdateSunTimes();
 
-            Orchestrators.Initialize();
+            OrchestratorCollection.Initialize();
 
             var mainWindow = new MainWindow();
 

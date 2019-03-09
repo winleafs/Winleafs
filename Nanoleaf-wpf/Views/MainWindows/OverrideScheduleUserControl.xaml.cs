@@ -46,7 +46,7 @@ namespace Winleafs.Wpf.Views.MainWindows
             InitializeComponent();
 
             Effects = new List<Effect>(UserSettings.Settings.ActviceDevice.Effects);
-            Effects.InsertRange(0, Orchestrators.GetOrchestratorForDevice(UserSettings.Settings.ActviceDevice).GetCustomEffectAsEffects());
+            Effects.InsertRange(0, OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActviceDevice).GetCustomEffectAsEffects());
 
             DataContext = this;
 
@@ -67,7 +67,7 @@ namespace Winleafs.Wpf.Views.MainWindows
         {
             if (UserSettings.Settings.ActviceDevice.OperationMode == OperationMode.Manual)
             {
-                var orchestrator = Orchestrators.GetOrchestratorForDevice(UserSettings.Settings.ActviceDevice);
+                var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActviceDevice);
 
                 if (await orchestrator.TrySetOperationMode(OperationMode.Schedule, true))
                 {
@@ -82,7 +82,7 @@ namespace Winleafs.Wpf.Views.MainWindows
             {
                 try
                 {
-                    var orchestrator = Orchestrators.GetOrchestratorForDevice(UserSettings.Settings.ActviceDevice);
+                    var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActviceDevice);
 
                     if (await orchestrator.TrySetOperationMode(OperationMode.Manual, true))
                     {
