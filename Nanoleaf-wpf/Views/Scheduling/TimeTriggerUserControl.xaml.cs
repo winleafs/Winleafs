@@ -15,6 +15,7 @@ namespace Winleafs.Wpf.Views.Scheduling
 
         public string Description { get; set; }
         public string EffectName { get; set; }
+        public string Brightness { get; set; }
 
         public TimeTriggerUserControl(DayUserControl parent, TimeTrigger trigger)
         {
@@ -25,6 +26,7 @@ namespace Winleafs.Wpf.Views.Scheduling
 
             Description = $"{EnumLocalizer.GetLocalizedEnum(trigger.GetTriggerType())}: {trigger.GetDescription()}";
             EffectName = trigger.Effect;
+            Brightness = trigger.Brightness.ToString();
 
             DataContext = this;
         }
