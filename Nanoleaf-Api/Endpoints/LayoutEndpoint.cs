@@ -11,6 +11,12 @@ namespace Winleafs.Api.Endpoints
     public class LayoutEndpoint : NanoleafEndpoint, ILayoutEndpoint
     {
         /// <inheritdoc />
+        public LayoutEndpoint(NanoleafClient client)
+        {
+            Client = client;
+        }
+
+        /// <inheritdoc />
         public Layout GetLayout()
         {
             return GetLayoutAsync().GetAwaiter().GetResult();
