@@ -19,13 +19,13 @@ namespace Winleafs.Api.Endpoints
         /// <inheritdoc />
         public Layout GetLayout()
         {
-            return GetLayoutAsync().GetAwaiter().GetResult();
+            return SendRequest<Layout>("panelLayout/layout", Method.GET);
         }
 
         /// <inheritdoc />
-        public Task<Layout> GetLayoutAsync()
+        public async Task<Layout> GetLayoutAsync()
         {
-            return SendRequest<Layout>("panelLayout/layout", Method.GET);
+            return await SendRequestAsync<Layout>("panelLayout/layout", Method.GET).ConfigureAwait(false);
         }
 
         /// <inheritdoc />

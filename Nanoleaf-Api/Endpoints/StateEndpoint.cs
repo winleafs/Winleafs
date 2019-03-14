@@ -85,7 +85,7 @@ namespace Winleafs.Api.Endpoints
 	    /// <inheritdoc />
 	    public async Task<OnOffModel> GetStateAsync()
         {
-            return await SendRequest<OnOffModel>("/state/on", Method.GET);
+            return await SendRequestAsync<OnOffModel>("/state/on", Method.GET);
         }
 
 	    /// <inheritdoc />
@@ -147,11 +147,11 @@ namespace Winleafs.Api.Endpoints
         {
             if (duration.HasValue)
             {
-                return SendRequest("state", Method.PUT, body: "{\"brightness\": {\"value\":" + value.ToString() + ", \"duration\":" + duration.Value.ToString() + "}}");
+                return SendRequestAsync("state", Method.PUT, body: "{\"brightness\": {\"value\":" + value.ToString() + ", \"duration\":" + duration.Value.ToString() + "}}");
             }
             else
             {
-                return SendRequest("state", Method.PUT, body: "{\"brightness\": {\"value\":" + value.ToString() + "}}");
+                return SendRequestAsync("state", Method.PUT, body: "{\"brightness\": {\"value\":" + value.ToString() + "}}");
             }
         }
 
@@ -164,7 +164,7 @@ namespace Winleafs.Api.Endpoints
 	    /// <inheritdoc />
 	    public Task SetColorTemperatureAsync(int value)
         {
-            return SendRequest("state", Method.PUT, body: "{\"ct\": {\"value\":" + value.ToString() + "}}");
+            return SendRequestAsync("state", Method.PUT, body: "{\"ct\": {\"value\":" + value.ToString() + "}}");
         }
 
 		public void SetHue(int value)
@@ -174,7 +174,7 @@ namespace Winleafs.Api.Endpoints
 
 		public Task SetHueAsync(int value)
         {
-            return SendRequest("state", Method.PUT, body: "{\"hue\": {\"value\":" + value.ToString() + "}}");
+            return SendRequestAsync("state", Method.PUT, body: "{\"hue\": {\"value\":" + value.ToString() + "}}");
         }
 
 		public void SetSaturation(int value)
@@ -184,7 +184,7 @@ namespace Winleafs.Api.Endpoints
 
 		public Task SetSaturationAsync(int value)
         {
-            return SendRequest("state", Method.PUT, body: "{\"sat\": {\"value\":" + value.ToString() + "}}");
+            return SendRequestAsync("state", Method.PUT, body: "{\"sat\": {\"value\":" + value.ToString() + "}}");
         }
 
 		public void SetState(bool state)
@@ -194,7 +194,7 @@ namespace Winleafs.Api.Endpoints
 
 		public Task SetStateAsync(bool state)
         {
-            return SendRequest("state", Method.PUT, body: "{\"on\": {\"value\":" + state.ToString().ToLower() + "}}");
+            return SendRequestAsync("state", Method.PUT, body: "{\"on\": {\"value\":" + state.ToString().ToLower() + "}}");
         }
 
 		public void SetStateWithStateCheck(bool state)
@@ -219,7 +219,7 @@ namespace Winleafs.Api.Endpoints
 
 	    public Task SetHueAndSaturationAsync(int hue, int saturation, bool disableLogging = false)
         {
-            return SendRequest("state", Method.PUT, body: "{\"sat\": {\"value\":" + saturation.ToString() + "}, \"hue\": {\"value\":" + hue.ToString() + "}}", disableLogging: disableLogging);
+            return SendRequestAsync("state", Method.PUT, body: "{\"sat\": {\"value\":" + saturation.ToString() + "}, \"hue\": {\"value\":" + hue.ToString() + "}}", disableLogging: disableLogging);
         }
     }
 }

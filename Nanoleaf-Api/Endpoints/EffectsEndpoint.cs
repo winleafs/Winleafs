@@ -20,7 +20,7 @@ namespace Winleafs.Api.Endpoints
 	    /// <inheritdoc />
 	    public async Task<IEnumerable<string>> GetEffectsListAsync()
         {
-            return await SendRequest<List<string>>("/effects/effectsList", Method.GET).ConfigureAwait(false);
+            return await SendRequestAsync<List<string>>("/effects/effectsList", Method.GET).ConfigureAwait(false);
         }
 
 	    /// <inheritdoc />
@@ -44,7 +44,7 @@ namespace Winleafs.Api.Endpoints
 	    /// <inheritdoc />
 	    public Task SetSelectedEffectAsync(string effectName)
         {
-            return SendRequest("effects", Method.PUT, body: "{\"select\": \"" + effectName + "\"}");
+            return SendRequestAsync("effects", Method.PUT, body: "{\"select\": \"" + effectName + "\"}");
         }
 
 	    /// <inheritdoc />
