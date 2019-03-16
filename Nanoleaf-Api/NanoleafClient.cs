@@ -61,17 +61,6 @@ namespace Winleafs.Api
 
         private IIdentifyEndpoint _identifyEndpoint;
 
-        public IIdentifyEndpoint IdentifyEndpoint
-        {
-            get
-            {
-                if (_identifyEndpoint == null)
-                {
-                    _identifyEndpoint = new IdentifyEndpoint(this);
-                }
-
-                return _identifyEndpoint;
-            }
-        }
+        public IIdentifyEndpoint IdentifyEndpoint => _identifyEndpoint ?? (_identifyEndpoint = new IdentifyEndpoint(this));
     }
 }
