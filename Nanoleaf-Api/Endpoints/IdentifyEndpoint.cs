@@ -17,7 +17,7 @@ namespace Winleafs.Api.Endpoints
         /// <inheritdoc />
         public Task Identify()
         {
-            return SendRequest("identify", Method.PUT);
+            return SendRequestAsync("identify", Method.PUT);
         }
     }
 }

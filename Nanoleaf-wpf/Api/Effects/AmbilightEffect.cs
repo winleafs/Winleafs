@@ -47,7 +47,7 @@ namespace Winleafs.Wpf.Api.Effects
                 var hue = (int)color.GetHue();
                 var sat = (int)(color.GetSaturation() * 100);
 
-                
+
 
                 // Sets the color of the nanoleaf with the logging disabled.
                 // Seeing as a maximum of 10 requests per second can be set this will generate a lot of unwanted log data.
