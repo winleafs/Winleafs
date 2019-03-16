@@ -73,6 +73,8 @@ namespace Winleafs.Wpf.Views.MainWindows
                 BuildScheduleList();
 
                 CurrentEffectUserControl.UpdateLabels();
+
+                LayoutDisplay.DrawLayout();
             }
         }
 

@@ -16,6 +16,8 @@ namespace Winleafs.Wpf.Views.MainWindows
     public partial class LayoutDisplay : UserControl
     {
         private static readonly SolidColorBrush _lineColor = Brushes.LightSteelBlue;
+        private static readonly int _height = 400; //Since we draw in constructor, height and width are not available then, so we use these fixed values
+        private static readonly int _width = 400;
 
         //Values based on testing. For each triangle size, the conversion rate is saved such that the coordinates from Nanoleaf can be properly converted
         private static readonly Dictionary<int, double> _sizesWithConversionRate = new Dictionary<int, double>() { { 25, 5.45 }, { 30, 4.6 }, { 40, 3.55 }, { 50, 2.85 }, { 60, 2.38 }, { 70, 2.1 }, { 80, 1.82 }, { 90, 1.62 }, { 100, 1.47 }};
@@ -25,12 +27,16 @@ namespace Winleafs.Wpf.Views.MainWindows
         private int _triangleSize;
         private double _conversionRate;
 
-        private int _height = 400; //Since we draw in constructor, height and width are not available then, so we use these fixed values
-        private int _width = 400;
-
         public LayoutDisplay()
         {
             InitializeComponent();
+
+            DrawLayout();
+        }
+
+        public void DrawLayout()
+        {
+            CanvasArea.Children.Clear();
 
             _triangles = new List<Polygon>();
 
@@ -116,7 +122,6 @@ namespace Winleafs.Wpf.Views.MainWindows
                 }
             }
 
-            var finalTriangles = new List<Polygon>();
             var diffX = minX < 0 ? Math.Abs(minX) : 0;
             var diffY = minY < 0 ? Math.Abs(minY) : 0;
 
@@ -150,13 +155,13 @@ namespace Winleafs.Wpf.Views.MainWindows
             //  /____\
             // B      C
 
-
             var A = new Point(x, y - ((Math.Sqrt(3) / 3) * _triangleSize));
             var B = new Point(x - (_triangleSize / 2), y + ((Math.Sqrt(3) / 6) * _triangleSize));
             var C = new Point(x + (_triangleSize / 2), y + ((Math.Sqrt(3) / 6) * _triangleSize));
 
             var rotateTransform = new RotateTransform(rotation, x, y);
 
+            //Apply transformation and add points to polygon
             var triangle = new Polygon();
             triangle.Points.Add(_globalRotationTransform.Transform(rotateTransform.Transform(A)));
             triangle.Points.Add(_globalRotationTransform.Transform(rotateTransform.Transform(B)));
