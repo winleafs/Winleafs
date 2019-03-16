@@ -188,4 +188,7 @@ by IP Adress</value>
   <data name="LanguageRestartNote" xml:space="preserve">
     <value>Note: Changing the language requires a restart to be applied.</value>
   </data>
+  <data name="AmbilightControlBrightness" xml:space="preserve">
+    <value>Let ambilight control brightness</value>
+  </data>
 </root>

@@ -18,7 +18,7 @@ namespace Winleafs.Models.Models
         public static readonly string SettingsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), APPLICATIONNAME);
 
         private static readonly string _settingsFileName = Path.Combine(SettingsFolder, "Settings.txt");
-        private static readonly string _latestSettingsVersion = "2";
+        private static readonly string _latestSettingsVersion = "3";
 
         private static UserSettings _settings { get; set; }
 
@@ -52,8 +52,9 @@ namespace Winleafs.Models.Models
 
         public int AmbilightRefreshRatePerSecond { get; set; }
         public int AmbilightMonitorIndex { get; set; }
+        public bool AmbilightControlBrightness { get; set; }
 
-        public string UserLocale { get; set; }
+        public string UserLocale { get; set; }        
         #endregion
 
         #region Methods
@@ -246,6 +247,14 @@ namespace Winleafs.Models.Models
         private static JToken Migration_1_2(JToken jToken)
         {
             return jToken; //Just update the version
+        }
+
+        [Migration("2", "3")]
+        private static JToken Migration_2_3(JToken jToken)
+        {
+            jToken[nameof(AmbilightControlBrightness)] = false;
+
+            return jToken;
         }
         #endregion
     }

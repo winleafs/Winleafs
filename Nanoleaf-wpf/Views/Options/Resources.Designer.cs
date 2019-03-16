@@ -70,6 +70,15 @@ namespace Winleafs.Wpf.Views.Options {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Let ambilight control brightness.
+        /// </summary>
+        public static string AmbilightControlBrightness {
+            get {
+                return ResourceManager.GetString("AmbilightControlBrightness", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ambilight monitor.
         /// </summary>
         public static string AmbilightMonitor {
