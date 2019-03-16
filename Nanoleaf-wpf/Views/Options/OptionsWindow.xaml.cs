@@ -45,6 +45,7 @@ namespace Winleafs.Wpf.Views.Options
                 Latitude = UserSettings.Settings.Latitude?.ToString("N7", CultureInfo.InvariantCulture),
                 Longitude = UserSettings.Settings.Longitude?.ToString("N7", CultureInfo.InvariantCulture),
                 AmbilightRefreshRatePerSecond = UserSettings.Settings.AmbilightRefreshRatePerSecond,
+                AmbilightControlBrightness = UserSettings.Settings.AmbilightControlBrightness,
                 MonitorNames = monitors.Select(m => m.DeviceName).ToList(),
                 SelectedMonitor = monitors[UserSettings.Settings.AmbilightMonitorIndex].DeviceName,
                 SelectedLanguage = FullNameForCulture(UserSettings.Settings.UserLocale),
@@ -134,6 +135,7 @@ namespace Winleafs.Wpf.Views.Options
 
             #region Ambilight
             UserSettings.Settings.AmbilightRefreshRatePerSecond = OptionsViewModel.AmbilightRefreshRatePerSecond;
+            UserSettings.Settings.AmbilightControlBrightness = OptionsViewModel.AmbilightControlBrightness;
 
             var monitors = Screen.AllScreens;
             var selectedMonitor = monitors.FirstOrDefault(m => m.DeviceName.Equals(OptionsViewModel.SelectedMonitor));

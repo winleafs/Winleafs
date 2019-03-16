@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Winleafs.Api.Endpoints;
 using Winleafs.Api.Endpoints.Interfaces;
 using Winleafs.Models.Models;
-using Winleafs.Models.Models.GeoIp;
 
 namespace Winleafs.Api
 {
@@ -15,6 +14,7 @@ namespace Winleafs.Api
         IAuthorizationEndpoint AuthorizationEndpoint { get; }
 
         IStateEndpoint StateEndpoint { get; }
+        IIdentifyEndpoint IdentifyEndpoint { get; }
 
         ILayoutEndpoint LayoutEndpoint { get; }
     }
@@ -58,5 +58,20 @@ namespace Winleafs.Api
         private ILayoutEndpoint _layoutEndpoint;
 
         public ILayoutEndpoint LayoutEndpoint => _layoutEndpoint ?? (_layoutEndpoint = new LayoutEndpoint(this));
+
+        private IIdentifyEndpoint _identifyEndpoint;
+
+        public IIdentifyEndpoint IdentifyEndpoint
+        {
+            get
+            {
+                if (_identifyEndpoint == null)
+                {
+                    _identifyEndpoint = new IdentifyEndpoint(this);
+                }
+
+                return _identifyEndpoint;
+            }
+        }
     }
 }

@@ -217,9 +217,19 @@ namespace Winleafs.Api.Endpoints
             SetHueAndSaturationAsync(hue, saturation).ConfigureAwait(false).GetAwaiter().GetResult();
         }
 
-	    public Task SetHueAndSaturationAsync(int hue, int saturation, bool disableLogging = false)
+        public Task SetHueAndSaturationAsync(int hue, int saturation, bool disableLogging = false)
         {
             return SendRequestAsync("state", Method.PUT, body: "{\"sat\": {\"value\":" + saturation.ToString() + "}, \"hue\": {\"value\":" + hue.ToString() + "}}", disableLogging: disableLogging);
+        }
+
+        public void SetHueSaturationAndBrightness(int hue, int saturation, int brightness)
+        {
+            SetHueSaturationAndBrightnessAsync(hue, saturation, brightness).ConfigureAwait(false).GetAwaiter().GetResult();
+        }
+
+	    public Task SetHueSaturationAndBrightnessAsync(int hue, int saturation, int brightness, bool disableLogging = false)
+        {
+            return SendRequest("state", Method.PUT, body: "{\"sat\": {\"value\":" + saturation.ToString() + "}, \"hue\": {\"value\":" + hue.ToString() + "}, \"brightness\": {\"value\":" + brightness.ToString() + "}}", disableLogging: disableLogging);
         }
     }
 }

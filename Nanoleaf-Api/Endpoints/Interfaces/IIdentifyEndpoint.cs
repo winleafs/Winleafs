@@ -1,0 +1,13 @@
+﻿using System.Threading.Tasks;
+
+namespace Winleafs.Api.Endpoints.Interfaces
+{
+    public interface IIdentifyEndpoint
+    {
+        /// <summary>
+        /// Causes the panels to flash in unison. This is typically used to help users differentiate between multiple panels.
+        /// </summary>
+        /// <returns>Awiatable taskreturns>
+        Task Identify();
+    }
+}
