@@ -16,12 +16,17 @@ namespace Winleafs.Wpf.Views.MainWindows
     public partial class LayoutDisplay : UserControl
     {
         private static readonly SolidColorBrush _lineColor = Brushes.LightSteelBlue;
-        private static readonly int _triangleSize = 50; //When changing this, also update _coordinateConversion
-        private static readonly double _coordinateConversion = 2.78;
-        private static readonly double _triangleHeight = Math.Sqrt(3) / 2 * _triangleSize;
+
+        //Values based on testing. For each triangle size, the conversion rate is saved such that the coordinates from Nanoleaf can be properly converted
+        private static readonly Dictionary<int, double> _sizesWithConversionRate = new Dictionary<int, double>() { { 25, 5.45 }, { 30, 4.6 }, { 40, 3.55 }, { 50, 2.85 }, { 60, 2.38 }, { 70, 2.1 }, { 80, 1.82 }, { 90, 1.62 }, { 100, 1.47 }};
 
         private List<Polygon> _triangles;
         private RotateTransform _globalRotationTransform;
+        private int _triangleSize;
+        private double _conversionRate;
+
+        private int _height = 400; //Since we draw in constructor, height and width are not available then, so we use these fixed values
+        private int _width = 400;
 
         public LayoutDisplay()
         {
@@ -39,7 +44,7 @@ namespace Winleafs.Wpf.Views.MainWindows
                 panelPosition.Y = panelPosition.Y * -1;
             }
 
-            //Normalize panel positions such that the coordinates start at _triangleSize + _triangleSize
+            //Normalize panel positions such that the coordinates start at 0
             var mostLeftPanelCoordinate = layout.PanelPositions.Min(pp => pp.X);
             var mostTopPanelCoordinate = layout.PanelPositions.Min(pp => pp.Y);
 
@@ -59,24 +64,46 @@ namespace Winleafs.Wpf.Views.MainWindows
                 }
             }
 
+            //Calculate the maximum triangle size
+            var selectedSizeWithConversionRate = _sizesWithConversionRate.FirstOrDefault();
+            var maxX = layout.PanelPositions.Max(pp => pp.X);
+            var maxY = layout.PanelPositions.Max(pp => pp.Y);
+
+            for (var i = 0; i < _sizesWithConversionRate.Count; i++)
+            {
+                var sizeWithConversionRate = _sizesWithConversionRate.ElementAt(i);
+
+                if (maxX / sizeWithConversionRate.Value < _height - sizeWithConversionRate.Key && maxY / sizeWithConversionRate.Value < _width - sizeWithConversionRate.Key)
+                {
+                    selectedSizeWithConversionRate = sizeWithConversionRate;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            _triangleSize = selectedSizeWithConversionRate.Key;
+            _conversionRate = selectedSizeWithConversionRate.Value;
+
             //Transform the X and Y coordinates such that they can be represented by pixels
             foreach (var panelPosition in layout.PanelPositions)
             {
-                panelPosition.X = (int)(panelPosition.X / _coordinateConversion);
-                panelPosition.Y = (int)(panelPosition.Y / _coordinateConversion);
+                panelPosition.TransformedX = panelPosition.X / _conversionRate;
+                panelPosition.TransformedY = panelPosition.Y / _conversionRate;
             }
 
             //Calculate the transform for the global orientation. All panels should rotate over the center of all panels
             var globalOrientation = client.LayoutEndpoint.GetGlobalOrientation();
-            _globalRotationTransform = new RotateTransform(globalOrientation.Value, layout.PanelPositions.Max(pp => pp.X) / 2, layout.PanelPositions.Max(pp => pp.Y) / 2);
+            _globalRotationTransform = new RotateTransform(globalOrientation.Value, layout.PanelPositions.Max(pp => pp.TransformedX) / 2, layout.PanelPositions.Max(pp => pp.TransformedY) / 2);
 
             //Draw the panels
             foreach (var panelPosition in layout.PanelPositions)
             {
-                CreateTriangle(panelPosition.X, panelPosition.Y, panelPosition.Orientation);
+                CreateTriangle(panelPosition.TransformedX, panelPosition.TransformedY, panelPosition.Orientation);
             }
 
-            //Fix the coordinates if any are placed outside the canvas after drawing and rotating
+            //Fix the coordinates if any are placed outside the canvas after placing and rotating
             double minX = 0;
             double minY = 0;
 
@@ -112,7 +139,7 @@ namespace Winleafs.Wpf.Views.MainWindows
         }
 
         /// <summary>
-        /// Draws an equilateral triangle from the given center point and rotation
+        /// Draws an equilateral triangle from the given center point and rotation. Also applies the global rotation
         /// </summary>
         private void CreateTriangle(double x, double y, double rotation)
         {
@@ -122,6 +149,7 @@ namespace Winleafs.Wpf.Views.MainWindows
             //   /  \
             //  /____\
             // B      C
+
 
             var A = new Point(x, y - ((Math.Sqrt(3) / 3) * _triangleSize));
             var B = new Point(x - (_triangleSize / 2), y + ((Math.Sqrt(3) / 6) * _triangleSize));

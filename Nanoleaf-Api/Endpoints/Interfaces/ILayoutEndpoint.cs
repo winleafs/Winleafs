@@ -19,9 +19,9 @@ namespace Winleafs.Api.Endpoints.Interfaces
         /// Gets the current global orientation in degrees.
         /// </summary>
         /// <returns>The current global orientation</returns>
-        Task<GloabalOrientation> GetGlobalOrientationAsync();
+        Task<GlobalOrientation> GetGlobalOrientationAsync();
 
         /// <inheritdoc cref="GetGlobalOrientationAsync"/>
-        GloabalOrientation GetGlobalOrientation();
+        GlobalOrientation GetGlobalOrientation();
     }
 }

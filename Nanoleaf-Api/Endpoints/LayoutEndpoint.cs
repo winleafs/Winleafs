@@ -13,14 +13,14 @@ namespace Winleafs.Api.Endpoints
             Client = client;
         }
 
-        public GloabalOrientation GetGlobalOrientation()
+        public GlobalOrientation GetGlobalOrientation()
         {
-            return SendRequest<GloabalOrientation>("panelLayout/globalOrientation", Method.GET);
+            return SendRequest<GlobalOrientation>("panelLayout/globalOrientation", Method.GET);
         }
 
-        public async Task<GloabalOrientation> GetGlobalOrientationAsync()
+        public async Task<GlobalOrientation> GetGlobalOrientationAsync()
         {
-            return await SendRequestAsync<GloabalOrientation>("panelLayout/globalOrientation", Method.GET);
+            return await SendRequestAsync<GlobalOrientation>("panelLayout/globalOrientation", Method.GET);
         }
 
         /// <inheritdoc />

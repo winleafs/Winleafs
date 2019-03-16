@@ -2,7 +2,7 @@
 
 namespace Winleafs.Models.Models.Layouts
 {
-    public class GloabalOrientation
+    public class GlobalOrientation
     {
         [JsonProperty("value")]
         public int Value { get; set; }

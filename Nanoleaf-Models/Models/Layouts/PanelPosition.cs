@@ -15,5 +15,15 @@ namespace Winleafs.Models.Models.Layouts
 
         [JsonProperty("o")]
         public int Orientation { get; set; }
+
+        /// <summary>
+        /// To be sued when converting X to a local value  (e.g. pixels)
+        /// </summary>
+        public double TransformedX { get; set; }
+
+        /// <summary>
+        /// To be sued when converting Y to a local value  (e.g. pixels)
+        /// </summary>
+        public double TransformedY { get; set; }
     }
 }
