@@ -54,7 +54,7 @@ namespace Winleafs.Wpf.Views.MainWindows
             _taskbarIcon = (TaskbarIcon)FindResource("NotifyIcon"); //https://www.codeproject.com/Articles/36468/WPF-NotifyIcon-2
             _taskbarIcon.DoubleClickCommand = new TaskbarDoubleClickCommand(this);
 
-            SelectedDevice = UserSettings.Settings.ActviceDevice.Name;
+            SelectedDevice = UserSettings.Settings.ActiveDevice.Name;
             DeviceNames = new ObservableCollection<string>(UserSettings.Settings.Devices.Select(d => d.Name));
 
             BuildScheduleList();
@@ -109,7 +109,7 @@ namespace Winleafs.Wpf.Views.MainWindows
         {
             ScheduleList.Children.Clear();
 
-            foreach (var schedule in UserSettings.Settings.ActviceDevice.Schedules)
+            foreach (var schedule in UserSettings.Settings.ActiveDevice.Schedules)
             {
                 ScheduleList.Children.Add(new ScheduleItemUserControl(this, schedule));
             }
@@ -186,7 +186,7 @@ namespace Winleafs.Wpf.Views.MainWindows
         {
             try
             {
-                var device = UserSettings.Settings.ActviceDevice;
+                var device = UserSettings.Settings.ActiveDevice;
                 var nanoleafClient = NanoleafClient.GetClientForDevice(device);
                 var effects = await nanoleafClient.EffectsEndpoint.GetEffectsListAsync();
 

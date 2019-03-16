@@ -30,7 +30,7 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         public void UpdateLabels()
         {
-            var device = UserSettings.Settings.ActviceDevice;
+            var device = UserSettings.Settings.ActiveDevice;
 
             if (device != null)
             {

@@ -1,7 +1,4 @@
 ﻿using RestSharp;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Winleafs.Api.Endpoints.Interfaces;
 using Winleafs.Models.Models.Layouts;
@@ -16,6 +13,16 @@ namespace Winleafs.Api.Endpoints
             Client = client;
         }
 
+        public GloabalOrientation GetGlobalOrientation()
+        {
+            return SendRequest<GloabalOrientation>("panelLayout/globalOrientation", Method.GET);
+        }
+
+        public async Task<GloabalOrientation> GetGlobalOrientationAsync()
+        {
+            return await SendRequestAsync<GloabalOrientation>("panelLayout/globalOrientation", Method.GET);
+        }
+
         /// <inheritdoc />
         public Layout GetLayout()
         {
@@ -26,18 +33,6 @@ namespace Winleafs.Api.Endpoints
         public async Task<Layout> GetLayoutAsync()
         {
             return await SendRequestAsync<Layout>("panelLayout/layout", Method.GET).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
-        public void Identify()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <inheritdoc />
-        public Task IdentifyAsync()
-        {
-            throw new NotImplementedException();
         }
     }
 }
