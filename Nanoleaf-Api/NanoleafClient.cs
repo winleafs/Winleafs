@@ -15,6 +15,8 @@ namespace Winleafs.Api
 
         IStateEndpoint StateEndpoint { get; }
         IIdentifyEndpoint IdentifyEndpoint { get; }
+
+        ILayoutEndpoint LayoutEndpoint { get; }
     }
 
     public class NanoleafClient : INanoleafClient
@@ -43,63 +45,22 @@ namespace Winleafs.Api
             return _clients[device.IPAddress];
         }
 
-        // Don't like this style and want to rework it.
-        public IEffectsEndpoint EffectsEndpoint
-        {
-            get
-            {
-                if (_effectsEndpoint == null)
-                {
-                    _effectsEndpoint = new EffectsEndpoint(this);
-                }
-
-                return _effectsEndpoint;
-            }
-        }
+        public IEffectsEndpoint EffectsEndpoint => _effectsEndpoint ?? (_effectsEndpoint = new EffectsEndpoint(this));
 
         private IAuthorizationEndpoint _authorizationEndpoint;
 
-        public IAuthorizationEndpoint AuthorizationEndpoint
-        {
-            get
-            {
-                if (_authorizationEndpoint == null)
-                {
-                    _authorizationEndpoint = new AuthorizationEndpoint(this);
-                }
-
-                return _authorizationEndpoint;
-            }
-        }
+        public IAuthorizationEndpoint AuthorizationEndpoint => _authorizationEndpoint ?? (_authorizationEndpoint = new AuthorizationEndpoint(this));
 
         private IStateEndpoint _stateEndpoint;
 
-        public IStateEndpoint StateEndpoint
-        {
-            get
-            {
-                if (_stateEndpoint == null)
-                {
-                    _stateEndpoint = new StateEndpoint(this);
-                }
+        public IStateEndpoint StateEndpoint => _stateEndpoint ?? (_stateEndpoint = new StateEndpoint(this));
 
-                return _stateEndpoint;
-            }
-        }
+        private ILayoutEndpoint _layoutEndpoint;
+
+        public ILayoutEndpoint LayoutEndpoint => _layoutEndpoint ?? (_layoutEndpoint = new LayoutEndpoint(this));
 
         private IIdentifyEndpoint _identifyEndpoint;
 
-        public IIdentifyEndpoint IdentifyEndpoint
-        {
-            get
-            {
-                if (_identifyEndpoint == null)
-                {
-                    _identifyEndpoint = new IdentifyEndpoint(this);
-                }
-
-                return _identifyEndpoint;
-            }
-        }
+        public IIdentifyEndpoint IdentifyEndpoint => _identifyEndpoint ?? (_identifyEndpoint = new IdentifyEndpoint(this));
     }
 }
