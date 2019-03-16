@@ -79,6 +79,9 @@ namespace Winleafs.Wpf.Views.Setup
             try
             {
                 var authToken = await nanoleafClient.AuthorizationEndpoint.GetAuthTokenAsync();
+
+                await nanoleafClient.IdentifyEndpoint.Identify();
+
                 var effects = await nanoleafClient.EffectsEndpoint.GetEffectsListAsync();
 
                 Dispatcher.Invoke(() =>

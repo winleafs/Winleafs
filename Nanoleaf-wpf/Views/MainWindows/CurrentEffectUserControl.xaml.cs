@@ -32,14 +32,17 @@ namespace Winleafs.Wpf.Views.MainWindows
         {
             var device = UserSettings.Settings.ActviceDevice;
 
-            var effect = device.GetActiveEffect();
-            var brightness = device.GetActiveBrightness();
-
-            Dispatcher.Invoke(new Action(() =>
+            if (device != null)
             {
-                CurrentEffect.Content = string.IsNullOrEmpty(effect) ? MainWindows.Resources.Nothing : effect;
-                CurrentBrightness.Content = brightness >= 0 ? brightness.ToString() : MainWindows.Resources.Nothing;
-            }));
+                var effect = device.GetActiveEffect();
+                var brightness = device.GetActiveBrightness();
+
+                Dispatcher.Invoke(new Action(() =>
+                {
+                    CurrentEffect.Content = string.IsNullOrEmpty(effect) ? MainWindows.Resources.Nothing : effect;
+                    CurrentBrightness.Content = brightness >= 0 ? brightness.ToString() : MainWindows.Resources.Nothing;
+                }));
+            }
         }
 
         private void OnTimedEvent(object source, ElapsedEventArgs e)
