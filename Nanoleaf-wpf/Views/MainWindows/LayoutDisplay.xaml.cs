@@ -20,7 +20,9 @@ namespace Winleafs.Wpf.Views.MainWindows
         private static readonly SolidColorBrush _lineColor = Brushes.LightSteelBlue;
 
         //Since we draw in constructor, height and width are not available then, so we use these fixed values
-        private static readonly int _height, _width = 400;
+        private static readonly int _height = 400;
+        private static readonly int _width = 400;
+
         private static readonly Random _random = new Random();
 
         //Values based on testing.
