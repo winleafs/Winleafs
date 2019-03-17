@@ -26,8 +26,8 @@ namespace Winleafs.Api.Endpoints
 	    /// <inheritdoc />
 	    public IEnumerable<string> GetEffectsList()
 		{
-			return GetEffectsListAsync().ConfigureAwait(false).GetAwaiter().GetResult();
-		}
+            return SendRequest<List<string>>("/effects/effectsList", Method.GET);
+        }
 
 	    /// <inheritdoc />
 	    public Task<string> GetSelectedEffectAsync()
@@ -38,8 +38,8 @@ namespace Winleafs.Api.Endpoints
 	    /// <inheritdoc />
 	    public string GetSelectedEffect()
 		{
-			return GetSelectedEffectAsync().ConfigureAwait(false).GetAwaiter().GetResult();
-		}
+            throw new NotImplementedException();
+        }
 
 	    /// <inheritdoc />
 	    public Task SetSelectedEffectAsync(string effectName)
@@ -50,20 +50,30 @@ namespace Winleafs.Api.Endpoints
 	    /// <inheritdoc />
 	    public void SetSelectedEffect(string effectName)
 		{
-			SetSelectedEffectAsync(effectName).ConfigureAwait(false).GetAwaiter().GetResult();
-		}
+            SendRequest("effects", Method.PUT, body: "{\"select\": \"" + effectName + "\"}");
+        }
 
 
 	    /// <inheritdoc />
 	    public Task<Effect> GetEffectDetailsAsync(string effectName)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(effectName))
+            {
+                return null;
+            }
+
+            return SendRequestAsync<Effect>("effects", Method.PUT, body: "{\"write\" : {\"command\" : \"request\", \"animName\" : \"" + effectName + "\"}}");
         }
 
 	    /// <inheritdoc />
 	    public Effect GetEffectDetails(string effectName)
 		{
-			throw new NotImplementedException();
-		}
+            if (string.IsNullOrEmpty(effectName))
+            {
+                return null;
+            }
+
+            return SendRequest<Effect>("effects", Method.PUT, body: "{\"write\" : {\"command\" : \"request\", \"animName\" : \"" + effectName + "\"}}");
+        }
 	}
 }

@@ -72,7 +72,7 @@ namespace Winleafs.Wpf.Views.MainWindows
 
                 BuildScheduleList();
 
-                CurrentEffectUserControl.UpdateLabels();
+                UpdateCurrentEffectLabelsAndLayout();
 
                 LayoutDisplay.DrawLayout();
             }
@@ -92,7 +92,7 @@ namespace Winleafs.Wpf.Views.MainWindows
 
             BuildScheduleList();
 
-            UpdateCurrentEffectLabels();
+            UpdateCurrentEffectLabelsAndLayout();
         }
 
         public void UpdatedSchedule(Schedule originalSchedule, Schedule newSchedule)
@@ -104,7 +104,7 @@ namespace Winleafs.Wpf.Views.MainWindows
 
             BuildScheduleList();
 
-            UpdateCurrentEffectLabels();
+            UpdateCurrentEffectLabelsAndLayout();
         }
 
         private void BuildScheduleList()
@@ -131,7 +131,7 @@ namespace Winleafs.Wpf.Views.MainWindows
 
             BuildScheduleList();
 
-            UpdateCurrentEffectLabels();
+            UpdateCurrentEffectLabelsAndLayout();
         }
 
         public void Window_Closing(object sender, CancelEventArgs e)
@@ -148,7 +148,7 @@ namespace Winleafs.Wpf.Views.MainWindows
 
             BuildScheduleList();
 
-            UpdateCurrentEffectLabels();
+            UpdateCurrentEffectLabelsAndLayout();
         }
 
         private void Options_Click(object sender, RoutedEventArgs e)
@@ -241,7 +241,7 @@ namespace Winleafs.Wpf.Views.MainWindows
 
                     DevicesDropdown.SelectedItem = SelectedDevice;
 
-                    UpdateCurrentEffectLabels();
+                    UpdateCurrentEffectLabelsAndLayout();
                 }
                 else
                 {
@@ -253,9 +253,10 @@ namespace Winleafs.Wpf.Views.MainWindows
             }
         }
 
-        public void UpdateCurrentEffectLabels()
+        public void UpdateCurrentEffectLabelsAndLayout()
         {
             CurrentEffectUserControl.UpdateLabels();
+            LayoutDisplay.UpdateColors();
         }
     }
 }

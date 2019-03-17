@@ -12,8 +12,8 @@ namespace Winleafs.Models.Models.Effects
         [JsonProperty("loop")]
         public bool IsOnLoop { get; set; }
 
-        [JsonProperty("pallete")]
-        public IEnumerable<Pallete> Pallete { get; set; }
+        [JsonProperty("palette")]
+        public IEnumerable<Palette> Palette { get; set; }
 
         [JsonProperty("colorType")]
         public string ColorType { get; set; }

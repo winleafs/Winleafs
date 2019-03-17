@@ -71,7 +71,7 @@ namespace Winleafs.Wpf.Views.MainWindows
 
                 if (await orchestrator.TrySetOperationMode(OperationMode.Schedule, true))
                 {
-                    MainWindow.UpdateCurrentEffectLabels();
+                    MainWindow.UpdateCurrentEffectLabelsAndLayout();
                 }
             }
         }
@@ -91,7 +91,7 @@ namespace Winleafs.Wpf.Views.MainWindows
 
                         await orchestrator.ActivateEffect(SelectedEffect, Brightness);
 
-                        MainWindow.UpdateCurrentEffectLabels();
+                        MainWindow.UpdateCurrentEffectLabelsAndLayout();
                     }                    
                 }
                 catch (Exception e)

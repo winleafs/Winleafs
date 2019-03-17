@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Winleafs.Api;
 using Winleafs.Models.Models;
+using Winleafs.Wpf.Helpers;
 
 namespace Winleafs.Wpf.Views.MainWindows
 {
@@ -18,6 +20,7 @@ namespace Winleafs.Wpf.Views.MainWindows
         private static readonly SolidColorBrush _lineColor = Brushes.LightSteelBlue;
         private static readonly int _height = 400; //Since we draw in constructor, height and width are not available then, so we use these fixed values
         private static readonly int _width = 400;
+        private static readonly Random _random = new Random();
 
         //Values based on testing. For each triangle size, the conversion rate is saved such that the coordinates from Nanoleaf can be properly converted
         //At most, a device is 15 panels wide, 15*25 < 400, so 25 is the lowest value we need
@@ -28,11 +31,20 @@ namespace Winleafs.Wpf.Views.MainWindows
         private int _triangleSize;
         private double _conversionRate;
 
+        //Timer to update the colors periodically to update with schedule
+        private Timer _timer;
+
         public LayoutDisplay()
         {
             InitializeComponent();
 
             DrawLayout();
+
+            _timer = new Timer(30000); //Update the colors every 30 seconds
+            _timer.Elapsed += OnTimedEvent;
+            _timer.AutoReset = true;
+            _timer.Enabled = true;
+            _timer.Start();
         }
 
         public void DrawLayout()
@@ -153,6 +165,8 @@ namespace Winleafs.Wpf.Views.MainWindows
             {
                 CanvasArea.Children.Add(triangle);
             }
+
+            UpdateColors();
         }
 
         /// <summary>
@@ -190,6 +204,46 @@ namespace Winleafs.Wpf.Views.MainWindows
         private void Redraw_Click(object sender, RoutedEventArgs e)
         {
             DrawLayout();
+        }
+
+        public void UpdateColors()
+        {
+            if (UserSettings.Settings.ActiveDevice != null)
+            {
+                var client = NanoleafClient.GetClientForDevice(UserSettings.Settings.ActiveDevice);
+
+                //Get colors of current effect
+                var effect = client.EffectsEndpoint.GetEffectDetails(UserSettings.Settings.ActiveDevice.GetActiveEffect());
+
+                Dispatcher.Invoke(new Action(() =>
+                {
+                    if (effect == null)
+                    {
+                        foreach (var triangle in _triangles)
+                        {
+                            triangle.Fill = null;
+                        }
+                    }
+                    else
+                    {
+                        var colors = new List<SolidColorBrush>();
+                        foreach (var hsb in effect.Palette)
+                        {
+                            colors.Add(new SolidColorBrush(HSBToRGBConverter.ConvertToMediaColor(hsb.Hue, hsb.Saturation, hsb.Brightness)));
+                        }
+
+                        foreach (var triangle in _triangles)
+                        {
+                            triangle.Fill = colors[_random.Next(colors.Count)];
+                        }
+                    }
+                }));
+            }            
+        }
+
+        private void OnTimedEvent(object source, ElapsedEventArgs e)
+        {
+            UpdateColors();
         }
     }
 }

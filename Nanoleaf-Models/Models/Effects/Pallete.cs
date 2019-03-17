@@ -2,7 +2,7 @@
 
 namespace Winleafs.Models.Models.Effects
 {
-    public class Pallete
+    public class Palette
     {
         [JsonProperty("hue")]
         public int Hue { get; set; }
