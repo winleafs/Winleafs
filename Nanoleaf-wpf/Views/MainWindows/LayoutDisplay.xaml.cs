@@ -20,6 +20,7 @@ namespace Winleafs.Wpf.Views.MainWindows
         private static readonly int _width = 400;
 
         //Values based on testing. For each triangle size, the conversion rate is saved such that the coordinates from Nanoleaf can be properly converted
+        //At most, a device is 15 panels wide, 15*25 < 400, so 25 is the lowest value we need
         private static readonly Dictionary<int, double> _sizesWithConversionRate = new Dictionary<int, double>() { { 25, 5.45 }, { 30, 4.6 }, { 40, 3.55 }, { 50, 2.85 }, { 60, 2.38 }, { 70, 2.1 }, { 80, 1.82 }, { 90, 1.62 }, { 100, 1.47 }};
 
         private List<Polygon> _triangles;
@@ -43,6 +44,17 @@ namespace Winleafs.Wpf.Views.MainWindows
             //Retrieve layout
             var client = NanoleafClient.GetClientForDevice(UserSettings.Settings.ActiveDevice);
             var layout = client.LayoutEndpoint.GetLayout();
+
+            if (layout == null)
+            {
+                //Layout could not be retrieved show redraw button and do nothing more
+                RedrawButton.Visibility = Visibility.Visible;
+                return;
+            }
+            else
+            {
+                RedrawButton.Visibility = Visibility.Hidden;
+            }
 
             //Reverse every Y coordinate since Y = 0 means top for the canvas but for Nanoleaf it means bottom
             foreach (var panelPosition in layout.PanelPositions)
@@ -173,6 +185,11 @@ namespace Winleafs.Wpf.Views.MainWindows
             triangle.StrokeThickness = 2;
 
             _triangles.Add(triangle);
+        }
+
+        private void Redraw_Click(object sender, RoutedEventArgs e)
+        {
+            DrawLayout();
         }
     }
 }
