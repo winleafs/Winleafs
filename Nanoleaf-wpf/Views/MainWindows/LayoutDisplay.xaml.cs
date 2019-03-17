@@ -56,6 +56,7 @@ namespace Winleafs.Wpf.Views.MainWindows
             //Retrieve layout
             var client = NanoleafClient.GetClientForDevice(UserSettings.Settings.ActiveDevice);
             var layout = client.LayoutEndpoint.GetLayout();
+            var globalOrientation = client.LayoutEndpoint.GetGlobalOrientation();
 
             if (layout == null)
             {
@@ -94,16 +95,24 @@ namespace Winleafs.Wpf.Views.MainWindows
                 }
             }
 
-            //Calculate the maximum triangle size
+            //Calculate the maximum triangle size, taking the global orientation into account
             var selectedSizeWithConversionRate = _sizesWithConversionRate.FirstOrDefault();
-            var maxX = layout.PanelPositions.Max(pp => pp.X);
-            var maxY = layout.PanelPositions.Max(pp => pp.Y);
+            var transform = new RotateTransform(globalOrientation.Value, layout.PanelPositions.Max(pp => pp.X) / 2, layout.PanelPositions.Max(pp => pp.X) / 2);
+            Point maxPoint = new Point();
+
+            foreach (var panelPosition in layout.PanelPositions)
+            {
+                var point = transform.Transform(new Point(panelPosition.X, panelPosition.Y));
+
+                maxPoint.X = point.X > maxPoint.X ? point.X : maxPoint.X;
+                maxPoint.Y = point.Y > maxPoint.Y ? point.Y : maxPoint.Y;
+            }            
 
             for (var i = 0; i < _sizesWithConversionRate.Count; i++)
             {
                 var sizeWithConversionRate = _sizesWithConversionRate.ElementAt(i);
 
-                if (maxX / sizeWithConversionRate.Value < _height - sizeWithConversionRate.Key && maxY / sizeWithConversionRate.Value < _width - sizeWithConversionRate.Key)
+                if (maxPoint.X / sizeWithConversionRate.Value < _height - sizeWithConversionRate.Key && maxPoint.Y / sizeWithConversionRate.Value < _width - sizeWithConversionRate.Key)
                 {
                     selectedSizeWithConversionRate = sizeWithConversionRate;
                 }
@@ -124,7 +133,6 @@ namespace Winleafs.Wpf.Views.MainWindows
             }
 
             //Calculate the transform for the global orientation. All panels should rotate over the center of all panels
-            var globalOrientation = client.LayoutEndpoint.GetGlobalOrientation();
             _globalRotationTransform = new RotateTransform(globalOrientation.Value, layout.PanelPositions.Max(pp => pp.TransformedX) / 2, layout.PanelPositions.Max(pp => pp.TransformedY) / 2);
 
             //Draw the panels
