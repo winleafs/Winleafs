@@ -7,7 +7,8 @@ Installers can be found here: https://github.com/StijnOostdam/Winleafs/releases.
 Canvas support currently not guaranteed.
 
 ## Features
-- Make multiple weekly schedules for your one or more Nanoleaf lights
+- Make multiple weekly schedules for your Nanoleaf lights
+- Supports multiple devices simultaneously
 - Add time based triggers to automatically set your lights to an effect and brightness at your chosen time
 - Add triggers based on sunrise and sunset times (requires location)
 - Ambilight, make your lights the average color of your monitor. Note: setting a high refresh rate can cost some CPU performance.
