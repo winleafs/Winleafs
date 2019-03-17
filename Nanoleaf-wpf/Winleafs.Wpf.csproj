@@ -104,6 +104,7 @@
     <Compile Include="Helpers\ContextMenuLeftClickBehavior.cs" />
     <Compile Include="Api\Effects\AmbilightEffect.cs" />
     <Compile Include="Helpers\EnumLocalizer.cs" />
+    <Compile Include="Helpers\HSBToRGBConverter.cs" />
     <Compile Include="Helpers\ScreenGrabber.cs" />
     <Compile Include="ViewModels\OptionsViewModel.cs" />
     <Compile Include="Views\AppResources.Designer.cs">
@@ -123,6 +124,9 @@
     </Compile>
     <Compile Include="Views\MainWindows\CurrentEffectUserControl.xaml.cs">
       <DependentUpon>CurrentEffectUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainWindows\LayoutDisplay.xaml.cs">
+      <DependentUpon>LayoutDisplay.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindows\OverrideScheduleUserControl.xaml.cs">
       <DependentUpon>OverrideScheduleUserControl.xaml</DependentUpon>
@@ -193,6 +197,10 @@
       <DependentUpon>SetupWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\MainWindows\CurrentEffectUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainWindows\LayoutDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

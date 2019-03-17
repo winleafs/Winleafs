@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:mainWindows="clr-namespace:Winleafs.Wpf.Views.MainWindows"
         mc:Ignorable="d"
-        Title="Winleafs" Height="460" Width="810" ResizeMode="CanMinimize"
+        Title="Winleafs" Height="670" Width="810" ResizeMode="CanMinimize"
         Closing="Window_Closing" >
     <DockPanel Background="{StaticResource NanoleafBlack}">
         <Grid DockPanel.Dock="Left" Margin="0,0,0,-0.333" Width="343">
@@ -24,6 +24,7 @@
             <Button Content="{x:Static mainWindows:Resources.ResetAllSettings}" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="120" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Reset_Click"/>
             <mainWindows:OverrideScheduleUserControl x:Name="OverrideScheduleUserControl" VerticalAlignment="Top" Margin="10,117,0,0" Height="60" HorizontalAlignment="Left" Width="434"/>
             <mainWindows:CurrentEffectUserControl x:Name="CurrentEffectUserControl" Margin="10,42,0,0" Height="70" Width="400" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <mainWindows:LayoutDisplay x:Name="LayoutDisplay" Width="400" Height="400" Margin="10,187,52,145"/>
             <Button Content="{x:Static mainWindows:Resources.ReloadEffects}" HorizontalAlignment="Left" Margin="115,10,0,0" VerticalAlignment="Top" Width="100" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Reload_Click"/>
             <Button Content="{x:Static mainWindows:Resources.AddDevice}" HorizontalAlignment="Left" Margin="220,10,0,0" VerticalAlignment="Top" Width="120" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="AddDevice_Click"/>
             <TextBlock HorizontalAlignment="Right" VerticalAlignment="Top" Width="54" Margin="0,5,0,0">

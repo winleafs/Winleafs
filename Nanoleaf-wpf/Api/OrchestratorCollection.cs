@@ -24,7 +24,7 @@ namespace Winleafs.Wpf.Api
 
         public static void FireScheduleTimerForActiveDevice()
         {
-            GetOrchestratorForDevice(UserSettings.Settings.ActviceDevice).ScheduleTimer.FireTimer();
+            GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice).ScheduleTimer.FireTimer();
         }
 
         public static Orchestrator GetOrchestratorForDevice(Device device)

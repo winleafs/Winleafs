@@ -16,12 +16,12 @@ namespace Winleafs.Api.Endpoints.Interfaces
 		Layout GetLayout();
 
         /// <summary>
-        /// Causes the panels to flash in unison. This is typically used to help users differentiate between multiple panels.
+        /// Gets the current global orientation in degrees.
         /// </summary>
-        /// <returns>An awaitable task.</returns>
-        Task IdentifyAsync();
+        /// <returns>The current global orientation</returns>
+        Task<GlobalOrientation> GetGlobalOrientationAsync();
 
-	    /// <inheritdoc cref="IdentifyAsync"/>
-		void Identify();
+        /// <inheritdoc cref="GetGlobalOrientationAsync"/>
+        GlobalOrientation GetGlobalOrientation();
     }
 }

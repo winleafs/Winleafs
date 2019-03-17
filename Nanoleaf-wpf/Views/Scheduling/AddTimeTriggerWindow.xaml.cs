@@ -64,8 +64,8 @@ namespace Winleafs.Wpf.Views.Scheduling
         public AddTimeTriggerWindow(DayUserControl parent)
         {
             _parent = parent;
-            Effects = new List<Effect>(UserSettings.Settings.ActviceDevice.Effects);
-            Effects.InsertRange(0, OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActviceDevice).GetCustomEffectAsEffects());
+            Effects = new List<Effect>(UserSettings.Settings.ActiveDevice.Effects);
+            Effects.InsertRange(0, OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice).GetCustomEffectAsEffects());
 
             _triggerTypeMapping = new Dictionary<string, TriggerType>();
 

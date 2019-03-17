@@ -159,6 +159,9 @@
   <data name="OverrideSchedule" xml:space="preserve">
     <value>Override schedule</value>
   </data>
+  <data name="Redraw" xml:space="preserve">
+    <value>Redraw</value>
+  </data>
   <data name="ReloadEffects" xml:space="preserve">
     <value>Reload effects</value>
   </data>

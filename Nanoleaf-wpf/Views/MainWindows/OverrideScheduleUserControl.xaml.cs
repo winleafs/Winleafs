@@ -45,8 +45,8 @@ namespace Winleafs.Wpf.Views.MainWindows
         {
             InitializeComponent();
 
-            Effects = new List<Effect>(UserSettings.Settings.ActviceDevice.Effects);
-            Effects.InsertRange(0, OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActviceDevice).GetCustomEffectAsEffects());
+            Effects = new List<Effect>(UserSettings.Settings.ActiveDevice.Effects);
+            Effects.InsertRange(0, OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice).GetCustomEffectAsEffects());
 
             DataContext = this;
 
@@ -65,13 +65,13 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         private async Task StopOverride()
         {
-            if (UserSettings.Settings.ActviceDevice.OperationMode == OperationMode.Manual)
+            if (UserSettings.Settings.ActiveDevice.OperationMode == OperationMode.Manual)
             {
-                var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActviceDevice);
+                var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice);
 
                 if (await orchestrator.TrySetOperationMode(OperationMode.Schedule, true))
                 {
-                    MainWindow.UpdateCurrentEffectLabels();
+                    MainWindow.UpdateCurrentEffectLabelsAndLayout();
                 }
             }
         }
@@ -82,7 +82,7 @@ namespace Winleafs.Wpf.Views.MainWindows
             {
                 try
                 {
-                    var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActviceDevice);
+                    var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice);
 
                     if (await orchestrator.TrySetOperationMode(OperationMode.Manual, true))
                     {
@@ -91,7 +91,7 @@ namespace Winleafs.Wpf.Views.MainWindows
 
                         await orchestrator.ActivateEffect(SelectedEffect, Brightness);
 
-                        MainWindow.UpdateCurrentEffectLabels();
+                        MainWindow.UpdateCurrentEffectLabelsAndLayout();
                     }                    
                 }
                 catch (Exception e)

@@ -62,7 +62,7 @@ namespace Winleafs.Models.Models
         /// Used in the GUI to determine which device is currently being edited
         /// </summary>
         [JsonIgnore]
-        public Device ActviceDevice
+        public Device ActiveDevice
         {
             get
             {
@@ -146,14 +146,14 @@ namespace Winleafs.Models.Models
 
         public void DeleteActiveDevice()
         {
-            var device = ActviceDevice;
+            var device = ActiveDevice;
             Devices.Remove(device);
             SaveSettings();
         }
 
         public void AddSchedule(Schedule schedule, bool makeActive)
         {
-            var device = ActviceDevice;
+            var device = ActiveDevice;
 
             if (makeActive)
             {
@@ -168,7 +168,7 @@ namespace Winleafs.Models.Models
 
         public void ActivateSchedule(Schedule schedule)
         {
-            ActviceDevice.Schedules.ForEach(s => s.Active = false);
+            ActiveDevice.Schedules.ForEach(s => s.Active = false);
 
             schedule.Active = true;
             SaveSettings();
@@ -176,7 +176,7 @@ namespace Winleafs.Models.Models
 
         public void DeleteSchedule(Schedule schedule)
         {
-            ActviceDevice.Schedules.Remove(schedule);
+            ActiveDevice.Schedules.Remove(schedule);
             SaveSettings();
         }
 
@@ -231,9 +231,9 @@ namespace Winleafs.Models.Models
         {
             var newActiveDevice = Devices.FirstOrDefault(d => d.Name.Equals(deviceName));
 
-            if (ActviceDevice != null)
+            if (ActiveDevice != null)
             {
-                ActviceDevice.ActiveInGUI = false;
+                ActiveDevice.ActiveInGUI = false;
             }
             
             newActiveDevice.ActiveInGUI = true;
