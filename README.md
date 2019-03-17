@@ -29,6 +29,8 @@ You can also make a fork of this project and pick up a task from our projects bo
 We would HIGHLY appreciate if you'd contact us before picking up a task so we can avoid doing double work.
 
 ## Showcase
+![Screenshot](Media/Screenshot.png)
+
 - [Beat Saber Ambilight](https://www.youtube.com/watch?v=CRe0o0TNlT4)
 
 ## Bugs
