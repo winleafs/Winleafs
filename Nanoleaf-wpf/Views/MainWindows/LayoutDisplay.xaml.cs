@@ -18,11 +18,13 @@ namespace Winleafs.Wpf.Views.MainWindows
     public partial class LayoutDisplay : UserControl
     {
         private static readonly SolidColorBrush _lineColor = Brushes.LightSteelBlue;
-        private static readonly int _height = 400; //Since we draw in constructor, height and width are not available then, so we use these fixed values
-        private static readonly int _width = 400;
+
+        //Since we draw in constructor, height and width are not available then, so we use these fixed values
+        private static readonly int _height, _width = 400;
         private static readonly Random _random = new Random();
 
-        //Values based on testing. For each triangle size, the conversion rate is saved such that the coordinates from Nanoleaf can be properly converted
+        //Values based on testing.
+        //For each triangle size, the conversion rate is saved such that the coordinates from Nanoleaf can be properly converted to pixel locations
         //At most, a device is 15 panels wide, 15*25 < 400, so 25 is the lowest value we need
         private static readonly Dictionary<int, double> _sizesWithConversionRate = new Dictionary<int, double>() { { 25, 5.45 }, { 30, 4.6 }, { 40, 3.55 }, { 50, 2.85 }, { 60, 2.38 }, { 70, 2.1 }, { 80, 1.82 }, { 90, 1.62 }, { 100, 1.47 }};
 
@@ -112,7 +114,8 @@ namespace Winleafs.Wpf.Views.MainWindows
             {
                 var sizeWithConversionRate = _sizesWithConversionRate.ElementAt(i);
 
-                if (maxPoint.X / sizeWithConversionRate.Value < _height - sizeWithConversionRate.Key && maxPoint.Y / sizeWithConversionRate.Value < _width - sizeWithConversionRate.Key)
+                if (maxPoint.X / sizeWithConversionRate.Value < _height - sizeWithConversionRate.Key
+                    && maxPoint.Y / sizeWithConversionRate.Value < _width - sizeWithConversionRate.Key)
                 {
                     selectedSizeWithConversionRate = sizeWithConversionRate;
                 }
