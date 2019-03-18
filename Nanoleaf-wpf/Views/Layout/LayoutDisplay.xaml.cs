@@ -10,7 +10,7 @@ using Winleafs.Api;
 using Winleafs.Models.Models;
 using Winleafs.Wpf.Helpers;
 
-namespace Winleafs.Wpf.Views.MainWindows
+namespace Winleafs.Wpf.Views.Layout
 {
     /// <summary>
     /// Interaction logic for LayoutDisplay.xaml

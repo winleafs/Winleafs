@@ -187,15 +187,6 @@ namespace Winleafs.Wpf.Views.MainWindows {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Redraw.
-        /// </summary>
-        public static string Redraw {
-            get {
-                return ResourceManager.GetString("Redraw", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Reload effects.
         /// </summary>
         public static string ReloadEffects {
