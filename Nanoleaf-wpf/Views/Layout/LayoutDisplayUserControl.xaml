@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="400">
     <Grid>
-        <Canvas x:Name="CanvasArea">
+        <Canvas x:Name="CanvasArea" Background="Transparent">
             
         </Canvas>
         <Button x:Name="RedrawButton" Content="{x:Static local:Resources.Redraw}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="78" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Redraw_Click" Visibility="Hidden"/>

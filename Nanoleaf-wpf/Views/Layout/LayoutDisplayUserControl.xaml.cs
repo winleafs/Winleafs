@@ -18,6 +18,8 @@ namespace Winleafs.Wpf.Views.Layout
     /// </summary>
     public partial class LayoutDisplayUserControl : UserControl
     {
+        public HashSet<int> SelectedPanelIds { get; set; }
+
         private static readonly SolidColorBrush _selectedBorderColor = Brushes.LightSteelBlue;
         private static readonly SolidColorBrush _borderColor = (SolidColorBrush)Application.Current.FindResource("NanoleafBlack");
         private int _height;
@@ -30,7 +32,7 @@ namespace Winleafs.Wpf.Views.Layout
         //At most, a device is 15 panels wide, 15*25 < 400, so 25 is the lowest value we need
         private static readonly Dictionary<int, double> _sizesWithConversionRate = new Dictionary<int, double>() { { 25, 5.45 }, { 30, 4.6 }, { 40, 3.55 }, { 50, 2.85 }, { 60, 2.38 }, { 70, 2.1 }, { 80, 1.82 }, { 90, 1.62 }, { 100, 1.47 }};
 
-        private Dictionary<int, Polygon> _triangles;
+        private Dictionary<Polygon, int> _triangles; //Tirangles as polygons with their panelIds
         private RotateTransform _globalRotationTransform;
         private int _triangleSize;
         private double _conversionRate;
@@ -42,6 +44,9 @@ namespace Winleafs.Wpf.Views.Layout
         public LayoutDisplayUserControl()
         {
             InitializeComponent();
+
+            CanvasArea.MouseDown += CanvasClicked;
+            SelectedPanelIds = new HashSet<int>();
 
             _panelsClickable = false;
 
@@ -67,7 +72,7 @@ namespace Winleafs.Wpf.Views.Layout
         {
             CanvasArea.Children.Clear();
 
-            _triangles = new Dictionary<int, Polygon>();
+            _triangles = new Dictionary<Polygon, int>();
 
             //Retrieve layout
             var client = NanoleafClient.GetClientForDevice(UserSettings.Settings.ActiveDevice);
@@ -162,7 +167,7 @@ namespace Winleafs.Wpf.Views.Layout
             double minX = 0;
             double minY = 0;
 
-            foreach (var triangle in _triangles.Values)
+            foreach (var triangle in _triangles.Keys)
             {
                 foreach (var point in triangle.Points)
                 {
@@ -174,7 +179,7 @@ namespace Winleafs.Wpf.Views.Layout
             var diffX = minX < 0 ? Math.Abs(minX) : 0;
             var diffY = minY < 0 ? Math.Abs(minY) : 0;
 
-            foreach (var triangle in _triangles.Values)
+            foreach (var triangle in _triangles.Keys)
             {
                 for (var i = 0; i < triangle.Points.Count; i++)
                 {
@@ -186,7 +191,7 @@ namespace Winleafs.Wpf.Views.Layout
             }
 
             //Draw the triangles
-            foreach (var triangle in _triangles.Values)
+            foreach (var triangle in _triangles.Keys)
             {
                 CanvasArea.Children.Add(triangle);
             }
@@ -224,7 +229,7 @@ namespace Winleafs.Wpf.Views.Layout
             triangle.StrokeThickness = 2;
             triangle.MouseDown += TriangleClicked;
 
-            _triangles.Add(panelId, triangle);
+            _triangles.Add(triangle, panelId);
         }
 
         private void Redraw_Click(object sender, RoutedEventArgs e)
@@ -245,7 +250,7 @@ namespace Winleafs.Wpf.Views.Layout
                 {
                     if (effect == null)
                     {
-                        foreach (var triangle in _triangles.Values)
+                        foreach (var triangle in _triangles.Keys)
                         {
                             triangle.Fill = Brushes.LightSlateGray;
                         }
@@ -258,7 +263,7 @@ namespace Winleafs.Wpf.Views.Layout
                             colors.Add(new SolidColorBrush(HSBToRGBConverter.ConvertToMediaColor(hsb.Hue, hsb.Saturation, hsb.Brightness)));
                         }
 
-                        foreach (var triangle in _triangles.Values)
+                        foreach (var triangle in _triangles.Keys)
                         {
                             triangle.Fill = colors[_random.Next(colors.Count)];
                         }
@@ -280,7 +285,30 @@ namespace Winleafs.Wpf.Views.Layout
                 triangle.Stroke = _selectedBorderColor;
                 triangle.StrokeThickness = 2;
 
-                var panelId = _triangles.FirstOrDefault(x => x.Value == sender).Key;
+                SelectedPanelIds.Add(_triangles[triangle]);
+            }
+        }
+
+        private void CanvasClicked(object sender, MouseButtonEventArgs e)
+        {
+            //if the user clicks anywhere other then on the panels, reset the current selection
+            if (e.OriginalSource == CanvasArea)
+            {
+                if (SelectedPanelIds.Count > 0)
+                {
+                    ClearSelectedPanels();
+                }
+            }
+        }
+
+        public void ClearSelectedPanels()
+        {
+            SelectedPanelIds.Clear();
+
+            foreach (var triangle in _triangles.Keys)
+            {
+                triangle.Stroke = _borderColor;
+                triangle.StrokeThickness = 2;
             }
         }
     }

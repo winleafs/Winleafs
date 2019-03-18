@@ -67,8 +67,8 @@ namespace Winleafs.Wpf.Views.MainWindows
 
             DataContext = this;
 
-            var percentageWindow = new PercentageProfileWindow();
-            percentageWindow.Show();
+            //var percentageWindow = new PercentageProfileWindow();
+            //percentageWindow.Show();
         }
 
         private void SelectedDeviceChanged()
