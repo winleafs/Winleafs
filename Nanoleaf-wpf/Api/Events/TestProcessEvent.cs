@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Timers;
 using Winleafs.Models.Enums;
 
@@ -9,19 +10,18 @@ namespace Winleafs.Wpf.Api.Events
     /// </summary>
     public class TestProcessEvent : IEvent
     {
-        private Timer _processCheckTimer;
-        private Timer _effectTimer;
-        private Orchestrator _orchestrator;
+        private readonly Timer _effectTimer;
+        private readonly Orchestrator _orchestrator;
 
         public TestProcessEvent(Orchestrator orchestrator)
         {
             _orchestrator = orchestrator;
 
-            _processCheckTimer = new Timer(60000);
-            _processCheckTimer.Elapsed += CheckProcess;
-            _processCheckTimer.AutoReset = true;
-            _processCheckTimer.Enabled = true;
-            _processCheckTimer.Start();
+            var processCheckTimer = new Timer(60000);
+            processCheckTimer.Elapsed += CheckProcess;
+            processCheckTimer.AutoReset = true;
+            processCheckTimer.Enabled = true;
+            processCheckTimer.Start();
 
             _effectTimer = new Timer(100);
             _effectTimer.Elapsed += ApplyEffect;
@@ -66,7 +66,7 @@ namespace Winleafs.Wpf.Api.Events
 
         private async Task ApplyEffectAsync()
         {
-
+            throw new NotSupportedException();
         }
 
         public void StopEffect()

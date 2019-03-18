@@ -29,15 +29,11 @@ namespace Winleafs.Wpf.Views.MainWindows
     /// </summary>
     public partial class MainWindow : Window
     {
-        private TaskbarIcon _taskbarIcon;
         private string _selectedDevice;
 
         public string SelectedDevice
         {
-            get
-            {
-                return _selectedDevice;
-            }
+            get => _selectedDevice;
             set
             {
                 _selectedDevice = value;
@@ -51,8 +47,8 @@ namespace Winleafs.Wpf.Views.MainWindows
         {
             InitializeComponent();
 
-            _taskbarIcon = (TaskbarIcon)FindResource("NotifyIcon"); //https://www.codeproject.com/Articles/36468/WPF-NotifyIcon-2
-            _taskbarIcon.DoubleClickCommand = new TaskbarDoubleClickCommand(this);
+            var taskbarIcon = (TaskbarIcon)FindResource("NotifyIcon"); //https://www.codeproject.com/Articles/36468/WPF-NotifyIcon-2
+            taskbarIcon.DoubleClickCommand = new TaskbarDoubleClickCommand(this);
 
             SelectedDevice = UserSettings.Settings.ActiveDevice.Name;
             DeviceNames = new ObservableCollection<string>(UserSettings.Settings.Devices.Select(d => d.Name));
@@ -164,7 +160,7 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         private class TaskbarDoubleClickCommand : ICommand
         {
-            private MainWindow _window;
+            private readonly MainWindow _window;
 
             public TaskbarDoubleClickCommand(MainWindow window)
             {

@@ -15,6 +15,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using Winleafs.External;
+using Winleafs.Models.Exceptions;
 
 using Application = System.Windows.Application;
 
@@ -38,8 +39,8 @@ namespace Winleafs.Wpf.Views
 
         void App_Startup(object sender, StartupEventArgs e)
         {
-            Process process = Process.GetCurrentProcess();
-            int count = Process.GetProcesses().Where(p => p.ProcessName == process.ProcessName).Count();
+            var process = Process.GetCurrentProcess();
+            var count = Process.GetProcesses().Count(p => p.ProcessName == process.ProcessName);
 
             if (count > 1)
             {

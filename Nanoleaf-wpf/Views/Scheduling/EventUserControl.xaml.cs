@@ -36,7 +36,7 @@ namespace Winleafs.Wpf.Views.Scheduling
             foreach (var trigger in EventTriggers)
             {
                 //TODO: add event trigger user controls
-                //TriggerList.Children.Add(new TimeTriggerUserControl(trigger));
+                ////TriggerList.Children.Add(new TimeTriggerUserControl(trigger));
             }
         }
     }

@@ -242,7 +242,7 @@ namespace Winleafs.Wpf.Views.MainWindows
                         var colors = new List<SolidColorBrush>();
                         foreach (var hsb in effect.Palette)
                         {
-                            colors.Add(new SolidColorBrush(HSBToRGBConverter.ConvertToMediaColor(hsb.Hue, hsb.Saturation, hsb.Brightness)));
+                            colors.Add(new SolidColorBrush(HsbToRgbConverter.ConvertToMediaColor(hsb.Hue, hsb.Saturation, hsb.Brightness)));
                         }
 
                         foreach (var triangle in _triangles)
