@@ -122,11 +122,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EnumResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Layout\PercentageProfileWindow.xaml.cs">
+      <DependentUpon>PercentageProfileWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Layout\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainWindows\CurrentEffectUserControl.xaml.cs">
       <DependentUpon>CurrentEffectUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MainWindows\LayoutDisplay.xaml.cs">
-      <DependentUpon>LayoutDisplay.xaml</DependentUpon>
+    <Compile Include="Views\Layout\LayoutDisplayUserControl.xaml.cs">
+      <DependentUpon>LayoutDisplayUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindows\OverrideScheduleUserControl.xaml.cs">
       <DependentUpon>OverrideScheduleUserControl.xaml</DependentUpon>
@@ -196,11 +204,15 @@
     <Compile Include="Views\Setup\SetupWindow.xaml.cs">
       <DependentUpon>SetupWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\Layout\PercentageProfileWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindows\CurrentEffectUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MainWindows\LayoutDisplay.xaml">
+    <Page Include="Views\Layout\LayoutDisplayUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -308,6 +320,11 @@
     <EmbeddedResource Include="Views\EnumResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>EnumResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Layout\Resources.nl.resx" />
+    <EmbeddedResource Include="Views\Layout\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\MainWindows\Resources.nl.resx" />
     <EmbeddedResource Include="Views\MainWindows\Resources.resx">
