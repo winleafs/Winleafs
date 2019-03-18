@@ -4,24 +4,26 @@ using System.Linq;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Winleafs.Api;
 using Winleafs.Models.Models;
 using Winleafs.Wpf.Helpers;
 
-namespace Winleafs.Wpf.Views.MainWindows
+namespace Winleafs.Wpf.Views.Layout
 {
     /// <summary>
     /// Interaction logic for LayoutDisplay.xaml
     /// </summary>
-    public partial class LayoutDisplay : UserControl
+    public partial class LayoutDisplayUserControl : UserControl
     {
-        private static readonly SolidColorBrush _lineColor = Brushes.LightSteelBlue;
+        public HashSet<int> SelectedPanelIds { get; set; }
 
-        //Since we draw in constructor, height and width are not available then, so we use these fixed values
-        private static readonly int _height = 400;
-        private static readonly int _width = 400;
+        private static readonly SolidColorBrush _selectedBorderColor = Brushes.LightSteelBlue;
+        private static readonly SolidColorBrush _borderColor = (SolidColorBrush)Application.Current.FindResource("NanoleafBlack");
+        private int _height;
+        private int _width;
 
         private static readonly Random _random = new Random();
 
@@ -30,19 +32,23 @@ namespace Winleafs.Wpf.Views.MainWindows
         //At most, a device is 15 panels wide, 15*25 < 400, so 25 is the lowest value we need
         private static readonly Dictionary<int, double> _sizesWithConversionRate = new Dictionary<int, double>() { { 25, 5.45 }, { 30, 4.6 }, { 40, 3.55 }, { 50, 2.85 }, { 60, 2.38 }, { 70, 2.1 }, { 80, 1.82 }, { 90, 1.62 }, { 100, 1.47 }};
 
-        private List<Polygon> _triangles;
+        private Dictionary<Polygon, int> _triangles; //Tirangles as polygons with their panelIds
         private RotateTransform _globalRotationTransform;
         private int _triangleSize;
         private double _conversionRate;
+        private bool _panelsClickable;
 
         //Timer to update the colors periodically to update with schedule
         private Timer _timer;
 
-        public LayoutDisplay()
+        public LayoutDisplayUserControl()
         {
             InitializeComponent();
 
-            DrawLayout();
+            CanvasArea.MouseDown += CanvasClicked;
+            SelectedPanelIds = new HashSet<int>();
+
+            _panelsClickable = false;
 
             _timer = new Timer(30000); //Update the colors every 30 seconds
             _timer.Elapsed += OnTimedEvent;
@@ -51,11 +57,22 @@ namespace Winleafs.Wpf.Views.MainWindows
             _timer.Start();
         }
 
+        public void SetWithAndHeight(int width, int height)
+        {
+            _width = width;
+            _height = height;
+        }
+
+        public void EnableClick()
+        {
+            _panelsClickable = true;
+        }
+
         public void DrawLayout()
         {
             CanvasArea.Children.Clear();
 
-            _triangles = new List<Polygon>();
+            _triangles = new Dictionary<Polygon, int>();
 
             //Retrieve layout
             var client = NanoleafClient.GetClientForDevice(UserSettings.Settings.ActiveDevice);
@@ -143,14 +160,14 @@ namespace Winleafs.Wpf.Views.MainWindows
             //Draw the panels
             foreach (var panelPosition in layout.PanelPositions)
             {
-                CreateTriangle(panelPosition.TransformedX, panelPosition.TransformedY, panelPosition.Orientation);
+                CreateTriangle(panelPosition.TransformedX, panelPosition.TransformedY, panelPosition.Orientation, panelPosition.PanelId);
             }
 
             //Fix the coordinates if any are placed outside the canvas after placing and rotating
             double minX = 0;
             double minY = 0;
 
-            foreach (var triangle in _triangles)
+            foreach (var triangle in _triangles.Keys)
             {
                 foreach (var point in triangle.Points)
                 {
@@ -162,7 +179,7 @@ namespace Winleafs.Wpf.Views.MainWindows
             var diffX = minX < 0 ? Math.Abs(minX) : 0;
             var diffY = minY < 0 ? Math.Abs(minY) : 0;
 
-            foreach (var triangle in _triangles)
+            foreach (var triangle in _triangles.Keys)
             {
                 for (var i = 0; i < triangle.Points.Count; i++)
                 {
@@ -174,7 +191,7 @@ namespace Winleafs.Wpf.Views.MainWindows
             }
 
             //Draw the triangles
-            foreach (var triangle in _triangles)
+            foreach (var triangle in _triangles.Keys)
             {
                 CanvasArea.Children.Add(triangle);
             }
@@ -185,7 +202,7 @@ namespace Winleafs.Wpf.Views.MainWindows
         /// <summary>
         /// Draws an equilateral triangle from the given center point and rotation. Also applies the global rotation
         /// </summary>
-        private void CreateTriangle(double x, double y, double rotation)
+        private void CreateTriangle(double x, double y, double rotation, int panelId)
         {
             //First assume that we draw the triangle facing up:
             //     A
@@ -206,12 +223,13 @@ namespace Winleafs.Wpf.Views.MainWindows
             triangle.Points.Add(_globalRotationTransform.Transform(rotateTransform.Transform(B)));
             triangle.Points.Add(_globalRotationTransform.Transform(rotateTransform.Transform(C)));
             
-            triangle.Stroke = _lineColor;
+            triangle.Stroke = _borderColor;
             triangle.HorizontalAlignment = HorizontalAlignment.Left;
             triangle.VerticalAlignment = VerticalAlignment.Top;
             triangle.StrokeThickness = 2;
+            triangle.MouseDown += TriangleClicked;
 
-            _triangles.Add(triangle);
+            _triangles.Add(triangle, panelId);
         }
 
         private void Redraw_Click(object sender, RoutedEventArgs e)
@@ -232,9 +250,9 @@ namespace Winleafs.Wpf.Views.MainWindows
                 {
                     if (effect == null)
                     {
-                        foreach (var triangle in _triangles)
+                        foreach (var triangle in _triangles.Keys)
                         {
-                            triangle.Fill = null;
+                            triangle.Fill = Brushes.LightSlateGray;
                         }
                     }
                     else
@@ -245,7 +263,7 @@ namespace Winleafs.Wpf.Views.MainWindows
                             colors.Add(new SolidColorBrush(HsbToRgbConverter.ConvertToMediaColor(hsb.Hue, hsb.Saturation, hsb.Brightness)));
                         }
 
-                        foreach (var triangle in _triangles)
+                        foreach (var triangle in _triangles.Keys)
                         {
                             triangle.Fill = colors[_random.Next(colors.Count)];
                         }
@@ -257,6 +275,41 @@ namespace Winleafs.Wpf.Views.MainWindows
         private void OnTimedEvent(object source, ElapsedEventArgs e)
         {
             UpdateColors();
+        }
+
+        private void TriangleClicked(object sender, MouseButtonEventArgs e)
+        {
+            if (_panelsClickable)
+            {
+                var triangle = (Polygon)sender;
+                triangle.Stroke = _selectedBorderColor;
+                triangle.StrokeThickness = 2;
+
+                SelectedPanelIds.Add(_triangles[triangle]);
+            }
+        }
+
+        private void CanvasClicked(object sender, MouseButtonEventArgs e)
+        {
+            //if the user clicks anywhere other then on the panels, reset the current selection
+            if (e.OriginalSource == CanvasArea)
+            {
+                if (SelectedPanelIds.Count > 0)
+                {
+                    ClearSelectedPanels();
+                }
+            }
+        }
+
+        public void ClearSelectedPanels()
+        {
+            SelectedPanelIds.Clear();
+
+            foreach (var triangle in _triangles.Keys)
+            {
+                triangle.Stroke = _borderColor;
+                triangle.StrokeThickness = 2;
+            }
         }
     }
 }

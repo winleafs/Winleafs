@@ -21,6 +21,7 @@ namespace Winleafs.Wpf.Views.MainWindows
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using Winleafs.Wpf.Views.Layout;
     using Winleafs.Wpf.Views.Popup;
     using Winleafs.Wpf.Views.Setup;
 
@@ -47,6 +48,9 @@ namespace Winleafs.Wpf.Views.MainWindows
         {
             InitializeComponent();
 
+            LayoutDisplay.SetWithAndHeight((int)LayoutDisplay.Width, (int)LayoutDisplay.Height);
+            LayoutDisplay.DrawLayout();
+
             var taskbarIcon = (TaskbarIcon)FindResource("NotifyIcon"); //https://www.codeproject.com/Articles/36468/WPF-NotifyIcon-2
             taskbarIcon.DoubleClickCommand = new TaskbarDoubleClickCommand(this);
 
@@ -58,6 +62,9 @@ namespace Winleafs.Wpf.Views.MainWindows
             OverrideScheduleUserControl.MainWindow = this;
 
             DataContext = this;
+
+            //var percentageWindow = new PercentageProfileWindow();
+            //percentageWindow.Show();
         }
 
         private void SelectedDeviceChanged()
@@ -68,9 +75,9 @@ namespace Winleafs.Wpf.Views.MainWindows
 
                 BuildScheduleList();
 
-                UpdateCurrentEffectLabelsAndLayout();
-
                 LayoutDisplay.DrawLayout();
+
+                UpdateCurrentEffectLabelsAndLayout();
             }
         }
 
