@@ -4,6 +4,7 @@ using System.Linq;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Winleafs.Api;
@@ -17,8 +18,8 @@ namespace Winleafs.Wpf.Views.Layout
     /// </summary>
     public partial class LayoutDisplayUserControl : UserControl
     {
-        private static readonly SolidColorBrush _lineColor = Brushes.LightSteelBlue;
-
+        private static readonly SolidColorBrush _selectedBorderColor = Brushes.LightSteelBlue;
+        private static readonly SolidColorBrush _borderColor = (SolidColorBrush)Application.Current.FindResource("NanoleafBlack");
         private int _height;
         private int _width;
 
@@ -29,7 +30,7 @@ namespace Winleafs.Wpf.Views.Layout
         //At most, a device is 15 panels wide, 15*25 < 400, so 25 is the lowest value we need
         private static readonly Dictionary<int, double> _sizesWithConversionRate = new Dictionary<int, double>() { { 25, 5.45 }, { 30, 4.6 }, { 40, 3.55 }, { 50, 2.85 }, { 60, 2.38 }, { 70, 2.1 }, { 80, 1.82 }, { 90, 1.62 }, { 100, 1.47 }};
 
-        private List<Polygon> _triangles;
+        private Dictionary<int, Polygon> _triangles;
         private RotateTransform _globalRotationTransform;
         private int _triangleSize;
         private double _conversionRate;
@@ -58,7 +59,7 @@ namespace Winleafs.Wpf.Views.Layout
         {
             CanvasArea.Children.Clear();
 
-            _triangles = new List<Polygon>();
+            _triangles = new Dictionary<int, Polygon>();
 
             //Retrieve layout
             var client = NanoleafClient.GetClientForDevice(UserSettings.Settings.ActiveDevice);
@@ -146,14 +147,14 @@ namespace Winleafs.Wpf.Views.Layout
             //Draw the panels
             foreach (var panelPosition in layout.PanelPositions)
             {
-                CreateTriangle(panelPosition.TransformedX, panelPosition.TransformedY, panelPosition.Orientation);
+                CreateTriangle(panelPosition.TransformedX, panelPosition.TransformedY, panelPosition.Orientation, panelPosition.PanelId);
             }
 
             //Fix the coordinates if any are placed outside the canvas after placing and rotating
             double minX = 0;
             double minY = 0;
 
-            foreach (var triangle in _triangles)
+            foreach (var triangle in _triangles.Values)
             {
                 foreach (var point in triangle.Points)
                 {
@@ -165,7 +166,7 @@ namespace Winleafs.Wpf.Views.Layout
             var diffX = minX < 0 ? Math.Abs(minX) : 0;
             var diffY = minY < 0 ? Math.Abs(minY) : 0;
 
-            foreach (var triangle in _triangles)
+            foreach (var triangle in _triangles.Values)
             {
                 for (var i = 0; i < triangle.Points.Count; i++)
                 {
@@ -177,7 +178,7 @@ namespace Winleafs.Wpf.Views.Layout
             }
 
             //Draw the triangles
-            foreach (var triangle in _triangles)
+            foreach (var triangle in _triangles.Values)
             {
                 CanvasArea.Children.Add(triangle);
             }
@@ -188,7 +189,7 @@ namespace Winleafs.Wpf.Views.Layout
         /// <summary>
         /// Draws an equilateral triangle from the given center point and rotation. Also applies the global rotation
         /// </summary>
-        private void CreateTriangle(double x, double y, double rotation)
+        private void CreateTriangle(double x, double y, double rotation, int panelId)
         {
             //First assume that we draw the triangle facing up:
             //     A
@@ -209,12 +210,13 @@ namespace Winleafs.Wpf.Views.Layout
             triangle.Points.Add(_globalRotationTransform.Transform(rotateTransform.Transform(B)));
             triangle.Points.Add(_globalRotationTransform.Transform(rotateTransform.Transform(C)));
             
-            triangle.Stroke = _lineColor;
+            triangle.Stroke = _borderColor;
             triangle.HorizontalAlignment = HorizontalAlignment.Left;
             triangle.VerticalAlignment = VerticalAlignment.Top;
             triangle.StrokeThickness = 2;
+            triangle.MouseDown += TriangleClicked;
 
-            _triangles.Add(triangle);
+            _triangles.Add(panelId, triangle);
         }
 
         private void Redraw_Click(object sender, RoutedEventArgs e)
@@ -235,7 +237,7 @@ namespace Winleafs.Wpf.Views.Layout
                 {
                     if (effect == null)
                     {
-                        foreach (var triangle in _triangles)
+                        foreach (var triangle in _triangles.Values)
                         {
                             triangle.Fill = null;
                         }
@@ -248,7 +250,7 @@ namespace Winleafs.Wpf.Views.Layout
                             colors.Add(new SolidColorBrush(HSBToRGBConverter.ConvertToMediaColor(hsb.Hue, hsb.Saturation, hsb.Brightness)));
                         }
 
-                        foreach (var triangle in _triangles)
+                        foreach (var triangle in _triangles.Values)
                         {
                             triangle.Fill = colors[_random.Next(colors.Count)];
                         }
@@ -260,6 +262,15 @@ namespace Winleafs.Wpf.Views.Layout
         private void OnTimedEvent(object source, ElapsedEventArgs e)
         {
             UpdateColors();
+        }
+
+        private void TriangleClicked(object sender, MouseButtonEventArgs e)
+        {
+            var triangle = (Polygon)sender;
+            triangle.Stroke = _selectedBorderColor;
+            triangle.StrokeThickness = 2;
+
+            var panelId = _triangles.FirstOrDefault(x => x.Value == sender).Key;
         }
     }
 }
