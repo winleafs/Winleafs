@@ -36,10 +36,12 @@ namespace Winleafs.Wpf.Api.Events
 
         private async Task CheckProcessAsync()
         {
-            //Check here if a process is running, then execute TryStartEffect(), else stop the effect timer
+            // Check here if a process is running, then execute TryStartEffect(), else stop the effect timer
             var processRunning = false;
 
+#pragma warning disable S2583 // Conditionally executed blocks should be reachable
             if (processRunning)
+#pragma warning restore S2583 // Conditionally executed blocks should be reachable
             {
                 await TryStartEffect();
             }
