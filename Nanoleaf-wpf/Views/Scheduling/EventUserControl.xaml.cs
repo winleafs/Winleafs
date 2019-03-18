@@ -11,7 +11,7 @@ namespace Winleafs.Wpf.Views.Scheduling
     /// </summary>
     public partial class EventUserControl : UserControl
     {
-        public List<IEventTrigger> EventTriggers;
+        public List<IEventTrigger> EventTriggers { get; set; }
 
         public EventUserControl()
         {

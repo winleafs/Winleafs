@@ -39,7 +39,7 @@ namespace Winleafs.Wpf.Views.MainWindows
             }
         }
 
-        public MainWindow MainWindow;
+        public MainWindow MainWindow { get; set; }
 
         public OverrideScheduleUserControl()
         {
@@ -92,7 +92,7 @@ namespace Winleafs.Wpf.Views.MainWindows
                         await orchestrator.ActivateEffect(SelectedEffect, Brightness);
 
                         MainWindow.UpdateCurrentEffectLabelsAndLayout();
-                    }                    
+                    }
                 }
                 catch (Exception e)
                 {
