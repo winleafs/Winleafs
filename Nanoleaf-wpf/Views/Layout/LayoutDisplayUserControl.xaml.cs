@@ -15,13 +15,12 @@ namespace Winleafs.Wpf.Views.Layout
     /// <summary>
     /// Interaction logic for LayoutDisplay.xaml
     /// </summary>
-    public partial class LayoutDisplay : UserControl
+    public partial class LayoutDisplayUserControl : UserControl
     {
         private static readonly SolidColorBrush _lineColor = Brushes.LightSteelBlue;
 
-        //Since we draw in constructor, height and width are not available then, so we use these fixed values
-        private static readonly int _height = 400;
-        private static readonly int _width = 400;
+        private int _height;
+        private int _width;
 
         private static readonly Random _random = new Random();
 
@@ -38,17 +37,21 @@ namespace Winleafs.Wpf.Views.Layout
         //Timer to update the colors periodically to update with schedule
         private Timer _timer;
 
-        public LayoutDisplay()
+        public LayoutDisplayUserControl()
         {
             InitializeComponent();
-
-            DrawLayout();
 
             _timer = new Timer(30000); //Update the colors every 30 seconds
             _timer.Elapsed += OnTimedEvent;
             _timer.AutoReset = true;
             _timer.Enabled = true;
             _timer.Start();
+        }
+
+        public void SetWithAndHeight(int width, int height)
+        {
+            _width = width;
+            _height = height;
         }
 
         public void DrawLayout()

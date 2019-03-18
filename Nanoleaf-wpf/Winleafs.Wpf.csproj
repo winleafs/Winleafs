@@ -122,6 +122,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EnumResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Layout\PercentageProfileWindow.xaml.cs">
+      <DependentUpon>PercentageProfileWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Layout\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -130,8 +133,8 @@
     <Compile Include="Views\MainWindows\CurrentEffectUserControl.xaml.cs">
       <DependentUpon>CurrentEffectUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Layout\LayoutDisplay.xaml.cs">
-      <DependentUpon>LayoutDisplay.xaml</DependentUpon>
+    <Compile Include="Views\Layout\LayoutDisplayUserControl.xaml.cs">
+      <DependentUpon>LayoutDisplayUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindows\OverrideScheduleUserControl.xaml.cs">
       <DependentUpon>OverrideScheduleUserControl.xaml</DependentUpon>
@@ -201,11 +204,15 @@
     <Compile Include="Views\Setup\SetupWindow.xaml.cs">
       <DependentUpon>SetupWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\Layout\PercentageProfileWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindows\CurrentEffectUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Layout\LayoutDisplay.xaml">
+    <Page Include="Views\Layout\LayoutDisplayUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -61,6 +61,15 @@ namespace Winleafs.Wpf.Views.Layout {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Percentage profile.
+        /// </summary>
+        public static string PercentageProfileWindow {
+            get {
+                return ResourceManager.GetString("PercentageProfileWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Redraw.
         /// </summary>
         public static string Redraw {
