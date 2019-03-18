@@ -25,6 +25,7 @@ namespace Winleafs.Wpf.Views.Layout
 
             LayoutDisplay.SetWithAndHeight((int)LayoutDisplay.Width, (int)LayoutDisplay.Height);
             LayoutDisplay.DrawLayout();
+            LayoutDisplay.EnableClick();
         }
     }
 }

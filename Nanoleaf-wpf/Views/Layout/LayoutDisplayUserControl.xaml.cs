@@ -34,6 +34,7 @@ namespace Winleafs.Wpf.Views.Layout
         private RotateTransform _globalRotationTransform;
         private int _triangleSize;
         private double _conversionRate;
+        private bool _panelsClickable;
 
         //Timer to update the colors periodically to update with schedule
         private Timer _timer;
@@ -41,6 +42,8 @@ namespace Winleafs.Wpf.Views.Layout
         public LayoutDisplayUserControl()
         {
             InitializeComponent();
+
+            _panelsClickable = false;
 
             _timer = new Timer(30000); //Update the colors every 30 seconds
             _timer.Elapsed += OnTimedEvent;
@@ -53,6 +56,11 @@ namespace Winleafs.Wpf.Views.Layout
         {
             _width = width;
             _height = height;
+        }
+
+        public void EnableClick()
+        {
+            _panelsClickable = true;
         }
 
         public void DrawLayout()
@@ -239,7 +247,7 @@ namespace Winleafs.Wpf.Views.Layout
                     {
                         foreach (var triangle in _triangles.Values)
                         {
-                            triangle.Fill = null;
+                            triangle.Fill = Brushes.LightSlateGray;
                         }
                     }
                     else
@@ -266,11 +274,14 @@ namespace Winleafs.Wpf.Views.Layout
 
         private void TriangleClicked(object sender, MouseButtonEventArgs e)
         {
-            var triangle = (Polygon)sender;
-            triangle.Stroke = _selectedBorderColor;
-            triangle.StrokeThickness = 2;
+            if (_panelsClickable)
+            {
+                var triangle = (Polygon)sender;
+                triangle.Stroke = _selectedBorderColor;
+                triangle.StrokeThickness = 2;
 
-            var panelId = _triangles.FirstOrDefault(x => x.Value == sender).Key;
+                var panelId = _triangles.FirstOrDefault(x => x.Value == sender).Key;
+            }
         }
     }
 }
