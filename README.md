@@ -1,6 +1,6 @@
 # ![Icon](Media/winleafs.ico) Winleafs
 
-[![Build Status](https://dev.azure.com/winleafs1/Winleafs/_apis/build/status/StijnOostdam.Winleafs?branchName=master)](https://dev.azure.com/winleafs1/Winleafs/_build/latest?definitionId=1&branchName=master)
+[![Build status](https://dev.azure.com/winleafs1/Winleafs/_apis/build/status/Winleafs-.NET%20Desktop%20with%20SonarCloud-CI)](https://dev.azure.com/winleafs1/Winleafs/_build/latest?definitionId=2)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=winleafs-wpf&metric=alert_status)](https://sonarcloud.io/dashboard?id=winleafs-wpf)
 ![GitHub tag (latest by date)](https://img.shields.io/github/tag-date/StijnOostdam/Winleafs.svg?label=Latest%20Release)
 
