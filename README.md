@@ -6,7 +6,8 @@
 
  Windows application for Nanoleaf lights.
 
-Installers can be found here: https://github.com/StijnOostdam/Winleafs/releases.
+Installers can be found on the [release page](https://github.com/StijnOostdam/Winleafs/releases.
+).
 
 Canvas support currently not guaranteed.
 
