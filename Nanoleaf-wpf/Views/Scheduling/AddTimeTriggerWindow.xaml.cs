@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Input;
 
 using Winleafs.Models.Enums;
+using Winleafs.Models.Exceptions;
 using Winleafs.Models.Models;
 using Winleafs.Models.Models.Effects;
 using Winleafs.Models.Models.Scheduling.Triggers;
@@ -190,8 +191,7 @@ namespace Winleafs.Wpf.Views.Scheduling
                 return UserSettings.Settings.SunsetMinute.Value;
             }
 
-            // TODO throw proper exception
-            return 0;
+            throw new InvalidTriggerTimeException();
         }
 
         private static int GetHoursForTriggerType(TriggerType type)
@@ -206,8 +206,7 @@ namespace Winleafs.Wpf.Views.Scheduling
                 return UserSettings.Settings.SunsetHour.Value;
             }
 
-            // TODO throw proper exception
-            return 0;
+            throw new InvalidTriggerTimeException();
         }
 
         private BeforeAfter GetBeforeAfter()
