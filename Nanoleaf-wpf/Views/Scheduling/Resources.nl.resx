@@ -219,4 +219,10 @@
   <data name="Before" xml:space="preserve">
     <value>Voor</value>
   </data>
+  <data name="AddTriggerTitle" xml:space="preserve">
+    <value>Winleafs trigger toevoegen</value>
+  </data>
+  <data name="ManageScheduleTitle" xml:space="preserve">
+    <value>Winleafs schema aanpassen</value>
+  </data>
 </root>

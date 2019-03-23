@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:scheduling="clr-namespace:Winleafs.Wpf.Views.Scheduling"
         mc:Ignorable="d"
-        Title="Windleafs Manage schedule" Height="600" Width="1756" MinWidth="410" ResizeMode="CanMinimize">
+        Title="{x:Static scheduling:Resources.ManageScheduleTitle}" Height="600" Width="1756" MinWidth="410" ResizeMode="CanMinimize">
 
     <Grid Background="{StaticResource NanoleafBlack}">
         <Grid.RowDefinitions>

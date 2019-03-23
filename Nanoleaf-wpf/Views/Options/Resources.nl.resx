@@ -190,4 +190,7 @@ per IP adres</value>
   <data name="AmbilightControlBrightness" xml:space="preserve">
     <value>Laat ambilight de helderheid besturen</value>
   </data>
+  <data name="WinleafsOptions" xml:space="preserve">
+    <value>Winleafs Opties</value>
+  </data>
 </root>

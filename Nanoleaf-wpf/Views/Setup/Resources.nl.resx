@@ -147,4 +147,7 @@
   <data name="UnknownError" xml:space="preserve">
     <value>Er is een probleem opgetreden tijdens het verbinden met de lampen, probeer de stappen zorgvuldig te volgen.</value>
   </data>
+  <data name="WinleafsSetupTitle" xml:space="preserve">
+    <value>Winleafs Instellen</value>
+  </data>
 </root>

@@ -188,4 +188,7 @@ Hover over me!</value>
     <value>Try deleting the Settings.txt file in %appdata%/Winleafs.
 Click on this button to open the folder.</value>
   </data>
+  <data name="Winleafs" xml:space="preserve">
+    <value>Winleafs</value>
+  </data>
 </root>
