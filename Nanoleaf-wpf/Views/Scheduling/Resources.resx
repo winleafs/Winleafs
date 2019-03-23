@@ -120,6 +120,9 @@
   <data name="Add" xml:space="preserve">
     <value>Add</value>
   </data>
+  <data name="AddTriggerTitle" xml:space="preserve">
+    <value>Winleafs Add Trigger</value>
+  </data>
   <data name="After" xml:space="preserve">
     <value>After</value>
   </data>
@@ -182,6 +185,9 @@
   </data>
   <data name="LocationMissing" xml:space="preserve">
     <value>Please fill in your location before creating a time based trigger</value>
+  </data>
+  <data name="ManageScheduleTitle" xml:space="preserve">
+    <value>Winleafs Manage Schedule</value>
   </data>
   <data name="Monday" xml:space="preserve">
     <value>Monday</value>

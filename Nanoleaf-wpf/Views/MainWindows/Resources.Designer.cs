@@ -268,5 +268,14 @@ namespace Winleafs.Wpf.Views.MainWindows {
                 return ResourceManager.GetString("StuckMessage", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Winleafs.
+        /// </summary>
+        public static string Winleafs {
+            get {
+                return ResourceManager.GetString("Winleafs", resourceCulture);
+            }
+        }
     }
 }

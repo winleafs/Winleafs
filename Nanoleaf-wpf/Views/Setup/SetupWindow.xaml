@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:setup="clr-namespace:Winleafs.Wpf.Views.Setup"
         mc:Ignorable="d"
-        Title="Winleafs setup" Height="760" Width="610" ResizeMode="CanMinimize"
+        Title="{x:Static setup:Resources.WinleafsSetupTitle}" Height="760" Width="610" ResizeMode="CanMinimize"
         WindowStartupLocation="CenterOwner">
     <Grid>
         <setup:DiscoverDeviceControl x:Name="DiscoverDevice" Loaded="DiscoverDevice_Loaded"/>

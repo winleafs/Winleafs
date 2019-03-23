@@ -70,6 +70,15 @@ namespace Winleafs.Wpf.Views.Scheduling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Winleafs Add Trigger.
+        /// </summary>
+        public static string AddTriggerTitle {
+            get {
+                return ResourceManager.GetString("AddTriggerTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to After.
         /// </summary>
         public static string After {
@@ -255,6 +264,15 @@ namespace Winleafs.Wpf.Views.Scheduling {
         public static string LocationMissing {
             get {
                 return ResourceManager.GetString("LocationMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Winleafs Manage Schedule.
+        /// </summary>
+        public static string ManageScheduleTitle {
+            get {
+                return ResourceManager.GetString("ManageScheduleTitle", resourceCulture);
             }
         }
         

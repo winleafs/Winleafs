@@ -149,5 +149,14 @@ namespace Winleafs.Wpf.Views.Setup {
                 return ResourceManager.GetString("UnknownError", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Winleafs Setup.
+        /// </summary>
+        public static string WinleafsSetupTitle {
+            get {
+                return ResourceManager.GetString("WinleafsSetupTitle", resourceCulture);
+            }
+        }
     }
 }

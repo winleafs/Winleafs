@@ -269,6 +269,15 @@ namespace Winleafs.Wpf.Views.Options {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Winleafs Options.
+        /// </summary>
+        public static string WinleafsOptions {
+            get {
+                return ResourceManager.GetString("WinleafsOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Winleafs uses the following APIs.
         /// </summary>
         public static string WinleafsUsesAPIs {

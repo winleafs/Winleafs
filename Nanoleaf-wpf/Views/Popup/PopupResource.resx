@@ -126,6 +126,9 @@
   <data name="NewRelease" xml:space="preserve">
     <value>A new release is available, click the Ok button to navigate to the releases page.</value>
   </data>
+  <data name="NewReleaseTitle" xml:space="preserve">
+    <value>New Release Available</value>
+  </data>
   <data name="Ok" xml:space="preserve">
     <value>Ok</value>
   </data>
