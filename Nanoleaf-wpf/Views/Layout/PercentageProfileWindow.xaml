@@ -8,7 +8,7 @@
         Title="{x:Static local:Resources.PercentageProfileWindow}" Height="828" Width="1000" ResizeMode="CanMinimize">
     <Grid Background="{StaticResource NanoleafBlack}">
         <local:LayoutDisplayUserControl x:Name="LayoutDisplay" Width="800" Height="800" VerticalAlignment="Top" HorizontalAlignment="Right"/>
-        <StackPanel HorizontalAlignment="Left" Width="190" Height="740" VerticalAlignment="Bottom"/>
+        <StackPanel x:Name="StepList" HorizontalAlignment="Left" Width="190" Height="740" VerticalAlignment="Bottom"/>
         <Button HorizontalAlignment="Left" VerticalAlignment="Top" Width="35" Height="35" Background="{x:Null}" BorderBrush="{x:Null}" Click="Plus_Click">
             <Image Source="../../Icons/appbar.add.png"></Image>
         </Button>

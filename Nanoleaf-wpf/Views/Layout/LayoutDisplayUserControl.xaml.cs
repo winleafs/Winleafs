@@ -22,6 +22,8 @@ namespace Winleafs.Wpf.Views.Layout
 
         private static readonly SolidColorBrush _selectedBorderColor = Brushes.LightSteelBlue;
         private static readonly SolidColorBrush _borderColor = (SolidColorBrush)Application.Current.FindResource("NanoleafBlack");
+        private static readonly SolidColorBrush _lockedBorderColor = Brushes.Red;
+        private static readonly SolidColorBrush _highLightColor = Brushes.OrangeRed;
         private int _height;
         private int _width;
 
@@ -37,9 +39,11 @@ namespace Winleafs.Wpf.Views.Layout
         private int _triangleSize;
         private double _conversionRate;
         private bool _panelsClickable;
+        private HashSet<int> _lockedPanelIds;
+        private Dictionary<int, Brush> _highlightOriginalColors; //This dictionary saves the original colors of the triangles when highlighting
 
         //Timer to update the colors periodically to update with schedule
-        private Timer _timer;
+        private Timer _colorTimer;
 
         public LayoutDisplayUserControl()
         {
@@ -47,14 +51,21 @@ namespace Winleafs.Wpf.Views.Layout
 
             CanvasArea.MouseDown += CanvasClicked;
             SelectedPanelIds = new HashSet<int>();
+            _lockedPanelIds = new HashSet<int>();
+            _highlightOriginalColors = new Dictionary<int, Brush>();
 
             _panelsClickable = false;
 
-            _timer = new Timer(30000); //Update the colors every 30 seconds
-            _timer.Elapsed += OnTimedEvent;
-            _timer.AutoReset = true;
-            _timer.Enabled = true;
-            _timer.Start();
+            _colorTimer = new Timer(30000); //Update the colors every 30 seconds
+            _colorTimer.Elapsed += OnTimedEvent;
+            _colorTimer.AutoReset = true;
+            _colorTimer.Enabled = true;
+            _colorTimer.Start();    
+        }
+
+        public void DisableColorTimer()
+        {
+            _colorTimer.Stop();
         }
 
         public void SetWithAndHeight(int width, int height)
@@ -282,10 +293,14 @@ namespace Winleafs.Wpf.Views.Layout
             if (_panelsClickable)
             {
                 var triangle = (Polygon)sender;
-                triangle.Stroke = _selectedBorderColor;
-                triangle.StrokeThickness = 2;
 
-                SelectedPanelIds.Add(_triangles[triangle]);
+                if (!_lockedPanelIds.Contains(_triangles[triangle]))
+                {
+                    triangle.Stroke = _selectedBorderColor;
+                    triangle.StrokeThickness = 2;
+
+                    SelectedPanelIds.Add(_triangles[triangle]);
+                }                
             }
         }
 
@@ -307,8 +322,61 @@ namespace Winleafs.Wpf.Views.Layout
 
             foreach (var triangle in _triangles.Keys)
             {
+                if (!_lockedPanelIds.Contains(_triangles[triangle]))
+                {
+                    triangle.Stroke = _borderColor;
+                    triangle.StrokeThickness = 2;
+                }
+            }
+        }
+
+        public void LockPanels(HashSet<int> panelIds)
+        {
+            foreach (var panelId in panelIds)
+            {
+                var triangle = _triangles.FirstOrDefault(t => t.Value.Equals(panelId)).Key;
+
+                triangle.Stroke = _lockedBorderColor;
+                triangle.StrokeThickness = 2;
+
+                _lockedPanelIds.Add(panelId);
+            }
+        }
+
+        public void UnlockPanels(HashSet<int> panelIds)
+        {
+            foreach (var panelId in panelIds)
+            {
+                var triangle = _triangles.FirstOrDefault(t => t.Value.Equals(panelId)).Key;
+
                 triangle.Stroke = _borderColor;
                 triangle.StrokeThickness = 2;
+
+                _lockedPanelIds.Remove(panelId);
+            }
+        }
+
+        public void HighlightPanels(HashSet<int> panelIds)
+        {
+            foreach (var panelId in panelIds)
+            {
+                var triangle = _triangles.FirstOrDefault(t => t.Value.Equals(panelId)).Key;
+
+                _highlightOriginalColors.Add(panelId, triangle.Fill);
+
+                triangle.Fill = _highLightColor;
+            }
+        }
+
+        public void UnhighlightPanels(HashSet<int> panelIds)
+        {
+            foreach (var panelId in panelIds)
+            {
+                var triangle = _triangles.FirstOrDefault(t => t.Value.Equals(panelId)).Key;
+
+                triangle.Fill = _highlightOriginalColors[panelId];
+
+                _highlightOriginalColors.Remove(panelId);
             }
         }
     }
