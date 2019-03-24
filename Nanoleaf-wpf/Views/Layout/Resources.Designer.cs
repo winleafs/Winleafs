@@ -77,5 +77,14 @@ namespace Winleafs.Wpf.Views.Layout {
                 return ResourceManager.GetString("Redraw", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step.
+        /// </summary>
+        public static string Step {
+            get {
+                return ResourceManager.GetString("Step", resourceCulture);
+            }
+        }
     }
 }

@@ -9,5 +9,8 @@
     <Grid Background="{StaticResource NanoleafBlack}">
         <local:LayoutDisplayUserControl x:Name="LayoutDisplay" Width="800" Height="800" VerticalAlignment="Top" HorizontalAlignment="Right"/>
         <StackPanel HorizontalAlignment="Left" Width="190" Height="740" VerticalAlignment="Bottom"/>
+        <Button HorizontalAlignment="Left" VerticalAlignment="Top" Width="35" Height="35" Background="{x:Null}" BorderBrush="{x:Null}" Click="Plus_Click">
+            <Image Source="../../Icons/appbar.add.png"></Image>
+        </Button>
     </Grid>
 </Window>

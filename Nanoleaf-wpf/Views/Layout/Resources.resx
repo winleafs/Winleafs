@@ -123,4 +123,7 @@
   <data name="Redraw" xml:space="preserve">
     <value>Redraw</value>
   </data>
+  <data name="Step" xml:space="preserve">
+    <value>Step</value>
+  </data>
 </root>
