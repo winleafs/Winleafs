@@ -18,7 +18,7 @@ namespace Winleafs.Wpf.Views.Layout
             _parent = parent;
             _percentageStep = percentageStep;
 
-            Description = $"{Layout.Resources.Step} {stepNumber.ToString()}";
+            Description = $"{Layout.Resources.Step} {stepNumber}";
 
             InitializeComponent();
             DataContext = this;

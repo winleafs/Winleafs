@@ -43,23 +43,26 @@ namespace Winleafs.Wpf.Views.Layout
 
         private void Plus_Click(object sender, RoutedEventArgs e)
         {
-            if (LayoutDisplay.SelectedPanelIds.Count > 0)
+            if (LayoutDisplay.SelectedPanelIds.Count <= 0)
             {
-                var newStep = new PercentageStep();
-
-                foreach (var panelId in LayoutDisplay.SelectedPanelIds)
-                {
-                    newStep.PanelIds.Add(panelId);
-                }                
-
-                _profile.Steps.Add(newStep);
-
-                BuildStepList();
-
-                LayoutDisplay.LockPanels(LayoutDisplay.SelectedPanelIds);
-
-                LayoutDisplay.ClearSelectedPanels();
+                return;
             }
+            
+            var newStep = new PercentageStep();
+
+            foreach (var panelId in LayoutDisplay.SelectedPanelIds)
+            {
+                newStep.PanelIds.Add(panelId);
+            }                
+
+            _profile.Steps.Add(newStep);
+
+            BuildStepList();
+
+            LayoutDisplay.LockPanels(LayoutDisplay.SelectedPanelIds);
+
+            LayoutDisplay.ClearSelectedPanels();
+            
         }
 
         private void BuildStepList()
