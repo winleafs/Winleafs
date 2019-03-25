@@ -61,6 +61,42 @@ namespace Winleafs.Wpf.Views.Layout {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add at least 1 step.
+        /// </summary>
+        public static string AtLeast1Step {
+            get {
+                return ResourceManager.GetString("AtLeast1Step", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The percentage profile is used for effects that set a certain percentage (such as health bars). Click on panels that you want to include in a step and then click on the plus button. Do this until all panels are added or you are satisfied..
+        /// </summary>
+        public static string Info {
+            get {
+                return ResourceManager.GetString("Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Info.
+        /// </summary>
+        public static string InfoTitle {
+            get {
+                return ResourceManager.GetString("InfoTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Percentage profile.
         /// </summary>
         public static string PercentageProfileWindow {
@@ -79,11 +115,29 @@ namespace Winleafs.Wpf.Views.Layout {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Step.
         /// </summary>
         public static string Step {
             get {
                 return ResourceManager.GetString("Step", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Steps.
+        /// </summary>
+        public static string Steps {
+            get {
+                return ResourceManager.GetString("Steps", resourceCulture);
             }
         }
     }

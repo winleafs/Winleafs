@@ -77,7 +77,7 @@ namespace Winleafs.Wpf.Views.Options
             }
             catch
             {
-                PopupCreator.CreateErrorPopup(Options.Resources.InvalidLatitude);
+                PopupCreator.Error(Options.Resources.InvalidLatitude);
                 return;
             }
 
@@ -90,7 +90,7 @@ namespace Winleafs.Wpf.Views.Options
             }
             catch
             {
-                PopupCreator.CreateErrorPopup(Options.Resources.InvalidLongitude);
+                PopupCreator.Error(Options.Resources.InvalidLongitude);
                 return;
             }
 
@@ -106,7 +106,7 @@ namespace Winleafs.Wpf.Views.Options
                 }
                 catch
                 {
-                    PopupCreator.CreateErrorPopup(Options.Resources.SunsetSunriseError);
+                    PopupCreator.Error(Options.Resources.SunsetSunriseError);
                     return;
                 }
 
@@ -168,12 +168,12 @@ namespace Winleafs.Wpf.Views.Options
                 LatitudeTextBox.Text = OptionsViewModel.Latitude;
                 LongitudeTextBox.Text = OptionsViewModel.Longitude;
 
-                PopupCreator.CreateSuccessPopup(string.Format(Options.Resources.LocationDetected, geoIpData.City, geoIpData.Country));
+                PopupCreator.Success(string.Format(Options.Resources.LocationDetected, geoIpData.City, geoIpData.Country));
             }
             catch
             {
 
-                PopupCreator.CreateErrorPopup(Options.Resources.LatLongReceiveError);
+                PopupCreator.Error(Options.Resources.LatLongReceiveError);
             }
         }
 

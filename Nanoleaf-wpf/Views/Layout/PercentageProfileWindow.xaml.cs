@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using Winleafs.Models.Models;
 using Winleafs.Models.Models.Layouts;
+using Winleafs.Wpf.Views.Popup;
 
 namespace Winleafs.Wpf.Views.Layout
 {
@@ -26,6 +27,13 @@ namespace Winleafs.Wpf.Views.Layout
             {
                 var serialized = JsonConvert.SerializeObject(UserSettings.Settings.ActiveDevice.PercentageProfile); //Deep copy the profile when editing
                 _profile = JsonConvert.DeserializeObject<PercentageProfile>(serialized);
+
+                BuildStepList();
+
+                foreach (var step in _profile.Steps)
+                {
+                    LayoutDisplay.LockPanels(step.PanelIds);
+                }
             }
             else
             {
@@ -80,6 +88,31 @@ namespace Winleafs.Wpf.Views.Layout
 
             _profile.Steps.Remove(step);
             BuildStepList();
+        }
+
+        private void Info_Click(object sender, RoutedEventArgs e)
+        {
+            PopupCreator.Popup(Layout.Resources.InfoTitle, Layout.Resources.Info, true);
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void Add_Click(object sender, RoutedEventArgs e)
+        {
+            if (_profile.Steps.Count > 0)
+            {
+                UserSettings.Settings.ActiveDevice.PercentageProfile = _profile;
+                UserSettings.Settings.SaveSettings();
+
+                Close();
+            }
+            else
+            {
+                PopupCreator.Error(Layout.Resources.AtLeast1Step);
+            }
         }
     }
 }

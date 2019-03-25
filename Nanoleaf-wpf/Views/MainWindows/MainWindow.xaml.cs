@@ -203,11 +203,11 @@ namespace Winleafs.Wpf.Views.MainWindows
 
                 UserSettings.Settings.SaveSettings();
 
-                PopupCreator.CreateSuccessPopup(MainWindows.Resources.ReloadSuccessful);
+                PopupCreator.Success(MainWindows.Resources.ReloadSuccessful);
             }
             catch (Exception exception)
             {
-                PopupCreator.CreateErrorPopup(MainWindows.Resources.ReloadFailed);
+                PopupCreator.Error(MainWindows.Resources.ReloadFailed);
                 LogManager.GetCurrentClassLogger().Error(exception, "Failed to reload effects list");
             }
         }

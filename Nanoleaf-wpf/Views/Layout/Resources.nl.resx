@@ -117,13 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AtLeast1Step" xml:space="preserve">
+    <value>Voeg tenminste 1 stap toe</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>Het percentageprofiel wordt gebruikt om effecten te weergeven die een percentage hebben, zoals bijvoorbeeld een HP balk. Klik op panelen die je in een stap wilt hebben en daarna op de plus knop om de stap toe te voegen. Doe dit totdat alle panelen in een stap zitten of totdat je er tevreden mee bent.</value>
+  </data>
+  <data name="InfoTitle" xml:space="preserve">
+    <value>Info</value>
+  </data>
   <data name="PercentageProfileWindow" xml:space="preserve">
-    <value>Percentage profiel</value>
+    <value>Percentageprofiel</value>
   </data>
   <data name="Redraw" xml:space="preserve">
     <value>Hertekenen</value>
   </data>
+  <data name="Save" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
   <data name="Step" xml:space="preserve">
     <value>Stap</value>
+  </data>
+  <data name="Steps" xml:space="preserve">
+    <value>Stappen</value>
   </data>
 </root>

@@ -5,12 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Winleafs.Wpf.Views.Layout"
         mc:Ignorable="d"
-        Title="{x:Static local:Resources.PercentageProfileWindow}" Height="828" Width="1000" ResizeMode="CanMinimize">
+        Title="{x:Static local:Resources.PercentageProfileWindow}" Height="828" Width="1020" ResizeMode="CanMinimize">
     <Grid Background="{StaticResource NanoleafBlack}">
+        <Label Content="{x:Static local:Resources.Steps}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="0,35,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
         <local:LayoutDisplayUserControl x:Name="LayoutDisplay" Width="800" Height="800" VerticalAlignment="Top" HorizontalAlignment="Right"/>
-        <StackPanel x:Name="StepList" HorizontalAlignment="Left" Width="190" Height="740" VerticalAlignment="Bottom"/>
+        <StackPanel x:Name="StepList" HorizontalAlignment="Left" Width="190" Height="682" VerticalAlignment="Bottom" Margin="0,0,0,47"/>
         <Button HorizontalAlignment="Left" VerticalAlignment="Top" Width="35" Height="35" Background="{x:Null}" BorderBrush="{x:Null}" Click="Plus_Click">
             <Image Source="../../Icons/appbar.add.png"></Image>
         </Button>
+        <Button HorizontalAlignment="Left" VerticalAlignment="Top" Width="35" Height="35" Background="{x:Null}" BorderBrush="{x:Null}" Click="Info_Click" Margin="130,0,0,0">
+            <Image Source="../../Icons/appbar.information.png"></Image>
+        </Button>
+        <Button Content="{x:Static local:Resources.Cancel}" HorizontalAlignment="Left" Margin="10,0,0,12" VerticalAlignment="Bottom" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Cancel_Click"/>
+        <Button Content="{x:Static local:Resources.Save}" HorizontalAlignment="Left" Margin="106,0,0,12" VerticalAlignment="Bottom" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Add_Click"/>
     </Grid>
 </Window>
