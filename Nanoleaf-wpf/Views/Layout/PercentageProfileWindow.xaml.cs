@@ -93,11 +93,6 @@ namespace Winleafs.Wpf.Views.Layout
             BuildStepList();
         }
 
-        private void Info_Click(object sender, RoutedEventArgs e)
-        {
-            PopupCreator.Popup(Layout.Resources.InfoTitle, Layout.Resources.Info, true);
-        }
-
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             Close();
