@@ -97,7 +97,7 @@ namespace Winleafs.Wpf.Views.MainWindows
                 catch (Exception e)
                 {
                     _logger.Error(e, "Error during overriding schedule");
-                    PopupCreator.CreateErrorPopup(MainWindows.Resources.OverrideError);
+                    PopupCreator.Error(MainWindows.Resources.OverrideError);
                 }
             }
         }

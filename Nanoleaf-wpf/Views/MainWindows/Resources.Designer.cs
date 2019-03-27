@@ -79,6 +79,15 @@ namespace Winleafs.Wpf.Views.MainWindows {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure?.
+        /// </summary>
+        public static string AreYouSure {
+            get {
+                return ResourceManager.GetString("AreYouSure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Brightness.
         /// </summary>
         public static string Brightness {
@@ -133,6 +142,15 @@ namespace Winleafs.Wpf.Views.MainWindows {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Device actions.
+        /// </summary>
+        public static string DeviceActions {
+            get {
+                return ResourceManager.GetString("DeviceActions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Donate.
         /// </summary>
         public static string Donate {
@@ -183,6 +201,15 @@ namespace Winleafs.Wpf.Views.MainWindows {
         public static string OverrideSchedule {
             get {
                 return ResourceManager.GetString("OverrideSchedule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Percentage profile.
+        /// </summary>
+        public static string PercentageProfile {
+            get {
+                return ResourceManager.GetString("PercentageProfile", resourceCulture);
             }
         }
         
@@ -256,16 +283,6 @@ namespace Winleafs.Wpf.Views.MainWindows {
         public static string Stuck {
             get {
                 return ResourceManager.GetString("Stuck", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Try deleting the Settings.txt file in %appdata%/Winleafs.
-        ///Click on this button to open the folder..
-        /// </summary>
-        public static string StuckMessage {
-            get {
-                return ResourceManager.GetString("StuckMessage", resourceCulture);
             }
         }
         

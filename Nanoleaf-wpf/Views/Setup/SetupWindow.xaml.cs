@@ -48,7 +48,7 @@ namespace Winleafs.Wpf.Views.Setup
         {
             if (UserSettings.HasSettings() && UserSettings.Settings.Devices.Any(d => d.Name.ToLower().Equals(setupViewModel.Name)))
             {
-                PopupCreator.CreateErrorPopup(Setup.Resources.NameAlreadyExists);
+                PopupCreator.Error(Setup.Resources.NameAlreadyExists);
                 return;
             }
 
@@ -95,7 +95,7 @@ namespace Winleafs.Wpf.Views.Setup
             }
             catch
             {
-                PopupCreator.CreateErrorPopup(Setup.Resources.UnknownError);
+                PopupCreator.Error(Setup.Resources.UnknownError);
             }
         }
 

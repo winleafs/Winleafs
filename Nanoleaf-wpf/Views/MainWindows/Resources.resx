@@ -123,6 +123,9 @@
   <data name="AddDevice" xml:space="preserve">
     <value>Add device</value>
   </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>Are you sure?</value>
+  </data>
   <data name="Brightness" xml:space="preserve">
     <value>Brightness</value>
   </data>
@@ -141,6 +144,9 @@
   <data name="DeleteScheduleAreYouSure" xml:space="preserve">
     <value>Are you sure you want to delete this schedule?</value>
   </data>
+  <data name="DeviceActions" xml:space="preserve">
+    <value>Device actions</value>
+  </data>
   <data name="Donate" xml:space="preserve">
     <value>Donate</value>
   </data>
@@ -158,6 +164,9 @@
   </data>
   <data name="OverrideSchedule" xml:space="preserve">
     <value>Override schedule</value>
+  </data>
+  <data name="PercentageProfile" xml:space="preserve">
+    <value>Percentage profile</value>
   </data>
   <data name="ReloadEffects" xml:space="preserve">
     <value>Reload effects</value>
@@ -183,10 +192,6 @@
   <data name="Stuck" xml:space="preserve">
     <value>Encountering issues?
 Hover over me!</value>
-  </data>
-  <data name="StuckMessage" xml:space="preserve">
-    <value>Try deleting the Settings.txt file in %appdata%/Winleafs.
-Click on this button to open the folder.</value>
   </data>
   <data name="Winleafs" xml:space="preserve">
     <value>Winleafs</value>

@@ -5,7 +5,7 @@ namespace Winleafs.Wpf.Views.Popup
 {
     public static class PopupCreator
     {
-        public static void CreatePopup(string title, string body, bool blocking = false)
+        public static void Popup(string title, string body, bool blocking = false)
         {        
             if (!IsWindowOpen())
             {
@@ -20,19 +20,19 @@ namespace Winleafs.Wpf.Views.Popup
             }
         }
 
-        public static void CreateErrorPopup(string body)
+        public static void Error(string body)
         {
             if (!IsWindowOpen())
             {
-                CreatePopup(PopupResource.Error, body, true);
+                Popup(PopupResource.Error, body, true);
             }
         }
 
-        public static void CreateSuccessPopup(string body, bool blocking = false)
+        public static void Success(string body, bool blocking = false)
         {
             if (!IsWindowOpen())
             {
-                CreatePopup(PopupResource.Success, body, true);
+                Popup(PopupResource.Success, body, true);
             }
         }
 

@@ -117,10 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AtLeast1Step" xml:space="preserve">
+    <value>Add at least 1 step</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>The percentage profile is used for effects that set a certain percentage (such as health bars). Click on panels that you want to include in a step and then click on the plus button. Do this until all panels are added or you are satisfied.</value>
+  </data>
+  <data name="InfoTitle" xml:space="preserve">
+    <value>Info</value>
+  </data>
   <data name="PercentageProfileWindow" xml:space="preserve">
     <value>Percentage profile</value>
   </data>
   <data name="Redraw" xml:space="preserve">
     <value>Redraw</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Step" xml:space="preserve">
+    <value>Step</value>
+  </data>
+  <data name="Steps" xml:space="preserve">
+    <value>Steps</value>
   </data>
 </root>

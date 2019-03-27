@@ -117,7 +117,7 @@ namespace Winleafs.Wpf.Views.Scheduling
             }
             catch
             {
-                PopupCreator.CreateErrorPopup(Scheduling.Resources.InvalidHoursValue);
+                PopupCreator.Error(Scheduling.Resources.InvalidHoursValue);
                 return;
             }
 
@@ -132,7 +132,7 @@ namespace Winleafs.Wpf.Views.Scheduling
             }
             catch
             {
-                PopupCreator.CreateErrorPopup(Scheduling.Resources.InvalidMinutesValue);
+                PopupCreator.Error(Scheduling.Resources.InvalidMinutesValue);
                 return;
             }
 
@@ -171,7 +171,7 @@ namespace Winleafs.Wpf.Views.Scheduling
 
             if (!addSucceeded)
             {
-                PopupCreator.CreateErrorPopup(Scheduling.Resources.TriggerOverlaps);
+                PopupCreator.Error(Scheduling.Resources.TriggerOverlaps);
             }
             else
             {
