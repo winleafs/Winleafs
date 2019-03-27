@@ -10,7 +10,8 @@ namespace Winleafs.Wpf.Api.Events
         {
             _events = new Dictionary<string, IEvent>();
 
-            _events.Add("TestProcessEvent", new TestProcessEvent(orchestrator));
+            //TODO: only enable this effect if the user added it in their schedule
+            _events.Add("Borderlands 2 health", new Borderlands2HealthEvent(orchestrator));
         }
 
         public void StopAllEvents()

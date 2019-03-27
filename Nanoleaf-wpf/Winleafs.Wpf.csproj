@@ -95,9 +95,10 @@
     <Compile Include="Api\Effects\CustomEffectsCollection.cs" />
     <Compile Include="Api\Effects\ICustomEffect.cs" />
     <Compile Include="Api\Effects\TurnOffEffect.cs" />
+    <Compile Include="Api\Events\Borderlands2HealthEvent.cs" />
     <Compile Include="Api\Events\EventsCollection.cs" />
     <Compile Include="Api\Events\IEvent.cs" />
-    <Compile Include="Api\Events\TestProcessEvent.cs" />
+    <Compile Include="Api\Events\BaseProcessEvent.cs" />
     <Compile Include="Api\Orchestrator.cs" />
     <Compile Include="Api\OrchestratorCollection.cs" />
     <Compile Include="Api\ScheduleTimer.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="Api\Effects\AmbilightEffect.cs" />
     <Compile Include="Helpers\EnumLocalizer.cs" />
     <Compile Include="Helpers\HSBToRGBConverter.cs" />
+    <Compile Include="Helpers\MemoryReader.cs" />
     <Compile Include="Helpers\ScreenGrabber.cs" />
     <Compile Include="ViewModels\OptionsViewModel.cs" />
     <Compile Include="Views\AppResources.Designer.cs">
