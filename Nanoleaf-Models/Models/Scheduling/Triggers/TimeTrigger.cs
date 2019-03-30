@@ -66,5 +66,15 @@ namespace Winleafs.Models.Models.Scheduling.Triggers
 
             return date;
         }
+
+        public string GetEffectName()
+        {
+            return Effect;
+        }
+
+        public int GetBrightness()
+        {
+            return Brightness;
+        }
     }
 }

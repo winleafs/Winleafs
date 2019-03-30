@@ -13,5 +13,9 @@ namespace Winleafs.Models.Models.Scheduling.Triggers
         /// Used by the view to determine the description
         /// </summary>
         string GetDescription();
+
+        string GetEffectName();
+
+        int GetBrightness();
     }
 }

@@ -67,5 +67,20 @@ namespace Winleafs.Wpf.Api.Events
         {
             _isActive = false;
         }
+
+        public bool IsActive()
+        {
+            return _isActive;
+        }
+
+        public string GetDescription()
+        {
+            return $"{_processName} - {_effectName}";
+        }
+
+        public int GetBrightness()
+        {
+            return _brightness;
+        }
     }
 }

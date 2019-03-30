@@ -84,13 +84,12 @@ namespace Winleafs.Wpf.Api.Effects
             _timer.Stop();
             Thread.Sleep(1000); //Give the last command the time to complete, 1000 is based on testing and a high value (better safe then sorry)
 
-            //TODO: check if the screengrabber can stop
             var ambilightActive = false;
             var name = GetName();
 
             foreach (var device in UserSettings.Settings.Devices)
             {
-                ambilightActive = name.Equals(device.GetActiveEffect());
+                ambilightActive = name.Equals(OrchestratorCollection.GetOrchestratorForDevice(device));
             }
 
             if (!ambilightActive)

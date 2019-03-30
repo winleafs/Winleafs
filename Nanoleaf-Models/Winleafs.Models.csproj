@@ -12,4 +12,8 @@
     <PackageReference Include="NLog" Version="4.5.11" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\Events\" />
+  </ItemGroup>
+
 </Project>

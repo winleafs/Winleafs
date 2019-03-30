@@ -252,12 +252,7 @@ namespace Winleafs.Models.Models
         [Migration("2", "3")]
         private static JToken Migration_2_3(JToken jToken)
         {
-            jToken[nameof(AmbilightControlBrightness)] = false;
-
-            foreach (var deviceToken in jToken[nameof(Devices)])
-            {
-                deviceToken[nameof(Device.ProcessEvents)] = new JArray();
-            }            
+            jToken[nameof(AmbilightControlBrightness)] = false;          
 
             return jToken;
         }

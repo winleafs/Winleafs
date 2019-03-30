@@ -150,5 +150,17 @@ namespace Winleafs.Wpf.Api.Events
         {
             _effectTimer.Stop();
         }
+
+        public bool IsActive()
+        {
+            return _effectTimer.Enabled;
+        }
+
+        public abstract string GetDescription();
+
+        public int GetBrightness()
+        {
+            return -1;
+        }
     }
 }

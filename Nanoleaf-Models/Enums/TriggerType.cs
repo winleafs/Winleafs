@@ -5,6 +5,7 @@
         Time = 0,
         Sunrise = 1,
         Sunset = 2,
-        Event = 3
+        ProcessEvent = 3,
+        Borderlands2HealthEvent = 4
     }
 }

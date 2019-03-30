@@ -1,36 +1,41 @@
 ﻿using System.Collections.Generic;
 using Winleafs.Models.Enums;
+using Winleafs.Models.Models.Scheduling.Triggers;
 
 namespace Winleafs.Wpf.Api.Events
 {
     public class EventsCollection
     {
-        private List<IEvent> _events;
+        public List<IEvent> Events { get; set; }
 
         public EventsCollection(Orchestrator orchestrator)
         {
-            _events = new List<IEvent>();
+            Events = new List<IEvent>();
 
-            foreach (var processEvent in orchestrator.Device.ProcessEvents)
+            if (orchestrator.Device.ActiveSchedule != null)
             {
-                switch (processEvent.ProcessEventType)
+                foreach (var eventTrigger in orchestrator.Device.ActiveSchedule.EventTriggers)
                 {
-                    case ProcessEventType.Process:
-                        _events.Add(new ProcessEvent(orchestrator, processEvent.ProcessName, processEvent.EffectName, processEvent.Brightness));
-                        break;
+                    switch (eventTrigger.GetTriggerType())
+                    {
+                        case TriggerType.ProcessEvent:
+                            var processEventTrigger = (ProcessEventTrigger)eventTrigger;
+                            Events.Add(new ProcessEvent(orchestrator, processEventTrigger.ProcessName, processEventTrigger.EffectName, processEventTrigger.Brightness));
+                            break;
 
-                    case ProcessEventType.Borderlands2Health:
-                        //This will never be reached currently, since users cannot add this type of event yet
-                        _events.Add(new Borderlands2HealthEvent(orchestrator));
-                        break;
+                        case TriggerType.Borderlands2HealthEvent:
+                            //This will never be reached currently, since users cannot add this type of event yet
+                            Events.Add(new Borderlands2HealthEvent(orchestrator));
+                            break;
+                    }
                 }
-            }
+            }            
             
         }
 
         public void StopAllEvents()
         {
-            foreach (var ievent in _events)
+            foreach (var ievent in Events)
             {
                 ievent.StopEvent();
             }

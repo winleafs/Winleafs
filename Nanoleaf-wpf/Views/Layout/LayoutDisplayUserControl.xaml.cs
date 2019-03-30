@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using Winleafs.Api;
 using Winleafs.Models.Models;
+using Winleafs.Wpf.Api;
 using Winleafs.Wpf.Helpers;
 
 namespace Winleafs.Wpf.Views.Layout
@@ -255,7 +256,7 @@ namespace Winleafs.Wpf.Views.Layout
                 var client = NanoleafClient.GetClientForDevice(UserSettings.Settings.ActiveDevice);
 
                 //Get colors of current effect
-                var effect = client.EffectsEndpoint.GetEffectDetails(UserSettings.Settings.ActiveDevice.GetActiveEffect());
+                var effect = client.EffectsEndpoint.GetEffectDetails(OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice).GetActiveEffectName());
 
                 Dispatcher.Invoke(new Action(() =>
                 {

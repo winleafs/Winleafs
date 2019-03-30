@@ -52,7 +52,7 @@ namespace Winleafs.Wpf.Api
         {
             if (_orchestrator.Device.OperationMode == OperationMode.Schedule)
             {
-                var activeTrigger = _orchestrator.Device.GetActiveTrigger();
+                var activeTrigger = _orchestrator.Device.GetActiveTimeTrigger();
 
                 if (activeTrigger == null)
                 {

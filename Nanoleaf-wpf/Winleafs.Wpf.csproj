@@ -173,6 +173,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PopupResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Scheduling\AddProcessEventWindow.xaml.cs">
+      <DependentUpon>AddProcessEventWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Scheduling\AddTimeTriggerWindow.xaml.cs">
       <DependentUpon>AddTimeTriggerWindow.xaml</DependentUpon>
     </Compile>
@@ -189,6 +192,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Scheduling\EventTriggerUserControl.xaml.cs">
+      <DependentUpon>EventTriggerUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Scheduling\TimeTriggerUserControl.xaml.cs">
       <DependentUpon>TimeTriggerUserControl.xaml</DependentUpon>
@@ -259,6 +265,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Scheduling\AddProcessEventWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Scheduling\AddTimeTriggerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -274,6 +284,10 @@
     <Page Include="Views\Scheduling\ManageScheduleWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Scheduling\EventTriggerUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Scheduling\TimeTriggerUserControl.xaml">
       <SubType>Designer</SubType>

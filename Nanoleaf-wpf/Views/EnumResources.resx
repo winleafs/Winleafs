@@ -123,8 +123,14 @@
   <data name="Before" xml:space="preserve">
     <value>Before</value>
   </data>
+  <data name="Borderlands2HealthEvent" xml:space="preserve">
+    <value>Borderlands 2 health event</value>
+  </data>
   <data name="Event" xml:space="preserve">
     <value>Event</value>
+  </data>
+  <data name="ProcessEvent" xml:space="preserve">
+    <value>Process event</value>
   </data>
   <data name="Sunrise" xml:space="preserve">
     <value>Sunrise</value>

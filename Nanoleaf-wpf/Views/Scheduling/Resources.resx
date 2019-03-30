@@ -120,6 +120,9 @@
   <data name="Add" xml:space="preserve">
     <value>Add</value>
   </data>
+  <data name="AddProcessEventTitle" xml:space="preserve">
+    <value>Winleafs Add Process Event</value>
+  </data>
   <data name="AddTriggerTitle" xml:space="preserve">
     <value>Winleafs Add Trigger</value>
   </data>
@@ -194,6 +197,18 @@
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
+  </data>
+  <data name="ProcessName" xml:space="preserve">
+    <value>Process name</value>
+  </data>
+  <data name="ProcessNameAlreadyExists" xml:space="preserve">
+    <value>Process "{0}" already exists for this schedule</value>
+  </data>
+  <data name="ProcessNameCanNotBeEmpty" xml:space="preserve">
+    <value>Process name can not be empty</value>
+  </data>
+  <data name="ProcessNameHelp" xml:space="preserve">
+    <value>Name as found in the taskmanager (without .exe)</value>
   </data>
   <data name="Saturday" xml:space="preserve">
     <value>Saturday</value>

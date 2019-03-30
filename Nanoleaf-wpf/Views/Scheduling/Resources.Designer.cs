@@ -70,6 +70,15 @@ namespace Winleafs.Wpf.Views.Scheduling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Winleafs Add Process Event.
+        /// </summary>
+        public static string AddProcessEventTitle {
+            get {
+                return ResourceManager.GetString("AddProcessEventTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Winleafs Add Trigger.
         /// </summary>
         public static string AddTriggerTitle {
@@ -291,6 +300,42 @@ namespace Winleafs.Wpf.Views.Scheduling {
         public static string Name {
             get {
                 return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Process name.
+        /// </summary>
+        public static string ProcessName {
+            get {
+                return ResourceManager.GetString("ProcessName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Process &quot;{0}&quot; already exists for this schedule.
+        /// </summary>
+        public static string ProcessNameAlreadyExists {
+            get {
+                return ResourceManager.GetString("ProcessNameAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Process name can not be empty.
+        /// </summary>
+        public static string ProcessNameCanNotBeEmpty {
+            get {
+                return ResourceManager.GetString("ProcessNameCanNotBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name as found in the taskmanager (without .exe).
+        /// </summary>
+        public static string ProcessNameHelp {
+            get {
+                return ResourceManager.GetString("ProcessNameHelp", resourceCulture);
             }
         }
         

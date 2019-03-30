@@ -30,12 +30,11 @@ using Winleafs.Wpf.Helpers;
 }
 */
 
-
 namespace Winleafs.Wpf.Api.Events
 {
     public class Borderlands2HealthEvent : BaseProcessPercentageEvent
     {
-        public static readonly string EventName = "Borderlands 2 health";
+        public static readonly string EventName = "Borderlands 2 health"; //TODO: translate
 
         private static readonly string _processName = "Borderlands2";
         private static readonly int _maxHealthBaseAddress = 32506856;
@@ -46,6 +45,11 @@ namespace Winleafs.Wpf.Api.Events
         public Borderlands2HealthEvent(Orchestrator orchestrator) : base(orchestrator, _processName)
         {
 
+        }
+
+        public override string GetDescription()
+        {
+            return EventName;
         }
 
         protected override async Task ApplyEffectLocalAsync(MemoryReader memoryReader)

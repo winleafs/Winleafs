@@ -22,9 +22,9 @@ namespace Winleafs.Wpf.Api
             _orchestratorForDevices.Add(device.IPAddress, new Orchestrator(device));
         }
 
-        public static void FireScheduleTimerForActiveDevice()
+        public static void ResetOrchestratorForActiveDevice()
         {
-            GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice).ScheduleTimer.FireTimer();
+            _orchestratorForDevices[UserSettings.Settings.ActiveDevice.IPAddress] = new Orchestrator(UserSettings.Settings.ActiveDevice);
         }
 
         public static Orchestrator GetOrchestratorForDevice(Device device)

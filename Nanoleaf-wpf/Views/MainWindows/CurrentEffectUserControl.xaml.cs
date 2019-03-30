@@ -2,6 +2,7 @@
 using System.Timers;
 using System.Windows.Controls;
 using Winleafs.Models.Models;
+using Winleafs.Wpf.Api;
 
 namespace Winleafs.Wpf.Views.MainWindows
 {
@@ -33,8 +34,8 @@ namespace Winleafs.Wpf.Views.MainWindows
 
             if (device != null)
             {
-                var effect = device.GetActiveEffect();
-                var brightness = device.GetActiveBrightness();
+                var effect = OrchestratorCollection.GetOrchestratorForDevice(device).GetActiveEffectName();
+                var brightness = OrchestratorCollection.GetOrchestratorForDevice(device).GetActiveBrightness();
 
                 Dispatcher.Invoke(new Action(() =>
                 {

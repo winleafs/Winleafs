@@ -1,6 +1,7 @@
 ﻿using NLog;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Winleafs.Api;
 using Winleafs.Models.Enums;
@@ -22,7 +23,7 @@ namespace Winleafs.Wpf.Api
         public ScheduleTimer ScheduleTimer { get; set; }
 
         private CustomEffectsCollection _customEffects;
-        private EventsCollection _events;
+        private EventsCollection _eventsCollection;
 
         public Orchestrator(Device device)
         {
@@ -30,7 +31,7 @@ namespace Winleafs.Wpf.Api
 
             _customEffects = new CustomEffectsCollection(Device);
             ScheduleTimer = new ScheduleTimer(this);
-            _events = new EventsCollection(this);
+            _eventsCollection = new EventsCollection(this);
 
             if (device.OperationMode == OperationMode.Schedule)
             {
@@ -54,7 +55,7 @@ namespace Winleafs.Wpf.Api
 
             //Stop all things that can activate an effect
             ScheduleTimer.StopTimer();
-            _events.StopAllEvents();
+            _eventsCollection.StopAllEvents();
 
             if (_customEffects.HasActiveEffects())
             {
@@ -108,6 +109,70 @@ namespace Winleafs.Wpf.Api
         public List<Effect> GetCustomEffectAsEffects()
         {
             return _customEffects.GetCustomEffectAsEffects();
+        }
+
+        public string GetActiveEffectName()
+        {
+            switch (Device.OperationMode)
+            {
+                case OperationMode.Manual:
+                    return Device.OverrideEffect;
+
+                case OperationMode.Event:
+                    var activeEvent = _eventsCollection.Events.FirstOrDefault(e => e.IsActive());
+                    
+                    if (activeEvent != null)
+                    {
+                        return activeEvent.GetDescription();
+                    }
+                    return null;
+
+                case OperationMode.Schedule:
+                    var activeTimeTrigger = Device.ActiveSchedule.GetActiveTimeTrigger();
+
+                    if (activeTimeTrigger != null)
+                    {
+                        return activeTimeTrigger.GetEffectName();
+                    }
+                    return null;                    
+                
+                default:
+                    return null;
+            }
+        }
+
+        /// <summary>
+        /// Get the currently active brightness
+        /// </summary>
+        /// <returns>The currently active brightness, -1 if there is no current brightness</returns>
+        public int GetActiveBrightness()
+        {
+            switch (Device.OperationMode)
+            {
+                case OperationMode.Manual:
+                    return Device.OverrideBrightness;
+
+                case OperationMode.Event:
+                    var activeEvent = _eventsCollection.Events.FirstOrDefault(e => e.IsActive());
+
+                    if (activeEvent != null)
+                    {
+                        return activeEvent.GetBrightness();
+                    }
+                    return -1;
+
+                case OperationMode.Schedule:
+                    var activeTimeTrigger = Device.ActiveSchedule.GetActiveTimeTrigger();
+
+                    if (activeTimeTrigger != null)
+                    {
+                        return activeTimeTrigger.Brightness;
+                    }
+                    return -1;
+
+                default:
+                    return -1;
+            }
         }
     }
 }
