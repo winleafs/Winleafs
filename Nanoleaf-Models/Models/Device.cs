@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 
 using Winleafs.Models.Enums;
 using Winleafs.Models.Models.Effects;
+using Winleafs.Models.Models.Events;
 using Winleafs.Models.Models.Layouts;
 using Winleafs.Models.Models.Scheduling;
 using Winleafs.Models.Models.Scheduling.Triggers;
@@ -30,6 +31,7 @@ namespace Winleafs.Models.Models
 
         public List<Schedule> Schedules { get; set; }
         public List<Effect> Effects { get; set; }
+        public List<ProcessEvent> ProcessEvents { get; set; }
 
         public string OverrideEffect { get; set; }
         public int OverrideBrightness { get; set; }
@@ -50,6 +52,8 @@ namespace Winleafs.Models.Models
             Schedules = new List<Schedule>();
 
             Effects = new List<Effect>();
+
+            ProcessEvents = new List<ProcessEvent>();
         }
 
         public TimeTrigger GetActiveTrigger()

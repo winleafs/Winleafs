@@ -92,7 +92,7 @@ namespace Winleafs.Models.Models
 
                     var jtoken = JToken.Parse(json);
 
-                    if (jtoken["JsonVerion"] == null) //TODO: move this to JsonMigrator?
+                    if (jtoken["JsonVersion"] == null) //TODO: move this to JsonMigrator?
                     {
                         jtoken["JsonVersion"] = _latestSettingsVersion;
                     }
@@ -253,6 +253,11 @@ namespace Winleafs.Models.Models
         private static JToken Migration_2_3(JToken jToken)
         {
             jToken[nameof(AmbilightControlBrightness)] = false;
+
+            foreach (var deviceToken in jToken[nameof(Devices)])
+            {
+                deviceToken[nameof(Device.ProcessEvents)] = new JArray();
+            }            
 
             return jToken;
         }
