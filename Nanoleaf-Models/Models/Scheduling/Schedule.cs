@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 using Winleafs.Models.Models.Scheduling.Triggers;
@@ -27,6 +28,7 @@ namespace Winleafs.Models.Models.Scheduling
         /// <summary>
         /// A schedule has a list of time-independent event triggers
         /// </summary>
+        [JsonProperty(ItemTypeNameHandling = TypeNameHandling.All)] //Used such that the correct class is known during serialization
         public List<BaseEventTrigger> EventTriggers { get; set; }
 
         public Schedule(bool addPrograms = false)
