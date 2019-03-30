@@ -7,16 +7,16 @@ using Winleafs.Wpf.Helpers;
 namespace Winleafs.Wpf.Api.Events
 {
     /// <summary>
-    /// Class to test orchestrator
+    /// Base class for process percentage events
     /// </summary>
-    public abstract class BaseProcessEvent : IEvent
+    public abstract class BaseProcessPercentageEvent : IEvent
     {
         private Timer _processCheckTimer;
         private Timer _effectTimer;
         private Orchestrator _orchestrator;
         private string _processName;
 
-        public BaseProcessEvent(Orchestrator orchestrator, string processName)
+        public BaseProcessPercentageEvent(Orchestrator orchestrator, string processName)
         {
             _orchestrator = orchestrator;
             _processName = processName;

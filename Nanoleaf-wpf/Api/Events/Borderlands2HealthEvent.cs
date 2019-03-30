@@ -33,7 +33,7 @@ using Winleafs.Wpf.Helpers;
 
 namespace Winleafs.Wpf.Api.Events
 {
-    public class Borderlands2HealthEvent : BaseProcessEvent
+    public class Borderlands2HealthEvent : BaseProcessPercentageEvent
     {
         private static readonly string _processName = "Borderlands2";
         private static readonly int _maxHealthBaseAddress = 32506856;

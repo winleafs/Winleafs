@@ -98,7 +98,7 @@
     <Compile Include="Api\Events\Borderlands2HealthEvent.cs" />
     <Compile Include="Api\Events\EventsCollection.cs" />
     <Compile Include="Api\Events\IEvent.cs" />
-    <Compile Include="Api\Events\BaseProcessEvent.cs" />
+    <Compile Include="Api\Events\BaseProcessPercentageEvent.cs" />
     <Compile Include="Api\Orchestrator.cs" />
     <Compile Include="Api\OrchestratorCollection.cs" />
     <Compile Include="Api\ScheduleTimer.cs" />
