@@ -17,6 +17,8 @@ namespace Winleafs.Api
         IIdentifyEndpoint IdentifyEndpoint { get; }
 
         ILayoutEndpoint LayoutEndpoint { get; }
+        IExternalControlEndpoint ExternalControlEndpoint { get; }
+
     }
 
     public class NanoleafClient : INanoleafClient

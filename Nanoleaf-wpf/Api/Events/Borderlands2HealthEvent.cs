@@ -35,6 +35,8 @@ namespace Winleafs.Wpf.Api.Events
 {
     public class Borderlands2HealthEvent : BaseProcessPercentageEvent
     {
+        public static readonly string EventName = "Borderlands 2 health";
+
         private static readonly string _processName = "Borderlands2";
         private static readonly int _maxHealthBaseAddress = 32506856;
         private static readonly int[] _maxHealthPointers = { 0, 1760, 664, 940, 88 };
@@ -53,11 +55,15 @@ namespace Winleafs.Wpf.Api.Events
 
             try
             {
+                Debug.WriteLine(maxHealth);
+                Debug.WriteLine(currentHealth);
                 var percentage = (100 / maxHealth) * currentHealth;
+                await ApplyPercentageEffect(percentage);
             }
-            catch
+            catch (Exception e)
             {
-                //Do nothing
+                //TODO: log?
+                Debug.WriteLine(e);
             }
         }
     }

@@ -11,14 +11,14 @@ namespace Winleafs.Wpf.Api.Events
             _events = new Dictionary<string, IEvent>();
 
             //TODO: only enable this effect if the user added it in their schedule
-            _events.Add("Borderlands 2 health", new Borderlands2HealthEvent(orchestrator));
+            _events.Add(Borderlands2HealthEvent.EventName, new Borderlands2HealthEvent(orchestrator));
         }
 
         public void StopAllEvents()
         {
             foreach (var ievent in _events.Values)
             {
-                ievent.StopEffect();
+                ievent.StopEvent();
             }
         }
     }

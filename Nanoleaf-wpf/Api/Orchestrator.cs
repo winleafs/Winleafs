@@ -20,6 +20,7 @@ namespace Winleafs.Wpf.Api
 
         public Device Device { get; set; }
         public ScheduleTimer ScheduleTimer { get; set; }
+
         private CustomEffectsCollection _customEffects;
         private EventsCollection _events;
 

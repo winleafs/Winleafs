@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -24,13 +25,13 @@ namespace Winleafs.Api.Endpoints
         /// <inheritdoc />
         public ExternalControlInfo GetExternalControlInfo()
         {
-            return SendRequest<ExternalControlInfo>("effects", Method.PUT, body: "{\"command\": \"display\", \"animType\": \"extControl\"}");
+            return SendRequest<ExternalControlInfo>("effects", Method.PUT, body: "{\"write\": {\"command\": \"display\", \"animType\": \"extControl\"}}");
         }
 
         /// <inheritdoc />
         public async Task<ExternalControlInfo> GetExternalControlInfoAsync()
         {
-            return await SendRequestAsync<ExternalControlInfo>("effects", Method.PUT, body: "{\"command\": \"display\", \"animType\": \"extControl\"}");
+            return await SendRequestAsync<ExternalControlInfo>("effects", Method.PUT, body: "{\"write\": {\"command\": \"display\", \"animType\": \"extControl\"}}");
         }
 
         /// <inheritdoc />
@@ -47,23 +48,35 @@ namespace Winleafs.Api.Endpoints
                 throw new ArgumentException($"{nameof(transitionTime)} must be equal or greater than 1");
             }
 
-            SendUDPCommand($"1 {panelId} 1 {red} {green} {blue} 0 {transitionTime}");
+            SendUDPCommand(1, panelId, 1, red, green, blue, 0, transitionTime);
         }
 
-        //TODO: keep connection open after prepare and only close on command?
         //TODO: make async
         /// <summary>
         /// Sends a string via UDP Datagram to the Nanoleaf device
+        /// There is no need to keep the connection alive due to datagram <see cref="SocketType.Dgram"/>
         /// </summary>
-        private void SendUDPCommand(string command)
+        private void SendUDPCommand(params int[] numbers)
         {
-            var socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            var data = DataToBytes(numbers);
 
-            var sendbuf = Encoding.ASCII.GetBytes(command);
+            var socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             var endpoint = new IPEndPoint(IPAddress.Parse(_externalControlInfo.StreamIPAddress), _externalControlInfo.StreamPort);
 
-            socket.SendTo(sendbuf, endpoint);
+            socket.SendTo(data, endpoint);
             socket.Close();
+        }
+
+        private byte[] DataToBytes(int[] numbers)
+        {
+            var bytes = new byte[numbers.Length];
+
+            for (var i = 0; i < numbers.Length; i++)
+            {
+                bytes[i] = Convert.ToByte(numbers[i]);
+            }
+
+            return bytes;
         }
     }
 }
