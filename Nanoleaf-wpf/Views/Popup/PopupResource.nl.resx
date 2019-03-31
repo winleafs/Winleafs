@@ -126,6 +126,9 @@
   <data name="NewRelease" xml:space="preserve">
     <value>Een nieuwe versie is beschikbaar, druk op de Ok knop om naar de release pagina te gaan.</value>
   </data>
+  <data name="NewReleaseTitle" xml:space="preserve">
+    <value>Nieuwe versie beschikbaar</value>
+  </data>
   <data name="Ok" xml:space="preserve">
     <value>Ok</value>
   </data>

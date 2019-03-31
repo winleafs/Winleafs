@@ -76,7 +76,7 @@ namespace Winleafs.Wpf.Views
             catch (SettingsFileJsonException ex)
             {
                 _logger.Fatal("Corrupt settings file found", ex);
-                PopupCreator.CreateErrorPopup(string.Format(AppResources.CorruptSettings, UserSettings.SettingsFolder + "Settings.json"));
+                PopupCreator.Error(string.Format(AppResources.CorruptSettings, UserSettings.SettingsFolder + "Settings.json"));
                 return;
             }
 

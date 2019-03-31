@@ -62,9 +62,6 @@ namespace Winleafs.Wpf.Views.MainWindows
             OverrideScheduleUserControl.MainWindow = this;
 
             DataContext = this;
-
-            //var percentageWindow = new PercentageProfileWindow();
-            //percentageWindow.Show();
         }
 
         private void SelectedDeviceChanged()
@@ -162,7 +159,11 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         private void Reset_Click(object sender, RoutedEventArgs e)
         {
-            App.ResetAllSettings(this);
+            var messageBoxResult = MessageBox.Show(string.Format(MainWindows.Resources.AreYouSure, _selectedDevice), MainWindows.Resources.DeleteConfirmation, MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                App.ResetAllSettings(this);
+            }
         }
 
         private class TaskbarDoubleClickCommand : ICommand
@@ -199,11 +200,11 @@ namespace Winleafs.Wpf.Views.MainWindows
 
                 UserSettings.Settings.SaveSettings();
 
-                PopupCreator.CreateSuccessPopup(MainWindows.Resources.ReloadSuccessful);
+                PopupCreator.Success(MainWindows.Resources.ReloadSuccessful);
             }
             catch (Exception exception)
             {
-                PopupCreator.CreateErrorPopup(MainWindows.Resources.ReloadFailed);
+                PopupCreator.Error(MainWindows.Resources.ReloadFailed);
                 LogManager.GetCurrentClassLogger().Error(exception, "Failed to reload effects list");
             }
         }
@@ -213,17 +214,7 @@ namespace Winleafs.Wpf.Views.MainWindows
             var setupWindow = new SetupWindow(false);
             setupWindow.Show();
         }
-
-        private void Stuck_Click(object sender, RoutedEventArgs e)
-        {
-            // Unsure if this would be needed but don't want to execute any program.
-            // Doing this won't do much and it will be difficult to execute a program like this but it's better than nothing.
-            if (!File.Exists(UserSettings.SettingsFolder))
-            {
-                Process.Start(UserSettings.SettingsFolder);
-            }
-        }
-
+        
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
             Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
@@ -232,7 +223,7 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         private void RemoveDevice_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult messageBoxResult = MessageBox.Show(string.Format(MainWindows.Resources.DeleteDeviceAreYouSure, _selectedDevice), MainWindows.Resources.DeleteConfirmation, MessageBoxButton.YesNo);
+            var messageBoxResult = MessageBox.Show(string.Format(MainWindows.Resources.DeleteDeviceAreYouSure, _selectedDevice), MainWindows.Resources.DeleteConfirmation, MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 UserSettings.Settings.DeleteActiveDevice();
@@ -260,6 +251,12 @@ namespace Winleafs.Wpf.Views.MainWindows
         {
             CurrentEffectUserControl.UpdateLabels();
             LayoutDisplay.UpdateColors();
+        }
+
+        private void PercentageProfile_Click(object sender, RoutedEventArgs e)
+        {
+            var percentageProfileWindow = new PercentageProfileWindow();
+            percentageProfileWindow.Show();
         }
     }
 }

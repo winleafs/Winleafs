@@ -147,4 +147,7 @@
   <data name="UnknownError" xml:space="preserve">
     <value>Something went wrong when connecting to your lights. Please follow the steps carefully.</value>
   </data>
+  <data name="WinleafsSetupTitle" xml:space="preserve">
+    <value>Winleafs Setup</value>
+  </data>
 </root>

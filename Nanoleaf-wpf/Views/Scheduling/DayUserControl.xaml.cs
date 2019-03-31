@@ -31,7 +31,7 @@ namespace Winleafs.Wpf.Views.Scheduling
         {
             if (!UserSettings.Settings.SunriseHour.HasValue)
             {
-                PopupCreator.CreateErrorPopup(Scheduling.Resources.LocationMissing);
+                PopupCreator.Error(Scheduling.Resources.LocationMissing);
                 return;
             }
 

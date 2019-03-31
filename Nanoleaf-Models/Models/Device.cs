@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 
 using Winleafs.Models.Enums;
 using Winleafs.Models.Models.Effects;
+using Winleafs.Models.Models.Layouts;
 using Winleafs.Models.Models.Scheduling;
 using Winleafs.Models.Models.Scheduling.Triggers;
 
@@ -32,6 +33,8 @@ namespace Winleafs.Models.Models
 
         public string OverrideEffect { get; set; }
         public int OverrideBrightness { get; set; }
+
+        public PercentageProfile PercentageProfile { get;set;}
 
         [JsonIgnore]
         public Schedule ActiveSchedule

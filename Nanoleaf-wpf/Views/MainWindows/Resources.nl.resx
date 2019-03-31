@@ -154,10 +154,6 @@ Hover over deze knop.</value>
   <data name="Brightness" xml:space="preserve">
     <value>Helderheid</value>
   </data>
-  <data name="StuckMessage" xml:space="preserve">
-    <value>Probeer om het bestand Settings.txt in %appdata%/Winleafs te verwijderen.
-Druk op deze knop om naar de map te gaan.</value>
-  </data>
   <data name="OverrideError" xml:space="preserve">
     <value>Een onverwacht probleem is opgetreden tijdens het overschrijven</value>
   </data>
@@ -187,5 +183,14 @@ Druk op deze knop om naar de map te gaan.</value>
   </data>
   <data name="DeleteScheduleAreYouSure" xml:space="preserve">
     <value>Weet je zeker dat je dit schema wilt verwijderen?</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>Weet je het zeker?</value>
+  </data>
+  <data name="DeviceActions" xml:space="preserve">
+    <value>Apparaat acties</value>
+  </data>
+  <data name="PercentageProfile" xml:space="preserve">
+    <value>Percentagprofiel</value>
   </data>
 </root>

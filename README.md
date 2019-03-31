@@ -1,8 +1,13 @@
-# Winleafs
+# ![Icon](Media/winleafs.ico) Winleafs
 
-Windows application for Nanoleaf lights.
+[![Build status](https://dev.azure.com/winleafs1/Winleafs/_apis/build/status/Winleafs-.NET%20Desktop%20with%20SonarCloud-CI)](https://dev.azure.com/winleafs1/Winleafs/_build/latest?definitionId=2)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=winleafs-wpf&metric=alert_status)](https://sonarcloud.io/dashboard?id=winleafs-wpf)
+![GitHub tag (latest by date)](https://img.shields.io/github/tag-date/StijnOostdam/Winleafs.svg?label=Latest%20Release)
 
-Installers can be found here: https://github.com/StijnOostdam/Winleafs/releases.
+ Windows application for Nanoleaf lights.
+
+Installers can be found on the [release page](https://github.com/StijnOostdam/Winleafs/releases
+).
 
 Canvas support currently not guaranteed.
 
@@ -39,8 +44,9 @@ If you are experiencing problems, try deleting the settings file from %appdata%/
 
 1. The Nanoleaf device must be connected to the same router as your Windows device. This means that 2.4Ghz and 5Ghz networks are also seperated as the Nanoleaf connects to 2.4Ghz
 
-## APIs used
+## Projects and APIs used
 
 - [Icanhazip](http://icanhazip.com) To retrieve your IP address
 - [IP-API](http://ip-api.com/) To get your location based on your IP address
 - [Sunset Sunrise](https://sunrise-sunset.org/api) To get sunrise and sunset times based on your location
+- [Modern UI Icons](http://modernuiicons.com/) Icons in this project

@@ -88,6 +88,15 @@ namespace Winleafs.Wpf.Views.Popup {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Release Available.
+        /// </summary>
+        public static string NewReleaseTitle {
+            get {
+                return ResourceManager.GetString("NewReleaseTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
         public static string Ok {
