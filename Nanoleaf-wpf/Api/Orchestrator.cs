@@ -59,13 +59,7 @@ namespace Winleafs.Wpf.Api
             Device.OperationMode = operationMode;
 
             //Stop all things that can activate an effect
-            ScheduleTimer.StopTimer();
-            _eventTriggersCollection.StopAllEvents();
-
-            if (_customEffects.HasActiveEffects())
-            {
-                await _customEffects.DeactivateAllEffects();
-            }
+            await StopAllEffectsAndEvents();
 
             //If its a schedule, then the schedule timer can start again. The events and override manage their own effect activation
             if (Device.OperationMode == OperationMode.Schedule)
@@ -74,6 +68,20 @@ namespace Winleafs.Wpf.Api
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Stops all currently running effects and events
+        /// </summary>
+        private async Task StopAllEffectsAndEvents()
+        {
+            ScheduleTimer.StopTimer();
+            _eventTriggersCollection.StopAllEvents();
+
+            if (_customEffects.HasActiveEffects())
+            {
+                await _customEffects.DeactivateAllEffects();
+            }
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Winleafs.Models.Enums;
 using Winleafs.Models.Models;
 
 namespace Winleafs.Wpf.Api
@@ -27,6 +28,7 @@ namespace Winleafs.Wpf.Api
 
         public static void ResetOrchestratorForActiveDevice()
         {
+            _orchestratorForDevices[UserSettings.Settings.ActiveDevice.IPAddress].TrySetOperationMode(OperationMode.Schedule).GetAwaiter().GetResult(); //Reset operation mode back to schedule if an effect or event was active
             _orchestratorForDevices[UserSettings.Settings.ActiveDevice.IPAddress] = new Orchestrator(UserSettings.Settings.ActiveDevice);
         }
 
