@@ -193,4 +193,7 @@ per IP adres</value>
   <data name="WinleafsOptions" xml:space="preserve">
     <value>Winleafs Opties</value>
   </data>
+  <data name="AmbilightBrightnessInfo" xml:space="preserve">
+    <value>Opmerking: ververssnelheid wanneer ambilight de helderheid aanstuurt is maximaal 5, omdat helderheid en kleur aanpassen 2 aparte acties zijn en de lichten een maximale ververssnelheid hebben van 10hz.</value>
+  </data>
 </root>

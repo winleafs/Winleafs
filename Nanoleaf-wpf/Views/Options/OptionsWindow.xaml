@@ -68,6 +68,7 @@
                         </CheckBox.LayoutTransform>
                     </CheckBox>
                     <TextBlock HorizontalAlignment="Left" Margin="10,287,0,0" TextWrapping="Wrap" Text="{x:Static local:Resources.AmbilightResetMessage}" VerticalAlignment="Top" Width="469" FontSize="20" Foreground="White" Grid.ColumnSpan="2"/>
+                    <TextBlock Margin="19,194,9.667,0" TextWrapping="Wrap" Text="{x:Static local:Resources.AmbilightBrightnessInfo}" VerticalAlignment="Top" FontSize="15" Foreground="White" Grid.ColumnSpan="2" Height="88"/>
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static local:Resources.Disclaimer}">

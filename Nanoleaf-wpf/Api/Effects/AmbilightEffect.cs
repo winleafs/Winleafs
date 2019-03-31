@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
@@ -28,6 +27,11 @@ namespace Winleafs.Wpf.Api.Effects
                 timerRefreshRate = 1000 / UserSettings.Settings.AmbilightRefreshRatePerSecond;
             }
 
+            if (_controlBrightness && timerRefreshRate < 1000 / 5)
+            {
+                timerRefreshRate = 1000 / 5; //When this effect also control brightness, we can update a maximum of 5 times per second since setting brightness is a different action
+            }
+
             _timer = new System.Timers.Timer(timerRefreshRate);
             _timer.Elapsed += OnTimedEvent;
             _timer.AutoReset = true;
@@ -46,8 +50,6 @@ namespace Winleafs.Wpf.Api.Effects
             {
                 var hue = (int)color.GetHue();
                 var sat = (int)(color.GetSaturation() * 100);
-
-
 
                 // Sets the color of the nanoleaf with the logging disabled.
                 // Seeing as a maximum of 10 requests per second can be set this will generate a lot of unwanted log data.
