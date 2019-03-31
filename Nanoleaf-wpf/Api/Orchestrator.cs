@@ -23,7 +23,7 @@ namespace Winleafs.Wpf.Api
         public ScheduleTimer ScheduleTimer { get; set; }
 
         private CustomEffectsCollection _customEffects;
-        private EventsCollection _eventsCollection;
+        private EventTriggersCollection _eventTriggersCollection;
 
         public Orchestrator(Device device)
         {
@@ -31,7 +31,7 @@ namespace Winleafs.Wpf.Api
 
             _customEffects = new CustomEffectsCollection(Device);
             ScheduleTimer = new ScheduleTimer(this);
-            _eventsCollection = new EventsCollection(this);
+            _eventTriggersCollection = new EventTriggersCollection(this);
 
             if (device.OperationMode == OperationMode.Schedule)
             {
@@ -55,7 +55,7 @@ namespace Winleafs.Wpf.Api
 
             //Stop all things that can activate an effect
             ScheduleTimer.StopTimer();
-            _eventsCollection.StopAllEvents();
+            _eventTriggersCollection.StopAllEvents();
 
             if (_customEffects.HasActiveEffects())
             {
@@ -119,11 +119,11 @@ namespace Winleafs.Wpf.Api
                     return Device.OverrideEffect;
 
                 case OperationMode.Event:
-                    var activeEvent = _eventsCollection.Events.FirstOrDefault(e => e.IsActive());
+                    var activeEvent = _eventTriggersCollection.Events.FirstOrDefault(e => e.IsActive());
                     
                     if (activeEvent != null)
                     {
-                        return activeEvent.GetDescription();
+                        return activeEvent.GetTrigger().GetEffectName();
                     }
                     return null;
 
@@ -153,11 +153,11 @@ namespace Winleafs.Wpf.Api
                     return Device.OverrideBrightness;
 
                 case OperationMode.Event:
-                    var activeEvent = _eventsCollection.Events.FirstOrDefault(e => e.IsActive());
+                    var activeEvent = _eventTriggersCollection.Events.FirstOrDefault(e => e.IsActive());
 
                     if (activeEvent != null)
                     {
-                        return activeEvent.GetBrightness();
+                        return activeEvent.GetTrigger().GetBrightness();
                     }
                     return -1;
 

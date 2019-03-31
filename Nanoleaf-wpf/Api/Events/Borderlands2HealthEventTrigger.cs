@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Winleafs.Models.Models.Scheduling.Triggers;
 using Winleafs.Wpf.Helpers;
 
 /*
@@ -32,7 +33,7 @@ using Winleafs.Wpf.Helpers;
 
 namespace Winleafs.Wpf.Api.Events
 {
-    public class Borderlands2HealthEvent : BaseProcessPercentageEvent
+    public class Borderlands2HealthEventTrigger : BaseProcessPercentageEventTrigger
     {
         public static readonly string EventName = "Borderlands 2 health"; //TODO: translate
 
@@ -42,14 +43,9 @@ namespace Winleafs.Wpf.Api.Events
         private static readonly int _currentHealthBaseAddress = 32506856;
         private static readonly int[] _currentHealthPointers = { 0, 1760, 664, 940, 108 };
 
-        public Borderlands2HealthEvent(Orchestrator orchestrator) : base(orchestrator, _processName)
+        public Borderlands2HealthEventTrigger(ITrigger trigger, Orchestrator orchestrator) : base(trigger, orchestrator, _processName)
         {
 
-        }
-
-        public override string GetDescription()
-        {
-            return EventName;
         }
 
         protected override async Task ApplyEffectLocalAsync(MemoryReader memoryReader)

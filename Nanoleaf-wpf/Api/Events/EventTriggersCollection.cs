@@ -1,16 +1,15 @@
 ﻿using System.Collections.Generic;
 using Winleafs.Models.Enums;
-using Winleafs.Models.Models.Scheduling.Triggers;
 
 namespace Winleafs.Wpf.Api.Events
 {
-    public class EventsCollection
+    public class EventTriggersCollection
     {
-        public List<IEvent> Events { get; set; }
+        public List<IEventTrigger> Events { get; set; }
 
-        public EventsCollection(Orchestrator orchestrator)
+        public EventTriggersCollection(Orchestrator orchestrator)
         {
-            Events = new List<IEvent>();
+            Events = new List<IEventTrigger>();
 
             if (orchestrator.Device.ActiveSchedule != null)
             {
@@ -19,13 +18,13 @@ namespace Winleafs.Wpf.Api.Events
                     switch (eventTrigger.GetTriggerType())
                     {
                         case TriggerType.ProcessEvent:
-                            var processEventTrigger = (ProcessEventTrigger)eventTrigger;
-                            Events.Add(new ProcessEvent(orchestrator, processEventTrigger.ProcessName, processEventTrigger.EffectName, processEventTrigger.Brightness));
+                            var processEventTrigger = (Models.Models.Scheduling.Triggers.ProcessEventTrigger)eventTrigger;
+                            Events.Add(new ProcessEventTrigger(eventTrigger, orchestrator, processEventTrigger.ProcessName, processEventTrigger.EffectName, processEventTrigger.Brightness));
                             break;
 
                         case TriggerType.Borderlands2HealthEvent:
                             //This will never be reached currently, since users cannot add this type of event yet
-                            Events.Add(new Borderlands2HealthEvent(orchestrator));
+                            Events.Add(new Borderlands2HealthEventTrigger(eventTrigger, orchestrator));
                             break;
                     }
                 }

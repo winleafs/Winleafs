@@ -95,11 +95,11 @@
     <Compile Include="Api\Effects\CustomEffectsCollection.cs" />
     <Compile Include="Api\Effects\ICustomEffect.cs" />
     <Compile Include="Api\Effects\TurnOffEffect.cs" />
-    <Compile Include="Api\Events\Borderlands2HealthEvent.cs" />
-    <Compile Include="Api\Events\EventsCollection.cs" />
-    <Compile Include="Api\Events\IEvent.cs" />
-    <Compile Include="Api\Events\BaseProcessPercentageEvent.cs" />
-    <Compile Include="Api\Events\ProcessEvent.cs" />
+    <Compile Include="Api\Events\Borderlands2HealthEventTrigger.cs" />
+    <Compile Include="Api\Events\EventTriggersCollection.cs" />
+    <Compile Include="Api\Events\IEventTrigger.cs" />
+    <Compile Include="Api\Events\BaseProcessPercentageEventTrigger.cs" />
+    <Compile Include="Api\Events\ProcessEventTrigger.cs" />
     <Compile Include="Api\Orchestrator.cs" />
     <Compile Include="Api\OrchestratorCollection.cs" />
     <Compile Include="Api\ScheduleTimer.cs" />

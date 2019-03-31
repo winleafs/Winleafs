@@ -8,15 +8,17 @@ using Winleafs.Api;
 using Winleafs.Api.Endpoints.Interfaces;
 using Winleafs.Models.Enums;
 using Winleafs.Models.Models.Layouts;
+using Winleafs.Models.Models.Scheduling.Triggers;
 using Winleafs.Wpf.Helpers;
 
 namespace Winleafs.Wpf.Api.Events
 {
     /// <summary>
-    /// Base class for process percentage events
+    /// Base class for process percentage event triggers
     /// </summary>
-    public abstract class BaseProcessPercentageEvent : IEvent
+    public abstract class BaseProcessPercentageEventTrigger : IEventTrigger
     {
+        private ITrigger _trigger;
         private Timer _processCheckTimer;
         private Timer _effectTimer;
         private Orchestrator _orchestrator;
@@ -28,8 +30,9 @@ namespace Winleafs.Wpf.Api.Events
         private SolidColorBrush _whiteColor = Brushes.White;
         private SolidColorBrush _redColor = Brushes.DarkRed;
 
-        public BaseProcessPercentageEvent(Orchestrator orchestrator, string processName)
+        public BaseProcessPercentageEventTrigger(ITrigger trigger, Orchestrator orchestrator, string processName)
         {
+            _trigger = trigger;
             _orchestrator = orchestrator;
             _processName = processName;
 
@@ -156,11 +159,9 @@ namespace Winleafs.Wpf.Api.Events
             return _effectTimer.Enabled;
         }
 
-        public abstract string GetDescription();
-
-        public int GetBrightness()
+        public ITrigger GetTrigger()
         {
-            return -1;
+            return _trigger;
         }
     }
 }

@@ -2,11 +2,13 @@
 using System.Threading.Tasks;
 using System.Timers;
 using Winleafs.Models.Enums;
+using Winleafs.Models.Models.Scheduling.Triggers;
 
 namespace Winleafs.Wpf.Api.Events
 {
-    public class ProcessEvent : IEvent
+    public class ProcessEventTrigger : IEventTrigger
     {
+        private ITrigger _trigger;
         private Timer _processCheckTimer;
         private Orchestrator _orchestrator;
         private string _processName;
@@ -14,8 +16,9 @@ namespace Winleafs.Wpf.Api.Events
         private int _brightness;
         private bool _isActive;
 
-        public ProcessEvent(Orchestrator orchestrator, string processName, string effectName, int brightness)
+        public ProcessEventTrigger(ITrigger trigger, Orchestrator orchestrator, string processName, string effectName, int brightness)
         {
+            _trigger = trigger;
             _orchestrator = orchestrator;
             _processName = processName;
             _effectName = effectName;
@@ -73,14 +76,9 @@ namespace Winleafs.Wpf.Api.Events
             return _isActive;
         }
 
-        public string GetDescription()
+        public ITrigger GetTrigger()
         {
-            return $"{_processName} - {_effectName}";
-        }
-
-        public int GetBrightness()
-        {
-            return _brightness;
+            return _trigger;
         }
     }
 }
