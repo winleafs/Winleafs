@@ -185,7 +185,7 @@ namespace Winleafs.Wpf.Api
                     return -1;
 
                 case OperationMode.Schedule:
-                    var activeTimeTrigger = Device.ActiveSchedule.GetActiveTimeTrigger();
+                    var activeTimeTrigger = Device.GetActiveTimeTrigger();
 
                     if (activeTimeTrigger != null)
                     {
