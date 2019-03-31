@@ -58,7 +58,7 @@
                         <ColumnDefinition Width="253*"/>
                     </Grid.ColumnDefinitions>
                     <Label Content="{x:Static local:Resources.AmbilightRefreshRatePerSecond}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White" Grid.ColumnSpan="2"/>
-                    <Label Content="{Binding AmbilightRefreshRatePerSecond}" HorizontalAlignment="Left" Margin="288,10,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White" Grid.Column="1"/>
+                    <Label Content="{Binding AmbilightRefreshRatePerSecond}" HorizontalAlignment="Left" Margin="315,10,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White" Grid.Column="1"/>
                     <Slider HorizontalAlignment="Left" Margin="70,52,0,0" VerticalAlignment="Top" Width="200" Minimum="1" Maximum="10" Value="{Binding AmbilightRefreshRatePerSecond}" IsSnapToTickEnabled="True" TickFrequency="1" Grid.Column="1"/>
                     <Label Content="{x:Static local:Resources.AmbilightMonitor}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,86,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White" Grid.ColumnSpan="2"/>
                     <ComboBox HorizontalAlignment="Left" Margin="19,128,0,0" VerticalAlignment="Top" Width="366" SelectedItem="{Binding SelectedMonitor}" ItemsSource="{Binding MonitorNames}" Grid.ColumnSpan="2"/>
