@@ -95,9 +95,11 @@
     <Compile Include="Api\Effects\CustomEffectsCollection.cs" />
     <Compile Include="Api\Effects\ICustomEffect.cs" />
     <Compile Include="Api\Effects\TurnOffEffect.cs" />
-    <Compile Include="Api\Events\EventsCollection.cs" />
-    <Compile Include="Api\Events\IEvent.cs" />
-    <Compile Include="Api\Events\TestProcessEvent.cs" />
+    <Compile Include="Api\Events\Borderlands2HealthEventTrigger.cs" />
+    <Compile Include="Api\Events\EventTriggersCollection.cs" />
+    <Compile Include="Api\Events\IEventTrigger.cs" />
+    <Compile Include="Api\Events\BaseProcessPercentageEventTrigger.cs" />
+    <Compile Include="Api\Events\ProcessEventTrigger.cs" />
     <Compile Include="Api\Orchestrator.cs" />
     <Compile Include="Api\OrchestratorCollection.cs" />
     <Compile Include="Api\ScheduleTimer.cs" />
@@ -105,6 +107,7 @@
     <Compile Include="Api\Effects\AmbilightEffect.cs" />
     <Compile Include="Helpers\EnumLocalizer.cs" />
     <Compile Include="Helpers\HsbToRgbConverter.cs" />
+    <Compile Include="Helpers\MemoryReader.cs" />
     <Compile Include="Helpers\ScreenGrabber.cs" />
     <Compile Include="ViewModels\OptionsViewModel.cs" />
     <Compile Include="Views\AppResources.Designer.cs">
@@ -170,6 +173,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PopupResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Scheduling\AddProcessEventWindow.xaml.cs">
+      <DependentUpon>AddProcessEventWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Scheduling\AddTimeTriggerWindow.xaml.cs">
       <DependentUpon>AddTimeTriggerWindow.xaml</DependentUpon>
     </Compile>
@@ -186,6 +192,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Scheduling\EventTriggerUserControl.xaml.cs">
+      <DependentUpon>EventTriggerUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Scheduling\TimeTriggerUserControl.xaml.cs">
       <DependentUpon>TimeTriggerUserControl.xaml</DependentUpon>
@@ -256,6 +265,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Scheduling\AddProcessEventWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Scheduling\AddTimeTriggerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -271,6 +284,10 @@
     <Page Include="Views\Scheduling\ManageScheduleWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Scheduling\EventTriggerUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Scheduling\TimeTriggerUserControl.xaml">
       <SubType>Designer</SubType>

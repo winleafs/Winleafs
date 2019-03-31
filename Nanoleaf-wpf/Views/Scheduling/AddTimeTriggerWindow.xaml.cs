@@ -68,12 +68,12 @@ namespace Winleafs.Wpf.Views.Scheduling
             Effects = new List<Effect>(UserSettings.Settings.ActiveDevice.Effects);
             Effects.InsertRange(0, OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice).GetCustomEffectAsEffects());
 
-            _triggerTypeMapping = new Dictionary<string, TriggerType>();
-
-            foreach (var triggerType in Enum.GetValues(typeof(TriggerType)).Cast<TriggerType>())
+            _triggerTypeMapping = new Dictionary<string, TriggerType>()
             {
-                _triggerTypeMapping.Add(EnumLocalizer.GetLocalizedEnum(triggerType), triggerType);
-            }
+                {  EnumLocalizer.GetLocalizedEnum(TriggerType.Time), TriggerType.Time },
+                {  EnumLocalizer.GetLocalizedEnum(TriggerType.Sunrise), TriggerType.Sunrise },
+                {  EnumLocalizer.GetLocalizedEnum(TriggerType.Sunset), TriggerType.Sunset }
+            };
 
             DataContext = this;
 
@@ -105,6 +105,12 @@ namespace Winleafs.Wpf.Views.Scheduling
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrEmpty(SelectedEffect))
+            {
+                PopupCreator.Error(Scheduling.Resources.MustChooseEffect);
+                return;
+            }
+
             int hours;
             int minutes;
             try

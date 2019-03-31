@@ -10,11 +10,11 @@
         <Label Content="{x:Static local:Resources.Trigger}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
         <ComboBox HorizontalAlignment="Left" Margin="91,18,0,0" VerticalAlignment="Top" Width="120" SelectedItem="{Binding SelectedTriggerType}" ItemsSource="{Binding TriggerTypes}"/>
 
-        <Button Content="{x:Static local:Resources.Cancel}" HorizontalAlignment="Left" Margin="10,184,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Cancel_Click"/>
-        <Button Content="{x:Static local:Resources.Add}" HorizontalAlignment="Left" Margin="139,184,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Add_Click"/>
+        <Button Content="{x:Static local:Resources.Cancel}" HorizontalAlignment="Left" Margin="10,0,0,10" Width="84" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Cancel_Click" Height="27" VerticalAlignment="Bottom"/>
+        <Button Content="{x:Static local:Resources.Add}" Margin="139,0,10,10" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Add_Click" Height="27" VerticalAlignment="Bottom"/>
         <Label Content="{x:Static local:Resources.Time}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Foreground="White" x:Name="TimeLabel"/>
-            <TextBox HorizontalAlignment="Left" Height="23" Margin="93,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="47" x:Name="Hours" PreviewTextInput="NumberValidationTextBox" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White"/>
-            <Label Content=":" HorizontalAlignment="Left" Margin="145,38,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Height="30"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="93,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="47" x:Name="Hours" PreviewTextInput="NumberValidationTextBox" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White"/>
+        <Label Content=":" HorizontalAlignment="Left" Margin="145,38,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Height="30"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="164,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="47" x:Name="Minutes" PreviewTextInput="NumberValidationTextBox" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White"/>
         <Label Content="{x:Static local:Resources.Effect}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
         <ComboBox HorizontalAlignment="Left" Margin="91,101,0,0" VerticalAlignment="Top" Width="120" SelectedItem="{Binding SelectedEffect}" ItemsSource="{Binding Effects}"/>

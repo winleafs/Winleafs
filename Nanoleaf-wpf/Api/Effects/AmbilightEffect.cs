@@ -42,16 +42,18 @@ namespace Winleafs.Wpf.Api.Effects
             Task.Run(() => SetColor());
         }
 
+        /// <summary>
+        ///Sets the color of the nanoleaf with the logging disabled.
+        /// Seeing as a maximum of 10 requests per second can be set this will generate a lot of unwanted log data.
+        /// See https://github.com/StijnOostdam/Winleafs/issues/40.
+        /// </summary>
         private async Task SetColor()
         {
             var color = ScreenGrabber.GetColor();
 
             var hue = (int)color.GetHue();
             var sat = (int)(color.GetSaturation() * 100);
-
-            // Sets the color of the nanoleaf with the logging disabled.
-            // Seeing as a maximum of 10 requests per second can be set this will generate a lot of unwanted log data.
-            // See https://github.com/StijnOostdam/Winleafs/issues/40.
+            
             if (_controlBrightness)
             {
                 //For brightness calculation see: https://stackoverflow.com/a/596243 and https://www.w3.org/TR/AERT/#color-contrast
@@ -78,6 +80,9 @@ namespace Winleafs.Wpf.Api.Effects
             _timer.Start();
         }
 
+        /// <summary>
+        /// Stops the timer and gives it 1 second to complete. Also stop the screengrabber if no other ambilight effects are active
+        /// </summary>
         public async Task Deactivate()
         {
             _timer.Stop();
@@ -88,7 +93,7 @@ namespace Winleafs.Wpf.Api.Effects
 
             foreach (var device in UserSettings.Settings.Devices)
             {
-                ambilightActive = name.Equals(device.GetActiveEffect());
+                ambilightActive = name.Equals(OrchestratorCollection.GetOrchestratorForDevice(device));
             }
 
             if (!ambilightActive)

@@ -79,11 +79,29 @@ namespace Winleafs.Wpf.Views {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Borderlands 2 health event.
+        /// </summary>
+        internal static string Borderlands2HealthEvent {
+            get {
+                return ResourceManager.GetString("Borderlands2HealthEvent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Event.
         /// </summary>
         internal static string Event {
             get {
                 return ResourceManager.GetString("Event", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Process event.
+        /// </summary>
+        internal static string ProcessEvent {
+            get {
+                return ResourceManager.GetString("ProcessEvent", resourceCulture);
             }
         }
         

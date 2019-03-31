@@ -93,8 +93,7 @@ namespace Winleafs.Models.Models
 
                     var jtoken = JToken.Parse(json);
 
-                    //TODO: move this to JsonMigrator?
-                    if (jtoken["JsonVerion"] == null)
+                    if (jtoken["JsonVersion"] == null) //TODO: move this to JsonMigrator?
                     {
                         jtoken["JsonVersion"] = _latestSettingsVersion;
                     }
@@ -255,7 +254,7 @@ namespace Winleafs.Models.Models
         [Migration("2", "3")]
         private static JToken Migration_2_3(JToken jToken)
         {
-            jToken[nameof(AmbilightControlBrightness)] = false;
+            jToken[nameof(AmbilightControlBrightness)] = false;          
 
             return jToken;
         }

@@ -52,11 +52,11 @@ namespace Winleafs.Models.Models
             Effects = new List<Effect>();
         }
 
-        public TimeTrigger GetActiveTrigger()
+        public TimeTrigger GetActiveTimeTrigger()
         {
             if (Schedules.Any(s => s.Active))
             {
-                return Schedules.FirstOrDefault(s => s.Active).GetActiveTrigger();
+                return Schedules.FirstOrDefault(s => s.Active).GetActiveTimeTrigger();
             }
             else //It is possible that a user deletes the active schedule, then there is no active program
             {
@@ -82,37 +82,6 @@ namespace Winleafs.Models.Models
         public override string ToString()
         {
             return $"{Name} ({IPAddress}:{Port})";
-        }
-
-        public string GetActiveEffect()
-        {
-            if (OperationMode == OperationMode.Manual)
-            {
-                return OverrideEffect;
-            }
-            else
-            {
-                var activeTrigger = GetActiveTrigger();
-
-                return activeTrigger != null ? GetActiveTrigger().Effect : null;
-            }
-        }
-
-        /// <summary>
-        /// Returns -1 when nothing is active
-        /// </summary>
-        public int GetActiveBrightness()
-        {
-            if (OperationMode == OperationMode.Manual)
-            {
-                return OverrideBrightness;
-            }
-            else
-            {
-                var activeTrigger = GetActiveTrigger();
-
-                return activeTrigger != null ? activeTrigger.Brightness : -1;
-            }
         }
     }
 }

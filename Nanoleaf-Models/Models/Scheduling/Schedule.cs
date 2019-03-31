@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 using Winleafs.Models.Models.Scheduling.Triggers;
@@ -27,7 +28,8 @@ namespace Winleafs.Models.Models.Scheduling
         /// <summary>
         /// A schedule has a list of time-independent event triggers
         /// </summary>
-        public List<IEventTrigger> EventTriggers { get; set; }
+        [JsonProperty(ItemTypeNameHandling = TypeNameHandling.All)] //Used such that the correct class is known during serialization
+        public List<BaseEventTrigger> EventTriggers { get; set; }
 
         public Schedule(bool addPrograms = false)
         {
@@ -45,7 +47,7 @@ namespace Winleafs.Models.Models.Scheduling
                 Programs.Add(new Program());
             }
 
-            EventTriggers = new List<IEventTrigger>();
+            EventTriggers = new List<BaseEventTrigger>();
         }
 
         private bool ScheduleHasTriggers()
@@ -68,7 +70,7 @@ namespace Winleafs.Models.Models.Scheduling
             return dayOfWeek == DayOfWeek.Sunday ? 6 : (int)dayOfWeek - 1;
         }
 
-        public TimeTrigger GetActiveTrigger()
+        public TimeTrigger GetActiveTimeTrigger()
         {
             if (ScheduleHasTriggers())
             {

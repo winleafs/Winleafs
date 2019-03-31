@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Controls;
-
 using Winleafs.Models.Enums;
 using Winleafs.Models.Models.Scheduling.Triggers;
+using Winleafs.Wpf.Views.Popup;
 
 namespace Winleafs.Wpf.Views.Scheduling
 {
@@ -11,7 +11,7 @@ namespace Winleafs.Wpf.Views.Scheduling
     /// </summary>
     public partial class EventUserControl : UserControl
     {
-        public List<IEventTrigger> EventTriggers { get; set; }
+        public List<BaseEventTrigger> EventTriggers { get; set; }
 
         public EventUserControl()
         {
@@ -20,13 +20,47 @@ namespace Winleafs.Wpf.Views.Scheduling
 
         private void Plus_Click(object sender, System.Windows.RoutedEventArgs e)
         {
+            var addProcessEventWindow = new AddProcessEventWindow(this);
+            addProcessEventWindow.ShowDialog();
         }
 
-        public void TriggerAdded(TriggerType triggerType, int hours, int minutes, string effect)
+        public bool ProcessEventTriggerAdded(string processName, string effectName, int brightness)
         {
-            //TODO: add trigger
+            if (string.IsNullOrWhiteSpace(processName))
+            {
+                PopupCreator.Error(Scheduling.Resources.ProcessNameCanNotBeEmpty);
+                return false;
+            }
+
+            processName = processName.Trim();
+
+            if (string.IsNullOrEmpty(effectName))
+            {
+                PopupCreator.Error(Scheduling.Resources.MustChooseEffect);
+                return false;
+            }
+
+            foreach (var eventTrigger in EventTriggers)
+            {
+                var processEventTrigger = eventTrigger as ProcessEventTrigger;
+                if (processEventTrigger != null && processEventTrigger.ProcessName.ToLower().Equals(processName.ToLower()))
+                {
+                    PopupCreator.Error(string.Format(Scheduling.Resources.ProcessNameAlreadyExists, processName));
+                    return false;
+                }
+            }
+
+            EventTriggers.Add(new ProcessEventTrigger()
+            {
+                Brightness = brightness,
+                EffectName = effectName,
+                EventTriggerType = TriggerType.ProcessEvent,
+                ProcessName = processName
+            });
 
             BuildTriggerList();
+
+            return true;
         }
 
         public void BuildTriggerList()
@@ -35,9 +69,15 @@ namespace Winleafs.Wpf.Views.Scheduling
 
             foreach (var trigger in EventTriggers)
             {
-                //TODO: add event trigger user controls
-                ////TriggerList.Children.Add(new TimeTriggerUserControl(trigger));
+                TriggerList.Children.Add(new EventTriggerUserControl(this, trigger));
             }
+        }
+
+        public void DeleteTrigger(BaseEventTrigger trigger)
+        {
+            EventTriggers.Remove(trigger);
+
+            BuildTriggerList();
         }
     }
 }
