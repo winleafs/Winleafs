@@ -23,8 +23,6 @@ namespace Winleafs.Api.Test
                 nanoLeafClient.EffectsEndpoint.SetSelectedEffectAsync(effectName).GetAwaiter().GetResult();
                 Console.WriteLine("Set {0}", effectName);
             }
-
-            Console.ReadLine();
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Input;
 
 using Winleafs.Models.Enums;
+using Winleafs.Models.Exceptions;
 using Winleafs.Models.Models;
 using Winleafs.Models.Models.Effects;
 using Winleafs.Models.Models.Scheduling.Triggers;
@@ -58,7 +59,7 @@ namespace Winleafs.Wpf.Views.Scheduling
                 return _triggerTypeMapping.Keys;
             }
         }
-        
+
         public List<Effect> Effects { get; set; }
 
         public AddTimeTriggerWindow(DayUserControl parent)
@@ -104,8 +105,8 @@ namespace Winleafs.Wpf.Views.Scheduling
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            int hours = 0;
-            int minutes = 0;
+            int hours;
+            int minutes;
             try
             {
                 hours = Convert.ToInt32(Hours.Text, CultureInfo.InvariantCulture);
@@ -136,11 +137,11 @@ namespace Winleafs.Wpf.Views.Scheduling
                 return;
             }
 
-            var addSucceeded = false;
+            bool addSucceeded;
 
             if (_triggerType == TriggerType.Sunrise || _triggerType == TriggerType.Sunset)
             {
-                var beforeAfter = BeforeRadioButton.IsChecked.Value ? BeforeAfter.Before : (AfterRadioButton.IsChecked.Value ? BeforeAfter.After : BeforeAfter.None);
+                var beforeAfter = GetBeforeAfter();
 
                 addSucceeded = _parent.TriggerAdded(new TimeTrigger
                 {
@@ -150,8 +151,8 @@ namespace Winleafs.Wpf.Views.Scheduling
                     Effect = SelectedEffect,
                     ExtraHours = hours,
                     ExtraMinutes = minutes,
-                    Hours = _triggerType == TriggerType.Sunrise ? UserSettings.Settings.SunriseHour.Value : UserSettings.Settings.SunsetHour.Value,
-                    Minutes = _triggerType == TriggerType.Sunrise ? UserSettings.Settings.SunriseMinute.Value : UserSettings.Settings.SunsetMinute.Value
+                    Hours = GetHoursForTriggerType(_triggerType),
+                    Minutes = GetMinutesForTriggerType(_triggerType)
                 });
             }
             else
@@ -172,11 +173,53 @@ namespace Winleafs.Wpf.Views.Scheduling
             if (!addSucceeded)
             {
                 PopupCreator.Error(Scheduling.Resources.TriggerOverlaps);
+                return;
             }
-            else
+
+            Close();
+        }
+
+        private static int GetMinutesForTriggerType(TriggerType type)
+        {
+            if (type == TriggerType.Sunrise && UserSettings.Settings.SunriseMinute.HasValue)
             {
-                Close();
+                return UserSettings.Settings.SunriseMinute.Value;
             }
+
+            if (UserSettings.Settings.SunsetMinute.HasValue)
+            {
+                return UserSettings.Settings.SunsetMinute.Value;
+            }
+
+            throw new InvalidTriggerTimeException();
+        }
+
+        private static int GetHoursForTriggerType(TriggerType type)
+        {
+            if (type == TriggerType.Sunrise && UserSettings.Settings.SunriseHour.HasValue)
+            {
+                return UserSettings.Settings.SunriseHour.Value;
+            }
+
+            if (UserSettings.Settings.SunsetHour.HasValue)
+            {
+                return UserSettings.Settings.SunsetHour.Value;
+            }
+
+            throw new InvalidTriggerTimeException();
+        }
+
+        private BeforeAfter GetBeforeAfter()
+        {
+            if (BeforeRadioButton.IsChecked != null && BeforeRadioButton.IsChecked.Value)
+            {
+                return BeforeAfter.After;
+            }
+
+            return AfterRadioButton.IsChecked != null
+                   && AfterRadioButton.IsChecked.Value
+                       ? BeforeAfter.After
+                       : BeforeAfter.None;
         }
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)

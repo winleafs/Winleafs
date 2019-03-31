@@ -12,10 +12,8 @@ namespace Winleafs.Wpf.Api
 {
     public class ScheduleTimer
     {
-        private static Logger _logger = LogManager.GetCurrentClassLogger();
-
-        private Timer _timer;
-        private Orchestrator _orchestrator;
+        private readonly Timer _timer;
+        private readonly Orchestrator _orchestrator;
 
         public ScheduleTimer(Orchestrator orchestrator)
         {

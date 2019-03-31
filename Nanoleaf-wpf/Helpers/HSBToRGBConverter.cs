@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace Winleafs.Wpf.Helpers
 {
-    public class HSBToRGBConverter
+    public static class HsbToRgbConverter
     {
         public static System.Windows.Media.Color ConvertToMediaColor(float hue, float saturation, float brightness)
         {
@@ -47,13 +47,15 @@ namespace Winleafs.Wpf.Helpers
                     // Red is the dominant color
 
                     case 0:
+                    // Just in case we overshoot on our math by a little, we put these here. Since its a switch it won't slow us down at all to put these here.
+                    case 6:
+                    case -1:
                         R = brightness;
                         G = tv;
                         B = pv;
                         break;
 
                     // Green is the dominant color
-
                     case 1:
                         R = qv;
                         G = brightness;
@@ -66,7 +68,6 @@ namespace Winleafs.Wpf.Helpers
                         break;
 
                     // Blue is the dominant color
-
                     case 3:
                         R = pv;
                         G = qv;
@@ -79,21 +80,7 @@ namespace Winleafs.Wpf.Helpers
                         break;
 
                     // Red is the dominant color
-
                     case 5:
-                        R = brightness;
-                        G = pv;
-                        B = qv;
-                        break;
-
-                    // Just in case we overshoot on our math by a little, we put these here. Since its a switch it won't slow us down at all to put these here.
-
-                    case 6:
-                        R = brightness;
-                        G = tv;
-                        B = pv;
-                        break;
-                    case -1:
                         R = brightness;
                         G = pv;
                         B = qv;

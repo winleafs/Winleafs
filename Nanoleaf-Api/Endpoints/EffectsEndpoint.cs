@@ -59,7 +59,7 @@ namespace Winleafs.Api.Endpoints
         {
             if (string.IsNullOrEmpty(effectName))
             {
-                return null;
+                return Task.FromResult((Effect)null);
             }
 
             return SendRequestAsync<Effect>("effects", Method.PUT, body: "{\"write\" : {\"command\" : \"request\", \"animName\" : \"" + effectName + "\"}}");

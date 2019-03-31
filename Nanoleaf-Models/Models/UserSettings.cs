@@ -1,11 +1,12 @@
-﻿using System;
+﻿using JsonMigrator;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using JsonMigrator;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Winleafs.Models.Enums;
+using Winleafs.Models.Exceptions;
 using Winleafs.Models.Models.Scheduling;
 
 namespace Winleafs.Models.Models
@@ -54,7 +55,7 @@ namespace Winleafs.Models.Models
         public int AmbilightMonitorIndex { get; set; }
         public bool AmbilightControlBrightness { get; set; }
 
-        public string UserLocale { get; set; }        
+        public string UserLocale { get; set; }
         #endregion
 
         #region Methods
@@ -74,14 +75,14 @@ namespace Winleafs.Models.Models
         {
             if (!HasSettings())
             {
-                var userSettings = new UserSettings();
-
-                //Set defaults here
-                userSettings.Devices = new List<Device>();
-                userSettings.AmbilightRefreshRatePerSecond = 1;
-                userSettings.AmbilightMonitorIndex = 0;
-                userSettings.JsonVersion = _latestSettingsVersion;
-
+                var userSettings = new UserSettings
+                {
+                    // Defaults
+                    Devices = new List<Device>(),
+                    AmbilightRefreshRatePerSecond = 1,
+                    AmbilightMonitorIndex = 0,
+                    JsonVersion = _latestSettingsVersion
+                };
                 _settings = userSettings;
             }
             else
@@ -92,7 +93,8 @@ namespace Winleafs.Models.Models
 
                     var jtoken = JToken.Parse(json);
 
-                    if (jtoken["JsonVerion"] == null) //TODO: move this to JsonMigrator?
+                    //TODO: move this to JsonMigrator?
+                    if (jtoken["JsonVerion"] == null)
                     {
                         jtoken["JsonVersion"] = _latestSettingsVersion;
                     }
@@ -196,15 +198,16 @@ namespace Winleafs.Models.Models
                     {
                         foreach (var trigger in program.Triggers)
                         {
-                            if (trigger.TriggerType == TriggerType.Sunrise)
+                            switch (trigger.TriggerType)
                             {
-                                trigger.Hours = sunriseHour;
-                                trigger.Minutes = sunriseMinute;
-                            }
-                            else if (trigger.TriggerType == TriggerType.Sunset)
-                            {
-                                trigger.Hours = sunsetHour;
-                                trigger.Minutes = sunsetMinute;
+                                case TriggerType.Sunrise:
+                                    trigger.Hours = sunriseHour;
+                                    trigger.Minutes = sunriseMinute;
+                                    break;
+                                case TriggerType.Sunset:
+                                    trigger.Hours = sunsetHour;
+                                    trigger.Minutes = sunsetMinute;
+                                    break;
                             }
                         }
 
@@ -235,7 +238,7 @@ namespace Winleafs.Models.Models
             {
                 ActiveDevice.ActiveInGUI = false;
             }
-            
+
             newActiveDevice.ActiveInGUI = true;
 
             SaveSettings();
@@ -257,13 +260,5 @@ namespace Winleafs.Models.Models
             return jToken;
         }
         #endregion
-    }
-
-    public class SettingsFileJsonException : Exception
-    {
-        public SettingsFileJsonException(Exception e) : base("Error loading settings, corrupt JSON", e)
-        {
-
-        }
     }
 }

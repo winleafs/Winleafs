@@ -32,7 +32,6 @@ namespace Winleafs.Api.Endpoints
             var jObject = JObject.Parse(response.Content);
             Client._token = jObject["auth_token"].ToString();
 
-            // TODO Save token somewhere.
             return Client._token;
         }
     }

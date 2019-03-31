@@ -104,7 +104,7 @@
     <Compile Include="Helpers\ContextMenuLeftClickBehavior.cs" />
     <Compile Include="Api\Effects\AmbilightEffect.cs" />
     <Compile Include="Helpers\EnumLocalizer.cs" />
-    <Compile Include="Helpers\HSBToRGBConverter.cs" />
+    <Compile Include="Helpers\HsbToRgbConverter.cs" />
     <Compile Include="Helpers\ScreenGrabber.cs" />
     <Compile Include="ViewModels\OptionsViewModel.cs" />
     <Compile Include="Views\AppResources.Designer.cs">

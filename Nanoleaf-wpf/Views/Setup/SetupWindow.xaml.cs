@@ -74,7 +74,7 @@ namespace Winleafs.Wpf.Views.Setup
             Task.Run(() => Pair());
         }
 
-        private async void Pair()
+        private async Task Pair()
         {
             try
             {

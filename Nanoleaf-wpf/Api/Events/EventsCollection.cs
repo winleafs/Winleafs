@@ -4,13 +4,12 @@ namespace Winleafs.Wpf.Api.Events
 {
     public class EventsCollection
     {
-        private Dictionary<string, IEvent> _events;
+        private readonly Dictionary<string, IEvent> _events;
 
         public EventsCollection(Orchestrator orchestrator)
         {
-            _events = new Dictionary<string, IEvent>();
+            _events = new Dictionary<string, IEvent> { { "TestProcessEvent", new TestProcessEvent(orchestrator) } };
 
-            _events.Add("TestProcessEvent", new TestProcessEvent(orchestrator));
         }
 
         public void StopAllEvents()
