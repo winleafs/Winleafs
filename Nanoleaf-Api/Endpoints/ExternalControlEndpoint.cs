@@ -51,7 +51,6 @@ namespace Winleafs.Api.Endpoints
             SendUDPCommand(1, panelId, 1, red, green, blue, 0, transitionTime);
         }
 
-        //TODO: make async
         /// <summary>
         /// Sends a string via UDP Datagram to the Nanoleaf device
         /// There is no need to keep the connection alive due to datagram <see cref="SocketType.Dgram"/>

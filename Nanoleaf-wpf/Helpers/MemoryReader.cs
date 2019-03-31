@@ -9,19 +9,15 @@ namespace Winleafs.Wpf.Helpers
 {
     public class MemoryReader : IDisposable
     {
-        const int PROCESS_WM_READ = 0x0010;
-
-        private Process process;
-        private IntPtr processHandle;
-        private IntPtr moduleAddress;
-        private bool is64Bit = false;
+        private readonly IntPtr processHandle;
+        private readonly IntPtr moduleAddress;
 
         #region MemoryReading
         [DllImport("kernel32.dll")]
-        public static extern IntPtr OpenProcess(int dwDesiredAccess, bool bInheritHandle, int dwProcessId);
+        private static extern IntPtr OpenProcess(int dwDesiredAccess, bool bInheritHandle, int dwProcessId);
 
         [DllImport("kernel32.dll")]
-        public static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, int dwSize, out int lpNumberOfBytesRead);
+        private static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, int dwSize, out int lpNumberOfBytesRead);
 
         public static byte[] ReadMemory(IntPtr targetProcess, IntPtr address, int readCount, out int bytesRead)
         {
@@ -33,19 +29,18 @@ namespace Winleafs.Wpf.Helpers
         }
 
         [DllImport("kernel32.dll")]
-        public static extern int CloseHandle(IntPtr objectHandle);
+        private static extern int CloseHandle(IntPtr objectHandle);
         #endregion
 
         public MemoryReader(Process process)
         {
-            this.process = process;
             processHandle = OpenProcess(0x0010, false, process.Id);
             moduleAddress = process.MainModule.BaseAddress;
         }
 
         public MemoryReader(string processName)
         {
-            process = Process.GetProcessesByName(processName).FirstOrDefault();
+            var process = Process.GetProcessesByName(processName).FirstOrDefault();
             processHandle = OpenProcess(0x0010, false, process.Id);
             moduleAddress = process.MainModule.BaseAddress;
         }

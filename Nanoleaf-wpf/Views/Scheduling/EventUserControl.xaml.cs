@@ -36,13 +36,11 @@ namespace Winleafs.Wpf.Views.Scheduling
 
             foreach (var eventTrigger in EventTriggers)
             {
-                if (eventTrigger is ProcessEventTrigger)
+                var processEventTrigger = eventTrigger as ProcessEventTrigger;
+                if (processEventTrigger != null && processEventTrigger.ProcessName.ToLower().Equals(processName.ToLower()))
                 {
-                    if (((ProcessEventTrigger)eventTrigger).ProcessName.ToLower().Equals(processName.ToLower()))
-                    {
-                        PopupCreator.Error(string.Format(Scheduling.Resources.ProcessNameAlreadyExists, processName));
-                        return false;
-                    }
+                    PopupCreator.Error(string.Format(Scheduling.Resources.ProcessNameAlreadyExists, processName));
+                    return false;
                 }
             }
 

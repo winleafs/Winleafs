@@ -18,19 +18,18 @@ namespace Winleafs.Wpf.Api.Events
     /// </summary>
     public abstract class BaseProcessPercentageEventTrigger : IEventTrigger
     {
-        private ITrigger _trigger;
-        private Timer _processCheckTimer;
-        private Timer _effectTimer;
-        private Orchestrator _orchestrator;
-        private string _processName;
-        private IExternalControlEndpoint _externalControlEndpoint;
-        private PercentageProfile _percentageProfile;
-        private float _percentagePerStep;
-        private int _amountOfSteps;
-        private SolidColorBrush _whiteColor = Brushes.White;
-        private SolidColorBrush _redColor = Brushes.DarkRed;
+        private readonly ITrigger _trigger;
+        private readonly Timer _effectTimer;
+        private readonly Orchestrator _orchestrator;
+        private readonly string _processName;
+        private readonly IExternalControlEndpoint _externalControlEndpoint;
+        private readonly PercentageProfile _percentageProfile;
+        private readonly float _percentagePerStep;
+        private readonly int _amountOfSteps;
+        private readonly SolidColorBrush _whiteColor = Brushes.White;
+        private readonly SolidColorBrush _redColor = Brushes.DarkRed;
 
-        public BaseProcessPercentageEventTrigger(ITrigger trigger, Orchestrator orchestrator, string processName)
+        protected BaseProcessPercentageEventTrigger(ITrigger trigger, Orchestrator orchestrator, string processName)
         {
             _trigger = trigger;
             _orchestrator = orchestrator;
@@ -61,12 +60,12 @@ namespace Winleafs.Wpf.Api.Events
                 _percentagePerStep = 100f / _amountOfSteps;
             }            
 
-            _processCheckTimer = new Timer(10000); //TODO: increase
-            _processCheckTimer.Elapsed += CheckProcess;
-            _processCheckTimer.AutoReset = true;
-            _processCheckTimer.Start();
+            var processCheckTimer = new Timer(60000);
+            processCheckTimer.Elapsed += CheckProcess;
+            processCheckTimer.AutoReset = true;
+            processCheckTimer.Start();
 
-            _effectTimer = new Timer(1000); //TODO: tune
+            _effectTimer = new Timer(100);
             _effectTimer.Elapsed += ApplyEffect;
             _effectTimer.AutoReset = true;
         }

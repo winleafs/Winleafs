@@ -11,12 +11,11 @@ namespace Winleafs.Wpf.Api.Events
     /// </summary>
     public class ProcessEventTrigger : IEventTrigger
     {
-        private ITrigger _trigger;
-        private Timer _processCheckTimer;
-        private Orchestrator _orchestrator;
-        private string _processName;
-        private string _effectName;
-        private int _brightness;
+        private readonly ITrigger _trigger;
+        private readonly Orchestrator _orchestrator;
+        private readonly string _processName;
+        private readonly string _effectName;
+        private readonly int _brightness;
         private bool _isActive;
 
         public ProcessEventTrigger(ITrigger trigger, Orchestrator orchestrator, string processName, string effectName, int brightness)
@@ -28,10 +27,10 @@ namespace Winleafs.Wpf.Api.Events
             _brightness = brightness;
             _isActive = false;
 
-            _processCheckTimer = new Timer(60000);
-            _processCheckTimer.Elapsed += CheckProcess;
-            _processCheckTimer.AutoReset = true;
-            _processCheckTimer.Start();
+            var processCheckTimer = new Timer(60000);
+            processCheckTimer.Elapsed += CheckProcess;
+            processCheckTimer.AutoReset = true;
+            processCheckTimer.Start();
         }
 
         private void CheckProcess(object source, ElapsedEventArgs e)
