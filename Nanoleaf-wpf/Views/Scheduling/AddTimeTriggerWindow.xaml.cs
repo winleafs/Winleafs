@@ -172,7 +172,7 @@ namespace Winleafs.Wpf.Views.Scheduling
 
             if (!addSucceeded)
             {
-                PopupCreator.CreateErrorPopup(Scheduling.Resources.TriggerOverlaps);
+                PopupCreator.Error(Scheduling.Resources.TriggerOverlaps);
                 return;
             }
 
