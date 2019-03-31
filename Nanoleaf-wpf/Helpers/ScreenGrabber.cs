@@ -12,17 +12,16 @@ namespace Winleafs.Wpf.Helpers
     public static class ScreenGrabber
     {
         private static Logger _logger = LogManager.GetCurrentClassLogger();
-        private static object _lockObject;
+        private static object _lockObject = new object();
 
         private static System.Timers.Timer _timer;
         private static Rectangle _screenBounds;
 
         private static Color _color;
 
+#pragma warning disable S3963 // "static" fields should be initialized inline
         static ScreenGrabber()
         {
-            _lockObject = new object();
-
             var timerRefreshRate = 1000;
 
             if (UserSettings.Settings.AmbilightRefreshRatePerSecond > 0 && UserSettings.Settings.AmbilightRefreshRatePerSecond <= 10)
@@ -38,8 +37,8 @@ namespace Winleafs.Wpf.Helpers
             EnumDisplaySettings(Screen.AllScreens[UserSettings.Settings.AmbilightMonitorIndex].DeviceName, -1, ref monitorInfo);
 
             _screenBounds = new Rectangle(monitorInfo.dmPositionX, monitorInfo.dmPositionY, monitorInfo.dmPelsWidth, monitorInfo.dmPelsHeight);
-
         }
+#pragma warning restore S3963 // "static" fields should be initialized inline
 
         private static Bitmap CaptureScreen()
         {
@@ -158,7 +157,9 @@ namespace Winleafs.Wpf.Helpers
 
 
         [DllImport("user32.dll")]
+#pragma warning disable S4214 // "P/Invoke" methods should not be visible
         public static extern bool EnumDisplaySettings(string lpszDeviceName, int iModeNum, ref MonitorInfo monitorInfo);
+#pragma warning restore S4214 // "P/Invoke" methods should not be visible
 
         [StructLayout(LayoutKind.Sequential)]
         public struct MonitorInfo

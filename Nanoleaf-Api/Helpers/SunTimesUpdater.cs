@@ -9,7 +9,7 @@ using Winleafs.Models.Models;
 
 namespace Winleafs.Api.Helpers
 {
-    public class SunTimesUpdater
+    public static class SunTimesUpdater
     {
         public static void UpdateSunTimes()
         {
@@ -17,9 +17,10 @@ namespace Winleafs.Api.Helpers
             {
                 var policy = Policy
                     .Handle<Exception>()
-                    .WaitAndRetry(5, retryAttempt =>
-                        TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))
-                    );
+                    .WaitAndRetry(
+                        5,
+                        retryAttempt =>
+                        TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
 
                 //TODO: add logging on failure, see Step 2 in https://github.com/App-vNext/Polly
 

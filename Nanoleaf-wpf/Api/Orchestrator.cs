@@ -20,9 +20,10 @@ namespace Winleafs.Wpf.Api
         private static Logger _logger = LogManager.GetCurrentClassLogger();
 
         public Device Device { get; set; }
+
         public ScheduleTimer ScheduleTimer { get; set; }
 
-        private CustomEffectsCollection _customEffects;
+        private readonly CustomEffectsCollection _customEffects;
         private readonly EventTriggersCollection _eventTriggersCollection;
 
         public Orchestrator(Device device)

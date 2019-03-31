@@ -5,16 +5,16 @@ namespace Winleafs.Wpf.Api.Effects
 {
     public class TurnOffEffect : ICustomEffect
     {
-        private INanoleafClient _nanoleafClient;
+        private readonly INanoleafClient _nanoleafClient;
 
         public TurnOffEffect(INanoleafClient nanoleafClient)
         {
             _nanoleafClient = nanoleafClient;
         }
 
-        public async Task Activate()
+        public Task Activate()
         {
-            await _nanoleafClient.StateEndpoint.SetStateWithStateCheckAsync(false);
+            return _nanoleafClient.StateEndpoint.SetStateWithStateCheckAsync(false);
         }
 
         public async Task Deactivate()

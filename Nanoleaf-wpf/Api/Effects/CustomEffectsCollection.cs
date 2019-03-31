@@ -13,12 +13,11 @@ namespace Winleafs.Wpf.Api.Effects
         public static readonly string EffectNamePreface = "Winleafs - ";
         #endregion
 
-        private Dictionary<string, ICustomEffect> _customEffects;
-        private INanoleafClient _nanoleafClient;
+        private readonly Dictionary<string, ICustomEffect> _customEffects;
 
         public CustomEffectsCollection(Device device)
         {
-            _nanoleafClient = NanoleafClient.GetClientForDevice(device);
+            var _nanoleafClient = NanoleafClient.GetClientForDevice(device);
 
             _customEffects = new Dictionary<string, ICustomEffect>();
             _customEffects.Add($"{EffectNamePreface}Ambilight", new AmbilightEffect(_nanoleafClient)); //We will not translate effect names since their names are identifiers

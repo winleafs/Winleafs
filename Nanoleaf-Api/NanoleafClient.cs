@@ -27,7 +27,7 @@ namespace Winleafs.Api
 
         internal Uri _baseUri;
 
-        internal string _token = "";
+        internal string _token;
 
         private IEffectsEndpoint _effectsEndpoint;
 
