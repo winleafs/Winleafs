@@ -99,6 +99,9 @@ namespace Winleafs.Wpf.Api.Events
             }
         }
 
+        /// <summary>
+        /// Applies the effect of the implemented class using the memory reader. If the process quit, the event is stopped
+        /// </summary>
         private void ApplyEffect(object source, ElapsedEventArgs e)
         {
             try
@@ -121,6 +124,9 @@ namespace Winleafs.Wpf.Api.Events
 
         protected abstract Task ApplyEffectLocalAsync(MemoryReader memoryReader);
 
+        /// <summary>
+        /// Sets the percentage according to the defined steps in the percentage profile
+        /// </summary>
         protected async Task ApplyPercentageEffect(float percentage)
         {
             var numberOfActiveSteps = _amountOfSteps; //Default the percentage is deemed 100

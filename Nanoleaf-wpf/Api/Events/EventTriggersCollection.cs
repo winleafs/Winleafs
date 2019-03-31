@@ -3,13 +3,16 @@ using Winleafs.Models.Enums;
 
 namespace Winleafs.Wpf.Api.Events
 {
+    /// <summary>
+    /// Collection of event triggers for an orchestrator.
+    /// </summary>
     public class EventTriggersCollection
     {
-        public List<IEventTrigger> Events { get; set; }
+        public List<IEventTrigger> EventTriggers { get; set; }
 
         public EventTriggersCollection(Orchestrator orchestrator)
         {
-            Events = new List<IEventTrigger>();
+            EventTriggers = new List<IEventTrigger>();
 
             if (orchestrator.Device.ActiveSchedule != null)
             {
@@ -19,12 +22,12 @@ namespace Winleafs.Wpf.Api.Events
                     {
                         case TriggerType.ProcessEvent:
                             var processEventTrigger = (Models.Models.Scheduling.Triggers.ProcessEventTrigger)eventTrigger;
-                            Events.Add(new ProcessEventTrigger(eventTrigger, orchestrator, processEventTrigger.ProcessName, processEventTrigger.EffectName, processEventTrigger.Brightness));
+                            EventTriggers.Add(new ProcessEventTrigger(eventTrigger, orchestrator, processEventTrigger.ProcessName, processEventTrigger.EffectName, processEventTrigger.Brightness));
                             break;
 
                         case TriggerType.Borderlands2HealthEvent:
                             //This will never be reached currently, since users cannot add this type of event yet
-                            Events.Add(new Borderlands2HealthEventTrigger(eventTrigger, orchestrator));
+                            EventTriggers.Add(new Borderlands2HealthEventTrigger(eventTrigger, orchestrator));
                             break;
                     }
                 }
@@ -34,9 +37,9 @@ namespace Winleafs.Wpf.Api.Events
 
         public void StopAllEvents()
         {
-            foreach (var ievent in Events)
+            foreach (var eventTrigger in EventTriggers)
             {
-                ievent.StopEvent();
+                eventTrigger.StopEvent();
             }
         }
     }

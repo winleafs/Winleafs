@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Winleafs.Models.Models.Scheduling.Triggers;
 using Winleafs.Wpf.Helpers;
 
 /*
+Memory address locations:
+
 {
   "Health_maximum": {
     "baseAddress": "32506856",
@@ -35,8 +34,6 @@ namespace Winleafs.Wpf.Api.Events
 {
     public class Borderlands2HealthEventTrigger : BaseProcessPercentageEventTrigger
     {
-        public static readonly string EventName = "Borderlands 2 health"; //TODO: translate
-
         private static readonly string _processName = "Borderlands2";
         private static readonly int _maxHealthBaseAddress = 32506856;
         private static readonly int[] _maxHealthPointers = { 0, 1760, 664, 940, 88 };
@@ -48,6 +45,9 @@ namespace Winleafs.Wpf.Api.Events
 
         }
 
+        /// <summary>
+        /// Called by the base class, calculates the current health of the Borderlands character and then applies the percentage effect
+        /// </summary>
         protected override async Task ApplyEffectLocalAsync(MemoryReader memoryReader)
         {
             var maxHealth = memoryReader.ReadFloat(_maxHealthBaseAddress, _maxHealthPointers);
@@ -55,15 +55,12 @@ namespace Winleafs.Wpf.Api.Events
 
             try
             {
-                Debug.WriteLine(maxHealth);
-                Debug.WriteLine(currentHealth);
                 var percentage = (100 / maxHealth) * currentHealth;
                 await ApplyPercentageEffect(percentage);
             }
-            catch (Exception e)
+            catch
             {
-                //TODO: log?
-                Debug.WriteLine(e);
+                //Do nothing, percentage is applied with UDP and if that fails, it is not interesting
             }
         }
     }

@@ -13,7 +13,7 @@ using Winleafs.Wpf.Api.Events;
 namespace Winleafs.Wpf.Api
 {
     /// <summary>
-    /// Class which determines which effects should be played, there is one orchestrator per device
+    /// Class that orchestrates which effects and events should be played per device
     /// </summary>
     public class Orchestrator
     {
@@ -43,9 +43,13 @@ namespace Winleafs.Wpf.Api
             }
         }
 
+        /// <summary>
+        /// Try to set the operation mode for a device
+        /// Only the override is able to stop the override, effects and events may not remove the manual mode
+        /// First stops all active effects and events before switching to the new effect or event claiming operation mode
+        /// </summary>
         public async Task<bool> TrySetOperationMode(OperationMode operationMode, bool isFromOverride = false)
         {
-            //Only the override is able to stop the override, effects and events may not remove the manual mode
             if (!isFromOverride && Device.OperationMode == OperationMode.Manual)
             {
                 return false;
@@ -71,6 +75,10 @@ namespace Winleafs.Wpf.Api
             return true;
         }
 
+        /// <summary>
+        /// Activates an effect by name and brightness. This can be a custom effect (e.g. ambilight) or a effect available on the Nanoleaf device
+        /// First deactivates any custom effects before enabling the new effect
+        /// </summary>
         public async Task ActivateEffect(string effectName, int brightness)
         {
             try
@@ -106,11 +114,17 @@ namespace Winleafs.Wpf.Api
             }
         }
 
+        /// <summary>
+        /// Used to display a view of available effects in the view
+        /// </summary>
         public List<Effect> GetCustomEffectAsEffects()
         {
             return _customEffects.GetCustomEffectAsEffects();
         }
 
+        /// <summary>
+        /// Get the current effect name, not equal the desciption as shown in the view
+        /// </summary>
         public string GetActiveEffectName()
         {
             switch (Device.OperationMode)
@@ -119,7 +133,7 @@ namespace Winleafs.Wpf.Api
                     return Device.OverrideEffect;
 
                 case OperationMode.Event:
-                    var activeEvent = _eventTriggersCollection.Events.FirstOrDefault(e => e.IsActive());
+                    var activeEvent = _eventTriggersCollection.EventTriggers.FirstOrDefault(e => e.IsActive());
                     
                     if (activeEvent != null)
                     {
@@ -153,7 +167,7 @@ namespace Winleafs.Wpf.Api
                     return Device.OverrideBrightness;
 
                 case OperationMode.Event:
-                    var activeEvent = _eventTriggersCollection.Events.FirstOrDefault(e => e.IsActive());
+                    var activeEvent = _eventTriggersCollection.EventTriggers.FirstOrDefault(e => e.IsActive());
 
                     if (activeEvent != null)
                     {

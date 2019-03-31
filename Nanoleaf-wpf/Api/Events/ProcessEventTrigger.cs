@@ -6,6 +6,9 @@ using Winleafs.Models.Models.Scheduling.Triggers;
 
 namespace Winleafs.Wpf.Api.Events
 {
+    /// <summary>
+    /// Event trigger that is activated when a certain process starts
+    /// </summary>
     public class ProcessEventTrigger : IEventTrigger
     {
         private ITrigger _trigger;
@@ -36,9 +39,11 @@ namespace Winleafs.Wpf.Api.Events
             Task.Run(() => CheckProcessAsync());
         }
 
+        /// <summary>
+        /// Checks if a process is running then execute TryStartEffect(), else stop the effect
+        /// </summary>
         private async Task CheckProcessAsync()
         {
-            //Check here if a process is running then execute TryStartEffect(), else stop the effect
             Process[] processes = Process.GetProcessesByName(_processName);
 
             if (processes.Length > 0)
@@ -57,6 +62,9 @@ namespace Winleafs.Wpf.Api.Events
             }
         }
 
+        /// <summary>
+        /// Start the effect if possible
+        /// </summary>
         private async Task TryStartEffect()
         {
             if (await _orchestrator.TrySetOperationMode(OperationMode.Event))

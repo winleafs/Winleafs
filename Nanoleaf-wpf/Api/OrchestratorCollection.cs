@@ -3,6 +3,9 @@ using Winleafs.Models.Models;
 
 namespace Winleafs.Wpf.Api
 {
+    /// <summary>
+    /// Collectino class for all orchestrator of all devices
+    /// </summary>
     public static class OrchestratorCollection
     {
         private static Dictionary<string, Orchestrator> _orchestratorForDevices = new Dictionary<string, Orchestrator>();

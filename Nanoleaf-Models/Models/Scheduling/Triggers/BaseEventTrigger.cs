@@ -2,6 +2,9 @@
 
 namespace Winleafs.Models.Models.Scheduling.Triggers
 {
+    /// <summary>
+    /// Base class for all even triggers
+    /// </summary>
     public abstract class BaseEventTrigger : ITrigger
     {
         public string EffectName { get; set; }
