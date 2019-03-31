@@ -295,6 +295,15 @@ namespace Winleafs.Wpf.Views.Scheduling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please choose an effect.
+        /// </summary>
+        public static string MustChooseEffect {
+            get {
+                return ResourceManager.GetString("MustChooseEffect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string Name {

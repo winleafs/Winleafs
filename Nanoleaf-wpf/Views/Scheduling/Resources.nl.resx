@@ -240,4 +240,7 @@
   <data name="ProcessNameAlreadyExists" xml:space="preserve">
     <value>Proces {0} bestaat al voor dit schema</value>
   </data>
+  <data name="MustChooseEffect" xml:space="preserve">
+    <value>Kies aub een effect</value>
+  </data>
 </root>

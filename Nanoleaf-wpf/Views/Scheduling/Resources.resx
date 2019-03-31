@@ -195,6 +195,9 @@
   <data name="Monday" xml:space="preserve">
     <value>Monday</value>
   </data>
+  <data name="MustChooseEffect" xml:space="preserve">
+    <value>Please choose an effect</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>

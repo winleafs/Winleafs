@@ -49,9 +49,7 @@ namespace Winleafs.Wpf.Views.Scheduling
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            var processName = ProcessName.Trim();           
-
-            if (_parent.ProcessEventTriggerAdded(processName, SelectedEffect, _brightness))
+            if (_parent.ProcessEventTriggerAdded(ProcessName, SelectedEffect, _brightness))
             {
                 Close();
             }            

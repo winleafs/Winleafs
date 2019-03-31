@@ -26,11 +26,17 @@ namespace Winleafs.Wpf.Views.Scheduling
 
         public bool ProcessEventTriggerAdded(string processName, string effectName, int brightness)
         {
-            processName = processName.Trim();
-
-            if (string.IsNullOrEmpty(processName))
+            if (string.IsNullOrWhiteSpace(processName))
             {
                 PopupCreator.Error(Scheduling.Resources.ProcessNameCanNotBeEmpty);
+                return false;
+            }
+
+            processName = processName.Trim();
+
+            if (string.IsNullOrEmpty(effectName))
+            {
+                PopupCreator.Error(Scheduling.Resources.MustChooseEffect);
                 return false;
             }
 
