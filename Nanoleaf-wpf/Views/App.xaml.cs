@@ -51,7 +51,7 @@ namespace Winleafs.Wpf.Views
 
             if (!UserSettings.HasSettings() || UserSettings.Settings.Devices.Count == 0)
             {
-                var setupWindow = new SetupWindow(true);
+                var setupWindow = new SetupWindow();
                 setupWindow.Show();
             }
             else
@@ -163,7 +163,7 @@ namespace Winleafs.Wpf.Views
         public static void ResetAllSettings(MainWindow mainWindow)
         {
             UserSettings.DeleteSettings();
-            var setupWindow = new SetupWindow(true);
+            var setupWindow = new SetupWindow();
             setupWindow.Show();
 
             mainWindow.Close();

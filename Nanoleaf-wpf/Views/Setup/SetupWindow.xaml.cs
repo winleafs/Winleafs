@@ -15,6 +15,7 @@ using NLog;
 namespace Winleafs.Wpf.Views.Setup
 {
     using Winleafs.Wpf.Api;
+    using Winleafs.Wpf.Views.MainWindows;
     using Winleafs.Wpf.Views.Popup;
 
     /// <summary>
@@ -28,11 +29,11 @@ namespace Winleafs.Wpf.Views.Setup
         private List<Device> discoveredDevices;
         private NanoleafClient nanoleafClient;
         private Device selectedDevice;
-        private bool freshStartup;
+        private MainWindow _parent;
 
-        public SetupWindow(bool freshStartup)
+        public SetupWindow(MainWindow parent = null)
         {
-            this.freshStartup = freshStartup;
+            _parent = parent;
 
             InitializeComponent();
 
@@ -53,17 +54,20 @@ namespace Winleafs.Wpf.Views.Setup
             }
 
             selectedDevice.Name = setupViewModel.Name;
-            selectedDevice.ActiveInGUI = freshStartup;
 
             UserSettings.Settings.AddDevice(selectedDevice);
 
-            if (freshStartup)
+            _logger.Info($"Successfully added device {selectedDevice.Name}");
+
+            if (_parent != null)
             {
-                App.NormalStartup(null);
+                OrchestratorCollection.AddOrchestratorForDevice(selectedDevice);
+                _parent.UpdateDeviceNames();
+                _parent.SelectedDevice = selectedDevice.Name;
             }
             else
             {
-                OrchestratorCollection.AddOrchestratorForDevice(selectedDevice);
+                App.NormalStartup(null);
             }
 
             Close();

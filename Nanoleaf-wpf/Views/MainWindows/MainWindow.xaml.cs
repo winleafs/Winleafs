@@ -54,14 +54,19 @@ namespace Winleafs.Wpf.Views.MainWindows
             var taskbarIcon = (TaskbarIcon)FindResource("NotifyIcon"); //https://www.codeproject.com/Articles/36468/WPF-NotifyIcon-2
             taskbarIcon.DoubleClickCommand = new TaskbarDoubleClickCommand(this);
 
+            UpdateDeviceNames();
             SelectedDevice = UserSettings.Settings.ActiveDevice.Name;
-            DeviceNames = new ObservableCollection<string>(UserSettings.Settings.Devices.Select(d => d.Name));
 
             BuildScheduleList();
 
             OverrideScheduleUserControl.MainWindow = this;
 
             DataContext = this;
+        }
+
+        public void UpdateDeviceNames()
+        {
+            DeviceNames = new ObservableCollection<string>(UserSettings.Settings.Devices.Select(d => d.Name));
         }
 
         private void SelectedDeviceChanged()
@@ -211,7 +216,7 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         private void AddDevice_Click(object sender, RoutedEventArgs e)
         {
-            var setupWindow = new SetupWindow(false);
+            var setupWindow = new SetupWindow(this);
             setupWindow.Show();
         }
         
@@ -239,7 +244,7 @@ namespace Winleafs.Wpf.Views.MainWindows
                 }
                 else
                 {
-                    var setupWindow = new SetupWindow(true);
+                    var setupWindow = new SetupWindow();
                     setupWindow.Show();
 
                     Close();
