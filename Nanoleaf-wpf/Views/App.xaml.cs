@@ -27,6 +27,7 @@ namespace Winleafs.Wpf.Views
 
     using System.Globalization;
     using System.Threading;
+    using System.Security;
 
     /// <summary>
     /// Interaction logic for App.xaml
@@ -40,11 +41,14 @@ namespace Winleafs.Wpf.Views
         void App_Startup(object sender, StartupEventArgs e)
         {
             var process = Process.GetCurrentProcess();
-            var count = Process.GetProcesses().Count(p => p.ProcessName == process.ProcessName);
+            var otherProcess = Process.GetProcesses().FirstOrDefault(p => p.ProcessName == process.ProcessName && p.Id != process.Id);
 
-            if (count > 1)
+            if (otherProcess != null)
             {
                 PerformRegularShutdownOprations = false;
+
+                ShowWindow(otherProcess);
+
                 Current.Shutdown();
                 return;
             }
@@ -184,5 +188,71 @@ namespace Winleafs.Wpf.Views
 
             // Check release with current version.
         }
+
+        #region Show window of other process
+        //Source: https://stackoverflow.com/questions/11399528/show-wpf-window-from-another-application-in-c-sharp
+
+        public static readonly int WM_COPYDATA = 0x004A;
+        public static readonly string OPENWINDOWMESSAGE = "Show";
+
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+        public struct MessageStruct
+        {
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
+            public string Message;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct COPYDATASTRUCT
+        {
+            public IntPtr dwData;
+            public int cbData;
+            public IntPtr lpData;
+        }
+
+        [SuppressUnmanagedCodeSecurity]
+        internal class NativeMethods
+        {
+            [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+            public static extern IntPtr SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, ref COPYDATASTRUCT lParam);
+
+            [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+            public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+        }
+
+        private static void ShowWindow(Process process)
+        {
+            var targetWindowPtr = process.MainWindowHandle;
+
+            if (targetWindowPtr == IntPtr.Zero)
+            {
+                targetWindowPtr = NativeMethods.FindWindow(null, MainWindows.Resources.Winleafs); //Assumes that the window name is unique
+            }
+
+            if (targetWindowPtr == IntPtr.Zero)
+            {
+                return;
+            }
+
+            MessageStruct messageStruct;
+            messageStruct.Message = OPENWINDOWMESSAGE;
+            int structSize = Marshal.SizeOf(messageStruct);
+            IntPtr structIntPtr = Marshal.AllocHGlobal(structSize);
+
+            try
+            {
+                Marshal.StructureToPtr(messageStruct, structIntPtr, true);
+
+                COPYDATASTRUCT cds = new COPYDATASTRUCT();
+                cds.cbData = structSize;
+                cds.lpData = structIntPtr;
+                NativeMethods.SendMessage(targetWindowPtr, WM_COPYDATA, new IntPtr(), ref cds);
+            }
+            finally
+            {
+                Marshal.FreeHGlobal(structIntPtr);
+            }
+        }
+        #endregion
     }
 }
