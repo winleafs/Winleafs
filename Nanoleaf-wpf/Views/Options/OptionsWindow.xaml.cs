@@ -5,21 +5,16 @@ using System.Security.AccessControl;
 using System.Windows;
 using System.Windows.Forms;
 using Microsoft.Win32;
-
-using Winleafs.Api.Endpoints;
 using Winleafs.External;
 using Winleafs.Models.Models;
-
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Windows.Navigation;
+using Winleafs.Wpf.Views.Popup;
 using Winleafs.Wpf.ViewModels;
 
 namespace Winleafs.Wpf.Views.Options
 {
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Threading;
-    using System.Windows.Navigation;
-    using Winleafs.Api;
-    using Winleafs.Wpf.Views.Popup;
 
     /// <summary>
     /// Interaction logic for OptionsWindow.xaml
@@ -49,7 +44,8 @@ namespace Winleafs.Wpf.Views.Options
                 MonitorNames = monitors.Select(m => m.DeviceName).ToList(),
                 SelectedMonitor = monitors[UserSettings.Settings.AmbilightMonitorIndex].DeviceName,
                 SelectedLanguage = FullNameForCulture(UserSettings.Settings.UserLocale),
-                Languages = _languageDictionary.Keys.ToList()
+                Languages = _languageDictionary.Keys.ToList(),
+                MinimizeToSystemTray = UserSettings.Settings.MinimizeToSystemTray
             };
 
             _startupKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", RegistryKeyPermissionCheck.ReadWriteSubTree, RegistryRights.FullControl);
@@ -150,6 +146,10 @@ namespace Winleafs.Wpf.Views.Options
                 UserSettings.Settings.UserLocale = _languageDictionary[OptionsViewModel.SelectedLanguage];
             }
 
+            #endregion
+
+            #region MinimizeToSystemTray
+            UserSettings.Settings.MinimizeToSystemTray = OptionsViewModel.MinimizeToSystemTray;
             #endregion
 
             UserSettings.Settings.SaveSettings();

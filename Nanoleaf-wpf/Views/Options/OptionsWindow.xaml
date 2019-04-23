@@ -41,14 +41,19 @@
                             <ScaleTransform ScaleX="2" ScaleY="2" />
                         </CheckBox.LayoutTransform>
                     </CheckBox>
-                    <Label Content="{x:Static local:Resources.Latitude}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,56,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
-                    <TextBox x:Name="LatitudeTextBox" HorizontalAlignment="Left" Height="23" Margin="150,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White" Text="{Binding Latitude}"/>
-                    <Label Content="{x:Static local:Resources.Longitude}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
-                    <TextBox x:Name="LongitudeTextBox" HorizontalAlignment="Left" Height="23" Margin="150,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White" Text="{Binding Longitude}"/>
-                    <Button Content="{x:Static local:Resources.SetLocationByIp}" HorizontalAlignment="Left" Margin="400,86,0,0" VerticalAlignment="Top" Width="84" Height="44" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="GeoIp_Click"/>
-                    <ComboBox Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,160,0,0"  SelectedItem="{Binding SelectedLanguage}" ItemsSource="{Binding Languages}"/>
-                    <Label Content="{x:Static local:Resources.Language}" ContentStringFormat="{}{0}:" Margin="10, 155, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
-                    <Label Content="{x:Static local:Resources.LanguageRestartNote}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 190,0,0" FontSize="15" Foreground="White"/>
+                    <CheckBox Content="{x:Static local:Resources.MinimizeToSystemTray}" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="{Binding MinimizeToSystemTray}">
+                        <CheckBox.LayoutTransform>
+                            <ScaleTransform ScaleX="2" ScaleY="2" />
+                        </CheckBox.LayoutTransform>
+                    </CheckBox>
+                    <Label Content="{x:Static local:Resources.Latitude}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,91,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
+                    <TextBox x:Name="LatitudeTextBox" HorizontalAlignment="Left" Height="23" Margin="150,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White" Text="{Binding Latitude}"/>
+                    <Label Content="{x:Static local:Resources.Longitude}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,128,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
+                    <TextBox x:Name="LongitudeTextBox" HorizontalAlignment="Left" Height="23" Margin="150,141,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White" Text="{Binding Longitude}"/>
+                    <Button Content="{x:Static local:Resources.SetLocationByIp}" HorizontalAlignment="Left" Margin="400,121,0,0" VerticalAlignment="Top" Width="84" Height="44" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="GeoIp_Click"/>
+                    <ComboBox Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,195,0,0"  SelectedItem="{Binding SelectedLanguage}" ItemsSource="{Binding Languages}"/>
+                    <Label Content="{x:Static local:Resources.Language}" ContentStringFormat="{}{0}:" Margin="10,190,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
+                    <Label Content="{x:Static local:Resources.LanguageRestartNote}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,225,0,0" FontSize="15" Foreground="White"/>
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static local:Resources.Ambilight}">

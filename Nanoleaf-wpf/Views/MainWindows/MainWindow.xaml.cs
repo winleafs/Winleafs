@@ -143,8 +143,11 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         public void Window_Closing(object sender, CancelEventArgs e)
         {
-            Hide();
-            e.Cancel = true;
+            if (UserSettings.Settings.MinimizeToSystemTray)
+            {
+                Hide();
+                e.Cancel = true;
+            }
         }
 
         public void ActivateSchedule(Schedule schedule)

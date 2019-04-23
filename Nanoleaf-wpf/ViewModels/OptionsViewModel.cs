@@ -19,5 +19,7 @@ namespace Winleafs.Wpf.ViewModels
         public string SelectedLanguage { get; set; }
 
         public List<string> Languages { get; set; }
+
+        public bool MinimizeToSystemTray { get; set; }
     }
 }

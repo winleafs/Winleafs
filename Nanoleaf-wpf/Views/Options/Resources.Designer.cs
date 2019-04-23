@@ -232,6 +232,15 @@ namespace Winleafs.Wpf.Views.Options {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Minimize to system tray on close.
+        /// </summary>
+        public static string MinimizeToSystemTray {
+            get {
+                return ResourceManager.GetString("MinimizeToSystemTray", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string Save {

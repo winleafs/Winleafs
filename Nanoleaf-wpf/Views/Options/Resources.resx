@@ -197,4 +197,7 @@ by IP Adress</value>
   <data name="AmbilightBrightnessInfo" xml:space="preserve">
     <value>Note: refresh rate when controlling brightness is max 5, since setting brightness and color are two seperate actions and the lights have a maximum refresh rate of 10hz.</value>
   </data>
+  <data name="MinimizeToSystemTray" xml:space="preserve">
+    <value>Minimize to system tray on close</value>
+  </data>
 </root>
