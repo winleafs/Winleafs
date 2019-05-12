@@ -90,7 +90,7 @@ namespace Winleafs.Wpf.Views.Options
                 return;
             }
 
-            if ((latitude != UserSettings.Settings.Latitude || longitude != UserSettings.Settings.Longitude) && (latitude != 0  && longitude != 0))
+            if ((latitude != UserSettings.Settings.Latitude || longitude != UserSettings.Settings.Longitude) && (latitude != 0 && longitude != 0))
             {
                 var client = new SunsetSunriseClient();
 
@@ -194,6 +194,11 @@ namespace Winleafs.Wpf.Views.Options
             }
 
             return null;
+        }
+
+        private void AddColor_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Winleafs.Wpf.Views.Options"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="{x:Static local:Resources.WinleafsOptions}" Height="450" Width="550" ResizeMode="CanMinimize">
 
@@ -74,6 +75,14 @@
                     </CheckBox>
                     <TextBlock HorizontalAlignment="Left" Margin="10,287,0,0" TextWrapping="Wrap" Text="{x:Static local:Resources.AmbilightResetMessage}" VerticalAlignment="Top" Width="469" FontSize="20" Foreground="White" Grid.ColumnSpan="2"/>
                     <TextBlock Margin="19,194,9.667,0" TextWrapping="Wrap" Text="{x:Static local:Resources.AmbilightBrightnessInfo}" VerticalAlignment="Top" FontSize="15" Foreground="White" Grid.ColumnSpan="2" Height="88"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="{x:Static local:Resources.Colors}">
+                <Grid>
+                    <TextBlock Margin="155,10,0.667,0" TextWrapping="Wrap" Text="{x:Static local:Resources.ColorPickerExplanation}" VerticalAlignment="Top" FontSize="15" Foreground="White" Height="72"/>
+                    <StackPanel x:Name="ColorList" HorizontalAlignment="Left" Width="150" />
+                    <xctk:ColorPicker x:Name="ColorPicker" Margin="155,87,133,0" Height="27" VerticalAlignment="Top"/>
+                    <Button Content="{x:Static local:Resources.Add}" HorizontalAlignment="Right" Margin="0,87,10,0" Width="115" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="AddColor_Click" Height="27" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static local:Resources.Disclaimer}">

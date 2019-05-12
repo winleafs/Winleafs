@@ -200,4 +200,13 @@ by IP Adress</value>
   <data name="MinimizeToSystemTray" xml:space="preserve">
     <value>Minimize to system tray on close</value>
   </data>
+  <data name="Colors" xml:space="preserve">
+    <value>Colors</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="ColorPickerExplanation" xml:space="preserve">
+    <value>Use the color picker to add colors. Colors can then be selected in the scheduler and when overriding</value>
+  </data>
 </root>

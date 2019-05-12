@@ -199,4 +199,13 @@ per IP adres</value>
   <data name="MinimizeToSystemTray" xml:space="preserve">
     <value>Minimaliseer naar taakbalk bij sluiten</value>
   </data>
+  <data name="Colors" xml:space="preserve">
+    <value>Kleuren</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Toevoegen</value>
+  </data>
+  <data name="ColorPickerExplanation" xml:space="preserve">
+    <value>Gebruik de color picker om kleuren toe te voegen. De kleuren kunnen dan gebruikt worden in schemas en tijdens overschrijving</value>
+  </data>
 </root>

@@ -61,6 +61,15 @@ namespace Winleafs.Wpf.Views.Options {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        public static string Add {
+            get {
+                return ResourceManager.GetString("Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ambilight.
         /// </summary>
         public static string Ambilight {
@@ -120,6 +129,24 @@ namespace Winleafs.Wpf.Views.Options {
         public static string Cancel {
             get {
                 return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use the color picker to add colors. Colors can then be selected in the scheduler and when overriding.
+        /// </summary>
+        public static string ColorPickerExplanation {
+            get {
+                return ResourceManager.GetString("ColorPickerExplanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Colors.
+        /// </summary>
+        public static string Colors {
+            get {
+                return ResourceManager.GetString("Colors", resourceCulture);
             }
         }
         
