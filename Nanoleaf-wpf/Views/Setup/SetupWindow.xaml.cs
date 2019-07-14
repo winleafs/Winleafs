@@ -67,6 +67,7 @@ namespace Winleafs.Wpf.Views.Setup
             }
             else
             {
+                UserSettings.Settings.SetActiveDevice(selectedDevice.Name); //The first added device must always be active
                 App.NormalStartup(null);
             }
 
