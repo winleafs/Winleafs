@@ -20,7 +20,8 @@ namespace Winleafs.Wpf.Api.Effects
             var _nanoleafClient = NanoleafClient.GetClientForDevice(device);
 
             _customEffects = new Dictionary<string, ICustomEffect>();
-            _customEffects.Add($"{EffectNamePreface}Ambilight", new AmbilightEffect(_nanoleafClient)); //We will not translate effect names since their names are identifiers
+            _customEffects.Add(AmbilightEffect.Name, new AmbilightEffect(_nanoleafClient)); //We will not translate effect names since their names are identifiers
+            _customEffects.Add(ScreenMirrorEffect.Name, new ScreenMirrorEffect(_nanoleafClient));
             _customEffects.Add($"{EffectNamePreface}Turn lights off", new TurnOffEffect(_nanoleafClient));
         }
 

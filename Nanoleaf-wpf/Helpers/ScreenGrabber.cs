@@ -12,16 +12,23 @@ namespace Winleafs.Wpf.Helpers
     public static class ScreenGrabber
     {
         private static Logger _logger = LogManager.GetCurrentClassLogger();
-        private static object _lockObject = new object();
+        private static object _colorLockObject = new object();
+        private static object _bitmapLockObject = new object();
 
         private static System.Timers.Timer _timer;
         private static Rectangle _screenBounds;
 
+        private static Bitmap _bitmap;
         private static Color _color;
+        private static bool _ambilightActive;
+        private static bool _screenMirrorActive;
 
 #pragma warning disable S3963 // "static" fields should be initialized inline
         static ScreenGrabber()
         {
+            _ambilightActive = false;
+            _screenMirrorActive = false;
+
             var timerRefreshRate = 1000;
 
             if (UserSettings.Settings.AmbilightRefreshRatePerSecond > 0 && UserSettings.Settings.AmbilightRefreshRatePerSecond <= 10)
@@ -67,19 +74,38 @@ namespace Winleafs.Wpf.Helpers
         {
             try
             {
-                SetColor(CalculateAverageColor(CaptureScreen()));
+                SetBitmap(CaptureScreen());
+
+                SetColor(CalculateAverageColor());
             }
             catch (Exception ex)
             {
-                _logger.Error(ex, "Error during calculation of screen color");
+                _logger.Error(ex, "Error during screen grabbing");
             }
         }
 
+        #region Getter and setters with locks
         /// We do not use readerwriterlock since we most likely only have a few readers and the writer is more important, but readerwriterlock gives priority to readers
         /// Instead, we just use a lock which acts as a monitor
+        private static void SetBitmap(Bitmap bitmap)
+        {
+            lock (_bitmapLockObject)
+            {
+                _bitmap = bitmap;
+            }
+        }
+
+        public static Bitmap GetBitmap()
+        {
+            lock (_bitmapLockObject)
+            {
+                return _bitmap;
+            }
+        }
+
         private static void SetColor(Color color)
         {
-            lock (_lockObject)
+            lock (_colorLockObject)
             {
                 _color = color;
             }
@@ -87,25 +113,52 @@ namespace Winleafs.Wpf.Helpers
 
         public static Color GetColor()
         {
-            lock (_lockObject)
+            lock (_colorLockObject)
             {
                 return _color;
             }
         }
+        #endregion
 
-        public static void Start()
+        #region Start and Stop
+        public static void StartAmbilight()
         {
+            _ambilightActive = true;
             _timer.Start();
         }
 
-        public static void Stop()
+        public static void StopAmbilight()
         {
-            _timer.Stop();
+            _ambilightActive = false;
+
+            if (!_screenMirrorActive)
+            {
+                _timer.Stop();
+            }
         }
 
-        private static Color CalculateAverageColor(Bitmap bm)
+        public static void StartScreenMirror()
+        {
+            _screenMirrorActive = true;
+            _timer.Start();
+        }
+
+        public static void StopScreenMirror()
+        {
+            _screenMirrorActive = false;
+
+            if (!_ambilightActive)
+            {
+                _timer.Stop();
+            }
+        }
+        #endregion
+
+        private static Color CalculateAverageColor()
         {
             //Variable initialization all outside the loop, since initializing is slower than allocating
+            var bm = GetBitmap();
+
             int red = 0;
             int green = 0;
             int blue = 0;
