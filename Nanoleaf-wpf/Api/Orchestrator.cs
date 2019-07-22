@@ -9,6 +9,7 @@ using Winleafs.Models.Models;
 using Winleafs.Models.Models.Effects;
 using Winleafs.Wpf.Api.Effects;
 using Winleafs.Wpf.Api.Events;
+using Winleafs.Wpf.Api.Layouts;
 
 namespace Winleafs.Wpf.Api
 {
@@ -23,6 +24,8 @@ namespace Winleafs.Wpf.Api
 
         public ScheduleTimer ScheduleTimer { get; set; }
 
+        public PanelLayout PanelLayout { get; set; }
+
         private readonly CustomEffectsCollection _customEffects;
         private readonly EventTriggersCollection _eventTriggersCollection;
 
@@ -32,6 +35,7 @@ namespace Winleafs.Wpf.Api
 
             _customEffects = new CustomEffectsCollection(Device);
             ScheduleTimer = new ScheduleTimer(this);
+            PanelLayout = new PanelLayout(Device);
             _eventTriggersCollection = new EventTriggersCollection(this);
 
             if (device.OperationMode == OperationMode.Schedule)
