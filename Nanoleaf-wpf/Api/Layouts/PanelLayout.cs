@@ -81,8 +81,8 @@ namespace Winleafs.Wpf.Api.Layouts
                 //Move triangle
                 for (var i = 0; i < triangle.Polygon.Points.Count; i++)
                 {
-                    var x = minTriangleX < 0 ? triangle.Polygon.Points[i].X + minTriangleX : triangle.Polygon.Points[i].X - minTriangleX;
-                    var y = minTriangleY < 0 ? triangle.Polygon.Points[i].Y + minTriangleY : triangle.Polygon.Points[i].Y - minTriangleY;
+                    var x = triangle.Polygon.Points[i].X - minTriangleX;
+                    var y = triangle.Polygon.Points[i].Y - minTriangleY;
 
                     triangle.Polygon.Points[i] = new Point(x, y);
                 }
