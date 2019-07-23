@@ -2,6 +2,7 @@
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Timers;
 using System.Windows.Forms;
@@ -35,8 +36,13 @@ namespace Winleafs.Wpf.Helpers
             _timer.Elapsed += OnTimedEvent;
             _timer.AutoReset = true;
 
+            var monitors = WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.GetDisplayTargets();
+            var formsMonitors = WindowsDisplayAPI.Display.GetDisplays();
+
+            var selectedMonitor = formsMonitors.FirstOrDefault(monitor => monitor.DevicePath.Equals(monitors[UserSettings.Settings.ScreenMirrorMonitorIndex].DevicePath));
+
             var monitorInfo = new MonitorInfo();
-            EnumDisplaySettings(Screen.AllScreens[UserSettings.Settings.ScreenMirrorMonitorIndex].DeviceName, -1, ref monitorInfo);
+            EnumDisplaySettings(selectedMonitor.DisplayName, -1, ref monitorInfo);
 
             _screenBounds = new Rectangle(monitorInfo.dmPositionX, monitorInfo.dmPositionY, monitorInfo.dmPelsWidth, monitorInfo.dmPelsHeight);
         }

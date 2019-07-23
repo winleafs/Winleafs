@@ -32,7 +32,7 @@ namespace Winleafs.Wpf.Views.Options
         {
             InitializeComponent();
 
-            var monitors = Screen.AllScreens;
+            var monitors = WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.GetDisplayTargets();
 
             OptionsViewModel = new OptionsViewModel
             {
@@ -41,8 +41,8 @@ namespace Winleafs.Wpf.Views.Options
                 Longitude = UserSettings.Settings.Longitude?.ToString("N7", CultureInfo.InvariantCulture),
                 ScreenMirrorRefreshRatePerSecond = UserSettings.Settings.ScreenMirrorRefreshRatePerSecond,
                 ScreenMirrorControlBrightness = UserSettings.Settings.ScreenMirrorControlBrightness,
-                MonitorNames = monitors.Select(m => m.DeviceName).ToList(),
-                SelectedMonitor = monitors[UserSettings.Settings.ScreenMirrorMonitorIndex].DeviceName,
+                MonitorNames = monitors.Select(m => m.FriendlyName).ToList(),
+                SelectedMonitor = monitors[UserSettings.Settings.ScreenMirrorMonitorIndex].FriendlyName,
                 SelectedLanguage = FullNameForCulture(UserSettings.Settings.UserLocale),
                 Languages = _languageDictionary.Keys.ToList(),
                 MinimizeToSystemTray = UserSettings.Settings.MinimizeToSystemTray
@@ -133,8 +133,8 @@ namespace Winleafs.Wpf.Views.Options
             UserSettings.Settings.ScreenMirrorRefreshRatePerSecond = OptionsViewModel.ScreenMirrorRefreshRatePerSecond;
             UserSettings.Settings.ScreenMirrorControlBrightness = OptionsViewModel.ScreenMirrorControlBrightness;
 
-            var monitors = Screen.AllScreens;
-            var selectedMonitor = monitors.FirstOrDefault(m => m.DeviceName.Equals(OptionsViewModel.SelectedMonitor));
+            var monitors = WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.GetDisplayTargets();
+            var selectedMonitor = monitors.FirstOrDefault(m => m.FriendlyName.Equals(OptionsViewModel.SelectedMonitor));
 
             UserSettings.Settings.ScreenMirrorMonitorIndex = Array.IndexOf(monitors, selectedMonitor);
             #endregion
