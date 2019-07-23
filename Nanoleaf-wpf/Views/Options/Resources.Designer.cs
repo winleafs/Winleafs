@@ -61,60 +61,6 @@ namespace Winleafs.Wpf.Views.Options {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ambilight.
-        /// </summary>
-        public static string Ambilight {
-            get {
-                return ResourceManager.GetString("Ambilight", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Note: refresh rate when controlling brightness is max 5, since setting brightness and color are two seperate actions and the lights have a maximum refresh rate of 10hz..
-        /// </summary>
-        public static string AmbilightBrightnessInfo {
-            get {
-                return ResourceManager.GetString("AmbilightBrightnessInfo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Let ambilight control brightness.
-        /// </summary>
-        public static string AmbilightControlBrightness {
-            get {
-                return ResourceManager.GetString("AmbilightControlBrightness", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ambilight monitor.
-        /// </summary>
-        public static string AmbilightMonitor {
-            get {
-                return ResourceManager.GetString("AmbilightMonitor", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ambilight refresh rate per second.
-        /// </summary>
-        public static string AmbilightRefreshRatePerSecond {
-            get {
-                return ResourceManager.GetString("AmbilightRefreshRatePerSecond", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Note: changing the ambilight settings requires a restart of Winleafs.
-        /// </summary>
-        public static string AmbilightResetMessage {
-            get {
-                return ResourceManager.GetString("AmbilightResetMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string Cancel {
@@ -246,6 +192,60 @@ namespace Winleafs.Wpf.Views.Options {
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Note: refresh rate when controlling brightness is max 5, since setting brightness and color are two seperate actions and the lights have a maximum refresh rate of 10hz..
+        /// </summary>
+        public static string ScreenMirrorBrightnessInfo {
+            get {
+                return ResourceManager.GetString("ScreenMirrorBrightnessInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Let screen mirror control brightness.
+        /// </summary>
+        public static string ScreenMirrorControlBrightness {
+            get {
+                return ResourceManager.GetString("ScreenMirrorControlBrightness", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Screen mirror general.
+        /// </summary>
+        public static string ScreenMirrorGeneral {
+            get {
+                return ResourceManager.GetString("ScreenMirrorGeneral", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Screen mirror monitor.
+        /// </summary>
+        public static string ScreenMirrorMonitor {
+            get {
+                return ResourceManager.GetString("ScreenMirrorMonitor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Screen mirror refresh rate per second.
+        /// </summary>
+        public static string ScreenMirrorRefreshRatePerSecond {
+            get {
+                return ResourceManager.GetString("ScreenMirrorRefreshRatePerSecond", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Note: changing the screen mirror settings requires a restart of Winleafs.
+        /// </summary>
+        public static string ScreenMirrorResetMessage {
+            get {
+                return ResourceManager.GetString("ScreenMirrorResetMessage", resourceCulture);
             }
         }
         

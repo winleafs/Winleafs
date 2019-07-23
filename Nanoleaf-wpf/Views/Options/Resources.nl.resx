@@ -120,14 +120,14 @@
   <data name="Cancel" xml:space="preserve">
     <value>Anuleren</value>
   </data>
-  <data name="AmbilightRefreshRatePerSecond" xml:space="preserve">
-    <value>Ambilight verversingen per seconden</value>
+  <data name="ScreenMirrorRefreshRatePerSecond" xml:space="preserve">
+    <value>Screen mirror verversingen per seconden</value>
   </data>
-  <data name="AmbilightMonitor" xml:space="preserve">
-    <value>Ambilight monitor</value>
+  <data name="ScreenMirrorMonitor" xml:space="preserve">
+    <value>Screen mirror monitor</value>
   </data>
-  <data name="Ambilight" xml:space="preserve">
-    <value>Ambilight</value>
+  <data name="ScreenMirrorGeneral" xml:space="preserve">
+    <value>Screen mirror</value>
   </data>
   <data name="Disclaimer" xml:space="preserve">
     <value>Disclaimer</value>
@@ -163,8 +163,8 @@ per IP adres</value>
   <data name="WinleafsUsesAPIs" xml:space="preserve">
     <value>Winleafs gebruikt de volgende APIs</value>
   </data>
-  <data name="AmbilightResetMessage" xml:space="preserve">
-    <value>Opmerking: bij het aanpassen van de ambilight instellingen moet Winleafs worden herstart.</value>
+  <data name="ScreenMirrorResetMessage" xml:space="preserve">
+    <value>Opmerking: bij het aanpassen van de screen mirror instellingen moet Winleafs worden herstart.</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Taal</value>
@@ -187,14 +187,14 @@ per IP adres</value>
   <data name="SunsetSunriseError" xml:space="preserve">
     <value>Er is een probleem opgetreden bij het ophalen van de zonsopgang- en zonsondergangtijden</value>
   </data>
-  <data name="AmbilightControlBrightness" xml:space="preserve">
-    <value>Laat ambilight de helderheid besturen</value>
+  <data name="ScreenMirrorControlBrightness" xml:space="preserve">
+    <value>Laat screen mirror de helderheid besturen</value>
   </data>
   <data name="WinleafsOptions" xml:space="preserve">
     <value>Winleafs Opties</value>
   </data>
-  <data name="AmbilightBrightnessInfo" xml:space="preserve">
-    <value>Opmerking: ververssnelheid wanneer ambilight de helderheid aanstuurt is maximaal 5, omdat helderheid en kleur aanpassen 2 aparte acties zijn en de lichten een maximale ververssnelheid hebben van 10hz.</value>
+  <data name="ScreenMirrorBrightnessInfo" xml:space="preserve">
+    <value>Opmerking: ververssnelheid wanneer screen mirror de helderheid aanstuurt is maximaal 5, omdat helderheid en kleur aanpassen 2 aparte acties zijn en de lichten een maximale ververssnelheid hebben van 10hz.</value>
   </data>
   <data name="MinimizeToSystemTray" xml:space="preserve">
     <value>Minimaliseer naar taakbalk bij sluiten</value>

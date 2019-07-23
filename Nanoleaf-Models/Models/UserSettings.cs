@@ -19,7 +19,7 @@ namespace Winleafs.Models.Models
         public static readonly string SettingsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), APPLICATIONNAME);
 
         private static readonly string _settingsFileName = Path.Combine(SettingsFolder, "Settings.txt");
-        private static readonly string _latestSettingsVersion = "4";
+        private static readonly string _latestSettingsVersion = "5";
 
         private static UserSettings _settings { get; set; }
 
@@ -51,9 +51,9 @@ namespace Winleafs.Models.Models
 
         public bool StartAtWindowsStartup { get; set; }
 
-        public int AmbilightRefreshRatePerSecond { get; set; }
-        public int AmbilightMonitorIndex { get; set; }
-        public bool AmbilightControlBrightness { get; set; }
+        public int ScreenMirrorRefreshRatePerSecond { get; set; }
+        public int ScreenMirrorMonitorIndex { get; set; }
+        public bool ScreenMirrorControlBrightness { get; set; }
 
         public string UserLocale { get; set; }
 
@@ -81,8 +81,8 @@ namespace Winleafs.Models.Models
                 {
                     // Defaults
                     Devices = new List<Device>(),
-                    AmbilightRefreshRatePerSecond = 1,
-                    AmbilightMonitorIndex = 0,
+                    ScreenMirrorRefreshRatePerSecond = 1,
+                    ScreenMirrorMonitorIndex = 0,
                     JsonVersion = _latestSettingsVersion
                 };
                 _settings = userSettings;
@@ -256,7 +256,7 @@ namespace Winleafs.Models.Models
         [Migration("2", "3")]
         private static JToken Migration_2_3(JToken jToken)
         {
-            jToken[nameof(AmbilightControlBrightness)] = false;          
+            jToken[nameof(ScreenMirrorControlBrightness)] = false;          
 
             return jToken;
         }
@@ -265,6 +265,25 @@ namespace Winleafs.Models.Models
         private static JToken Migration_3_4(JToken jToken)
         {
             jToken[nameof(MinimizeToSystemTray)] = true;
+
+            return jToken;
+        }
+
+        [Migration("4", "5")]
+        private static JToken Migration_4_5(JToken jToken)
+        {
+            jToken[nameof(ScreenMirrorRefreshRatePerSecond)] = jToken["AmbilightRefreshRatePerSecond"];
+            jToken[nameof(ScreenMirrorMonitorIndex)] = jToken["AmbilightMonitorIndex"];
+            jToken[nameof(ScreenMirrorControlBrightness)] = jToken["AmbilightControlBrightness"];
+
+            jToken["AmbilightRefreshRatePerSecond"].Parent.Remove();
+            jToken["AmbilightMonitorIndex"].Parent.Remove();
+            jToken["AmbilightControlBrightness"].Parent.Remove();
+
+            var jTokenAsString = jToken.ToString();
+            jTokenAsString = jTokenAsString.Replace("Winleafs - Ambilight", "Winleafs - Screen mirror"); //We are renaming the effect so repalce all occurences of the name
+
+            jToken = JToken.Parse(jTokenAsString);
 
             return jToken;
         }

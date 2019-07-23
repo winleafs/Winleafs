@@ -20,20 +20,15 @@ namespace Winleafs.Wpf.Helpers
 
         private static Bitmap _bitmap;
         private static Color _color;
-        private static bool _ambilightActive;
-        private static bool _screenMirrorActive;
 
 #pragma warning disable S3963 // "static" fields should be initialized inline
         static ScreenGrabber()
         {
-            _ambilightActive = false;
-            _screenMirrorActive = false;
-
             var timerRefreshRate = 1000;
 
-            if (UserSettings.Settings.AmbilightRefreshRatePerSecond > 0 && UserSettings.Settings.AmbilightRefreshRatePerSecond <= 10)
+            if (UserSettings.Settings.ScreenMirrorRefreshRatePerSecond > 0 && UserSettings.Settings.ScreenMirrorRefreshRatePerSecond <= 10)
             {
-                timerRefreshRate = 1000 / UserSettings.Settings.AmbilightRefreshRatePerSecond;
+                timerRefreshRate = 1000 / UserSettings.Settings.ScreenMirrorRefreshRatePerSecond;
             }
 
             _timer = new System.Timers.Timer(timerRefreshRate);
@@ -41,7 +36,7 @@ namespace Winleafs.Wpf.Helpers
             _timer.AutoReset = true;
 
             var monitorInfo = new MonitorInfo();
-            EnumDisplaySettings(Screen.AllScreens[UserSettings.Settings.AmbilightMonitorIndex].DeviceName, -1, ref monitorInfo);
+            EnumDisplaySettings(Screen.AllScreens[UserSettings.Settings.ScreenMirrorMonitorIndex].DeviceName, -1, ref monitorInfo);
 
             _screenBounds = new Rectangle(monitorInfo.dmPositionX, monitorInfo.dmPositionY, monitorInfo.dmPelsWidth, monitorInfo.dmPelsHeight);
         }
@@ -120,39 +115,15 @@ namespace Winleafs.Wpf.Helpers
         }
         #endregion
 
-        #region Start and Stop
-        public static void StartAmbilight()
+        public static void Start()
         {
-            _ambilightActive = true;
             _timer.Start();
         }
 
-        public static void StopAmbilight()
+        public static void Stop()
         {
-            _ambilightActive = false;
-
-            if (!_screenMirrorActive)
-            {
-                _timer.Stop();
-            }
+            _timer.Stop();
         }
-
-        public static void StartScreenMirror()
-        {
-            _screenMirrorActive = true;
-            _timer.Start();
-        }
-
-        public static void StopScreenMirror()
-        {
-            _screenMirrorActive = false;
-
-            if (!_ambilightActive)
-            {
-                _timer.Stop();
-            }
-        }
-        #endregion
 
         private static Color CalculateAverageColor()
         {

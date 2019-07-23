@@ -89,7 +89,7 @@ namespace Winleafs.Wpf.Api
         }
 
         /// <summary>
-        /// Activates an effect by name and brightness. This can be a custom effect (e.g. ambilight) or a effect available on the Nanoleaf device
+        /// Activates an effect by name and brightness. This can be a custom effect (e.g. screen mirror) or a effect available on the Nanoleaf device
         /// First deactivates any custom effects before enabling the new effect
         /// </summary>
         public async Task ActivateEffect(string effectName, int brightness)

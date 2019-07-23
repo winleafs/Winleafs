@@ -39,10 +39,10 @@ namespace Winleafs.Wpf.Views.Options
                 StartAtWindowsStartUp = UserSettings.Settings.StartAtWindowsStartup,
                 Latitude = UserSettings.Settings.Latitude?.ToString("N7", CultureInfo.InvariantCulture),
                 Longitude = UserSettings.Settings.Longitude?.ToString("N7", CultureInfo.InvariantCulture),
-                AmbilightRefreshRatePerSecond = UserSettings.Settings.AmbilightRefreshRatePerSecond,
-                AmbilightControlBrightness = UserSettings.Settings.AmbilightControlBrightness,
+                ScreenMirrorRefreshRatePerSecond = UserSettings.Settings.ScreenMirrorRefreshRatePerSecond,
+                ScreenMirrorControlBrightness = UserSettings.Settings.ScreenMirrorControlBrightness,
                 MonitorNames = monitors.Select(m => m.DeviceName).ToList(),
-                SelectedMonitor = monitors[UserSettings.Settings.AmbilightMonitorIndex].DeviceName,
+                SelectedMonitor = monitors[UserSettings.Settings.ScreenMirrorMonitorIndex].DeviceName,
                 SelectedLanguage = FullNameForCulture(UserSettings.Settings.UserLocale),
                 Languages = _languageDictionary.Keys.ToList(),
                 MinimizeToSystemTray = UserSettings.Settings.MinimizeToSystemTray
@@ -129,14 +129,14 @@ namespace Winleafs.Wpf.Views.Options
             }
             #endregion
 
-            #region Ambilight
-            UserSettings.Settings.AmbilightRefreshRatePerSecond = OptionsViewModel.AmbilightRefreshRatePerSecond;
-            UserSettings.Settings.AmbilightControlBrightness = OptionsViewModel.AmbilightControlBrightness;
+            #region ScreenMirror
+            UserSettings.Settings.ScreenMirrorRefreshRatePerSecond = OptionsViewModel.ScreenMirrorRefreshRatePerSecond;
+            UserSettings.Settings.ScreenMirrorControlBrightness = OptionsViewModel.ScreenMirrorControlBrightness;
 
             var monitors = Screen.AllScreens;
             var selectedMonitor = monitors.FirstOrDefault(m => m.DeviceName.Equals(OptionsViewModel.SelectedMonitor));
 
-            UserSettings.Settings.AmbilightMonitorIndex = Array.IndexOf(monitors, selectedMonitor);
+            UserSettings.Settings.ScreenMirrorMonitorIndex = Array.IndexOf(monitors, selectedMonitor);
             #endregion
 
             #region Language

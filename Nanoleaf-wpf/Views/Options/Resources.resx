@@ -117,14 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Ambilight" xml:space="preserve">
-    <value>Ambilight</value>
+  <data name="ScreenMirrorGeneral" xml:space="preserve">
+    <value>Screen mirror general</value>
   </data>
-  <data name="AmbilightMonitor" xml:space="preserve">
-    <value>Ambilight monitor</value>
+  <data name="ScreenMirrorMonitor" xml:space="preserve">
+    <value>Screen mirror monitor</value>
   </data>
-  <data name="AmbilightRefreshRatePerSecond" xml:space="preserve">
-    <value>Ambilight refresh rate per second</value>
+  <data name="ScreenMirrorRefreshRatePerSecond" xml:space="preserve">
+    <value>Screen mirror refresh rate per second</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
@@ -179,8 +179,8 @@ by IP Adress</value>
   <data name="SunsetSunriseError" xml:space="preserve">
     <value>Something went wrong when updating the sunrise and sunset times</value>
   </data>
-  <data name="AmbilightResetMessage" xml:space="preserve">
-    <value>Note: changing the ambilight settings requires a restart of Winleafs</value>
+  <data name="ScreenMirrorResetMessage" xml:space="preserve">
+    <value>Note: changing the screen mirror settings requires a restart of Winleafs</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Language</value>
@@ -188,13 +188,13 @@ by IP Adress</value>
   <data name="LanguageRestartNote" xml:space="preserve">
     <value>Note: Changing the language requires a restart to be applied.</value>
   </data>
-  <data name="AmbilightControlBrightness" xml:space="preserve">
-    <value>Let ambilight control brightness</value>
+  <data name="ScreenMirrorControlBrightness" xml:space="preserve">
+    <value>Let screen mirror control brightness</value>
   </data>
   <data name="WinleafsOptions" xml:space="preserve">
     <value>Winleafs Options</value>
   </data>
-  <data name="AmbilightBrightnessInfo" xml:space="preserve">
+  <data name="ScreenMirrorBrightnessInfo" xml:space="preserve">
     <value>Note: refresh rate when controlling brightness is max 5, since setting brightness and color are two seperate actions and the lights have a maximum refresh rate of 10hz.</value>
   </data>
   <data name="MinimizeToSystemTray" xml:space="preserve">

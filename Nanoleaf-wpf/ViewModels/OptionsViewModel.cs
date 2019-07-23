@@ -9,8 +9,8 @@ namespace Winleafs.Wpf.ViewModels
         public string Latitude { get; set; }
         public string Longitude { get; set; }
 
-        public int AmbilightRefreshRatePerSecond { get; set; }
-        public bool AmbilightControlBrightness { get; set; }
+        public int ScreenMirrorRefreshRatePerSecond { get; set; }
+        public bool ScreenMirrorControlBrightness { get; set; }
 
         public List<string> MonitorNames { get; set; }
 

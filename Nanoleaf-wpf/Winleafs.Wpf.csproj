@@ -105,7 +105,6 @@
     <Compile Include="Api\OrchestratorCollection.cs" />
     <Compile Include="Api\ScheduleTimer.cs" />
     <Compile Include="Helpers\ContextMenuLeftClickBehavior.cs" />
-    <Compile Include="Api\Effects\AmbilightEffect.cs" />
     <Compile Include="Helpers\EnumLocalizer.cs" />
     <Compile Include="Helpers\HsbToRgbConverter.cs" />
     <Compile Include="Helpers\MemoryReader.cs" />
@@ -336,7 +335,9 @@
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Views\AppResources.nl.resx" />
+    <EmbeddedResource Include="Views\AppResources.nl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\AppResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
