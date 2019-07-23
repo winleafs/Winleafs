@@ -36,6 +36,8 @@ namespace Winleafs.Wpf.Helpers
             _timer.Elapsed += OnTimedEvent;
             _timer.AutoReset = true;
 
+            // We select monitors via the new API but the MonitorInfo class works via the Windows Forms diaply name.
+            // Hence we retrieve the selected WIndows Forms monitor via our settings and then by comapring the DevicePath
             var monitors = WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.GetDisplayTargets();
             var formsMonitors = WindowsDisplayAPI.Display.GetDisplays();
 
