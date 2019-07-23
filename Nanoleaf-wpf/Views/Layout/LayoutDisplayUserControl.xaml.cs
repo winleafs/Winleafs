@@ -82,6 +82,11 @@ namespace Winleafs.Wpf.Views.Layout
             var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice);
             _triangles = orchestrator.PanelLayout.GetScaledTriangles(_width, _height);
 
+            if (_triangles == null || !_triangles.Any())
+            {
+                return;
+            }
+
             foreach (var triangle in _triangles)
             {
                 triangle.Polygon.MouseDown += TriangleClicked;
@@ -103,37 +108,38 @@ namespace Winleafs.Wpf.Views.Layout
 
         public void UpdateColors()
         {
-            if (UserSettings.Settings.ActiveDevice != null)
+            if (UserSettings.Settings.ActiveDevice == null || _triangles == null)
             {
-                var client = NanoleafClient.GetClientForDevice(UserSettings.Settings.ActiveDevice);
+                return;
+            }
 
-                //Get colors of current effect
-                var effect = client.EffectsEndpoint.GetEffectDetails(OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice).GetActiveEffectName());
+            var client = NanoleafClient.GetClientForDevice(UserSettings.Settings.ActiveDevice);
 
-                Dispatcher.Invoke(new Action(() =>
+            //Get colors of current effect
+            var effect = client.EffectsEndpoint.GetEffectDetails(OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice).GetActiveEffectName());
+
+            Dispatcher.Invoke(new Action(() =>
+            {
+                if (effect == null)
                 {
-                    if (effect == null)
+                    foreach (var triangle in _triangles)
                     {
-                        foreach (var triangle in _triangles)
-                        {
-                            triangle.Polygon.Fill = Brushes.LightSlateGray;
-                        }
+                        triangle.Polygon.Fill = Brushes.LightSlateGray;
                     }
-                    else
-                    {
-                        var colors = new List<SolidColorBrush>();
-                        foreach (var hsb in effect.Palette)
-                        {
-                            colors.Add(new SolidColorBrush(HsbToRgbConverter.ConvertToMediaColor(hsb.Hue, hsb.Saturation, hsb.Brightness)));
-                        }
+                }
+                else
+                {
+                    var colors = effect.Palette.Select(hsb =>
+                        new SolidColorBrush(
+                            HsbToRgbConverter.ConvertToMediaColor(hsb.Hue, hsb.Saturation, hsb.Brightness)
+                            )).ToList();
 
-                        foreach (var triangle in _triangles)
-                        {
-                            triangle.Polygon.Fill = colors[_random.Next(colors.Count)];
-                        }
+                    foreach (var triangle in _triangles)
+                    {
+                        triangle.Polygon.Fill = colors[_random.Next(colors.Count)];
                     }
-                }));
-            }            
+                }
+            }));
         }
 
         private void OnTimedEvent(object source, ElapsedEventArgs e)
@@ -143,19 +149,35 @@ namespace Winleafs.Wpf.Views.Layout
 
         private void TriangleClicked(object sender, MouseButtonEventArgs e)
         {
-            if (_panelsClickable)
+            if (_triangles == null)
             {
-                var triangle = (Polygon)sender;
-                var selectedPanelId = _triangles.FirstOrDefault(t => t.Polygon == triangle).PanelId;
-
-                if (!_lockedPanelIds.Contains(selectedPanelId))
-                {
-                    triangle.Stroke = _selectedBorderColor;
-                    triangle.StrokeThickness = 2;
-
-                    SelectedPanelIds.Add(selectedPanelId);
-                }                
+                return;
             }
+
+            if (!_panelsClickable)
+            {
+                return;
+            }
+
+            var triangle = (Polygon)sender;
+            var selectedPanel = _triangles.FirstOrDefault(t => t.Polygon == triangle);
+
+            if (selectedPanel == null)
+            {
+                return;
+            }
+
+            var selectedPanelId = selectedPanel.PanelId;
+
+            if (_lockedPanelIds.Contains(selectedPanelId))
+            {
+                return;
+            }
+
+            triangle.Stroke = _selectedBorderColor;
+            triangle.StrokeThickness = 2;
+
+            SelectedPanelIds.Add(selectedPanelId);
         }
 
         private void CanvasClicked(object sender, MouseButtonEventArgs e)
