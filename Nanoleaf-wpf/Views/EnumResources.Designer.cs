@@ -70,6 +70,15 @@ namespace Winleafs.Wpf.Views {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ambilight.
+        /// </summary>
+        internal static string Ambilight {
+            get {
+                return ResourceManager.GetString("Ambilight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Before.
         /// </summary>
         internal static string Before {
@@ -102,6 +111,15 @@ namespace Winleafs.Wpf.Views {
         internal static string ProcessEvent {
             get {
                 return ResourceManager.GetString("ProcessEvent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Screen Mirror.
+        /// </summary>
+        internal static string ScreenMirror {
+            get {
+                return ResourceManager.GetString("ScreenMirror", resourceCulture);
             }
         }
         

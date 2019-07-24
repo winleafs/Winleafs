@@ -61,11 +61,29 @@ namespace Winleafs.Wpf.Views.Options {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Algorithm.
+        /// </summary>
+        public static string Algorithm {
+            get {
+                return ResourceManager.GetString("Algorithm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string Cancel {
             get {
                 return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Device.
+        /// </summary>
+        public static string Device {
+            get {
+                return ResourceManager.GetString("Device", resourceCulture);
             }
         }
         
@@ -210,6 +228,24 @@ namespace Winleafs.Wpf.Views.Options {
         public static string ScreenMirrorControlBrightness {
             get {
                 return ResourceManager.GetString("ScreenMirrorControlBrightness", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Screen mirror device.
+        /// </summary>
+        public static string ScreenMirrorDevice {
+            get {
+                return ResourceManager.GetString("ScreenMirrorDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Screen mirror settings per device.
+        /// </summary>
+        public static string ScreenMirrorDeviceInfo {
+            get {
+                return ResourceManager.GetString("ScreenMirrorDeviceInfo", resourceCulture);
             }
         }
         

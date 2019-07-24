@@ -200,4 +200,16 @@ by IP Adress</value>
   <data name="MinimizeToSystemTray" xml:space="preserve">
     <value>Minimize to system tray on close</value>
   </data>
+  <data name="ScreenMirrorDevice" xml:space="preserve">
+    <value>Screen mirror device</value>
+  </data>
+  <data name="Algorithm" xml:space="preserve">
+    <value>Algorithm</value>
+  </data>
+  <data name="Device" xml:space="preserve">
+    <value>Device</value>
+  </data>
+  <data name="ScreenMirrorDeviceInfo" xml:space="preserve">
+    <value>Screen mirror settings per device</value>
+  </data>
 </root>

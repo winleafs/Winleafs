@@ -3,7 +3,6 @@ using System.Globalization;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Windows;
-using System.Windows.Forms;
 using Microsoft.Win32;
 using Winleafs.External;
 using Winleafs.Models.Models;
@@ -12,6 +11,7 @@ using System.Diagnostics;
 using System.Windows.Navigation;
 using Winleafs.Wpf.Views.Popup;
 using Winleafs.Wpf.ViewModels;
+using System.Collections.ObjectModel;
 
 namespace Winleafs.Wpf.Views.Options
 {
@@ -34,7 +34,7 @@ namespace Winleafs.Wpf.Views.Options
 
             var monitors = WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.GetDisplayTargets();
 
-            OptionsViewModel = new OptionsViewModel
+            OptionsViewModel = new OptionsViewModel(this)
             {
                 StartAtWindowsStartUp = UserSettings.Settings.StartAtWindowsStartup,
                 Latitude = UserSettings.Settings.Latitude?.ToString("N7", CultureInfo.InvariantCulture),
@@ -45,7 +45,11 @@ namespace Winleafs.Wpf.Views.Options
                 SelectedMonitor = monitors[UserSettings.Settings.ScreenMirrorMonitorIndex].FriendlyName,
                 SelectedLanguage = FullNameForCulture(UserSettings.Settings.UserLocale),
                 Languages = _languageDictionary.Keys.ToList(),
-                MinimizeToSystemTray = UserSettings.Settings.MinimizeToSystemTray
+                MinimizeToSystemTray = UserSettings.Settings.MinimizeToSystemTray,
+                SelectedDevice = UserSettings.Settings.ActiveDevice.Name,
+                ScreenMirrorAlgorithm = UserSettings.Settings.ActiveDevice.ScreenMirrorAlgorithm,
+                DeviceNames = new ObservableCollection<string>(UserSettings.Settings.Devices.Select(d => d.Name)),
+                AlgorithmPerDevice = UserSettings.Settings.Devices.ToDictionary(d => d.Name, d => d.ScreenMirrorAlgorithm)
             };
 
             _startupKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", RegistryKeyPermissionCheck.ReadWriteSubTree, RegistryRights.FullControl);
@@ -130,6 +134,7 @@ namespace Winleafs.Wpf.Views.Options
             #endregion
 
             #region ScreenMirror
+            #region General
             UserSettings.Settings.ScreenMirrorRefreshRatePerSecond = OptionsViewModel.ScreenMirrorRefreshRatePerSecond;
             UserSettings.Settings.ScreenMirrorControlBrightness = OptionsViewModel.ScreenMirrorControlBrightness;
 
@@ -137,6 +142,14 @@ namespace Winleafs.Wpf.Views.Options
             var selectedMonitor = monitors.FirstOrDefault(m => m.FriendlyName.Equals(OptionsViewModel.SelectedMonitor));
 
             UserSettings.Settings.ScreenMirrorMonitorIndex = Array.IndexOf(monitors, selectedMonitor);
+            #endregion
+
+            #region Device
+            foreach (var selectedAlgorithm in OptionsViewModel.AlgorithmPerDevice)
+            {
+                UserSettings.Settings.Devices.FirstOrDefault(d => d.Name.Equals(selectedAlgorithm.Key)).ScreenMirrorAlgorithm = selectedAlgorithm.Value;
+            }
+            #endregion
             #endregion
 
             #region Language

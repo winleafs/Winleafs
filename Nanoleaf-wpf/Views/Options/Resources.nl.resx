@@ -121,13 +121,13 @@
     <value>Anuleren</value>
   </data>
   <data name="ScreenMirrorRefreshRatePerSecond" xml:space="preserve">
-    <value>Screen mirror verversingen per seconden</value>
+    <value>Scherm spiegelen verversingen per seconden</value>
   </data>
   <data name="ScreenMirrorMonitor" xml:space="preserve">
-    <value>Screen mirror monitor</value>
+    <value>Scherm spiegelen monitor</value>
   </data>
   <data name="ScreenMirrorGeneral" xml:space="preserve">
-    <value>Screen mirror</value>
+    <value>Scherm spiegelen algemeen</value>
   </data>
   <data name="Disclaimer" xml:space="preserve">
     <value>Disclaimer</value>
@@ -164,7 +164,7 @@ per IP adres</value>
     <value>Winleafs gebruikt de volgende APIs</value>
   </data>
   <data name="ScreenMirrorResetMessage" xml:space="preserve">
-    <value>Opmerking: bij het aanpassen van de screen mirror instellingen moet Winleafs worden herstart.</value>
+    <value>Opmerking: bij het aanpassen van de scherm spiegelen instellingen moet Winleafs worden herstart.</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Taal</value>
@@ -188,15 +188,27 @@ per IP adres</value>
     <value>Er is een probleem opgetreden bij het ophalen van de zonsopgang- en zonsondergangtijden</value>
   </data>
   <data name="ScreenMirrorControlBrightness" xml:space="preserve">
-    <value>Laat screen mirror de helderheid besturen</value>
+    <value>Laat scherm spiegelen de helderheid besturen</value>
   </data>
   <data name="WinleafsOptions" xml:space="preserve">
     <value>Winleafs Opties</value>
   </data>
   <data name="ScreenMirrorBrightnessInfo" xml:space="preserve">
-    <value>Opmerking: ververssnelheid wanneer screen mirror de helderheid aanstuurt is maximaal 5, omdat helderheid en kleur aanpassen 2 aparte acties zijn en de lichten een maximale ververssnelheid hebben van 10hz.</value>
+    <value>Opmerking: ververssnelheid wanneer de helderheid wordt aangestuurt is maximaal 5, omdat helderheid en kleur aanpassen 2 aparte acties zijn en de lichten een maximale ververssnelheid hebben van 10hz.</value>
   </data>
   <data name="MinimizeToSystemTray" xml:space="preserve">
     <value>Minimaliseer naar taakbalk bij sluiten</value>
+  </data>
+  <data name="ScreenMirrorDevice" xml:space="preserve">
+    <value>Scherm spiegelen apparaat</value>
+  </data>
+  <data name="Algorithm" xml:space="preserve">
+    <value>Algoritme</value>
+  </data>
+  <data name="Device" xml:space="preserve">
+    <value>Apparaat</value>
+  </data>
+  <data name="ScreenMirrorDeviceInfo" xml:space="preserve">
+    <value>Instellingen voor scherm spiegelen per apparaat</value>
   </data>
 </root>

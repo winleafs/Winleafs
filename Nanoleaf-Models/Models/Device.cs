@@ -36,6 +36,8 @@ namespace Winleafs.Models.Models
 
         public PercentageProfile PercentageProfile { get;set;}
 
+        public ScreenMirrorAlgorithm ScreenMirrorAlgorithm { get; set; }
+
         [JsonIgnore]
         public Schedule ActiveSchedule
         {

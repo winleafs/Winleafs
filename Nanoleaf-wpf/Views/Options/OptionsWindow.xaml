@@ -76,6 +76,15 @@
                     <TextBlock Margin="19,194,9.667,0" TextWrapping="Wrap" Text="{x:Static local:Resources.ScreenMirrorBrightnessInfo}" VerticalAlignment="Top" FontSize="15" Foreground="White" Grid.ColumnSpan="2" Height="88"/>
                 </Grid>
             </TabItem>
+            <TabItem Header="{x:Static local:Resources.ScreenMirrorDevice}">
+                <Grid>
+                    <Label Content="{x:Static local:Resources.ScreenMirrorDeviceInfo}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
+                    <Label Content="{x:Static local:Resources.Device}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
+                    <ComboBox HorizontalAlignment="Left" Margin="118,54,0,0" VerticalAlignment="Top" Width="192" SelectedItem="{Binding SelectedDevice}" ItemsSource="{Binding DeviceNames}"/>
+                    <Label Content="{x:Static local:Resources.Algorithm}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,74,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
+                    <ComboBox HorizontalAlignment="Left" Margin="118,81,0,0" VerticalAlignment="Top" Width="192" SelectedItem="{Binding SelectedScreenMirrorAlgorithm}" ItemsSource="{Binding ScreenMirrorAlgorithms}" RenderTransformOrigin="0.537,0.206"/>
+                </Grid>
+            </TabItem>
             <TabItem Header="{x:Static local:Resources.Disclaimer}">
                 <Grid>
                     <Label Content="{x:Static local:Resources.WinleafsUsesAPIs}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>

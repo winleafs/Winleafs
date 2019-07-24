@@ -285,6 +285,11 @@ namespace Winleafs.Models.Models
 
             jToken = JToken.Parse(jTokenAsString);
 
+            foreach (var device in jToken["Devices"])
+            {
+                device["ScreenMirrorAlgorithm"] = 0;
+            }
+
             return jToken;
         }
         #endregion
