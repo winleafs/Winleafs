@@ -1,26 +1,48 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
+using System.Windows;
 using Winleafs.Api;
+using Winleafs.Api.Endpoints.Interfaces;
+using Winleafs.Models.Enums;
 using Winleafs.Models.Models;
+using Winleafs.Wpf.Api.Effects.ScreenMirrorEffects;
+using Winleafs.Wpf.Api.Layouts;
 using Winleafs.Wpf.Helpers;
 
 namespace Winleafs.Wpf.Api.Effects
 {
     public class ScreenMirrorEffect : ICustomEffect
     {
+        [DllImport("user32.dll")]
+#pragma warning disable S4214 // "P/Invoke" methods should not be visible
+        public static extern bool EnumDisplaySettings(string lpszDeviceName, int iModeNum, ref MonitorInfo monitorInfo);
+#pragma warning restore S4214 // "P/Invoke" methods should not be visible
+
         public static string Name => $"{CustomEffectsCollection.EffectNamePreface}Screen mirror";
 
         private readonly INanoleafClient _nanoleafClient;
         private readonly System.Timers.Timer _timer;
-        private readonly bool _controlBrightness;
+        private readonly ScreenMirrorAlgorithm _screenMirrorAlgorithm;
+        private readonly IScreenMirrorEffect _screenMirrorEffect;
 
-        public ScreenMirrorEffect(INanoleafClient nanoleafClient)
+        public ScreenMirrorEffect(Device device, Orchestrator orchestrator, INanoleafClient nanoleafClient)
         {
             _nanoleafClient = nanoleafClient;
+            _screenMirrorAlgorithm = device.ScreenMirrorAlgorithm;
 
-            _controlBrightness = UserSettings.Settings.ScreenMirrorControlBrightness;
+            if (_screenMirrorAlgorithm == ScreenMirrorAlgorithm.ScreenMirror)
+            {
+                _screenMirrorEffect = new ScreenMirror(_nanoleafClient, orchestrator);
+            }
+            else if (_screenMirrorAlgorithm == ScreenMirrorAlgorithm.Ambilight)
+            {
+                _screenMirrorEffect = new Ambilght(_nanoleafClient);
+            }
 
             var timerRefreshRate = 1000;
 
@@ -29,9 +51,9 @@ namespace Winleafs.Wpf.Api.Effects
                 timerRefreshRate = 1000 / UserSettings.Settings.ScreenMirrorRefreshRatePerSecond;
             }
 
-            if (_controlBrightness && timerRefreshRate < 1000 / 5)
+            if (_screenMirrorAlgorithm == ScreenMirrorAlgorithm.Ambilight && UserSettings.Settings.ScreenMirrorControlBrightness && timerRefreshRate < 1000 / 5)
             {
-                timerRefreshRate = 1000 / 5; //When this effect also control brightness, we can update a maximum of 5 times per second since setting brightness is a different action
+                timerRefreshRate = 1000 / 5; //When ambilight is on and controls brightness is enabled, we can update a maximum of 5 times per second since setting brightness is a different action
             }
 
             _timer = new System.Timers.Timer(timerRefreshRate);
@@ -41,38 +63,17 @@ namespace Winleafs.Wpf.Api.Effects
 
         private void OnTimedEvent(object source, ElapsedEventArgs e)
         {
-            Task.Run(() => SetColor());
-        }
-
-        /// <summary>
-        ///Sets the color of the nanoleaf with the logging disabled.
-        /// Seeing as a maximum of 10 requests per second can be set this will generate a lot of unwanted log data.
-        /// See https://github.com/StijnOostdam/Winleafs/issues/40.
-        /// </summary>
-        private async Task SetColor()
-        {
-            var color = ScreenGrabber.GetColor();
-
-            var hue = (int)color.GetHue();
-            var sat = (int)(color.GetSaturation() * 100);
-
-            if (_controlBrightness)
-            {
-                //For brightness calculation see: https://stackoverflow.com/a/596243 and https://www.w3.org/TR/AERT/#color-contrast
-                //We do not use Color.GetBrightness() since that value is always null because we use Color.FromArgb in the screengrabber.
-                //Birghtness can be maximum 100
-                var brightness = Math.Min(100, (int)(0.299 * color.R + 0.587 * color.G + 0.114 * color.B));
-
-                await _nanoleafClient.StateEndpoint.SetHueSaturationAndBrightnessAsync(hue, sat, brightness, disableLogging: true);
-            }
-            else
-            {
-                await _nanoleafClient.StateEndpoint.SetHueAndSaturationAsync(hue, sat, disableLogging: true);
-            }
+            Task.Run(() => _screenMirrorEffect.ApplyEffect());
         }
 
         public async Task Activate()
         {
+            if (_screenMirrorAlgorithm == ScreenMirrorAlgorithm.ScreenMirror)
+            {
+                //For screen mirror, we need to enable external control
+                await _nanoleafClient.ExternalControlEndpoint.PrepareForExternalControl();
+            }
+
             ScreenGrabber.Start();
             _timer.Start();
         }

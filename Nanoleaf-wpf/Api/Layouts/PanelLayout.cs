@@ -69,14 +69,12 @@ namespace Winleafs.Wpf.Api.Layouts
 
             //Normalize the triangle positions such that the coordinates start at 0
             double minTriangleX = _unscaledTriangles.SelectMany(p => p.Polygon.Points).Min(p => p.X);
-            double minTriangleY = _unscaledTriangles.SelectMany(p => p.Polygon.Points).Min(p => p.Y); ;
+            double minTriangleY = _unscaledTriangles.SelectMany(p => p.Polygon.Points).Min(p => p.Y);
 
             foreach (var triangle in _unscaledTriangles)
             {
                 //Move MidPoint
-                triangle.MidPoint = new Point(
-                    minTriangleX < 0 ? triangle.MidPoint.X + minTriangleX : triangle.MidPoint.X - minTriangleX,
-                    minTriangleY < 0 ? triangle.MidPoint.Y + minTriangleY : triangle.MidPoint.Y - minTriangleY);
+                triangle.MidPoint = new Point(triangle.MidPoint.X - minTriangleX, triangle.MidPoint.Y - minTriangleY);
 
                 //Move triangle
                 for (var i = 0; i < triangle.Polygon.Points.Count; i++)
@@ -120,7 +118,7 @@ namespace Winleafs.Wpf.Api.Layouts
 
             _unscaledTriangles.Add(new DrawablePanel
             {
-                MidPoint = new Point(x, y),
+                MidPoint = globalRotationTransform.Transform(new Point(x, y)),
                 PanelId = panelId,
                 Polygon = triangle
             });

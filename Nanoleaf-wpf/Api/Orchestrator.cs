@@ -33,10 +33,10 @@ namespace Winleafs.Wpf.Api
         {
             Device = device;
 
-            _customEffects = new CustomEffectsCollection(Device);
             ScheduleTimer = new ScheduleTimer(this);
             PanelLayout = new PanelLayout(Device);
             _eventTriggersCollection = new EventTriggersCollection(this);
+            _customEffects = new CustomEffectsCollection(Device, this); //Custom effect initialization must come after panel layout initialization as custom screen mirror effect needs the panel layout
 
             if (device.OperationMode == OperationMode.Schedule)
             {

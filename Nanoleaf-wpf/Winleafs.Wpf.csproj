@@ -98,6 +98,9 @@
     <Compile Include="Api\Effects\ScreenMirrorEffect.cs" />
     <Compile Include="Api\Effects\CustomEffectsCollection.cs" />
     <Compile Include="Api\Effects\ICustomEffect.cs" />
+    <Compile Include="Api\Effects\ScreenMirrorEffects\Ambilght.cs" />
+    <Compile Include="Api\Effects\ScreenMirrorEffects\IScreenMirrorEffect.cs" />
+    <Compile Include="Api\Effects\ScreenMirrorEffects\ScreenMirror.cs" />
     <Compile Include="Api\Effects\TurnOffEffect.cs" />
     <Compile Include="Api\Events\Borderlands2HealthEventTrigger.cs" />
     <Compile Include="Api\Events\EventTriggersCollection.cs" />
@@ -111,6 +114,7 @@
     <Compile Include="Helpers\EnumLocalizer.cs" />
     <Compile Include="Helpers\HsbToRgbConverter.cs" />
     <Compile Include="Helpers\MemoryReader.cs" />
+    <Compile Include="Helpers\MonitorHelper.cs" />
     <Compile Include="Helpers\ScreenGrabber.cs" />
     <Compile Include="Api\Layouts\DrawablePanel.cs" />
     <Compile Include="ViewModels\OptionsViewModel.cs" />

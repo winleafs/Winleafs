@@ -15,12 +15,12 @@ namespace Winleafs.Wpf.Api.Effects
 
         private readonly Dictionary<string, ICustomEffect> _customEffects;
 
-        public CustomEffectsCollection(Device device)
+        public CustomEffectsCollection(Device device, Orchestrator orchestrator)
         {
             var _nanoleafClient = NanoleafClient.GetClientForDevice(device);
 
             _customEffects = new Dictionary<string, ICustomEffect>();
-            _customEffects.Add(ScreenMirrorEffect.Name, new ScreenMirrorEffect(_nanoleafClient)); //We will not translate effect names since their names are identifiers
+            _customEffects.Add(ScreenMirrorEffect.Name, new ScreenMirrorEffect(device, orchestrator, _nanoleafClient)); //We will not translate effect names since their names are identifiers
             _customEffects.Add($"{EffectNamePreface}Turn lights off", new TurnOffEffect(_nanoleafClient));
         }
 
