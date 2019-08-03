@@ -1,28 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
-using System.Windows;
 using Winleafs.Api;
-using Winleafs.Api.Endpoints.Interfaces;
 using Winleafs.Models.Enums;
 using Winleafs.Models.Models;
 using Winleafs.Wpf.Api.Effects.ScreenMirrorEffects;
-using Winleafs.Wpf.Api.Layouts;
-using Winleafs.Wpf.Helpers;
 
 namespace Winleafs.Wpf.Api.Effects
 {
     public class ScreenMirrorEffect : ICustomEffect
     {
-        [DllImport("user32.dll")]
-#pragma warning disable S4214 // "P/Invoke" methods should not be visible
-        public static extern bool EnumDisplaySettings(string lpszDeviceName, int iModeNum, ref MonitorInfo monitorInfo);
-#pragma warning restore S4214 // "P/Invoke" methods should not be visible
-
         public static string Name => $"{CustomEffectsCollection.EffectNamePreface}Screen mirror";
 
         private readonly INanoleafClient _nanoleafClient;
@@ -41,7 +28,7 @@ namespace Winleafs.Wpf.Api.Effects
             }
             else if (_screenMirrorAlgorithm == ScreenMirrorAlgorithm.Ambilight)
             {
-                _screenMirrorEffect = new Ambilght(_nanoleafClient);
+                _screenMirrorEffect = new Ambilght(nanoleafClient, device);
             }
 
             var timerRefreshRate = 1000;
@@ -51,7 +38,7 @@ namespace Winleafs.Wpf.Api.Effects
                 timerRefreshRate = 1000 / device.ScreenMirrorRefreshRatePerSecond;
             }
 
-            if (_screenMirrorAlgorithm == ScreenMirrorAlgorithm.Ambilight && device.ScreenMirrorControlBrightness && timerRefreshRate < 1000 / 5)
+            if (_screenMirrorAlgorithm == ScreenMirrorAlgorithm.Ambilight && device.ScreenMirrorControlBrightness && timerRefreshRate > 1000 / 5)
             {
                 timerRefreshRate = 1000 / 5; //When ambilight is on and controls brightness is enabled, we can update a maximum of 5 times per second since setting brightness is a different action
             }
@@ -74,7 +61,6 @@ namespace Winleafs.Wpf.Api.Effects
                 await _nanoleafClient.ExternalControlEndpoint.PrepareForExternalControl();
             }
 
-            ScreenGrabber.Start();
             _timer.Start();
         }
 
@@ -85,18 +71,6 @@ namespace Winleafs.Wpf.Api.Effects
         {
             _timer.Stop();
             Thread.Sleep(1000); //Give the last command the time to complete, 1000 is based on testing and a high value (better safe then sorry)
-
-            var screenMirrorActive = false;
-
-            foreach (var device in UserSettings.Settings.Devices)
-            {
-                screenMirrorActive = Name.Equals(OrchestratorCollection.GetOrchestratorForDevice(device).GetActiveEffectName());
-            }
-
-            if (!screenMirrorActive)
-            {
-                ScreenGrabber.Stop();
-            }
         }
 
         public bool IsContinuous()

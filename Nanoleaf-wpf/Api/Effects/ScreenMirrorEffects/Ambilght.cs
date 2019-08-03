@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Threading.Tasks;
 using Winleafs.Api;
 using Winleafs.Models.Models;
@@ -10,11 +11,13 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
     {
         private readonly bool _controlBrightness;
         private readonly INanoleafClient _nanoleafClient;
+        private readonly Rectangle _screenBounds;
 
-        public Ambilght(INanoleafClient nanoleafClient)
+        public Ambilght(INanoleafClient nanoleafClient, Device device)
         {
             _nanoleafClient = nanoleafClient;
-            _controlBrightness = false;// UserSettings.Settings.ScreenMirrorControlBrightness;
+            _controlBrightness = device.ScreenMirrorControlBrightness;
+            _screenBounds = MonitorHelper.GetScreenBounds(device.ScreenMirrorMonitorIndex);
         }
 
         /// <summary>
@@ -25,7 +28,8 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
         /// </summary>
         public async Task ApplyEffect()
         {
-            var color = ScreenGrabber.GetAverageScreenColor();
+            var bitmap = ScreenGrabber.CaptureScreen(_screenBounds);
+            var color = ScreenGrabber.CalculateAverageColor(bitmap, _screenBounds);
 
             var hue = (int)color.GetHue();
             var sat = (int)(color.GetSaturation() * 100);
@@ -44,5 +48,7 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
                 await _nanoleafClient.StateEndpoint.SetHueAndSaturationAsync(hue, sat, disableLogging: true);
             }
         }
+
+        
     }
 }
