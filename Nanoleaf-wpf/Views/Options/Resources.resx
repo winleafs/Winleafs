@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ScreenMirrorGeneral" xml:space="preserve">
-    <value>Screen mirror general</value>
+  <data name="ScreenMirror" xml:space="preserve">
+    <value>Screen mirror</value>
   </data>
   <data name="ScreenMirrorMonitor" xml:space="preserve">
     <value>Screen mirror monitor</value>
@@ -199,9 +199,6 @@ by IP Adress</value>
   </data>
   <data name="MinimizeToSystemTray" xml:space="preserve">
     <value>Minimize to system tray on close</value>
-  </data>
-  <data name="ScreenMirrorDevice" xml:space="preserve">
-    <value>Screen mirror device</value>
   </data>
   <data name="Algorithm" xml:space="preserve">
     <value>Algorithm</value>

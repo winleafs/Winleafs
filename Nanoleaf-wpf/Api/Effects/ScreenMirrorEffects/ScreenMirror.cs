@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -7,6 +8,7 @@ using Winleafs.Api;
 using Winleafs.Api.Endpoints.Interfaces;
 using Winleafs.Wpf.Api.Layouts;
 using Winleafs.Wpf.Helpers;
+using Winleafs.Models.Models;
 
 namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
 {
@@ -17,13 +19,13 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
         private readonly List<DrawablePanel> _panels;
         private readonly int _rectangleSize;
 
-        public ScreenMirror(INanoleafClient nanoleafClient, Orchestrator orchestrator)
+        public ScreenMirror(Device device, Orchestrator orchestrator, INanoleafClient nanoleafClient)
         {
             _nanoleafClient = nanoleafClient;
 
             _externalControlEndpoint = _nanoleafClient.ExternalControlEndpoint;
 
-            var screenBounds = MonitorHelper.GetScreenBounds();
+            var screenBounds = MonitorHelper.GetScreenBounds(device.ScreenMirrorMonitorIndex);
 
             _panels = orchestrator.PanelLayout.GetScaledTriangles(screenBounds.Width, screenBounds.Height);
 

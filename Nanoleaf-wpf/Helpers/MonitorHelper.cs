@@ -13,14 +13,14 @@ namespace Winleafs.Wpf.Helpers
         public static extern bool EnumDisplaySettings(string lpszDeviceName, int iModeNum, ref MonitorInfo monitorInfo);
 #pragma warning restore S4214 // "P/Invoke" methods should not be visible
 
-        public static Rectangle GetScreenBounds()
+        public static Rectangle GetScreenBounds(int monitorIndex)
         {
             // We select monitors via the new API but the MonitorInfo class works via the Windows Forms diaply name.
             // Hence we retrieve the selected WIndows Forms monitor via our settings and then by comapring the DevicePath
             var monitors = WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.GetDisplayTargets();
             var formsMonitors = WindowsDisplayAPI.Display.GetDisplays();
 
-            var selectedMonitor = formsMonitors.FirstOrDefault(monitor => monitor.DevicePath.Equals(monitors[UserSettings.Settings.ScreenMirrorMonitorIndex].DevicePath));
+            var selectedMonitor = formsMonitors.FirstOrDefault(monitor => monitor.DevicePath.Equals(monitors[monitorIndex].DevicePath));
 
             var monitorInfo = new MonitorInfo();
             EnumDisplaySettings(selectedMonitor.DisplayName, -1, ref monitorInfo);

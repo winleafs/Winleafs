@@ -214,6 +214,15 @@ namespace Winleafs.Wpf.Views.Options {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Screen mirror.
+        /// </summary>
+        public static string ScreenMirror {
+            get {
+                return ResourceManager.GetString("ScreenMirror", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Note: refresh rate when controlling brightness is max 5, since setting brightness and color are two seperate actions and the lights have a maximum refresh rate of 10hz..
         /// </summary>
         public static string ScreenMirrorBrightnessInfo {
@@ -232,29 +241,11 @@ namespace Winleafs.Wpf.Views.Options {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Screen mirror device.
-        /// </summary>
-        public static string ScreenMirrorDevice {
-            get {
-                return ResourceManager.GetString("ScreenMirrorDevice", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Screen mirror settings per device.
         /// </summary>
         public static string ScreenMirrorDeviceInfo {
             get {
                 return ResourceManager.GetString("ScreenMirrorDeviceInfo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Screen mirror general.
-        /// </summary>
-        public static string ScreenMirrorGeneral {
-            get {
-                return ResourceManager.GetString("ScreenMirrorGeneral", resourceCulture);
             }
         }
         

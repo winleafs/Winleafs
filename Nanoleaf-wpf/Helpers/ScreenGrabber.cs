@@ -1,5 +1,6 @@
 ﻿using NLog;
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Timers;
@@ -8,7 +9,7 @@ using Winleafs.Models.Models;
 
 namespace Winleafs.Wpf.Helpers
 {
-    public static class ScreenGrabber
+    public class ScreenGrabber
     {
         private static Logger _logger = LogManager.GetCurrentClassLogger();
         private static object _colorLockObject = new object();
@@ -21,23 +22,21 @@ namespace Winleafs.Wpf.Helpers
         private static BitmapData _bitmapData;
         private static readonly Color _whiteColor = Color.FromArgb(System.Windows.Media.Brushes.White.Color.A, System.Windows.Media.Brushes.White.Color.R, System.Windows.Media.Brushes.White.Color.G, System.Windows.Media.Brushes.White.Color.B);
 
-#pragma warning disable S3963 // "static" fields should be initialized inline
-        static ScreenGrabber()
+        public ScreenGrabber(Device device)
         {
             var timerRefreshRate = 1000;
 
-            if (UserSettings.Settings.ScreenMirrorRefreshRatePerSecond > 0 && UserSettings.Settings.ScreenMirrorRefreshRatePerSecond <= 10)
+            if (device.ScreenMirrorRefreshRatePerSecond > 0 && device.ScreenMirrorRefreshRatePerSecond <= 10)
             {
-                timerRefreshRate = 1000 / UserSettings.Settings.ScreenMirrorRefreshRatePerSecond;
+                timerRefreshRate = 1000 / device.ScreenMirrorRefreshRatePerSecond;
             }
 
             _timer = new System.Timers.Timer(timerRefreshRate);
             _timer.Elapsed += OnTimedEvent;
             _timer.AutoReset = true;
 
-            _screenBounds = MonitorHelper.GetScreenBounds();
+            _screenBounds = MonitorHelper.GetScreenBounds(device.ScreenMirrorMonitorIndex);
         }
-#pragma warning restore S3963 // "static" fields should be initialized inline
 
         private static Bitmap CaptureScreen()
         {
@@ -121,11 +120,11 @@ namespace Winleafs.Wpf.Helpers
                     int red = 0;
                     int green = 0;
                     int blue = 0;
-                    int idx = 0;
+                    int index = 0;
                     int minDiversion = 50; // drop pixels that do not differ by at least minDiversion between color values (white, gray or black)
                     int dropped = 0; // keep track of dropped pixels
                     long totalRed = 0, totalGreen = 0, totalBlue = 0;
-                    int bppModifier = 4; //bm.PixelFormat == PixelFormat.Format24bppRgb ? 3 : 4; //cutting corners, will fail on anything else but 32 and 24 bit images. In this case the bitmap is always 32 bit.
+                    int bppModifier = 4; //bm.PixelFormat == PixelFormat.Format24bppRgb ? 3 : 4;
                                         
                     int stride = _bitmapData.Stride;
                     IntPtr Scan0 = _bitmapData.Scan0;
@@ -138,10 +137,12 @@ namespace Winleafs.Wpf.Helpers
                         {
                             for (int x = startX; x < width; x++)
                             {
-                                idx = (y * stride) + x * bppModifier;
-                                red = p[idx + 2];
-                                green = p[idx + 1];
-                                blue = p[idx];
+                                index = (y * stride) + x * bppModifier;
+                                red = p[index + 2];
+                                green = p[index + 1];
+                                blue = p[index];
+
+                                Debug.WriteLine($"{red} {green} {blue}");
 
                                 if (Math.Abs(red - green) > minDiversion || Math.Abs(red - blue) > minDiversion || Math.Abs(green - blue) > minDiversion)
                                 {

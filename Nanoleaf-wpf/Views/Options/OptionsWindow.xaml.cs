@@ -32,24 +32,23 @@ namespace Winleafs.Wpf.Views.Options
         {
             InitializeComponent();
 
-            var monitors = WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.GetDisplayTargets();
+            var monitorNames = WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.GetDisplayTargets().Select(m => m.FriendlyName).ToList();
 
             OptionsViewModel = new OptionsViewModel(this)
             {
+                AlgorithmPerDevice = UserSettings.Settings.Devices.ToDictionary(d => d.Name, d => d.ScreenMirrorAlgorithm),
+                ScreenMirrorControlBrightnessPerDevice = UserSettings.Settings.Devices.ToDictionary(d => d.Name, d => d.ScreenMirrorControlBrightness),
+                ScreenMirrorRefreshRatePerDevice = UserSettings.Settings.Devices.ToDictionary(d => d.Name, d => d.ScreenMirrorRefreshRatePerSecond),
+                MonitorPerDevice = UserSettings.Settings.Devices.ToDictionary(d => d.Name, d => monitorNames[d.ScreenMirrorMonitorIndex]),
+                DeviceNames = new ObservableCollection<string>(UserSettings.Settings.Devices.Select(d => d.Name)),
+                MonitorNames = monitorNames,
                 StartAtWindowsStartUp = UserSettings.Settings.StartAtWindowsStartup,
                 Latitude = UserSettings.Settings.Latitude?.ToString("N7", CultureInfo.InvariantCulture),
                 Longitude = UserSettings.Settings.Longitude?.ToString("N7", CultureInfo.InvariantCulture),
-                ScreenMirrorRefreshRatePerSecond = UserSettings.Settings.ScreenMirrorRefreshRatePerSecond,
-                ScreenMirrorControlBrightness = UserSettings.Settings.ScreenMirrorControlBrightness,
-                MonitorNames = monitors.Select(m => m.FriendlyName).ToList(),
-                SelectedMonitor = monitors[UserSettings.Settings.ScreenMirrorMonitorIndex].FriendlyName,
                 SelectedLanguage = FullNameForCulture(UserSettings.Settings.UserLocale),
                 Languages = _languageDictionary.Keys.ToList(),
                 MinimizeToSystemTray = UserSettings.Settings.MinimizeToSystemTray,
-                SelectedDevice = UserSettings.Settings.ActiveDevice.Name,
-                ScreenMirrorAlgorithm = UserSettings.Settings.ActiveDevice.ScreenMirrorAlgorithm,
-                DeviceNames = new ObservableCollection<string>(UserSettings.Settings.Devices.Select(d => d.Name)),
-                AlgorithmPerDevice = UserSettings.Settings.Devices.ToDictionary(d => d.Name, d => d.ScreenMirrorAlgorithm)
+                SelectedDevice = UserSettings.Settings.ActiveDevice.Name
             };
 
             _startupKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", RegistryKeyPermissionCheck.ReadWriteSubTree, RegistryRights.FullControl);
@@ -134,22 +133,15 @@ namespace Winleafs.Wpf.Views.Options
             #endregion
 
             #region ScreenMirror
-            #region General
-            UserSettings.Settings.ScreenMirrorRefreshRatePerSecond = OptionsViewModel.ScreenMirrorRefreshRatePerSecond;
-            UserSettings.Settings.ScreenMirrorControlBrightness = OptionsViewModel.ScreenMirrorControlBrightness;
+            var monitorNames = WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.GetDisplayTargets().Select(m => m.FriendlyName).ToArray();
 
-            var monitors = WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.GetDisplayTargets();
-            var selectedMonitor = monitors.FirstOrDefault(m => m.FriendlyName.Equals(OptionsViewModel.SelectedMonitor));
-
-            UserSettings.Settings.ScreenMirrorMonitorIndex = Array.IndexOf(monitors, selectedMonitor);
-            #endregion
-
-            #region Device
-            foreach (var selectedAlgorithm in OptionsViewModel.AlgorithmPerDevice)
+            foreach (var device in UserSettings.Settings.Devices)
             {
-                UserSettings.Settings.Devices.FirstOrDefault(d => d.Name.Equals(selectedAlgorithm.Key)).ScreenMirrorAlgorithm = selectedAlgorithm.Value;
+                device.ScreenMirrorAlgorithm = OptionsViewModel.AlgorithmPerDevice[device.Name];
+                device.ScreenMirrorRefreshRatePerSecond = OptionsViewModel.ScreenMirrorRefreshRatePerDevice[device.Name];
+                device.ScreenMirrorControlBrightness = OptionsViewModel.ScreenMirrorControlBrightnessPerDevice[device.Name];
+                device.ScreenMirrorMonitorIndex = Array.IndexOf(monitorNames, OptionsViewModel.MonitorPerDevice[device.Name]);
             }
-            #endregion
             #endregion
 
             #region Language

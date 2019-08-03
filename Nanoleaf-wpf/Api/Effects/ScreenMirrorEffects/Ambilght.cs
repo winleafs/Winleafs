@@ -14,7 +14,7 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
         public Ambilght(INanoleafClient nanoleafClient)
         {
             _nanoleafClient = nanoleafClient;
-            _controlBrightness = UserSettings.Settings.ScreenMirrorControlBrightness;
+            _controlBrightness = false;// UserSettings.Settings.ScreenMirrorControlBrightness;
         }
 
         /// <summary>

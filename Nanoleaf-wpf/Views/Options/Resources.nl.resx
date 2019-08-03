@@ -126,8 +126,8 @@
   <data name="ScreenMirrorMonitor" xml:space="preserve">
     <value>Scherm spiegelen monitor</value>
   </data>
-  <data name="ScreenMirrorGeneral" xml:space="preserve">
-    <value>Scherm spiegelen algemeen</value>
+  <data name="ScreenMirror" xml:space="preserve">
+    <value>Scherm spiegelen</value>
   </data>
   <data name="Disclaimer" xml:space="preserve">
     <value>Disclaimer</value>
@@ -198,9 +198,6 @@ per IP adres</value>
   </data>
   <data name="MinimizeToSystemTray" xml:space="preserve">
     <value>Minimaliseer naar taakbalk bij sluiten</value>
-  </data>
-  <data name="ScreenMirrorDevice" xml:space="preserve">
-    <value>Scherm spiegelen apparaat</value>
   </data>
   <data name="Algorithm" xml:space="preserve">
     <value>Algoritme</value>
