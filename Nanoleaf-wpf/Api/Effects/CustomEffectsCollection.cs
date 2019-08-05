@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using Winleafs.Api;
@@ -17,11 +18,22 @@ namespace Winleafs.Wpf.Api.Effects
 
         public CustomEffectsCollection(Device device, Orchestrator orchestrator)
         {
-            var _nanoleafClient = NanoleafClient.GetClientForDevice(device);
+            var nanoleafClient = NanoleafClient.GetClientForDevice(device);
 
             _customEffects = new Dictionary<string, ICustomEffect>();
-            _customEffects.Add(ScreenMirrorEffect.Name, new ScreenMirrorEffect(device, orchestrator, _nanoleafClient)); //We will not translate effect names since their names are identifiers
-            _customEffects.Add($"{EffectNamePreface}Turn lights off", new TurnOffEffect(_nanoleafClient));
+
+            var customColorEffects = UserSettings.Settings.CustomEffects;
+
+            if (customColorEffects != null && customColorEffects.Any())
+            {
+                foreach (var customColorEffect in customColorEffects)
+                {
+                    _customEffects.Add(customColorEffect.EffectName, new CustomColorEffect(nanoleafClient, customColorEffect.Color));
+                }
+            }
+
+            _customEffects.Add(ScreenMirrorEffect.Name, new ScreenMirrorEffect(device, orchestrator, nanoleafClient)); //We will not translate effect names since their names are identifiers
+            _customEffects.Add($"{EffectNamePreface}Turn lights off", new TurnOffEffect(nanoleafClient));
         }
 
         public bool EffectIsCustomEffect(string effectName)

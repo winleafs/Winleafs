@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using Winleafs.Models.Enums;
 using Winleafs.Models.Exceptions;
+using Winleafs.Models.Models.Effects;
 using Winleafs.Models.Models.Scheduling;
 
 namespace Winleafs.Models.Models
@@ -40,6 +41,8 @@ namespace Winleafs.Models.Models
         public string JsonVersion { get; set; }
 
         public List<Device> Devices { get; set; }
+
+        public List<UserCustomColorEffect> CustomEffects { get; set; }
 
         public double? Latitude { get; set; }
         public double? Longitude { get; set; }
