@@ -13,7 +13,7 @@ namespace Winleafs.Wpf.Api.Layouts
     public class PanelLayout
     {
         private static readonly SolidColorBrush _borderColor = (SolidColorBrush)Application.Current.FindResource("NanoleafBlack");
-        private static int _defaultTriangleSize = 148; //The default size in pixels of a triangle side as reported by the Nanoleaf API
+        private static readonly int _defaultTriangleSize = 148; //The default size in pixels of a triangle side as reported by the Nanoleaf API
 
         private INanoleafClient _nanoleafClient;
 

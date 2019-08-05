@@ -188,7 +188,7 @@ per IP adres</value>
     <value>Er is een probleem opgetreden bij het ophalen van de zonsopgang- en zonsondergangtijden</value>
   </data>
   <data name="ScreenMirrorControlBrightness" xml:space="preserve">
-    <value>Laat scherm spiegelen de helderheid besturen</value>
+    <value>Laat ambilight de helderheid besturen</value>
   </data>
   <data name="WinleafsOptions" xml:space="preserve">
     <value>Winleafs Opties</value>

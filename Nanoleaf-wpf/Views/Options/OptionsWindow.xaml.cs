@@ -39,7 +39,6 @@ namespace Winleafs.Wpf.Views.Options
                 AlgorithmPerDevice = UserSettings.Settings.Devices.ToDictionary(d => d.Name, d => d.ScreenMirrorAlgorithm),
                 ScreenMirrorControlBrightnessPerDevice = UserSettings.Settings.Devices.ToDictionary(d => d.Name, d => d.ScreenMirrorControlBrightness),
                 ScreenMirrorRefreshRatePerDevice = UserSettings.Settings.Devices.ToDictionary(d => d.Name, d => d.ScreenMirrorRefreshRatePerSecond),
-                MonitorPerDevice = UserSettings.Settings.Devices.ToDictionary(d => d.Name, d => monitorNames[d.ScreenMirrorMonitorIndex]),
                 DeviceNames = new ObservableCollection<string>(UserSettings.Settings.Devices.Select(d => d.Name)),
                 MonitorNames = monitorNames,
                 StartAtWindowsStartUp = UserSettings.Settings.StartAtWindowsStartup,
@@ -47,9 +46,26 @@ namespace Winleafs.Wpf.Views.Options
                 Longitude = UserSettings.Settings.Longitude?.ToString("N7", CultureInfo.InvariantCulture),
                 SelectedLanguage = FullNameForCulture(UserSettings.Settings.UserLocale),
                 Languages = _languageDictionary.Keys.ToList(),
-                MinimizeToSystemTray = UserSettings.Settings.MinimizeToSystemTray,
-                SelectedDevice = UserSettings.Settings.ActiveDevice.Name
+                MinimizeToSystemTray = UserSettings.Settings.MinimizeToSystemTray
             };
+
+            //Setup MonitorPerDevice with necessairy checks
+            var monitorPerDevice = new Dictionary<string, string>();
+            foreach (var device in UserSettings.Settings.Devices)
+            {
+                if (monitorNames.Count <= device.ScreenMirrorMonitorIndex)
+                {
+                    // It is possible that the user adjusted his/her screen setup and no longer has the monitor the device is set to
+                    monitorPerDevice.Add(device.Name, monitorNames.FirstOrDefault());
+                }
+                else
+                {
+                    monitorPerDevice.Add(device.Name, monitorNames[device.ScreenMirrorMonitorIndex]);
+                }
+            }
+
+            OptionsViewModel.MonitorPerDevice = monitorPerDevice;
+            OptionsViewModel.SelectedDevice = UserSettings.Settings.ActiveDevice.Name; //Set this one last since it triggers changes in properties
 
             _startupKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", RegistryKeyPermissionCheck.ReadWriteSubTree, RegistryRights.FullControl);
 

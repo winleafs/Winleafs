@@ -189,7 +189,7 @@ by IP Adress</value>
     <value>Note: Changing the language requires a restart to be applied.</value>
   </data>
   <data name="ScreenMirrorControlBrightness" xml:space="preserve">
-    <value>Let screen mirror control brightness</value>
+    <value>Let ambilight control brightness</value>
   </data>
   <data name="WinleafsOptions" xml:space="preserve">
     <value>Winleafs Options</value>

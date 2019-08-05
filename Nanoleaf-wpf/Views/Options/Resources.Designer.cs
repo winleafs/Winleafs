@@ -232,7 +232,7 @@ namespace Winleafs.Wpf.Views.Options {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Let screen mirror control brightness.
+        ///   Looks up a localized string similar to Let ambilight control brightness.
         /// </summary>
         public static string ScreenMirrorControlBrightness {
             get {

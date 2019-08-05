@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using NLog;
+using System;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using Winleafs.Api;
@@ -10,6 +12,8 @@ namespace Winleafs.Wpf.Api.Effects
 {
     public class ScreenMirrorEffect : ICustomEffect
     {
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
+
         public static string Name => $"{CustomEffectsCollection.EffectNamePreface}Screen mirror";
 
         private readonly INanoleafClient _nanoleafClient;
@@ -22,13 +26,22 @@ namespace Winleafs.Wpf.Api.Effects
             _nanoleafClient = nanoleafClient;
             _screenMirrorAlgorithm = device.ScreenMirrorAlgorithm;
 
-            if (_screenMirrorAlgorithm == ScreenMirrorAlgorithm.ScreenMirror)
+            try
             {
-                _screenMirrorEffect = new ScreenMirror(device, orchestrator, nanoleafClient);
+                if (_screenMirrorAlgorithm == ScreenMirrorAlgorithm.ScreenMirror)
+                {
+                    _screenMirrorEffect = new ScreenMirror(device, orchestrator, nanoleafClient);
+                }
+                else if (_screenMirrorAlgorithm == ScreenMirrorAlgorithm.Ambilight)
+                {
+                    _screenMirrorEffect = new Ambilght(nanoleafClient, device);
+                }
             }
-            else if (_screenMirrorAlgorithm == ScreenMirrorAlgorithm.Ambilight)
+            catch (Exception e)
             {
-                _screenMirrorEffect = new Ambilght(nanoleafClient, device);
+                // It is possible that the user adjusted his/her screens and therefore we get an error when initializing the effect
+                _logger.Error(e, $"Something went wrong initializing the screen mirror effect for device {device.ToString()}");
+                _screenMirrorEffect = null;
             }
 
             var timerRefreshRate = 1000;
@@ -50,7 +63,15 @@ namespace Winleafs.Wpf.Api.Effects
 
         private void OnTimedEvent(object source, ElapsedEventArgs e)
         {
-            Task.Run(() => _screenMirrorEffect.ApplyEffect());
+            Task.Run(() => ApplyEffect());
+        }
+
+        private async Task ApplyEffect()
+        {
+            if (_screenMirrorEffect != null)
+            {
+                await _screenMirrorEffect.ApplyEffect();
+            }            
         }
 
         public async Task Activate()

@@ -66,7 +66,8 @@ namespace Winleafs.Wpf.ViewModels
         }
 
         #region Screen mirror algorithm dropdown
-        private Dictionary<string, ScreenMirrorAlgorithm> _screenMirrorAlgorithmMapping { get; set; } //Map display values to enum values
+        //Map display values to enum values
+        private Dictionary<string, ScreenMirrorAlgorithm> _screenMirrorAlgorithmMapping { get; set; }
 
         private ScreenMirrorAlgorithm _selectedScreenMirrorAlgorithm;
         public string SelectedScreenMirrorAlgorithm
@@ -82,13 +83,7 @@ namespace Winleafs.Wpf.ViewModels
             }
         }
 
-        public IEnumerable<string> ScreenMirrorAlgorithms
-        {
-            get
-            {
-                return _screenMirrorAlgorithmMapping.Keys;
-            }
-        }
+        public IEnumerable<string> ScreenMirrorAlgorithms => _screenMirrorAlgorithmMapping.Keys;
         #endregion
         #endregion
 

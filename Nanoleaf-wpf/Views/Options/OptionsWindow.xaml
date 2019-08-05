@@ -64,7 +64,7 @@
                     <Label Content="{x:Static local:Resources.Algorithm}" ContentStringFormat="{}{0}:" Margin="106,28,0,0" FontSize="20" Foreground="White" Height="36" VerticalAlignment="Top" HorizontalAlignment="Left" Width="103"/>
                     <ComboBox HorizontalAlignment="Left" Margin="209,37,0,0" VerticalAlignment="Top" Width="192" SelectedItem="{Binding SelectedScreenMirrorAlgorithm}" ItemsSource="{Binding ScreenMirrorAlgorithms}" RenderTransformOrigin="0.537,0.206"/>
                     <Label Content="{x:Static local:Resources.ScreenMirrorRefreshRatePerSecond}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="0,96,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
-                    <Label Content="{Binding ScreenMirrorRefreshRatePerSecond}" HorizontalAlignment="Left" Margin="267,133,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White" />
+                    <Label Content="{Binding ScreenMirrorRefreshRatePerSecond}" HorizontalAlignment="Left" Margin="262,125,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White" />
                     <Slider HorizontalAlignment="Left" Margin="10,133,0,0" VerticalAlignment="Top" Width="252" Minimum="1" Maximum="10" Value="{Binding ScreenMirrorRefreshRatePerSecond}" IsSnapToTickEnabled="True" TickFrequency="1"/>
                     <Label Content="{x:Static local:Resources.ScreenMirrorMonitor}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="0,54,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
                     <ComboBox HorizontalAlignment="Left" Margin="209,64,0,0" VerticalAlignment="Top" Width="192" SelectedItem="{Binding SelectedMonitor}" ItemsSource="{Binding MonitorNames}"/>
