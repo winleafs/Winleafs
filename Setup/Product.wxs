@@ -355,6 +355,9 @@
       <Component Id="Tmds.MDns.dll" Guid="5a242aee-8ecf-48c0-96fe-bb5ca4e9c70e">
         <File Id="Tmds.MDns.dll" Source="$(var.sourceFolder)\Tmds.MDns.dll" KeyPath="yes" />
       </Component>
+      <Component Id="WindowsDisplayAPI.dll" Guid="2b040161-eae6-4324-b23a-e95cb8c7bf55">
+        <File Id="WindowsDisplayAPI.dll" Source="$(var.sourceFolder)\WindowsDisplayAPI.dll" KeyPath="yes" />
+      </Component>
       <Component Id="Winleafs.Api.dll" Guid="fecc60d5-5959-4ea8-bd75-755954afdadd">
         <File Id="Winleafs.Api.dll" Source="$(var.sourceFolder)\Winleafs.Api.dll" KeyPath="yes" />
       </Component>
@@ -505,6 +508,7 @@
       <ComponentRef Id="System.Xml.XPath.dll" />
       <ComponentRef Id="System.Xml.XPath.XDocument.dll" />
       <ComponentRef Id="Tmds.MDns.dll" />
+      <ComponentRef Id="WindowsDisplayAPI.dll" />
       <ComponentRef Id="Winleafs.Api.dll" />
       <ComponentRef Id="Winleafs.External.dll" />
       <ComponentRef Id="Winleafs.Models.dll" />
