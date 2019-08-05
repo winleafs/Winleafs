@@ -33,7 +33,7 @@
     </Window.Resources>
 
     <Grid Background="{StaticResource NanoleafBlack}">
-        <TabControl Background="{StaticResource NanoleafBlack}" Margin="0,0,0.333,41.667" BorderThickness="0,1,0,0">
+        <TabControl Background="{StaticResource NanoleafBlack}" Margin="0,0,-0.333,42" BorderThickness="0,1,0,0">
             <TabItem Header="{x:Static local:Resources.General}">
                 <Grid>
                     <CheckBox Content="{x:Static local:Resources.StartAtWindowsStartup}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="{Binding StartAtWindowsStartUp}">
@@ -54,26 +54,27 @@
                     <ComboBox Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,195,0,0"  SelectedItem="{Binding SelectedLanguage}" ItemsSource="{Binding Languages}"/>
                     <Label Content="{x:Static local:Resources.Language}" ContentStringFormat="{}{0}:" Margin="10,190,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
                     <Label Content="{x:Static local:Resources.LanguageRestartNote}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,225,0,0" FontSize="15" Foreground="White"/>
+
                 </Grid>
             </TabItem>
-            <TabItem Header="{x:Static local:Resources.Ambilight}">
+            <TabItem Header="{x:Static local:Resources.ScreenMirror}">
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="16*"/>
-                        <ColumnDefinition Width="253*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Content="{x:Static local:Resources.AmbilightRefreshRatePerSecond}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White" Grid.ColumnSpan="2"/>
-                    <Label Content="{Binding AmbilightRefreshRatePerSecond}" HorizontalAlignment="Left" Margin="315,10,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White" Grid.Column="1"/>
-                    <Slider HorizontalAlignment="Left" Margin="70,52,0,0" VerticalAlignment="Top" Width="200" Minimum="1" Maximum="10" Value="{Binding AmbilightRefreshRatePerSecond}" IsSnapToTickEnabled="True" TickFrequency="1" Grid.Column="1"/>
-                    <Label Content="{x:Static local:Resources.AmbilightMonitor}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,86,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White" Grid.ColumnSpan="2"/>
-                    <ComboBox HorizontalAlignment="Left" Margin="19,128,0,0" VerticalAlignment="Top" Width="366" SelectedItem="{Binding SelectedMonitor}" ItemsSource="{Binding MonitorNames}" Grid.ColumnSpan="2"/>
-                    <CheckBox Content="{x:Static local:Resources.AmbilightControlBrightness}" HorizontalAlignment="Left" Margin="20,160,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="{Binding AmbilightControlBrightness}" Grid.ColumnSpan="2">
+                    <Label Content="{x:Static local:Resources.ScreenMirrorDeviceInfo}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
+                    <ComboBox HorizontalAlignment="Left" Margin="305,10,0,0" VerticalAlignment="Top" Width="192" SelectedItem="{Binding SelectedDevice}" ItemsSource="{Binding DeviceNames}"/>
+                    <Label Content="{x:Static local:Resources.Algorithm}" ContentStringFormat="{}{0}:" Margin="106,28,0,0" FontSize="20" Foreground="White" Height="36" VerticalAlignment="Top" HorizontalAlignment="Left" Width="103"/>
+                    <ComboBox HorizontalAlignment="Left" Margin="209,37,0,0" VerticalAlignment="Top" Width="192" SelectedItem="{Binding SelectedScreenMirrorAlgorithm}" ItemsSource="{Binding ScreenMirrorAlgorithms}" RenderTransformOrigin="0.537,0.206"/>
+                    <Label Content="{x:Static local:Resources.ScreenMirrorRefreshRatePerSecond}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="0,96,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
+                    <Label Content="{Binding ScreenMirrorRefreshRatePerSecond}" HorizontalAlignment="Left" Margin="262,125,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White" />
+                    <Slider HorizontalAlignment="Left" Margin="10,133,0,0" VerticalAlignment="Top" Width="252" Minimum="1" Maximum="10" Value="{Binding ScreenMirrorRefreshRatePerSecond}" IsSnapToTickEnabled="True" TickFrequency="1"/>
+                    <Label Content="{x:Static local:Resources.ScreenMirrorMonitor}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="0,54,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
+                    <ComboBox HorizontalAlignment="Left" Margin="209,64,0,0" VerticalAlignment="Top" Width="192" SelectedItem="{Binding SelectedMonitor}" ItemsSource="{Binding MonitorNames}"/>
+                    <CheckBox Content="{x:Static local:Resources.ScreenMirrorControlBrightness}" HorizontalAlignment="Left" Margin="10,159,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="{Binding ScreenMirrorControlBrightness}">
                         <CheckBox.LayoutTransform>
                             <ScaleTransform ScaleX="2" ScaleY="2" />
                         </CheckBox.LayoutTransform>
                     </CheckBox>
-                    <TextBlock HorizontalAlignment="Left" Margin="10,287,0,0" TextWrapping="Wrap" Text="{x:Static local:Resources.AmbilightResetMessage}" VerticalAlignment="Top" Width="469" FontSize="20" Foreground="White" Grid.ColumnSpan="2"/>
-                    <TextBlock Margin="19,194,9.667,0" TextWrapping="Wrap" Text="{x:Static local:Resources.AmbilightBrightnessInfo}" VerticalAlignment="Top" FontSize="15" Foreground="White" Grid.ColumnSpan="2" Height="88"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="10,289,0,0" TextWrapping="Wrap" Text="{x:Static local:Resources.ScreenMirrorResetMessage}" VerticalAlignment="Top" Width="469" FontSize="20" Foreground="White"/>
+                    <TextBlock Margin="10,192,18.667,0" TextWrapping="Wrap" Text="{x:Static local:Resources.ScreenMirrorBrightnessInfo}" VerticalAlignment="Top" FontSize="15" Foreground="White" Height="106"/>
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static local:Resources.Disclaimer}">

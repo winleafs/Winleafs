@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
   <?define sourceFolder="..\Nanoleaf-wpf\bin\Release\"?>
-  <Product Id="*" UpgradeCode="42ee9157-4382-4852-bed7-72b25fb2d0bf" Version="0.4.3" Language="1033" Name="Winleafs" Manufacturer="Stijn Oostdam">
+  <Product Id="*" UpgradeCode="42ee9157-4382-4852-bed7-72b25fb2d0bf" Version="0.5" Language="1033" Name="Winleafs" Manufacturer="Stijn Oostdam">
     <Package Compressed="yes" />
     <Media Id="1" Cabinet="myapplication.cab" EmbedCab="yes" />
     <!-- Add installer icon -->
@@ -355,6 +355,9 @@
       <Component Id="Tmds.MDns.dll" Guid="5a242aee-8ecf-48c0-96fe-bb5ca4e9c70e">
         <File Id="Tmds.MDns.dll" Source="$(var.sourceFolder)\Tmds.MDns.dll" KeyPath="yes" />
       </Component>
+      <Component Id="WindowsDisplayAPI.dll" Guid="2b040161-eae6-4324-b23a-e95cb8c7bf55">
+        <File Id="WindowsDisplayAPI.dll" Source="$(var.sourceFolder)\WindowsDisplayAPI.dll" KeyPath="yes" />
+      </Component>
       <Component Id="Winleafs.Api.dll" Guid="fecc60d5-5959-4ea8-bd75-755954afdadd">
         <File Id="Winleafs.Api.dll" Source="$(var.sourceFolder)\Winleafs.Api.dll" KeyPath="yes" />
       </Component>
@@ -505,6 +508,7 @@
       <ComponentRef Id="System.Xml.XPath.dll" />
       <ComponentRef Id="System.Xml.XPath.XDocument.dll" />
       <ComponentRef Id="Tmds.MDns.dll" />
+      <ComponentRef Id="WindowsDisplayAPI.dll" />
       <ComponentRef Id="Winleafs.Api.dll" />
       <ComponentRef Id="Winleafs.External.dll" />
       <ComponentRef Id="Winleafs.Models.dll" />

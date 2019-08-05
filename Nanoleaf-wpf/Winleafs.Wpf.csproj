@@ -86,14 +86,21 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsDisplayAPI, Version=1.2.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\WindowsDisplayAPI.1.2.0.2\lib\net45\WindowsDisplayAPI.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="Views\App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Api\Effects\ScreenMirrorEffect.cs" />
     <Compile Include="Api\Effects\CustomEffectsCollection.cs" />
     <Compile Include="Api\Effects\ICustomEffect.cs" />
+    <Compile Include="Api\Effects\ScreenMirrorEffects\Ambilght.cs" />
+    <Compile Include="Api\Effects\ScreenMirrorEffects\IScreenMirrorEffect.cs" />
+    <Compile Include="Api\Effects\ScreenMirrorEffects\ScreenMirror.cs" />
     <Compile Include="Api\Effects\TurnOffEffect.cs" />
     <Compile Include="Api\Events\Borderlands2HealthEventTrigger.cs" />
     <Compile Include="Api\Events\EventTriggersCollection.cs" />
@@ -104,12 +111,14 @@
     <Compile Include="Api\OrchestratorCollection.cs" />
     <Compile Include="Api\ScheduleTimer.cs" />
     <Compile Include="Helpers\ContextMenuLeftClickBehavior.cs" />
-    <Compile Include="Api\Effects\AmbilightEffect.cs" />
     <Compile Include="Helpers\EnumLocalizer.cs" />
     <Compile Include="Helpers\HsbToRgbConverter.cs" />
     <Compile Include="Helpers\MemoryReader.cs" />
+    <Compile Include="Helpers\MonitorHelper.cs" />
     <Compile Include="Helpers\ScreenGrabber.cs" />
+    <Compile Include="Api\Layouts\DrawablePanel.cs" />
     <Compile Include="ViewModels\OptionsViewModel.cs" />
+    <Compile Include="Api\Layouts\PanelLayout.cs" />
     <Compile Include="Views\AppResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -333,7 +342,9 @@
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Views\AppResources.nl.resx" />
+    <EmbeddedResource Include="Views\AppResources.nl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\AppResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>

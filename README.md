@@ -16,7 +16,8 @@ Canvas support currently not guaranteed.
 - Supports multiple devices simultaneously
 - Add time based triggers to automatically set your lights to an effect and brightness at your chosen time
 - Add triggers based on sunrise and sunset times (requires location)
-- Ambilight, make your lights the average color of your monitor. Note: setting a high refresh rate can cost some CPU performance.
+- Screen mirror, project your lights onto your monitor and your lights will be the same color as their position on your monitor
+- Ambilight, make your lights the average color of your monitor
 - Start the program at Windows startup
 - Automatically turn off your lights when your PC shuts down
 - Override the schedule at any time
@@ -36,6 +37,9 @@ We would HIGHLY appreciate if you'd contact us before picking up a task so we ca
 
 ## Showcase
 ![Screenshot](Media/Screenshot.png)
+
+### Screen Mirror
+![Screenshot](Media/ScreenMirror.jpeg)
 
 - [Beat Saber Ambilight](https://www.youtube.com/watch?v=CRe0o0TNlT4)
 

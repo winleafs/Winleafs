@@ -73,16 +73,18 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         private void SelectedDeviceChanged()
         {
-            if (_selectedDevice != null)
+            if (_selectedDevice == null)
             {
-                UserSettings.Settings.SetActiveDevice(_selectedDevice);
-
-                BuildScheduleList();
-
-                LayoutDisplay.DrawLayout();
-
-                UpdateCurrentEffectLabelsAndLayout();
+                return;
             }
+
+            UserSettings.Settings.SetActiveDevice(_selectedDevice);
+
+            BuildScheduleList();
+
+            LayoutDisplay.DrawLayout();
+
+            UpdateCurrentEffectLabelsAndLayout();
         }
 
         private void AddSchedule_Click(object sender, RoutedEventArgs e)

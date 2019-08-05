@@ -120,6 +120,9 @@
   <data name="After" xml:space="preserve">
     <value>Na</value>
   </data>
+  <data name="Ambilight" xml:space="preserve">
+    <value>Ambilight</value>
+  </data>
   <data name="Before" xml:space="preserve">
     <value>Voor</value>
   </data>
@@ -131,6 +134,9 @@
   </data>
   <data name="ProcessEvent" xml:space="preserve">
     <value>Procesevent</value>
+  </data>
+  <data name="ScreenMirror" xml:space="preserve">
+    <value>Scherm spiegelen</value>
   </data>
   <data name="Sunrise" xml:space="preserve">
     <value>Zonsopgang</value>
