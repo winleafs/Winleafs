@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Winleafs.Wpf.Views.Options"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="{x:Static local:Resources.WinleafsOptions}" Height="450" Width="550" ResizeMode="CanMinimize">
 
@@ -75,6 +76,15 @@
                     </CheckBox>
                     <TextBlock HorizontalAlignment="Left" Margin="10,289,0,0" TextWrapping="Wrap" Text="{x:Static local:Resources.ScreenMirrorResetMessage}" VerticalAlignment="Top" Width="469" FontSize="20" Foreground="White"/>
                     <TextBlock Margin="10,192,18.667,0" TextWrapping="Wrap" Text="{x:Static local:Resources.ScreenMirrorBrightnessInfo}" VerticalAlignment="Top" FontSize="15" Foreground="White" Height="106"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Color">
+                <Grid>
+                    <TextBlock Margin="155,10,0.667,0" TextWrapping="Wrap" Text="Test" VerticalAlignment="Top" FontSize="15" Foreground="White" Height="72"/>
+                    <StackPanel x:Name="ColorList" HorizontalAlignment="Left" Width="150" />
+                    <xctk:ColorPicker x:Name="ColorPicker" Margin="155,87,133,0" Height="27" VerticalAlignment="Top"/>
+                    <TextBox x:Name="EffectTextBox" HorizontalAlignment="Left" Height="23" Margin="100,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White"/>
+                    <Button Content="Add" HorizontalAlignment="Right" Margin="0,87,10,0" Width="115" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="AddColor_Click" Height="27" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static local:Resources.Disclaimer}">

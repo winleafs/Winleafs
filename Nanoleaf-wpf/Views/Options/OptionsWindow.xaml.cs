@@ -12,6 +12,9 @@ using System.Windows.Navigation;
 using Winleafs.Wpf.Views.Popup;
 using Winleafs.Wpf.ViewModels;
 using System.Collections.ObjectModel;
+using System.Drawing;
+using Winleafs.Models.Models.Effects;
+using Xceed.Wpf.Toolkit;
 
 namespace Winleafs.Wpf.Views.Options
 {
@@ -109,7 +112,7 @@ namespace Winleafs.Wpf.Views.Options
                 return;
             }
 
-            if ((latitude != UserSettings.Settings.Latitude || longitude != UserSettings.Settings.Longitude) && (latitude != 0  && longitude != 0))
+            if ((latitude != UserSettings.Settings.Latitude || longitude != UserSettings.Settings.Longitude) && (latitude != 0 && longitude != 0))
             {
                 var client = new SunsetSunriseClient();
 
@@ -215,6 +218,28 @@ namespace Winleafs.Wpf.Views.Options
             }
 
             return null;
+        }
+
+        private void AddColor_Click(object sender, RoutedEventArgs e)
+        {
+            var color = ColorPicker.SelectedColor;
+            var name = EffectTextBox.Text;
+
+            if (UserSettings.Settings.CustomEffects.Any(effect => effect.EffectName == name)
+                || color.HasValue == false
+                || string.IsNullOrWhiteSpace(name))
+            {
+                return;
+            }
+
+            var customEffect = new UserCustomColorEffect()
+            {
+                Color = Color.FromArgb(color.Value.A, color.Value.R, color.Value.G, color.Value.B),
+                EffectName = name
+            };
+
+            UserSettings.Settings.CustomEffects.Add(customEffect);
+            UserSettings.Settings.SaveSettings();
         }
     }
 }
