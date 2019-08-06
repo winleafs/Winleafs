@@ -314,6 +314,15 @@ namespace Winleafs.Wpf.Views.Options {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Visualize.
+        /// </summary>
+        public static string Visualize {
+            get {
+                return ResourceManager.GetString("Visualize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Winleafs Options.
         /// </summary>
         public static string WinleafsOptions {

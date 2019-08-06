@@ -171,6 +171,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Options\ScreenMirrorVisualizationWindow.xaml.cs">
+      <DependentUpon>ScreenMirrorVisualizationWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Popup\NewVersionPopup.xaml.cs">
       <DependentUpon>NewVersionPopup.xaml</DependentUpon>
     </Compile>
@@ -264,6 +267,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Options\OptionsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Options\ScreenMirrorVisualizationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

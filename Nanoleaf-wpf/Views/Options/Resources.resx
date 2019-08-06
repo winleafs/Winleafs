@@ -209,4 +209,7 @@ by IP Adress</value>
   <data name="ScreenMirrorDeviceInfo" xml:space="preserve">
     <value>Screen mirror settings per device</value>
   </data>
+  <data name="Visualize" xml:space="preserve">
+    <value>Visualize</value>
+  </data>
 </root>

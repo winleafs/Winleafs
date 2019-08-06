@@ -77,6 +77,19 @@ namespace Winleafs.Wpf.Views.Options
             Close();
         }
 
+        private void Visualize_Click(object sender, RoutedEventArgs e)
+        {
+            //Pass the currently selected values to the constructor of the visualizer
+            var monitorNames = WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.GetDisplayTargets().Select(m => m.FriendlyName).ToArray();
+            var monitorIndex = Array.IndexOf(monitorNames, OptionsViewModel.SelectedMonitor);
+            var screenMirrorAlgorithm = OptionsViewModel.ScreenMirrorAlgorithmMapping[OptionsViewModel.SelectedScreenMirrorAlgorithm];
+
+            var device = UserSettings.Settings.Devices.FirstOrDefault(d => d.Name == OptionsViewModel.SelectedDevice);
+
+            var visualizeWindow = new ScreenMirrorVisualizationWindow(device, monitorIndex, screenMirrorAlgorithm);
+            visualizeWindow.ShowDialog();
+        }
+
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             #region LatLong
