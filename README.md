@@ -16,7 +16,7 @@ Canvas support currently not guaranteed.
 - Supports multiple devices simultaneously
 - Add time based triggers to automatically set your lights to an effect and brightness at your chosen time
 - Add triggers based on sunrise and sunset times (requires location)
-- Screen mirror, project your lights onto your monitor and your lights will be the same color as their position on your monitor
+- Screen mirror, project your screen onto your lights and your lights will be the same color as their position on your monitor
 - Ambilight, make your lights the average color of your monitor
 - Start the program at Windows startup
 - Automatically turn off your lights when your PC shuts down

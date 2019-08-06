@@ -54,7 +54,7 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
                 var bounds = new Rectangle(_screenBounds.X + startX, _screenBounds.Y + startY, _rectangleSize, _rectangleSize);
                 var bitmap = ScreenGrabber.CaptureScreen(bounds);
 
-                var color = ScreenGrabber.CalculateAverageColor(bitmap, _capturedBounds);
+                var color = ScreenGrabber.CalculateAverageColor(bitmap, _capturedBounds, 0);
 
                 await _externalControlEndpoint.SetPanelColorAsync(panel.PanelId, color.R, color.G, color.B);
             }
