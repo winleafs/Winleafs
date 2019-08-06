@@ -128,7 +128,7 @@ namespace Winleafs.Wpf.Api.Layouts
         /// Returns the panels represented as <see cref="DrawablePanel"/>s scaled to fit the desired width and height.
         /// Returns null if there is no layout
         /// </summary>
-        public List<DrawablePanel> GetScaledTriangles(int width, int height)
+        public List<DrawablePanel> GetScaledTriangles(int width, int height, ScaleType scaleType = ScaleType.Fit)
         {
             if (_layout == null)
             {
@@ -146,8 +146,17 @@ namespace Winleafs.Wpf.Api.Layouts
             var scaleX = width / maxX;
             var scaleY = height / maxY;
 
-            var scale = Math.Min(scaleX, scaleY);
-            var scaleTransform = new ScaleTransform(scale, scale);
+            ScaleTransform scaleTransform;
+
+            if (scaleType == ScaleType.Fit)
+            {
+                var scale = Math.Min(scaleX, scaleY);
+                scaleTransform = new ScaleTransform(scale, scale);
+            }
+            else //scaleType == Stretch
+            {
+                scaleTransform = new ScaleTransform(scaleX, scaleY);
+            }
 
             var scaledTriangles = new List<DrawablePanel>();
 

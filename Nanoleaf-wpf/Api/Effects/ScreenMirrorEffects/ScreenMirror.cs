@@ -20,7 +20,7 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
         private readonly Rectangle _screenBounds;
         private readonly Rectangle _capturedBounds; //Simple rectangle that start at 0,0 and has width and height set to the rectangle size
 
-        public ScreenMirror(Device device, Orchestrator orchestrator, INanoleafClient nanoleafClient)
+        public ScreenMirror(Device device, Orchestrator orchestrator, INanoleafClient nanoleafClient, ScaleType scaleType)
         {
             _nanoleafClient = nanoleafClient;
 
@@ -28,7 +28,7 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
 
             _screenBounds = MonitorHelper.GetScreenBounds(device.ScreenMirrorMonitorIndex);
 
-            _panels = orchestrator.PanelLayout.GetScaledTriangles(_screenBounds.Width, _screenBounds.Height);
+            _panels = orchestrator.PanelLayout.GetScaledTriangles(_screenBounds.Width, _screenBounds.Height, scaleType);
 
             //Set the rectangle size to 1/3th of the length of a side of the triangle. TODO: test what size is best
             var triangle = _panels.FirstOrDefault().Polygon;
@@ -49,14 +49,21 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
                 var startX = (int)Math.Floor(panel.MidPoint.X - (_rectangleSize / 2));
                 var startY = (int)Math.Floor(panel.MidPoint.Y - (_rectangleSize / 2));
 
-                // In multi monitor setup, all screens are joined in one larger pixel area. For example, if you want to take a screenshot of the second from left monitor,
-                // you need to start at the right of the first left monitor. Hence, we need to add _screenBounds X and Y here to the location of the rectangle we want to capture
-                var bounds = new Rectangle(_screenBounds.X + startX, _screenBounds.Y + startY, _rectangleSize, _rectangleSize); 
-                var bitmap = ScreenGrabber.CaptureScreen(bounds);
+                try
+                {
+                    // In multi monitor setup, all screens are joined in one larger pixel area. For example, if you want to take a screenshot of the second from left monitor,
+                    // you need to start at the right of the first left monitor. Hence, we need to add _screenBounds X and Y here to the location of the rectangle we want to capture
+                    var bounds = new Rectangle(_screenBounds.X + startX, _screenBounds.Y + startY, _rectangleSize, _rectangleSize);
+                    var bitmap = ScreenGrabber.CaptureScreen(bounds);
 
-                var color = ScreenGrabber.CalculateAverageColor(bitmap, _capturedBounds);
+                    var color = ScreenGrabber.CalculateAverageColor(bitmap, _capturedBounds);
 
-                await _externalControlEndpoint.SetPanelColorAsync(panel.PanelId, color.R, color.G, color.B);
+                    await _externalControlEndpoint.SetPanelColorAsync(panel.PanelId, color.R, color.G, color.B);
+                }
+                catch (Exception e)
+                {
+
+                }
             }
         }
     }

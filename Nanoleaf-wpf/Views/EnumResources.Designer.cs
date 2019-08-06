@@ -115,11 +115,20 @@ namespace Winleafs.Wpf.Views {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Screen Mirror.
+        ///   Looks up a localized string similar to Screen Mirror fit.
         /// </summary>
-        internal static string ScreenMirror {
+        internal static string ScreenMirrorFit {
             get {
-                return ResourceManager.GetString("ScreenMirror", resourceCulture);
+                return ResourceManager.GetString("ScreenMirrorFit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Screen Mirror stretch.
+        /// </summary>
+        internal static string ScreenMirrorStretch {
+            get {
+                return ResourceManager.GetString("ScreenMirrorStretch", resourceCulture);
             }
         }
         

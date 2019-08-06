@@ -7,6 +7,7 @@ using Winleafs.Api;
 using Winleafs.Models.Enums;
 using Winleafs.Models.Models;
 using Winleafs.Wpf.Api.Effects.ScreenMirrorEffects;
+using Winleafs.Wpf.Api.Layouts;
 
 namespace Winleafs.Wpf.Api.Effects
 {
@@ -28,9 +29,13 @@ namespace Winleafs.Wpf.Api.Effects
 
             try
             {
-                if (_screenMirrorAlgorithm == ScreenMirrorAlgorithm.ScreenMirror)
+                if (_screenMirrorAlgorithm == ScreenMirrorAlgorithm.ScreenMirrorFit)
                 {
-                    _screenMirrorEffect = new ScreenMirror(device, orchestrator, nanoleafClient);
+                    _screenMirrorEffect = new ScreenMirror(device, orchestrator, nanoleafClient, ScaleType.Fit);
+                }
+                else if (_screenMirrorAlgorithm == ScreenMirrorAlgorithm.ScreenMirrorStretch)
+                {
+                    _screenMirrorEffect = new ScreenMirror(device, orchestrator, nanoleafClient, ScaleType.Stretch);
                 }
                 else if (_screenMirrorAlgorithm == ScreenMirrorAlgorithm.Ambilight)
                 {
@@ -76,7 +81,7 @@ namespace Winleafs.Wpf.Api.Effects
 
         public async Task Activate()
         {
-            if (_screenMirrorAlgorithm == ScreenMirrorAlgorithm.ScreenMirror)
+            if (_screenMirrorAlgorithm == ScreenMirrorAlgorithm.ScreenMirrorFit || _screenMirrorAlgorithm == ScreenMirrorAlgorithm.ScreenMirrorStretch)
             {
                 //For screen mirror, we need to enable external control
                 await _nanoleafClient.ExternalControlEndpoint.PrepareForExternalControl();

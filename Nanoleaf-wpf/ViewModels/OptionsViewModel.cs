@@ -117,7 +117,8 @@ namespace Winleafs.Wpf.ViewModels
             _screenMirrorAlgorithmMapping = new Dictionary<string, ScreenMirrorAlgorithm>()
             {
                 {  EnumLocalizer.GetLocalizedEnum(ScreenMirrorAlgorithm.Ambilight), ScreenMirrorAlgorithm.Ambilight },
-                {  EnumLocalizer.GetLocalizedEnum(ScreenMirrorAlgorithm.ScreenMirror), ScreenMirrorAlgorithm.ScreenMirror }
+                {  EnumLocalizer.GetLocalizedEnum(ScreenMirrorAlgorithm.ScreenMirrorFit), ScreenMirrorAlgorithm.ScreenMirrorFit },
+                {  EnumLocalizer.GetLocalizedEnum(ScreenMirrorAlgorithm.ScreenMirrorStretch), ScreenMirrorAlgorithm.ScreenMirrorStretch }
             };
         }
     }

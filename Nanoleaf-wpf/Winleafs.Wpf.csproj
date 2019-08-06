@@ -107,6 +107,7 @@
     <Compile Include="Api\Events\IEventTrigger.cs" />
     <Compile Include="Api\Events\BaseProcessPercentageEventTrigger.cs" />
     <Compile Include="Api\Events\ProcessEventTrigger.cs" />
+    <Compile Include="Api\Layouts\ScaleType.cs" />
     <Compile Include="Api\Orchestrator.cs" />
     <Compile Include="Api\OrchestratorCollection.cs" />
     <Compile Include="Api\ScheduleTimer.cs" />
