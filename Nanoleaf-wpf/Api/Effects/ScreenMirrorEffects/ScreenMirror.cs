@@ -49,21 +49,14 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
                 var startX = (int)Math.Floor(panel.MidPoint.X - (_rectangleSize / 2));
                 var startY = (int)Math.Floor(panel.MidPoint.Y - (_rectangleSize / 2));
 
-                try
-                {
-                    // In multi monitor setup, all screens are joined in one larger pixel area. For example, if you want to take a screenshot of the second from left monitor,
-                    // you need to start at the right of the first left monitor. Hence, we need to add _screenBounds X and Y here to the location of the rectangle we want to capture
-                    var bounds = new Rectangle(_screenBounds.X + startX, _screenBounds.Y + startY, _rectangleSize, _rectangleSize);
-                    var bitmap = ScreenGrabber.CaptureScreen(bounds);
+                // In multi monitor setup, all screens are joined in one larger pixel area. For example, if you want to take a screenshot of the second from left monitor,
+                // you need to start at the right of the first left monitor. Hence, we need to add _screenBounds X and Y here to the location of the rectangle we want to capture
+                var bounds = new Rectangle(_screenBounds.X + startX, _screenBounds.Y + startY, _rectangleSize, _rectangleSize);
+                var bitmap = ScreenGrabber.CaptureScreen(bounds);
 
-                    var color = ScreenGrabber.CalculateAverageColor(bitmap, _capturedBounds);
+                var color = ScreenGrabber.CalculateAverageColor(bitmap, _capturedBounds);
 
-                    await _externalControlEndpoint.SetPanelColorAsync(panel.PanelId, color.R, color.G, color.B);
-                }
-                catch (Exception e)
-                {
-
-                }
+                await _externalControlEndpoint.SetPanelColorAsync(panel.PanelId, color.R, color.G, color.B);
             }
         }
     }
