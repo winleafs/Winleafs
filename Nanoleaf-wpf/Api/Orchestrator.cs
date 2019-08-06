@@ -36,7 +36,9 @@ namespace Winleafs.Wpf.Api
             ScheduleTimer = new ScheduleTimer(this);
             PanelLayout = new PanelLayout(Device);
             _eventTriggersCollection = new EventTriggersCollection(this);
-            _customEffects = new CustomEffectsCollection(Device, this); //Custom effect initialization must come after panel layout initialization as custom screen mirror effect needs the panel layout
+
+            //Custom effect initialization must come after panel layout initialization as custom screen mirror effect needs the panel layout
+            _customEffects = new CustomEffectsCollection(Device, this); 
 
             if (device.OperationMode == OperationMode.Schedule)
             {
@@ -136,7 +138,7 @@ namespace Winleafs.Wpf.Api
         }
 
         /// <summary>
-        /// Get the current effect name, not equal the desciption as shown in the view
+        /// Get the current effect name, not equal the description as shown in the view
         /// </summary>
         public string GetActiveEffectName()
         {
@@ -147,22 +149,14 @@ namespace Winleafs.Wpf.Api
 
                 case OperationMode.Event:
                     var activeEvent = _eventTriggersCollection.EventTriggers.FirstOrDefault(e => e.IsActive());
-                    
-                    if (activeEvent != null)
-                    {
-                        return activeEvent.GetTrigger().GetEffectName();
-                    }
-                    return null;
+
+                    return activeEvent?.GetTrigger().GetEffectName();
 
                 case OperationMode.Schedule:
                     var activeTimeTrigger = Device.GetActiveTimeTrigger();
 
-                    if (activeTimeTrigger != null)
-                    {
-                        return activeTimeTrigger.GetEffectName();
-                    }
-                    return null;                    
-                
+                    return activeTimeTrigger?.GetEffectName();
+
                 default:
                     return null;
             }
