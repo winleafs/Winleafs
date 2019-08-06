@@ -69,6 +69,10 @@ namespace Winleafs.Models.Models
             }
         }
 
+        /// <summary>
+        /// Loads the <see cref="UserSettings"/> from the JSON file.
+        /// If the user has no settings, the defaults will be generated.
+        /// </summary>
         public static void LoadSettings()
         {
             if (!HasSettings())
@@ -109,11 +113,18 @@ namespace Winleafs.Models.Models
             }
         }
 
+        /// <summary>
+        /// Checks if the user has a settings file at the specified location.
+        /// </summary>
+        /// <returns></returns>
         public static bool HasSettings()
         {
             return File.Exists(_settingsFileName);
         }
 
+        /// <summary>
+        /// Deletes the settings file and object if the <see cref="UserSettings"/> exist.
+        /// </summary>
         public static void DeleteSettings()
         {
             if (HasSettings())
@@ -123,6 +134,9 @@ namespace Winleafs.Models.Models
             }
         }
 
+        /// <summary>
+        /// Saves the current <see cref="UserSettings"/> to a JSON configuration file.
+        /// </summary>
         public void SaveSettings()
         {
             var json = JsonConvert.SerializeObject(this);
@@ -135,12 +149,19 @@ namespace Winleafs.Models.Models
             File.WriteAllText(_settingsFileName, json);
         }
 
+        /// <summary>
+        /// Adds a <see cref="Device"/> to the list of devices and saves the settings.
+        /// </summary>
+        /// <param name="device">The <see cref="Device"/> to be added.</param>
         public void AddDevice(Device device)
         {
             Devices.Add(device);
             SaveSettings();
         }
 
+        /// <summary>
+        /// Deletes the currently active <see cref="Device"/> and saves the settings.
+        /// </summary>
         public void DeleteActiveDevice()
         {
             var device = ActiveDevice;
@@ -148,6 +169,11 @@ namespace Winleafs.Models.Models
             SaveSettings();
         }
 
+        /// <summary>
+        /// Adds a new schedule and saves the settings.
+        /// </summary>
+        /// <param name="schedule">The <see cref="Schedule"/> object to be added.</param>
+        /// <param name="makeActive">If the schedule added should be set as the active schedule.</param>
         public void AddSchedule(Schedule schedule, bool makeActive)
         {
             var device = ActiveDevice;
@@ -163,6 +189,11 @@ namespace Winleafs.Models.Models
             SaveSettings();
         }
 
+        /// <summary>
+        /// Deactivates all schedules and activates the given <paramref name="schedule"/>.
+        /// Also saves the settings to the JSON file.
+        /// </summary>
+        /// <param name="schedule">The <see cref="Schedule"/> object to be activated.</param>
         public void ActivateSchedule(Schedule schedule)
         {
             ActiveDevice.Schedules.ForEach(s => s.Active = false);
@@ -171,12 +202,25 @@ namespace Winleafs.Models.Models
             SaveSettings();
         }
 
+        /// <summary>
+        /// Deletes the given <paramref name="schedule"/> and saves the settings.
+        /// </summary>
+        /// <param name="schedule">The <see cref="Schedule"/> object to be deleted.</param>
         public void DeleteSchedule(Schedule schedule)
         {
             ActiveDevice.Schedules.Remove(schedule);
             SaveSettings();
         }
 
+        /// <summary>
+        /// Updates the sunrise and sunset times over all triggers in all devices
+        /// and schedules.
+        /// Also save the settings to the JSON file.
+        /// </summary>
+        /// <param name="sunriseHour">The new hour of sunrise.</param>
+        /// <param name="sunriseMinute">The new minute of sunrise.</param>
+        /// <param name="sunsetHour">The new hour of sunset.</param>
+        /// <param name="sunsetMinute">The new minute of sunset.</param>
         public void UpdateSunriseSunset(int sunriseHour, int sunriseMinute, int sunsetHour, int sunsetMinute)
         {
             SunriseHour = sunriseHour;
@@ -205,8 +249,9 @@ namespace Winleafs.Models.Models
                                     break;
                             }
                         }
-
-                        program.ReorderTriggers(); // Puts all triggers of all programs in correct order, this is needed since the times of triggers can change due to sunrise and sunset times
+                        // Puts all triggers of all programs in correct order,
+                        // this is needed since the times of triggers can change due to sunrise and sunset times
+                        program.ReorderTriggers();
                     }
                 }
             }
@@ -215,7 +260,8 @@ namespace Winleafs.Models.Models
         }
 
         /// <summary>
-        /// Resets all operation modes of all device to Schedule, used at application startup (then users can switch to manual during runtime)
+        /// Resets all operation modes of all device to Schedule,
+        /// used at application startup (then users can switch to manual during runtime)
         /// </summary>
         public void ResetOperationModes()
         {
@@ -225,9 +271,15 @@ namespace Winleafs.Models.Models
             }
         }
 
+        /// <summary>
+        /// Sets a <see cref="Device"/> as the active one based on the
+        /// <paramref name="deviceName"/> and saves the settings.
+        /// </summary>
+        /// <param name="deviceName">The name of the device to be searched for.</param>
         public void SetActiveDevice(string deviceName)
         {
-            var newActiveDevice = Devices.FirstOrDefault(d => d.Name.Equals(deviceName));
+            var newActiveDevice = Devices.FirstOrDefault(device =>
+                device.Name.Equals(deviceName));
 
             if (ActiveDevice != null)
             {
