@@ -135,8 +135,11 @@
   <data name="ProcessEvent" xml:space="preserve">
     <value>Procesevent</value>
   </data>
-  <data name="ScreenMirror" xml:space="preserve">
-    <value>Scherm spiegelen</value>
+  <data name="ScreenMirrorFit" xml:space="preserve">
+    <value>Scherm spiegelen passend</value>
+  </data>
+  <data name="ScreenMirrorStretch" xml:space="preserve">
+    <value>Scherm spiegelen rekken</value>
   </data>
   <data name="Sunrise" xml:space="preserve">
     <value>Zonsopgang</value>
