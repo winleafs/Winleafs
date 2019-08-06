@@ -70,6 +70,25 @@ namespace Winleafs.Wpf.Api.Events
             _effectTimer.AutoReset = true;
         }
 
+
+        /// <inheritdoc />
+        public void StopEvent()
+        {
+            _effectTimer.Stop();
+        }
+
+        /// <inheritdoc />
+        public bool IsActive()
+        {
+            return _effectTimer.Enabled;
+        }
+
+        /// <inheritdoc />
+        public ITrigger GetTrigger()
+        {
+            return _trigger;
+        }
+
         private void CheckProcess(object source, ElapsedEventArgs e)
         {
             Task.Run(() => CheckProcessAsync());
@@ -152,21 +171,6 @@ namespace Winleafs.Wpf.Api.Events
                     await _externalControlEndpoint.SetPanelColorAsync(panel, _whiteColor.Color.R, _whiteColor.Color.G, _whiteColor.Color.B);
                 }
             }
-        }
-
-        public void StopEvent()
-        {
-            _effectTimer.Stop();
-        }
-
-        public bool IsActive()
-        {
-            return _effectTimer.Enabled;
-        }
-
-        public ITrigger GetTrigger()
-        {
-            return _trigger;
         }
     }
 }
