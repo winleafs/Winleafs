@@ -42,6 +42,7 @@ We would HIGHLY appreciate if you'd contact us before picking up a task so we ca
 ![Screenshot](Media/ScreenMirror.jpeg)
 
 - [Beat Saber Ambilight](https://www.youtube.com/watch?v=CRe0o0TNlT4)
+- [Screen mirror](https://www.youtube.com/watch?v=iT_jQnQLVQA)
 
 ## Bugs
 If you are experiencing problems, try deleting the settings file from %appdata%/Winleafs. Note: this removes all settings and schedules.
