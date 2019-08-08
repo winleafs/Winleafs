@@ -31,10 +31,11 @@ namespace Winleafs.Wpf.Views.Options
 
             var scaleType = screenMirrorAlgorithm == ScreenMirrorAlgorithm.ScreenMirrorFit ? ScaleType.Fit : ScaleType.Stretch;
 
-            var panels = OrchestratorCollection.GetOrchestratorForDevice(device).PanelLayout.GetScaledTriangles(Convert.ToInt32(screenBounds.Width / scaleX), Convert.ToInt32(screenBounds.Height / scaleY), scaleType);
+            //var panels = OrchestratorCollection.GetOrchestratorForDevice(device).PanelLayout.GetScaledTriangles(Convert.ToInt32(screenBounds.Width / scaleX), Convert.ToInt32(screenBounds.Height / scaleY), scaleType);
+            var panels = OrchestratorCollection.GetOrchestratorForDevice(device).PanelLayout.GetScaledTriangles(screenBounds.Width, screenBounds.Height, scaleType);
 
-            Width = screenBounds.Width / scaleX;
-            Height = screenBounds.Height / scaleY;
+            Width = screenBounds.Width;
+            Height = screenBounds.Height;
 
             Left = screenBounds.X;
             Top = screenBounds.Y;

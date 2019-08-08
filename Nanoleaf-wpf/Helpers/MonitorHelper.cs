@@ -44,6 +44,18 @@ namespace Winleafs.Wpf.Helpers
             var mon = MonitorFromPoint(pnt, 2/*MONITOR_DEFAULTTONEAREST*/);
             GetDpiForMonitor(mon, dpiType, out dpiX, out dpiY);
         }
+
+        /*
+         * Geprobeerd:
+         * GetDpiForMonitor
+         * VisualTreeHelper
+         * Matrix https://stackoverflow.com/questions/1918877/how-can-i-get-the-dpi-in-wpf
+         * Fake screen on second monitor
+         * ViewBox
+         * 
+         * Opties over:
+         * goede resolutie van monitor krijgen
+         */
     }
 
     [StructLayout(LayoutKind.Sequential)]
