@@ -85,7 +85,7 @@ namespace Winleafs.Api.Endpoints
 	    /// <inheritdoc />
 	    public async Task<OnOffModel> GetStateAsync()
         {
-            return await SendRequestAsync<OnOffModel>("/state/on", Method.GET);
+            return await SendRequestAsync<OnOffModel>("state/on", Method.GET);
         }
 
 	    /// <inheritdoc />
