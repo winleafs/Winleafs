@@ -104,6 +104,11 @@ namespace Winleafs.Api.Endpoints
 
             var response = restClient.Execute(request);
 
+            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                _logger.Warn($"Request failed, statuscode: {(int)response.StatusCode} {response.StatusCode.ToString()}, status description: {response.StatusDescription}, content: {response.Content}");
+            }
+
             return returnType == null ? null : JsonConvert.DeserializeObject(response.Content, returnType);
         }
     }
