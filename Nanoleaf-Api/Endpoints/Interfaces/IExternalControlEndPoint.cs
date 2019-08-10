@@ -8,7 +8,7 @@ namespace Winleafs.Api.Endpoints.Interfaces
         /// <summary>
         /// Gets the needed info to start external control
         /// </summary>
-        /// <returns>Awaitable task of type <<see cref="ExternalControlInfo"/>><returns>
+        /// <returns>Awaitable task of type <see cref="ExternalControlInfo"/></returns>
         Task<ExternalControlInfo> GetExternalControlInfoAsync();
 
         /// <summary>

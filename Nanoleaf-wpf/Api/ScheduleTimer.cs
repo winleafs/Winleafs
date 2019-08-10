@@ -25,18 +25,27 @@ namespace Winleafs.Wpf.Api
             _timer.Enabled = true;
         }
 
+        /// <summary>
+        /// Starts the timer and fires the event to select an effect.
+        /// </summary>
         public void StartTimer()
         {
             _timer.Start();
             FireTimer();
         }
 
+        /// <summary>
+        /// Stops the timer.
+        /// </summary>
         public void StopTimer()
         {
             _timer.Stop();
         }
 
-        public void FireTimer()
+        /// <summary>
+        /// Fires the timer to set the correct effect for the current time.
+        /// </summary>
+        private void FireTimer()
         {
             OnTimedEvent(this, null);
         }
@@ -55,6 +64,7 @@ namespace Winleafs.Wpf.Api
                 if (activeTrigger == null)
                 {
                     var client = NanoleafClient.GetClientForDevice(_orchestrator.Device);
+
                     //There are no triggers so the lights can be turned off if it is not off already
                     await client.StateEndpoint.SetStateWithStateCheckAsync(false);
                 }

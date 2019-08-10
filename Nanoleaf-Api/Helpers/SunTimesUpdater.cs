@@ -11,6 +11,11 @@ namespace Winleafs.Api.Helpers
 {
     public static class SunTimesUpdater
     {
+        /// <summary>
+        /// Pulls the Sunrise and Sunset hours and minutes from the API
+        /// Only if the user has the <see cref="UserSettings.Settings.Latitude"/>
+        /// and <see cref="UserSettings.Settings.Longitude"/> set
+        /// </summary>
         public static void UpdateSunTimes()
         {
             if (UserSettings.Settings.Latitude.HasValue && UserSettings.Settings.Longitude.HasValue)

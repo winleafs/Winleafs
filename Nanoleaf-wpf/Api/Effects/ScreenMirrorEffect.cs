@@ -13,7 +13,7 @@ namespace Winleafs.Wpf.Api.Effects
 {
     public class ScreenMirrorEffect : ICustomEffect
     {
-        private static Logger _logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
         public static string Name => $"{CustomEffectsCollection.EffectNamePreface}Screen mirror";
 

@@ -15,15 +15,32 @@ namespace Winleafs.Wpf.Api.Effects
 
         private readonly Dictionary<string, ICustomEffect> _customEffects;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CustomEffectsCollection"/> class.
+        /// </summary>
+        /// <param name="device">The device to be used to generate a <see cref="NanoleafClient"/></param>
+        /// <param name="orchestrator">The orchestrator instance currently in use.</param>
         public CustomEffectsCollection(Device device, Orchestrator orchestrator)
         {
             var _nanoleafClient = NanoleafClient.GetClientForDevice(device);
 
-            _customEffects = new Dictionary<string, ICustomEffect>();
-            _customEffects.Add(ScreenMirrorEffect.Name, new ScreenMirrorEffect(device, orchestrator, _nanoleafClient)); //We will not translate effect names since their names are identifiers
-            _customEffects.Add($"{EffectNamePreface}Turn lights off", new TurnOffEffect(_nanoleafClient));
+            _customEffects = new Dictionary<string, ICustomEffect>
+            {
+                //We will not translate effect names since their names are identifiers
+                {ScreenMirrorEffect.Name, new ScreenMirrorEffect(device, orchestrator, _nanoleafClient)},
+                {$"{EffectNamePreface}Turn lights off", new TurnOffEffect(_nanoleafClient)}
+            };
+ 
+
         }
 
+        /// <summary>
+        /// Determines if the given <paramref name="effectName"/> is a custom effect.
+        /// </summary>
+        /// <param name="effectName">The name of the effect to be searched for.</param>
+        /// <returns>
+        /// A boolean to indicate if the effect is a custom effect, true if it is.
+        /// </returns>
         public bool EffectIsCustomEffect(string effectName)
         {
             return _customEffects.ContainsKey(effectName);
@@ -35,24 +52,39 @@ namespace Winleafs.Wpf.Api.Effects
         }
 
         /// <summary>
-        /// Returns true when any other effect next to the given effectName is active, used when switching effects. If no effectName is given, returns true when any effect is active
+        /// Returns true when any other effect next to the given effectName is active,
+        /// used when switching effects. If no effectName is given, returns true when any effect is active
         /// </summary>
         public bool HasActiveEffects(string effectName = "")
         {
-            return _customEffects.Any(k => !k.Key.Equals(effectName) && k.Value.IsActive());
+            return _customEffects.Any(keyValuePair =>
+                !keyValuePair.Key.Equals(effectName) && keyValuePair.Value.IsActive());
         }
 
+        /// <summary>
+        /// Disables all custom that are currently active effects.
+        /// </summary>
+        /// <returns>An awaitable task.</returns>
         public async Task DeactivateAllEffects()
         {
-            foreach (var activeEffect in _customEffects.Where(k => k.Value.IsActive()))
+            foreach (var activeEffect in _customEffects.Where(keyValuePair => keyValuePair.Value.IsActive()))
             {
                 await activeEffect.Value.Deactivate();
             }
         }
 
+        /// <summary>
+        /// Gets the <see cref="ICustomEffect"/>s stored in this collection
+        /// as a <see cref="Effect"/> instance.
+        /// </summary>
+        /// <returns>
+        /// The custom formats formatted as a <see cref="Effect"/>
+        /// </returns>
         public List<Effect> GetCustomEffectAsEffects()
         {
-            return _customEffects.Keys.OrderBy(n => n).Select(n => new Effect { Name = n }).ToList();
+            return _customEffects.Keys.OrderBy(name => name)
+                .Select(name => new Effect { Name = name })
+                .ToList();
         }
     }
 }
