@@ -106,6 +106,15 @@ namespace Winleafs.Wpf.Views {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nearest neighbour.
+        /// </summary>
+        internal static string NearestNeighbour {
+            get {
+                return ResourceManager.GetString("NearestNeighbour", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Process event.
         /// </summary>
         internal static string ProcessEvent {

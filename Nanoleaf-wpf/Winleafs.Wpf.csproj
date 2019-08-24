@@ -61,6 +61,9 @@
     <Reference Include="RestSharp, Version=106.6.7.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
       <HintPath>packages\RestSharp.106.6.7\lib\net452\RestSharp.dll</HintPath>
     </Reference>
+    <Reference Include="Supercluster.KDTree, Version=1.0.4.0, Culture=neutral, PublicKeyToken=4423da5f8ba350cf, processorArchitecture=MSIL">
+      <HintPath>packages\Supercluster.KDTree.1.0.4\lib\Supercluster.KDTree.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
@@ -100,6 +103,7 @@
     <Compile Include="Api\Effects\ICustomEffect.cs" />
     <Compile Include="Api\Effects\ScreenMirrorEffects\Ambilght.cs" />
     <Compile Include="Api\Effects\ScreenMirrorEffects\IScreenMirrorEffect.cs" />
+    <Compile Include="Api\Effects\ScreenMirrorEffects\NearestNeighbour.cs" />
     <Compile Include="Api\Effects\ScreenMirrorEffects\ScreenMirror.cs" />
     <Compile Include="Api\Effects\TurnOffEffect.cs" />
     <Compile Include="Api\Events\Borderlands2HealthEventTrigger.cs" />

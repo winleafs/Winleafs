@@ -4,6 +4,7 @@
     {
         Ambilight = 0,
         ScreenMirrorFit = 1,
-        ScreenMirrorStretch = 2
+        ScreenMirrorStretch = 2,
+        NearestNeighbour = 3
     }
 }

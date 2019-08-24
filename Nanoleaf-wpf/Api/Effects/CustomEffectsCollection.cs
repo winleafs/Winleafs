@@ -30,8 +30,6 @@ namespace Winleafs.Wpf.Api.Effects
                 {ScreenMirrorEffect.Name, new ScreenMirrorEffect(device, orchestrator, _nanoleafClient)},
                 {$"{EffectNamePreface}Turn lights off", new TurnOffEffect(_nanoleafClient)}
             };
- 
-
         }
 
         /// <summary>

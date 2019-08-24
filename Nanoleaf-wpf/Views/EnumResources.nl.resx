@@ -132,6 +132,9 @@
   <data name="Event" xml:space="preserve">
     <value>Event</value>
   </data>
+  <data name="NearestNeighbour" xml:space="preserve">
+    <value>Nearest neighbour</value>
+  </data>
   <data name="ProcessEvent" xml:space="preserve">
     <value>Procesevent</value>
   </data>

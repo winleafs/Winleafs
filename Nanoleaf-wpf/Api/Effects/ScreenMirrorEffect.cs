@@ -41,6 +41,10 @@ namespace Winleafs.Wpf.Api.Effects
                 {
                     _screenMirrorEffect = new Ambilght(nanoleafClient, device);
                 }
+                else if (_screenMirrorAlgorithm == ScreenMirrorAlgorithm.NearestNeighbour)
+                {
+                    _screenMirrorEffect = new NearestNeighbour(device, orchestrator, nanoleafClient);
+                }
             }
             catch (Exception e)
             {

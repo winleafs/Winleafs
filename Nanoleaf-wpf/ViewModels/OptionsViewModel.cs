@@ -118,7 +118,8 @@ namespace Winleafs.Wpf.ViewModels
             {
                 {  EnumLocalizer.GetLocalizedEnum(ScreenMirrorAlgorithm.Ambilight), ScreenMirrorAlgorithm.Ambilight },
                 {  EnumLocalizer.GetLocalizedEnum(ScreenMirrorAlgorithm.ScreenMirrorFit), ScreenMirrorAlgorithm.ScreenMirrorFit },
-                {  EnumLocalizer.GetLocalizedEnum(ScreenMirrorAlgorithm.ScreenMirrorStretch), ScreenMirrorAlgorithm.ScreenMirrorStretch }
+                {  EnumLocalizer.GetLocalizedEnum(ScreenMirrorAlgorithm.ScreenMirrorStretch), ScreenMirrorAlgorithm.ScreenMirrorStretch },
+                {  EnumLocalizer.GetLocalizedEnum(ScreenMirrorAlgorithm.NearestNeighbour), ScreenMirrorAlgorithm.NearestNeighbour }
             };
         }
     }
