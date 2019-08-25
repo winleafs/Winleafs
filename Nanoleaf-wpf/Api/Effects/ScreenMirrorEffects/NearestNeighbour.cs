@@ -2,13 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Threading.Tasks;
+using VoronoiLib;
+using VoronoiLib.Structures;
 using Winleafs.Api;
 using Winleafs.Api.Endpoints.Interfaces;
 using Winleafs.Models.Models;
 using Winleafs.Wpf.Api.Layouts;
 using Winleafs.Wpf.Helpers;
+using Winleafs.Wpf.Helpers.Voronoi;
 
 namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
 {
@@ -47,7 +49,7 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
             throw new NotImplementedException();
         }
 
-        private void ConstructScreenshotAreas(List<DrawablePanel> panels)
+        private void ConstructScreenshotAreasPixels(List<DrawablePanel> panels)
         {
             //Prepare the points to search on + the dictionairy to save the results in
             var points = new List<double[]>();
@@ -74,6 +76,11 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
             }
 
             //TODO: manhatten distance pakken zodat je rechthoeken uit het algoritme krijgt?
-        }        
+        }
+
+        private void ConstructScreenshotAreas(List<DrawablePanel> panels)
+        {
+            VoronoiHelper.ConstructScreenshotAreas(panels, _screenBounds.Width, _screenBounds.Height);
+        }
     }
 }

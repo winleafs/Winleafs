@@ -64,6 +64,9 @@
     <Reference Include="Supercluster.KDTree, Version=1.0.4.0, Culture=neutral, PublicKeyToken=4423da5f8ba350cf, processorArchitecture=MSIL">
       <HintPath>packages\Supercluster.KDTree.1.0.4\lib\Supercluster.KDTree.dll</HintPath>
     </Reference>
+    <Reference Include="SwizzleMyVectors, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\SwizzleMyVectors.1.1.1.0\lib\net46\SwizzleMyVectors.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
@@ -122,6 +125,19 @@
     <Compile Include="Helpers\MonitorHelper.cs" />
     <Compile Include="Helpers\ScreenGrabber.cs" />
     <Compile Include="Api\Layouts\DrawablePanel.cs" />
+    <Compile Include="Helpers\Voronoi\Edge.cs" />
+    <Compile Include="Helpers\Voronoi\VoronoiHelper.cs" />
+    <Compile Include="Helpers\Voronoi\VoronoiLib\FortunesAlgorithm.cs" />
+    <Compile Include="Helpers\Voronoi\VoronoiLib\ParabolaMath.cs" />
+    <Compile Include="Helpers\Voronoi\VoronoiLib\Structures\BeachLine.cs" />
+    <Compile Include="Helpers\Voronoi\VoronoiLib\Structures\FortuneCircleEvent.cs" />
+    <Compile Include="Helpers\Voronoi\VoronoiLib\Structures\FortuneEvent.cs" />
+    <Compile Include="Helpers\Voronoi\VoronoiLib\Structures\FortuneSite.cs" />
+    <Compile Include="Helpers\Voronoi\VoronoiLib\Structures\FortuneSiteEvent.cs" />
+    <Compile Include="Helpers\Voronoi\VoronoiLib\Structures\MinHeap.cs" />
+    <Compile Include="Helpers\Voronoi\VoronoiLib\Structures\RBTree.cs" />
+    <Compile Include="Helpers\Voronoi\VoronoiLib\Structures\VEdge.cs" />
+    <Compile Include="Helpers\Voronoi\VoronoiLib\Structures\VPoint.cs" />
     <Compile Include="ViewModels\OptionsViewModel.cs" />
     <Compile Include="Api\Layouts\PanelLayout.cs" />
     <Compile Include="Views\AppResources.Designer.cs">
