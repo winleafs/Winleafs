@@ -9,7 +9,7 @@ namespace Winleafs.Wpf.Helpers.Voronoi
 {
     public static class VoronoiHelper
     {
-        public static void ConstructScreenshotAreas(List<DrawablePanel> panels, int width, int height)
+        public static List<Edge> ConstructScreenshotAreas(List<DrawablePanel> panels, int width, int height)
         {
             var points = new List<FortuneSite>();
 
@@ -53,7 +53,13 @@ namespace Winleafs.Wpf.Helpers.Voronoi
                 End = new Point(width, height)
             });
 
+            //Split up any intersection point (voronoi has no intersections but the 4 new edges do)
+
+            //Find loops
+
             ConstructPolygons(edges);
+
+            return edges;
         }
 
         //https://web.ist.utl.pt/alfredo.ferreira/publications/12EPCG-PolygonDetection.pdf
