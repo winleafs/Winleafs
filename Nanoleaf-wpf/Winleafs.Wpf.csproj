@@ -125,7 +125,6 @@
     <Compile Include="Helpers\MonitorHelper.cs" />
     <Compile Include="Helpers\ScreenGrabber.cs" />
     <Compile Include="Api\Layouts\DrawablePanel.cs" />
-    <Compile Include="Helpers\Voronoi\Edge.cs" />
     <Compile Include="Helpers\Voronoi\VoronoiHelper.cs" />
     <Compile Include="Helpers\Voronoi\VoronoiLib\FortunesAlgorithm.cs" />
     <Compile Include="Helpers\Voronoi\VoronoiLib\ParabolaMath.cs" />
@@ -453,6 +452,10 @@
     <ProjectReference Include="..\Nanoleaf-Models\Winleafs.Models.csproj">
       <Project>{D47A3540-3E21-4F5B-8B57-A9F9EA31426E}</Project>
       <Name>Winleafs.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PolygonsFromLines\PolygonsFromLines.csproj">
+      <Project>{BD5D8ECF-B731-4480-AC09-902942312BA8}</Project>
+      <Name>PolygonsFromLines</Name>
     </ProjectReference>
     <ProjectReference Include="..\Winleafs.External\Winleafs.External.csproj">
       <Project>{d027cd07-dcd3-44f3-be2d-bb1793b499eb}</Project>

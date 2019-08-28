@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
+﻿using PolygonsFromLines;
+using PolygonsFromLines.Models;
+using System.Collections.Generic;
+using System.Drawing;
 using VoronoiLib;
 using VoronoiLib.Structures;
 using Winleafs.Wpf.Api.Layouts;
@@ -9,7 +10,7 @@ namespace Winleafs.Wpf.Helpers.Voronoi
 {
     public static class VoronoiHelper
     {
-        public static List<Edge> ConstructScreenshotAreas(List<DrawablePanel> panels, int width, int height)
+        public static List<Line> ConstructScreenshotAreas(List<DrawablePanel> panels, int width, int height)
         {
             var points = new List<FortuneSite>();
 
@@ -18,44 +19,23 @@ namespace Winleafs.Wpf.Helpers.Voronoi
                 points.Add(new FortuneSite(panel.MidPoint.X, panel.MidPoint.Y)); //Prepare the points for the voronoi algorithm
             }
 
-            var voronoiEdges = FortunesAlgorithm.Run(points, 0, 0, width, height); //Calculate the edges with the help of the library
+            var voronoiEdges = FortunesAlgorithm.Run(points, 0, 0, width, height); //Calculate the edges of the voronoi with the help of the library
 
-            var edges = new List<Edge>();
+            var edges = new List<Line>();
 
             foreach (var edge in voronoiEdges)
             {
-                edges.Add(new Edge
-                {
-                    Start = new Point(edge.Start.X, edge.Start.Y),
-                    End = new Point(edge.End.X, edge.End.Y)
-                });
+                edges.Add(new Line(new PointF((float)edge.Start.X, (float)edge.Start.Y), new PointF((float)edge.End.X, (float)edge.End.Y)));
             }
 
             //Add the 4 edges, which represent the edges of the screen
-            edges.Add(new Edge
-            {
-                Start = new Point(0, 0),
-                End = new Point(0, height)
-            });
-            edges.Add(new Edge
-            {
-                Start = new Point(0, 0),
-                End = new Point(width, 0)
-            });
-            edges.Add(new Edge
-            {
-                Start = new Point(width, 0),
-                End = new Point(width, height)
-            });
-            edges.Add(new Edge
-            {
-                Start = new Point(0, height),
-                End = new Point(width, height)
-            });
+            edges.Add(new Line(new PointF(0, 0), new PointF(0, height)));
+            edges.Add(new Line(new PointF(0, 0), new PointF(width, 0)));
+            edges.Add(new Line(new PointF(width, 0), new PointF(width, height)));
+            edges.Add(new Line(new PointF(0, height), new PointF(width, height)));
 
-            //Split up any intersection point (voronoi has no intersections but the 4 new edges do)
-
-            //Find loops
+            //Construct the polygons from the given edges
+            PolygonConstructor.Construct(edges);
 
             ConstructPolygons(edges);
 
@@ -63,7 +43,7 @@ namespace Winleafs.Wpf.Helpers.Voronoi
         }
 
         //https://web.ist.utl.pt/alfredo.ferreira/publications/12EPCG-PolygonDetection.pdf
-        private static void ConstructPolygons(List<Edge> edges)
+        private static void ConstructPolygons(List<Line> edges)
         {
 
         }
