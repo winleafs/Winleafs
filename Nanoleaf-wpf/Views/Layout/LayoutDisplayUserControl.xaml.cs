@@ -83,7 +83,7 @@ namespace Winleafs.Wpf.Views.Layout
             var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice);
             _triangles = orchestrator.PanelLayout.GetScaledTriangles(_width, _height);
 
-            /*if (_triangles == null || !_triangles.Any())
+            if (_triangles == null || !_triangles.Any())
             {
                 return;
             }
@@ -99,23 +99,7 @@ namespace Winleafs.Wpf.Views.Layout
                 CanvasArea.Children.Add(triangle.Polygon);
             }
 
-            UpdateColors();*/
-
-            var edges = VoronoiHelper.ConstructScreenshotAreas(_triangles, _width, _height);
-
-            foreach (var edge in edges)
-            {
-                var line = new Line()
-                {
-                    X1 = edge.Start.X,
-                    Y1 = edge.Start.Y,
-                    X2 = edge.End.X,
-                    Y2 = edge.End.Y,
-                    Stroke = Brushes.LightSteelBlue,
-                    StrokeThickness = 2
-                };
-                CanvasArea.Children.Add(line);
-            }
+            UpdateColors();
         }
 
         private void Redraw_Click(object sender, RoutedEventArgs e)

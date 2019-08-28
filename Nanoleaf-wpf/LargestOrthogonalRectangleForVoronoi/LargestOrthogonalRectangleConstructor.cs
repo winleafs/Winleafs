@@ -4,19 +4,20 @@ using System.Collections.Generic;
 using System.Drawing;
 using VoronoiLib;
 using VoronoiLib.Structures;
-using Winleafs.Wpf.Api.Layouts;
 
-namespace Winleafs.Wpf.Helpers.Voronoi
+namespace LargestOrthogonalRectangleForVoronoi
 {
-    public static class VoronoiHelper
+    public static class LargestOrthogonalRectangleConstructor
     {
-        public static List<Line> ConstructScreenshotAreas(List<DrawablePanel> panels, int width, int height)
+        //TODO: add some form of reference to the original points
+        public static void Construct(IList<PointF> input, int width, int height)
         {
+            //1. Make the voronoi diagram
             var points = new List<FortuneSite>();
 
-            foreach (var panel in panels)
+            foreach (var point in input)
             {
-                points.Add(new FortuneSite(panel.MidPoint.X, panel.MidPoint.Y)); //Prepare the points for the voronoi algorithm
+                points.Add(new FortuneSite(point.X, point.Y)); //Prepare the points for the voronoi algorithm
             }
 
             var voronoiEdges = FortunesAlgorithm.Run(points, 0, 0, width, height); //Calculate the edges of the voronoi with the help of the library
@@ -34,10 +35,10 @@ namespace Winleafs.Wpf.Helpers.Voronoi
             edges.Add(new Line(new PointF(width, 0), new PointF(width, height)));
             edges.Add(new Line(new PointF(0, height), new PointF(width, height)));
 
-            //Construct the polygons from the given edges
-            PolygonConstructor.Construct(edges);
+            //2. Construct the polygons from the given edges
+            var polygons = PolygonConstructor.Construct(edges);
 
-            return edges;
+            //3. Find the largest rectangle in each polygon
         }
     }
 }

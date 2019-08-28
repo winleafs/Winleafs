@@ -17,7 +17,7 @@ namespace PolygonsFromLines
             {
                 for (var j = i + 1; j < lines.Count; j++)
                 {
-                    var intersectionPoint = GetIntersectionPoint(lines[i].Start, lines[i].End, lines[j].Start, lines[j].End);
+                    var intersectionPoint = GetIntersectionPoint(lines[i].Start, lines[i].End, lines[j].Start, lines[j].End, i, j, lines);
 
                     if (intersectionPoint.Item1)
                     {
@@ -77,7 +77,7 @@ namespace PolygonsFromLines
         /// Determines if the lines p->p2 and q->q2 intersect
         /// </summary>
         /// <returns>True with the intersection point if any intersection is found</returns>
-        private static (bool, PointF) GetIntersectionPoint(PointF p, PointF p2, PointF q, PointF q2)
+        private static (bool, PointF) GetIntersectionPoint(PointF p, PointF p2, PointF q, PointF q2, int i, int j, IList<Line> lines)
         {
             PointF r = new PointF(p2.X - p.X, p2.Y - p.Y);
             PointF s = new PointF(q2.X - q.X, q2.Y - q.Y);
@@ -91,9 +91,9 @@ namespace PolygonsFromLines
                 var t0 = t1 - DotProduct(s, r) / DotProduct(r, r);
 
                 // Collinear and so intersect if they have any overlap, however overlapping is an ambiguous point so throw exception
-                if (t0 >= 0f && t0 <= 1f || t1 >= 0f && t1 <= 1f)
+                if ((t0 >= 0f && t0 <= 1f) || (t1 >= 0f && t1 <= 1f))
                 {
-                    throw new ParallelLinesException($"Line1 start:{p.X};{p.Y} end:{p2.X};{p2.Y} is parallel and overlaps Line2 start:{q.X};{q.Y} end:{q2.X};{q2.Y}");
+                    throw new ParallelLinesException($"Cannot determine intersection point: Line1 start:{p.X};{p.Y} end:{p2.X};{p2.Y} is parallel and overlaps Line2 start:{q.X};{q.Y} end:{q2.X};{q2.Y}");
                 }
                 else
                 {

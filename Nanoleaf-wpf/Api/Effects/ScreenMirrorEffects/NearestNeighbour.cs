@@ -1,7 +1,9 @@
-﻿using Supercluster.KDTree;
+﻿using LargestOrthogonalRectangleForVoronoi;
+using Supercluster.KDTree;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Threading.Tasks;
 using VoronoiLib;
 using VoronoiLib.Structures;
@@ -80,7 +82,7 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
 
         private void ConstructScreenshotAreas(List<DrawablePanel> panels)
         {
-            VoronoiHelper.ConstructScreenshotAreas(panels, _screenBounds.Width, _screenBounds.Height);
+            LargestOrthogonalRectangleConstructor.Construct(panels.Select(p => new PointF((float)p.MidPoint.X, (float)p.MidPoint.Y)).ToList(), _screenBounds.Width, _screenBounds.Height);
         }
     }
 }

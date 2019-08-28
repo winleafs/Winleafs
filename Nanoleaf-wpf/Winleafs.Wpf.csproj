@@ -126,17 +126,6 @@
     <Compile Include="Helpers\ScreenGrabber.cs" />
     <Compile Include="Api\Layouts\DrawablePanel.cs" />
     <Compile Include="Helpers\Voronoi\VoronoiHelper.cs" />
-    <Compile Include="Helpers\Voronoi\VoronoiLib\FortunesAlgorithm.cs" />
-    <Compile Include="Helpers\Voronoi\VoronoiLib\ParabolaMath.cs" />
-    <Compile Include="Helpers\Voronoi\VoronoiLib\Structures\BeachLine.cs" />
-    <Compile Include="Helpers\Voronoi\VoronoiLib\Structures\FortuneCircleEvent.cs" />
-    <Compile Include="Helpers\Voronoi\VoronoiLib\Structures\FortuneEvent.cs" />
-    <Compile Include="Helpers\Voronoi\VoronoiLib\Structures\FortuneSite.cs" />
-    <Compile Include="Helpers\Voronoi\VoronoiLib\Structures\FortuneSiteEvent.cs" />
-    <Compile Include="Helpers\Voronoi\VoronoiLib\Structures\MinHeap.cs" />
-    <Compile Include="Helpers\Voronoi\VoronoiLib\Structures\RBTree.cs" />
-    <Compile Include="Helpers\Voronoi\VoronoiLib\Structures\VEdge.cs" />
-    <Compile Include="Helpers\Voronoi\VoronoiLib\Structures\VPoint.cs" />
     <Compile Include="ViewModels\OptionsViewModel.cs" />
     <Compile Include="Api\Layouts\PanelLayout.cs" />
     <Compile Include="Views\AppResources.Designer.cs">
@@ -457,9 +446,17 @@
       <Project>{BD5D8ECF-B731-4480-AC09-902942312BA8}</Project>
       <Name>PolygonsFromLines</Name>
     </ProjectReference>
+    <ProjectReference Include="..\VoronoiLib\VoronoiLib.csproj">
+      <Project>{B2F9FBD8-669A-48D7-B82D-CD4703C01F98}</Project>
+      <Name>VoronoiLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Winleafs.External\Winleafs.External.csproj">
       <Project>{d027cd07-dcd3-44f3-be2d-bb1793b499eb}</Project>
       <Name>Winleafs.External</Name>
+    </ProjectReference>
+    <ProjectReference Include="LargestOrthogonalRectangleForVoronoi\LargestOrthogonalRectangleForVoronoi.csproj">
+      <Project>{B80BB7E6-66CF-49DC-A20C-ED9CA14F5CEB}</Project>
+      <Name>LargestOrthogonalRectangleForVoronoi</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

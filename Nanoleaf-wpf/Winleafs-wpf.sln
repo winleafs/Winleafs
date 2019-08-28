@@ -23,7 +23,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Winleafs.External", "..\Win
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Setup", "..\Setup\Setup.wixproj", "{8402BA2A-8BB8-4BEF-880F-39831483E559}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolygonsFromLines", "..\PolygonsFromLines\PolygonsFromLines.csproj", "{BD5D8ECF-B731-4480-AC09-902942312BA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PolygonsFromLines", "..\PolygonsFromLines\PolygonsFromLines.csproj", "{BD5D8ECF-B731-4480-AC09-902942312BA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoronoiLib", "..\VoronoiLib\VoronoiLib.csproj", "{B2F9FBD8-669A-48D7-B82D-CD4703C01F98}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LargestOrthogonalRectangleForVoronoi", "LargestOrthogonalRectangleForVoronoi\LargestOrthogonalRectangleForVoronoi.csproj", "{B80BB7E6-66CF-49DC-A20C-ED9CA14F5CEB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +91,22 @@ Global
 		{BD5D8ECF-B731-4480-AC09-902942312BA8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BD5D8ECF-B731-4480-AC09-902942312BA8}.Release|x86.ActiveCfg = Release|Any CPU
 		{BD5D8ECF-B731-4480-AC09-902942312BA8}.Release|x86.Build.0 = Release|Any CPU
+		{B2F9FBD8-669A-48D7-B82D-CD4703C01F98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2F9FBD8-669A-48D7-B82D-CD4703C01F98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2F9FBD8-669A-48D7-B82D-CD4703C01F98}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B2F9FBD8-669A-48D7-B82D-CD4703C01F98}.Debug|x86.Build.0 = Debug|Any CPU
+		{B2F9FBD8-669A-48D7-B82D-CD4703C01F98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2F9FBD8-669A-48D7-B82D-CD4703C01F98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2F9FBD8-669A-48D7-B82D-CD4703C01F98}.Release|x86.ActiveCfg = Release|Any CPU
+		{B2F9FBD8-669A-48D7-B82D-CD4703C01F98}.Release|x86.Build.0 = Release|Any CPU
+		{B80BB7E6-66CF-49DC-A20C-ED9CA14F5CEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B80BB7E6-66CF-49DC-A20C-ED9CA14F5CEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B80BB7E6-66CF-49DC-A20C-ED9CA14F5CEB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B80BB7E6-66CF-49DC-A20C-ED9CA14F5CEB}.Debug|x86.Build.0 = Debug|Any CPU
+		{B80BB7E6-66CF-49DC-A20C-ED9CA14F5CEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B80BB7E6-66CF-49DC-A20C-ED9CA14F5CEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B80BB7E6-66CF-49DC-A20C-ED9CA14F5CEB}.Release|x86.ActiveCfg = Release|Any CPU
+		{B80BB7E6-66CF-49DC-A20C-ED9CA14F5CEB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -98,6 +118,8 @@ Global
 		{D47A3540-3E21-4F5B-8B57-A9F9EA31426E} = {04253D20-9CA2-4737-8594-C73381F4B2FB}
 		{432BED7A-AAB5-4E9D-BB19-CDD4B07477B8} = {A630776E-B52F-4BF0-A90E-4CCB953FE8B9}
 		{BD5D8ECF-B731-4480-AC09-902942312BA8} = {089B9C6D-57AC-461F-99B5-7B83A41BF58B}
+		{B2F9FBD8-669A-48D7-B82D-CD4703C01F98} = {089B9C6D-57AC-461F-99B5-7B83A41BF58B}
+		{B80BB7E6-66CF-49DC-A20C-ED9CA14F5CEB} = {089B9C6D-57AC-461F-99B5-7B83A41BF58B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {80386817-4CBF-4EC3-A38E-31251DEB6BF9}
