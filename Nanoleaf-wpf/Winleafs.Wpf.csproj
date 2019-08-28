@@ -125,7 +125,6 @@
     <Compile Include="Helpers\MonitorHelper.cs" />
     <Compile Include="Helpers\ScreenGrabber.cs" />
     <Compile Include="Api\Layouts\DrawablePanel.cs" />
-    <Compile Include="Helpers\Voronoi\VoronoiHelper.cs" />
     <Compile Include="ViewModels\OptionsViewModel.cs" />
     <Compile Include="Api\Layouts\PanelLayout.cs" />
     <Compile Include="Views\AppResources.Designer.cs">

@@ -10,7 +10,7 @@ namespace LargestOrthogonalRectangleForVoronoi
     public static class LargestOrthogonalRectangleConstructor
     {
         //TODO: add some form of reference to the original points
-        public static void Construct(IList<PointF> input, int width, int height)
+        public static void Construct(IList<PointF> input, int minX, int minY, int maxX, int maxY)
         {
             //1. Make the voronoi diagram
             var points = new List<FortuneSite>();
@@ -20,7 +20,7 @@ namespace LargestOrthogonalRectangleForVoronoi
                 points.Add(new FortuneSite(point.X, point.Y)); //Prepare the points for the voronoi algorithm
             }
 
-            var voronoiEdges = FortunesAlgorithm.Run(points, 0, 0, width, height); //Calculate the edges of the voronoi with the help of the library
+            var voronoiEdges = FortunesAlgorithm.Run(points, minX, minY, maxX, maxY); //Calculate the edges of the voronoi with the help of the library
 
             var edges = new List<Line>();
 
@@ -29,11 +29,11 @@ namespace LargestOrthogonalRectangleForVoronoi
                 edges.Add(new Line(new PointF((float)edge.Start.X, (float)edge.Start.Y), new PointF((float)edge.End.X, (float)edge.End.Y)));
             }
 
-            //Add the 4 edges, which represent the edges of the screen
-            edges.Add(new Line(new PointF(0, 0), new PointF(0, height)));
-            edges.Add(new Line(new PointF(0, 0), new PointF(width, 0)));
-            edges.Add(new Line(new PointF(width, 0), new PointF(width, height)));
-            edges.Add(new Line(new PointF(0, height), new PointF(width, height)));
+            //Add the 4 edges, which represent the edges of the rectangle the voronoi is generated in
+            edges.Add(new Line(new PointF(minX, minY), new PointF(minX, maxY)));
+            edges.Add(new Line(new PointF(minX, minY), new PointF(maxX, minY)));
+            edges.Add(new Line(new PointF(maxX, minY), new PointF(maxX, maxY)));
+            edges.Add(new Line(new PointF(minX, maxY), new PointF(maxX, maxY)));
 
             //2. Construct the polygons from the given edges
             var polygons = PolygonConstructor.Construct(edges);

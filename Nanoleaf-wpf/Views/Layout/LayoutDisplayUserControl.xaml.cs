@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Timers;
 using System.Windows;
@@ -13,7 +12,6 @@ using Winleafs.Models.Models;
 using Winleafs.Wpf.Api;
 using Winleafs.Wpf.Api.Layouts;
 using Winleafs.Wpf.Helpers;
-using Winleafs.Wpf.Helpers.Voronoi;
 
 namespace Winleafs.Wpf.Views.Layout
 {

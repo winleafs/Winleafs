@@ -5,14 +5,11 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
-using VoronoiLib;
-using VoronoiLib.Structures;
 using Winleafs.Api;
 using Winleafs.Api.Endpoints.Interfaces;
 using Winleafs.Models.Models;
 using Winleafs.Wpf.Api.Layouts;
 using Winleafs.Wpf.Helpers;
-using Winleafs.Wpf.Helpers.Voronoi;
 
 namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
 {
@@ -82,7 +79,7 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
 
         private void ConstructScreenshotAreas(List<DrawablePanel> panels)
         {
-            LargestOrthogonalRectangleConstructor.Construct(panels.Select(p => new PointF((float)p.MidPoint.X, (float)p.MidPoint.Y)).ToList(), _screenBounds.Width, _screenBounds.Height);
+            LargestOrthogonalRectangleConstructor.Construct(panels.Select(p => new PointF((float)p.MidPoint.X, (float)p.MidPoint.Y)).ToList(), 0, 0, _screenBounds.Width, _screenBounds.Height);
         }
     }
 }
