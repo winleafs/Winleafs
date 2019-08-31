@@ -1,9 +1,5 @@
-﻿using PolygonsFromLines;
-using PolygonsFromLines.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
-using VoronoiLib;
-using VoronoiLib.Structures;
 
 namespace LargestOrthogonalRectangleForVoronoi
 {
@@ -13,7 +9,7 @@ namespace LargestOrthogonalRectangleForVoronoi
         public static void Construct(IList<PointF> input, int minX, int minY, int maxX, int maxY)
         {
             //1. Make the voronoi diagram
-            var points = new List<FortuneSite>();
+            /*var points = new List<FortuneSite>();
 
             foreach (var point in input)
             {
@@ -36,7 +32,7 @@ namespace LargestOrthogonalRectangleForVoronoi
             edges.Add(new Line(new PointF(minX, maxY), new PointF(maxX, maxY)));
 
             //2. Construct the polygons from the given edges
-            var polygons = PolygonConstructor.Construct(edges);
+            var polygons = PolygonConstructor.Construct(edges);*/
 
             //3. Find the largest rectangle in each polygon
         }

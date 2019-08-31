@@ -453,7 +453,7 @@
       <Project>{d027cd07-dcd3-44f3-be2d-bb1793b499eb}</Project>
       <Name>Winleafs.External</Name>
     </ProjectReference>
-    <ProjectReference Include="LargestOrthogonalRectangleForVoronoi\LargestOrthogonalRectangleForVoronoi.csproj">
+    <ProjectReference Include="..\LargestOrthogonalRectangleForVoronoi\LargestOrthogonalRectangleForVoronoi.csproj">
       <Project>{B80BB7E6-66CF-49DC-A20C-ED9CA14F5CEB}</Project>
       <Name>LargestOrthogonalRectangleForVoronoi</Name>
     </ProjectReference>
