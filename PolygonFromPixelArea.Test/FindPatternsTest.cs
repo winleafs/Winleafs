@@ -57,6 +57,16 @@ namespace PolygonFromPixelArea.Test
 
             Assert.IsTrue(result.SequenceEqual(new List<int>() { 4 }));
         }
+
+        [TestMethod]
+        public void Test_FindPatterns6()
+        {
+            var sequence = new int[] { 0, 0, 2, 0, 0, 1, 0, 0, 1 };
+
+            var result = PolygonConstructor.FindPatterns(sequence);
+
+            Assert.IsTrue(result.SequenceEqual(new List<int>() { 1, 2, 8 }));
+        }
         #endregion
 
         #region FindPatternInSequence

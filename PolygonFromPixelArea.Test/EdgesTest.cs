@@ -71,6 +71,25 @@ namespace PolygonFromPixelArea.Test
             Assert.AreEqual(points[5], result[2]);
             Assert.AreEqual(points[8], result[3]);
         }
+
+        [TestMethod]
+        public void Test_CreateEdges4()
+        {
+            //A straight line with one elevation at the end
+            var points = new List<Point>()
+            {
+                new Point(0, 0),
+                new Point(1, 0),
+                new Point(2, 0),
+                new Point(3, 1)
+            };
+
+            var result = PolygonConstructor.CreateEdges(points);
+
+            Assert.AreEqual(2, result.Count);
+            Assert.AreEqual(points[0], result[0]);
+            Assert.AreEqual(points[3], result[1]);
+        }
         #endregion
     }
 }
