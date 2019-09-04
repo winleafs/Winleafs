@@ -15,6 +15,7 @@ namespace PolygonsFromLines
             lines = IntersectionRemover.RemoveIntersections(lines);
 
             //Step 2: make a connected graph
+            var graph = GraphConstructor.ConstructGraphFromLines(lines);
 
             //Step 3: find the shortest cycle basis
 

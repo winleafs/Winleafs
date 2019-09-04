@@ -29,6 +29,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VoronoiLib", "..\VoronoiLib
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LargestOrthogonalRectangleForVoronoi", "..\LargestOrthogonalRectangleForVoronoi\LargestOrthogonalRectangleForVoronoi.csproj", "{B80BB7E6-66CF-49DC-A20C-ED9CA14F5CEB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolygonsFromLines.Test", "..\PolygonsFromLines.Test\PolygonsFromLines.Test.csproj", "{4F00B934-D03F-4FBE-B4B0-4A050D157B41}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -107,6 +109,14 @@ Global
 		{B80BB7E6-66CF-49DC-A20C-ED9CA14F5CEB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B80BB7E6-66CF-49DC-A20C-ED9CA14F5CEB}.Release|x86.ActiveCfg = Release|Any CPU
 		{B80BB7E6-66CF-49DC-A20C-ED9CA14F5CEB}.Release|x86.Build.0 = Release|Any CPU
+		{4F00B934-D03F-4FBE-B4B0-4A050D157B41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F00B934-D03F-4FBE-B4B0-4A050D157B41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F00B934-D03F-4FBE-B4B0-4A050D157B41}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4F00B934-D03F-4FBE-B4B0-4A050D157B41}.Debug|x86.Build.0 = Debug|Any CPU
+		{4F00B934-D03F-4FBE-B4B0-4A050D157B41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F00B934-D03F-4FBE-B4B0-4A050D157B41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F00B934-D03F-4FBE-B4B0-4A050D157B41}.Release|x86.ActiveCfg = Release|Any CPU
+		{4F00B934-D03F-4FBE-B4B0-4A050D157B41}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -120,6 +130,7 @@ Global
 		{BD5D8ECF-B731-4480-AC09-902942312BA8} = {089B9C6D-57AC-461F-99B5-7B83A41BF58B}
 		{B2F9FBD8-669A-48D7-B82D-CD4703C01F98} = {089B9C6D-57AC-461F-99B5-7B83A41BF58B}
 		{B80BB7E6-66CF-49DC-A20C-ED9CA14F5CEB} = {089B9C6D-57AC-461F-99B5-7B83A41BF58B}
+		{4F00B934-D03F-4FBE-B4B0-4A050D157B41} = {089B9C6D-57AC-461F-99B5-7B83A41BF58B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {80386817-4CBF-4EC3-A38E-31251DEB6BF9}
