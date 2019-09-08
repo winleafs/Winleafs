@@ -79,7 +79,7 @@ namespace Winleafs.Wpf.ViewModels
 
                 AlgorithmPerDevice[_selectedDevice] = _selectedScreenMirrorAlgorithm;
 
-                //_parent.ScreenMirrorAlgorithmChanged(); Will be used later if we visualize the algorithms
+                _parent.ScreenMirrorAlgorithmChanged(_selectedScreenMirrorAlgorithm);
             }
         }
 

@@ -14,6 +14,7 @@ using Winleafs.Wpf.ViewModels;
 using System.Collections.ObjectModel;
 using Winleafs.Wpf.Helpers;
 using Winleafs.Models.Enums;
+using System.Windows.Media;
 
 namespace Winleafs.Wpf.Views.Options
 {
@@ -29,6 +30,8 @@ namespace Winleafs.Wpf.Views.Options
 
         private static readonly Dictionary<string, string> _languageDictionary =
             new Dictionary<string, string>() { { "Nederlands", "nl" }, { "English", "en" }, };
+
+        private bool _visualizationOpen;
 
         public OptionsWindow()
         {
@@ -70,8 +73,23 @@ namespace Winleafs.Wpf.Views.Options
             OptionsViewModel.SelectedDevice = UserSettings.Settings.ActiveDevice.Name; //Set this one last since it triggers changes in properties
 
             _startupKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", RegistryKeyPermissionCheck.ReadWriteSubTree, RegistryRights.FullControl);
+            _visualizationOpen = false;
 
             DataContext = OptionsViewModel;
+        }
+
+        public void ScreenMirrorAlgorithmChanged(ScreenMirrorAlgorithm selectedScreenMirrorAlgorithm)
+        {
+            if (selectedScreenMirrorAlgorithm == ScreenMirrorAlgorithm.ScreenMirrorFit || selectedScreenMirrorAlgorithm == ScreenMirrorAlgorithm.ScreenMirrorStretch)
+            {
+                VisualizeButton.IsEnabled = true;
+                VisualizeButton.Foreground = Brushes.White;
+            }
+            else
+            {
+                VisualizeButton.IsEnabled = false;
+                VisualizeButton.Foreground = Brushes.Gray;
+            }
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
@@ -81,11 +99,10 @@ namespace Winleafs.Wpf.Views.Options
 
         private void Visualize_Click(object sender, RoutedEventArgs e)
         {
-            var screenMirrorAlgorithm = OptionsViewModel.ScreenMirrorAlgorithmMapping[OptionsViewModel.SelectedScreenMirrorAlgorithm];
-            
-            //Currently, only these 2 alorithm can be visualized
-            if (screenMirrorAlgorithm == ScreenMirrorAlgorithm.ScreenMirrorFit || screenMirrorAlgorithm == ScreenMirrorAlgorithm.ScreenMirrorStretch)
+            if (!_visualizationOpen)
             {
+                var screenMirrorAlgorithm = OptionsViewModel.ScreenMirrorAlgorithmMapping[OptionsViewModel.SelectedScreenMirrorAlgorithm];
+
                 var monitorNames = WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.GetDisplayTargets().Select(m => m.FriendlyName).ToArray();
                 var monitorIndex = Array.IndexOf(monitorNames, OptionsViewModel.SelectedMonitor);
 
@@ -97,7 +114,10 @@ namespace Winleafs.Wpf.Views.Options
                 var scale = ScreenParameters.GetScreenScaleFactorNonDpiAware(visualizeWindow);
 
                 visualizeWindow.Visualize(scale);
-            }            
+                visualizeWindow.Closed += (sender2, eventArgs) => _visualizationOpen = false; //Set the bool to false when the window is closed
+
+                _visualizationOpen = true;
+            }                     
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
