@@ -208,4 +208,10 @@ per IP adres</value>
   <data name="ScreenMirrorDeviceInfo" xml:space="preserve">
     <value>Instellingen voor scherm spiegelen per apparaat</value>
   </data>
+  <data name="Visualize" xml:space="preserve">
+    <value>Visualiseren</value>
+  </data>
+  <data name="CloseInfoLabel" xml:space="preserve">
+    <value>Druk op een toets om te sluiten</value>
+  </data>
 </root>

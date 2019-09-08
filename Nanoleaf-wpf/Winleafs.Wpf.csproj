@@ -115,9 +115,10 @@
     <Compile Include="Helpers\EnumLocalizer.cs" />
     <Compile Include="Helpers\HsbToRgbConverter.cs" />
     <Compile Include="Helpers\MemoryReader.cs" />
-    <Compile Include="Helpers\MonitorHelper.cs" />
+    <Compile Include="Helpers\ScreenBoundsHelper.cs" />
     <Compile Include="Helpers\ScreenGrabber.cs" />
     <Compile Include="Api\Layouts\DrawablePanel.cs" />
+    <Compile Include="Helpers\ScreenParameters.cs" />
     <Compile Include="ViewModels\OptionsViewModel.cs" />
     <Compile Include="Api\Layouts\PanelLayout.cs" />
     <Compile Include="Views\AppResources.Designer.cs">
@@ -170,6 +171,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Options\ScreenMirrorVisualizationWindow.xaml.cs">
+      <DependentUpon>ScreenMirrorVisualizationWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Popup\NewVersionPopup.xaml.cs">
       <DependentUpon>NewVersionPopup.xaml</DependentUpon>
@@ -264,6 +268,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Options\OptionsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Options\ScreenMirrorVisualizationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

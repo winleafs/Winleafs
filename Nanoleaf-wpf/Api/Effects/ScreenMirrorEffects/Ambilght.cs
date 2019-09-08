@@ -17,7 +17,7 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
         {
             _nanoleafClient = nanoleafClient;
             _controlBrightness = device.ScreenMirrorControlBrightness;
-            _screenBounds = MonitorHelper.GetScreenBounds(device.ScreenMirrorMonitorIndex);
+            _screenBounds = ScreenBoundsHelper.GetScreenBounds(device.ScreenMirrorMonitorIndex);
         }
 
         /// <summary>
