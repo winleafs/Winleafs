@@ -13,6 +13,7 @@ using Winleafs.Wpf.Views.Popup;
 using Winleafs.Wpf.ViewModels;
 using System.Collections.ObjectModel;
 using Winleafs.Wpf.Helpers;
+using Winleafs.Models.Enums;
 
 namespace Winleafs.Wpf.Views.Options
 {
@@ -80,19 +81,23 @@ namespace Winleafs.Wpf.Views.Options
 
         private void Visualize_Click(object sender, RoutedEventArgs e)
         {
-            //Pass the currently selected values to the constructor of the visualizer
-            var monitorNames = WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.GetDisplayTargets().Select(m => m.FriendlyName).ToArray();
-            var monitorIndex = Array.IndexOf(monitorNames, OptionsViewModel.SelectedMonitor);
             var screenMirrorAlgorithm = OptionsViewModel.ScreenMirrorAlgorithmMapping[OptionsViewModel.SelectedScreenMirrorAlgorithm];
+            
+            //Currently, only these 2 alorithm can be visualized
+            if (screenMirrorAlgorithm == ScreenMirrorAlgorithm.ScreenMirrorFit || screenMirrorAlgorithm == ScreenMirrorAlgorithm.ScreenMirrorStretch)
+            {
+                var monitorNames = WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.GetDisplayTargets().Select(m => m.FriendlyName).ToArray();
+                var monitorIndex = Array.IndexOf(monitorNames, OptionsViewModel.SelectedMonitor);
 
-            var device = UserSettings.Settings.Devices.FirstOrDefault(d => d.Name == OptionsViewModel.SelectedDevice);
+                var device = UserSettings.Settings.Devices.FirstOrDefault(d => d.Name == OptionsViewModel.SelectedDevice);
 
-            var visualizeWindow = new ScreenMirrorVisualizationWindow(device, monitorIndex, screenMirrorAlgorithm);
-            visualizeWindow.Show();
+                var visualizeWindow = new ScreenMirrorVisualizationWindow(device, monitorIndex, screenMirrorAlgorithm);
+                visualizeWindow.Show();
 
-            var scale = ScreenParameters.GetScreenScaleFactorNonDpiAware(visualizeWindow);
+                var scale = ScreenParameters.GetScreenScaleFactorNonDpiAware(visualizeWindow);
 
-            visualizeWindow.Visualize(scale);
+                visualizeWindow.Visualize(scale);
+            }            
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)

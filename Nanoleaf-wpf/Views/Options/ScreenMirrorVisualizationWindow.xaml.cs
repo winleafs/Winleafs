@@ -41,10 +41,15 @@ namespace Winleafs.Wpf.Views.Options
         public void Visualize(double scale)
         {
             var scaleType = _screenMirrorAlgorithm == ScreenMirrorAlgorithm.ScreenMirrorFit ? ScaleType.Fit : ScaleType.Stretch;
+            var width = Convert.ToInt32(_screenBounds.Width / scale);
+            var height = Convert.ToInt32(_screenBounds.Height / scale);
 
-            var panels = OrchestratorCollection.GetOrchestratorForDevice(_device).PanelLayout.GetScaledTriangles(Convert.ToInt32(_screenBounds.Width / scale), Convert.ToInt32(_screenBounds.Height / scale), scaleType);
+            var panels = OrchestratorCollection.GetOrchestratorForDevice(_device).PanelLayout.GetScaledTriangles(width, height, scaleType);
 
             DrawPanels(panels);
+
+            //Horizontally center the close label
+            CloseInfoLabel.Margin = new Thickness(width / 2, 0, 0, 0);
         }
 
         private void DrawPanels(List<DrawablePanel> panels)

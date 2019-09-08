@@ -79,6 +79,15 @@ namespace Winleafs.Wpf.Views.Options {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Press any button to close.
+        /// </summary>
+        public static string CloseInfoLabel {
+            get {
+                return ResourceManager.GetString("CloseInfoLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Device.
         /// </summary>
         public static string Device {

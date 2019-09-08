@@ -54,7 +54,6 @@
                     <ComboBox Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,195,0,0"  SelectedItem="{Binding SelectedLanguage}" ItemsSource="{Binding Languages}"/>
                     <Label Content="{x:Static local:Resources.Language}" ContentStringFormat="{}{0}:" Margin="10,190,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
                     <Label Content="{x:Static local:Resources.LanguageRestartNote}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,225,0,0" FontSize="15" Foreground="White"/>
-
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static local:Resources.ScreenMirror}">

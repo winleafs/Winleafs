@@ -10,5 +10,6 @@
         WindowStyle="None" AllowsTransparency="True" Background="Transparent">
     <Grid>
         <Canvas x:Name="CanvasArea"></Canvas>
+        <Label x:Name="CloseInfoLabel" Content="{x:Static local:Resources.CloseInfoLabel}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="35" Foreground="White" />
     </Grid>
 </Window>

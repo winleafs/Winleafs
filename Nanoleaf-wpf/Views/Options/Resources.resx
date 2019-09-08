@@ -212,4 +212,7 @@ by IP Adress</value>
   <data name="Visualize" xml:space="preserve">
     <value>Visualize</value>
   </data>
+  <data name="CloseInfoLabel" xml:space="preserve">
+    <value>Press any button to close</value>
+  </data>
 </root>
