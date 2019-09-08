@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -17,30 +18,31 @@ namespace Winleafs.Wpf.Views.Options
     /// </summary>
     public partial class ScreenMirrorVisualizationWindow : Window
     {
-        private static readonly double _defaultDpi = 96; //A dpi of 96 means you have your windows settings to 100%, 144 = 150%, etc
+        private readonly Rectangle _screenBounds;
+        private readonly Device _device;
+        private readonly ScreenMirrorAlgorithm _screenMirrorAlgorithm;
 
         public ScreenMirrorVisualizationWindow(Device device, int monitorIndex, ScreenMirrorAlgorithm screenMirrorAlgorithm)
         {
-            var screenBounds = MonitorHelper.GetScreenBounds(monitorIndex);
+            _screenMirrorAlgorithm = screenMirrorAlgorithm;
+            _device = device;
+            _screenBounds = ScreenBoundsHelper.GetScreenBounds(monitorIndex);
 
-            //Since some users might have scaling enabled, we need to shrink the actual window to fit the monitor according to the DPI scaling setting
-            uint dpiX, dpiY;
-            MonitorHelper.GetDpi(screenBounds.X, screenBounds.Y, DpiType.Effective, out dpiX, out dpiY);
-            var scaleX = Convert.ToDouble(dpiX) / _defaultDpi;
-            var scaleY = Convert.ToDouble(dpiY) / _defaultDpi;
 
-            var scaleType = screenMirrorAlgorithm == ScreenMirrorAlgorithm.ScreenMirrorFit ? ScaleType.Fit : ScaleType.Stretch;
+            Width = _screenBounds.Width;
+            Height = _screenBounds.Height;
 
-            //var panels = OrchestratorCollection.GetOrchestratorForDevice(device).PanelLayout.GetScaledTriangles(Convert.ToInt32(screenBounds.Width / scaleX), Convert.ToInt32(screenBounds.Height / scaleY), scaleType);
-            var panels = OrchestratorCollection.GetOrchestratorForDevice(device).PanelLayout.GetScaledTriangles(screenBounds.Width, screenBounds.Height, scaleType);
-
-            Width = screenBounds.Width;
-            Height = screenBounds.Height;
-
-            Left = screenBounds.X;
-            Top = screenBounds.Y;
+            Left = _screenBounds.X;
+            Top = _screenBounds.Y;
 
             InitializeComponent();
+        }
+
+        public void Visualize(double scale)
+        {
+            var scaleType = _screenMirrorAlgorithm == ScreenMirrorAlgorithm.ScreenMirrorFit ? ScaleType.Fit : ScaleType.Stretch;
+
+            var panels = OrchestratorCollection.GetOrchestratorForDevice(_device).PanelLayout.GetScaledTriangles(Convert.ToInt32(_screenBounds.Width / scale), Convert.ToInt32(_screenBounds.Height / scale), scaleType);
 
             DrawPanels(panels);
         }
@@ -56,7 +58,7 @@ namespace Winleafs.Wpf.Views.Options
 
             foreach (var panel in panels)
             {
-                panel.Polygon.Fill = Brushes.LightSlateGray;
+                panel.Polygon.Fill = System.Windows.Media.Brushes.LightSlateGray;
                 CanvasArea.Children.Add(panel.Polygon);
             }
         }

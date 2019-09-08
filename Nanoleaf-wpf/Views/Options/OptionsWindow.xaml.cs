@@ -12,6 +12,7 @@ using System.Windows.Navigation;
 using Winleafs.Wpf.Views.Popup;
 using Winleafs.Wpf.ViewModels;
 using System.Collections.ObjectModel;
+using Winleafs.Wpf.Helpers;
 
 namespace Winleafs.Wpf.Views.Options
 {
@@ -87,7 +88,11 @@ namespace Winleafs.Wpf.Views.Options
             var device = UserSettings.Settings.Devices.FirstOrDefault(d => d.Name == OptionsViewModel.SelectedDevice);
 
             var visualizeWindow = new ScreenMirrorVisualizationWindow(device, monitorIndex, screenMirrorAlgorithm);
-            visualizeWindow.ShowDialog();
+            visualizeWindow.Show();
+
+            var scale = ScreenParameters.GetScreenScaleFactorNonDpiAware(visualizeWindow);
+
+            visualizeWindow.Visualize(scale);
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)

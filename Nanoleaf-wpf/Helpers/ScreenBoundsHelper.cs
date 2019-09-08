@@ -1,26 +1,14 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace Winleafs.Wpf.Helpers
 {
-    public static class MonitorHelper
+    public static class ScreenBoundsHelper
     {
         [DllImport("user32.dll")]
-#pragma warning disable S4214 // "P/Invoke" methods should not be visible
-        public static extern bool EnumDisplaySettings(string lpszDeviceName, int iModeNum, ref MonitorInfo monitorInfo);
-
-        //https://msdn.microsoft.com/en-us/library/windows/desktop/dd145062(v=vs.85).aspx
-        [DllImport("User32.dll")]
-        private static extern IntPtr MonitorFromPoint([In]System.Drawing.Point pt, [In]uint dwFlags);
-
-        //https://msdn.microsoft.com/en-us/library/windows/desktop/dn280510(v=vs.85).aspx
-        [DllImport("Shcore.dll")]
-        private static extern IntPtr GetDpiForMonitor([In]IntPtr hmonitor, [In]DpiType dpiType, [Out]out uint dpiX, [Out]out uint dpiY);
-
-#pragma warning restore S4214 // "P/Invoke" methods should not be visible
+        internal static extern bool EnumDisplaySettings(string lpszDeviceName, int iModeNum, ref MonitorInfo monitorInfo);
 
         public static Rectangle GetScreenBounds(int monitorIndex)
         {
@@ -36,26 +24,6 @@ namespace Winleafs.Wpf.Helpers
 
             return new Rectangle(monitorInfo.dmPositionX, monitorInfo.dmPositionY, monitorInfo.dmPelsWidth, monitorInfo.dmPelsHeight);
         }
-
-        //https://stackoverflow.com/questions/29438430/how-to-get-dpi-scale-for-all-screens
-        public static void GetDpi(int left, int top, DpiType dpiType, out uint dpiX, out uint dpiY)
-        {
-            var pnt = new Point(left + 10, top + 10);
-            var mon = MonitorFromPoint(pnt, 2/*MONITOR_DEFAULTTONEAREST*/);
-            GetDpiForMonitor(mon, dpiType, out dpiX, out dpiY);
-        }
-
-        /*
-         * Geprobeerd:
-         * GetDpiForMonitor
-         * VisualTreeHelper
-         * Matrix https://stackoverflow.com/questions/1918877/how-can-i-get-the-dpi-in-wpf
-         * Fake screen on second monitor
-         * ViewBox
-         * 
-         * Opties over:
-         * goede resolutie van monitor krijgen
-         */
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -94,13 +62,5 @@ namespace Winleafs.Wpf.Helpers
         public int dmReserved2;
         public int dmPanningWidth;
         public int dmPanningHeight;
-    }
-
-    //https://msdn.microsoft.com/en-us/library/windows/desktop/dn280511(v=vs.85).aspx
-    public enum DpiType
-    {
-        Effective = 0,
-        Angular = 1,
-        Raw = 2,
     }
 }
