@@ -14,7 +14,7 @@ namespace Winleafs.Models.Models
     public class UserSettings
     {
         public static readonly string APPLICATIONNAME = "Winleafs";
-        public static readonly string APPLICATIONVERSION = "v0.5.2";
+        public static readonly string APPLICATIONVERSION = "v0.5.3";
 
         public static readonly string SettingsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), APPLICATIONNAME);
 
