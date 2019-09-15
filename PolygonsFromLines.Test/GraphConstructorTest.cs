@@ -22,9 +22,9 @@ namespace PolygonsFromLines.Test
 
             var graph = GraphConstructor.ConstructGraphFromLines(lines);
 
-            Assert.AreEqual(graph.Vertices.Count, 4);
-            Assert.AreEqual(graph.Vertices[0].Weights[0], 1);
-            Assert.AreEqual(graph.Vertices[0].Neighbours.Count, 2);
+            Assert.AreEqual(4, graph.Vertices.Count);
+            Assert.AreEqual(1, graph.Vertices[0].Weights[0]);
+            Assert.AreEqual(2, graph.Vertices[0].Neighbours.Count);
         }
 
         [TestMethod]
@@ -40,7 +40,7 @@ namespace PolygonsFromLines.Test
 
             var graph = GraphConstructor.ConstructGraphFromLines(lines);
 
-            Assert.AreEqual(graph.Vertices.Count, 3);
+            Assert.AreEqual(3, graph.Vertices.Count);
         }
     }
 }
