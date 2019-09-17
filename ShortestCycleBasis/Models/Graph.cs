@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 
-namespace PolygonsFromLines.Models
+namespace ShortestCycleBasis.Models
 {
-    internal class Graph
+    public class Graph<PointType>
     {
-        public IList<GraphVertex> Vertices { get; set; }
+        public IList<GraphVertex<PointType>> Vertices { get; set; }
 
         public Graph()
         {
-            Vertices = new List<GraphVertex>();
+            Vertices = new List<GraphVertex<PointType>>();
         }
 
         /// <summary>
@@ -17,12 +17,12 @@ namespace PolygonsFromLines.Models
         /// Implementation based on:
         /// https://github.com/mburst/dijkstras-algorithm/blob/master/dijkstras.cs
         /// </summary>
-        public List<GraphVertex> ShortestPath(GraphVertex start, GraphVertex finish)
+        public IList<GraphVertex<PointType>> ShortestPath(GraphVertex<PointType> start, GraphVertex<PointType> finish)
         {
-            var previous = new Dictionary<GraphVertex, GraphVertex>();
-            var distances = new Dictionary<GraphVertex, double>();
-            var nodes = new List<GraphVertex>();
-            List<GraphVertex> path = null;
+            var previous = new Dictionary<GraphVertex<PointType>, GraphVertex<PointType>>();
+            var distances = new Dictionary<GraphVertex<PointType>, double>();
+            var nodes = new List<GraphVertex<PointType>>();
+            List<GraphVertex<PointType>> path = null;
 
             foreach (var vertex in Vertices)
             {
@@ -47,7 +47,7 @@ namespace PolygonsFromLines.Models
 
                 if (smallest.Equals(finish))
                 {
-                    path = new List<GraphVertex>();
+                    path = new List<GraphVertex<PointType>>();
 
                     while (previous.ContainsKey(smallest))
                     {
@@ -56,6 +56,7 @@ namespace PolygonsFromLines.Models
                     }
 
                     path.Add(start);
+                    path.Reverse(); //Reverse since we add the steps backwards
                     break;
                 }
 
@@ -79,7 +80,7 @@ namespace PolygonsFromLines.Models
         }
 
         //Compare vertices by their distances
-        private int CompareVertices(GraphVertex x, GraphVertex y, Dictionary<GraphVertex, double> distances)
+        private int CompareVertices(GraphVertex<PointType> x, GraphVertex<PointType> y, Dictionary<GraphVertex<PointType>, double> distances)
         {
             var distance = distances[x] - distances[y];
             return distance < 0 ? -1 : (distance > 0 ? 1 : 0);

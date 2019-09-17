@@ -1,5 +1,4 @@
 ﻿using PolygonsFromLines.Models;
-using System;
 using System.Collections.Generic;
 
 namespace PolygonsFromLines

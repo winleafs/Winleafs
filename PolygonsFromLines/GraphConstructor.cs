@@ -1,4 +1,5 @@
 ﻿using PolygonsFromLines.Models;
+using ShortestCycleBasis.Models;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -11,7 +12,7 @@ namespace PolygonsFromLines
         /// <summary>
         /// Constructs a connected graph from the given set of lines
         /// </summary>
-        public static Graph ConstructGraphFromLines(IList<Line> lines)
+        public static Graph<PointF> ConstructGraphFromLines(IList<Line> lines)
         {
             var distinctPointsInLines = lines.Select(line => line.Start).ToList();
             distinctPointsInLines.AddRange(lines.Select(line => line.End));
@@ -32,7 +33,7 @@ namespace PolygonsFromLines
                 });
             }
 
-            var graph = new Graph();
+            var graph = new Graph<PointF>();
 
             foreach (var vertex in pointsWithNeighbouringPoints)
             {
@@ -47,13 +48,13 @@ namespace PolygonsFromLines
         /// For each of the neighbouring points, a connection is made and the point is constructed
         /// if it does not exist in the graph yet.
         /// </summary>
-        private static void ConstructVertex(ConstructableVertex constructableVertex, Graph graph)
+        private static void ConstructVertex(ConstructableVertex constructableVertex, Graph<PointF> graph)
         {
             var graphVertex = GraphVertexFromPoint(graph, constructableVertex.Point);
 
             if (graphVertex == null)
             {
-                graphVertex = new GraphVertex(constructableVertex.Point);
+                graphVertex = new GraphVertex<PointF>(constructableVertex.Point);
 
                 graph.Vertices.Add(graphVertex);
             }
@@ -69,14 +70,14 @@ namespace PolygonsFromLines
         /// If the neighbour exists, a connection is made.
         /// If the neighbour does not exists, a new vertex is constructed and a connection is made.
         /// </summary>
-        private static void AddOrConnectNeighbour(GraphVertex graphVertex, PointF neighbouringPoint, Graph graph)
+        private static void AddOrConnectNeighbour(GraphVertex<PointF> graphVertex, PointF neighbouringPoint, Graph<PointF> graph)
         {
             var neighbour = GraphVertexFromPoint(graph, neighbouringPoint);
             var distance = EuclideanDistance(graphVertex.Point, neighbouringPoint);
 
             if (neighbour == null)
             {
-                neighbour = new GraphVertex(neighbouringPoint);
+                neighbour = new GraphVertex<PointF>(neighbouringPoint);
 
                 graph.Vertices.Add(neighbour);
             }
@@ -88,7 +89,7 @@ namespace PolygonsFromLines
         /// <summary>
         /// If exists in the graph, returns the graph vertex object that lies on the given point
         /// </summary>
-        private static GraphVertex GraphVertexFromPoint(Graph graph, PointF point)
+        private static GraphVertex<PointF> GraphVertexFromPoint(Graph<PointF> graph, PointF point)
         {
             return graph.Vertices.FirstOrDefault(vertex => vertex.Point.X == point.X && vertex.Point.Y == point.Y);
         }

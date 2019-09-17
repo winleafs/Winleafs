@@ -1,19 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 
-namespace PolygonsFromLines.Models
+namespace ShortestCycleBasis.Models
 {
-    internal class GraphVertex
+    public class GraphVertex<PointType>
     {
-        public PointF Point { get; set; }
+        public PointType Point { get; set; }
 
-        public IList<GraphVertex> Neighbours { get; set; }
+        public IList<GraphVertex<PointType>> Neighbours { get; set; }
         public IList<double> Weights { get; set; }
 
-        public GraphVertex(PointF point)
+        public GraphVertex(PointType point)
         {
             Point = point;
-            Neighbours = new List<GraphVertex>();
+            Neighbours = new List<GraphVertex<PointType>>();
             Weights = new List<double>();
         }
 
@@ -23,7 +24,7 @@ namespace PolygonsFromLines.Models
         /// </summary>
         public override bool Equals(object obj)
         {
-            return ((GraphVertex)obj).Point == Point;
+            return ((GraphVertex<PointType>)obj).Point.Equals(Point);
         }
 
         public override int GetHashCode()
