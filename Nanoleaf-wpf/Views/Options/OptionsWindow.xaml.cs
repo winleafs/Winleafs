@@ -225,10 +225,21 @@ namespace Winleafs.Wpf.Views.Options
             var color = ColorPicker.SelectedColor;
             var name = EffectTextBox.Text;
 
-            if (UserSettings.Settings.CustomEffects.Any(effect => effect.EffectName == name)
-                || color.HasValue == false
-                || string.IsNullOrWhiteSpace(name))
+            if (UserSettings.Settings.CustomEffects.Any(effect => effect.EffectName == name))
             {
+                PopupCreator.Error("Name already taken.");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                PopupCreator.Error("No name provided.");
+                return;
+            }
+
+            if (color == null)
+            {
+                PopupCreator.Error("No color selected.");
                 return;
             }
 

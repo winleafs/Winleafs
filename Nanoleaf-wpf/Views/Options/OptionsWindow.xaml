@@ -81,7 +81,7 @@
             <TabItem Header="Color">
                 <Grid>
                     <TextBlock Margin="10,10,0,0" TextWrapping="Wrap" Text="Pick a Color" VerticalAlignment="Top" FontSize="15" Foreground="White" Height="25"/>
-                    <StackPanel Margin="10,50,0,0"  x:Name="ColorList" HorizontalAlignment="Left" Width="150" />
+                    <StackPanel Margin="10,97,0,0"  x:Name="ColorList" HorizontalAlignment="Left" Width="520" />
                     <xctk:ColorPicker x:Name="ColorPicker" Margin="0,8,137,0" Height="27" VerticalAlignment="Top" Width="250" HorizontalAlignment="Right"/>
                     <TextBox x:Name="EffectTextBox" HorizontalAlignment="Right" Height="23" Margin="0,50,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White"/>
                     <Button Content="Add" HorizontalAlignment="Right" Margin="0,8,10,0" Width="115" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="AddColor_Click" Height="27" VerticalAlignment="Top"/>
