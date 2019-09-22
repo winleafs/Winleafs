@@ -66,6 +66,11 @@ namespace Winleafs.Wpf.Views.MainWindows
             DataContext = this;
         }
 
+        public void ReloadEffects()
+        {
+            OverrideScheduleUserControl.LoadEffects();
+        }
+
         public void UpdateDeviceNames()
         {
             DeviceNames = new ObservableCollection<string>(UserSettings.Settings.Devices.Select(d => d.Name));
@@ -165,7 +170,7 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         private void Options_Click(object sender, RoutedEventArgs e)
         {
-            var optionsWindow = new OptionsWindow();
+            var optionsWindow = new OptionsWindow(this);
             optionsWindow.ShowDialog();
         }
 

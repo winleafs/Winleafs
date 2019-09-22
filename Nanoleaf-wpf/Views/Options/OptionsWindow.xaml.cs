@@ -39,8 +39,11 @@ namespace Winleafs.Wpf.Views.Options
 
         private bool _visualizationOpen;
 
-        public OptionsWindow()
+        private readonly MainWindow _mainWindow;
+
+        public OptionsWindow(MainWindow mainWindow)
         {
+            _mainWindow = mainWindow;
 
             InitializeComponent();
 
@@ -58,10 +61,11 @@ namespace Winleafs.Wpf.Views.Options
                 Longitude = UserSettings.Settings.Longitude?.ToString("N7", CultureInfo.InvariantCulture),
                 SelectedLanguage = FullNameForCulture(UserSettings.Settings.UserLocale),
                 Languages = _languageDictionary.Keys.ToList(),
-                MinimizeToSystemTray = UserSettings.Settings.MinimizeToSystemTray
+                MinimizeToSystemTray = UserSettings.Settings.MinimizeToSystemTray,
+                CustomColorEffects = UserSettings.Settings.CustomEffects
             };
 
-            //Setup MonitorPerDevice with necessairy checks
+            //Setup MonitorPerDevice with necessary checks
             var monitorPerDevice = new Dictionary<string, string>();
             foreach (var device in UserSettings.Settings.Devices)
             {
@@ -76,7 +80,7 @@ namespace Winleafs.Wpf.Views.Options
                 }
             }
 
-            foreach (var customEffects in UserSettings.Settings.CustomEffects.OrderBy(effect => effect.EffectName))
+            foreach (var customEffects in UserSettings.Settings.CustomEffects)
             {
                 ColorList.Children.Add(new ColorUserControl(this, customEffects.EffectName, customEffects.Color));
             }
@@ -228,10 +232,17 @@ namespace Winleafs.Wpf.Views.Options
             UserSettings.Settings.MinimizeToSystemTray = OptionsViewModel.MinimizeToSystemTray;
             #endregion
 
+            #region Colors
+
+            UserSettings.Settings.CustomEffects = OptionsViewModel.CustomColorEffects;
+
+            #endregion Colors
             UserSettings.Settings.SaveSettings();
 
             // Reload the orchestrator so custom effects are reloaded.
             OrchestratorCollection.ResetOrchestratorForActiveDevice();
+
+            _mainWindow.ReloadEffects();
 
             Close();
         }
@@ -305,13 +316,13 @@ namespace Winleafs.Wpf.Views.Options
                 EffectName = name
             };
 
-            if (UserSettings.Settings.CustomEffects == null)
+            if (OptionsViewModel.CustomColorEffects == null)
             {
-                UserSettings.Settings.CustomEffects = new List<UserCustomColorEffect>();
+                OptionsViewModel.CustomColorEffects = new List<UserCustomColorEffect>();
             }
 
             // Add color in settings.
-            UserSettings.Settings.CustomEffects.Add(customEffect);
+            OptionsViewModel.CustomColorEffects.Add(customEffect);
             
             // Add color to UI.
             ColorList.Children.Add(new ColorUserControl(this, customEffect.EffectName, customEffect.Color));
@@ -320,8 +331,8 @@ namespace Winleafs.Wpf.Views.Options
         public void DeleteColor(string description, UIElement child)
         {
             // Remove color out of the settings.
-            var toDeleteEffect = UserSettings.Settings.CustomEffects.FirstOrDefault(effect => effect.EffectName == description);
-            UserSettings.Settings.CustomEffects.Remove(toDeleteEffect);
+            var toDeleteEffect = OptionsViewModel.CustomColorEffects.FirstOrDefault(effect => effect.EffectName == description);
+            OptionsViewModel.CustomColorEffects.Remove(toDeleteEffect);
             
             // Remove color from the list.
             ColorList.Children.Remove(child);

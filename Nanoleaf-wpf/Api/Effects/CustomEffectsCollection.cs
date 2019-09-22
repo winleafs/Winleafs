@@ -12,7 +12,7 @@ namespace Winleafs.Wpf.Api.Effects
     {
         #region static properties
         public static readonly string EffectNamePreface = "Winleafs - ";
-        public static readonly string CustomColorNamePreface = "Custom - ";
+        public static readonly string CustomColorNamePreface = "Custom Color - ";
         #endregion
 
         private Dictionary<string, ICustomEffect> _customEffects;
