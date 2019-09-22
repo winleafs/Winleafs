@@ -372,7 +372,22 @@
       </Component>
       <Component Id="Winleafs.Wpf.exe.config" Guid="5af0dc46-ff3f-4f45-979e-b05ffb70207b">
         <File Id="Winleafs.Wpf.exe.config" Source="$(var.sourceFolder)\Winleafs.Wpf.exe.config" KeyPath="yes" />
+      </Component>      
+      <Component Id="Xceed.Wpf.AvalonDock.dll" Guid="41ed8037-9f68-42f7-998a-3ddbfc28e463">
+        <File Id="Xceed.Wpf.AvalonDock.dll" Source="$(var.sourceFolder)\Xceed.Wpf.AvalonDock.dll" KeyPath="yes" />
       </Component>
+      <Component Id="Xceed.Wpf.AvalonDock.Themes.Aero.dll" Guid="dd0c455a-f2d9-4bf5-bd66-a7e24a30b0b7">
+        <File Id="Xceed.Wpf.AvalonDock.Themes.Aero.dll" Source="$(var.sourceFolder)\Xceed.Wpf.AvalonDock.Themes.Aero.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="Xceed.Wpf.AvalonDock.Themes.Metro.dll" Guid="35252e73-5263-4c0d-aad0-c20272f332db">
+        <File Id="Xceed.Wpf.AvalonDock.Themes.Metro.dll" Source="$(var.sourceFolder)\Xceed.Wpf.AvalonDock.Themes.Metro.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="Xceed.Wpf.AvalonDock.Themes.VS2010.dll" Guid="ae182663-b9b5-463c-9206-54aa06159711">
+        <File Id="Xceed.Wpf.AvalonDock.Themes.VS2010.dll" Source="$(var.sourceFolder)\Xceed.Wpf.AvalonDock.Themes.VS2010.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="Xceed.Wpf.Toolkit.dll" Guid="8efeecd1-b571-4eab-83a8-5555bee173d5">
+        <File Id="Xceed.Wpf.Toolkit.dll" Source="$(var.sourceFolder)\Xceed.Wpf.Toolkit.dll" KeyPath="yes" />
+      </Component>      
     </DirectoryRef>
     <DirectoryRef Id="directory_nl">
       <Component Id="Winleafs.Wpf.resources.dll" Guid="32276e83-fd2a-48bb-8765-cd6634322c5f">
@@ -515,6 +530,12 @@
       <ComponentRef Id="Winleafs.Wpf.exe" />
       <ComponentRef Id="Winleafs.Wpf.exe.config" />
       <ComponentRef Id="Winleafs.Wpf.resources.dll" />
+      
+      <ComponentRef Id="Xceed.Wpf.AvalonDock.dll" />
+      <ComponentRef Id="Xceed.Wpf.AvalonDock.Themes.Aero.dll" />
+      <ComponentRef Id="Xceed.Wpf.AvalonDock.Themes.Metro.dll" />
+      <ComponentRef Id="Xceed.Wpf.AvalonDock.Themes.VS2010.dll" />
+      <ComponentRef Id="Xceed.Wpf.Toolkit.dll" />
     </Feature>
     <!-- Step 4: Sign the MSI Install, else Web user will get unknown publisher message -->
     <!-- Signing is done by executing a post-build batch file configured in project properties -->
