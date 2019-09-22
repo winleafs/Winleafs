@@ -195,5 +195,20 @@ namespace Winleafs.Wpf.Api
                     return -1;
             }
         }
+
+        /// <summary>
+        /// Returns the instance of a custom effect, null if it does not exist
+        /// </summary>
+        public ICustomEffect GetCustomEffectFromName(string effectName)
+        {
+            try
+            {
+                return _customEffects.GetCustomEffect(effectName);
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }
