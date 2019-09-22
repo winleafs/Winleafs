@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using Winleafs.Api;
@@ -11,9 +12,10 @@ namespace Winleafs.Wpf.Api.Effects
     {
         #region static properties
         public static readonly string EffectNamePreface = "Winleafs - ";
+        public static readonly string CustomColorNamePreface = "Custom Color - ";
         #endregion
 
-        private readonly Dictionary<string, ICustomEffect> _customEffects;
+        private Dictionary<string, ICustomEffect> _customEffects;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CustomEffectsCollection"/> class.
@@ -22,16 +24,23 @@ namespace Winleafs.Wpf.Api.Effects
         /// <param name="orchestrator">The orchestrator instance currently in use.</param>
         public CustomEffectsCollection(Device device, Orchestrator orchestrator)
         {
-            var _nanoleafClient = NanoleafClient.GetClientForDevice(device);
+            var nanoleafClient = NanoleafClient.GetClientForDevice(device);
 
-            _customEffects = new Dictionary<string, ICustomEffect>
+            _customEffects = new Dictionary<string, ICustomEffect>();
+
+            var customColorEffects = UserSettings.Settings.CustomEffects;
+
+            if (customColorEffects != null && customColorEffects.Any())
             {
-                //We will not translate effect names since their names are identifiers
-                {ScreenMirrorEffect.Name, new ScreenMirrorEffect(device, orchestrator, _nanoleafClient)},
-                {$"{EffectNamePreface}Turn lights off", new TurnOffEffect(_nanoleafClient)}
-            };
- 
+                foreach (var customColorEffect in customColorEffects)
+                {
+                    _customEffects.Add($"{CustomColorNamePreface}{customColorEffect.EffectName}", new CustomColorEffect(nanoleafClient, customColorEffect.Color));
+                }
+            }
 
+            //We will not translate effect names since their names are identifiers
+            _customEffects.Add(ScreenMirrorEffect.Name, new ScreenMirrorEffect(device, orchestrator, nanoleafClient));
+            _customEffects.Add($"{EffectNamePreface}Turn lights off", new TurnOffEffect(nanoleafClient));
         }
 
         /// <summary>

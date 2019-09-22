@@ -215,4 +215,25 @@ by IP Adress</value>
   <data name="CloseInfoLabel" xml:space="preserve">
     <value>Press any button to close</value>
   </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="NameTaken" xml:space="preserve">
+    <value>The given name is already taken</value>
+  </data>
+  <data name="NoColorSelected" xml:space="preserve">
+    <value>No color has been selected for the new effect</value>
+  </data>
+  <data name="NoNameProvided" xml:space="preserve">
+    <value>There is no name provided for the new effect</value>
+  </data>
+  <data name="PickAColor" xml:space="preserve">
+    <value>Pick a color</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>Color</value>
+  </data>
 </root>
