@@ -17,7 +17,10 @@ using Winleafs.Models.Enums;
 using System.Windows.Media;
 using System.Drawing;
 using Winleafs.Models.Models.Effects;
-using Xceed.Wpf.Toolkit;
+using Winleafs.Wpf.Api;
+using Winleafs.Wpf.Views.MainWindows;
+using Brushes = System.Windows.Media.Brushes;
+using Color = System.Drawing.Color;
 
 namespace Winleafs.Wpf.Views.Options
 {
@@ -38,6 +41,7 @@ namespace Winleafs.Wpf.Views.Options
 
         public OptionsWindow()
         {
+
             InitializeComponent();
 
             var monitorNames = WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.GetDisplayTargets().Select(m => m.FriendlyName).ToList();
@@ -70,6 +74,11 @@ namespace Winleafs.Wpf.Views.Options
                 {
                     monitorPerDevice.Add(device.Name, monitorNames[device.ScreenMirrorMonitorIndex]);
                 }
+            }
+
+            foreach (var customEffects in UserSettings.Settings.CustomEffects.OrderBy(effect => effect.EffectName))
+            {
+                ColorList.Children.Add(new ColorUserControl(this, customEffects.EffectName, customEffects.Color));
             }
 
             OptionsViewModel.MonitorPerDevice = monitorPerDevice;
@@ -220,6 +229,10 @@ namespace Winleafs.Wpf.Views.Options
             #endregion
 
             UserSettings.Settings.SaveSettings();
+
+            // Reload the orchestrator so custom effects are reloaded.
+            OrchestratorCollection.ResetOrchestratorForActiveDevice();
+
             Close();
         }
 
@@ -268,7 +281,7 @@ namespace Winleafs.Wpf.Views.Options
             var color = ColorPicker.SelectedColor;
             var name = EffectTextBox.Text;
 
-            if (UserSettings.Settings.CustomEffects.Any(effect => effect.EffectName == name))
+            if (UserSettings.Settings.CustomEffects != null && UserSettings.Settings.CustomEffects.Any(effect => effect.EffectName == name))
             {
                 PopupCreator.Error("Name already taken.");
                 return;
@@ -292,8 +305,27 @@ namespace Winleafs.Wpf.Views.Options
                 EffectName = name
             };
 
+            if (UserSettings.Settings.CustomEffects == null)
+            {
+                UserSettings.Settings.CustomEffects = new List<UserCustomColorEffect>();
+            }
+
+            // Add color in settings.
             UserSettings.Settings.CustomEffects.Add(customEffect);
-            UserSettings.Settings.SaveSettings();
+            
+            // Add color to UI.
+            ColorList.Children.Add(new ColorUserControl(this, customEffect.EffectName, customEffect.Color));
+        }
+
+        public void DeleteColor(string description, UIElement child)
+        {
+            // Remove color out of the settings.
+            var toDeleteEffect = UserSettings.Settings.CustomEffects.FirstOrDefault(effect => effect.EffectName == description);
+            UserSettings.Settings.CustomEffects.Remove(toDeleteEffect);
+            
+            // Remove color from the list.
+            ColorList.Children.Remove(child);
+            
         }
     }
 }

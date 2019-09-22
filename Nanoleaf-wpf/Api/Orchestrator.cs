@@ -26,7 +26,7 @@ namespace Winleafs.Wpf.Api
 
         public PanelLayout PanelLayout { get; set; }
 
-        private readonly CustomEffectsCollection _customEffects;
+        private CustomEffectsCollection _customEffects;
         private readonly EventTriggersCollection _eventTriggersCollection;
 
         public Orchestrator(Device device)
@@ -37,7 +37,7 @@ namespace Winleafs.Wpf.Api
             PanelLayout = new PanelLayout(Device);
             _eventTriggersCollection = new EventTriggersCollection(this);
 
-            //Custom effect initialization must come after panel layout initialization as custom screen mirror effect needs the panel layout
+            // Custom effect initialization must come after panel layout initialization as custom screen mirror effect needs the panel layout
             _customEffects = new CustomEffectsCollection(Device, this); 
 
             if (device.OperationMode == OperationMode.Schedule)

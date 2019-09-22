@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,6 +12,8 @@ using Winleafs.Models.Models.Effects;
 using NLog;
 using Winleafs.Wpf.Api.Effects;
 using Winleafs.Wpf.Api;
+using Winleafs.Wpf.ViewModels;
+using Winleafs.Wpf.Views.Options;
 
 namespace Winleafs.Wpf.Views.MainWindows
 {
@@ -23,7 +26,7 @@ namespace Winleafs.Wpf.Views.MainWindows
     {
         private static Logger _logger = LogManager.GetCurrentClassLogger();
 
-        public List<Effect> Effects { get; set; }
+        public ObservableCollection<Effect> Effects { get; set; }
 
         public string SelectedEffect { get; set; }
 
@@ -45,12 +48,26 @@ namespace Winleafs.Wpf.Views.MainWindows
         {
             InitializeComponent();
 
-            Effects = new List<Effect>(UserSettings.Settings.ActiveDevice.Effects);
-            Effects.InsertRange(0, OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice).GetCustomEffectAsEffects());
-
+            Effects = new ObservableCollection<Effect>();
+            LoadEffects();
             DataContext = this;
 
             Brightness = 70; //TODO: get the value from the device itself
+        }
+
+        public void LoadEffects()
+        {
+            // Effects collection is not rebuild.
+            Effects.Clear();
+
+            var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice);
+            var effects = orchestrator.GetCustomEffectAsEffects();
+            effects.AddRange(UserSettings.Settings.ActiveDevice.Effects);
+
+            foreach (var effect in effects)
+            {
+                Effects.Add(effect);
+            }
         }
 
         private void Override_Click(object sender, RoutedEventArgs e)

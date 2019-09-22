@@ -31,7 +31,7 @@ namespace Winleafs.Wpf.Api.Effects
 
         public Task Deactivate()
         {
-            throw new NotImplementedException();
+            return _nanoleafClient.StateEndpoint.SetStateAsync(false);
         }
 
         public bool IsContinuous()

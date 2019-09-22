@@ -12,9 +12,10 @@ namespace Winleafs.Wpf.Api.Effects
     {
         #region static properties
         public static readonly string EffectNamePreface = "Winleafs - ";
+        public static readonly string CustomColorNamePreface = "Custom - ";
         #endregion
 
-        private readonly Dictionary<string, ICustomEffect> _customEffects;
+        private Dictionary<string, ICustomEffect> _customEffects;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CustomEffectsCollection"/> class.
@@ -25,14 +26,6 @@ namespace Winleafs.Wpf.Api.Effects
         {
             var nanoleafClient = NanoleafClient.GetClientForDevice(device);
 
-            _customEffects = new Dictionary<string, ICustomEffect>
-            {
-                //We will not translate effect names since their names are identifiers
-                {ScreenMirrorEffect.Name, new ScreenMirrorEffect(device, orchestrator, _nanoleafClient)},
-                {$"{EffectNamePreface}Turn lights off", new TurnOffEffect(_nanoleafClient)}
-            };
- 
-
             _customEffects = new Dictionary<string, ICustomEffect>();
 
             var customColorEffects = UserSettings.Settings.CustomEffects;
@@ -41,11 +34,12 @@ namespace Winleafs.Wpf.Api.Effects
             {
                 foreach (var customColorEffect in customColorEffects)
                 {
-                    _customEffects.Add(customColorEffect.EffectName, new CustomColorEffect(nanoleafClient, customColorEffect.Color));
+                    _customEffects.Add($"{CustomColorNamePreface}{customColorEffect.EffectName}", new CustomColorEffect(nanoleafClient, customColorEffect.Color));
                 }
             }
 
-            _customEffects.Add(ScreenMirrorEffect.Name, new ScreenMirrorEffect(device, orchestrator, nanoleafClient)); //We will not translate effect names since their names are identifiers
+            //We will not translate effect names since their names are identifiers
+            _customEffects.Add(ScreenMirrorEffect.Name, new ScreenMirrorEffect(device, orchestrator, nanoleafClient));
             _customEffects.Add($"{EffectNamePreface}Turn lights off", new TurnOffEffect(nanoleafClient));
         }
 

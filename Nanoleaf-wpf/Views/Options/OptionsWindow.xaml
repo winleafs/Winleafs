@@ -80,12 +80,15 @@
             </TabItem>
             <TabItem Header="Color">
                 <Grid>
-                    <TextBlock Margin="10,10,0,0" TextWrapping="Wrap" Text="Pick a Color" VerticalAlignment="Top" FontSize="15" Foreground="White" Height="25"/>
-                    <StackPanel Margin="10,97,0,0"  x:Name="ColorList" HorizontalAlignment="Left" Width="520" />
+                    <TextBlock Margin="50,10,0,0" TextWrapping="Wrap" Text="Pick a Color" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="15" Foreground="White" Height="25" Width="100"/>
+                    <ScrollViewer Margin="10,97,0,0" VerticalScrollBarVisibility="Visible"  HorizontalAlignment="Left" Width="520">
+                        <StackPanel Margin="0,0,5,0" x:Name="ColorList" HorizontalAlignment="Right" Width="500"/>
+                    </ScrollViewer>
+                    
                     <xctk:ColorPicker x:Name="ColorPicker" Margin="0,8,137,0" Height="27" VerticalAlignment="Top" Width="250" HorizontalAlignment="Right"/>
-                    <TextBox x:Name="EffectTextBox" HorizontalAlignment="Right" Height="23" Margin="0,50,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White"/>
-                    <Button Content="Add" HorizontalAlignment="Right" Margin="0,8,10,0" Width="115" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="AddColor_Click" Height="27" VerticalAlignment="Top"/>
-                    <TextBlock Margin="153,48,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" FontSize="15" Foreground="White" Height="25"/>
+                    <TextBox x:Name="EffectTextBox" HorizontalAlignment="Right" Height="23" Margin="0,50,137,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White"/>
+                    <Button Content="Add" HorizontalAlignment="Right" Margin="0,48,10,0" Width="115" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="AddColor_Click" Height="27" VerticalAlignment="Top"/>
+                    <TextBlock Margin="50,48,0,0" TextWrapping="Wrap" Text="Name" HorizontalAlignment="Left"  VerticalAlignment="Top" FontSize="15" Foreground="White" Height="25" Width="50"/>
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static local:Resources.Disclaimer}">
