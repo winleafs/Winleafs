@@ -36,7 +36,7 @@ namespace LargestOrthogonalRectangleForVoronoi
             edges.Add(new Line(new PointF(minX, maxY), new PointF(maxX, maxY)));
 
             //2. Construct the polygons from the given edges
-            var polygons = PolygonConstructor.Construct(edges);
+            //var polygons = PolygonConstructor.Construct(edges);
 
             //3. Find the largest rectangle in each polygon
         }

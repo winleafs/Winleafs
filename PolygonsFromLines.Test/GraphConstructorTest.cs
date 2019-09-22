@@ -2,6 +2,7 @@
 using PolygonsFromLines.Models;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 namespace PolygonsFromLines.Test
 {
@@ -23,7 +24,7 @@ namespace PolygonsFromLines.Test
             var graph = GraphConstructor.ConstructGraphFromLines(lines);
 
             Assert.AreEqual(4, graph.Vertices.Count);
-            Assert.AreEqual(1, graph.Vertices[0].Weights[0]);
+            Assert.AreEqual(1, graph.Vertices[0].Neighbours.FirstOrDefault().Value);
             Assert.AreEqual(2, graph.Vertices[0].Neighbours.Count);
         }
 

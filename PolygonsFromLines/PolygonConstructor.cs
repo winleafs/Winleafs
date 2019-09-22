@@ -1,14 +1,12 @@
 ﻿using PolygonsFromLines.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PolygonsFromLines
 {
-    /// <summary>
-    /// https://web.ist.utl.pt/alfredo.ferreira/publications/12EPCG-PolygonDetection.pdf
-    /// </summary>
     public static class PolygonConstructor
     {
-        public static List<Polygon> Construct(IList<Line> lines, bool skipIntersectionRemoval = false)
+        public static List<Polygon> ConstructFromLines(IList<Line> lines, bool skipIntersectionRemoval = false)
         {
             //Step 1: remove all intersections from the given lines O(n^2)
             lines = IntersectionRemover.RemoveIntersections(lines);
@@ -16,9 +14,12 @@ namespace PolygonsFromLines
             //Step 2: make a connected graph
             var graph = GraphConstructor.ConstructGraphFromLines(lines);
 
-            //Step 3: find the shortest cycle basis
+            //Step 3: find the shortest cycles recursively
 
             return null;
         }
+
+
+
     }
 }
