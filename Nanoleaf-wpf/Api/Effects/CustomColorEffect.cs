@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
@@ -31,7 +32,7 @@ namespace Winleafs.Wpf.Api.Effects
 
         public Task Deactivate()
         {
-            return _nanoleafClient.StateEndpoint.SetStateAsync(false);
+            return Task.CompletedTask;
         }
 
         public bool IsContinuous()
