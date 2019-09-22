@@ -80,7 +80,7 @@ namespace Winleafs.Wpf.Views.Options
                 }
             }
 
-            foreach (var customEffects in UserSettings.Settings.CustomEffects)
+            foreach (var customEffects in OptionsViewModel.CustomColorEffects)
             {
                 ColorList.Children.Add(new ColorUserControl(this, customEffects.EffectName, customEffects.Color));
             }
