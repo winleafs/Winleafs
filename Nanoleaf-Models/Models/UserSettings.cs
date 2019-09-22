@@ -340,6 +340,14 @@ namespace Winleafs.Models.Models
 
             return jToken;
         }
+
+        [Migration("5", "6")]
+        private static JToken Migration_5_6(JToken jToken)
+        {
+            jToken[nameof(CustomEffects)] = new JArray();
+
+            return jToken;
+        }
         #endregion
     }
 }
