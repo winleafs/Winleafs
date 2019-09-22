@@ -216,7 +216,7 @@ by IP Adress</value>
     <value>Press any button to close</value>
   </data>
   <data name="Name" xml:space="preserve">
-    <value>Naam</value>
+    <value>Name</value>
   </data>
   <data name="NameTaken" xml:space="preserve">
     <value>The given name is already taken</value>

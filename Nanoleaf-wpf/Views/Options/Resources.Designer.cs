@@ -232,7 +232,7 @@ namespace Winleafs.Wpf.Views.Options {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Naam.
+        ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string Name {
             get {
