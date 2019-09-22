@@ -62,7 +62,7 @@ namespace Winleafs.Wpf.Views.Options
                 SelectedLanguage = FullNameForCulture(UserSettings.Settings.UserLocale),
                 Languages = _languageDictionary.Keys.ToList(),
                 MinimizeToSystemTray = UserSettings.Settings.MinimizeToSystemTray,
-                CustomColorEffects = UserSettings.Settings.CustomEffects
+                CustomColorEffects = UserSettings.Settings.CustomEffects.ToList()
             };
 
             //Setup MonitorPerDevice with necessary checks
