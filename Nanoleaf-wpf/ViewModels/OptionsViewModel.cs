@@ -67,7 +67,7 @@ namespace Winleafs.Wpf.ViewModels
 
         #region Screen mirror algorithm dropdown
         //Map display values to enum values
-        private Dictionary<string, ScreenMirrorAlgorithm> _screenMirrorAlgorithmMapping { get; set; }
+        public Dictionary<string, ScreenMirrorAlgorithm> ScreenMirrorAlgorithmMapping { get; set; }
 
         private ScreenMirrorAlgorithm _selectedScreenMirrorAlgorithm;
         public string SelectedScreenMirrorAlgorithm
@@ -75,15 +75,15 @@ namespace Winleafs.Wpf.ViewModels
             get { return EnumLocalizer.GetLocalizedEnum(_selectedScreenMirrorAlgorithm); }
             set
             {
-                _selectedScreenMirrorAlgorithm = _screenMirrorAlgorithmMapping[value];
+                _selectedScreenMirrorAlgorithm = ScreenMirrorAlgorithmMapping[value];
 
                 AlgorithmPerDevice[_selectedDevice] = _selectedScreenMirrorAlgorithm;
 
-                //_parent.ScreenMirrorAlgorithmChanged(); Will be used later if we visualize the algorithms
+                _parent.ScreenMirrorAlgorithmChanged(_selectedScreenMirrorAlgorithm);
             }
         }
 
-        public IEnumerable<string> ScreenMirrorAlgorithms => _screenMirrorAlgorithmMapping.Keys;
+        public IEnumerable<string> ScreenMirrorAlgorithms => ScreenMirrorAlgorithmMapping.Keys;
         #endregion
         #endregion
 
@@ -101,7 +101,7 @@ namespace Winleafs.Wpf.ViewModels
                 SelectedMonitor = MonitorPerDevice[_selectedDevice];
 
                 var screenMirrorAlgorithm = AlgorithmPerDevice[_selectedDevice];
-                SelectedScreenMirrorAlgorithm = _screenMirrorAlgorithmMapping.FirstOrDefault(map => map.Value == screenMirrorAlgorithm).Key;
+                SelectedScreenMirrorAlgorithm = ScreenMirrorAlgorithmMapping.FirstOrDefault(map => map.Value == screenMirrorAlgorithm).Key;
 
                 //_parent.SelectedDeviceChanged(); Will be used later if we visualize the algorithms
             }
@@ -114,10 +114,11 @@ namespace Winleafs.Wpf.ViewModels
         {
             _parent = parent;
 
-            _screenMirrorAlgorithmMapping = new Dictionary<string, ScreenMirrorAlgorithm>()
+            ScreenMirrorAlgorithmMapping = new Dictionary<string, ScreenMirrorAlgorithm>()
             {
                 {  EnumLocalizer.GetLocalizedEnum(ScreenMirrorAlgorithm.Ambilight), ScreenMirrorAlgorithm.Ambilight },
-                {  EnumLocalizer.GetLocalizedEnum(ScreenMirrorAlgorithm.ScreenMirror), ScreenMirrorAlgorithm.ScreenMirror }
+                {  EnumLocalizer.GetLocalizedEnum(ScreenMirrorAlgorithm.ScreenMirrorFit), ScreenMirrorAlgorithm.ScreenMirrorFit },
+                {  EnumLocalizer.GetLocalizedEnum(ScreenMirrorAlgorithm.ScreenMirrorStretch), ScreenMirrorAlgorithm.ScreenMirrorStretch }
             };
         }
     }

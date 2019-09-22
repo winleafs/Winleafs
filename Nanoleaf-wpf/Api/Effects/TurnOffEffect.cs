@@ -12,21 +12,26 @@ namespace Winleafs.Wpf.Api.Effects
             _nanoleafClient = nanoleafClient;
         }
 
+        /// <inheritdoc />
         public Task Activate()
         {
             return _nanoleafClient.StateEndpoint.SetStateWithStateCheckAsync(false);
         }
 
-        public async Task Deactivate()
+        /// <inheritdoc />
+        public Task Deactivate()
         {
             //Do nothing since this is not a continious effect
+            return Task.CompletedTask;
         }
 
+        /// <inheritdoc />
         public bool IsActive()
         {
             return false;
         }
 
+        /// <inheritdoc />
         public bool IsContinuous()
         {
             return false;

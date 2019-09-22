@@ -79,6 +79,15 @@ namespace Winleafs.Wpf.Views.Options {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Press any button to close.
+        /// </summary>
+        public static string CloseInfoLabel {
+            get {
+                return ResourceManager.GetString("CloseInfoLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Device.
         /// </summary>
         public static string Device {
@@ -310,6 +319,15 @@ namespace Winleafs.Wpf.Views.Options {
         public static string SunsetSunriseError {
             get {
                 return ResourceManager.GetString("SunsetSunriseError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Visualize.
+        /// </summary>
+        public static string Visualize {
+            get {
+                return ResourceManager.GetString("Visualize", resourceCulture);
             }
         }
         

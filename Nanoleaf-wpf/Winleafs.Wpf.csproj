@@ -123,6 +123,7 @@
     <Compile Include="Api\Events\IEventTrigger.cs" />
     <Compile Include="Api\Events\BaseProcessPercentageEventTrigger.cs" />
     <Compile Include="Api\Events\ProcessEventTrigger.cs" />
+    <Compile Include="Api\Layouts\ScaleType.cs" />
     <Compile Include="Api\Orchestrator.cs" />
     <Compile Include="Api\OrchestratorCollection.cs" />
     <Compile Include="Api\ScheduleTimer.cs" />
@@ -130,9 +131,10 @@
     <Compile Include="Helpers\EnumLocalizer.cs" />
     <Compile Include="Helpers\HsbToRgbConverter.cs" />
     <Compile Include="Helpers\MemoryReader.cs" />
-    <Compile Include="Helpers\MonitorHelper.cs" />
+    <Compile Include="Helpers\ScreenBoundsHelper.cs" />
     <Compile Include="Helpers\ScreenGrabber.cs" />
     <Compile Include="Api\Layouts\DrawablePanel.cs" />
+    <Compile Include="Helpers\ScreenParameters.cs" />
     <Compile Include="ViewModels\OptionsViewModel.cs" />
     <Compile Include="Api\Layouts\PanelLayout.cs" />
     <Compile Include="Views\AppResources.Designer.cs">
@@ -188,6 +190,9 @@
     </Compile>
     <Compile Include="Views\Options\ColorUserControl.xaml.cs">
       <DependentUpon>ColorUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Options\ScreenMirrorVisualizationWindow.xaml.cs">
+      <DependentUpon>ScreenMirrorVisualizationWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Popup\NewVersionPopup.xaml.cs">
       <DependentUpon>NewVersionPopup.xaml</DependentUpon>
@@ -288,6 +293,10 @@
     <Page Include="Views\Options\ColorUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Options\ScreenMirrorVisualizationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Popup\NewVersionPopup.xaml">
       <SubType>Designer</SubType>

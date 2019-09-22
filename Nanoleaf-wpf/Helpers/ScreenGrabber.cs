@@ -29,7 +29,14 @@ namespace Winleafs.Wpf.Helpers
             return bmpScreenshot;
         }
 
-        public static Color CalculateAverageColor(Bitmap bitmap, Rectangle screenBounds)
+        /// <summary>
+        /// Calculates the average color from the given bitmap
+        /// Use <param name="minDiversion"> to drop pixels that do not differ by at least minDiversion between color values (white, gray or black)
+        /// </summary>
+        /// <param name="bitmap">The input bitmap</param>
+        /// <param name="screenBounds">Rectangle starting at 0, 0 and of equal height and width as the bitmap</param>
+        /// <param name="minDiversion">Drop pixels that do not differ by at least minDiversion between color values (white, gray or black)</param>
+        public static Color CalculateAverageColor(Bitmap bitmap, Rectangle screenBounds, int minDiversion = 50)
         {
             //Initialize bitmap data
             var bitmapData = bitmap.LockBits(new Rectangle(0, 0, screenBounds.Width, screenBounds.Height), ImageLockMode.ReadOnly, bitmap.PixelFormat);
@@ -39,7 +46,6 @@ namespace Winleafs.Wpf.Helpers
             int green = 0;
             int blue = 0;
             int index = 0;
-            int minDiversion = 50; // drop pixels that do not differ by at least minDiversion between color values (white, gray or black)
             int dropped = 0; // keep track of dropped pixels
             long totalRed = 0, totalGreen = 0, totalBlue = 0;
             int bppModifier = 4; //bm.PixelFormat == PixelFormat.Format24bppRgb ? 3 : 4;

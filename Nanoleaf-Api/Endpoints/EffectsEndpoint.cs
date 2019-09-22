@@ -20,13 +20,13 @@ namespace Winleafs.Api.Endpoints
 	    /// <inheritdoc />
 	    public async Task<IEnumerable<string>> GetEffectsListAsync()
         {
-            return await SendRequestAsync<List<string>>("/effects/effectsList", Method.GET).ConfigureAwait(false);
+            return await SendRequestAsync<List<string>>("effects/effectsList", Method.GET).ConfigureAwait(false);
         }
 
 	    /// <inheritdoc />
 	    public IEnumerable<string> GetEffectsList()
 		{
-            return SendRequest<List<string>>("/effects/effectsList", Method.GET);
+            return SendRequest<List<string>>("effects/effectsList", Method.GET);
         }
 
 	    /// <inheritdoc />

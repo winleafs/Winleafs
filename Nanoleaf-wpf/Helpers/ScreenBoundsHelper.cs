@@ -2,16 +2,13 @@
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using Winleafs.Models.Models;
 
 namespace Winleafs.Wpf.Helpers
 {
-    public static class MonitorHelper
+    public static class ScreenBoundsHelper
     {
         [DllImport("user32.dll")]
-#pragma warning disable S4214 // "P/Invoke" methods should not be visible
-        public static extern bool EnumDisplaySettings(string lpszDeviceName, int iModeNum, ref MonitorInfo monitorInfo);
-#pragma warning restore S4214 // "P/Invoke" methods should not be visible
+        internal static extern bool EnumDisplaySettings(string lpszDeviceName, int iModeNum, ref MonitorInfo monitorInfo);
 
         public static Rectangle GetScreenBounds(int monitorIndex)
         {
@@ -66,5 +63,4 @@ namespace Winleafs.Wpf.Helpers
         public int dmPanningWidth;
         public int dmPanningHeight;
     }
-
 }

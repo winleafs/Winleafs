@@ -16,7 +16,7 @@ Canvas support currently not guaranteed.
 - Supports multiple devices simultaneously
 - Add time based triggers to automatically set your lights to an effect and brightness at your chosen time
 - Add triggers based on sunrise and sunset times (requires location)
-- Screen mirror, project your lights onto your monitor and your lights will be the same color as their position on your monitor
+- Screen mirror, project your screen onto your lights and your lights will be the same color as their position on your monitor
 - Ambilight, make your lights the average color of your monitor
 - Start the program at Windows startup
 - Automatically turn off your lights when your PC shuts down
@@ -30,7 +30,7 @@ TODOs and future features can be found on the [GitHub projects board](https://gi
 ## Support
 
 You can [donate to us using Paypal](https://www.paypal.me/winleafs). 
-Note: all donations will towards buying more Nanoleaf products for *"Testing purposes"*.
+Note: all donations will go towards buying more Nanoleaf products for *"Testing purposes"*.
 
 You can also make a fork of this project and pick up a task from our projects board.
 We would HIGHLY appreciate if you'd contact us before picking up a task so we can avoid doing double work.
@@ -42,6 +42,7 @@ We would HIGHLY appreciate if you'd contact us before picking up a task so we ca
 ![Screenshot](Media/ScreenMirror.jpeg)
 
 - [Beat Saber Ambilight](https://www.youtube.com/watch?v=CRe0o0TNlT4)
+- [Screen mirror](https://www.youtube.com/watch?v=iT_jQnQLVQA)
 
 ## Bugs
 If you are experiencing problems, try deleting the settings file from %appdata%/Winleafs. Note: this removes all settings and schedules.
