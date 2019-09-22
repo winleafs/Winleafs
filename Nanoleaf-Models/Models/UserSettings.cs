@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using Winleafs.Models.Enums;
 using Winleafs.Models.Exceptions;
+using Winleafs.Models.Models.Effects;
 using Winleafs.Models.Models.Scheduling;
 
 namespace Winleafs.Models.Models
@@ -14,7 +15,7 @@ namespace Winleafs.Models.Models
     public class UserSettings
     {
         public static readonly string APPLICATIONNAME = "Winleafs";
-        public static readonly string APPLICATIONVERSION = "v0.5.3";
+        public static readonly string APPLICATIONVERSION = "v0.5.5";
 
         public static readonly string SettingsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), APPLICATIONNAME);
 
@@ -40,6 +41,8 @@ namespace Winleafs.Models.Models
         public string JsonVersion { get; set; }
 
         public List<Device> Devices { get; set; }
+
+        public List<UserCustomColorEffect> CustomEffects { get; set; }
 
         public double? Latitude { get; set; }
         public double? Longitude { get; set; }
@@ -334,6 +337,14 @@ namespace Winleafs.Models.Models
             jToken["AmbilightRefreshRatePerSecond"].Parent.Remove();
             jToken["AmbilightMonitorIndex"].Parent.Remove();
             jToken["AmbilightControlBrightness"].Parent.Remove();
+
+            return jToken;
+        }
+
+        [Migration("5", "6")]
+        private static JToken Migration_5_6(JToken jToken)
+        {
+            jToken[nameof(CustomEffects)] = new JArray();
 
             return jToken;
         }

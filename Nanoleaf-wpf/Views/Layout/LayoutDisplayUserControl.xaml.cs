@@ -10,6 +10,7 @@ using System.Windows.Shapes;
 using Winleafs.Api;
 using Winleafs.Models.Models;
 using Winleafs.Wpf.Api;
+using Winleafs.Wpf.Api.Effects;
 using Winleafs.Wpf.Api.Layouts;
 using Winleafs.Wpf.Helpers;
 
@@ -110,16 +111,41 @@ namespace Winleafs.Wpf.Views.Layout
             if (UserSettings.Settings.ActiveDevice == null || _triangles == null)
             {
                 return;
-            }
+            }     
 
-            var client = NanoleafClient.GetClientForDevice(UserSettings.Settings.ActiveDevice);
-
-            //Get colors of current effect
-            var effect = client.EffectsEndpoint.GetEffectDetails(OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice).GetActiveEffectName());
-
+            //Run code on main thread since we update the UI
             Dispatcher.Invoke(new Action(() =>
             {
-                if (effect == null)
+                var client = NanoleafClient.GetClientForDevice(UserSettings.Settings.ActiveDevice);
+                var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice);
+
+                //Get colors of current effect, we can display colors for nanoleaf effects or custom color effects
+                var effectName = orchestrator.GetActiveEffectName();
+                var customEffect = orchestrator.GetCustomEffectFromName(effectName);
+
+                List<SolidColorBrush> colors = null;
+
+                if (customEffect != null)
+                {
+                    if (customEffect is CustomColorEffect customColorEffect)
+                    {
+                        colors = new List<SolidColorBrush>() { new SolidColorBrush(Color.FromArgb(customColorEffect.Color.A, customColorEffect.Color.R, customColorEffect.Color.G, customColorEffect.Color.B)) };
+                    }
+                }
+                else
+                {
+                    var effect = client.EffectsEndpoint.GetEffectDetails(OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice).GetActiveEffectName());
+
+                    if (effect != null)
+                    {
+                        colors = effect.Palette.Select(hsb =>
+                        new SolidColorBrush(
+                            HsbToRgbConverter.ConvertToMediaColor(hsb.Hue, hsb.Saturation, hsb.Brightness)
+                            )).ToList();
+                    }
+                }
+
+                if (colors == null)
                 {
                     foreach (var triangle in _triangles)
                     {
@@ -128,11 +154,6 @@ namespace Winleafs.Wpf.Views.Layout
                 }
                 else
                 {
-                    var colors = effect.Palette.Select(hsb =>
-                        new SolidColorBrush(
-                            HsbToRgbConverter.ConvertToMediaColor(hsb.Hue, hsb.Saturation, hsb.Brightness)
-                            )).ToList();
-
                     foreach (var triangle in _triangles)
                     {
                         triangle.Polygon.Fill = colors[_random.Next(colors.Count)];

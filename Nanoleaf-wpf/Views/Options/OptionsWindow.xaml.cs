@@ -15,6 +15,12 @@ using System.Collections.ObjectModel;
 using Winleafs.Wpf.Helpers;
 using Winleafs.Models.Enums;
 using System.Windows.Media;
+using System.Drawing;
+using Winleafs.Models.Models.Effects;
+using Winleafs.Wpf.Api;
+using Winleafs.Wpf.Views.MainWindows;
+using Brushes = System.Windows.Media.Brushes;
+using Color = System.Drawing.Color;
 
 namespace Winleafs.Wpf.Views.Options
 {
@@ -33,8 +39,12 @@ namespace Winleafs.Wpf.Views.Options
 
         private bool _visualizationOpen;
 
-        public OptionsWindow()
+        private readonly MainWindow _mainWindow;
+
+        public OptionsWindow(MainWindow mainWindow)
         {
+            _mainWindow = mainWindow;
+
             InitializeComponent();
 
             var monitorNames = WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.GetDisplayTargets().Select(m => m.FriendlyName).ToList();
@@ -51,10 +61,11 @@ namespace Winleafs.Wpf.Views.Options
                 Longitude = UserSettings.Settings.Longitude?.ToString("N7", CultureInfo.InvariantCulture),
                 SelectedLanguage = FullNameForCulture(UserSettings.Settings.UserLocale),
                 Languages = _languageDictionary.Keys.ToList(),
-                MinimizeToSystemTray = UserSettings.Settings.MinimizeToSystemTray
+                MinimizeToSystemTray = UserSettings.Settings.MinimizeToSystemTray,
+                CustomColorEffects = UserSettings.Settings.CustomEffects == null ? new List<UserCustomColorEffect>() : UserSettings.Settings.CustomEffects.ToList()
             };
 
-            //Setup MonitorPerDevice with necessairy checks
+            //Setup MonitorPerDevice with necessary checks
             var monitorPerDevice = new Dictionary<string, string>();
             foreach (var device in UserSettings.Settings.Devices)
             {
@@ -67,6 +78,11 @@ namespace Winleafs.Wpf.Views.Options
                 {
                     monitorPerDevice.Add(device.Name, monitorNames[device.ScreenMirrorMonitorIndex]);
                 }
+            }
+
+            foreach (var customEffects in OptionsViewModel.CustomColorEffects)
+            {
+                ColorList.Children.Add(new ColorUserControl(this, customEffects.EffectName, customEffects.Color));
             }
 
             OptionsViewModel.MonitorPerDevice = monitorPerDevice;
@@ -152,7 +168,7 @@ namespace Winleafs.Wpf.Views.Options
                 return;
             }
 
-            if ((latitude != UserSettings.Settings.Latitude || longitude != UserSettings.Settings.Longitude) && (latitude != 0  && longitude != 0))
+            if ((latitude != UserSettings.Settings.Latitude || longitude != UserSettings.Settings.Longitude) && (latitude != 0 && longitude != 0))
             {
                 var client = new SunsetSunriseClient();
 
@@ -216,7 +232,18 @@ namespace Winleafs.Wpf.Views.Options
             UserSettings.Settings.MinimizeToSystemTray = OptionsViewModel.MinimizeToSystemTray;
             #endregion
 
+            #region Colors
+
+            UserSettings.Settings.CustomEffects = OptionsViewModel.CustomColorEffects;
+
+            #endregion Colors
             UserSettings.Settings.SaveSettings();
+
+            // Reload the orchestrator so custom effects are reloaded.
+            OrchestratorCollection.ResetOrchestratorForActiveDevice();
+
+            _mainWindow.ReloadEffects();
+
             Close();
         }
 
@@ -258,6 +285,58 @@ namespace Winleafs.Wpf.Views.Options
             }
 
             return null;
+        }
+
+        private void AddColor_Click(object sender, RoutedEventArgs e)
+        {
+            var color = ColorPicker.SelectedColor;
+            var name = EffectTextBox.Text;
+
+            if (UserSettings.Settings.CustomEffects != null && UserSettings.Settings.CustomEffects.Any(effect => effect.EffectName == name))
+            {
+                PopupCreator.Error(Options.Resources.NameTaken);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                PopupCreator.Error(Options.Resources.NoNameProvided);
+                return;
+            }
+
+            if (color == null)
+            {
+                PopupCreator.Error(Options.Resources.NoColorSelected);
+                return;
+            }
+
+            var customEffect = new UserCustomColorEffect()
+            {
+                Color = Color.FromArgb(color.Value.A, color.Value.R, color.Value.G, color.Value.B),
+                EffectName = name
+            };
+
+            if (OptionsViewModel.CustomColorEffects == null)
+            {
+                OptionsViewModel.CustomColorEffects = new List<UserCustomColorEffect>();
+            }
+
+            // Add color in settings.
+            OptionsViewModel.CustomColorEffects.Add(customEffect);
+            
+            // Add color to UI.
+            ColorList.Children.Add(new ColorUserControl(this, customEffect.EffectName, customEffect.Color));
+        }
+
+        public void DeleteColor(string description, UIElement child)
+        {
+            // Remove color out of the settings.
+            var toDeleteEffect = OptionsViewModel.CustomColorEffects.FirstOrDefault(effect => effect.EffectName == description);
+            OptionsViewModel.CustomColorEffects.Remove(toDeleteEffect);
+            
+            // Remove color from the list.
+            ColorList.Children.Remove(child);
+            
         }
     }
 }

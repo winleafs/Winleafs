@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using Winleafs.Models.Enums;
+using Winleafs.Models.Models.Effects;
 using Winleafs.Wpf.Helpers;
 using Winleafs.Wpf.Views.Options;
 
@@ -24,6 +25,8 @@ namespace Winleafs.Wpf.ViewModels
         public List<string> Languages { get; set; }
 
         public bool MinimizeToSystemTray { get; set; }
+
+        public List<UserCustomColorEffect> CustomColorEffects { get; set; }
         #endregion
 
         #region Screen mirror

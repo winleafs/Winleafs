@@ -37,7 +37,7 @@ namespace Winleafs.Wpf.Api
             PanelLayout = new PanelLayout(Device);
             _eventTriggersCollection = new EventTriggersCollection(this);
 
-            //Custom effect initialization must come after panel layout initialization as custom screen mirror effect needs the panel layout
+            // Custom effect initialization must come after panel layout initialization as custom screen mirror effect needs the panel layout
             _customEffects = new CustomEffectsCollection(Device, this); 
 
             if (device.OperationMode == OperationMode.Schedule)
@@ -193,6 +193,21 @@ namespace Winleafs.Wpf.Api
 
                 default:
                     return -1;
+            }
+        }
+
+        /// <summary>
+        /// Returns the instance of a custom effect, null if it does not exist
+        /// </summary>
+        public ICustomEffect GetCustomEffectFromName(string effectName)
+        {
+            try
+            {
+                return _customEffects.GetCustomEffect(effectName);
+            }
+            catch
+            {
+                return null;
             }
         }
     }
