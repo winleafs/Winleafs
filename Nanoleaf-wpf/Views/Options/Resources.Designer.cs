@@ -19,7 +19,7 @@ namespace Winleafs.Wpf.Views.Options {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -61,6 +61,15 @@ namespace Winleafs.Wpf.Views.Options {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        public static string Add {
+            get {
+                return ResourceManager.GetString("Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Algorithm.
         /// </summary>
         public static string Algorithm {
@@ -84,6 +93,15 @@ namespace Winleafs.Wpf.Views.Options {
         public static string CloseInfoLabel {
             get {
                 return ResourceManager.GetString("CloseInfoLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color.
+        /// </summary>
+        public static string Color {
+            get {
+                return ResourceManager.GetString("Color", resourceCulture);
             }
         }
         
@@ -210,6 +228,51 @@ namespace Winleafs.Wpf.Views.Options {
         public static string MinimizeToSystemTray {
             get {
                 return ResourceManager.GetString("MinimizeToSystemTray", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam.
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The given name is already taken.
+        /// </summary>
+        public static string NameTaken {
+            get {
+                return ResourceManager.GetString("NameTaken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No color has been selected for the new effect.
+        /// </summary>
+        public static string NoColorSelected {
+            get {
+                return ResourceManager.GetString("NoColorSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is no name provided for the new effect.
+        /// </summary>
+        public static string NoNameProvided {
+            get {
+                return ResourceManager.GetString("NoNameProvided", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pick a color.
+        /// </summary>
+        public static string PickAColor {
+            get {
+                return ResourceManager.GetString("PickAColor", resourceCulture);
             }
         }
         

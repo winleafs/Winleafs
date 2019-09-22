@@ -283,19 +283,19 @@ namespace Winleafs.Wpf.Views.Options
 
             if (UserSettings.Settings.CustomEffects != null && UserSettings.Settings.CustomEffects.Any(effect => effect.EffectName == name))
             {
-                PopupCreator.Error("Name already taken.");
+                PopupCreator.Error(Options.Resources.NameTaken);
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(name))
             {
-                PopupCreator.Error("No name provided.");
+                PopupCreator.Error(Options.Resources.NoNameProvided);
                 return;
             }
 
             if (color == null)
             {
-                PopupCreator.Error("No color selected.");
+                PopupCreator.Error(Options.Resources.NoColorSelected);
                 return;
             }
 

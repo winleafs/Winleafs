@@ -214,4 +214,25 @@ per IP adres</value>
   <data name="CloseInfoLabel" xml:space="preserve">
     <value>Druk op een toets om te sluiten</value>
   </data>
+  <data name="Name" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="NameTaken" xml:space="preserve">
+    <value>De gegeven naam is al in gebruik</value>
+  </data>
+  <data name="NoColorSelected" xml:space="preserve">
+    <value>Er is geen kleur geselecteerd voor het nieuwe effect</value>
+  </data>
+  <data name="NoNameProvided" xml:space="preserve">
+    <value>Er is geen naam opgegeven voor het nieuwe effect</value>
+  </data>
+  <data name="PickAColor" xml:space="preserve">
+    <value>Selecteer een kleur</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Toevoegen</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>Kleur</value>
+  </data>
 </root>

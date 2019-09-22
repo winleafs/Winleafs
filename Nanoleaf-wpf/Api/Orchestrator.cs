@@ -26,7 +26,7 @@ namespace Winleafs.Wpf.Api
 
         public PanelLayout PanelLayout { get; set; }
 
-        private CustomEffectsCollection _customEffects;
+        private readonly CustomEffectsCollection _customEffects;
         private readonly EventTriggersCollection _eventTriggersCollection;
 
         public Orchestrator(Device device)
