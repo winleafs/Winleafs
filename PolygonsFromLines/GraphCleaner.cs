@@ -7,7 +7,7 @@ namespace PolygonsFromLines
     internal static class GraphCleaner
     {
         /// <summary>
-        /// Given a graph, removes all loose ends (vertexes with only 1 edge) from that graph recursively
+        /// Given a graph, removes all loose ends (vertexes with 0 or 1 edges) from that graph recursively
         /// Running time?
         /// </summary>
         public static void RemoveLooseEnds(Graph graph)
@@ -20,7 +20,7 @@ namespace PolygonsFromLines
                 RecursivelyRemoveVertexFromFromLastNeighbour(vertex, vertex.Neighbours.FirstOrDefault().Key);
             }
 
-            var looseVertices = graph.Vertices.Where(vertex => vertex.Neighbours.Count == 0);
+            var looseVertices = graph.Vertices.Where(vertex => vertex.Neighbours.Count == 0).ToList(); //ToList otherwise we get collection modified exception
 
             foreach (var vertex in looseVertices)
             {
@@ -30,6 +30,7 @@ namespace PolygonsFromLines
 
         private static void RecursivelyRemoveVertexFromFromLastNeighbour(GraphVertex vertex, GraphVertex neighbour)
         {
+            vertex.Neighbours.Remove(neighbour);
             neighbour.Neighbours.Remove(vertex);
 
             if (neighbour.Neighbours.Count == 1)
