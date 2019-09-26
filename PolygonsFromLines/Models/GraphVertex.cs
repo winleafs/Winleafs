@@ -50,7 +50,7 @@ namespace PolygonsFromLines.Models
         /// <summary>
         /// Calculates the euclidean distance between two vertices
         /// </summary>
-        private static double EuclideanDistance(GraphVertex vertex1, GraphVertex vertex2)
+        private double EuclideanDistance(GraphVertex vertex1, GraphVertex vertex2)
         {
             return Math.Sqrt(Math.Pow(vertex2.Point.X - vertex1.Point.X, 2) + Math.Pow(vertex2.Point.Y - vertex1.Point.Y, 2));
         }
