@@ -53,15 +53,15 @@ namespace PolygonsFromLines
 
                 //Find the shortest path between the two
                 var path = graph.ShortestPath(startVertex, endVertex);
-                path.Add(startVertex); //By adding the start to the shortest path, we have a complete cycle
+
+                polygons.Add(new Polygon(path.Select(vertex => vertex.Point).ToList())); //Add the polygon
 
                 //Add the temporarily removed path again
                 startVertex.AddNeighbour(endVertex);
                 endVertex.AddNeighbour(startVertex);
 
-                polygons.Add(new Polygon(path.Select(vertex => vertex.Point).ToList())); //Add the polygon
-
                 //Increase (or add) the times visited for each edge on the path
+                path.Add(startVertex); //By adding the start to the shortest path, we have a complete cycle so the last edge back to the start vertex is now included
                 AddVisitations(path, edgesVisited);
 
                 //Remove all edges that are visited twice

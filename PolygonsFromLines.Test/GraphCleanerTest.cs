@@ -21,7 +21,7 @@ namespace PolygonsFromLines.Test
              * |
              * 7
              * 
-             * Result after removing loose ends shoudl be:
+             * Result after removing loose ends should be:
              * 1--2
              * |  |
              * 3--4
