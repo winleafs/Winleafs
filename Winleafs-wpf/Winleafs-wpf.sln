@@ -5,11 +5,11 @@ VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Winleafs.Wpf", "Winleafs.Wpf.csproj", "{2BF6B8F3-55BD-4090-9945-1EC5D8D817CF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Winleafs.Api", "..\Nanoleaf-Api\Winleafs.Api.csproj", "{FDDFE2AD-81E1-432C-8173-7A8C89BF20F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Winleafs.Api", "..\Winleafs-Api\Winleafs.Api.csproj", "{FDDFE2AD-81E1-432C-8173-7A8C89BF20F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Winleafs.Api.Test", "..\Nanoleaf-Api-Test\Winleafs.Api.Test.csproj", "{B680085F-F093-4257-BC9B-46B5FA1B0A54}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Winleafs.Api.Test", "..\Winleafs-Api-Test\Winleafs.Api.Test.csproj", "{B680085F-F093-4257-BC9B-46B5FA1B0A54}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Winleafs.Models", "..\Nanoleaf-Models\Winleafs.Models.csproj", "{D47A3540-3E21-4F5B-8B57-A9F9EA31426E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Winleafs.Models", "..\Winleafs-Models\Winleafs.Models.csproj", "{D47A3540-3E21-4F5B-8B57-A9F9EA31426E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0 Models", "0 Models", "{04253D20-9CA2-4737-8594-C73381F4B2FB}"
 EndProject

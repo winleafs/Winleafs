@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Nanoleaf-Models\Winleafs.Models.csproj" />
+    <ProjectReference Include="..\Winleafs-Models\Winleafs.Models.csproj" />
     <ProjectReference Include="..\Winleafs.External\Winleafs.External.csproj" />
   </ItemGroup>
 

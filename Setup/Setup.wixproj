@@ -22,7 +22,7 @@
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Nanoleaf-Api\Winleafs.Api.csproj">
+    <ProjectReference Include="..\Winleafs-Api\Winleafs.Api.csproj">
       <Name>Winleafs.Api</Name>
       <Project>{fddfe2ad-81e1-432c-8173-7a8c89bf20f0}</Project>
       <Private>True</Private>
@@ -30,7 +30,7 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
-    <ProjectReference Include="..\Nanoleaf-Models\Winleafs.Models.csproj">
+    <ProjectReference Include="..\Winleafs-Models\Winleafs.Models.csproj">
       <Name>Winleafs.Models</Name>
       <Project>{d47a3540-3e21-4f5b-8b57-a9f9ea31426e}</Project>
       <Private>True</Private>
@@ -38,7 +38,7 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
-    <ProjectReference Include="..\Nanoleaf-wpf\Winleafs.Wpf.csproj">
+    <ProjectReference Include="..\Winleafs-wpf\Winleafs.Wpf.csproj">
       <Name>Winleafs.Wpf</Name>
       <Project>{2bf6b8f3-55bd-4090-9945-1ec5d8d817cf}</Project>
       <Private>True</Private>
