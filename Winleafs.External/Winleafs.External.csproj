@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
@@ -11,7 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Nanoleaf-Models\Winleafs.Models.csproj" />
+      <ProjectReference Include="..\Winleafs.Models\Winleafs.Models.csproj" />
     </ItemGroup>
 
 </Project>

@@ -58,11 +58,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Nanoleaf-Api\Winleafs.Api.csproj">
+    <ProjectReference Include="..\Winleafs.Api\Winleafs.Api.csproj">
       <Project>{fddfe2ad-81e1-432c-8173-7a8c89bf20f0}</Project>
       <Name>Winleafs.Api</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Nanoleaf-Models\Winleafs.Models.csproj">
+    <ProjectReference Include="..\Winleafs.Models\Winleafs.Models.csproj">
       <Project>{D47A3540-3E21-4F5B-8B57-A9F9EA31426E}</Project>
       <Name>Winleafs.Models</Name>
     </ProjectReference>
