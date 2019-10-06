@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-  <?define sourceFolder="..\Nanoleaf-wpf\bin\Release\"?>
+  <?define sourceFolder="..\WInleafs.Wpf\bin\Release\"?>
   <Product Id="*" UpgradeCode="42ee9157-4382-4852-bed7-72b25fb2d0bf" Version="0.5.5" Language="1033" Name="Winleafs" Manufacturer="Stijn Oostdam">
     <Package Compressed="yes" />
     <Media Id="1" Cabinet="myapplication.cab" EmbedCab="yes" />
@@ -367,11 +367,11 @@
       <Component Id="Winleafs.Models.dll" Guid="a5aebc01-bd14-4f61-901e-756c1062bb42">
         <File Id="Winleafs.Models.dll" Source="$(var.sourceFolder)\Winleafs.Models.dll" KeyPath="yes" />
       </Component>
-      <Component Id="Winleafs.Wpf.exe" Guid="0053cf12-0f5b-4248-945f-aa383c12a414">
-        <File Id="Winleafs.Wpf.exe" Source="$(var.sourceFolder)\Winleafs.Wpf.exe" KeyPath="yes" Checksum="yes" />
+      <Component Id="Winleafs.exe" Guid="0053cf12-0f5b-4248-945f-aa383c12a414">
+        <File Id="Winleafs.exe" Source="$(var.sourceFolder)\Winleafs.exe" KeyPath="yes" Checksum="yes" />
       </Component>
-      <Component Id="Winleafs.Wpf.exe.config" Guid="5af0dc46-ff3f-4f45-979e-b05ffb70207b">
-        <File Id="Winleafs.Wpf.exe.config" Source="$(var.sourceFolder)\Winleafs.Wpf.exe.config" KeyPath="yes" />
+      <Component Id="Winleafs.exe.config" Guid="5af0dc46-ff3f-4f45-979e-b05ffb70207b">
+        <File Id="Winleafs.exe.config" Source="$(var.sourceFolder)\Winleafs.exe.config" KeyPath="yes" />
       </Component>      
       <Component Id="Xceed.Wpf.AvalonDock.dll" Guid="41ed8037-9f68-42f7-998a-3ddbfc28e463">
         <File Id="Xceed.Wpf.AvalonDock.dll" Source="$(var.sourceFolder)\Xceed.Wpf.AvalonDock.dll" KeyPath="yes" />
@@ -390,20 +390,20 @@
       </Component>      
     </DirectoryRef>
     <DirectoryRef Id="directory_nl">
-      <Component Id="Winleafs.Wpf.resources.dll" Guid="32276e83-fd2a-48bb-8765-cd6634322c5f">
-        <File Id="Winleafs.Wpf.resources.dll" Source="$(var.sourceFolder)\nl\Winleafs.Wpf.resources.dll" KeyPath="yes" />
+      <Component Id="Winleafs.resources.dll" Guid="32276e83-fd2a-48bb-8765-cd6634322c5f">
+        <File Id="Winleafs.resources.dll" Source="$(var.sourceFolder)\nl\Winleafs.resources.dll" KeyPath="yes" />
       </Component>
     </DirectoryRef>
     <DirectoryRef Id="ApplicationProgramsFolder">
       <Component Id="ApplicationShortcut" Guid="33bf752d-c561-4abe-b830-450437a70da6">
-        <Shortcut Id="ApplicationStartMenuShortcut" Name="Winleafs" Description="Windows application to contrl your Nanoleaf lights" Target="[#Winleafs.Wpf.exe]" WorkingDirectory="APPLICATIONROOTDIRECTORY" />
+        <Shortcut Id="ApplicationStartMenuShortcut" Name="Winleafs" Description="Windows application to contrl your Nanoleaf lights" Target="[#Winleafs.exe]" WorkingDirectory="APPLICATIONROOTDIRECTORY" />
         <RemoveFolder Id="CleanUpShortCut" Directory="ApplicationProgramsFolder" On="uninstall" />
         <RegistryValue Root="HKCU" Key="Software\Winleafs" Name="installed" Type="integer" Value="1" KeyPath="yes" />
       </Component>
     </DirectoryRef>
     <DirectoryRef Id="DesktopFolder">
       <Component Id="ApplicationShortcutDesktop" Guid="*">
-        <Shortcut Id="ApplicationDesktopShortcut" Name="Winleafs" Description="Windows application to contrl your Nanoleaf lights" Target="[#Winleafs.Wpf.exe]" WorkingDirectory="APPLICATIONROOTDIRECTORY" />
+        <Shortcut Id="ApplicationDesktopShortcut" Name="Winleafs" Description="Windows application to contrl your Nanoleaf lights" Target="[#Winleafs.exe]" WorkingDirectory="APPLICATIONROOTDIRECTORY" />
         <RemoveFolder Id="DesktopFolder" On="uninstall" />
         <RegistryValue Root="HKCU" Key="Software/Winleafs" Name="installed" Type="integer" Value="1" KeyPath="yes" />
       </Component>
@@ -527,9 +527,9 @@
       <ComponentRef Id="Winleafs.Api.dll" />
       <ComponentRef Id="Winleafs.External.dll" />
       <ComponentRef Id="Winleafs.Models.dll" />
-      <ComponentRef Id="Winleafs.Wpf.exe" />
-      <ComponentRef Id="Winleafs.Wpf.exe.config" />
-      <ComponentRef Id="Winleafs.Wpf.resources.dll" />
+      <ComponentRef Id="Winleafs.exe" />
+      <ComponentRef Id="Winleafs.exe.config" />
+      <ComponentRef Id="Winleafs.resources.dll" />
       
       <ComponentRef Id="Xceed.Wpf.AvalonDock.dll" />
       <ComponentRef Id="Xceed.Wpf.AvalonDock.Themes.Aero.dll" />
