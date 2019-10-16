@@ -56,7 +56,11 @@ namespace Winleafs.Api.Endpoints
         protected async Task<object> SendRequestAsync(string endpoint, Method method, Type returnType = null, object body = null, bool disableLogging = false)
         {
             var restClient = new RestClient(Client._baseUri);
-            var request = new RestRequest($"api/v1/{Client._token}/{endpoint}", method);
+            var request = new RestRequest($"api/v1/{Client._token}/{endpoint}", method)
+            {
+                Timeout = 2000 //Set timeout to 2 seconds
+            };
+
             if (body != null)
             {
                 request.AddJsonBody(body);
@@ -90,7 +94,11 @@ namespace Winleafs.Api.Endpoints
         protected object SendRequest(string endpoint, Method method, Type returnType = null, object body = null, bool disableLogging = false)
         {
             var restClient = new RestClient(Client._baseUri);
-            var request = new RestRequest($"api/v1/{Client._token}/{endpoint}", method);
+            var request = new RestRequest($"api/v1/{Client._token}/{endpoint}", method)
+            {
+                Timeout = 2000 //Set timeout to 2 seconds
+            };
+
             if (body != null)
             {
                 request.AddJsonBody(body);
