@@ -122,6 +122,7 @@ namespace Winleafs.Wpf.Api
                     await client.EffectsEndpoint.SetSelectedEffectAsync(effectName);
                 }
 
+                AddEffectNameToEffectCounter(effectName); //Update the counter of the selected effect
             }
             catch (Exception e)
             {
@@ -209,6 +210,23 @@ namespace Winleafs.Wpf.Api
             {
                 return null;
             }
+        }
+
+        /// <summary>
+        /// Adds or increases the counter for the given <paramref name="effectName"/>.
+        /// </summary>
+        private void AddEffectNameToEffectCounter(string effectName)
+        {
+            if (Device.EffectCounter.ContainsKey(effectName))
+            {
+                Device.EffectCounter[effectName]++;
+            }
+            else
+            {
+                Device.EffectCounter.Add(effectName, 1);
+            }
+
+            UserSettings.Settings.SaveSettings();
         }
     }
 }

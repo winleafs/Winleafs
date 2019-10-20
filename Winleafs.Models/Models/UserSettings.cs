@@ -20,7 +20,7 @@ namespace Winleafs.Models.Models
         public static readonly string SettingsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), APPLICATIONNAME);
 
         private static readonly string _settingsFileName = Path.Combine(SettingsFolder, "Settings.txt");
-        private static readonly string _latestSettingsVersion = "5";
+        private static readonly string _latestSettingsVersion = "7";
 
         private static UserSettings _settings { get; set; }
 
@@ -345,6 +345,17 @@ namespace Winleafs.Models.Models
         private static JToken Migration_5_6(JToken jToken)
         {
             jToken[nameof(CustomEffects)] = new JArray();
+
+            return jToken;
+        }
+
+        [Migration("6", "7")]
+        private static JToken Migration_6_7(JToken jToken)
+        {
+            foreach (var device in jToken["Devices"])
+            {
+                device[nameof(Device.EffectCounter)] = JToken.FromObject(new Dictionary<string, int>());
+            }
 
             return jToken;
         }
