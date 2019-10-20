@@ -12,8 +12,11 @@ namespace Winleafs.Wpf.Api
 {
     public class ScheduleTimer
     {
+        private static readonly string _defaultPreviouslyActivatedEffect = "_NO_PREVIOUSLY_ACTIVATED_EFFECT_";
+
         private readonly Timer _timer;
         private readonly Orchestrator _orchestrator;
+        private string _previouslyActivatedEffect;
 
         public ScheduleTimer(Orchestrator orchestrator)
         {
@@ -30,7 +33,10 @@ namespace Winleafs.Wpf.Api
         /// </summary>
         public void StartTimer()
         {
+            _previouslyActivatedEffect = _defaultPreviouslyActivatedEffect; //Reset the previously activated effect
+
             _timer.Start();
+
             FireTimer();
         }
 
@@ -61,16 +67,22 @@ namespace Winleafs.Wpf.Api
             {
                 var activeTrigger = _orchestrator.Device.GetActiveTimeTrigger();
 
-                if (activeTrigger == null)
+                //Only switch effects if the effect is different from the previously activated effect
+                if ((activeTrigger == null && _previouslyActivatedEffect != null) || (activeTrigger != null && activeTrigger.Effect != _previouslyActivatedEffect))
                 {
-                    var client = NanoleafClient.GetClientForDevice(_orchestrator.Device);
+                    if (activeTrigger == null)
+                    {
+                        var client = NanoleafClient.GetClientForDevice(_orchestrator.Device);
 
-                    //There are no triggers so the lights can be turned off if it is not off already
-                    await client.StateEndpoint.SetStateWithStateCheckAsync(false);
-                }
-                else
-                {
-                    await _orchestrator.ActivateEffect(activeTrigger.Effect, activeTrigger.Brightness);
+                        //There are no triggers so the lights can be turned off if it is not off already
+                        await client.StateEndpoint.SetStateWithStateCheckAsync(false);
+                    }
+                    else
+                    {
+                        await _orchestrator.ActivateEffect(activeTrigger.Effect, activeTrigger.Brightness);
+                    }
+
+                    _previouslyActivatedEffect = activeTrigger == null ? null : activeTrigger.Effect;
                 }
             }
         }
