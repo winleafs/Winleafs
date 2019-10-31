@@ -39,13 +39,17 @@ namespace Winleafs.Wpf.Views.MainWindows
             get => _selectedDevice;
             set
             {
-                _selectedDevice = value;
-                SelectedDeviceChanged();
+                if (_selectedDevice != value)
+                {
+                    _selectedDevice = value;
+                    SelectedDeviceChanged();
+                    DevicesDropdown.SelectedItem = _selectedDevice;
+                }
             }
         }
 
         public ObservableCollection<string> DeviceNames { get; set; }
-
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -53,11 +57,11 @@ namespace Winleafs.Wpf.Views.MainWindows
             LayoutDisplay.SetWithAndHeight((int)LayoutDisplay.Width, (int)LayoutDisplay.Height);
             LayoutDisplay.DrawLayout();
 
-            var taskbarIcon = (TaskbarIcon)FindResource("NotifyIcon"); //https://www.codeproject.com/Articles/36468/WPF-NotifyIcon-2
-            taskbarIcon.DoubleClickCommand = new TaskbarDoubleClickCommand(this);
-
             UpdateDeviceNames();
             SelectedDevice = UserSettings.Settings.ActiveDevice.Name;
+            
+            NotifyIcon.DoubleClickCommand = new TaskbarDoubleClickCommand(this);
+            TaskbarIcon.Initialize(this); ///Must appear after initialize of device names since this user control uses them
 
             BuildScheduleList();
 
@@ -90,6 +94,9 @@ namespace Winleafs.Wpf.Views.MainWindows
             LayoutDisplay.DrawLayout();
 
             UpdateCurrentEffectLabelsAndLayout();
+
+            //Also trigger task bar icon device change
+            TaskbarIcon.SelectedDevice = SelectedDevice;
         }
 
         private void AddSchedule_Click(object sender, RoutedEventArgs e)

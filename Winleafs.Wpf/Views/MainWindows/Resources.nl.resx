@@ -193,4 +193,7 @@ Hover over deze knop.</value>
   <data name="PercentageProfile" xml:space="preserve">
     <value>Percentagprofiel</value>
   </data>
+  <data name="Quit" xml:space="preserve">
+    <value>Afsluiten</value>
+  </data>
 </root>
