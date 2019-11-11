@@ -7,7 +7,7 @@
         xmlns:mainWindows="clr-namespace:Winleafs.Wpf.Views.MainWindows"
         xmlns:layout="clr-namespace:Winleafs.Wpf.Views.Layout"
         mc:Ignorable="d"
-        Title="{x:Static mainWindows:Resources.Winleafs}" Height="670" Width="810" ResizeMode="CanMinimize"
+        Title="{x:Static mainWindows:Resources.Winleafs}" Height="670" Width="820" ResizeMode="CanMinimize"
         Closing="Window_Closing"
         Loaded="Window_Loaded">
     <DockPanel Background="{StaticResource NanoleafBlack}">

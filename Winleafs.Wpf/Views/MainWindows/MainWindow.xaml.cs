@@ -59,15 +59,15 @@ namespace Winleafs.Wpf.Views.MainWindows
 
             UpdateDeviceNames();
             SelectedDevice = UserSettings.Settings.ActiveDevice.Name;
-            
-            NotifyIcon.DoubleClickCommand = new TaskbarDoubleClickCommand(this);
-            TaskbarIcon.Initialize(this); ///Must appear after initialize of device names since this user control uses them
 
             BuildScheduleList();
 
             OverrideScheduleUserControl.MainWindow = this;
 
             DataContext = this;
+
+            NotifyIcon.DoubleClickCommand = new TaskbarDoubleClickCommand(this);
+            TaskbarIcon.Initialize(this); ///Must appear last since this user control uses components of the main window
         }
 
         public void ReloadEffects()

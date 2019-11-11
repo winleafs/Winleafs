@@ -150,6 +150,9 @@
   <data name="Donate" xml:space="preserve">
     <value>Donate</value>
   </data>
+  <data name="MostUsedEffects" xml:space="preserve">
+    <value>Most used effects</value>
+  </data>
   <data name="Nothing" xml:space="preserve">
     <value>Nothing</value>
   </data>
@@ -182,6 +185,9 @@
   </data>
   <data name="RemoveDevice" xml:space="preserve">
     <value>Remove this device</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Reset</value>
   </data>
   <data name="ResetAllSettings" xml:space="preserve">
     <value>Reset all settings</value>

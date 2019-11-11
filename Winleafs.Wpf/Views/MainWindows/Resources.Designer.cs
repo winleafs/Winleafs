@@ -160,6 +160,15 @@ namespace Winleafs.Wpf.Views.MainWindows {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Most used effects.
+        /// </summary>
+        public static string MostUsedEffects {
+            get {
+                return ResourceManager.GetString("MostUsedEffects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nothing.
         /// </summary>
         public static string Nothing {
@@ -255,6 +264,15 @@ namespace Winleafs.Wpf.Views.MainWindows {
         public static string RemoveDevice {
             get {
                 return ResourceManager.GetString("RemoveDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset.
+        /// </summary>
+        public static string Reset {
+            get {
+                return ResourceManager.GetString("Reset", resourceCulture);
             }
         }
         
