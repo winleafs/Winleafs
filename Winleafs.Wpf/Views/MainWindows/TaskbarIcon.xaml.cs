@@ -41,6 +41,8 @@ namespace Winleafs.Wpf.Views.MainWindows
             }
         }
 
+        private string _selectedEffect;
+
         public ObservableCollection<string> DeviceNames { get; set; }
 
         public TaskbarIcon()
@@ -58,7 +60,7 @@ namespace Winleafs.Wpf.Views.MainWindows
             DeviceNames = _parent.DeviceNames;
             Brightness = _parent.OverrideScheduleUserControl.Brightness;
 
-            BuildMostUsedEfectList(null);
+            BuildMostUsedEfectList();
         }
 
         private void Quit_Click(object sender, RoutedEventArgs e)
@@ -73,15 +75,18 @@ namespace Winleafs.Wpf.Views.MainWindows
                 _parent.SelectedDevice = SelectedDevice; //Also trigger main window device change 
             }
 
-            BuildMostUsedEfectList(null);
+            BuildMostUsedEfectList();
         }
 
         private void Reset_Click(object sender, RoutedEventArgs e)
         {
-            
+            _selectedEffect = null;
+            _parent.OverrideScheduleUserControl.StopOverride();
+
+            BuildMostUsedEfectList();
         }
 
-        private void BuildMostUsedEfectList(string selectedEffect)
+        private void BuildMostUsedEfectList()
         {
             MostUsedEffectList.Children.Clear();
 
@@ -89,14 +94,27 @@ namespace Winleafs.Wpf.Views.MainWindows
 
             foreach (var mostUsedEffect in mostUsedEffects)
             {
-                MostUsedEffectList.Children.Add(new MostUsedEffectUserControl(this, mostUsedEffect.Key, mostUsedEffect.Key == selectedEffect));
+                MostUsedEffectList.Children.Add(new MostUsedEffectUserControl(this, mostUsedEffect.Key, mostUsedEffect.Key == _selectedEffect));
             }
         }
 
-        //TODO: when clicking an effect or changing brightness, set the properties of the override control in the mainwindow
         public void EffectSelected(string effectName)
         {
-            BuildMostUsedEfectList(effectName);
+            _selectedEffect = effectName;
+
+            BuildMostUsedEfectList();
+
+            SetOverride();
+        }
+
+        private void SetOverride()
+        {
+            _parent.OverrideScheduleUserControl.SetOverride(_selectedEffect, Brightness);
+        }
+
+        private void BrightnessSlider_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
+        {
+            SetOverride();
         }
     }
 }

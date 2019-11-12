@@ -50,7 +50,6 @@ namespace Winleafs.Wpf.Views.MainWindows
         {
             //Reset the background color when hovering stops
             Background = _backgroundColor;
-
         }
     }
 }
