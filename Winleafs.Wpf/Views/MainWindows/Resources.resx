@@ -150,6 +150,9 @@
   <data name="Donate" xml:space="preserve">
     <value>Donate</value>
   </data>
+  <data name="MostUsedEffects" xml:space="preserve">
+    <value>Most used effects</value>
+  </data>
   <data name="Nothing" xml:space="preserve">
     <value>Nothing</value>
   </data>
@@ -167,6 +170,9 @@
   </data>
   <data name="PercentageProfile" xml:space="preserve">
     <value>Percentage profile</value>
+  </data>
+  <data name="Quit" xml:space="preserve">
+    <value>Quit</value>
   </data>
   <data name="ReloadEffects" xml:space="preserve">
     <value>Reload effects</value>
@@ -188,6 +194,9 @@
   </data>
   <data name="Stop" xml:space="preserve">
     <value>Stop</value>
+  </data>
+  <data name="StopManualControl" xml:space="preserve">
+    <value>Stop manual control</value>
   </data>
   <data name="Stuck" xml:space="preserve">
     <value>Encountering issues?

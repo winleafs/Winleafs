@@ -19,8 +19,11 @@ namespace Winleafs.Models.Models
 
         public static readonly string SettingsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), APPLICATIONNAME);
 
+        public static readonly string CustomColorNamePreface = "Custom Color - ";
+        public static readonly string EffectNamePreface = "Winleafs - ";
+
         private static readonly string _settingsFileName = Path.Combine(SettingsFolder, "Settings.txt");
-        private static readonly string _latestSettingsVersion = "5";
+        private static readonly string _latestSettingsVersion = "7";
 
         private static UserSettings _settings { get; set; }
 
@@ -293,6 +296,30 @@ namespace Winleafs.Models.Models
 
             SaveSettings();
         }
+
+        /// <summary>
+        /// Set the custom color list and resolves conflicts in other effects lists
+        /// </summary>
+        /// <param name="userCustomColorEffects"></param>
+        public void SetCustomColors(List<UserCustomColorEffect> userCustomColorEffects)
+        {
+            if (CustomEffects != null)
+            {
+                var deletedEffectNames = CustomEffects.Select(effect => effect.EffectName).Except(userCustomColorEffects.Select(effect => effect.EffectName));
+
+                //Make sure any of the deleted effects are removed from the effect counters of the devices
+                foreach (var device in Devices)
+                {
+                    foreach (var deletedEffect in deletedEffectNames)
+                    {
+                        device.EffectCounter.Remove($"{CustomColorNamePreface}{deletedEffect}");
+
+                    }
+                }
+            }
+
+            CustomEffects = userCustomColorEffects;
+        }
         #endregion
 
         #region Migration methods
@@ -345,6 +372,17 @@ namespace Winleafs.Models.Models
         private static JToken Migration_5_6(JToken jToken)
         {
             jToken[nameof(CustomEffects)] = new JArray();
+
+            return jToken;
+        }
+
+        [Migration("6", "7")]
+        private static JToken Migration_6_7(JToken jToken)
+        {
+            foreach (var device in jToken["Devices"])
+            {
+                device[nameof(Device.EffectCounter)] = JToken.FromObject(new Dictionary<string, int>());
+            }
 
             return jToken;
         }

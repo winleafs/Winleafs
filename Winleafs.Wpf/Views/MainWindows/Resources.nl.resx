@@ -193,4 +193,13 @@ Hover over deze knop.</value>
   <data name="PercentageProfile" xml:space="preserve">
     <value>Percentagprofiel</value>
   </data>
+  <data name="Quit" xml:space="preserve">
+    <value>Afsluiten</value>
+  </data>
+  <data name="MostUsedEffects" xml:space="preserve">
+    <value>Meest gebruikte effecten</value>
+  </data>
+  <data name="StopManualControl" xml:space="preserve">
+    <value>Stop handmatige bediening</value>
+  </data>
 </root>

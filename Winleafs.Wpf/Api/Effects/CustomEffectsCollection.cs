@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using Winleafs.Api;
@@ -10,11 +9,6 @@ namespace Winleafs.Wpf.Api.Effects
 {
     public class CustomEffectsCollection
     {
-        #region static properties
-        public static readonly string EffectNamePreface = "Winleafs - ";
-        public static readonly string CustomColorNamePreface = "Custom Color - ";
-        #endregion
-
         private Dictionary<string, ICustomEffect> _customEffects;
 
         /// <summary>
@@ -34,13 +28,13 @@ namespace Winleafs.Wpf.Api.Effects
             {
                 foreach (var customColorEffect in customColorEffects)
                 {
-                    _customEffects.Add($"{CustomColorNamePreface}{customColorEffect.EffectName}", new CustomColorEffect(nanoleafClient, customColorEffect.Color));
+                    _customEffects.Add($"{UserSettings.CustomColorNamePreface}{customColorEffect.EffectName}", new CustomColorEffect(nanoleafClient, customColorEffect.Color));
                 }
             }
 
             //We will not translate effect names since their names are identifiers
             _customEffects.Add(ScreenMirrorEffect.Name, new ScreenMirrorEffect(device, orchestrator, nanoleafClient));
-            _customEffects.Add($"{EffectNamePreface}Turn lights off", new TurnOffEffect(nanoleafClient));
+            _customEffects.Add($"{UserSettings.EffectNamePreface}Turn lights off", new TurnOffEffect(nanoleafClient));
         }
 
         /// <summary>

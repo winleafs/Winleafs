@@ -3,14 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
         xmlns:mainWindows="clr-namespace:Winleafs.Wpf.Views.MainWindows"
         xmlns:layout="clr-namespace:Winleafs.Wpf.Views.Layout"
         mc:Ignorable="d"
-        Title="{x:Static mainWindows:Resources.Winleafs}" Height="670" Width="810" ResizeMode="CanMinimize"
+        Title="{x:Static mainWindows:Resources.Winleafs}" Height="670" Width="820" ResizeMode="CanMinimize"
         Closing="Window_Closing"
         Loaded="Window_Loaded">
     <DockPanel Background="{StaticResource NanoleafBlack}">
-        <Grid DockPanel.Dock="Left" Margin="0,0,0,0" Width="343">
+        <Grid DockPanel.Dock="Left" Margin="0,0,0,0" Width="360">
             <Label Content="{x:Static mainWindows:Resources.Schedules}" HorizontalAlignment="Left" Margin="10,51,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
             <Button  Grid.Row="0" VerticalAlignment="Top" Height="35" Background="{x:Null}" BorderBrush="{x:Null}" Click="AddSchedule_Click" Margin="0,51,10,0" HorizontalAlignment="Right" Width="35">
                 <Image Source="../../Icons/appbar.add.png"/>
@@ -25,7 +26,7 @@
             <Label Content="{x:Static mainWindows:Resources.DeviceActions}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" FontSize="15" Foreground="White" Margin="10,0,0,74" Height="30" VerticalAlignment="Bottom"/>
             <Button Content="{x:Static mainWindows:Resources.PercentageProfile}" HorizontalAlignment="Left" Margin="10,0,0,42" Width="118" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="PercentageProfile_Click" Height="27" VerticalAlignment="Bottom"/>
         </Grid>
-        <Grid>
+        <Grid DockPanel.Dock="Right">
             <Button Content="{x:Static mainWindows:Resources.Options}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Options_Click"/>
             <Button Content="{x:Static mainWindows:Resources.ResetAllSettings}" Margin="240,10,0,0" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Reset_Click" Height="27" VerticalAlignment="Top" HorizontalAlignment="Left" Width="120"/>
             <mainWindows:OverrideScheduleUserControl x:Name="OverrideScheduleUserControl" VerticalAlignment="Top" Margin="10,117,0,0" Height="60" HorizontalAlignment="Left" Width="434"/>
@@ -37,6 +38,14 @@
                     Donate
                 </Hyperlink>
             </TextBlock>
+        </Grid>
+        <Grid Width="0" Height="0" Margin="0,0,0,0" DockPanel.Dock="Bottom">
+            <tb:TaskbarIcon x:Name="NotifyIcon" IconSource="/Icons/icon.ico" ToolTipText="Winleafs" Visibility="Visible" PopupActivation="LeftOrRightClick">
+                <!-- https://www.codeproject.com/Articles/36468/WPF-NotifyIcon-2 -->
+                <tb:TaskbarIcon.TrayPopup>
+                    <mainWindows:TaskbarIcon x:Name="TaskbarIcon" Width="200" Height="300"/>
+                </tb:TaskbarIcon.TrayPopup>
+            </tb:TaskbarIcon>
         </Grid>
     </DockPanel>
 </Window>

@@ -1,32 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using NLog;
+using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-
 using Winleafs.Models.Enums;
 using Winleafs.Models.Models;
-using Winleafs.Models.Models.Effects;
-
-using NLog;
-using Winleafs.Wpf.Api.Effects;
 using Winleafs.Wpf.Api;
-using Winleafs.Wpf.ViewModels;
-using Winleafs.Wpf.Views.Options;
 
 namespace Winleafs.Wpf.Views.MainWindows
 {
+    using System.ComponentModel;
     using Winleafs.Wpf.Views.Popup;
 
     /// <summary>
     /// Interaction logic for OverrideScheduleUserControl.xaml
     /// </summary>
-    public partial class OverrideScheduleUserControl : UserControl
+    public partial class OverrideScheduleUserControl : UserControl, INotifyPropertyChanged
     {
         private static Logger _logger = LogManager.GetCurrentClassLogger();
 
-        public ObservableCollection<Effect> Effects { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public ObservableCollection<string> Effects { get; set; }
 
         public string SelectedEffect { get; set; }
 
@@ -48,7 +44,7 @@ namespace Winleafs.Wpf.Views.MainWindows
         {
             InitializeComponent();
 
-            Effects = new ObservableCollection<Effect>();
+            Effects = new ObservableCollection<string>();
             LoadEffects();
             DataContext = this;
 
@@ -66,7 +62,7 @@ namespace Winleafs.Wpf.Views.MainWindows
 
             foreach (var effect in effects)
             {
-                Effects.Add(effect);
+                Effects.Add(effect.Name);
             }
         }
 
@@ -77,10 +73,10 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         private void StopOverride_Click(object sender, RoutedEventArgs e)
         {
-            Task.Run(() => StopOverride());
+            Task.Run(() => StopOverrideAsync());
         }
 
-        private async Task StopOverride()
+        private async Task StopOverrideAsync()
         {
             if (UserSettings.Settings.ActiveDevice.OperationMode == OperationMode.Manual)
             {
@@ -95,28 +91,54 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         private async Task Override()
         {
-            if (!string.IsNullOrEmpty(SelectedEffect))
+            try
             {
-                try
+                var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice);
+
+                if (string.IsNullOrEmpty(SelectedEffect))
                 {
-                    var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice);
+                    SetSelectedEffect(orchestrator.GetActiveEffectName());
+                } 
 
-                    if (await orchestrator.TrySetOperationMode(OperationMode.Manual, true))
-                    {
-                        orchestrator.Device.OverrideEffect = SelectedEffect;
-                        orchestrator.Device.OverrideBrightness = Brightness;
-
-                        await orchestrator.ActivateEffect(SelectedEffect, Brightness);
-
-                        MainWindow.UpdateCurrentEffectLabelsAndLayout();
-                    }
-                }
-                catch (Exception e)
+                if (await orchestrator.TrySetOperationMode(OperationMode.Manual, true))
                 {
-                    _logger.Error(e, "Error during overriding schedule");
-                    PopupCreator.Error(MainWindows.Resources.OverrideError);
+                    orchestrator.Device.OverrideEffect = SelectedEffect;
+                    orchestrator.Device.OverrideBrightness = Brightness;
+
+                    await orchestrator.ActivateEffect(SelectedEffect, Brightness);
+
+                    MainWindow.UpdateCurrentEffectLabelsAndLayout();
                 }
             }
+            catch (Exception e)
+            {
+                _logger.Error(e, "Error during overriding schedule");
+                PopupCreator.Error(MainWindows.Resources.OverrideError);
+            }
+        }
+
+        public void SetOverride(string effectName, int brightness)
+        {
+            SetSelectedEffect(effectName);
+            Brightness = brightness;
+
+            Task.Run(() => Override());
+        }
+
+        public void StopOverride()
+        {
+            Task.Run(() => StopOverrideAsync());
+        }
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void SetSelectedEffect(string effectName)
+        {
+            SelectedEffect = effectName;
+            OnPropertyChanged(nameof(SelectedEffect));
         }
     }
 }

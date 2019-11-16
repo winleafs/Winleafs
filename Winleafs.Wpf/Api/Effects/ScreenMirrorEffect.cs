@@ -15,7 +15,7 @@ namespace Winleafs.Wpf.Api.Effects
     {
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
-        public static string Name => $"{CustomEffectsCollection.EffectNamePreface}Screen mirror";
+        public static string Name => $"{UserSettings.EffectNamePreface}Screen mirror";
 
         private readonly INanoleafClient _nanoleafClient;
         private readonly System.Timers.Timer _timer;

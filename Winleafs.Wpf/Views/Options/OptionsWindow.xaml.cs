@@ -234,15 +234,17 @@ namespace Winleafs.Wpf.Views.Options
 
             #region Colors
 
-            UserSettings.Settings.CustomEffects = OptionsViewModel.CustomColorEffects;
+            UserSettings.Settings.SetCustomColors(OptionsViewModel.CustomColorEffects);
 
             #endregion Colors
+
             UserSettings.Settings.SaveSettings();
 
             // Reload the orchestrator so custom effects are reloaded.
             OrchestratorCollection.ResetOrchestratorForActiveDevice();
 
             _mainWindow.ReloadEffects();
+            _mainWindow.UpdateContextMenuMostUsedEffects(); //Make sure none of the deleted custom colors stay in the context menu
 
             Close();
         }
