@@ -268,15 +268,6 @@ namespace Winleafs.Wpf.Views.MainWindows {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reset.
-        /// </summary>
-        public static string Reset {
-            get {
-                return ResourceManager.GetString("Reset", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Reset all settings.
         /// </summary>
         public static string ResetAllSettings {
@@ -300,6 +291,15 @@ namespace Winleafs.Wpf.Views.MainWindows {
         public static string Stop {
             get {
                 return ResourceManager.GetString("Stop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stop manual control.
+        /// </summary>
+        public static string StopManualControl {
+            get {
+                return ResourceManager.GetString("StopManualControl", resourceCulture);
             }
         }
         

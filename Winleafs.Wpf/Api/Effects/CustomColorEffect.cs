@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Winleafs.Api;
+using Winleafs.Models.Models;
 using Color = System.Drawing.Color;
 
 namespace Winleafs.Wpf.Api.Effects
@@ -10,7 +11,7 @@ namespace Winleafs.Wpf.Api.Effects
         private readonly INanoleafClient _nanoleafClient;
         public Color Color { get; set; }
 
-        public static string Name => $"{CustomEffectsCollection.EffectNamePreface}Custom Color";
+        public static string Name => $"{UserSettings.EffectNamePreface}Custom Color";
 
         public CustomColorEffect(INanoleafClient nanoleafClient, Color color)
         {

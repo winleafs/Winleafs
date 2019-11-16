@@ -19,6 +19,9 @@ namespace Winleafs.Models.Models
 
         public static readonly string SettingsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), APPLICATIONNAME);
 
+        public static readonly string CustomColorNamePreface = "Custom Color - ";
+        public static readonly string EffectNamePreface = "Winleafs - ";
+
         private static readonly string _settingsFileName = Path.Combine(SettingsFolder, "Settings.txt");
         private static readonly string _latestSettingsVersion = "7";
 
@@ -292,6 +295,30 @@ namespace Winleafs.Models.Models
             newActiveDevice.ActiveInGUI = true;
 
             SaveSettings();
+        }
+
+        /// <summary>
+        /// Set the custom color list and resolves conflicts in other effects lists
+        /// </summary>
+        /// <param name="userCustomColorEffects"></param>
+        public void SetCustomColors(List<UserCustomColorEffect> userCustomColorEffects)
+        {
+            if (CustomEffects != null)
+            {
+                var deletedEffectNames = CustomEffects.Select(effect => effect.EffectName).Except(userCustomColorEffects.Select(effect => effect.EffectName));
+
+                //Make sure any of the deleted effects are removed from the effect counters of the devices
+                foreach (var device in Devices)
+                {
+                    foreach (var deletedEffect in deletedEffectNames)
+                    {
+                        device.EffectCounter.Remove($"{CustomColorNamePreface}{deletedEffect}");
+
+                    }
+                }
+            }
+
+            CustomEffects = userCustomColorEffects;
         }
         #endregion
 

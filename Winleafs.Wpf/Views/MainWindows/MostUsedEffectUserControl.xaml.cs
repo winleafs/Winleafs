@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace Winleafs.Wpf.Views.MainWindows
@@ -9,7 +10,7 @@ namespace Winleafs.Wpf.Views.MainWindows
     /// </summary>
     public partial class MostUsedEffectUserControl : UserControl
     {
-        private TaskbarIcon _parent;
+        private readonly TaskbarIcon _parent;
         private string _effectName;
         private static readonly SolidColorBrush HoverBackgroundColor = Brushes.DarkGray;
         private SolidColorBrush _backgroundColor;
@@ -35,18 +36,18 @@ namespace Winleafs.Wpf.Views.MainWindows
             Background = _backgroundColor;
         }
 
-        private void UserControl_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void UserControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             _parent.EffectSelected(_effectName);
         }
 
-        private void UserControl_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        private void UserControl_MouseEnter(object sender, MouseEventArgs e)
         {
             //Set the background color for hover
             Background = HoverBackgroundColor;
         }
 
-        private void UserControl_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        private void UserControl_MouseLeave(object sender, MouseEventArgs e)
         {
             //Reset the background color when hovering stops
             Background = _backgroundColor;

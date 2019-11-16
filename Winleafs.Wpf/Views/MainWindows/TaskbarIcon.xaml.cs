@@ -11,6 +11,8 @@ namespace Winleafs.Wpf.Views.MainWindows
     /// </summary>
     public partial class TaskbarIcon : UserControl
     {
+        private static readonly int _amountOfEffects = 5;
+
         private MainWindow _parent;
 
         private string _selectedDevice;
@@ -86,11 +88,11 @@ namespace Winleafs.Wpf.Views.MainWindows
             BuildMostUsedEfectList();
         }
 
-        private void BuildMostUsedEfectList()
+        public void BuildMostUsedEfectList()
         {
             MostUsedEffectList.Children.Clear();
 
-            var mostUsedEffects = UserSettings.Settings.ActiveDevice.EffectCounter.Take(5).ToList();
+            var mostUsedEffects = UserSettings.Settings.ActiveDevice.EffectCounter.Take(_amountOfEffects).ToList();
 
             foreach (var mostUsedEffect in mostUsedEffects)
             {

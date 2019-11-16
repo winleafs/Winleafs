@@ -82,7 +82,7 @@ namespace Winleafs.Wpf.Api
                         await _orchestrator.ActivateEffect(activeTrigger.Effect, activeTrigger.Brightness);
                     }
 
-                    _previouslyActivatedEffect = activeTrigger == null ? null : activeTrigger.Effect;
+                    _previouslyActivatedEffect = activeTrigger?.Effect;
                 }
             }
         }

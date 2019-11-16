@@ -199,7 +199,7 @@ Hover over deze knop.</value>
   <data name="MostUsedEffects" xml:space="preserve">
     <value>Meest gebruikte effecten</value>
   </data>
-  <data name="Reset" xml:space="preserve">
-    <value>Resetten</value>
+  <data name="StopManualControl" xml:space="preserve">
+    <value>Stop handmatige bediening</value>
   </data>
 </root>

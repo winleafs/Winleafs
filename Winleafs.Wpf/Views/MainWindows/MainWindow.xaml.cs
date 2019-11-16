@@ -283,6 +283,11 @@ namespace Winleafs.Wpf.Views.MainWindows
             percentageProfileWindow.Show();
         }
 
+        public void UpdateContextMenuMostUsedEffects()
+        {
+            TaskbarIcon.BuildMostUsedEfectList();
+        }
+
         #region Open window from other process
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {

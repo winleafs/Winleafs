@@ -42,7 +42,7 @@ namespace Winleafs.Models.Models
         public int ScreenMirrorMonitorIndex { get; set; }
         public bool ScreenMirrorControlBrightness { get; set; }
 
-        public Dictionary<string, int> EffectCounter { get; set; }
+        public Dictionary<string, ulong> EffectCounter { get; set; }
 
         [JsonIgnore]
         public Schedule ActiveSchedule
