@@ -47,12 +47,13 @@
             </TextBlock>
         </Grid>
         <Grid Width="0" Height="0" Margin="0,0,0,0" DockPanel.Dock="Bottom">
-            <!--<tb:TaskbarIcon x:Name="NotifyIcon" IconSource="/Icons/icon.ico" ToolTipText="Winleafs" Visibility="Visible" PopupActivation="LeftOrRightClick">
-                --><!-- https://www.codeproject.com/Articles/36468/WPF-NotifyIcon-2 --><!--
+            <!--IconSource="./Icons/icon.ico"-->
+            <tb:TaskbarIcon x:Name="NotifyIcon" ToolTipText="Winleafs" Visibility="Visible" PopupActivation="LeftOrRightClick">
+                 <!--https://www.codeproject.com/Articles/36468/WPF-NotifyIcon-2--> 
                 <tb:TaskbarIcon.TrayPopup>
                     <mainWindows:TaskbarIcon x:Name="TaskbarIcon" Width="200" Height="300"/>
                 </tb:TaskbarIcon.TrayPopup>
-            </tb:TaskbarIcon>-->
+            </tb:TaskbarIcon>
         </Grid>
     </DockPanel>
 </Window>

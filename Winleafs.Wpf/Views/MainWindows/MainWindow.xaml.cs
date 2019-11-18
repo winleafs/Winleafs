@@ -66,8 +66,10 @@ namespace Winleafs.Wpf.Views.MainWindows
 
             DataContext = this;
 
-            //NotifyIcon.DoubleClickCommand = new TaskbarDoubleClickCommand(this);
-            //TaskbarIcon.Initialize(this); ///Must appear last since this user control uses components of the main window
+            NotifyIcon.DoubleClickCommand = new TaskbarDoubleClickCommand(this);
+
+            //Must appear last since this user control uses components of the main window
+            TaskbarIcon.Initialize(this);
         }
 
         public void ReloadEffects()
@@ -96,7 +98,7 @@ namespace Winleafs.Wpf.Views.MainWindows
             UpdateCurrentEffectLabelsAndLayout();
 
             //Also trigger task bar icon device change
-            //TaskbarIcon.SelectedDevice = SelectedDevice;
+            TaskbarIcon.SelectedDevice = SelectedDevice;
         }
 
         private void AddSchedule_Click(object sender, RoutedEventArgs e)
@@ -285,7 +287,7 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         public void UpdateContextMenuMostUsedEffects()
         {
-            //TaskbarIcon.BuildMostUsedEfectList();
+            TaskbarIcon.BuildMostUsedEfectList();
         }
 
         #region Open window from other process

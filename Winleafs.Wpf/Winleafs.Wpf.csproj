@@ -23,6 +23,14 @@
       <EmbeddedResource Remove="Views\Scheduling\Resources.nl.resx" />
       <EmbeddedResource Remove="Views\Setup\Resources.nl.resx" />
     </ItemGroup>
+  <ItemGroup>
+    <None Remove="Icons\icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Icons\icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
     <ItemGroup>
       <None Include="Views\AppResources.nl.resx" />
     </ItemGroup>
