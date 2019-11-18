@@ -292,32 +292,32 @@ namespace Winleafs.Wpf.Views.MainWindows
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             var hwndSource = HwndSource.FromHwnd(new WindowInteropHelper(this).Handle);
-            //hwndSource.AddHook(new HwndSourceHook(WndProc));
+            hwndSource.AddHook(new HwndSourceHook(WndProc));
         }
 
-        //private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
-        //{
-        //    System.Windows.Forms.Message m = System.Windows.Forms.Message.Create(hwnd, msg, wParam, lParam);
-        //    if (m.Msg == App.WM_COPYDATA)
-        //    {
-        //        // Get the COPYDATASTRUCT struct from lParam.
-        //        var cds = (App.COPYDATASTRUCT)m.GetLParam(typeof(App.COPYDATASTRUCT));
+        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            System.Windows.Forms.Message m = System.Windows.Forms.Message.Create(hwnd, msg, wParam, lParam);
+            if (m.Msg == App.WM_COPYDATA)
+            {
+                // Get the COPYDATASTRUCT struct from lParam.
+                var cds = (App.COPYDATASTRUCT)m.GetLParam(typeof(App.COPYDATASTRUCT));
 
-        //        // If the size matches
-        //        if (cds.cbData == Marshal.SizeOf(typeof(App.MessageStruct)))
-        //        {
-        //            // Marshal the data from the unmanaged memory block to a managed struct.
-        //            var messageStruct = (App.MessageStruct)Marshal.PtrToStructure(cds.lpData, typeof(App.MessageStruct));
+                // If the size matches
+                if (cds.cbData == Marshal.SizeOf(typeof(App.MessageStruct)))
+                {
+                    // Marshal the data from the unmanaged memory block to a managed struct.
+                    var messageStruct = (App.MessageStruct)Marshal.PtrToStructure(cds.lpData, typeof(App.MessageStruct));
 
-        //            // Display the MyStruct data members.
-        //            if (messageStruct.Message == App.OPENWINDOWMESSAGE)
-        //            {
-        //                Show();
-        //            }
-        //        }
-        //    }
-        //    return IntPtr.Zero;
-        //}
+                    // Display the MyStruct data members.
+                    if (messageStruct.Message == App.OPENWINDOWMESSAGE)
+                    {
+                        Show();
+                    }
+                }
+            }
+            return IntPtr.Zero;
+        }
         #endregion
     }
 }
