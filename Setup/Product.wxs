@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
   <?define sourceFolder="..\WInleafs.Wpf\bin\Release\"?>
-  <Product Id="*" UpgradeCode="42ee9157-4382-4852-bed7-72b25fb2d0bf" Version="0.5.5" Language="1033" Name="Winleafs" Manufacturer="Stijn Oostdam">
+  <Product Id="*" UpgradeCode="42ee9157-4382-4852-bed7-72b25fb2d0bf" Version="0.5.6" Language="1033" Name="Winleafs" Manufacturer="Stijn Oostdam">
     <Package Compressed="yes" />
     <Media Id="1" Cabinet="myapplication.cab" EmbedCab="yes" />
     <!-- Add installer icon -->
