@@ -17,15 +17,6 @@
 
             <SolidColorBrush x:Key="NanoleafBlack" Color="#2D2F30"/>
             <SolidColorBrush x:Key="NanoleafGreen" Color="#3FAE29"/>
-
-            <tb:TaskbarIcon x:Key="NotifyIcon" ToolTipText="Winleafs" Visibility="Visible" MenuActivation="LeftOrRightClick">
-                <!-- https://www.codeproject.com/Articles/36468/WPF-NotifyIcon-2 -->
-                <tb:TaskbarIcon.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="Quit" Click="Quit_Click"/>
-                    </ContextMenu>
-                </tb:TaskbarIcon.ContextMenu>
-            </tb:TaskbarIcon>
         </ResourceDictionary>
 
     </Application.Resources>

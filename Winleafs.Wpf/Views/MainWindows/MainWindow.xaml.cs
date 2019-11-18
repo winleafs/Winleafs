@@ -39,22 +39,23 @@ namespace Winleafs.Wpf.Views.MainWindows
             get => _selectedDevice;
             set
             {
-                _selectedDevice = value;
-                SelectedDeviceChanged();
+                if (_selectedDevice != value)
+                {
+                    _selectedDevice = value;
+                    SelectedDeviceChanged();
+                    DevicesDropdown.SelectedItem = _selectedDevice;
+                }
             }
         }
 
         public ObservableCollection<string> DeviceNames { get; set; }
-
+        
         public MainWindow()
         {
             InitializeComponent();
 
             LayoutDisplay.SetWithAndHeight((int)LayoutDisplay.Width, (int)LayoutDisplay.Height);
             LayoutDisplay.DrawLayout();
-
-            //var taskbarIcon = (TaskbarIcon)FindResource("NotifyIcon"); //https://www.codeproject.com/Articles/36468/WPF-NotifyIcon-2
-            //taskbarIcon.DoubleClickCommand = new TaskbarDoubleClickCommand(this);
 
             UpdateDeviceNames();
             SelectedDevice = UserSettings.Settings.ActiveDevice.Name;
@@ -64,6 +65,9 @@ namespace Winleafs.Wpf.Views.MainWindows
             OverrideScheduleUserControl.MainWindow = this;
 
             DataContext = this;
+
+            //NotifyIcon.DoubleClickCommand = new TaskbarDoubleClickCommand(this);
+            //TaskbarIcon.Initialize(this); ///Must appear last since this user control uses components of the main window
         }
 
         public void ReloadEffects()
@@ -90,6 +94,9 @@ namespace Winleafs.Wpf.Views.MainWindows
             LayoutDisplay.DrawLayout();
 
             UpdateCurrentEffectLabelsAndLayout();
+
+            //Also trigger task bar icon device change
+            //TaskbarIcon.SelectedDevice = SelectedDevice;
         }
 
         private void AddSchedule_Click(object sender, RoutedEventArgs e)
@@ -274,6 +281,11 @@ namespace Winleafs.Wpf.Views.MainWindows
         {
             var percentageProfileWindow = new PercentageProfileWindow();
             percentageProfileWindow.Show();
+        }
+
+        public void UpdateContextMenuMostUsedEffects()
+        {
+            //TaskbarIcon.BuildMostUsedEfectList();
         }
 
         #region Open window from other process

@@ -160,6 +160,15 @@ namespace Winleafs.Wpf.Views.MainWindows {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Most used effects.
+        /// </summary>
+        public static string MostUsedEffects {
+            get {
+                return ResourceManager.GetString("MostUsedEffects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nothing.
         /// </summary>
         public static string Nothing {
@@ -210,6 +219,15 @@ namespace Winleafs.Wpf.Views.MainWindows {
         public static string PercentageProfile {
             get {
                 return ResourceManager.GetString("PercentageProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quit.
+        /// </summary>
+        public static string Quit {
+            get {
+                return ResourceManager.GetString("Quit", resourceCulture);
             }
         }
         
@@ -273,6 +291,15 @@ namespace Winleafs.Wpf.Views.MainWindows {
         public static string Stop {
             get {
                 return ResourceManager.GetString("Stop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stop manual control.
+        /// </summary>
+        public static string StopManualControl {
+            get {
+                return ResourceManager.GetString("StopManualControl", resourceCulture);
             }
         }
         

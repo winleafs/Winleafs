@@ -121,11 +121,6 @@ namespace Winleafs.Wpf.Views
             CheckForUpdate();
         }
 
-        private void Quit_Click(object sender, RoutedEventArgs e)
-        {
-            Current.Shutdown();
-        }
-
         private void Application_Exit(object sender, ExitEventArgs e)
         {
             try
