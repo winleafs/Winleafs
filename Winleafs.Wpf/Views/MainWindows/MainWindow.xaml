@@ -6,9 +6,16 @@
         xmlns:mainWindows="clr-namespace:Winleafs.Wpf.Views.MainWindows"
         xmlns:layout="clr-namespace:Winleafs.Wpf.Views.Layout"
         mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Title="{x:Static mainWindows:Resources.Winleafs}" Height="670" Width="810" ResizeMode="CanMinimize"
         Closing="Window_Closing"
-        Loaded="Window_Loaded">
+        Loaded="Window_Loaded"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto">
     <DockPanel Background="{StaticResource NanoleafBlack}">
         <Grid DockPanel.Dock="Left" Margin="0,0,0,0" Width="343">
             <Label Content="{x:Static mainWindows:Resources.Schedules}" HorizontalAlignment="Left" Margin="10,51,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>

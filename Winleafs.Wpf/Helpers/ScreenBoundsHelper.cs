@@ -1,7 +1,6 @@
 ﻿using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
 
 namespace Winleafs.Wpf.Helpers
 {
@@ -21,8 +20,8 @@ namespace Winleafs.Wpf.Helpers
 
             var monitorInfo = new MonitorInfo();
             EnumDisplaySettings(selectedMonitor.DisplayName, -1, ref monitorInfo);
-
-            return new Rectangle(monitorInfo.dmPositionX, monitorInfo.dmPositionY, monitorInfo.dmPelsWidth, monitorInfo.dmPelsHeight);
+            // Fix because screen orientation isn't available
+            return new Rectangle(monitorInfo.dmPositionX, monitorInfo.dmPositionY, monitorInfo.dmPelsHeight, monitorInfo.dmDisplayFlags);
         }
     }
 
@@ -39,7 +38,7 @@ namespace Winleafs.Wpf.Helpers
         public int dmFields;
         public int dmPositionX;
         public int dmPositionY;
-        public ScreenOrientation dmDisplayOrientation;
+        //public object dmDisplayOrientation;
         public int dmDisplayFixedOutput;
         public short dmColor;
         public short dmDuplex;
