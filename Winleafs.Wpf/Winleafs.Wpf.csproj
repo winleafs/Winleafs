@@ -24,30 +24,27 @@
       <EmbeddedResource Remove="Views\Setup\Resources.nl.resx" />
     </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Icons\appbar.add.png">
+    <Resource Include="Icons\appbar.add.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Icons\appbar.delete.png">
+    </Resource>
+    <Resource Include="Icons\appbar.delete.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Icons\appbar.edit.png">
+    </Resource>
+    <Resource Include="Icons\appbar.edit.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Icons\appbar.information.png">
+    </Resource>
+    <Resource Include="Icons\appbar.information.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Icons\appbar.page.copy.png">
+    </Resource>
+    <Resource Include="Icons\appbar.page.copy.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Icons\appbar.refresh.png">
+    </Resource>
+    <Resource Include="Icons\appbar.refresh.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <Resource Include="Icons\icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Icons\icon.ico">
+    </Resource>
+    <Resource Include="Icons\icon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
       <None Include="Views\AppResources.nl.resx" />
