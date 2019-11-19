@@ -15,16 +15,6 @@
     <ProjectReference Include="..\Winleafs.Models\Winleafs.Models.csproj" />
   </ItemGroup>
   <ItemGroup>
-      <EmbeddedResource Remove="Views\AppResources.nl.resx" />
-      <EmbeddedResource Remove="Views\EnumResources.nl.resx" />
-      <EmbeddedResource Remove="Views\Layout\Resources.nl.resx" />
-      <EmbeddedResource Remove="Views\MainWindows\Resources.nl.resx" />
-      <EmbeddedResource Remove="Views\Options\Resources.nl.resx" />
-      <EmbeddedResource Remove="Views\Popup\PopupResource.nl.resx" />
-      <EmbeddedResource Remove="Views\Scheduling\Resources.nl.resx" />
-      <EmbeddedResource Remove="Views\Setup\Resources.nl.resx" />
-    </ItemGroup>
-  <ItemGroup>
     <Resource Include="Icons\appbar.add.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -47,18 +37,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
-  <ItemGroup>
-      <None Include="Views\AppResources.nl.resx" />
-    </ItemGroup>
-    <ItemGroup>
-      <None Include="Views\EnumResources.nl.resx" />
-      <None Include="Views\Layout\Resources.nl.resx" />
-      <None Include="Views\MainWindows\Resources.nl.resx" />
-      <None Include="Views\Options\Resources.nl.resx" />
-      <None Include="Views\Popup\PopupResource.nl.resx" />
-      <None Include="Views\Scheduling\Resources.nl.resx" />
-      <None Include="Views\Setup\Resources.nl.resx" />
-    </ItemGroup>
     <ItemGroup>
       <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.0.8" />
       <PackageReference Include="Extended.Wpf.Toolkit">
@@ -99,5 +77,10 @@
       <PackageReference Include="WindowsDisplayAPI">
         <Version>1.2.0.2</Version>
       </PackageReference>
+    </ItemGroup>
+    <ItemGroup>
+      <EmbeddedResource Update="Views\AppResources.nl.resx">
+        <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      </EmbeddedResource>
     </ItemGroup>
 </Project>
