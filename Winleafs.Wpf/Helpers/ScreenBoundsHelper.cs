@@ -21,7 +21,6 @@ namespace Winleafs.Wpf.Helpers
 
             var monitorInfo = new MonitorInfo();
             EnumDisplaySettings(selectedMonitor.DisplayName, -1, ref monitorInfo);
-
             return new Rectangle(monitorInfo.dmPositionX, monitorInfo.dmPositionY, monitorInfo.dmPelsWidth, monitorInfo.dmPelsHeight);
         }
     }

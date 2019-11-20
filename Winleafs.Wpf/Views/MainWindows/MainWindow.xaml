@@ -7,9 +7,16 @@
         xmlns:mainWindows="clr-namespace:Winleafs.Wpf.Views.MainWindows"
         xmlns:layout="clr-namespace:Winleafs.Wpf.Views.Layout"
         mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Title="{x:Static mainWindows:Resources.Winleafs}" Height="670" Width="820" ResizeMode="CanMinimize"
         Closing="Window_Closing"
-        Loaded="Window_Loaded">
+        Loaded="Window_Loaded"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto">
     <DockPanel Background="{StaticResource NanoleafBlack}">
         <Grid DockPanel.Dock="Left" Margin="0,0,0,0" Width="360">
             <Label Content="{x:Static mainWindows:Resources.Schedules}" HorizontalAlignment="Left" Margin="10,51,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
@@ -40,8 +47,8 @@
             </TextBlock>
         </Grid>
         <Grid Width="0" Height="0" Margin="0,0,0,0" DockPanel.Dock="Bottom">
-            <tb:TaskbarIcon x:Name="NotifyIcon" IconSource="/Icons/icon.ico" ToolTipText="Winleafs" Visibility="Visible" PopupActivation="LeftOrRightClick">
-                <!-- https://www.codeproject.com/Articles/36468/WPF-NotifyIcon-2 -->
+            <tb:TaskbarIcon x:Name="NotifyIcon" IconSource="../../Icons/icon.ico" ToolTipText="Winleafs" Visibility="Visible" PopupActivation="LeftOrRightClick">
+                 <!--https://www.codeproject.com/Articles/36468/WPF-NotifyIcon-2--> 
                 <tb:TaskbarIcon.TrayPopup>
                     <mainWindows:TaskbarIcon x:Name="TaskbarIcon" Width="200" Height="300"/>
                 </tb:TaskbarIcon.TrayPopup>

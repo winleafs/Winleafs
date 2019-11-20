@@ -92,6 +92,11 @@ namespace Winleafs.Wpf.Views.MainWindows
         {
             MostUsedEffectList.Children.Clear();
 
+            if (UserSettings.Settings?.ActiveDevice?.EffectCounter == null)
+            {
+                return;
+            }
+
             var mostUsedEffects = UserSettings.Settings.ActiveDevice.EffectCounter.Take(_amountOfEffects).ToList();
 
             foreach (var mostUsedEffect in mostUsedEffects)

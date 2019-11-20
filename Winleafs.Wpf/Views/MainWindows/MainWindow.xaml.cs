@@ -67,7 +67,9 @@ namespace Winleafs.Wpf.Views.MainWindows
             DataContext = this;
 
             NotifyIcon.DoubleClickCommand = new TaskbarDoubleClickCommand(this);
-            TaskbarIcon.Initialize(this); ///Must appear last since this user control uses components of the main window
+
+            //Must appear last since this user control uses components of the main window
+            TaskbarIcon.Initialize(this);
         }
 
         public void ReloadEffects()

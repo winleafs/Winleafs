@@ -7,7 +7,17 @@
              SessionEnding="Application_SessionEnding"
              DispatcherUnhandledException="Application_DispatcherUnhandledException">
     <Application.Resources>
-        <SolidColorBrush x:Key="NanoleafBlack" Color="#2D2F30"/>
-        <SolidColorBrush x:Key="NanoleafGreen" Color="#3FAE29"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <SolidColorBrush x:Key="NanoleafBlack" Color="#2D2F30"/>
+            <SolidColorBrush x:Key="NanoleafGreen" Color="#3FAE29"/>
+        </ResourceDictionary>
+
     </Application.Resources>
 </Application>

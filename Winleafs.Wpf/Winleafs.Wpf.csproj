@@ -1,489 +1,86 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2BF6B8F3-55BD-4090-9945-1EC5D8D817CF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Winleafs.Wpf</RootNamespace>
-    <AssemblyName>Winleafs</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <WarningLevel>4</WarningLevel>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Deterministic>true</Deterministic>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup>
     <ApplicationIcon>Icons\icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Hardcodet.Wpf.TaskbarNotification, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Hardcodet.NotifyIcon.Wpf.1.0.8\lib\net451\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
-    </Reference>
-    <Reference Include="JsonMigrator, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\JsonMigrator.1.0.1\lib\netstandard2.0\JsonMigrator.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>packages\NLog.4.6.7\lib\net45\NLog.dll</HintPath>
-    </Reference>
-    <Reference Include="Octokit, Version=0.32.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Octokit.0.32.0\lib\net45\Octokit.dll</HintPath>
-    </Reference>
-    <Reference Include="Polly, Version=6.0.0.0, Culture=neutral, PublicKeyToken=c8a3ffc3f8f825cc, processorArchitecture=MSIL">
-      <HintPath>packages\Polly.6.1.2\lib\netstandard2.0\Polly.dll</HintPath>
-    </Reference>
-    <Reference Include="RestSharp, Version=106.6.7.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
-      <HintPath>packages\RestSharp.106.6.7\lib\net452\RestSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.IO.Compression, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Transactions" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xaml">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="Tmds.MDns, Version=0.7.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Tmds.MDns.0.7.0\lib\net45\Tmds.MDns.dll</HintPath>
-    </Reference>
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="Xceed.Wpf.AvalonDock, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>packages\Extended.Wpf.Toolkit.3.5.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
-    </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>packages\Extended.Wpf.Toolkit.3.5.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
-    </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>packages\Extended.Wpf.Toolkit.3.5.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
-    </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>packages\Extended.Wpf.Toolkit.3.5.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
-    </Reference>
-    <Reference Include="Xceed.Wpf.Toolkit, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>packages\Extended.Wpf.Toolkit.3.5.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
-    </Reference>
-    <Reference Include="WindowsDisplayAPI, Version=1.2.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\WindowsDisplayAPI.1.2.0.2\lib\net45\WindowsDisplayAPI.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\Winleafs.Api\Winleafs.Api.csproj" />
+    <ProjectReference Include="..\Winleafs.External\Winleafs.External.csproj" />
+    <ProjectReference Include="..\Winleafs.Models\Winleafs.Models.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="Views\App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="Api\Effects\CustomColorEffect.cs" />
-    <Compile Include="Api\Effects\ScreenMirrorEffect.cs" />
-    <Compile Include="Api\Effects\CustomEffectsCollection.cs" />
-    <Compile Include="Api\Effects\ICustomEffect.cs" />
-    <Compile Include="Api\Effects\ScreenMirrorEffects\Ambilght.cs" />
-    <Compile Include="Api\Effects\ScreenMirrorEffects\IScreenMirrorEffect.cs" />
-    <Compile Include="Api\Effects\ScreenMirrorEffects\ScreenMirror.cs" />
-    <Compile Include="Api\Effects\TurnOffEffect.cs" />
-    <Compile Include="Api\Events\Borderlands2HealthEventTrigger.cs" />
-    <Compile Include="Api\Events\EventTriggersCollection.cs" />
-    <Compile Include="Api\Events\IEventTrigger.cs" />
-    <Compile Include="Api\Events\BaseProcessPercentageEventTrigger.cs" />
-    <Compile Include="Api\Events\ProcessEventTrigger.cs" />
-    <Compile Include="Api\Layouts\ScaleType.cs" />
-    <Compile Include="Api\Orchestrator.cs" />
-    <Compile Include="Api\OrchestratorCollection.cs" />
-    <Compile Include="Api\ScheduleTimer.cs" />
-    <Compile Include="Helpers\ContextMenuLeftClickBehavior.cs" />
-    <Compile Include="Helpers\EnumLocalizer.cs" />
-    <Compile Include="Helpers\HsbToRgbConverter.cs" />
-    <Compile Include="Helpers\MemoryReader.cs" />
-    <Compile Include="Helpers\ScreenBoundsHelper.cs" />
-    <Compile Include="Helpers\ScreenGrabber.cs" />
-    <Compile Include="Api\Layouts\DrawablePanel.cs" />
-    <Compile Include="Helpers\ScreenParameters.cs" />
-    <Compile Include="ViewModels\OptionsViewModel.cs" />
-    <Compile Include="Api\Layouts\PanelLayout.cs" />
-    <Compile Include="Views\AppResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AppResources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\EnumResources.nl.Designer.cs">
-      <DependentUpon>EnumResources.nl.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\EnumResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EnumResources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Layout\PercentageProfileWindow.xaml.cs">
-      <DependentUpon>PercentageProfileWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Layout\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Layout\StepItemUserControl.xaml.cs">
-      <DependentUpon>StepItemUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\MainWindows\CurrentEffectUserControl.xaml.cs">
-      <DependentUpon>CurrentEffectUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Layout\LayoutDisplayUserControl.xaml.cs">
-      <DependentUpon>LayoutDisplayUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\MainWindows\MostUsedEffectUserControl.xaml.cs">
-      <DependentUpon>MostUsedEffectUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\MainWindows\OverrideScheduleUserControl.xaml.cs">
-      <DependentUpon>OverrideScheduleUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\MainWindows\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\MainWindows\ScheduleItemUserControl.xaml.cs">
-      <DependentUpon>ScheduleItemUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\MainWindows\TaskbarIcon.xaml.cs">
-      <DependentUpon>TaskbarIcon.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Options\OptionsWindow.xaml.cs">
-      <DependentUpon>OptionsWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Options\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Options\ColorUserControl.xaml.cs">
-      <DependentUpon>ColorUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Options\ScreenMirrorVisualizationWindow.xaml.cs">
-      <DependentUpon>ScreenMirrorVisualizationWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Popup\NewVersionPopup.xaml.cs">
-      <DependentUpon>NewVersionPopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Popup\Popup.xaml.cs">
-      <DependentUpon>Popup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Popup\PopupCreator.cs" />
-    <Compile Include="Views\Popup\PopupResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PopupResource.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Scheduling\AddProcessEventWindow.xaml.cs">
-      <DependentUpon>AddProcessEventWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Scheduling\AddTimeTriggerWindow.xaml.cs">
-      <DependentUpon>AddTimeTriggerWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Scheduling\EventUserControl.xaml.cs">
-      <DependentUpon>EventUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Scheduling\DayUserControl.xaml.cs">
-      <DependentUpon>DayUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Scheduling\ManageScheduleWindow.xaml.cs">
-      <DependentUpon>ManageScheduleWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Scheduling\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Scheduling\EventTriggerUserControl.xaml.cs">
-      <DependentUpon>EventTriggerUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Scheduling\TimeTriggerUserControl.xaml.cs">
-      <DependentUpon>TimeTriggerUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Setup\AuthorizeDeviceControl.xaml.cs">
-      <DependentUpon>AuthorizeDeviceControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Setup\DiscoverDeviceControl.xaml.cs">
-      <DependentUpon>DiscoverDeviceControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Setup\NameDeviceControl.xaml.cs">
-      <DependentUpon>NameDeviceControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Setup\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Setup\SetupWindow.xaml.cs">
-      <DependentUpon>SetupWindow.xaml</DependentUpon>
-    </Compile>
-    <Page Include="Views\Layout\PercentageProfileWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Layout\StepItemUserControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\MainWindows\CurrentEffectUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Layout\LayoutDisplayUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\MainWindows\MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="ViewModels\SetupViewModel.cs" />
-    <Compile Include="Views\App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Views\MainWindows\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="Views\MainWindows\MostUsedEffectUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\MainWindows\OverrideScheduleUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\MainWindows\ScheduleItemUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\MainWindows\TaskbarIcon.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Options\OptionsWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Options\ColorUserControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Options\ScreenMirrorVisualizationWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Popup\NewVersionPopup.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Popup\Popup.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Scheduling\AddProcessEventWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Scheduling\AddTimeTriggerWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Scheduling\EventUserControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Scheduling\DayUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Scheduling\ManageScheduleWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Scheduling\EventTriggerUserControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Scheduling\TimeTriggerUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Setup\AuthorizeDeviceControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Setup\DiscoverDeviceControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Setup\NameDeviceControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Setup\SetupWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Resource Include="Icons\appbar.add.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\appbar.delete.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\appbar.edit.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\appbar.information.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\appbar.page.copy.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\appbar.refresh.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <Resource Include="Icons\appbar.page.copy.png" />
-    <Resource Include="Icons\appbar.information.png" />
-    <Content Include="NLog.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <EmbeddedResource Include="Views\AppResources.nl.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\AppResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\EnumResources.nl.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>EnumResources.nl.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\EnumResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>EnumResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Layout\Resources.nl.resx" />
-    <EmbeddedResource Include="Views\Layout\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\MainWindows\Resources.nl.resx" />
-    <EmbeddedResource Include="Views\MainWindows\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Options\Resources.nl.resx" />
-    <EmbeddedResource Include="Views\Options\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Popup\PopupResource.nl.resx" />
-    <EmbeddedResource Include="Views\Scheduling\Resources.nl.resx" />
-    <EmbeddedResource Include="Views\Popup\PopupResource.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>PopupResource.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Scheduling\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Setup\Resources.nl.resx" />
-    <EmbeddedResource Include="Views\Setup\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <None Include="NLog.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="BrandAssets\Affiliate Assets\affiliate-button_green.svg" />
-    <Content Include="BrandAssets\Affiliate Assets\affiliate-button_grey.svg" />
-    <Content Include="BrandAssets\Brand Assets\Works-with-nanoleaf-badge_colour.svg" />
-    <Content Include="BrandAssets\Brand Assets\Works-with-nanoleaf-badge_mono-GREY.svg" />
-    <Content Include="BrandAssets\Brand Assets\Works-with-nanoleaf-badge_mono-WHITE.svg" />
-    <Content Include="BrandAssets\Brand Assets\Works-with-nanoleaf-icon_COLOUR.svg" />
-    <Content Include="BrandAssets\Brand Assets\Works-with-nanoleaf-icon_mono-GREY.svg" />
-    <Content Include="BrandAssets\Brand Assets\Works-with-nanoleaf-icon_mono-WHITE.svg" />
-    <Content Include="BrandAssets\Device Management Icons\Aurora-dev-mgmt_green.svg" />
-    <Content Include="BrandAssets\Device Management Icons\Aurora-dev-mgmt_grey.svg" />
-    <Content Include="BrandAssets\Device Management Icons\Aurora-dev-mgmt_white.svg" />
-    <Content Include="BrandAssets\Device Management Icons\Smart-hub-dev-mgmt_green.svg" />
-    <Content Include="BrandAssets\Device Management Icons\Smart-hub-dev-mgmt_grey.svg" />
-    <Content Include="BrandAssets\Device Management Icons\Smart-hub-dev-mgmt_white.svg" />
-    <Content Include="BrandAssets\Device Management Icons\Smart-ivy-dev-mgmt_green.svg" />
-    <Content Include="BrandAssets\Device Management Icons\Smart-ivy-dev-mgmt_grey.svg" />
-    <Content Include="BrandAssets\Device Management Icons\Smart-ivy-dev-mgmt_white.svg" />
-    <Resource Include="Icons\icon.ico" />
-    <Resource Include="Icons\appbar.add.png" />
-    <Resource Include="Icons\appbar.delete.png" />
-    <Resource Include="Icons\appbar.edit.png" />
-    <Resource Include="Icons\appbar.refresh.png" />
-    <Resource Include="Icons\Instructions.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Winleafs.Api\Winleafs.Api.csproj">
-      <Project>{FDDFE2AD-81E1-432C-8173-7A8C89BF20F0}</Project>
-      <Name>Winleafs.Api</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Winleafs.Models\Winleafs.Models.csproj">
-      <Project>{D47A3540-3E21-4F5B-8B57-A9F9EA31426E}</Project>
-      <Name>Winleafs.Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Winleafs.External\Winleafs.External.csproj">
-      <Project>{d027cd07-dcd3-44f3-be2d-bb1793b499eb}</Project>
-      <Name>Winleafs.External</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+    <ItemGroup>
+      <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.0.8" />
+      <PackageReference Include="Extended.Wpf.Toolkit">
+        <Version>3.5.0</Version>
+      </PackageReference>
+      <PackageReference Include="Hardcodet.NotifyIcon.Wpf">
+        <Version>1.0.8</Version>
+      </PackageReference>
+      <PackageReference Include="JsonMigrator">
+        <Version>1.0.1</Version>
+      </PackageReference>
+      <PackageReference Include="MaterialDesignThemes" Version="3.0.0-ci680" />
+      <PackageReference Include="Newtonsoft.Json">
+        <Version>12.0.1</Version>
+      </PackageReference>
+      <PackageReference Include="NLog">
+        <Version>4.6.8</Version>
+      </PackageReference>
+      <PackageReference Include="NLog.Config">
+        <Version>4.6.8</Version>
+      </PackageReference>
+      <PackageReference Include="NLog.Schema">
+        <Version>4.6.8</Version>
+      </PackageReference>
+      <PackageReference Include="Octokit">
+        <Version>0.32.0</Version>
+      </PackageReference>
+      <PackageReference Include="Polly">
+        <Version>6.1.2</Version>
+      </PackageReference>
+      <PackageReference Include="RestSharp">
+        <Version>106.6.7</Version>
+      </PackageReference>
+      <PackageReference Include="System.Drawing.Common" Version="4.6.0" />
+      <PackageReference Include="Tmds.MDns">
+        <Version>0.7.0</Version>
+      </PackageReference>
+      <PackageReference Include="WindowsDisplayAPI">
+        <Version>1.2.0.2</Version>
+      </PackageReference>
+    </ItemGroup>
+    <ItemGroup>
+      <EmbeddedResource Update="Views\AppResources.nl.resx">
+        <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      </EmbeddedResource>
+    </ItemGroup>
 </Project>

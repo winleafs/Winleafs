@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.168
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29326.143
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Winleafs.Wpf", "Winleafs.Wpf.csproj", "{2BF6B8F3-55BD-4090-9945-1EC5D8D817CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Winleafs.Wpf", "Winleafs.Wpf.csproj", "{2BF6B8F3-55BD-4090-9945-1EC5D8D817CF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Winleafs.Api", "..\Winleafs.Api\Winleafs.Api.csproj", "{FDDFE2AD-81E1-432C-8173-7A8C89BF20F0}"
 EndProject

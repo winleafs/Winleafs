@@ -14,6 +14,8 @@ using Winleafs.Wpf.Api;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Windows.Media;
+using MaterialDesignThemes.Wpf;
 using Winleafs.External;
 using Winleafs.Models.Exceptions;
 
@@ -38,6 +40,14 @@ namespace Winleafs.Wpf.Views
 
         private static bool PerformRegularShutdownOprations = true;
 
+        [STAThread]
+        public static void Main()
+        {
+            var application = new App();
+            application.InitializeComponent();
+            application.Run();
+        }
+
         void App_Startup(object sender, StartupEventArgs e)
         {
             var process = Process.GetCurrentProcess();
@@ -60,6 +70,11 @@ namespace Winleafs.Wpf.Views
             }
             else
             {
+                var primaryColor = (Color)ColorConverter.ConvertFromString("#3FAE29");
+                var secondaryColor = (Color)ColorConverter.ConvertFromString("#2D2F30");
+                var baseTheme = Theme.Dark;
+                var theme = Theme.Create(baseTheme, primaryColor, secondaryColor);
+                Application.Current.Resources.SetTheme(theme);
                 NormalStartup(e);
             }
 
