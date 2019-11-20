@@ -14,9 +14,9 @@ namespace Winleafs.Wpf.Views.MainWindows
     using Winleafs.Wpf.Views.Popup;
 
     /// <summary>
-    /// Interaction logic for OverrideScheduleUserControl.xaml
+    /// Interaction logic for DeviceUserControl.xaml
     /// </summary>
-    public partial class OverrideScheduleUserControl : UserControl, INotifyPropertyChanged
+    public partial class DeviceUserControl : UserControl, INotifyPropertyChanged
     {
         private static Logger _logger = LogManager.GetCurrentClassLogger();
 
@@ -40,7 +40,7 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         public MainWindow MainWindow { get; set; }
 
-        public OverrideScheduleUserControl()
+        public DeviceUserControl()
         {
             InitializeComponent();
 

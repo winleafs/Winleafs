@@ -62,7 +62,7 @@ namespace Winleafs.Wpf.Views.MainWindows
 
             BuildScheduleList();
 
-            OverrideScheduleUserControl.MainWindow = this;
+            //OverrideScheduleUserControl.MainWindow = this;
 
             DataContext = this;
 
@@ -74,7 +74,7 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         public void ReloadEffects()
         {
-            OverrideScheduleUserControl.LoadEffects();
+            //OverrideScheduleUserControl.LoadEffects();
         }
 
         public void UpdateDeviceNames()
@@ -275,7 +275,7 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         public void UpdateCurrentEffectLabelsAndLayout()
         {
-            CurrentEffectUserControl.UpdateLabels();
+            //CurrentEffectUserControl.UpdateLabels();
             LayoutDisplay.UpdateColors();
         }
 
