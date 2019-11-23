@@ -10,7 +10,8 @@ namespace Winleafs.Wpf.Helpers
 {
     public static class ToastHelper
     {
-        public static void ShowNotification(string body, ToastLogLevel customLogLevel)
+        public static void ShowNotification(string body, ToastLogLevel customLogLevel,
+            Corner corner = Corner.BottomRight, double secondsViewable = 3)
         {
             // App either hasn't started or doesn't have a main window
             if (Application.Current?.MainWindow == null)
@@ -23,12 +24,12 @@ namespace Winleafs.Wpf.Helpers
             {
                 configuration.PositionProvider = new WindowPositionProvider(
                     parentWindow: Application.Current.MainWindow,
-                    corner: Corner.BottomRight,
+                    corner: corner,
                     offsetX: 10,
                     offsetY: 10);
 
                 configuration.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
-                    notificationLifetime: TimeSpan.FromSeconds(3),
+                    notificationLifetime: TimeSpan.FromSeconds(secondsViewable),
                     maximumNotificationCount: MaximumNotificationCount.FromCount(1));
 
                 configuration.Dispatcher = Application.Current.Dispatcher;
