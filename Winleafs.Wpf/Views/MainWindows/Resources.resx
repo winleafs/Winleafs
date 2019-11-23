@@ -150,6 +150,9 @@
   <data name="Donate" xml:space="preserve">
     <value>Donate</value>
   </data>
+  <data name="GitHub" xml:space="preserve">
+    <value>GitHub</value>
+  </data>
   <data name="MostUsedEffects" xml:space="preserve">
     <value>Most used effects</value>
   </data>

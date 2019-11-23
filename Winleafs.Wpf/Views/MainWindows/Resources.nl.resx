@@ -202,4 +202,7 @@ Hover over deze knop.</value>
   <data name="StopManualControl" xml:space="preserve">
     <value>Stop handmatige bediening</value>
   </data>
+  <data name="GitHub" xml:space="preserve">
+    <value>GitHub</value>
+  </data>
 </root>
