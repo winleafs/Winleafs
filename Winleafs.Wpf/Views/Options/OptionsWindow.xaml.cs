@@ -194,7 +194,8 @@ namespace Winleafs.Wpf.Views.Options
             {
                 if (OptionsViewModel.StartAtWindowsStartUp)
                 {
-                    _startupKey.SetValue(UserSettings.APPLICATIONNAME, $"{System.Reflection.Assembly.GetExecutingAssembly().Location} -s");
+                    //Replace .dll with .exe since in .net core 3 the current executing assembly is the dll
+                    _startupKey.SetValue(UserSettings.APPLICATIONNAME, $"{System.Reflection.Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe")} -s");
                 }
                 else
                 {
