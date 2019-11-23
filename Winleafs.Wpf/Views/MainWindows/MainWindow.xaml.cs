@@ -43,7 +43,7 @@ namespace Winleafs.Wpf.Views.MainWindows
                 {
                     _selectedDevice = value;
                     SelectedDeviceChanged();
-                    DevicesDropdown.SelectedItem = _selectedDevice;
+                    //DevicesDropdown.SelectedItem = _selectedDevice;
                 }
             }
         }
@@ -132,11 +132,11 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         private void BuildScheduleList()
         {
-            ScheduleList.Children.Clear();
+            //ScheduleList.Children.Clear();
 
             foreach (var schedule in UserSettings.Settings.ActiveDevice.Schedules)
             {
-                ScheduleList.Children.Add(new ScheduleItemUserControl(this, schedule));
+                //ScheduleList.Children.Add(new ScheduleItemUserControl(this, schedule));
             }
         }
 
@@ -259,7 +259,7 @@ namespace Winleafs.Wpf.Views.MainWindows
                     DeviceNames.Remove(_selectedDevice);
                     SelectedDevice = DeviceNames.FirstOrDefault();
 
-                    DevicesDropdown.SelectedItem = SelectedDevice;
+                    //DevicesDropdown.SelectedItem = SelectedDevice;
 
                     UpdateCurrentEffectLabelsAndLayout();
                 }
