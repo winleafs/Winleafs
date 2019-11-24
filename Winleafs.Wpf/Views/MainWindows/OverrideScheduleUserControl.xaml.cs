@@ -7,6 +7,8 @@ using System.Windows.Controls;
 using Winleafs.Models.Enums;
 using Winleafs.Models.Models;
 using Winleafs.Wpf.Api;
+using Winleafs.Wpf.Enums;
+using Winleafs.Wpf.Helpers;
 
 namespace Winleafs.Wpf.Views.MainWindows
 {
@@ -113,7 +115,7 @@ namespace Winleafs.Wpf.Views.MainWindows
             catch (Exception e)
             {
                 _logger.Error(e, "Error during overriding schedule");
-                PopupCreator.Error(MainWindows.Resources.OverrideError);
+                ToastHelper.ShowNotification(MainWindows.Resources.OverrideError, ToastLogLevel.Information);
             }
         }
 

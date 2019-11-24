@@ -18,7 +18,8 @@ using System.Windows.Media;
 using MaterialDesignThemes.Wpf;
 using Winleafs.External;
 using Winleafs.Models.Exceptions;
-
+using Winleafs.Wpf.Enums;
+using Winleafs.Wpf.Helpers;
 using Application = System.Windows.Application;
 
 namespace Winleafs.Wpf.Views
