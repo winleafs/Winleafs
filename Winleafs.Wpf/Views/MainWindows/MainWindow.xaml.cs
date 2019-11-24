@@ -297,8 +297,6 @@ namespace Winleafs.Wpf.Views.MainWindows
         {
             var hwndSource = HwndSource.FromHwnd(new WindowInteropHelper(this).Handle);
             hwndSource.AddHook(new HwndSourceHook(WndProc));
-
-            ToastHelper.ShowNotification(string.Format(MainWindows.Resources.UsingWinleafsVersion, UserSettings.APPLICATIONVERSION), ToastLogLevel.Information);
         }
 
         private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)

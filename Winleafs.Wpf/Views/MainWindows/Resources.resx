@@ -202,9 +202,6 @@
     <value>Encountering issues?
 Hover over me!</value>
   </data>
-  <data name="UsingWinleafsVersion" xml:space="preserve">
-    <value>Using Winleafs version {0}</value>
-  </data>
   <data name="Winleafs" xml:space="preserve">
     <value>Winleafs</value>
   </data>

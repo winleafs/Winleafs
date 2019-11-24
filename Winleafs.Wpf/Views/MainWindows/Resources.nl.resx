@@ -202,7 +202,4 @@ Hover over deze knop.</value>
   <data name="StopManualControl" xml:space="preserve">
     <value>Stop handmatige bediening</value>
   </data>
-  <data name="UsingWinleafsVersion" xml:space="preserve">
-    <value>U gebruikt Winleafs versie {0}</value>
-  </data>
 </root>
