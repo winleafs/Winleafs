@@ -166,11 +166,8 @@ Hover over deze knop.</value>
   <data name="DeleteDeviceAreYouSure" xml:space="preserve">
     <value>Weet je het zeker? Als je {0} verwijdert zullen ook de schemas verwijderd worden</value>
   </data>
-  <data name="CurrentBrightness" xml:space="preserve">
-    <value>Huidige helderheid</value>
-  </data>
-  <data name="CurrentEffect" xml:space="preserve">
-    <value>Huidig effect</value>
+  <data name="ActiveEffect" xml:space="preserve">
+    <value>Actief effect</value>
   </data>
   <data name="DeleteConfirmation" xml:space="preserve">
     <value>Verwijderen bevestigen</value>
@@ -199,10 +196,13 @@ Hover over deze knop.</value>
   <data name="MostUsedEffects" xml:space="preserve">
     <value>Meest gebruikte effecten</value>
   </data>
-  <data name="StopManualControl" xml:space="preserve">
-    <value>Stop handmatige bediening</value>
+  <data name="StopManual" xml:space="preserve">
+    <value>Stop handmatig</value>
   </data>
   <data name="GitHub" xml:space="preserve">
     <value>GitHub</value>
+  </data>
+  <data name="StopManualControl" xml:space="preserve">
+    <value>Stop handmatige bediening</value>
   </data>
 </root>

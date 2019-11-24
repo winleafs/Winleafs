@@ -60,7 +60,7 @@ namespace Winleafs.Wpf.Views.MainWindows
             UpdateDeviceNames();
             SelectedDevice = UserSettings.Settings.ActiveDevice.Name;
 
-            BuildScheduleList();
+            //BuildScheduleList();
 
             //OverrideScheduleUserControl.MainWindow = this;
 

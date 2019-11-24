@@ -120,6 +120,9 @@
   <data name="ActiveDevice" xml:space="preserve">
     <value>Active device</value>
   </data>
+  <data name="ActiveEffect" xml:space="preserve">
+    <value>Active effect</value>
+  </data>
   <data name="AddDevice" xml:space="preserve">
     <value>Add device</value>
   </data>
@@ -128,12 +131,6 @@
   </data>
   <data name="Brightness" xml:space="preserve">
     <value>Brightness</value>
-  </data>
-  <data name="CurrentBrightness" xml:space="preserve">
-    <value>Current brightness</value>
-  </data>
-  <data name="CurrentEffect" xml:space="preserve">
-    <value>Current effect</value>
   </data>
   <data name="DeleteConfirmation" xml:space="preserve">
     <value>Delete confirmation</value>
@@ -197,6 +194,9 @@
   </data>
   <data name="Stop" xml:space="preserve">
     <value>Stop</value>
+  </data>
+  <data name="StopManual" xml:space="preserve">
+    <value>Stop manual</value>
   </data>
   <data name="StopManualControl" xml:space="preserve">
     <value>Stop manual control</value>

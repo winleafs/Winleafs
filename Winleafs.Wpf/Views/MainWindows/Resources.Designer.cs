@@ -19,7 +19,7 @@ namespace Winleafs.Wpf.Views.MainWindows {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -70,6 +70,15 @@ namespace Winleafs.Wpf.Views.MainWindows {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Active effect.
+        /// </summary>
+        public static string ActiveEffect {
+            get {
+                return ResourceManager.GetString("ActiveEffect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add device.
         /// </summary>
         public static string AddDevice {
@@ -93,24 +102,6 @@ namespace Winleafs.Wpf.Views.MainWindows {
         public static string Brightness {
             get {
                 return ResourceManager.GetString("Brightness", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Current brightness.
-        /// </summary>
-        public static string CurrentBrightness {
-            get {
-                return ResourceManager.GetString("CurrentBrightness", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Current effect.
-        /// </summary>
-        public static string CurrentEffect {
-            get {
-                return ResourceManager.GetString("CurrentEffect", resourceCulture);
             }
         }
         
@@ -156,6 +147,15 @@ namespace Winleafs.Wpf.Views.MainWindows {
         public static string Donate {
             get {
                 return ResourceManager.GetString("Donate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GitHub.
+        /// </summary>
+        public static string GitHub {
+            get {
+                return ResourceManager.GetString("GitHub", resourceCulture);
             }
         }
         
@@ -291,6 +291,15 @@ namespace Winleafs.Wpf.Views.MainWindows {
         public static string Stop {
             get {
                 return ResourceManager.GetString("Stop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stop manual.
+        /// </summary>
+        public static string StopManual {
+            get {
+                return ResourceManager.GetString("StopManual", resourceCulture);
             }
         }
         
