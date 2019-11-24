@@ -11,6 +11,7 @@ using Winleafs.Wpf.Api;
 namespace Winleafs.Wpf.Views.MainWindows
 {
     using System.ComponentModel;
+    using Winleafs.Wpf.Helpers;
     using Winleafs.Wpf.Views.Popup;
 
     /// <summary>
@@ -24,7 +25,17 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         public ObservableCollection<string> Effects { get; set; }
 
-        public string SelectedEffect { get; set; }
+        private string _selectedEffect;
+
+        public string SelectedEffect
+        {
+            get { return _selectedEffect;  }
+            set
+            {
+                _selectedEffect = value;
+                OnPropertyChanged(nameof(SelectedEffect));
+            }
+        }
 
         private int _brightness;
 
@@ -38,27 +49,31 @@ namespace Winleafs.Wpf.Views.MainWindows
             }
         }
 
-        public MainWindow MainWindow { get; set; }
+        private Device _device;
+        private Orchestrator _orchestrator;
 
-        public DeviceUserControl()
+        public DeviceUserControl(Device device)
         {
             InitializeComponent();
+
+            _device = device;
+            _orchestrator = OrchestratorCollection.GetOrchestratorForDevice(_device);
 
             Effects = new ObservableCollection<string>();
             LoadEffects();
             DataContext = this;
 
-            Brightness = 70; //TODO: get the value from the device itself
+            Update();
+
+            DeviceNameLabel.Content = _device.Name;
         }
 
         public void LoadEffects()
         {
-            // Effects collection is not rebuild.
             Effects.Clear();
 
-            var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice);
-            var effects = orchestrator.GetCustomEffectAsEffects();
-            effects.AddRange(UserSettings.Settings.ActiveDevice.Effects);
+            var effects = _orchestrator.GetCustomEffectAsEffects();
+            effects.AddRange(_device.Effects);
 
             foreach (var effect in effects)
             {
@@ -66,68 +81,58 @@ namespace Winleafs.Wpf.Views.MainWindows
             }
         }
 
-        private void Override_Click(object sender, RoutedEventArgs e)
+        private void StopManual_Click(object sender, RoutedEventArgs e)
         {
-            Task.Run(() => Override());
+            Task.Run(() => StopManualAsync());
         }
 
-        private void StopOverride_Click(object sender, RoutedEventArgs e)
+        private void BrightnessSlider_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
         {
-            Task.Run(() => StopOverrideAsync());
+            Task.Run(() => SelectedEffectChanged());
         }
 
-        private async Task StopOverrideAsync()
+        private void EffectsDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (UserSettings.Settings.ActiveDevice.OperationMode == OperationMode.Manual)
+            if (EffectsDropdown.IsDropDownOpen)
             {
-                var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice);
+                //Only tirgger the update if the dropdown is open, i.e. the user uses the dropdown
+                Task.Run(() => SelectedEffectChanged());
+            }            
+        }
 
-                if (await orchestrator.TrySetOperationMode(OperationMode.Schedule, true))
+        private async Task StopManualAsync()
+        {
+            if (_device.OperationMode == OperationMode.Manual)
+            {
+                if (await _orchestrator.TrySetOperationMode(OperationMode.Schedule, true, true))
                 {
-                    MainWindow.UpdateCurrentEffectLabelsAndLayout();
+                    Update();
                 }
             }
         }
 
-        private async Task Override()
+        private async Task SelectedEffectChanged()
         {
             try
             {
-                var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice);
-
-                if (string.IsNullOrEmpty(SelectedEffect))
+                if (await _orchestrator.TrySetOperationMode(OperationMode.Manual, true, true))
                 {
-                    SetSelectedEffect(orchestrator.GetActiveEffectName());
-                } 
+                    //TODO: Device OverrideEffect renamen naar ActiveEffect
+                    _device.OverrideEffect = SelectedEffect;
+                    _device.OverrideBrightness = Brightness;
 
-                if (await orchestrator.TrySetOperationMode(OperationMode.Manual, true))
-                {
-                    orchestrator.Device.OverrideEffect = SelectedEffect;
-                    orchestrator.Device.OverrideBrightness = Brightness;
+                    await _orchestrator.ActivateEffect(SelectedEffect, Brightness);
 
-                    await orchestrator.ActivateEffect(SelectedEffect, Brightness);
+                    //TODO: save settings?
 
-                    MainWindow.UpdateCurrentEffectLabelsAndLayout();
+                    Update();
                 }
             }
             catch (Exception e)
             {
-                _logger.Error(e, "Error during overriding schedule");
-                PopupCreator.Error(MainWindows.Resources.OverrideError);
+                _logger.Error(e, "Error during setting manual control");
+                PopupCreator.Error(MainWindows.Resources.ManualControlError);
             }
-        }
-
-        public void SetOverride(string effectName, int brightness)
-        {
-            SetSelectedEffect(effectName);
-            Brightness = brightness;
-
-            Task.Run(() => Override());
-        }
-
-        public void StopOverride()
-        {
-            Task.Run(() => StopOverrideAsync());
         }
 
         protected virtual void OnPropertyChanged(string propertyName)
@@ -135,10 +140,18 @@ namespace Winleafs.Wpf.Views.MainWindows
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void SetSelectedEffect(string effectName)
-        {
-            SelectedEffect = effectName;
-            OnPropertyChanged(nameof(SelectedEffect));
+        /// <summary>
+        /// Updates all elements to display the current effect and brightness
+        /// </summary>
+        private void Update()
+        { 
+            //Update UI on main thread
+            Dispatcher.Invoke(new Action(() =>
+            {
+                ActiveEffectLabel.Content = $"{_orchestrator.GetActiveEffectName()} ({EnumLocalizer.GetLocalizedEnum(_device.OperationMode)})";
+                SelectedEffect = _orchestrator.GetActiveEffectName();
+                Brightness = _orchestrator.GetActiveBrightness();
+            }));            
         }
     }
 }

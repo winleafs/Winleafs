@@ -160,6 +160,15 @@ namespace Winleafs.Wpf.Views.MainWindows {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An unexpected error occurred during setting of manual control..
+        /// </summary>
+        public static string ManualControlError {
+            get {
+                return ResourceManager.GetString("ManualControlError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Most used effects.
         /// </summary>
         public static string MostUsedEffects {
@@ -192,15 +201,6 @@ namespace Winleafs.Wpf.Views.MainWindows {
         public static string Override {
             get {
                 return ResourceManager.GetString("Override", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An unexpected error occurred during overriding..
-        /// </summary>
-        public static string OverrideError {
-            get {
-                return ResourceManager.GetString("OverrideError", resourceCulture);
             }
         }
         

@@ -55,7 +55,7 @@ namespace Winleafs.Wpf.Api
         /// Only the override is able to stop the override, effects and events may not remove the manual mode
         /// First stops all active effects and events before switching to the new effect or event claiming operation mode
         /// </summary>
-        public async Task<bool> TrySetOperationMode(OperationMode operationMode, bool isFromOverride = false)
+        public async Task<bool> TrySetOperationMode(OperationMode operationMode, bool isFromOverride = false, bool sync = false)
         {
             if (!isFromOverride && Device.OperationMode == OperationMode.Manual)
             {
@@ -70,7 +70,7 @@ namespace Winleafs.Wpf.Api
             //If its a schedule, then the schedule timer can start again. The events and override manage their own effect activation
             if (Device.OperationMode == OperationMode.Schedule)
             {
-                ScheduleTimer.StartTimer();
+                ScheduleTimer.StartTimer(sync);
             }
 
             return true;

@@ -132,8 +132,14 @@
   <data name="Event" xml:space="preserve">
     <value>Event</value>
   </data>
+  <data name="Manual" xml:space="preserve">
+    <value>Handmatig</value>
+  </data>
   <data name="ProcessEvent" xml:space="preserve">
     <value>Procesevent</value>
+  </data>
+  <data name="Schedule" xml:space="preserve">
+    <value>Schema</value>
   </data>
   <data name="ScreenMirrorFit" xml:space="preserve">
     <value>Scherm spiegelen passend</value>

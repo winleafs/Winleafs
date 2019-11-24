@@ -106,11 +106,29 @@ namespace Winleafs.Wpf.Views {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manual.
+        /// </summary>
+        public static string Manual {
+            get {
+                return ResourceManager.GetString("Manual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Process event.
         /// </summary>
         public static string ProcessEvent {
             get {
                 return ResourceManager.GetString("ProcessEvent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Schedule.
+        /// </summary>
+        public static string Schedule {
+            get {
+                return ResourceManager.GetString("Schedule", resourceCulture);
             }
         }
         

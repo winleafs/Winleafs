@@ -118,6 +118,8 @@ namespace Winleafs.Wpf.Views
                 mainWindow.Show();
             }
 
+            mainWindow.Initialize();
+
             CheckForUpdate();
         }
 

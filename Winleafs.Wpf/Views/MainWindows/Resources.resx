@@ -150,6 +150,9 @@
   <data name="GitHub" xml:space="preserve">
     <value>GitHub</value>
   </data>
+  <data name="ManualControlError" xml:space="preserve">
+    <value>An unexpected error occurred during setting of manual control.</value>
+  </data>
   <data name="MostUsedEffects" xml:space="preserve">
     <value>Most used effects</value>
   </data>
@@ -161,9 +164,6 @@
   </data>
   <data name="Override" xml:space="preserve">
     <value>Override</value>
-  </data>
-  <data name="OverrideError" xml:space="preserve">
-    <value>An unexpected error occurred during overriding.</value>
   </data>
   <data name="OverrideSchedule" xml:space="preserve">
     <value>Override schedule</value>

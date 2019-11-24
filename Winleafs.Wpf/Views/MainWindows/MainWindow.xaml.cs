@@ -49,20 +49,17 @@ namespace Winleafs.Wpf.Views.MainWindows
         }
 
         public ObservableCollection<string> DeviceNames { get; set; }
+
+        private List<DeviceUserControl> _deviceUserControls;
         
         public MainWindow()
         {
             InitializeComponent();
 
-            LayoutDisplay.SetWithAndHeight((int)LayoutDisplay.Width, (int)LayoutDisplay.Height);
-            LayoutDisplay.DrawLayout();
-
             UpdateDeviceNames();
             SelectedDevice = UserSettings.Settings.ActiveDevice.Name;
 
             //BuildScheduleList();
-
-            //OverrideScheduleUserControl.MainWindow = this;
 
             DataContext = this;
 
@@ -70,6 +67,27 @@ namespace Winleafs.Wpf.Views.MainWindows
 
             //Must appear last since this user control uses components of the main window
             TaskbarIcon.Initialize(this);
+        }
+
+        /// <summary>
+        /// Initializes devices, after the view has loaded.
+        /// Put all operations here that execute requests to the panels
+        /// </summary>
+        public void Initialize()
+        {
+            //LayoutDisplay.SetWithAndHeight((int)LayoutDisplay.Width, (int)LayoutDisplay.Height);
+            //LayoutDisplay.DrawLayout();
+
+            //Initialize device user controls
+            _deviceUserControls = new List<DeviceUserControl>();
+
+            foreach (var device in UserSettings.Settings.Devices)
+            {
+                var deviceUserControl = new DeviceUserControl(device);
+
+                _deviceUserControls.Add(deviceUserControl);
+                DevicesStackPanel.Children.Add(deviceUserControl);
+            }
         }
 
         public void ReloadEffects()
@@ -91,14 +109,14 @@ namespace Winleafs.Wpf.Views.MainWindows
 
             UserSettings.Settings.SetActiveDevice(_selectedDevice);
 
-            BuildScheduleList();
+            //BuildScheduleList();
 
             LayoutDisplay.DrawLayout();
 
-            UpdateCurrentEffectLabelsAndLayout();
+            //UpdateCurrentEffectLabelsAndLayout();
 
             //Also trigger task bar icon device change
-            TaskbarIcon.SelectedDevice = SelectedDevice;
+            //TaskbarIcon.SelectedDevice = SelectedDevice;
         }
 
         private void AddSchedule_Click(object sender, RoutedEventArgs e)

@@ -31,13 +31,20 @@ namespace Winleafs.Wpf.Api
         /// <summary>
         /// Starts the timer and fires the event to select an effect.
         /// </summary>
-        public void StartTimer()
+        public void StartTimer(bool sync = false)
         {
             _previouslyActivatedEffect = _defaultPreviouslyActivatedEffect; //Reset the previously activated effect
 
             _timer.Start();
 
-            FireTimer();
+            if (sync)
+            {
+                Task.Run(() => SetEffectsForDevices()).Wait();
+            }
+            else
+            {
+                Task.Run(() => SetEffectsForDevices());
+            }
         }
 
         /// <summary>
@@ -46,14 +53,6 @@ namespace Winleafs.Wpf.Api
         public void StopTimer()
         {
             _timer.Stop();
-        }
-
-        /// <summary>
-        /// Fires the timer to set the correct effect for the current time.
-        /// </summary>
-        private void FireTimer()
-        {
-            OnTimedEvent(this, null);
         }
 
         private void OnTimedEvent(object source, ElapsedEventArgs e)

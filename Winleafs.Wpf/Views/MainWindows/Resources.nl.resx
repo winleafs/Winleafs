@@ -154,8 +154,8 @@ Hover over deze knop.</value>
   <data name="Brightness" xml:space="preserve">
     <value>Helderheid</value>
   </data>
-  <data name="OverrideError" xml:space="preserve">
-    <value>Een onverwacht probleem is opgetreden tijdens het overschrijven</value>
+  <data name="ManualControlError" xml:space="preserve">
+    <value>Een onverwacht probleem is opgetreden tijdens het instellen van handmatige bediening.</value>
   </data>
   <data name="ActiveDevice" xml:space="preserve">
     <value>Actief apparaat</value>
