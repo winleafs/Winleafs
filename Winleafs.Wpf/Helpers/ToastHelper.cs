@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
+using NLog;
 using ToastNotifications;
 using ToastNotifications.Lifetime;
 using ToastNotifications.Messages;
@@ -13,9 +15,13 @@ namespace Winleafs.Wpf.Helpers
         public static void ShowNotification(string body, ToastLogLevel customLogLevel,
             Corner corner = Corner.BottomRight, double secondsViewable = 3)
         {
+            var notificationWindow = Application.Current?.Windows?.Cast<Window>()
+                .FirstOrDefault(window => window != null && window.IsActive);
+
             // App either hasn't started or doesn't have a main window
-            if (Application.Current?.MainWindow == null)
+            if (notificationWindow == null)
             {
+                LogManager.GetCurrentClassLogger().Log(LogLevel.Error, $"Failed to log message: \"{body}\"");
                 return;
             }
 
@@ -23,7 +29,7 @@ namespace Winleafs.Wpf.Helpers
             var notifier = new Notifier(configuration =>
             {
                 configuration.PositionProvider = new WindowPositionProvider(
-                    parentWindow: Application.Current.MainWindow,
+                    parentWindow: notificationWindow,
                     corner: corner,
                     offsetX: 10,
                     offsetY: 10);
