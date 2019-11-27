@@ -323,6 +323,15 @@ namespace Winleafs.Wpf.Views.MainWindows {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Using Winleafs version {0}.
+        /// </summary>
+        public static string UsingWinleafsVersion {
+            get {
+                return ResourceManager.GetString("UsingWinleafsVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Winleafs.
         /// </summary>
         public static string Winleafs {

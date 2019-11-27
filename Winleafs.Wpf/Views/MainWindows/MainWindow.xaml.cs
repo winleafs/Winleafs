@@ -13,6 +13,8 @@ using Winleafs.Models.Enums;
 using Winleafs.Models.Models;
 using Winleafs.Models.Models.Scheduling;
 using Winleafs.Wpf.Api;
+using Winleafs.Wpf.Enums;
+using Winleafs.Wpf.Helpers;
 using Winleafs.Wpf.Views.Options;
 using Winleafs.Wpf.Views.Scheduling;
 
