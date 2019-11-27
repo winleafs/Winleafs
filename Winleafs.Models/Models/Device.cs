@@ -56,7 +56,7 @@ namespace Winleafs.Models.Models
         public Device()
         {
             Schedules = new List<Schedule>();
-
+            EffectCounter = new Dictionary<string, ulong>();
             Effects = new List<Effect>();
             ScreenMirrorRefreshRatePerSecond = 1;
             ScreenMirrorControlBrightness = false;

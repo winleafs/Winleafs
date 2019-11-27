@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -91,6 +92,12 @@ namespace Winleafs.Wpf.Views.MainWindows
         public void BuildMostUsedEfectList()
         {
             MostUsedEffectList.Children.Clear();
+
+            if (UserSettings.Settings.ActiveDevice.EffectCounter == null)
+            {
+                UserSettings.Settings.ActiveDevice.EffectCounter = new Dictionary<string, ulong>();
+                return;
+            }
 
             var mostUsedEffects = UserSettings.Settings.ActiveDevice.EffectCounter.Take(_amountOfEffects).ToList();
 

@@ -217,6 +217,11 @@ namespace Winleafs.Wpf.Api
         /// </summary>
         private void AddEffectNameToEffectCounter(string effectName)
         {
+            if (Device.EffectCounter == null)
+            {
+                Device.EffectCounter = new Dictionary<string, ulong>();
+            }
+
             if (Device.EffectCounter.ContainsKey(effectName))
             {
                 Device.EffectCounter[effectName]++;
