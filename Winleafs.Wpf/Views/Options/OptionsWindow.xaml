@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Winleafs.Wpf.Views.Options"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="{x:Static local:Resources.WinleafsOptions}" Height="450" Width="550" ResizeMode="CanMinimize">
 
@@ -38,23 +39,45 @@
             <TabItem Header="{x:Static local:Resources.General}">
                 <Grid>
                     <CheckBox Content="{x:Static local:Resources.StartAtWindowsStartup}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="{Binding StartAtWindowsStartUp}">
-                        <CheckBox.LayoutTransform>
-                            <ScaleTransform ScaleX="2" ScaleY="2" />
-                        </CheckBox.LayoutTransform>
                     </CheckBox>
-                    <CheckBox Content="{x:Static local:Resources.MinimizeToSystemTray}" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="{Binding MinimizeToSystemTray}">
-                        <CheckBox.LayoutTransform>
-                            <ScaleTransform ScaleX="2" ScaleY="2" />
-                        </CheckBox.LayoutTransform>
+                    <CheckBox
+                        Content="{x:Static local:Resources.MinimizeToSystemTray}"
+                        HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top"
+                        Foreground="White" IsChecked="{Binding MinimizeToSystemTray}">
                     </CheckBox>
-                    <Label Content="{x:Static local:Resources.Latitude}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,91,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
-                    <TextBox x:Name="LatitudeTextBox" HorizontalAlignment="Left" Height="23" Margin="150,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White" Text="{Binding Latitude}"/>
-                    <Label Content="{x:Static local:Resources.Longitude}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,128,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
-                    <TextBox x:Name="LongitudeTextBox" HorizontalAlignment="Left" Height="23" Margin="150,141,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White" Text="{Binding Longitude}"/>
-                    <Button Content="{x:Static local:Resources.SetLocationByIp}" HorizontalAlignment="Left" Margin="400,121,0,0" VerticalAlignment="Top" Width="84" Height="44" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="GeoIp_Click"/>
-                    <ComboBox Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,195,0,0"  SelectedItem="{Binding SelectedLanguage}" ItemsSource="{Binding Languages}"/>
-                    <Label Content="{x:Static local:Resources.Language}" ContentStringFormat="{}{0}:" Margin="10,190,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
-                    <Label Content="{x:Static local:Resources.LanguageRestartNote}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,225,0,0" FontSize="15" Foreground="White"/>
+                    <TextBox
+                        Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                        materialDesign:HintAssist.Hint="{x:Static local:Resources.Latitude}"
+                        materialDesign:HintAssist.Foreground="White"
+                        materialDesign:HintAssist.IsFloating="True"
+                        x:Name="LatitudeTextBox" HorizontalAlignment="Left" Height="40"
+                        Margin="10,91,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230"
+                        BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White" Text="{Binding Latitude}"/>
+                    <TextBox
+                        Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                        materialDesign:HintAssist.Hint="{x:Static local:Resources.Longitude}"
+                        materialDesign:HintAssist.Foreground="White"
+                        materialDesign:HintAssist.IsFloating="True"
+                        x:Name="LongitudeTextBox" HorizontalAlignment="Left" Height="40"
+                        Margin="10,143,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230"
+                        Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White"
+                        CaretBrush="White" Text="{Binding Longitude}"/>
+
+                    <Button Content="{x:Static local:Resources.SetLocationByIp}" HorizontalAlignment="Left"
+                            Margin="400,121,0,0" VerticalAlignment="Top" Width="84" Height="44"
+                            Background="{StaticResource NanoleafGreen}" Foreground="White"
+                            BorderBrush="{x:Null}" Click="GeoIp_Click"/>
+
+                    <ComboBox
+                        Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
+                        materialDesign:HintAssist.Hint="{x:Static local:Resources.Language}"
+                        materialDesign:HintAssist.Foreground="White"
+                        materialDesign:HintAssist.IsFloating="True"
+                        Height="40" Width="230" HorizontalAlignment="Left" VerticalAlignment="Top"
+                        Margin="10,201,0,0"  SelectedItem="{Binding SelectedLanguage}"
+                        ItemsSource="{Binding Languages}" Foreground="White"/>
+                    <Label Content="{x:Static local:Resources.LanguageRestartNote}" HorizontalAlignment="Left"
+                           VerticalAlignment="Top" Margin="10,253,0,0" FontSize="15" Foreground="White"/>
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static local:Resources.ScreenMirror}">
