@@ -90,6 +90,9 @@ namespace Winleafs.Wpf.Views.MainWindows
                 _deviceUserControls.Add(deviceUserControl);
                 DevicesStackPanel.Children.Add(deviceUserControl);
             }
+
+            LayoutDisplay.InitializeResizeTimer();
+            LayoutDisplay.DrawLayout();
         }
 
         public void ReloadEffects()

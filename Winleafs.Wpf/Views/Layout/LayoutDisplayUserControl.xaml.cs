@@ -29,9 +29,6 @@ namespace Winleafs.Wpf.Views.Layout
 
         public HashSet<int> SelectedPanelIds { get; set; }
 
-        private int _height;
-        private int _width;
-
         private static readonly Random _random = new Random();
 
         private List<DrawablePanel> _triangles;
@@ -41,6 +38,11 @@ namespace Winleafs.Wpf.Views.Layout
 
         //Timer to update the colors periodically to update with schedule
         private Timer _colorTimer;
+
+        //Timer to detect when user is done resizing
+        private Timer _resizeTimer;
+
+        private PanelLayout _panelLayout;
 
         public LayoutDisplayUserControl()
         {
@@ -57,18 +59,22 @@ namespace Winleafs.Wpf.Views.Layout
             _colorTimer.Elapsed += OnTimedEvent;
             _colorTimer.AutoReset = true;
             _colorTimer.Enabled = true;
-            _colorTimer.Start();    
+            _colorTimer.Start();
+        }
+
+        /// <remarks>
+        /// Initialize the timer later such that the resize event is not called on start up
+        /// </remarks>
+        public void InitializeResizeTimer()
+        {
+            _resizeTimer = new Timer(250);
+            _resizeTimer.Elapsed += ResizeComplete;
+            _colorTimer.Enabled = false;
         }
 
         public void DisableColorTimer()
         {
             _colorTimer.Stop();
-        }
-
-        public void SetWithAndHeight(int width, int height)
-        {
-            _width = width;
-            _height = height;
         }
 
         public void EnableClick()
@@ -80,18 +86,26 @@ namespace Winleafs.Wpf.Views.Layout
         {
             CanvasArea.Children.Clear();
 
-            var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice);
-            _triangles = orchestrator.PanelLayout.GetScaledTriangles(_width, _height);
+            if (_panelLayout == null)
+            {
+                var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice);
+                _panelLayout = orchestrator.PanelLayout;
+            }
+            
+            _triangles = _panelLayout.GetScaledTriangles((int)ActualWidth, (int)ActualHeight);
 
             if (_triangles == null || !_triangles.Any())
             {
                 return;
             }
 
-            foreach (var triangle in _triangles)
+            if (_panelsClickable)
             {
-                triangle.Polygon.MouseDown += TriangleClicked;
-            }
+                foreach (var triangle in _triangles)
+                {
+                    triangle.Polygon.MouseDown += TriangleClicked;
+                }
+            }           
 
             //Draw the triangles
             foreach (var triangle in _triangles)
@@ -117,7 +131,6 @@ namespace Winleafs.Wpf.Views.Layout
             //Run code on main thread since we update the UI
             Dispatcher.Invoke(new Action(() =>
             {
-                var client = NanoleafClient.GetClientForDevice(UserSettings.Settings.ActiveDevice);
                 var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice);
 
                 //Get colors of current effect, we can display colors for nanoleaf effects or custom color effects
@@ -135,6 +148,7 @@ namespace Winleafs.Wpf.Views.Layout
                 }
                 else
                 {
+                    var client = NanoleafClient.GetClientForDevice(UserSettings.Settings.ActiveDevice);
                     var effect = client.EffectsEndpoint.GetEffectDetails(OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice).GetActiveEffectName());
 
                     if (effect != null)
@@ -276,5 +290,25 @@ namespace Winleafs.Wpf.Views.Layout
                 _highlightOriginalColors.Remove(panelId);
             }
         }
+
+        #region Resizing
+        private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (_resizeTimer != null)
+            {
+                _resizeTimer.Stop();
+                _resizeTimer.Start();
+            }
+        }
+
+        private void ResizeComplete(object sender, ElapsedEventArgs e)
+        {
+            _resizeTimer.Stop();
+            Dispatcher.Invoke(new Action(() =>
+            {
+                DrawLayout();
+            }));
+        }
+        #endregion
     }
 }
