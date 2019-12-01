@@ -7,7 +7,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="{x:Static local:Resources.WinleafsOptions}" Height="450" Width="550" ResizeMode="CanMinimize">
+        Title="{x:Static local:Resources.WinleafsOptions}" Height="670" Width="820" ResizeMode="CanMinimize">
 
     <Window.Resources>
         <Style TargetType="{x:Type TabItem}">
@@ -37,15 +37,16 @@
     <Grid Background="{StaticResource NanoleafBlack}">
         <TabControl Background="{StaticResource NanoleafBlack}" Margin="0,0,-0.333,42" BorderThickness="0,1,0,0">
             <TabItem Header="{x:Static local:Resources.General}">
-                <Grid>
-                    <CheckBox Content="{x:Static local:Resources.StartAtWindowsStartup}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="{Binding StartAtWindowsStartUp}">
-                    </CheckBox>
-                    <CheckBox
+                <materialDesign:Card Padding="32" Margin="16" Background="{StaticResource NanoleafBlack}">
+                    <Grid>
+                        <CheckBox Content="{x:Static local:Resources.StartAtWindowsStartup}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="{Binding StartAtWindowsStartUp}">
+                        </CheckBox>
+                        <CheckBox
                         Content="{x:Static local:Resources.MinimizeToSystemTray}"
                         HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top"
                         Foreground="White" IsChecked="{Binding MinimizeToSystemTray}">
-                    </CheckBox>
-                    <TextBox
+                        </CheckBox>
+                        <TextBox
                         Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                         materialDesign:HintAssist.Hint="{x:Static local:Resources.Latitude}"
                         materialDesign:HintAssist.Foreground="White"
@@ -53,7 +54,7 @@
                         x:Name="LatitudeTextBox" HorizontalAlignment="Left" Height="40"
                         Margin="10,91,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230"
                         BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White" Text="{Binding Latitude}"/>
-                    <TextBox
+                        <TextBox
                         Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                         materialDesign:HintAssist.Hint="{x:Static local:Resources.Longitude}"
                         materialDesign:HintAssist.Foreground="White"
@@ -63,87 +64,126 @@
                         Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White"
                         CaretBrush="White" Text="{Binding Longitude}"/>
 
-                    <Button Content="{x:Static local:Resources.SetLocationByIp}" HorizontalAlignment="Left"
-                            Margin="400,121,0,0" VerticalAlignment="Top" Width="84" Height="44"
+                        <Button Content="{x:Static local:Resources.SetLocationByIp}" HorizontalAlignment="Left"
+                            Margin="409,125,0,0" VerticalAlignment="Top" Width="118" Height="44"
                             Background="{StaticResource NanoleafGreen}" Foreground="White"
                             BorderBrush="{x:Null}" Click="GeoIp_Click"/>
 
-                    <ComboBox
+                        <ComboBox
                         Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
                         materialDesign:HintAssist.Hint="{x:Static local:Resources.Language}"
                         materialDesign:HintAssist.Foreground="White"
                         materialDesign:HintAssist.IsFloating="True"
+                        
                         Height="40" Width="230" HorizontalAlignment="Left" VerticalAlignment="Top"
                         Margin="10,201,0,0"  SelectedItem="{Binding SelectedLanguage}"
                         ItemsSource="{Binding Languages}" Foreground="White"/>
-                    <Label Content="{x:Static local:Resources.LanguageRestartNote}" HorizontalAlignment="Left"
+                        <Label Content="{x:Static local:Resources.LanguageRestartNote}" HorizontalAlignment="Left"
                            VerticalAlignment="Top" Margin="10,253,0,0" FontSize="15" Foreground="White"/>
-                </Grid>
+                    </Grid>
+                </materialDesign:Card>
             </TabItem>
             <TabItem Header="{x:Static local:Resources.ScreenMirror}">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="10*"/>
-                        <ColumnDefinition Width="17*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Content="{x:Static local:Resources.ScreenMirrorDeviceInfo}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Foreground="White" Grid.ColumnSpan="2"/>
-                    <ComboBox HorizontalAlignment="Left" Margin="104.97,10,0,0" VerticalAlignment="Top" Width="192" SelectedItem="{Binding SelectedDevice}" ItemsSource="{Binding DeviceNames}" Grid.Column="1"/>
-                    <Label Content="{x:Static local:Resources.Algorithm}" ContentStringFormat="{}{0}:" Margin="106,28,0,0" FontSize="20" Foreground="White" Height="36" VerticalAlignment="Top" HorizontalAlignment="Left" Width="103" Grid.ColumnSpan="2"/>
-                    <ComboBox HorizontalAlignment="Left" Margin="8.97,37,0,0" VerticalAlignment="Top" Width="192" SelectedItem="{Binding SelectedScreenMirrorAlgorithm}" ItemsSource="{Binding ScreenMirrorAlgorithms}" RenderTransformOrigin="0.537,0.206" Grid.Column="1"/>
-                    <Button x:Name="VisualizeButton" Content="{x:Static local:Resources.Visualize}" Margin="212.97,36,0,0" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Visualize_Click" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="109" Grid.Column="1"/>
-                    <Label Content="{x:Static local:Resources.ScreenMirrorRefreshRatePerSecond}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="0,96,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White" Grid.ColumnSpan="2"/>
-                    <Label Content="{Binding ScreenMirrorRefreshRatePerSecond}" HorizontalAlignment="Left" Margin="61.97,125,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White" Grid.Column="1" />
-                    <Slider HorizontalAlignment="Left" Margin="10,133,0,0" VerticalAlignment="Top" Width="252" Minimum="1" Maximum="10" Value="{Binding ScreenMirrorRefreshRatePerSecond}" IsSnapToTickEnabled="True" TickFrequency="1" Grid.ColumnSpan="2"/>
-                    <Label Content="{x:Static local:Resources.ScreenMirrorMonitor}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="0,54,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White" Grid.ColumnSpan="2"/>
-                    <ComboBox HorizontalAlignment="Left" Margin="8.97,64,0,0" VerticalAlignment="Top" Width="192" SelectedItem="{Binding SelectedMonitor}" ItemsSource="{Binding MonitorNames}" Grid.Column="1"/>
-                    <CheckBox Content="{x:Static local:Resources.ScreenMirrorControlBrightness}" HorizontalAlignment="Left" Margin="10,159,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="{Binding ScreenMirrorControlBrightness}">
-                        <CheckBox.LayoutTransform>
-                            <ScaleTransform ScaleX="2" ScaleY="2" />
-                        </CheckBox.LayoutTransform>
-                    </CheckBox>
-                    <TextBlock HorizontalAlignment="Left" Margin="10,289,0,0" TextWrapping="Wrap" Text="{x:Static local:Resources.ScreenMirrorResetMessage}" VerticalAlignment="Top" Width="469" FontSize="20" Foreground="White" Grid.ColumnSpan="2"/>
-                    <TextBlock Margin="10,192,18,0" TextWrapping="Wrap" Text="{x:Static local:Resources.ScreenMirrorBrightnessInfo}" VerticalAlignment="Top" FontSize="15" Foreground="White" Height="106" Grid.ColumnSpan="2"/>
-                </Grid>
+                <materialDesign:Card Padding="32" Margin="16" Background="{StaticResource NanoleafBlack}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="10*"/>
+                            <ColumnDefinition Width="17*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="{x:Static local:Resources.ScreenMirrorDeviceInfo}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Foreground="White" Grid.ColumnSpan="2"/>
+                        <ComboBox
+                        Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
+                        materialDesign:HintAssist.Hint="{x:Static local:Resources.Device}"
+                        materialDesign:HintAssist.Foreground="White"
+                        materialDesign:HintAssist.IsFloating="True"
+                        Foreground="White"
+                        HorizontalAlignment="Left" Margin="0,62,0,0" VerticalAlignment="Top"
+                        Width="302" SelectedItem="{Binding SelectedDevice}" ItemsSource="{Binding DeviceNames}" Grid.ColumnSpan="2"/>
+                        <ComboBox
+                        Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
+                        materialDesign:HintAssist.Hint="{x:Static local:Resources.Algorithm}"
+                        materialDesign:HintAssist.Foreground="White"
+                        materialDesign:HintAssist.IsFloating="True"
+                        Foreground="White"
+                        HorizontalAlignment="Left" Margin="0,112,0,0" VerticalAlignment="Top" Width="302"
+                        SelectedItem="{Binding SelectedScreenMirrorAlgorithm}"
+                        ItemsSource="{Binding ScreenMirrorAlgorithms}" RenderTransformOrigin="0.537,0.206" Grid.ColumnSpan="2"/>
+                        <Button
+                            x:Name="VisualizeButton" Content="{x:Static local:Resources.Visualize}"
+                            Margin="0,210,0,0" Background="{StaticResource NanoleafGreen}" Foreground="White"
+                            BorderBrush="{x:Null}" Click="Visualize_Click" Height="24" VerticalAlignment="Top"
+                            HorizontalAlignment="Left" Width="109"/>
+                        <Label
+                            Content="{x:Static local:Resources.ScreenMirrorRefreshRatePerSecond}"
+                            ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="102,62,0,0"
+                            VerticalAlignment="Top"
+                            Foreground="White" Grid.Column="2"/>
+                        <Label
+                            Content="{Binding ScreenMirrorRefreshRatePerSecond}"
+                            HorizontalAlignment="Left" Margin="425,113,0,0" VerticalAlignment="Top"
+                            FontSize="20" Foreground="White" Grid.Column="1" />
+                        <Slider
+                            Style="{DynamicResource MaterialDesignSlider}"
+                            HorizontalAlignment="Left" Margin="102,112,0,0" VerticalAlignment="Top" Width="252"
+                            Minimum="1" Maximum="10" Value="{Binding ScreenMirrorRefreshRatePerSecond}"
+                            IsSnapToTickEnabled="True" TickFrequency="1" Grid.Column="1"/>
+                        <ComboBox
+                        Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
+                        materialDesign:HintAssist.Hint="{x:Static local:Resources.ScreenMirrorMonitor}"
+                        materialDesign:HintAssist.Foreground="White"
+                        materialDesign:HintAssist.IsFloating="True"
+                        Foreground="White"
+                        HorizontalAlignment="Left" Margin="0,157,0,0" VerticalAlignment="Top" Width="302"
+                        SelectedItem="{Binding SelectedMonitor}" ItemsSource="{Binding MonitorNames}" Grid.ColumnSpan="2"/>
+                        <CheckBox Content="{x:Static local:Resources.ScreenMirrorControlBrightness}" HorizontalAlignment="Left" Margin="102,148,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="{Binding ScreenMirrorControlBrightness}" Width="194" Grid.Column="1"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="10,521,0,0" TextWrapping="Wrap" Text="{x:Static local:Resources.ScreenMirrorResetMessage}" VerticalAlignment="Top" Width="469" FontSize="20" Foreground="White" Grid.ColumnSpan="2"/>
+                        <TextBlock Margin="0,253,28,0" TextWrapping="Wrap" Text="{x:Static local:Resources.ScreenMirrorBrightnessInfo}" VerticalAlignment="Top" FontSize="15" Foreground="White" Height="72" Grid.ColumnSpan="2"/>
+                    </Grid>
+                </materialDesign:Card>
             </TabItem>
             <TabItem Header="{x:Static local:Resources.Color}" Height="21" VerticalAlignment="Top">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="197*"/>
-                        <ColumnDefinition Width="343*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Margin="10,10,0,0" TextWrapping="Wrap" Text="{x:Static local:Resources.PickAColor}" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="15" Foreground="White" Height="25" Width="150"/>
-                    <ScrollViewer Margin="10,97,0,0" VerticalScrollBarVisibility="Visible"  HorizontalAlignment="Left" Width="520" Grid.ColumnSpan="2">
-                        <StackPanel Margin="0,0,5,0" x:Name="ColorList" HorizontalAlignment="Right" Width="500"/>
-                    </ScrollViewer>
+                <materialDesign:Card Padding="32" Margin="16" Background="{StaticResource NanoleafBlack}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="197*"/>
+                            <ColumnDefinition Width="343*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Margin="10,10,0,0" TextWrapping="Wrap" Text="{x:Static local:Resources.PickAColor}" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="15" Foreground="White" Height="25" Width="150"/>
+                        <ScrollViewer Margin="10,97,0,0" VerticalScrollBarVisibility="Visible"  HorizontalAlignment="Left" Width="520" Grid.ColumnSpan="2">
+                            <StackPanel Margin="0,0,5,0" x:Name="ColorList" HorizontalAlignment="Right" Width="500"/>
+                        </ScrollViewer>
 
-                    <xctk:ColorPicker x:Name="ColorPicker" Margin="0,8,137,0" Height="27" VerticalAlignment="Top" Width="250" HorizontalAlignment="Right" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="EffectTextBox" HorizontalAlignment="Right" Height="23" Margin="0,50,137,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White" Grid.ColumnSpan="2"/>
-                    <Button Content="{x:Static local:Resources.Add}" HorizontalAlignment="Right" Margin="0,48,10,0" Width="115" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="AddColor_Click" Height="27" VerticalAlignment="Top" Grid.Column="1"/>
-                    <TextBlock Margin="10,48,0,0" TextWrapping="Wrap" Text="{x:Static local:Resources.Name}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" Foreground="White" Height="25" Width="50"/>
-                </Grid>
+                        <xctk:ColorPicker x:Name="ColorPicker" Margin="0,8,137,0" Height="27" VerticalAlignment="Top" Width="250" HorizontalAlignment="Right" Grid.ColumnSpan="2"/>
+                        <TextBox x:Name="EffectTextBox" HorizontalAlignment="Right" Height="23" Margin="0,50,137,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White" Grid.ColumnSpan="2"/>
+                        <Button Content="{x:Static local:Resources.Add}" HorizontalAlignment="Right" Margin="0,48,10,0" Width="115" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="AddColor_Click" Height="27" VerticalAlignment="Top" Grid.Column="1"/>
+                        <TextBlock Margin="10,48,0,0" TextWrapping="Wrap" Text="{x:Static local:Resources.Name}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" Foreground="White" Height="25" Width="50"/>
+                    </Grid>
+                </materialDesign:Card>
             </TabItem>
             <TabItem Header="{x:Static local:Resources.Disclaimer}">
-                <Grid>
-                    <Label Content="{x:Static local:Resources.WinleafsUsesAPIs}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
-                    <TextBlock Margin="9,52,420.333,268.667">
+                <materialDesign:Card Padding="32" Margin="16" Background="{StaticResource NanoleafBlack}">
+                    <Grid>
+                        <Label Content="{x:Static local:Resources.WinleafsUsesAPIs}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
+                        <TextBlock Margin="9,52,420.333,268.667">
                         <Hyperlink NavigateUri="http://icanhazip.com/" RequestNavigate="Hyperlink_RequestNavigate">
                             Icanhazip
                         </Hyperlink>
-                    </TextBlock>
-                    <Label Content="{x:Static local:Resources.IcanhazipExplanation}" HorizontalAlignment="Left" Margin="122,47,0,0" VerticalAlignment="Top" Foreground="White"/>
-                    <TextBlock Margin="9,82,420.333,238.667">
+                        </TextBlock>
+                        <Label Content="{x:Static local:Resources.IcanhazipExplanation}" HorizontalAlignment="Left" Margin="122,47,0,0" VerticalAlignment="Top" Foreground="White"/>
+                        <TextBlock Margin="9,82,420.333,238.667">
                         <Hyperlink NavigateUri="http://ip-api.com/" RequestNavigate="Hyperlink_RequestNavigate">
                             IP-API
                         </Hyperlink>
-                    </TextBlock>
-                    <Label Content="{x:Static local:Resources.IPAPIExplanation}" HorizontalAlignment="Left" Margin="122,77,0,0" VerticalAlignment="Top" Foreground="White"/>
-                    <TextBlock Margin="9,112,368.333,208.667">
+                        </TextBlock>
+                        <Label Content="{x:Static local:Resources.IPAPIExplanation}" HorizontalAlignment="Left" Margin="122,77,0,0" VerticalAlignment="Top" Foreground="White"/>
+                        <TextBlock Margin="9,112,368.333,208.667">
                         <Hyperlink NavigateUri="https://sunrise-sunset.org/api" RequestNavigate="Hyperlink_RequestNavigate">
                             Sunrise-sunset API
                         </Hyperlink>
-                    </TextBlock>
-                    <Label Content="{x:Static local:Resources.SunsetSunriseAPIExplanation}" HorizontalAlignment="Left" Margin="122,107,0,0" VerticalAlignment="Top" Foreground="White"/>
-                </Grid>
+                        </TextBlock>
+                        <Label Content="{x:Static local:Resources.SunsetSunriseAPIExplanation}" HorizontalAlignment="Left" Margin="122,107,0,0" VerticalAlignment="Top" Foreground="White"/>
+                    </Grid>
+                </materialDesign:Card>
             </TabItem>
         </TabControl>
 
