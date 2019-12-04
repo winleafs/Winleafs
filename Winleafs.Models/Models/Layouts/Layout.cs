@@ -12,6 +12,7 @@ namespace Winleafs.Models.Models.Layouts
         [JsonProperty("sideLength")]
         public int SideLength { get; set; }
 
+
         [JsonProperty("positionData")]
         public IEnumerable<PanelPosition> PanelPositions { get; set; }
     }

@@ -15,5 +15,8 @@ namespace Winleafs.Models.Models.Layouts
 
         [JsonProperty("o")]
         public int Orientation { get; set; }
+
+        [JsonProperty("shapeType")]
+        public int ShapeType { get; set; }
     }
 }

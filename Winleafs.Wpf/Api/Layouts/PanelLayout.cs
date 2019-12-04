@@ -13,7 +13,6 @@ namespace Winleafs.Wpf.Api.Layouts
     public class PanelLayout
     {
         private static readonly SolidColorBrush _borderColor = (SolidColorBrush)Application.Current.FindResource("NanoleafBlack");
-        private static readonly int _defaultTriangleSize = 148; //The default size in pixels of a triangle side as reported by the Nanoleaf API
 
         private INanoleafClient _nanoleafClient;
 
@@ -24,13 +23,13 @@ namespace Winleafs.Wpf.Api.Layouts
         /// <summary>
         /// Panels represented by the Nanoleaf coordinate system, unscaled and therefore unsuitable for display
         /// </summary>
-        private List<DrawablePanel> _unscaledTriangles { get; set; }
+        private List<DrawablePanel> _unscaledPolygons { get; set; }
 
         public PanelLayout(Device device)
         {
             _nanoleafClient = NanoleafClient.GetClientForDevice(device);
 
-            _unscaledTriangles = new List<DrawablePanel>();
+            _unscaledPolygons = new List<DrawablePanel>();
 
             GetLayout();
         }
@@ -59,19 +58,20 @@ namespace Winleafs.Wpf.Api.Layouts
             var maxX = _layout.PanelPositions.Max(pp => pp.X);
             var minY = _layout.PanelPositions.Min(pp => pp.Y);
             var maxY = _layout.PanelPositions.Max(pp => pp.Y);
+
             var globalRotationTransform = new RotateTransform(_globalOrientation.Value, Math.Abs(maxX - minX) / 2, Math.Abs(maxY - minY) / 2);
 
             //Create the triangles
             foreach (var panelPosition in _layout.PanelPositions)
             {
-                CreateTriangle(panelPosition.X, panelPosition.Y, panelPosition.Orientation, panelPosition.PanelId, globalRotationTransform);
+                CreatePolygon(panelPosition.X, panelPosition.Y, panelPosition.Orientation, panelPosition.PanelId, globalRotationTransform, panelPosition.ShapeType);
             }
 
             //Normalize the triangle positions such that the coordinates start at 0
-            double minTriangleX = _unscaledTriangles.SelectMany(p => p.Polygon.Points).Min(p => p.X);
-            double minTriangleY = _unscaledTriangles.SelectMany(p => p.Polygon.Points).Min(p => p.Y);
+            double minTriangleX = _unscaledPolygons.SelectMany(p => p.Polygon.Points).Min(p => p.X);
+            double minTriangleY = _unscaledPolygons.SelectMany(p => p.Polygon.Points).Min(p => p.Y);
 
-            foreach (var triangle in _unscaledTriangles)
+            foreach (var triangle in _unscaledPolygons)
             {
                 //Move MidPoint
                 triangle.MidPoint = new Point(triangle.MidPoint.X - minTriangleX, triangle.MidPoint.Y - minTriangleY);
@@ -88,39 +88,64 @@ namespace Winleafs.Wpf.Api.Layouts
         }
 
         /// <summary>
-        /// Draws an equilateral triangle from the given center point and rotation. Also applies the global rotation
+        /// Draws an equilateral polygon from the given center point and rotation. Also applies the global rotation
         /// </summary>
-        private void CreateTriangle(double x, double y, double rotation, int panelId, Transform globalRotationTransform)
+        private void CreatePolygon(double x, double y, double rotation, int panelId,
+            Transform globalRotationTransform, int shapeType)
         {
-            //First assume that we draw the triangle facing up:
-            //     A
-            //    /\
-            //   /  \
-            //  /____\
-            // B      C
-
-            var A = new Point(x, y - ((Math.Sqrt(3) / 3) * _defaultTriangleSize));
-            var B = new Point(x - (_defaultTriangleSize / 2), y + ((Math.Sqrt(3) / 6) * _defaultTriangleSize));
-            var C = new Point(x + (_defaultTriangleSize / 2), y + ((Math.Sqrt(3) / 6) * _defaultTriangleSize));
-
             var rotateTransform = new RotateTransform(rotation, x, y);
 
             //Apply transformation and add points to polygon
-            var triangle = new Polygon();
-            triangle.Points.Add(globalRotationTransform.Transform(rotateTransform.Transform(A)));
-            triangle.Points.Add(globalRotationTransform.Transform(rotateTransform.Transform(B)));
-            triangle.Points.Add(globalRotationTransform.Transform(rotateTransform.Transform(C)));
+            var polygon = new Polygon();
 
-            triangle.Stroke = _borderColor;
-            triangle.HorizontalAlignment = HorizontalAlignment.Left;
-            triangle.VerticalAlignment = VerticalAlignment.Top;
-            triangle.StrokeThickness = 2;
+            switch (shapeType)
+            {
+                // 0 Is Aurora or the triangle shape.
+                // 2 Is defined as the Canvas or square shape
+                case 0:
+                {
+                    //First assume that we draw the triangle facing up:
+                    //     A
+                    //    /\
+                    //   /  \
+                    //  /____\
+                    // B      C
 
-            _unscaledTriangles.Add(new DrawablePanel
+                    var triangleSize = _layout.SideLength;
+                    var a = new Point(x, y - ((Math.Sqrt(3) / 3) * triangleSize));
+                    var b = new Point(x - (triangleSize / 2), y + ((Math.Sqrt(3) / 6) * triangleSize));
+                    var c = new Point(x + (triangleSize / 2), y + ((Math.Sqrt(3) / 6) * triangleSize));
+
+                    polygon.Points.Add(globalRotationTransform.Transform(rotateTransform.Transform(a)));
+                    polygon.Points.Add(globalRotationTransform.Transform(rotateTransform.Transform(b)));
+                    polygon.Points.Add(globalRotationTransform.Transform(rotateTransform.Transform(c)));
+                    break;
+                }
+                case 2:
+                {
+                    var canvasSideLength = _layout.SideLength / (double)2;
+                    var a = new Point(x - canvasSideLength, y + canvasSideLength);
+                    var b = new Point(x - canvasSideLength, y - canvasSideLength);
+                    var c = new Point(x + canvasSideLength, y - canvasSideLength);
+                    var d = new Point(x + canvasSideLength, y + canvasSideLength);
+                    polygon.Points.Add(globalRotationTransform.Transform(rotateTransform.Transform(a)));
+                    polygon.Points.Add(globalRotationTransform.Transform(rotateTransform.Transform(b)));
+                    polygon.Points.Add(globalRotationTransform.Transform(rotateTransform.Transform(c)));
+                    polygon.Points.Add(globalRotationTransform.Transform(rotateTransform.Transform(d)));
+                    break;
+                }
+            }
+
+            polygon.Stroke = _borderColor;
+            polygon.HorizontalAlignment = HorizontalAlignment.Left;
+            polygon.VerticalAlignment = VerticalAlignment.Top;
+            polygon.StrokeThickness = 2;
+
+            _unscaledPolygons.Add(new DrawablePanel
             {
                 MidPoint = globalRotationTransform.Transform(new Point(x, y)),
                 PanelId = panelId,
-                Polygon = triangle
+                Polygon = polygon
             });
         }
 
@@ -140,8 +165,8 @@ namespace Winleafs.Wpf.Api.Layouts
                 }
             }
 
-            var maxX = _unscaledTriangles.SelectMany(p => p.Polygon.Points).Max(p => p.X);
-            var maxY = _unscaledTriangles.SelectMany(p => p.Polygon.Points).Max(p => p.Y);
+            var maxX = _unscaledPolygons.SelectMany(p => p.Polygon.Points).Max(p => p.X);
+            var maxY = _unscaledPolygons.SelectMany(p => p.Polygon.Points).Max(p => p.Y);
 
             var scaleX = width / maxX;
             var scaleY = height / maxY;
@@ -160,7 +185,7 @@ namespace Winleafs.Wpf.Api.Layouts
 
             var scaledTriangles = new List<DrawablePanel>();
 
-            foreach (var panel in _unscaledTriangles)
+            foreach (var panel in _unscaledPolygons)
             {
                 var polygon = new Polygon();
                 foreach (var point in panel.Polygon.Points)
