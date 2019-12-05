@@ -102,57 +102,58 @@ namespace Winleafs.Wpf.Api.Layouts
             switch (shapeType)
             {
                 case ShapeType.Triangle:
-                {
-                    //First assume that we draw the triangle facing up:
-                    //     A
-                    //    /\
-                    //   /  \
-                    //  /____\
-                    // B      C
+                    {
+                        //First assume that we draw the triangle facing up:
+                        //     A
+                        //    /\
+                        //   /  \
+                        //  /____\
+                        // B      C
 
-                    var triangleSize = _layout.SideLength;
-                    var a = new Point(x, y - ((Math.Sqrt(3) / 3) * triangleSize));
-                    var b = new Point(x - (triangleSize / 2), y + ((Math.Sqrt(3) / 6) * triangleSize));
-                    var c = new Point(x + (triangleSize / 2), y + ((Math.Sqrt(3) / 6) * triangleSize));
+                        var triangleSize = _layout.SideLength;
+                        var a = new Point(x, y - ((Math.Sqrt(3) / 3) * triangleSize));
+                        var b = new Point(x - (triangleSize / 2), y + ((Math.Sqrt(3) / 6) * triangleSize));
+                        var c = new Point(x + (triangleSize / 2), y + ((Math.Sqrt(3) / 6) * triangleSize));
 
-                    polygon.Points.Add(globalRotationTransform.Transform(rotateTransform.Transform(a)));
-                    polygon.Points.Add(globalRotationTransform.Transform(rotateTransform.Transform(b)));
-                    polygon.Points.Add(globalRotationTransform.Transform(rotateTransform.Transform(c)));
-                    break;
-                }
+                        polygon.Points.Add(globalRotationTransform.Transform(rotateTransform.Transform(a)));
+                        polygon.Points.Add(globalRotationTransform.Transform(rotateTransform.Transform(b)));
+                        polygon.Points.Add(globalRotationTransform.Transform(rotateTransform.Transform(c)));
+                        break;
+                    }
                 case ShapeType.Square:
-                {
-                    /*
-                     * a------------d
-                     * |            |
-                     * |            |
-                     * |     xy     |
-                     * |            |
-                     * |            |
-                     * b------------c
-                     *
-                     * The X and Y positions are given as if they are in the
-                     * middle of the square that should be created.
-                     * For that reason we always need to edit the X and Y position
-                     * to create a correct square.
-                     *
-                     * The Nanoleaf API returns the SideLength as the full length
-                     * of the sides of the square. Because the x and y are in the middle
-                     * Only half of the side length should be either add or removed
-                     * from the X and Y
-                     */
+                    {
+                        /*
+                         * a------------d
+                         * |            |
+                         * |            |
+                         * |     xy     |
+                         * |            |
+                         * |            |
+                         * b------------c
+                         *
+                         * The X and Y positions are given as if they are in the
+                         * middle of the square that should be created.
+                         * For that reason we always need to edit the X and Y position
+                         * to create a correct square.
+                         *
+                         * The Nanoleaf API returns the SideLength as the full length
+                         * of the sides of the square. Because the x and y are in the middle
+                         * Only half of the side length should be either add or removed
+                         * from the X and Y
+                         */
 
-                    var canvasSideLength = _layout.SideLength / (double)2;
-                    var a = new Point(x - canvasSideLength, y + canvasSideLength);
-                    var b = new Point(x - canvasSideLength, y - canvasSideLength);
-                    var c = new Point(x + canvasSideLength, y - canvasSideLength);
-                    var d = new Point(x + canvasSideLength, y + canvasSideLength);
-                    polygon.Points.Add(globalRotationTransform.Transform(rotateTransform.Transform(a)));
-                    polygon.Points.Add(globalRotationTransform.Transform(rotateTransform.Transform(b)));
-                    polygon.Points.Add(globalRotationTransform.Transform(rotateTransform.Transform(c)));
-                    polygon.Points.Add(globalRotationTransform.Transform(rotateTransform.Transform(d)));
-                    break;
-                }
+                        // This is the distance from one of the corners to the center.
+                        var distanceToCenter = _layout.SideLength / (double)2;
+                        var a = new Point(x - distanceToCenter, y + distanceToCenter);
+                        var b = new Point(x - distanceToCenter, y - distanceToCenter);
+                        var c = new Point(x + distanceToCenter, y - distanceToCenter);
+                        var d = new Point(x + distanceToCenter, y + distanceToCenter);
+                        polygon.Points.Add(globalRotationTransform.Transform(rotateTransform.Transform(a)));
+                        polygon.Points.Add(globalRotationTransform.Transform(rotateTransform.Transform(b)));
+                        polygon.Points.Add(globalRotationTransform.Transform(rotateTransform.Transform(c)));
+                        polygon.Points.Add(globalRotationTransform.Transform(rotateTransform.Transform(d)));
+                        break;
+                    }
             }
 
             polygon.Stroke = _borderColor;
