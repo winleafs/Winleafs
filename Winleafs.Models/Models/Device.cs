@@ -28,7 +28,6 @@ namespace Winleafs.Models.Models
         /// </summary>
         public OperationMode OperationMode { get; set; }
 
-        public List<Schedule> Schedules { get; set; }
         public List<Effect> Effects { get; set; }
 
         public string OverrideEffect { get; set; }
@@ -44,34 +43,11 @@ namespace Winleafs.Models.Models
 
         public Dictionary<string, ulong> EffectCounter { get; set; }
 
-        [JsonIgnore]
-        public Schedule ActiveSchedule
-        {
-            get
-            {
-                return Schedules.FirstOrDefault(s => s.Active);
-            }
-        }
-
         public Device()
         {
-            Schedules = new List<Schedule>();
-
             Effects = new List<Effect>();
             ScreenMirrorRefreshRatePerSecond = 1;
             ScreenMirrorControlBrightness = false;
-        }
-
-        public TimeTrigger GetActiveTimeTrigger()
-        {
-            if (Schedules.Any(s => s.Active))
-            {
-                return Schedules.FirstOrDefault(s => s.Active).GetActiveTimeTrigger();
-            }
-            else //It is possible that a user deletes the active schedule, then there is no active program
-            {
-                return null;
-            }
         }
 
         public void LoadEffectsFromNameList(IEnumerable<string> effectNames)

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Winleafs.Models.Enums;
+using Winleafs.Models.Models;
 
 namespace Winleafs.Wpf.Api.Events
 {
@@ -14,9 +15,9 @@ namespace Winleafs.Wpf.Api.Events
         {
             EventTriggers = new List<IEventTrigger>();
 
-            if (orchestrator.Device.ActiveSchedule != null)
+            if (UserSettings.Settings.ActiveSchedule != null && UserSettings.Settings.ActiveSchedule.AppliesToDeviceNames.Contains(orchestrator.Device.Name))
             {
-                foreach (var eventTrigger in orchestrator.Device.ActiveSchedule.EventTriggers)
+                foreach (var eventTrigger in UserSettings.Settings.ActiveSchedule.EventTriggers)
                 {
                     switch (eventTrigger.GetTriggerType())
                     {

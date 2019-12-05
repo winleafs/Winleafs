@@ -88,6 +88,15 @@ namespace Winleafs.Wpf.Views.MainWindows {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add schedule.
+        /// </summary>
+        public static string AddSchedule {
+            get {
+                return ResourceManager.GetString("AddSchedule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure?.
         /// </summary>
         public static string AreYouSure {
@@ -319,15 +328,6 @@ namespace Winleafs.Wpf.Views.MainWindows {
         public static string Stuck {
             get {
                 return ResourceManager.GetString("Stuck", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Using Winleafs version {0}.
-        /// </summary>
-        public static string UsingWinleafsVersion {
-            get {
-                return ResourceManager.GetString("UsingWinleafsVersion", resourceCulture);
             }
         }
         

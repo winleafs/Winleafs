@@ -126,6 +126,9 @@
   <data name="AddDevice" xml:space="preserve">
     <value>Add device</value>
   </data>
+  <data name="AddSchedule" xml:space="preserve">
+    <value>Add schedule</value>
+  </data>
   <data name="AreYouSure" xml:space="preserve">
     <value>Are you sure?</value>
   </data>

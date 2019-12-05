@@ -64,10 +64,10 @@ namespace Winleafs.Wpf.Api
         {
             if (_orchestrator.Device.OperationMode == OperationMode.Schedule)
             {
-                var activeTrigger = _orchestrator.Device.GetActiveTimeTrigger();
+                var activeTrigger = UserSettings.Settings.GetActiveTimeTriggerForDevice(_orchestrator.Device.Name);
 
                 //Only switch effects if the effect is different from the previously activated effect
-                if ((activeTrigger == null && _previouslyActivatedEffect != null) || (activeTrigger != null && activeTrigger.Effect != _previouslyActivatedEffect))
+                if ((activeTrigger == null && _previouslyActivatedEffect != null) || (activeTrigger != null && activeTrigger.EffectName != _previouslyActivatedEffect))
                 {
                     if (activeTrigger == null)
                     {
@@ -78,10 +78,10 @@ namespace Winleafs.Wpf.Api
                     }
                     else
                     {
-                        await _orchestrator.ActivateEffect(activeTrigger.Effect, activeTrigger.Brightness);
+                        await _orchestrator.ActivateEffect(activeTrigger.EffectName, activeTrigger.Brightness);
                     }
 
-                    _previouslyActivatedEffect = activeTrigger?.Effect;
+                    _previouslyActivatedEffect = activeTrigger?.EffectName;
                 }
             }
         }

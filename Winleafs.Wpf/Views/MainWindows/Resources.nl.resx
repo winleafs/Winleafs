@@ -205,4 +205,7 @@ Hover over deze knop.</value>
   <data name="StopManualControl" xml:space="preserve">
     <value>Stop handmatige bediening</value>
   </data>
+  <data name="AddSchedule" xml:space="preserve">
+    <value>Schema toevoegen</value>
+  </data>
 </root>

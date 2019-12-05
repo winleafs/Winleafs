@@ -4,22 +4,15 @@ using Winleafs.Models.Enums;
 
 namespace Winleafs.Models.Models.Scheduling.Triggers
 {
-    public class TimeTrigger : ITrigger
+    public class TimeTrigger : TriggerBase
     {
         public int Hours { get; set; }
         public int Minutes { get; set; }
-
-        public TriggerType TriggerType { get; set; }
-
-        public string Effect { get; set; }
-
-        public int Brightness { get; set; }
-
         public BeforeAfter BeforeAfter { get; set; }
         public int ExtraHours { get; set; }
         public int ExtraMinutes { get; set; }
 
-        public string GetDescription()
+        public override string GetDescription()
         {
             if (ExtraHours > 0 || ExtraMinutes > 0)
             {
@@ -31,11 +24,6 @@ namespace Winleafs.Models.Models.Scheduling.Triggers
             {
                 return $"{GetActualDateTime().ToString("HH:mm")}";
             }
-        }
-
-        public TriggerType GetTriggerType()
-        {
-            return TriggerType;
         }
 
         /// <summary>
@@ -65,16 +53,6 @@ namespace Winleafs.Models.Models.Scheduling.Triggers
             }
 
             return date;
-        }
-
-        public string GetEffectName()
-        {
-            return Effect;
-        }
-
-        public int GetBrightness()
-        {
-            return Brightness;
         }
     }
 }

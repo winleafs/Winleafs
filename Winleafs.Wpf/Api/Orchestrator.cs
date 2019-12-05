@@ -154,7 +154,7 @@ namespace Winleafs.Wpf.Api
                     return activeEvent?.GetTrigger().GetEffectName();
 
                 case OperationMode.Schedule:
-                    var activeTimeTrigger = Device.GetActiveTimeTrigger();
+                    var activeTimeTrigger = UserSettings.Settings.GetActiveTimeTriggerForDevice(Device.Name);
 
                     return activeTimeTrigger?.GetEffectName();
 
@@ -184,7 +184,7 @@ namespace Winleafs.Wpf.Api
                     return -1;
 
                 case OperationMode.Schedule:
-                    var activeTimeTrigger = Device.GetActiveTimeTrigger();
+                    var activeTimeTrigger = UserSettings.Settings.GetActiveTimeTriggerForDevice(Device.Name);
 
                     if (activeTimeTrigger != null)
                     {

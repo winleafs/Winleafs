@@ -151,10 +151,10 @@ namespace Winleafs.Wpf.Views.Scheduling
 
                 addSucceeded = _parent.TriggerAdded(new TimeTrigger
                 {
-                    TriggerType = _triggerType,
+                    EventTriggerType = _triggerType,
                     BeforeAfter = beforeAfter,
                     Brightness = _brightness,
-                    Effect = SelectedEffect,
+                    EffectName = SelectedEffect,
                     ExtraHours = hours,
                     ExtraMinutes = minutes,
                     Hours = GetHoursForTriggerType(_triggerType),
@@ -165,10 +165,10 @@ namespace Winleafs.Wpf.Views.Scheduling
             {
                 addSucceeded = _parent.TriggerAdded(new TimeTrigger
                 {
-                    TriggerType = _triggerType,
+                    EventTriggerType = _triggerType,
                     BeforeAfter = BeforeAfter.None,
                     Brightness = _brightness,
-                    Effect = SelectedEffect,
+                    EffectName = SelectedEffect,
                     ExtraHours = 0,
                     ExtraMinutes = 0,
                     Hours = hours,

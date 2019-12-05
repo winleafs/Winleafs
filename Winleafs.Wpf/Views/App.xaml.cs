@@ -164,7 +164,9 @@ namespace Winleafs.Wpf.Views
             //Check if any lights need to be turned off
             foreach (var device in UserSettings.Settings.Devices)
             {
-                if (device.ActiveSchedule != null && device.ActiveSchedule.TurnOffAtApplicationShutdown)
+                if (UserSettings.Settings.ActiveSchedule != null &&
+                    UserSettings.Settings.ActiveSchedule.AppliesToDeviceNames.Contains(device.Name) &&
+                    UserSettings.Settings.ActiveSchedule.TurnOffAtApplicationShutdown)
                 {
                     var client = NanoleafClient.GetClientForDevice(device);
                     await client.StateEndpoint.SetStateWithStateCheckAsync(false);

@@ -77,9 +77,6 @@ namespace Winleafs.Wpf.Views.MainWindows
         /// </summary>
         public void Initialize()
         {
-            //LayoutDisplay.SetWithAndHeight((int)LayoutDisplay.Width, (int)LayoutDisplay.Height);
-            //LayoutDisplay.DrawLayout();
-
             //Initialize device user controls
             _deviceUserControls = new List<DeviceUserControl>();
 
@@ -134,7 +131,7 @@ namespace Winleafs.Wpf.Views.MainWindows
         {
             UserSettings.Settings.AddSchedule(schedule, true);
 
-            OrchestratorCollection.ResetOrchestratorForActiveDevice();
+            OrchestratorCollection.ResetOrchestrators();
 
             BuildScheduleList();
 
@@ -146,7 +143,7 @@ namespace Winleafs.Wpf.Views.MainWindows
             UserSettings.Settings.DeleteSchedule(originalSchedule);
             UserSettings.Settings.AddSchedule(newSchedule, false);
 
-            OrchestratorCollection.ResetOrchestratorForActiveDevice();
+            OrchestratorCollection.ResetOrchestrators();
 
             BuildScheduleList();
 
@@ -155,11 +152,11 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         private void BuildScheduleList()
         {
-            //ScheduleList.Children.Clear();
+            SchedulesStackPanel.Children.Clear();
 
-            foreach (var schedule in UserSettings.Settings.ActiveDevice.Schedules)
+            foreach (var schedule in UserSettings.Settings.Schedules)
             {
-                //ScheduleList.Children.Add(new ScheduleItemUserControl(this, schedule));
+                SchedulesStackPanel.Children.Add(new ScheduleItemUserControl(this, schedule));
             }
         }
 
@@ -173,7 +170,7 @@ namespace Winleafs.Wpf.Views.MainWindows
         {
             UserSettings.Settings.DeleteSchedule(schedule);
 
-            OrchestratorCollection.ResetOrchestratorForActiveDevice();
+            OrchestratorCollection.ResetOrchestrators();
 
             BuildScheduleList();
 
@@ -193,7 +190,7 @@ namespace Winleafs.Wpf.Views.MainWindows
         {
             UserSettings.Settings.ActivateSchedule(schedule);
 
-            OrchestratorCollection.ResetOrchestratorForActiveDevice();
+            OrchestratorCollection.ResetOrchestrators();
 
             BuildScheduleList();
 

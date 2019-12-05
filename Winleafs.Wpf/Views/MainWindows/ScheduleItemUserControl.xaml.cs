@@ -28,12 +28,12 @@ namespace Winleafs.Wpf.Views.MainWindows
             }
         }
 
-        private void Edit_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void Edit_Click(object sender, RoutedEventArgs e)
         {
             _parent.EditSchedule(Schedule);
         }
 
-        private void Delete_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void Delete_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult messageBoxResult = MessageBox.Show(MainWindows.Resources.DeleteScheduleAreYouSure, MainWindows.Resources.DeleteConfirmation, MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
