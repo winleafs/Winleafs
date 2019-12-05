@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Winleafs.Models.Enums;
 
 namespace Winleafs.Models.Models.Layouts
 {
@@ -17,6 +18,6 @@ namespace Winleafs.Models.Models.Layouts
         public int Orientation { get; set; }
 
         [JsonProperty("shapeType")]
-        public int ShapeType { get; set; }
+        public ShapeType ShapeType { get; set; }
     }
 }

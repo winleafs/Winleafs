@@ -28,7 +28,7 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
 
             _screenBounds = ScreenBoundsHelper.GetScreenBounds(device.ScreenMirrorMonitorIndex);
 
-            _panels = orchestrator.PanelLayout.GetScaledTriangles(_screenBounds.Width, _screenBounds.Height, scaleType);
+            _panels = orchestrator.PanelLayout.GetScaledPolygons(_screenBounds.Width, _screenBounds.Height, scaleType);
 
             //Set the rectangle size to 1/3th of the length of a side of the triangle. TODO: test what size is best
             var triangle = _panels.FirstOrDefault().Polygon;

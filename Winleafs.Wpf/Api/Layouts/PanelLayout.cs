@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Winleafs.Api;
+using Winleafs.Models.Enums;
 using Winleafs.Models.Models;
 using Winleafs.Models.Models.Layouts;
 
@@ -41,11 +42,11 @@ namespace Winleafs.Wpf.Api.Layouts
 
             if (_layout != null)
             {
-                ConstructPanelsAsTriangles();
+                ConstructPanelsAsPolygons();
             }
         }
 
-        private void ConstructPanelsAsTriangles()
+        private void ConstructPanelsAsPolygons()
         {
             //Reverse every Y coordinate since Y = 0 means top for the canvas but for Nanoleaf it means bottom
             foreach (var panelPosition in _layout.PanelPositions)
@@ -68,21 +69,21 @@ namespace Winleafs.Wpf.Api.Layouts
             }
 
             //Normalize the triangle positions such that the coordinates start at 0
-            double minTriangleX = _unscaledPolygons.SelectMany(p => p.Polygon.Points).Min(p => p.X);
-            double minTriangleY = _unscaledPolygons.SelectMany(p => p.Polygon.Points).Min(p => p.Y);
+            double minPolygonX = _unscaledPolygons.SelectMany(p => p.Polygon.Points).Min(p => p.X);
+            double minPolygonY = _unscaledPolygons.SelectMany(p => p.Polygon.Points).Min(p => p.Y);
 
-            foreach (var triangle in _unscaledPolygons)
+            foreach (var polygon in _unscaledPolygons)
             {
                 //Move MidPoint
-                triangle.MidPoint = new Point(triangle.MidPoint.X - minTriangleX, triangle.MidPoint.Y - minTriangleY);
+                polygon.MidPoint = new Point(polygon.MidPoint.X - minPolygonX, polygon.MidPoint.Y - minPolygonY);
 
-                //Move triangle
-                for (var i = 0; i < triangle.Polygon.Points.Count; i++)
+                //Move polygon
+                for (var i = 0; i < polygon.Polygon.Points.Count; i++)
                 {
-                    var x = triangle.Polygon.Points[i].X - minTriangleX;
-                    var y = triangle.Polygon.Points[i].Y - minTriangleY;
+                    var x = polygon.Polygon.Points[i].X - minPolygonX;
+                    var y = polygon.Polygon.Points[i].Y - minPolygonY;
 
-                    triangle.Polygon.Points[i] = new Point(x, y);
+                    polygon.Polygon.Points[i] = new Point(x, y);
                 }
             }
         }
@@ -91,7 +92,7 @@ namespace Winleafs.Wpf.Api.Layouts
         /// Draws an equilateral polygon from the given center point and rotation. Also applies the global rotation
         /// </summary>
         private void CreatePolygon(double x, double y, double rotation, int panelId,
-            Transform globalRotationTransform, int shapeType)
+            Transform globalRotationTransform, ShapeType shapeType)
         {
             var rotateTransform = new RotateTransform(rotation, x, y);
 
@@ -100,9 +101,7 @@ namespace Winleafs.Wpf.Api.Layouts
 
             switch (shapeType)
             {
-                // 0 Is Aurora or the triangle shape.
-                // 2 Is defined as the Canvas or square shape
-                case 0:
+                case ShapeType.Triangle:
                 {
                     //First assume that we draw the triangle facing up:
                     //     A
@@ -121,8 +120,28 @@ namespace Winleafs.Wpf.Api.Layouts
                     polygon.Points.Add(globalRotationTransform.Transform(rotateTransform.Transform(c)));
                     break;
                 }
-                case 2:
+                case ShapeType.Square:
                 {
+                    /*
+                     * a------------d
+                     * |            |
+                     * |            |
+                     * |     xy     |
+                     * |            |
+                     * |            |
+                     * b------------c
+                     *
+                     * The X and Y positions are given as if they are in the
+                     * middle of the square that should be created.
+                     * For that reason we always need to edit the X and Y position
+                     * to create a correct square.
+                     *
+                     * The Nanoleaf API returns the SideLength as the full length
+                     * of the sides of the square. Because the x and y are in the middle
+                     * Only half of the side length should be either add or removed
+                     * from the X and Y
+                     */
+
                     var canvasSideLength = _layout.SideLength / (double)2;
                     var a = new Point(x - canvasSideLength, y + canvasSideLength);
                     var b = new Point(x - canvasSideLength, y - canvasSideLength);
@@ -153,7 +172,7 @@ namespace Winleafs.Wpf.Api.Layouts
         /// Returns the panels represented as <see cref="DrawablePanel"/>s scaled to fit the desired width and height.
         /// Returns null if there is no layout
         /// </summary>
-        public List<DrawablePanel> GetScaledTriangles(int width, int height, ScaleType scaleType = ScaleType.Fit)
+        public List<DrawablePanel> GetScaledPolygons(int width, int height, ScaleType scaleType = ScaleType.Fit)
         {
             if (_layout == null)
             {
@@ -183,7 +202,7 @@ namespace Winleafs.Wpf.Api.Layouts
                 scaleTransform = new ScaleTransform(scaleX, scaleY);
             }
 
-            var scaledTriangles = new List<DrawablePanel>();
+            var scaledPolygons = new List<DrawablePanel>();
 
             foreach (var panel in _unscaledPolygons)
             {
@@ -193,7 +212,7 @@ namespace Winleafs.Wpf.Api.Layouts
                     polygon.Points.Add(scaleTransform.Transform(point));
                 }
 
-                scaledTriangles.Add(new DrawablePanel
+                scaledPolygons.Add(new DrawablePanel
                 {
                     MidPoint = scaleTransform.Transform(panel.MidPoint),
                     PanelId = panel.PanelId,
@@ -201,7 +220,7 @@ namespace Winleafs.Wpf.Api.Layouts
                 });
             }
 
-            return scaledTriangles;
+            return scaledPolygons;
         }
     }
 }
