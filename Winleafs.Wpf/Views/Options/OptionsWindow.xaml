@@ -124,6 +124,7 @@
                             FontSize="20" Foreground="White" Grid.Column="1" />
                         <Slider
                             Style="{DynamicResource MaterialDesignSlider}"
+                            Foreground="{StaticResource NanoleafGreen}"
                             HorizontalAlignment="Left" Margin="102,112,0,0" VerticalAlignment="Top" Width="252"
                             Minimum="1" Maximum="10" Value="{Binding ScreenMirrorRefreshRatePerSecond}"
                             IsSnapToTickEnabled="True" TickFrequency="1" Grid.Column="1"/>
@@ -144,44 +145,61 @@
             <TabItem Header="{x:Static local:Resources.Color}" Height="21" VerticalAlignment="Top">
                 <materialDesign:Card Padding="32" Margin="16" Background="{StaticResource NanoleafBlack}">
                     <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="197*"/>
-                            <ColumnDefinition Width="343*"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Margin="10,10,0,0" TextWrapping="Wrap" Text="{x:Static local:Resources.PickAColor}" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="15" Foreground="White" Height="25" Width="150"/>
                         <ScrollViewer Margin="10,97,0,0" VerticalScrollBarVisibility="Visible"  HorizontalAlignment="Left" Width="520" Grid.ColumnSpan="2">
                             <StackPanel Margin="0,0,5,0" x:Name="ColorList" HorizontalAlignment="Right" Width="500"/>
                         </ScrollViewer>
 
-                        <xctk:ColorPicker x:Name="ColorPicker" Margin="0,8,137,0" Height="27" VerticalAlignment="Top" Width="250" HorizontalAlignment="Right" Grid.ColumnSpan="2"/>
-                        <TextBox x:Name="EffectTextBox" HorizontalAlignment="Right" Height="23" Margin="0,50,137,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White" Grid.ColumnSpan="2"/>
-                        <Button Content="{x:Static local:Resources.Add}" HorizontalAlignment="Right" Margin="0,48,10,0" Width="115" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="AddColor_Click" Height="27" VerticalAlignment="Top" Grid.Column="1"/>
-                        <TextBlock Margin="10,48,0,0" TextWrapping="Wrap" Text="{x:Static local:Resources.Name}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" Foreground="White" Height="25" Width="50"/>
+                        <Label Margin="0,0,0,0"
+                               Content="{x:Static local:Resources.PickAColor}" VerticalAlignment="Top"
+                               HorizontalAlignment="Left" FontSize="15" Foreground="White" Height="25" Width="150"/>
+
+                        <xctk:ColorPicker x:Name="ColorPicker" Margin="0,30,0,0" Height="25" VerticalAlignment="Top"
+                                          Width="250" HorizontalAlignment="Left" Grid.ColumnSpan="2"/>
+
+                        <TextBox
+                            Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                            materialDesign:HintAssist.Hint="{x:Static local:Resources.Name}"
+                            materialDesign:HintAssist.Foreground="White"
+                            materialDesign:HintAssist.IsFloating="True"
+                            x:Name="EffectTextBox" HorizontalAlignment="Right" Height="40"
+                            Margin="0,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top"
+                            Width="250" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White"
+                            CaretBrush="White"/>
+
+                        <Button Content="{x:Static local:Resources.Add}" HorizontalAlignment="Right"
+                                Margin="0,70,0,0" Width="115" Background="{StaticResource NanoleafGreen}"
+                                Foreground="White" BorderBrush="{x:Null}" Click="AddColor_Click" Height="27"
+                                VerticalAlignment="Top"/>
                     </Grid>
                 </materialDesign:Card>
             </TabItem>
             <TabItem Header="{x:Static local:Resources.Disclaimer}">
                 <materialDesign:Card Padding="32" Margin="16" Background="{StaticResource NanoleafBlack}">
                     <Grid>
-                        <Label Content="{x:Static local:Resources.WinleafsUsesAPIs}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
-                        <TextBlock Margin="9,52,420.333,268.667">
+                        <Label Content="{x:Static local:Resources.WinleafsUsesAPIs}" ContentStringFormat="{}{0}:"
+                               HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" FontSize="20"
+                               Foreground="White"/>
+                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,50,0,0.0">
                         <Hyperlink NavigateUri="http://icanhazip.com/" RequestNavigate="Hyperlink_RequestNavigate">
                             Icanhazip
                         </Hyperlink>
                         </TextBlock>
-                        <Label Content="{x:Static local:Resources.IcanhazipExplanation}" HorizontalAlignment="Left" Margin="122,47,0,0" VerticalAlignment="Top" Foreground="White"/>
-                        <TextBlock Margin="9,82,420.333,238.667">
+                        <Label Content="{x:Static local:Resources.IcanhazipExplanation}"
+                               HorizontalAlignment="Left" Margin="150,50,0,0" VerticalAlignment="Top" Foreground="White"/>
+                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,75,0,0">
                         <Hyperlink NavigateUri="http://ip-api.com/" RequestNavigate="Hyperlink_RequestNavigate">
                             IP-API
                         </Hyperlink>
                         </TextBlock>
-                        <Label Content="{x:Static local:Resources.IPAPIExplanation}" HorizontalAlignment="Left" Margin="122,77,0,0" VerticalAlignment="Top" Foreground="White"/>
-                        <TextBlock Margin="9,112,368.333,208.667">
+                        <Label Content="{x:Static local:Resources.IPAPIExplanation}"
+                               HorizontalAlignment="Left" Margin="150,75,0,0" VerticalAlignment="Top" Foreground="White"/>
+                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,100,0,0">
                         <Hyperlink NavigateUri="https://sunrise-sunset.org/api" RequestNavigate="Hyperlink_RequestNavigate">
                             Sunrise-sunset API
                         </Hyperlink>
                         </TextBlock>
-                        <Label Content="{x:Static local:Resources.SunsetSunriseAPIExplanation}" HorizontalAlignment="Left" Margin="122,107,0,0" VerticalAlignment="Top" Foreground="White"/>
+                        <Label Content="{x:Static local:Resources.SunsetSunriseAPIExplanation}"
+                               HorizontalAlignment="Left" Margin="150,100,0,0" VerticalAlignment="Top" Foreground="White"/>
                     </Grid>
                 </materialDesign:Card>
             </TabItem>
