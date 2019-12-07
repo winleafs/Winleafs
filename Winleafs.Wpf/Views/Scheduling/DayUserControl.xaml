@@ -5,8 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:scheduling="clr-namespace:Winleafs.Wpf.Views.Scheduling"
              xmlns:helpers="clr-namespace:Winleafs.Wpf.Helpers"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
-             Width="200" Height="Auto">
+             MinWidth="200" Height="Auto">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -19,9 +20,9 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="{Binding NameOfDay}" Foreground="White" FontSize="20"/>
-        <Button Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="35" Height="35" Background="{x:Null}" BorderBrush="{x:Null}" helpers:ContextMenuLeftClickBehavior.IsLeftClickEnabled="True">
-            <Image Source="../../Icons/appbar.page.copy.png"></Image>
+        <Label Grid.Row="0" Grid.Column="0" Content="{Binding NameOfDay}" Foreground="White" FontSize="20" HorizontalAlignment="Left"/>
+        <Button Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Padding="0"  VerticalAlignment="Top" Width="35" Height="35" Background="{x:Null}" BorderBrush="{x:Null}" helpers:ContextMenuLeftClickBehavior.IsLeftClickEnabled="True">
+            <materialDesign:PackIcon Kind="FileMultipleOutline" Foreground="White" Height="30" Width="30" />
             <Button.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="{x:Static scheduling:Resources.CopyToAllDays}" Click="AllDays_Click"/>
@@ -37,8 +38,8 @@
                 </ContextMenu>
             </Button.ContextMenu>
         </Button>
-        <Button Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="35" Height="35" Background="{x:Null}" BorderBrush="{x:Null}" Click="Plus_Click">
-            <Image Source="../../Icons/appbar.add.png"></Image>
+        <Button Grid.Row="0" Grid.Column="2" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="35" Height="35" Background="{x:Null}" BorderBrush="{x:Null}" Click="Plus_Click">
+            <materialDesign:PackIcon Kind="Plus" Foreground="White" Height="35" Width="35"/>
         </Button>
         <StackPanel Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,5,0,0" x:Name="TriggerList">
         </StackPanel>

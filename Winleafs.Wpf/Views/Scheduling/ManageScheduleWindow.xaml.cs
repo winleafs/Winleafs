@@ -7,6 +7,8 @@ using Winleafs.Models.Models.Scheduling;
 using Newtonsoft.Json;
 
 using Winleafs.Wpf.Views.MainWindows;
+using Winleafs.Models.Models;
+using System.Linq;
 
 namespace Winleafs.Wpf.Views.Scheduling
 {
@@ -58,6 +60,9 @@ namespace Winleafs.Wpf.Views.Scheduling
 
             EventUserControl.EventTriggers = Schedule.EventTriggers;
             EventUserControl.BuildTriggerList();
+
+            //Set the device dropdown values
+            DevicesDropdown.ItemsSource = UserSettings.Settings.Devices.Select(device => device.Name);
         }
 
         private void SetupDayUserControls()
@@ -72,6 +77,10 @@ namespace Winleafs.Wpf.Views.Scheduling
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
+            //Set the devices of the schedule
+            Schedule.AppliesToDeviceNames = DevicesDropdown.SelectedValue.Split(',').Select(x => x.Trim()).ToList();
+
+            //TODO: input check: there must be at least 1 process event or time trigger, a name, and at least 1 selected device
             if (_workMode == WorkMode.Add)
             {
                 _parent.AddedSchedule(Schedule);

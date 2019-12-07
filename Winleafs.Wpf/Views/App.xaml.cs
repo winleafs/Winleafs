@@ -190,18 +190,23 @@ namespace Winleafs.Wpf.Views
 
         private static void CheckForUpdate()
         {
-            var client = new ReleaseClient();
-            var release = client.GetLatestVersion().GetAwaiter().GetResult();
-
-            if (release == UserSettings.APPLICATIONVERSION)
+            try
             {
-                return;
+                var client = new ReleaseClient();
+                var release = client.GetLatestVersion().GetAwaiter().GetResult();
+
+                if (release == UserSettings.APPLICATIONVERSION)
+                {
+                    return;
+                }
+
+                new NewVersionPopup().Show();
+                _logger.Info($"New version available upgrade from {UserSettings.APPLICATIONVERSION} to {release}");
             }
-
-            new NewVersionPopup().Show();
-            _logger.Info($"New version available upgrade from {UserSettings.APPLICATIONVERSION} to {release}");
-
-            // Check release with current version.
+            catch (Octokit.RateLimitExceededException)
+            {
+                //Do nothing
+            }
         }
 
         #region Show window of other process
