@@ -243,4 +243,7 @@
   <data name="MustChooseEffect" xml:space="preserve">
     <value>Kies aub een effect</value>
   </data>
+  <data name="SaveScheduleError" xml:space="preserve">
+    <value>Voor aub een naam in, kies tenminste 1 apparaat en tenminste 1 triger of event.</value>
+  </data>
 </root>

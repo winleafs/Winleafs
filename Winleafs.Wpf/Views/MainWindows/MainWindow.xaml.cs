@@ -69,6 +69,8 @@ namespace Winleafs.Wpf.Views.MainWindows
 
             //Must appear last since this user control uses components of the main window
             TaskbarIcon.Initialize(this);
+
+            BuildScheduleList();
         }
 
         /// <summary>

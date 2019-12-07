@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Winleafs.Wpf.Views.Scheduling"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
              Width="200" Height="Auto">
     <Grid>
@@ -14,8 +15,8 @@
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0"  Content="{x:Static local:Resources.Events}" Foreground="White" FontSize="20"/>
-        <Button Grid.Row="0" VerticalAlignment="Top" Height="35" Background="{x:Null}" BorderBrush="{x:Null}" Click="Plus_Click" Margin="0,0,5,0" Grid.RowSpan="3" HorizontalAlignment="Right" Width="35">
-            <Image Source="../../Icons/appbar.add.png"></Image>
+        <Button Grid.Row="0" VerticalAlignment="Top" Height="35" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Click="Plus_Click" Margin="0,0,5,0" Grid.RowSpan="3" HorizontalAlignment="Right" Width="35">
+            <materialDesign:PackIcon Kind="Plus" Foreground="White" Height="35" Width="35"/>
         </Button>
         <StackPanel Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,5,0,0" x:Name="TriggerList">
         </StackPanel>

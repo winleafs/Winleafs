@@ -367,6 +367,15 @@ namespace Winleafs.Wpf.Views.Scheduling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter a name, at least one device and at least one trigger or event.
+        /// </summary>
+        public static string SaveScheduleError {
+            get {
+                return ResourceManager.GetString("SaveScheduleError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sunday.
         /// </summary>
         public static string Sunday {

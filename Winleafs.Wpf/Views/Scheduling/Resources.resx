@@ -219,6 +219,9 @@
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="SaveScheduleError" xml:space="preserve">
+    <value>Please enter a name, at least one device and at least one trigger or event</value>
+  </data>
   <data name="Sunday" xml:space="preserve">
     <value>Sunday</value>
   </data>

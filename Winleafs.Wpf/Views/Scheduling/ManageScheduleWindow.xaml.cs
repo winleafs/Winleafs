@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using Winleafs.Wpf.Views.MainWindows;
 using Winleafs.Models.Models;
 using System.Linq;
+using Winleafs.Wpf.Views.Popup;
 
 namespace Winleafs.Wpf.Views.Scheduling
 {
@@ -63,6 +64,7 @@ namespace Winleafs.Wpf.Views.Scheduling
 
             //Set the device dropdown values
             DevicesDropdown.ItemsSource = UserSettings.Settings.Devices.Select(device => device.Name);
+            DevicesDropdown.SelectedValue = Schedule.AppliedDeviceNames;
         }
 
         private void SetupDayUserControls()
@@ -80,7 +82,15 @@ namespace Winleafs.Wpf.Views.Scheduling
             //Set the devices of the schedule
             Schedule.AppliesToDeviceNames = DevicesDropdown.SelectedValue.Split(',').Select(x => x.Trim()).ToList();
 
-            //TODO: input check: there must be at least 1 process event or time trigger, a name, and at least 1 selected device
+            //Check if a name is entered, a device is selected and if there is any event or trigger
+            if (!Schedule.AppliesToDeviceNames.Any()
+                || string.IsNullOrWhiteSpace(Schedule.Name)
+                || (!Schedule.Programs.Any(program => program.Triggers.Any()) && !Schedule.EventTriggers.Any()))
+            {
+                PopupCreator.Error(Scheduling.Resources.SaveScheduleError);
+                return;
+            }
+
             if (_workMode == WorkMode.Add)
             {
                 _parent.AddedSchedule(Schedule);
