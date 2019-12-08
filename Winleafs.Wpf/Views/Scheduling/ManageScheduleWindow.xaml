@@ -62,7 +62,16 @@
                     <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
                 </CheckBox.LayoutTransform>
             </CheckBox>
-            <xctk:CheckComboBox x:Name="DevicesDropdown" HorizontalAlignment="Left" Margin="830,3,0,0" VerticalAlignment="Top" SelectedItemsOverride="{Binding AppliedDeviceNames}" Width="200" Delimiter=", "/>
+            <xctk:CheckComboBox x:Name="DevicesDropdown" HorizontalAlignment="Left" Margin="830,3,0,0" VerticalAlignment="Top"
+                                SelectedItemsOverride="{Binding AppliedDeviceNames}" Width="200" Delimiter=", " Foreground="White" Background="{StaticResource NanoleafBlack}"
+                                BorderThickness="0 0 0 1" BorderBrush="DarkGray">
+                <xctk:CheckComboBox.ItemContainerStyle>
+                    <Style TargetType="xctk:SelectorItem">
+                        <Setter Property="Background" Value="{StaticResource NanoleafBlack}" />
+                        <Setter Property="BorderThickness" Value="0 0 0 0" />
+                    </Style>
+                </xctk:CheckComboBox.ItemContainerStyle>
+            </xctk:CheckComboBox>
         </Grid>
     </Grid>
 </Window>
