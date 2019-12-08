@@ -66,6 +66,8 @@ namespace Winleafs.Wpf.Views.MainWindows
 
             BuildScheduleList();
 
+            VersionLabel.Content = $"Winleafs {UserSettings.APPLICATIONVERSION}";
+
             //Must appear last since this user control uses components of the main window
             TaskbarIcon.Initialize(this);
         }

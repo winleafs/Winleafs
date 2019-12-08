@@ -35,6 +35,7 @@
                 <Button Content="{x:Static mainWindows:Resources.AddSchedule}" Margin="0,10,10,0" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Height="32" VerticalAlignment="Top" Click="AddSchedule_Click" HorizontalAlignment="Right" Width="140"/>
                 <Label Content="{x:Static mainWindows:Resources.Schedules}" FontSize="24" Foreground="White" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                 <StackPanel x:Name="SchedulesStackPanel" Margin="0,50,0,50"/>
+                <Label x:Name="VersionLabel" Content="Winleafs version" FontSize="12" Foreground="White" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
             </Grid>
         </materialDesign:Card>
         <Grid>
