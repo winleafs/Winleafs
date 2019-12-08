@@ -117,13 +117,12 @@ namespace Winleafs.Wpf.Views.MainWindows
             {
                 if (await _orchestrator.TrySetOperationMode(OperationMode.Manual, true, true))
                 {
-                    //TODO: Device OverrideEffect renamen naar ActiveEffect
-                    _device.OverrideEffect = SelectedEffect;
-                    _device.OverrideBrightness = Brightness;
+                    _device.ManualEffect = SelectedEffect;
+                    _device.ManualBrightness = Brightness;
 
                     await _orchestrator.ActivateEffect(SelectedEffect, Brightness);
 
-                    //TODO: save settings?
+                    UserSettings.Settings.SaveSettings();
 
                     Update();
                 }
@@ -148,9 +147,21 @@ namespace Winleafs.Wpf.Views.MainWindows
             //Update UI on main thread
             Dispatcher.Invoke(new Action(() =>
             {
-                ActiveEffectLabel.Content = $"{_orchestrator.GetActiveEffectName()} ({EnumLocalizer.GetLocalizedEnum(_device.OperationMode)})";
-                SelectedEffect = _orchestrator.GetActiveEffectName();
-                Brightness = _orchestrator.GetActiveBrightness();
+                var activeEffect = _orchestrator.GetActiveEffectName();
+
+                if (string.IsNullOrEmpty(activeEffect))
+                {
+                    ActiveEffectLabel.Content = MainWindows.Resources.Nothing;
+                }
+                else
+                {
+                    ActiveEffectLabel.Content = $"{activeEffect} ({EnumLocalizer.GetLocalizedEnum(_device.OperationMode)})";
+                }
+                
+                SelectedEffect = activeEffect;
+
+                var activeBrightness = _orchestrator.GetActiveBrightness();
+                Brightness = activeBrightness < 0 ? 0 : activeBrightness;
             }));            
         }
     }

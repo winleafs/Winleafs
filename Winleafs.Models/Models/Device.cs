@@ -30,8 +30,8 @@ namespace Winleafs.Models.Models
 
         public List<Effect> Effects { get; set; }
 
-        public string OverrideEffect { get; set; }
-        public int OverrideBrightness { get; set; }
+        public string ManualEffect { get; set; }
+        public int ManualBrightness { get; set; }
 
         public PercentageProfile PercentageProfile { get;set;}
 
@@ -48,6 +48,7 @@ namespace Winleafs.Models.Models
             Effects = new List<Effect>();
             ScreenMirrorRefreshRatePerSecond = 1;
             ScreenMirrorControlBrightness = false;
+            OperationMode = OperationMode.Manual;
         }
 
         public void LoadEffectsFromNameList(IEnumerable<string> effectNames)

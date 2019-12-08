@@ -46,7 +46,7 @@ namespace Winleafs.Wpf.Api
             }
             else if (device.OperationMode == OperationMode.Manual)
             {
-                Task.Run(() => ActivateEffect(Device.OverrideEffect, Device.OverrideBrightness));
+                Task.Run(() => ActivateEffect(Device.ManualEffect, Device.ManualBrightness));
             }
         }
 
@@ -146,7 +146,7 @@ namespace Winleafs.Wpf.Api
             switch (Device.OperationMode)
             {
                 case OperationMode.Manual:
-                    return Device.OverrideEffect;
+                    return Device.ManualEffect;
 
                 case OperationMode.Event:
                     var activeEvent = _eventTriggersCollection.EventTriggers.FirstOrDefault(e => e.IsActive());
@@ -172,7 +172,7 @@ namespace Winleafs.Wpf.Api
             switch (Device.OperationMode)
             {
                 case OperationMode.Manual:
-                    return Device.OverrideBrightness;
+                    return Device.ManualBrightness;
 
                 case OperationMode.Event:
                     var activeEvent = _eventTriggersCollection.EventTriggers.FirstOrDefault(e => e.IsActive());
