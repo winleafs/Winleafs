@@ -172,8 +172,8 @@ Hover over deze knop.</value>
   <data name="DeleteConfirmation" xml:space="preserve">
     <value>Verwijderen bevestigen</value>
   </data>
-  <data name="Nothing" xml:space="preserve">
-    <value>Niks</value>
+  <data name="None" xml:space="preserve">
+    <value>Geen</value>
   </data>
   <data name="RemoveDevice" xml:space="preserve">
     <value>Verwijder dit apparaat</value>

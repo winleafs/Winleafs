@@ -83,7 +83,7 @@ namespace Winleafs.Wpf.Views.MainWindows
 
             foreach (var device in UserSettings.Settings.Devices)
             {
-                var deviceUserControl = new DeviceUserControl(device);
+                var deviceUserControl = new DeviceUserControl(device, this);
 
                 _deviceUserControls.Add(deviceUserControl);
                 DevicesStackPanel.Children.Add(deviceUserControl);
@@ -294,6 +294,14 @@ namespace Winleafs.Wpf.Views.MainWindows
             foreach (var deviceUserControl in _deviceUserControls)
             {
                 deviceUserControl.Update();
+            }
+        }
+
+        public void UpdateLayoutColors(string deviceName)
+        {
+            if (deviceName == UserSettings.Settings.ActiveDevice.Name)
+            {
+                LayoutDisplay.UpdateColors();
             }
         }
 

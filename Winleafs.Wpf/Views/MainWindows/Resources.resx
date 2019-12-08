@@ -159,8 +159,8 @@
   <data name="MostUsedEffects" xml:space="preserve">
     <value>Most used effects</value>
   </data>
-  <data name="Nothing" xml:space="preserve">
-    <value>Nothing</value>
+  <data name="None" xml:space="preserve">
+    <value>None</value>
   </data>
   <data name="Options" xml:space="preserve">
     <value>Options</value>

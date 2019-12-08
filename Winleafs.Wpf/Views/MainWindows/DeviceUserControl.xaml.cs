@@ -23,6 +23,8 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private readonly MainWindow _parent;
+
         public ObservableCollection<string> Effects { get; set; }
 
         private string _selectedEffect;
@@ -52,12 +54,13 @@ namespace Winleafs.Wpf.Views.MainWindows
         private Device _device;
         private Orchestrator _orchestrator;
 
-        public DeviceUserControl(Device device)
+        public DeviceUserControl(Device device, MainWindow parent)
         {
             InitializeComponent();
 
             _device = device;
             _orchestrator = OrchestratorCollection.GetOrchestratorForDevice(_device);
+            _parent = parent;
 
             Effects = new ObservableCollection<string>();
             LoadEffects();
@@ -151,7 +154,7 @@ namespace Winleafs.Wpf.Views.MainWindows
 
                 if (string.IsNullOrEmpty(activeEffect))
                 {
-                    ActiveEffectLabel.Content = MainWindows.Resources.Nothing;
+                    ActiveEffectLabel.Content = MainWindows.Resources.None;
                 }
                 else
                 {
@@ -162,6 +165,9 @@ namespace Winleafs.Wpf.Views.MainWindows
 
                 var activeBrightness = _orchestrator.GetActiveBrightness();
                 Brightness = activeBrightness < 0 ? 0 : activeBrightness;
+
+                //Update the colors in the mainwindow
+                _parent.UpdateLayoutColors(_device.Name);
             }));            
         }
     }

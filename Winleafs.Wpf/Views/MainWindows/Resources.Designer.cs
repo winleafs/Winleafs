@@ -187,11 +187,11 @@ namespace Winleafs.Wpf.Views.MainWindows {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nothing.
+        ///   Looks up a localized string similar to None.
         /// </summary>
-        public static string Nothing {
+        public static string None {
             get {
-                return ResourceManager.GetString("Nothing", resourceCulture);
+                return ResourceManager.GetString("None", resourceCulture);
             }
         }
         
