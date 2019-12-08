@@ -6,7 +6,7 @@
         xmlns:scheduling="clr-namespace:Winleafs.Wpf.Views.Scheduling"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="{x:Static scheduling:Resources.ManageScheduleTitle}" Height="600" Width="1756" MinWidth="800" MinHeight="600" ResizeMode="CanResize">
+        Title="{x:Static scheduling:Resources.ManageScheduleTitle}" Height="600" Width="1773" ResizeMode="NoResize">
 
     <Grid Background="{StaticResource NanoleafBlack}">
         <Grid.RowDefinitions>
@@ -14,43 +14,39 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200" />
-            <ColumnDefinition Width="0*" />
-            <ColumnDefinition Width="0*"/>
-            <ColumnDefinition Width="748*"/>
+            <ColumnDefinition Width="220" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <scheduling:EventUserControl Grid.Row="1" Grid.Column="0" x:Name="EventUserControl"/>
 
-        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition MinWidth="220" />
-                    <ColumnDefinition MinWidth="220" />
-                    <ColumnDefinition MinWidth="220" />
-                    <ColumnDefinition MinWidth="220" />
-                    <ColumnDefinition MinWidth="220" />
-                    <ColumnDefinition MinWidth="220" />
-                    <ColumnDefinition MinWidth="220" />
-                </Grid.ColumnDefinitions>
+        <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="220" />
+                <ColumnDefinition Width="220" />
+                <ColumnDefinition Width="220" />
+                <ColumnDefinition Width="220" />
+                <ColumnDefinition Width="220" />
+                <ColumnDefinition Width="220" />
+                <ColumnDefinition Width="220" />
+            </Grid.ColumnDefinitions>
 
-                <scheduling:DayUserControl Grid.Row="1" Grid.Column="0" NameOfDay="{x:Static scheduling:Resources.Monday}" IndexOfDay="0" x:Name="MondayUserControl" HorizontalAlignment="Left"/>
-                <scheduling:DayUserControl Grid.Row="1" Grid.Column="1" NameOfDay="{x:Static scheduling:Resources.Tuesday}" IndexOfDay="1" x:Name="TuesdayUserControl" HorizontalAlignment="Left"/>
-                <scheduling:DayUserControl Grid.Row="1" Grid.Column="2" NameOfDay="{x:Static scheduling:Resources.Wednesday}" IndexOfDay="2" x:Name="WednesdayUserControl" HorizontalAlignment="Left"/>
-                <scheduling:DayUserControl Grid.Row="1" Grid.Column="3" NameOfDay="{x:Static scheduling:Resources.Thursday}" IndexOfDay="3" x:Name="ThursdayUserControl" HorizontalAlignment="Left"/>
-                <scheduling:DayUserControl Grid.Row="1" Grid.Column="4" NameOfDay="{x:Static scheduling:Resources.Friday}" IndexOfDay="4" x:Name="FridayUserControl" HorizontalAlignment="Left"/>
-                <scheduling:DayUserControl Grid.Row="1" Grid.Column="5" NameOfDay="{x:Static scheduling:Resources.Saturday}" IndexOfDay="5" x:Name="SaturdayUserControl" HorizontalAlignment="Left"/>
-                <scheduling:DayUserControl Grid.Row="1" Grid.Column="6" NameOfDay="{x:Static scheduling:Resources.Sunday}" IndexOfDay="6" x:Name="SundayUserControl" HorizontalAlignment="Left"/>
+            <scheduling:DayUserControl Grid.Row="1" Grid.Column="0" NameOfDay="{x:Static scheduling:Resources.Monday}" IndexOfDay="0" x:Name="MondayUserControl" HorizontalAlignment="Left"/>
+            <scheduling:DayUserControl Grid.Row="1" Grid.Column="1" NameOfDay="{x:Static scheduling:Resources.Tuesday}" IndexOfDay="1" x:Name="TuesdayUserControl" HorizontalAlignment="Left"/>
+            <scheduling:DayUserControl Grid.Row="1" Grid.Column="2" NameOfDay="{x:Static scheduling:Resources.Wednesday}" IndexOfDay="2" x:Name="WednesdayUserControl" HorizontalAlignment="Left"/>
+            <scheduling:DayUserControl Grid.Row="1" Grid.Column="3" NameOfDay="{x:Static scheduling:Resources.Thursday}" IndexOfDay="3" x:Name="ThursdayUserControl" HorizontalAlignment="Left"/>
+            <scheduling:DayUserControl Grid.Row="1" Grid.Column="4" NameOfDay="{x:Static scheduling:Resources.Friday}" IndexOfDay="4" x:Name="FridayUserControl" HorizontalAlignment="Left"/>
+            <scheduling:DayUserControl Grid.Row="1" Grid.Column="5" NameOfDay="{x:Static scheduling:Resources.Saturday}" IndexOfDay="5" x:Name="SaturdayUserControl" HorizontalAlignment="Left"/>
+            <scheduling:DayUserControl Grid.Row="1" Grid.Column="6" NameOfDay="{x:Static scheduling:Resources.Sunday}" IndexOfDay="6" x:Name="SundayUserControl" HorizontalAlignment="Left"/>
 
-                <Border Grid.Row="1" Grid.Column="0" BorderBrush="White" BorderThickness="1 0 1 0"/>
-                <Border Grid.Row="1" Grid.Column="1" BorderBrush="White" BorderThickness="0 0 1 0"/>
-                <Border Grid.Row="1" Grid.Column="2" BorderBrush="White" BorderThickness="0 0 1 0"/>
-                <Border Grid.Row="1" Grid.Column="3" BorderBrush="White" BorderThickness="0 0 1 0"/>
-                <Border Grid.Row="1" Grid.Column="4" BorderBrush="White" BorderThickness="0 0 1 0"/>
-                <Border Grid.Row="1" Grid.Column="5" BorderBrush="White" BorderThickness="0 0 1 0"/>
-            </Grid>
-        </ScrollViewer>
-
+            <Border Grid.Row="1" Grid.Column="0" BorderBrush="White" BorderThickness="1 0 1 0"/>
+            <Border Grid.Row="1" Grid.Column="1" BorderBrush="White" BorderThickness="0 0 1 0"/>
+            <Border Grid.Row="1" Grid.Column="2" BorderBrush="White" BorderThickness="0 0 1 0"/>
+            <Border Grid.Row="1" Grid.Column="3" BorderBrush="White" BorderThickness="0 0 1 0"/>
+            <Border Grid.Row="1" Grid.Column="4" BorderBrush="White" BorderThickness="0 0 1 0"/>
+            <Border Grid.Row="1" Grid.Column="5" BorderBrush="White" BorderThickness="0 0 1 0"/>
+        </Grid>
+        
         <Grid Grid.Row="0" Grid.ColumnSpan="4">
             <Border BorderBrush="White" BorderThickness="0 0 0 1">
             </Border>

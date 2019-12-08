@@ -80,7 +80,7 @@ namespace Winleafs.Wpf.Views.Scheduling
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             //Set the devices of the schedule
-            Schedule.AppliesToDeviceNames = DevicesDropdown.SelectedValue.Split(',').Select(x => x.Trim()).ToList();
+            Schedule.AppliesToDeviceNames = string.IsNullOrEmpty(DevicesDropdown.SelectedValue) ? new List<string>() : DevicesDropdown.SelectedValue.Split(',').Select(x => x.Trim()).ToList();
 
             //Check if a name is entered, a device is selected and if there is any event or trigger
             if (!Schedule.AppliesToDeviceNames.Any()

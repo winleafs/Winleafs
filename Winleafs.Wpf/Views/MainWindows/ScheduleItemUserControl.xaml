@@ -5,14 +5,18 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="40" d:DesignWidth="323">
-    <Grid>
-        <Label Content="{Binding Schedule.Name}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontSize="20" Height="40" Width="244" MouseDoubleClick="ActiveSchedule_Click"/>
-        <Button VerticalAlignment="Top" Height="35" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Click="Edit_Click" Margin="0,2,39,0" HorizontalAlignment="Right" Width="35">
-            <materialDesign:PackIcon Kind="Pencil" Foreground="White" Height="30" Width="30"/>
-        </Button>
-        <Button VerticalAlignment="Top" Height="35" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Click="Delete_Click" Margin="0,2,4,0" HorizontalAlignment="Right" Width="35">
-            <materialDesign:PackIcon Kind="Delete" Foreground="White" Height="30" Width="30"/>
-        </Button>
-    </Grid>
+             MouseDoubleClick="ActiveSchedule_Click"
+             d:DesignHeight="55" d:DesignWidth="323">
+    <Border BorderThickness="0 0 0 1" BorderBrush="White">
+        <Grid>
+            <Label Content="{Binding Schedule.Name}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontSize="20" Height="40" Width="244" Margin="0,5,0,0"/>
+            <Button VerticalAlignment="Top" Height="35" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Click="Edit_Click" Margin="0,7,39,0" HorizontalAlignment="Right" Width="35">
+                <materialDesign:PackIcon Kind="Pencil" Foreground="White" Height="30" Width="30"/>
+            </Button>
+            <Button VerticalAlignment="Top" Height="35" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Click="Delete_Click" Margin="0,7,4,0" HorizontalAlignment="Right" Width="35">
+                <materialDesign:PackIcon Kind="Delete" Foreground="White" Height="30" Width="30"/>
+            </Button>
+            <Label Content="{Binding Schedule.AppliedDeviceNames}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontSize="11" Width="244" Margin="0,30,0,0" />
+        </Grid>
+    </Border>
 </UserControl>
