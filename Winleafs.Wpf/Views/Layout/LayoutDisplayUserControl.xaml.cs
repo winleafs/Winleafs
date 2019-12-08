@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Timers;
 using System.Windows;
@@ -31,7 +30,7 @@ namespace Winleafs.Wpf.Views.Layout
 
         private static readonly Random _random = new Random();
 
-        private List<DrawablePanel> _triangles;
+        private List<DrawablePanel> _polygons;
         private bool _panelsClickable;
         private HashSet<int> _lockedPanelIds;
         private Dictionary<int, Brush> _highlightOriginalColors; //This dictionary saves the original colors of the triangles when highlighting
@@ -82,35 +81,42 @@ namespace Winleafs.Wpf.Views.Layout
             _panelsClickable = true;
         }
 
-        public void DrawLayout()
+        /// <summary>
+        /// Draws the layout and gives the polygons colors
+        /// </summary>
+        /// <param name="resetLayout">
+        /// If true, the panel layout is always requested from the panels
+        /// even if it has been retrieved before.
+        /// </param>
+        public void DrawLayout(bool resetLayout = false)
         {
             CanvasArea.Children.Clear();
 
-            if (_panelLayout == null)
+            if (resetLayout || _panelLayout == null)
             {
                 var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice);
                 _panelLayout = orchestrator.PanelLayout;
             }
             
-            _triangles = _panelLayout.GetScaledTriangles((int)ActualWidth, (int)ActualHeight);
+            _polygons = _panelLayout.GetScaledPolygons((int)ActualWidth, (int)ActualHeight);
 
-            if (_triangles == null || !_triangles.Any())
+            if (_polygons == null || !_polygons.Any())
             {
                 return;
             }
 
             if (_panelsClickable)
             {
-                foreach (var triangle in _triangles)
+                foreach (var polygon in _polygons)
                 {
-                    triangle.Polygon.MouseDown += TriangleClicked;
+                    polygon.Polygon.MouseDown += PolygonClicked;
                 }
             }           
 
             //Draw the triangles
-            foreach (var triangle in _triangles)
+            foreach (var polygon in _polygons)
             {
-                CanvasArea.Children.Add(triangle.Polygon);
+                CanvasArea.Children.Add(polygon.Polygon);
             }
 
             UpdateColors();
@@ -123,7 +129,7 @@ namespace Winleafs.Wpf.Views.Layout
 
         public void UpdateColors()
         {
-            if (UserSettings.Settings.ActiveDevice == null || _triangles == null)
+            if (UserSettings.Settings.ActiveDevice == null || _polygons == null)
             {
                 return;
             }     
@@ -162,16 +168,16 @@ namespace Winleafs.Wpf.Views.Layout
 
                 if (colors == null)
                 {
-                    foreach (var triangle in _triangles)
+                    foreach (var polygon in _polygons)
                     {
-                        triangle.Polygon.Fill = Brushes.LightSlateGray;
+                        polygon.Polygon.Fill = Brushes.LightSlateGray;
                     }
                 }
                 else
                 {
-                    foreach (var triangle in _triangles)
+                    foreach (var polygon in _polygons)
                     {
-                        triangle.Polygon.Fill = colors[_random.Next(colors.Count)];
+                        polygon.Polygon.Fill = colors[_random.Next(colors.Count)];
                     }
                 }
             }));
@@ -182,9 +188,9 @@ namespace Winleafs.Wpf.Views.Layout
             UpdateColors();
         }
 
-        private void TriangleClicked(object sender, MouseButtonEventArgs e)
+        private void PolygonClicked(object sender, MouseButtonEventArgs e)
         {
-            if (_triangles == null)
+            if (_polygons == null)
             {
                 return;
             }
@@ -194,8 +200,8 @@ namespace Winleafs.Wpf.Views.Layout
                 return;
             }
 
-            var triangle = (Polygon)sender;
-            var selectedPanel = _triangles.FirstOrDefault(t => t.Polygon == triangle);
+            var polygon = (Polygon)sender;
+            var selectedPanel = _polygons.FirstOrDefault(t => t.Polygon == polygon);
 
             if (selectedPanel == null)
             {
@@ -209,8 +215,8 @@ namespace Winleafs.Wpf.Views.Layout
                 return;
             }
 
-            triangle.Stroke = _selectedBorderColor;
-            triangle.StrokeThickness = 2;
+            polygon.Stroke = _selectedBorderColor;
+            polygon.StrokeThickness = 2;
 
             SelectedPanelIds.Add(selectedPanelId);
         }
@@ -231,12 +237,12 @@ namespace Winleafs.Wpf.Views.Layout
         {
             SelectedPanelIds.Clear();
 
-            foreach (var triangle in _triangles)
+            foreach (var polygon in _polygons)
             {
-                if (!_lockedPanelIds.Contains(triangle.PanelId))
+                if (!_lockedPanelIds.Contains(polygon.PanelId))
                 {
-                    triangle.Polygon.Stroke = _borderColor;
-                    triangle.Polygon.StrokeThickness = 2;
+                    polygon.Polygon.Stroke = _borderColor;
+                    polygon.Polygon.StrokeThickness = 2;
                 }
             }
         }
@@ -245,7 +251,7 @@ namespace Winleafs.Wpf.Views.Layout
         {
             foreach (var panelId in panelIds)
             {
-                var polygon = _triangles.FirstOrDefault(t => t.PanelId == panelId).Polygon;
+                var polygon = _polygons.FirstOrDefault(t => t.PanelId == panelId).Polygon;
 
                 polygon.Stroke = _lockedBorderColor;
                 polygon.StrokeThickness = 2;
@@ -258,7 +264,7 @@ namespace Winleafs.Wpf.Views.Layout
         {
             foreach (var panelId in panelIds)
             {
-                var polygon = _triangles.FirstOrDefault(t => t.PanelId == panelId).Polygon;
+                var polygon = _polygons.FirstOrDefault(t => t.PanelId == panelId).Polygon;
 
                 polygon.Stroke = _borderColor;
                 polygon.StrokeThickness = 2;
@@ -271,7 +277,7 @@ namespace Winleafs.Wpf.Views.Layout
         {
             foreach (var panelId in panelIds)
             {
-                var polygon = _triangles.FirstOrDefault(t => t.PanelId == panelId).Polygon;
+                var polygon = _polygons.FirstOrDefault(t => t.PanelId == panelId).Polygon;
 
                 _highlightOriginalColors.Add(panelId, polygon.Fill);
 
@@ -283,7 +289,7 @@ namespace Winleafs.Wpf.Views.Layout
         {
             foreach (var panelId in panelIds)
             {
-                var polygon = _triangles.FirstOrDefault(t => t.PanelId == panelId).Polygon;
+                var polygon = _polygons.FirstOrDefault(t => t.PanelId == panelId).Polygon;
 
                 polygon.Fill = _highlightOriginalColors[panelId];
 

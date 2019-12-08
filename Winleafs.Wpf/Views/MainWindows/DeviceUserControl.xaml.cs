@@ -142,7 +142,7 @@ namespace Winleafs.Wpf.Views.MainWindows
         /// <summary>
         /// Updates all elements to display the current effect and brightness
         /// </summary>
-        private void Update()
+        public void Update()
         { 
             //Update UI on main thread
             Dispatcher.Invoke(new Action(() =>

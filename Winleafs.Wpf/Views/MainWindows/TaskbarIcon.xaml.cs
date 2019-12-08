@@ -61,7 +61,7 @@ namespace Winleafs.Wpf.Views.MainWindows
             _parent = mainWindow;
 
             DeviceNames = _parent.DeviceNames;
-            //Brightness = _parent.OverrideScheduleUserControl.Brightness;
+            //TODO: Brightness = _parent.OverrideScheduleUserControl.Brightness;
 
             BuildMostUsedEfectList();
         }
@@ -73,18 +73,12 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         private void SelectedDeviceChanged()
         {
-            if (_parent != null)
-            {
-                _parent.SelectedDevice = SelectedDevice; //Also trigger main window device change 
-            }
-
             BuildMostUsedEfectList();
         }
 
         private void Reset_Click(object sender, RoutedEventArgs e)
         {
             _selectedEffect = null;
-            //_parent.OverrideScheduleUserControl.StopOverride();
 
             BuildMostUsedEfectList();
         }
@@ -113,17 +107,17 @@ namespace Winleafs.Wpf.Views.MainWindows
 
             BuildMostUsedEfectList();
 
-            SetOverride();
+            SetManualControl();
         }
 
-        private void SetOverride()
+        private void SetManualControl()
         {
-            //_parent.OverrideScheduleUserControl.SetOverride(_selectedEffect, Brightness);
+            //TODO: make this work, also update the correct user control in the main window
         }
 
         private void BrightnessSlider_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
         {
-            SetOverride();
+            SetManualControl();
         }
     }
 }

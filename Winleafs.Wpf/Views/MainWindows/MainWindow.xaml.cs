@@ -45,7 +45,6 @@ namespace Winleafs.Wpf.Views.MainWindows
                 {
                     _selectedDevice = value;
                     SelectedDeviceChanged();
-                    //DevicesDropdown.SelectedItem = _selectedDevice;
                 }
             }
         }
@@ -61,16 +60,14 @@ namespace Winleafs.Wpf.Views.MainWindows
             UpdateDeviceNames();
             SelectedDevice = UserSettings.Settings.ActiveDevice.Name;
 
-            //BuildScheduleList();
-
             DataContext = this;
 
             NotifyIcon.DoubleClickCommand = new TaskbarDoubleClickCommand(this);
 
+            BuildScheduleList();
+
             //Must appear last since this user control uses components of the main window
             TaskbarIcon.Initialize(this);
-
-            BuildScheduleList();
         }
 
         /// <summary>
@@ -94,9 +91,12 @@ namespace Winleafs.Wpf.Views.MainWindows
             LayoutDisplay.DrawLayout();
         }
 
+        /// <summary>
+        /// Update all effect dropdowns in the <see cref="_deviceUserControls"/>
+        /// </summary>
         public void ReloadEffects()
         {
-            //OverrideScheduleUserControl.LoadEffects();
+            //TODO: implement this
         }
 
         public void UpdateDeviceNames()
@@ -106,21 +106,9 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         private void SelectedDeviceChanged()
         {
-            if (_selectedDevice == null)
-            {
-                return;
-            }
-
             UserSettings.Settings.SetActiveDevice(_selectedDevice);
 
-            //BuildScheduleList();
-
-            LayoutDisplay.DrawLayout();
-
-            //UpdateCurrentEffectLabelsAndLayout();
-
-            //Also trigger task bar icon device change
-            //TaskbarIcon.SelectedDevice = SelectedDevice;
+            LayoutDisplay.DrawLayout(true);
         }
 
         private void AddSchedule_Click(object sender, RoutedEventArgs e)
@@ -137,7 +125,7 @@ namespace Winleafs.Wpf.Views.MainWindows
 
             BuildScheduleList();
 
-            UpdateCurrentEffectLabelsAndLayout();
+            UpdateActiveEffectLabelsAndLayout();
         }
 
         public void UpdatedSchedule(Schedule originalSchedule, Schedule newSchedule)
@@ -149,7 +137,7 @@ namespace Winleafs.Wpf.Views.MainWindows
 
             BuildScheduleList();
 
-            UpdateCurrentEffectLabelsAndLayout();
+            UpdateActiveEffectLabelsAndLayout();
         }
 
         private void BuildScheduleList()
@@ -176,7 +164,7 @@ namespace Winleafs.Wpf.Views.MainWindows
 
             BuildScheduleList();
 
-            UpdateCurrentEffectLabelsAndLayout();
+            UpdateActiveEffectLabelsAndLayout();
         }
 
         public void Window_Closing(object sender, CancelEventArgs e)
@@ -196,7 +184,7 @@ namespace Winleafs.Wpf.Views.MainWindows
 
             BuildScheduleList();
 
-            UpdateCurrentEffectLabelsAndLayout();
+            UpdateActiveEffectLabelsAndLayout();
         }
 
         private void Options_Click(object sender, RoutedEventArgs e)
@@ -269,6 +257,7 @@ namespace Winleafs.Wpf.Views.MainWindows
             e.Handled = true;
         }
 
+        //TODO: where to place button to remove a device?
         private void RemoveDevice_Click(object sender, RoutedEventArgs e)
         {
             var messageBoxResult = MessageBox.Show(string.Format(MainWindows.Resources.DeleteDeviceAreYouSure, _selectedDevice), MainWindows.Resources.DeleteConfirmation, MessageBoxButton.YesNo);
@@ -279,11 +268,12 @@ namespace Winleafs.Wpf.Views.MainWindows
                 if (UserSettings.Settings.Devices.Count > 0)
                 {
                     DeviceNames.Remove(_selectedDevice);
+
                     SelectedDevice = DeviceNames.FirstOrDefault();
 
-                    //DevicesDropdown.SelectedItem = SelectedDevice;
+                    DevicesDropdown.SelectedItem = SelectedDevice;
 
-                    UpdateCurrentEffectLabelsAndLayout();
+                    UpdateActiveEffectLabelsAndLayout();
                 }
                 else
                 {
@@ -295,10 +285,14 @@ namespace Winleafs.Wpf.Views.MainWindows
             }
         }
 
-        public void UpdateCurrentEffectLabelsAndLayout()
+        public void UpdateActiveEffectLabelsAndLayout()
         {
-            //CurrentEffectUserControl.UpdateLabels();
-            LayoutDisplay.UpdateColors();
+            LayoutDisplay.DrawLayout();
+
+            foreach (var deviceUserControl in _deviceUserControls)
+            {
+                deviceUserControl.Update();
+            }
         }
 
         private void PercentageProfile_Click(object sender, RoutedEventArgs e)
