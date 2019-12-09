@@ -155,6 +155,7 @@ namespace Winleafs.Wpf.Views.Layout
                 else
                 {
                     var client = NanoleafClient.GetClientForDevice(UserSettings.Settings.ActiveDevice);
+                    //TODO: only retrieve effect if no palette is known yet (if it is not known, replace the retrieved effect by the existing effect such that it does not have to be retrieved again in the future)
                     var effect = client.EffectsEndpoint.GetEffectDetails(OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice).GetActiveEffectName());
 
                     if (effect != null)

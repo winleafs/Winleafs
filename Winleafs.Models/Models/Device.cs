@@ -70,5 +70,10 @@ namespace Winleafs.Models.Models
         {
             return $"{Name} ({IPAddress}:{Port})";
         }
+
+        public void UpdateEffect(Effect newEffect)
+        {
+            Effects[Effects.FindIndex(effect => effect.Name.Equals(newEffect.Name))] = newEffect;
+        }
     }
 }

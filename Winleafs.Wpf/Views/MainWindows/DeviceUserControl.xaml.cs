@@ -25,10 +25,13 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         private readonly MainWindow _parent;
 
+        //TODO: remove
         public ObservableCollection<string> Effects { get; set; }
 
+        //TODO: remove
         private string _selectedEffect;
 
+        //TODO: remove
         public string SelectedEffect
         {
             get { return _selectedEffect;  }
@@ -62,8 +65,12 @@ namespace Winleafs.Wpf.Views.MainWindows
             _orchestrator = OrchestratorCollection.GetOrchestratorForDevice(_device);
             _parent = parent;
 
-            Effects = new ObservableCollection<string>();
-            LoadEffects();
+            //Effects = new ObservableCollection<string>();
+            //LoadEffects();
+
+            //Initialize the effect combox box
+            EffectComboBox.InitializeEffects(_orchestrator);
+
             DataContext = this;
 
             Update();
@@ -71,6 +78,7 @@ namespace Winleafs.Wpf.Views.MainWindows
             DeviceNameLabel.Content = _device.Name;
         }
 
+        //TODO: remove this
         public void LoadEffects()
         {
             Effects.Clear();
@@ -94,13 +102,14 @@ namespace Winleafs.Wpf.Views.MainWindows
             Task.Run(() => SelectedEffectChanged());
         }
 
+        //TODO: remove this
         private void EffectsDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (EffectsDropdown.IsDropDownOpen)
+            /*if (EffectsDropdown.IsDropDownOpen)
             {
                 //Only tirgger the update if the dropdown is open, i.e. the user uses the dropdown
                 Task.Run(() => SelectedEffectChanged());
-            }            
+            }     */       
         }
 
         private async Task StopManualAsync()

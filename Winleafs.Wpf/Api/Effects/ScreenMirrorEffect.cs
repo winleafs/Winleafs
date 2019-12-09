@@ -1,8 +1,10 @@
 ﻿using NLog;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
+using System.Windows.Media;
 using Winleafs.Api;
 using Winleafs.Models.Enums;
 using Winleafs.Models.Models;
@@ -14,9 +16,7 @@ namespace Winleafs.Wpf.Api.Effects
     public class ScreenMirrorEffect : ICustomEffect
     {
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
-
-        public static string Name => $"{UserSettings.EffectNamePreface}Screen mirror";
-
+        
         private readonly INanoleafClient _nanoleafClient;
         private readonly System.Timers.Timer _timer;
         private readonly ScreenMirrorAlgorithm _screenMirrorAlgorithm;
@@ -79,6 +79,7 @@ namespace Winleafs.Wpf.Api.Effects
             }            
         }
 
+        /// <inheritdoc />
         public async Task Activate()
         {
             if (_screenMirrorAlgorithm == ScreenMirrorAlgorithm.ScreenMirrorFit || _screenMirrorAlgorithm == ScreenMirrorAlgorithm.ScreenMirrorStretch)
@@ -99,14 +100,27 @@ namespace Winleafs.Wpf.Api.Effects
             Thread.Sleep(1000); //Give the last command the time to complete, 1000 is based on testing and a high value (better safe then sorry)
         }
 
+        /// <inheritdoc />
         public bool IsContinuous()
         {
             return true;
         }
 
+        /// <inheritdoc />
         public bool IsActive()
         {
             return _timer.Enabled;
+        }
+
+        /// <inheritdoc />
+        public List<System.Drawing.Color> GetColors()
+        {
+            return new List<System.Drawing.Color> { ICustomEffect.DefaultColor };
+        }
+
+        public string GetName()
+        {
+            return $"{UserSettings.EffectNamePreface}Screen mirror";
         }
     }
 }

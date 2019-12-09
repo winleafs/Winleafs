@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Winleafs.Api;
 using Winleafs.Models.Models;
@@ -9,16 +10,19 @@ namespace Winleafs.Wpf.Api.Effects
     public class CustomColorEffect : ICustomEffect
     {
         private readonly INanoleafClient _nanoleafClient;
+
         public Color Color { get; set; }
 
-        public static string Name => $"{UserSettings.EffectNamePreface}Custom Color";
+        private readonly string _effectName;
 
-        public CustomColorEffect(INanoleafClient nanoleafClient, Color color)
+        public CustomColorEffect(INanoleafClient nanoleafClient, Color color, string effectName)
         {
             _nanoleafClient = nanoleafClient;
             Color = color;
+            _effectName = effectName;
         }
 
+        /// <inheritdoc />
         public Task Activate()
         {
             return _nanoleafClient.StateEndpoint.SetHueAndSaturationAsync(
@@ -26,19 +30,33 @@ namespace Winleafs.Wpf.Api.Effects
                 Convert.ToInt32(Color.GetSaturation() * 100));
         }
 
+        /// <inheritdoc />
         public Task Deactivate()
         {
             return Task.CompletedTask;
         }
 
+        /// <inheritdoc />
         public bool IsContinuous()
         {
             return false;
         }
 
+        /// <inheritdoc />
         public bool IsActive()
         {
             return false;
+        }
+
+        /// <inheritdoc />
+        public List<Color> GetColors()
+        {
+            return new List<Color> { Color };
+        }
+
+        public string GetName()
+        {
+            return $"{UserSettings.CustomColorNamePreface}{_effectName}";
         }
     }
 }

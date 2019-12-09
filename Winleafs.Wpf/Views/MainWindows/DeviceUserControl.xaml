@@ -3,11 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Winleafs.Wpf.Views.MainWindows"             
+             xmlns:local="clr-namespace:Winleafs.Wpf.Views.MainWindows" 
+             xmlns:effects="clr-namespace:Winleafs.Wpf.Views.Effects"                  
              mc:Ignorable="d" d:DesignWidth="450" Height="150">
     <Border BorderThickness="0 0 0 1" BorderBrush="White">
         <Grid>
-            <ComboBox x:Name="EffectsDropdown" HorizontalAlignment="Left" Margin="10,77,0,0" VerticalAlignment="Top" Width="273" SelectedItem="{Binding Path=SelectedEffect, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ItemsSource="{Binding Effects}" SelectionChanged="EffectsDropdown_SelectionChanged"/>
+            <effects:EffectComboBox x:Name="EffectComboBox" HorizontalAlignment="Left" Margin="10,77,0,0" VerticalAlignment="Top" Width="273" Height="28"/>
             <Button Content="{x:Static local:Resources.StopManual}" HorizontalAlignment="Left" Margin="293,77,0,0" VerticalAlignment="Top" Width="147" Height="28" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="StopManual_Click"/>
             <Label Content="{x:Static local:Resources.Brightness}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,115,0,0" Foreground="White" Height="24" VerticalAlignment="Top"/>
             <Label Content="100" x:Name="BrightnessLabel" Margin="413,115,0,0" Foreground="White" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="37"/>

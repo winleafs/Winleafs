@@ -226,6 +226,7 @@ namespace Winleafs.Wpf.Views.MainWindows
             public event EventHandler CanExecuteChanged; //Must be included for the interface
         }
 
+        //TODO: this should reload effects from all devices and also rebuild the effect dropdowns and the most used effects (and context menu accordingly)
         private async void Reload_Click(object sender, RoutedEventArgs e)
         {
             try

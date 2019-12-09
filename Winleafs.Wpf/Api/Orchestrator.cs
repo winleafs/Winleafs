@@ -135,7 +135,16 @@ namespace Winleafs.Wpf.Api
         /// </summary>
         public List<Effect> GetCustomEffectAsEffects()
         {
+            //TODO: remove 
             return _customEffects.GetCustomEffectAsEffects();
+        }
+
+        /// <summary>
+        /// Returns the list of custom effects for the device
+        /// </summary>
+        public List<ICustomEffect> GetCustomEffects()
+        {
+            return _customEffects.GetCustomEffects();
         }
 
         /// <summary>

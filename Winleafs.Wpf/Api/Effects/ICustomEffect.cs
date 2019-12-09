@@ -1,9 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Drawing;
+using System.Threading.Tasks;
 
 namespace Winleafs.Wpf.Api.Effects
 {
     public interface ICustomEffect
     {
+        public static readonly Color DefaultColor = Color.DarkGray;
+
         /// <summary>
         /// Activates the custom effect.
         /// </summary>
@@ -27,5 +31,15 @@ namespace Winleafs.Wpf.Api.Effects
         /// </summary>
         /// <returns>A boolean to indicate if the effect is active.</returns>
         bool IsActive();
+
+        /// <summary>
+        /// Returns a list of colors used by this effect
+        /// </summary>
+        List<Color> GetColors();
+
+        /// <summary>
+        /// Return the name of this effect
+        /// </summary>
+        string GetName();
     }
 }
