@@ -44,7 +44,7 @@ namespace Winleafs.Wpf.Views.Options
             var width = Convert.ToInt32(_screenBounds.Width / scale);
             var height = Convert.ToInt32(_screenBounds.Height / scale);
 
-            var panels = OrchestratorCollection.GetOrchestratorForDevice(_device).PanelLayout.GetScaledTriangles(width, height, scaleType);
+            var panels = OrchestratorCollection.GetOrchestratorForDevice(_device).PanelLayout.GetScaledPolygons(width, height, scaleType);
 
             DrawPanels(panels);
 
