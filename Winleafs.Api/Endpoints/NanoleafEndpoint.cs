@@ -1,10 +1,8 @@
 ﻿using System;
+using System.Net;
 using System.Threading.Tasks;
-
 using Newtonsoft.Json;
-
 using NLog;
-
 using RestSharp;
 
 namespace Winleafs.Api.Endpoints
@@ -17,6 +15,9 @@ namespace Winleafs.Api.Endpoints
         private static Logger _logger = LogManager.GetCurrentClassLogger();
 
         protected NanoleafClient Client { get; set; }
+
+        // 2 Second default timeout.
+        protected int Timeout { get; set; } = 2000;
 
         /// <summary>
         /// Sends a request to the Nanoleaf.
@@ -49,16 +50,19 @@ namespace Winleafs.Api.Endpoints
         /// </summary>
         /// <param name="endpoint">The endpoint where the requests needs to be send to.</param>
         /// <param name="method">The method that should be used.</param>
-        /// <param name="returnType">The type which should be return. If null is provided null will be returned.</param>
+        /// <param name="returnType">
+        /// The type which should be return. If null is provided null will be returned.
+        /// </param>
         /// <param name="body">Optionally the body which should be provided.</param>
         /// <param name="disableLogging">Disables the logging when set to true.</param>
         /// <returns>An awaitable task containing the wanted result.</returns>
-        protected async Task<object> SendRequestAsync(string endpoint, Method method, Type returnType = null, object body = null, bool disableLogging = false)
+        protected async Task<object> SendRequestAsync(string endpoint, Method method,
+            Type returnType = null, object body = null, bool disableLogging = false)
         {
-            var restClient = new RestClient(Client._baseUri);
-            var request = new RestRequest($"api/v1/{Client._token}/{endpoint}", method)
+            var restClient = new RestClient(Client.BaseUri);
+            var request = new RestRequest(GetUrlForRequest(endpoint), method)
             {
-                Timeout = 2000 //Set timeout to 2 seconds
+                Timeout = Timeout
             };
 
             if (body != null)
@@ -68,15 +72,14 @@ namespace Winleafs.Api.Endpoints
 
             if (!disableLogging)
             {
-                _logger.Info(
-                    $"Sending following request: Address: {Client._baseUri}, URL: {request.Resource}, Method: {method.ToString()}, Body: {(body != null ? body.ToString() : "")}");
+                LogRequest(request, method, body);
             }
 
             var response = await restClient.ExecuteTaskAsync(request).ConfigureAwait(false);
 
-            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
             {
-                _logger.Warn($"Request failed, statuscode: {(int)response.StatusCode} {response.StatusCode.ToString()}, status description: {response.StatusDescription}, content: {response.Content}");
+                LogError(response);
             }
 
             return returnType == null ? null : JsonConvert.DeserializeObject(response.Content, returnType);
@@ -93,10 +96,10 @@ namespace Winleafs.Api.Endpoints
         /// <returns>The wanted result.</returns>
         protected object SendRequest(string endpoint, Method method, Type returnType = null, object body = null, bool disableLogging = false)
         {
-            var restClient = new RestClient(Client._baseUri);
-            var request = new RestRequest($"api/v1/{Client._token}/{endpoint}", method)
+            var restClient = new RestClient(Client.BaseUri);
+            var request = new RestRequest($"api/v1/{Client.Token}/{endpoint}", method)
             {
-                Timeout = 2000 //Set timeout to 2 seconds
+                Timeout = Timeout //Set timeout to 2 seconds
             };
 
             if (body != null)
@@ -106,18 +109,37 @@ namespace Winleafs.Api.Endpoints
 
             if (!disableLogging)
             {
-                _logger.Info(
-                    $"Sending following request: Address: {Client._baseUri}, URL: {request.Resource}, Method: {method.ToString()}, Body: {(body != null ? body.ToString() : "")}");
+                LogRequest(request, method, body);
             }
 
             var response = restClient.Execute(request);
 
-            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
             {
-                _logger.Warn($"Request failed, statuscode: {(int)response.StatusCode} {response.StatusCode.ToString()}, status description: {response.StatusDescription}, content: {response.Content}");
+                LogError(response);
             }
 
             return returnType == null ? null : JsonConvert.DeserializeObject(response.Content, returnType);
+        }
+
+        protected string GetUrlForRequest(string endpoint)
+        {
+            return $"api/v1/{Client.Token}/{endpoint}";
+        }
+
+        protected void LogRequest(RestRequest request, Method method, object body)
+        {
+            _logger.Info(
+                $"Sending following request: Address: {Client.BaseUri}, " +
+                $"URL: {request.Resource}, Method: {method.ToString()}, " +
+                $"Body: {(body != null ? body.ToString() : "")}");
+        }
+
+        protected void LogError(IRestResponse response)
+        {
+            _logger.Warn($"Request failed, statuscode: {(int)response.StatusCode} " +
+                         $"{response.StatusCode.ToString()}, status description: " +
+                         $"{response.StatusDescription}, content: {response.Content}");
         }
     }
 }

@@ -7,6 +7,8 @@ namespace Winleafs.Api.Endpoints
 {
     public class LayoutEndpoint : NanoleafEndpoint, ILayoutEndpoint
     {
+        private const string BaseEndpoint = "panelLayout";
+
         /// <inheritdoc />
         public LayoutEndpoint(NanoleafClient client)
         {
@@ -15,24 +17,24 @@ namespace Winleafs.Api.Endpoints
 
         public GlobalOrientation GetGlobalOrientation()
         {
-            return SendRequest<GlobalOrientation>("panelLayout/globalOrientation", Method.GET);
+            return SendRequest<GlobalOrientation>($"{BaseEndpoint}/globalOrientation", Method.GET);
         }
 
         public async Task<GlobalOrientation> GetGlobalOrientationAsync()
         {
-            return await SendRequestAsync<GlobalOrientation>("panelLayout/globalOrientation", Method.GET);
+            return await SendRequestAsync<GlobalOrientation>($"{BaseEndpoint}/globalOrientation", Method.GET);
         }
 
         /// <inheritdoc />
         public Layout GetLayout()
         {
-            return SendRequest<Layout>("panelLayout/layout", Method.GET);
+            return SendRequest<Layout>($"{BaseEndpoint}/layout", Method.GET);
         }
 
         /// <inheritdoc />
         public async Task<Layout> GetLayoutAsync()
         {
-            return await SendRequestAsync<Layout>("panelLayout/layout", Method.GET).ConfigureAwait(false);
+            return await SendRequestAsync<Layout>($"{BaseEndpoint}/layout", Method.GET).ConfigureAwait(false);
         }
     }
 }

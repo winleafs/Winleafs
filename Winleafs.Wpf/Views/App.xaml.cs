@@ -81,12 +81,12 @@ namespace Winleafs.Wpf.Views
 
         }
 
-        public static void NormalStartup(StartupEventArgs e)
+        public static void NormalStartup(StartupEventArgs startupEventArgs)
         {
             var silent = false;
-            if (e != null && e.Args.Length > 0)
+            if (startupEventArgs != null && startupEventArgs.Args.Length > 0)
             {
-                silent = e.Args[0].Equals("-s");
+                silent = startupEventArgs.Args[0].Equals("-s");
             }
 
             try

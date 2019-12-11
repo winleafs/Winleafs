@@ -12,6 +12,7 @@ namespace Winleafs.Api.Endpoints
 {
     public class ExternalControlEndpoint : NanoleafEndpoint, IExternalControlEndpoint
     {
+        private const string BaseUrl = "effects";
         private ExternalControlInfo _externalControlInfo;
 
         /// <inheritdoc />
@@ -23,13 +24,13 @@ namespace Winleafs.Api.Endpoints
         /// <inheritdoc />
         public ExternalControlInfo GetExternalControlInfo()
         {
-            return SendRequest<ExternalControlInfo>("effects", Method.PUT, body: "{\"write\": {\"command\": \"display\", \"animType\": \"extControl\"}}");
+            return SendRequest<ExternalControlInfo>(BaseUrl, Method.PUT, body: "{\"write\": {\"command\": \"display\", \"animType\": \"extControl\"}}");
         }
 
         /// <inheritdoc />
         public async Task<ExternalControlInfo> GetExternalControlInfoAsync()
         {
-            return await SendRequestAsync<ExternalControlInfo>("effects", Method.PUT, body: "{\"write\": {\"command\": \"display\", \"animType\": \"extControl\"}}");
+            return await SendRequestAsync<ExternalControlInfo>(BaseUrl, Method.PUT, body: "{\"write\": {\"command\": \"display\", \"animType\": \"extControl\"}}");
         }
 
         /// <inheritdoc />
@@ -39,7 +40,7 @@ namespace Winleafs.Api.Endpoints
         }
 
         /// <inheritdoc />
-        public async Task SetPanelColorAsync(int panelId, int red, int green, int blue, int transitionTime = 1)
+        public void SetPanelColorAsync(int panelId, int red, int green, int blue, int transitionTime = 1)
         {
             if (transitionTime < 1)
             {

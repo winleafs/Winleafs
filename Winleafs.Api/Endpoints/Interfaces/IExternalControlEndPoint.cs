@@ -14,7 +14,7 @@ namespace Winleafs.Api.Endpoints.Interfaces
         /// <summary>
         /// Gets the needed info to start external control
         /// </summary>
-        /// <returns><see cref="ExternalControlInfo"/><returns>
+        /// <returns><see cref="ExternalControlInfo"/></returns>
         ExternalControlInfo GetExternalControlInfo();
 
         /// <summary>
@@ -31,7 +31,6 @@ namespace Winleafs.Api.Endpoints.Interfaces
         /// <param name="green">The green RDB value</param>
         /// <param name="blue">The blue RDB value</param>
         /// <param name="transitionTime">The time to transition to this frame from the previous frame (must be equal or greater than 1), default 1</param>
-        /// <returns>Awaitable task</returns>
-        Task SetPanelColorAsync(int panelId, int red, int green, int blue, int transitionTime = 1);
+        void SetPanelColorAsync(int panelId, int red, int green, int blue, int transitionTime = 1);
     }
 }

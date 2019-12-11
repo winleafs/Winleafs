@@ -11,6 +11,8 @@ namespace Winleafs.Api.Endpoints
 {
     public class EffectsEndpoint : NanoleafEndpoint, IEffectsEndpoint
     {
+        private const string BaseUrl = "effects";
+
 	    /// <inheritdoc />
 	    public EffectsEndpoint(NanoleafClient client)
         {
@@ -20,13 +22,13 @@ namespace Winleafs.Api.Endpoints
 	    /// <inheritdoc />
 	    public async Task<IEnumerable<string>> GetEffectsListAsync()
         {
-            return await SendRequestAsync<List<string>>("effects/effectsList", Method.GET).ConfigureAwait(false);
+            return await SendRequestAsync<List<string>>($"{BaseUrl}/effectsList", Method.GET).ConfigureAwait(false);
         }
 
 	    /// <inheritdoc />
 	    public IEnumerable<string> GetEffectsList()
 		{
-            return SendRequest<List<string>>("effects/effectsList", Method.GET);
+            return SendRequest<List<string>>($"{BaseUrl}/effectsList", Method.GET);
         }
 
 	    /// <inheritdoc />
@@ -44,13 +46,13 @@ namespace Winleafs.Api.Endpoints
 	    /// <inheritdoc />
 	    public Task SetSelectedEffectAsync(string effectName)
         {
-            return SendRequestAsync("effects", Method.PUT, body: "{\"select\": \"" + effectName + "\"}");
+            return SendRequestAsync(BaseUrl, Method.PUT, body: "{\"select\": \"" + effectName + "\"}");
         }
 
 	    /// <inheritdoc />
 	    public void SetSelectedEffect(string effectName)
 		{
-            SendRequest("effects", Method.PUT, body: "{\"select\": \"" + effectName + "\"}");
+            SendRequest(BaseUrl, Method.PUT, body: "{\"select\": \"" + effectName + "\"}");
         }
 
 
@@ -62,7 +64,7 @@ namespace Winleafs.Api.Endpoints
                 return Task.FromResult((Effect)null);
             }
 
-            return SendRequestAsync<Effect>("effects", Method.PUT, body: "{\"write\" : {\"command\" : \"request\", \"animName\" : \"" + effectName + "\"}}");
+            return SendRequestAsync<Effect>(BaseUrl, Method.PUT, CreateWriteEffectCommand(effectName));
         }
 
 	    /// <inheritdoc />
@@ -73,7 +75,12 @@ namespace Winleafs.Api.Endpoints
                 return null;
             }
 
-            return SendRequest<Effect>("effects", Method.PUT, body: "{\"write\" : {\"command\" : \"request\", \"animName\" : \"" + effectName + "\"}}");
+            return SendRequest<Effect>(BaseUrl, Method.PUT, CreateWriteEffectCommand(effectName));
+        }
+
+        private string CreateWriteEffectCommand(string effectName)
+        {
+            return "{\"write\" : {\"command\" : \"request\", \"animName\" : \"" + effectName + "\"}}";
         }
 	}
 }
