@@ -5,7 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Winleafs.Wpf.Views.Effects"
              mc:Ignorable="d" 
-             d:DesignHeight="35" d:DesignWidth="273">
-    <ComboBox Foreground="White" x:Name="ComboBox" ItemsSource="{Binding Path=Effects}" SelectedValue="{Binding Path=SelectedEffect}" Height="35">
+             d:DesignHeight="40" d:DesignWidth="273">
+    <ComboBox Foreground="White" x:Name="ComboBox" ItemsSource="{Binding Path=Effects}" SelectedValue="{Binding Path=SelectedEffect}" Height="40" SelectionChanged="ComboBox_SelectionChanged">
+        <ComboBox.ItemTemplate>
+            <DataTemplate>
+                <local:EffectComboBoxItem/>
+            </DataTemplate>
+        </ComboBox.ItemTemplate>
     </ComboBox>
 </UserControl>

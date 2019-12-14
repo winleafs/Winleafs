@@ -12,35 +12,19 @@ namespace Winleafs.Wpf.Views.MainWindows
 {
     using System.ComponentModel;
     using Winleafs.Wpf.Helpers;
+    using Winleafs.Wpf.Views.Effects;
     using Winleafs.Wpf.Views.Popup;
 
     /// <summary>
     /// Interaction logic for DeviceUserControl.xaml
     /// </summary>
-    public partial class DeviceUserControl : UserControl, INotifyPropertyChanged
+    public partial class DeviceUserControl : UserControl, INotifyPropertyChanged, IEffectComboBoxContainer
     {
         private static Logger _logger = LogManager.GetCurrentClassLogger();
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         private readonly MainWindow _parent;
-
-        //TODO: remove
-        public ObservableCollection<string> Effects { get; set; }
-
-        //TODO: remove
-        private string _selectedEffect;
-
-        //TODO: remove
-        public string SelectedEffect
-        {
-            get { return _selectedEffect;  }
-            set
-            {
-                _selectedEffect = value;
-                OnPropertyChanged(nameof(SelectedEffect));
-            }
-        }
 
         private int _brightness;
 
@@ -56,6 +40,7 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         private Device _device;
         private Orchestrator _orchestrator;
+        private string _selectedEffect;
 
         public DeviceUserControl(Device device, MainWindow parent)
         {
@@ -65,31 +50,15 @@ namespace Winleafs.Wpf.Views.MainWindows
             _orchestrator = OrchestratorCollection.GetOrchestratorForDevice(_device);
             _parent = parent;
 
-            //Effects = new ObservableCollection<string>();
-            //LoadEffects();
-
             //Initialize the effect combox box
             EffectComboBox.InitializeEffects(_orchestrator);
+            EffectComboBox.Parent = this;
 
             DataContext = this;
 
             Update();
 
             DeviceNameLabel.Content = _device.Name;
-        }
-
-        //TODO: remove this
-        public void LoadEffects()
-        {
-            Effects.Clear();
-
-            var effects = _orchestrator.GetCustomEffectAsEffects();
-            effects.AddRange(_device.Effects);
-
-            foreach (var effect in effects)
-            {
-                Effects.Add(effect.Name);
-            }
         }
 
         private void StopManual_Click(object sender, RoutedEventArgs e)
@@ -100,16 +69,6 @@ namespace Winleafs.Wpf.Views.MainWindows
         private void BrightnessSlider_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
         {
             Task.Run(() => SelectedEffectChanged());
-        }
-
-        //TODO: remove this
-        private void EffectsDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            /*if (EffectsDropdown.IsDropDownOpen)
-            {
-                //Only tirgger the update if the dropdown is open, i.e. the user uses the dropdown
-                Task.Run(() => SelectedEffectChanged());
-            }     */       
         }
 
         private async Task StopManualAsync()
@@ -129,10 +88,10 @@ namespace Winleafs.Wpf.Views.MainWindows
             {
                 if (await _orchestrator.TrySetOperationMode(OperationMode.Manual, true, true))
                 {
-                    _device.ManualEffect = SelectedEffect;
+                    _device.ManualEffect = _selectedEffect;
                     _device.ManualBrightness = Brightness;
 
-                    await _orchestrator.ActivateEffect(SelectedEffect, Brightness);
+                    await _orchestrator.ActivateEffect(_selectedEffect, Brightness);
 
                     UserSettings.Settings.SaveSettings();
 
@@ -169,15 +128,23 @@ namespace Winleafs.Wpf.Views.MainWindows
                 {
                     ActiveEffectLabel.Content = $"{activeEffect} ({EnumLocalizer.GetLocalizedEnum(_device.OperationMode)})";
                 }
-                
-                SelectedEffect = activeEffect;
+
+                _selectedEffect = activeEffect;
 
                 var activeBrightness = _orchestrator.GetActiveBrightness();
                 Brightness = activeBrightness < 0 ? 0 : activeBrightness;
 
                 //Update the colors in the mainwindow
                 _parent.UpdateLayoutColors(_device.Name);
+
+                //TODO: Update the dropdown
             }));            
+        }
+
+        public void EffectComboBoxSelectionChanged(string selectedEffect)
+        {
+            _selectedEffect = selectedEffect;
+            Task.Run(() => SelectedEffectChanged());
         }
     }
 }

@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Winleafs.Wpf.Views.Effects"
              mc:Ignorable="d" 
-             d:DesignHeight="35" d:DesignWidth="273">
+             d:DesignHeight="35" d:DesignWidth="273" Width="{Binding Width}" DataContextChanged="UserControl_DataContextChanged">
     <Grid x:Name="ContentGrid">
-        <Label x:Name="EffectLabel" Content="Effect name" Foreground="White" Margin="0,5,0,0"/>
+        <Label x:Name="EffectLabel" Foreground="White" Margin="0,5,0,0" Content="{Binding EffectName}"/>
     </Grid>
 </UserControl>

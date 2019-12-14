@@ -8,6 +8,7 @@ using Winleafs.Models.Models;
 using Winleafs.Models.Models.Effects;
 using Winleafs.Wpf.Api.Effects;
 using Winleafs.Wpf.Helpers;
+using Winleafs.Wpf.ViewModels;
 
 namespace Winleafs.Wpf.Views.Effects
 {
@@ -16,71 +17,36 @@ namespace Winleafs.Wpf.Views.Effects
     /// </summary>
     public partial class EffectComboBoxItem : UserControl
     {
-        /// <summary>
-        /// Used by the combobox to display the selected item
-        /// </summary>
-        public string EffectName { get; set; }
-
-        public EffectComboBoxItem(string effectName, int width)
+        public EffectComboBoxItem()
         {
             InitializeComponent();
-
-            EffectLabel.Content = effectName;
-            EffectName = effectName;
-            Width = width;
         }
 
-        public EffectComboBoxItem(Device device, Effect effect, int width) : this(effect.Name, width)
+        public void DrawColoredBorder()
         {
-            if (effect.Palette == null || !effect.Palette.Any())
-            {
-                var nanoleafClient = NanoleafClient.GetClientForDevice(device);
+            //Cast is safe since we always now this is the type of the data context
+            var dataContext = (EffectComboBoxItemViewModel)DataContext;
 
-                effect = nanoleafClient.EffectsEndpoint.GetEffectDetails(effect.Name);
-
-                //Replace the retrieved effect with the current effect such that we do not have to make this call in the future
-                device.UpdateEffect(effect);
-            }
-
-            DrawColoredBorder(effect.Palette.Select(palette => HsbToRgbConverter.ConvertToMediaColor(palette.Hue, palette.Saturation, palette.Brightness)));
-
-            EffectLabel.Content = effect.Name;
-        }
-
-        public EffectComboBoxItem(ICustomEffect effect, int width) : this(effect.GetName(), width)
-        {
-            //Convert Drawing.Color to Media.Color
-            DrawColoredBorder(effect.GetColors().Select(color => Color.FromArgb(color.A, color.R, color.G, color.B)));
-
-            EffectLabel.Content = effect.GetName();
-        }
-
-        public EffectComboBoxItem(Effect effect, int width) : this(effect.Name, width)
-        {
-            DrawColoredBorder(new List<Color> { Color.FromArgb(ICustomEffect.DefaultColor.A, ICustomEffect.DefaultColor.R, ICustomEffect.DefaultColor.G, ICustomEffect.DefaultColor.B) });
-        }
-
-        private void DrawColoredBorder(IEnumerable<Color> colors)
-        {
-            colors = colors.Distinct(); //Remove duplicate colors, palettes from Nanoleaf can contain the same color multiple times
+            //Remove duplicate colors, palettes from Nanoleaf can contain the same color multiple times
+            var colors = dataContext.Colors.Distinct();
 
             var borderParts = new int[colors.Count()];
 
             //Divide the border into equal sized parts
             for (var i = 0; i < colors.Count(); i++)
             {
-                borderParts[i] = (int)Width / colors.Count();
+                borderParts[i] = dataContext.Width / colors.Count();
             }
 
             //Divide up the remainder
-            for (var i = 0; i < (int)Width % colors.Count(); i++)
+            for (var i = 0; i < dataContext.Width % colors.Count(); i++)
             {
                 borderParts[i] += 1;
             }
 
             //Create the borders
             var marginLeft = 0;
-            var marginRight = (int)Width;
+            var marginRight = dataContext.Width;
 
             for (var i = 0; i < colors.Count(); i++)
             {
@@ -93,7 +59,12 @@ namespace Winleafs.Wpf.Views.Effects
 
                 marginLeft += borderParts[i];
                 marginRight -= borderParts[i];
-            }
+            }        
+        }
+
+        private void UserControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            DrawColoredBorder();
         }
     }
 }
