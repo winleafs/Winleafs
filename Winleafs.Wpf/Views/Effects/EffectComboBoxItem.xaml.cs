@@ -16,14 +16,18 @@ namespace Winleafs.Wpf.Views.Effects
     /// </summary>
     public partial class EffectComboBoxItem : UserControl
     {
-        private readonly int _width;
+        /// <summary>
+        /// Used by the combobox to display the selected item
+        /// </summary>
+        public string EffectName { get; set; }
 
         public EffectComboBoxItem(string effectName, int width)
         {
             InitializeComponent();
 
             EffectLabel.Content = effectName;
-            _width = width;
+            EffectName = effectName;
+            Width = width;
         }
 
         public EffectComboBoxItem(Device device, Effect effect, int width) : this(effect.Name, width)
@@ -54,43 +58,42 @@ namespace Winleafs.Wpf.Views.Effects
         public EffectComboBoxItem(Effect effect, int width) : this(effect.Name, width)
         {
             DrawColoredBorder(new List<Color> { Color.FromArgb(ICustomEffect.DefaultColor.A, ICustomEffect.DefaultColor.R, ICustomEffect.DefaultColor.G, ICustomEffect.DefaultColor.B) });
-
         }
 
         private void DrawColoredBorder(IEnumerable<Color> colors)
         {
+            colors = colors.Distinct(); //Remove duplicate colors, palettes from Nanoleaf can contain the same color multiple times
+
             var borderParts = new int[colors.Count()];
 
             //Divide the border into equal sized parts
             for (var i = 0; i < colors.Count(); i++)
             {
-                borderParts[i] = _width / colors.Count();
+                borderParts[i] = (int)Width / colors.Count();
             }
 
             //Divide up the remainder
-            for (var i = 0; i < _width % colors.Count(); i++)
+            for (var i = 0; i < (int)Width % colors.Count(); i++)
             {
                 borderParts[i] += 1;
             }
 
             //Create the borders
             var marginLeft = 0;
-            var marginRight = _width;
+            var marginRight = (int)Width;
 
             for (var i = 0; i < colors.Count(); i++)
             {
                 ContentGrid.Children.Add(new Border
                 {
                     BorderBrush = new SolidColorBrush(colors.ElementAt(i)),
-                    BorderThickness = new Thickness(0, 2, 0, 0),
+                    BorderThickness = new Thickness(0, 8, 0, 0),
                     Margin = new Thickness(marginLeft, 0, marginRight - borderParts[i], 0)
                 });
 
                 marginLeft += borderParts[i];
                 marginRight -= borderParts[i];
             }
-
-            //TODO; when adding these items, try catch and if 1 request fails then automatically break
         }
     }
 }

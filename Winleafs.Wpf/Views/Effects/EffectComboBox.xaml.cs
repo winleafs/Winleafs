@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Controls;
 using Winleafs.Wpf.Api;
 
@@ -9,9 +11,15 @@ namespace Winleafs.Wpf.Views.Effects
     /// </summary>
     public partial class EffectComboBox : UserControl
     {
+        public ObservableCollection<EffectComboBoxItem> Effects { get; set; }
+
+        public EffectComboBoxItem SelectedEffect { get; set; }
+
         public EffectComboBox()
         {
             InitializeComponent();
+
+            DataContext = this;
         }
 
         public void InitializeEffects(Orchestrator orchestrator)
@@ -24,7 +32,7 @@ namespace Winleafs.Wpf.Views.Effects
             }
 
             var requestFailed = false;
-            foreach (var effect in orchestrator.Device.Effects)
+            foreach (var effect in orchestrator.Device.Effects.ToList()) //ToList to make a copy
             {
                 if (requestFailed)
                 {
@@ -43,6 +51,8 @@ namespace Winleafs.Wpf.Views.Effects
                     effects.Add(new EffectComboBoxItem(effect, (int)Width));
                 }
             }
+
+            Effects = new ObservableCollection<EffectComboBoxItem>(effects);
         }
     }
 }
