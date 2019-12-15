@@ -59,6 +59,12 @@ namespace Winleafs.Wpf.Views.MainWindows
             Effects.Clear();
 
             var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice);
+
+            if (orchestrator == null)
+            {
+                return;
+            }
+
             var effects = orchestrator.GetCustomEffectAsEffects();
             effects.AddRange(UserSettings.Settings.ActiveDevice.Effects);
 

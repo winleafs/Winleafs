@@ -60,7 +60,7 @@ namespace Winleafs.Wpf.Views.MainWindows
             LayoutDisplay.DrawLayout();
 
             UpdateDeviceNames();
-            SelectedDevice = UserSettings.Settings.ActiveDevice.Name;
+            SelectedDevice = UserSettings.Settings.ActiveDevice?.Name;
 
             BuildScheduleList();
 
@@ -135,6 +135,11 @@ namespace Winleafs.Wpf.Views.MainWindows
         private void BuildScheduleList()
         {
             ScheduleList.Children.Clear();
+
+            if (UserSettings.Settings.ActiveDevice == null)
+            {
+                return;
+            }
 
             foreach (var schedule in UserSettings.Settings.ActiveDevice.Schedules)
             {
