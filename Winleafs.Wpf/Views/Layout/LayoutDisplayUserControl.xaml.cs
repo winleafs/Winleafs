@@ -147,7 +147,13 @@ namespace Winleafs.Wpf.Views.Layout
 
                 //Get colors of current effect, we can display colors for nanoleaf effects or custom color effects
                 var effectName = orchestrator.GetActiveEffectName();
-                var customEffect = orchestrator.GetCustomEffectFromName(effectName);
+
+                ICustomEffect customEffect = null;
+
+                if (effectName != null)
+                {
+                    customEffect = orchestrator.GetCustomEffectFromName(effectName);
+                }
 
                 List<SolidColorBrush> colors = null;
 
@@ -163,13 +169,17 @@ namespace Winleafs.Wpf.Views.Layout
                     var effect = UserSettings.Settings.ActiveDevice.Effects.FirstOrDefault(effect => effect.Name == effectName);
 
                     //Only retrieve palette if it is not known yet
-                    if (effect.Palette == null)
+                    if (effect?.Palette == null)
                     {
                         var client = NanoleafClient.GetClientForDevice(UserSettings.Settings.ActiveDevice);
                         effect = client.EffectsEndpoint.GetEffectDetails(effectName);
 
-                        //Update the effect such that the palette is known in the future
-                        UserSettings.Settings.ActiveDevice.UpdateEffect(effect);
+                        if (effect != null)
+                        {
+                            //Update the effect such that the palette is known in the future
+                            UserSettings.Settings.ActiveDevice.UpdateEffect(effect);
+                        }
+
                     }                    
 
                     if (effect != null)
