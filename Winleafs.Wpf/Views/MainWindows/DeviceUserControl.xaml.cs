@@ -148,5 +148,12 @@ namespace Winleafs.Wpf.Views.MainWindows
             _selectedEffect = selectedEffect;
             Task.Run(() => SelectedEffectChanged());
         }
+
+        public void ReloadEffects()
+        {
+            EffectComboBox.InitializeEffects(_orchestrator);
+            
+            EffectComboBox.UpdateSelection(_selectedEffect);
+        }
     }
 }

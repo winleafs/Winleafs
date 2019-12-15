@@ -95,11 +95,22 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         /// <summary>
         /// Update all effect dropdowns in the <see cref="_deviceUserControls"/>
-        /// and the effects in the context menu
+        /// and the effects in the context menu.
         /// </summary>
         public void ReloadEffectsInView()
         {
-            //TODO: implement this
+            foreach (var device in UserSettings.Settings.Devices)
+            {
+                var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(device);
+                device.CleanEffectCounter(orchestrator.GetCustomEffects().Select(customEffect => customEffect.GetName()));
+            }
+
+            foreach (var deviceUserControl in _deviceUserControls)
+            {
+                deviceUserControl.ReloadEffects();
+            }
+
+            //TODO: update context menu
         }
 
         public void UpdateDeviceNames()
@@ -227,16 +238,26 @@ namespace Winleafs.Wpf.Views.MainWindows
             public event EventHandler CanExecuteChanged; //Must be included for the interface
         }
 
-        //TODO: this should reload effects from all devices and also rebuild the effect dropdowns and the most used effects (and context menu accordingly)
         private async void Reload_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                var device = UserSettings.Settings.ActiveDevice;
-                var nanoleafClient = NanoleafClient.GetClientForDevice(device);
-                var effects = await nanoleafClient.EffectsEndpoint.GetEffectsListAsync();
+                foreach (var device in UserSettings.Settings.Devices)
+                {
+                    var nanoleafClient = NanoleafClient.GetClientForDevice(device);
+                    var effects = await nanoleafClient.EffectsEndpoint.GetEffectsListAsync();
+                    var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(device);
 
-                device.LoadEffectsFromNameList(effects);
+                    device.LoadEffectsFromNameList(effects);
+                    device.CleanEffectCounter(orchestrator.GetCustomEffects().Select(customEffect => customEffect.GetName()));
+                }        
+                
+                foreach (var deviceUserControl in _deviceUserControls)
+                {
+                    deviceUserControl.ReloadEffects();
+                }
+
+                //TODO: update context menu
 
                 UserSettings.Settings.SaveSettings();
 

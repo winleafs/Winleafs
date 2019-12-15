@@ -52,7 +52,8 @@ namespace Winleafs.Wpf.Views.Effects
                 var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(device);
 
                 customEffects.AddRange(orchestrator.GetCustomEffects());
-                effects.AddRange(orchestrator.Device.Effects);
+                //ToList to make a copy such that we do not get CollectionModifiedException (caused by calling UpdateEffect)
+                effects.AddRange(orchestrator.Device.Effects.ToList());
                 orchestrators.Add(orchestrator);
             }
 
@@ -64,7 +65,8 @@ namespace Winleafs.Wpf.Views.Effects
         /// </summary>
         public void InitializeEffects(Orchestrator orchestrator)
         {
-            BuildEffects(orchestrator.GetCustomEffects(), orchestrator.Device.Effects, new List<Orchestrator> { orchestrator });
+            //ToList to make a copy such that we do not get CollectionModifiedException (caused by calling UpdateEffect)
+            BuildEffects(orchestrator.GetCustomEffects(), orchestrator.Device.Effects.ToList(), new List<Orchestrator> { orchestrator });
         }
 
         /// <summary>
