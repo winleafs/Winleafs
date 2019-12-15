@@ -95,6 +95,12 @@ namespace Winleafs.Wpf.Views.Layout
             if (resetLayout || _panelLayout == null)
             {
                 var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice);
+
+                if (orchestrator == null)
+                {
+                    return;
+                }
+
                 _panelLayout = orchestrator.PanelLayout;
             }
             

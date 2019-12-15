@@ -8,6 +8,7 @@
         xmlns:layout="clr-namespace:Winleafs.Wpf.Views.Layout"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:controls="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions"
         Title="{x:Static mainWindows:Resources.Winleafs}" Height="800" MinHeight="800" Width="1400" MinWidth="1000" ResizeMode="CanResize"
         Closing="Window_Closing"
         Loaded="Window_Loaded"

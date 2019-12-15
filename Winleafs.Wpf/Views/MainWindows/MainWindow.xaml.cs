@@ -58,7 +58,7 @@ namespace Winleafs.Wpf.Views.MainWindows
             InitializeComponent();
 
             UpdateDeviceNames();
-            SelectedDevice = UserSettings.Settings.ActiveDevice.Name;
+            SelectedDevice = UserSettings.Settings.ActiveDevice?.Name;
 
             DataContext = this;
 

@@ -160,7 +160,7 @@ namespace Winleafs.Wpf.Api.Events
             {
                 foreach (var panel in step.PanelIds)
                 {
-                    await _externalControlEndpoint.SetPanelColorAsync(panel, _redColor.Color.R, _redColor.Color.G, _redColor.Color.B);
+                    _externalControlEndpoint.SetPanelColorAsync(panel, _redColor.Color.R, _redColor.Color.G, _redColor.Color.B);
                 }
             }
 
@@ -168,7 +168,7 @@ namespace Winleafs.Wpf.Api.Events
             {
                 foreach (var panel in step.PanelIds)
                 {
-                    await _externalControlEndpoint.SetPanelColorAsync(panel, _whiteColor.Color.R, _whiteColor.Color.G, _whiteColor.Color.B);
+                    _externalControlEndpoint.SetPanelColorAsync(panel, _whiteColor.Color.R, _whiteColor.Color.G, _whiteColor.Color.B);
                 }
             }
         }

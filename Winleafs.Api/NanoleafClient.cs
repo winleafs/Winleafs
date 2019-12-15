@@ -27,9 +27,9 @@ namespace Winleafs.Api
     {
         private static readonly Dictionary<string, INanoleafClient> _clients = new Dictionary<string, INanoleafClient>();
 
-        internal Uri _baseUri;
+        internal Uri BaseUri;
 
-        internal string _token;
+        internal string Token;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NanoleafClient"/> class.
@@ -39,8 +39,8 @@ namespace Winleafs.Api
         /// <param name="token">The access token to access the device's API.</param>
         public NanoleafClient(string ip, int port, string token = null)
         {
-            _baseUri = new Uri($"http://{ip}:{port}");
-            _token = token;
+            BaseUri = new Uri($"http://{ip}:{port}");
+            Token = token;
         }
 
         /// <summary>

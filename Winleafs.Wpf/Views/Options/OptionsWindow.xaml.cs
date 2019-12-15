@@ -16,9 +16,11 @@ using Winleafs.Wpf.Helpers;
 using Winleafs.Models.Enums;
 using System.Windows.Media;
 using System.Drawing;
+using System.Windows.Controls;
 using Winleafs.Models.Models.Effects;
 using Winleafs.Wpf.Api;
 using Winleafs.Wpf.Views.MainWindows;
+using Winleafs.Wpf.Views.Setup;
 using Brushes = System.Windows.Media.Brushes;
 using Color = System.Drawing.Color;
 

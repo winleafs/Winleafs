@@ -59,6 +59,11 @@ namespace Winleafs.Wpf.Api
         /// <returns>An <see cref="Orchestrator"/> instance</returns>
         public static Orchestrator GetOrchestratorForDevice(Device device)
         {
+            if (device == null)
+            {
+                return null;
+            }
+
             return _orchestratorForDevices[device.IPAddress];
         }
     }

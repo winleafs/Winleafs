@@ -25,14 +25,14 @@ namespace Winleafs.Api.Endpoints
         /// <inheritdoc />
         public async Task<string> GetAuthTokenAsync()
         {
-            var client = new RestClient(Client._baseUri);
+            var client = new RestClient(Client.BaseUri);
             var request = new RestRequest("api/v1/new", Method.POST);
             var response = await client.ExecuteTaskAsync(request).ConfigureAwait(false);
 
             var jObject = JObject.Parse(response.Content);
-            Client._token = jObject["auth_token"].ToString();
+            Client.Token = jObject["auth_token"].ToString();
 
-            return Client._token;
+            return Client.Token;
         }
     }
 }

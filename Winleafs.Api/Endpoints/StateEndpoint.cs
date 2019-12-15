@@ -10,6 +10,8 @@ namespace Winleafs.Api.Endpoints
 {
     public class StateEndpoint : NanoleafEndpoint, IStateEndpoint
     {
+        private const string BaseUrl = "state";
+
 	    /// <inheritdoc />
 	    public StateEndpoint(NanoleafClient client)
         {
@@ -85,7 +87,7 @@ namespace Winleafs.Api.Endpoints
 	    /// <inheritdoc />
 	    public async Task<OnOffModel> GetStateAsync()
         {
-            return await SendRequestAsync<OnOffModel>("state/on", Method.GET);
+            return await SendRequestAsync<OnOffModel>($"{BaseUrl}/on", Method.GET);
         }
 
 	    /// <inheritdoc />
@@ -147,11 +149,11 @@ namespace Winleafs.Api.Endpoints
         {
             if (duration.HasValue)
             {
-                return SendRequestAsync("state", Method.PUT, body: "{\"brightness\": {\"value\":" + value.ToString() + ", \"duration\":" + duration.Value.ToString() + "}}");
+                return SendRequestAsync(BaseUrl, Method.PUT, body: "{\"brightness\": {\"value\":" + value.ToString() + ", \"duration\":" + duration.Value.ToString() + "}}");
             }
             else
             {
-                return SendRequestAsync("state", Method.PUT, body: "{\"brightness\": {\"value\":" + value.ToString() + "}}");
+                return SendRequestAsync(BaseUrl, Method.PUT, body: "{\"brightness\": {\"value\":" + value.ToString() + "}}");
             }
         }
 
@@ -164,7 +166,7 @@ namespace Winleafs.Api.Endpoints
 	    /// <inheritdoc />
 	    public Task SetColorTemperatureAsync(int value)
         {
-            return SendRequestAsync("state", Method.PUT, body: "{\"ct\": {\"value\":" + value.ToString() + "}}");
+            return SendRequestAsync(BaseUrl, Method.PUT, body: "{\"ct\": {\"value\":" + value.ToString() + "}}");
         }
 
 		public void SetHue(int value)
@@ -174,7 +176,7 @@ namespace Winleafs.Api.Endpoints
 
 		public Task SetHueAsync(int value)
         {
-            return SendRequestAsync("state", Method.PUT, body: "{\"hue\": {\"value\":" + value.ToString() + "}}");
+            return SendRequestAsync(BaseUrl, Method.PUT, body: "{\"hue\": {\"value\":" + value.ToString() + "}}");
         }
 
 		public void SetSaturation(int value)
@@ -184,7 +186,7 @@ namespace Winleafs.Api.Endpoints
 
 		public Task SetSaturationAsync(int value)
         {
-            return SendRequestAsync("state", Method.PUT, body: "{\"sat\": {\"value\":" + value.ToString() + "}}");
+            return SendRequestAsync(BaseUrl, Method.PUT, body: "{\"sat\": {\"value\":" + value.ToString() + "}}");
         }
 
 		public void SetState(bool state)
@@ -194,7 +196,7 @@ namespace Winleafs.Api.Endpoints
 
 		public Task SetStateAsync(bool state)
         {
-            return SendRequestAsync("state", Method.PUT, body: "{\"on\": {\"value\":" + state.ToString().ToLower() + "}}");
+            return SendRequestAsync(BaseUrl, Method.PUT, body: "{\"on\": {\"value\":" + state.ToString().ToLower() + "}}");
         }
 
 		public void SetStateWithStateCheck(bool state)
@@ -219,7 +221,7 @@ namespace Winleafs.Api.Endpoints
 
         public Task SetHueAndSaturationAsync(int hue, int saturation, bool disableLogging = false)
         {
-            return SendRequestAsync("state", Method.PUT, body: "{\"sat\": {\"value\":" + saturation.ToString() + "}, \"hue\": {\"value\":" + hue.ToString() + "}}", disableLogging: disableLogging);
+            return SendRequestAsync(BaseUrl, Method.PUT, body: "{\"sat\": {\"value\":" + saturation.ToString() + "}, \"hue\": {\"value\":" + hue.ToString() + "}}", disableLogging: disableLogging);
         }
 
         public void SetHueSaturationAndBrightness(int hue, int saturation, int brightness)
@@ -229,7 +231,7 @@ namespace Winleafs.Api.Endpoints
 
 	    public Task SetHueSaturationAndBrightnessAsync(int hue, int saturation, int brightness, bool disableLogging = false)
         {
-            return SendRequestAsync("state", Method.PUT, body: "{\"sat\": {\"value\":" + saturation.ToString() + "}, \"hue\": {\"value\":" + hue.ToString() + "}, \"brightness\": {\"value\":" + brightness.ToString() + "}}", disableLogging: disableLogging);
+            return SendRequestAsync(BaseUrl, Method.PUT, body: "{\"sat\": {\"value\":" + saturation.ToString() + "}, \"hue\": {\"value\":" + hue.ToString() + "}, \"brightness\": {\"value\":" + brightness.ToString() + "}}", disableLogging: disableLogging);
         }
     }
 }
