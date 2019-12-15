@@ -82,21 +82,6 @@ namespace Winleafs.Wpf.Api.Effects
         }
 
         /// <summary>
-        /// Gets the <see cref="ICustomEffect"/>s stored in this collection
-        /// as a <see cref="Effect"/> instance.
-        /// </summary>
-        /// <returns>
-        /// The custom formats formatted as a <see cref="Effect"/>
-        /// </returns>
-        public List<Effect> GetCustomEffectAsEffects()
-        {
-            //TODO: remove 
-            return _customEffects.Keys.OrderBy(name => name)
-                .Select(name => new Effect { Name = name })
-                .ToList();
-        }
-
-        /// <summary>
         /// Returns the list of custom effects for the device
         /// </summary>
         public List<ICustomEffect> GetCustomEffects()

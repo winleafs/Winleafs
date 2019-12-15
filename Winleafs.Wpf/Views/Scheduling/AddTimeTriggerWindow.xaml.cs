@@ -1,35 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
-
 using Winleafs.Models.Enums;
 using Winleafs.Models.Exceptions;
 using Winleafs.Models.Models;
-using Winleafs.Models.Models.Effects;
 using Winleafs.Models.Models.Scheduling.Triggers;
-using Winleafs.Wpf.Api.Effects;
+using Winleafs.Wpf.Helpers;
+using Winleafs.Wpf.Views.Effects;
+using Winleafs.Wpf.Views.Popup;
 
 namespace Winleafs.Wpf.Views.Scheduling
 {
-    using Winleafs.Wpf.Api;
-    using Winleafs.Wpf.Helpers;
-    using Winleafs.Wpf.Views.Popup;
-
     /// <summary>
     /// Interaction logic for AddTriggerWindow.xaml
     /// </summary>
-    public partial class AddTimeTriggerWindow : Window
+    public partial class AddTimeTriggerWindow : Window, IEffectComboBoxContainer
     {
         private DayUserControl _parent;
         private TriggerType _triggerType { get; set; }
         private int _brightness { get; set; }
         private Dictionary<string, TriggerType> _triggerTypeMapping { get; set; } //Map display values to enum values
-
-        public string SelectedEffect { get; set; }
 
         public int Brightness
         {
@@ -60,13 +53,9 @@ namespace Winleafs.Wpf.Views.Scheduling
             }
         }
 
-        public List<Effect> Effects { get; set; }
-
         public AddTimeTriggerWindow(DayUserControl parent)
         {
             _parent = parent;
-            Effects = new List<Effect>(UserSettings.Settings.ActiveDevice.Effects);
-            Effects.InsertRange(0, OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice).GetCustomEffectAsEffects());
 
             _triggerTypeMapping = new Dictionary<string, TriggerType>()
             {
@@ -80,6 +69,9 @@ namespace Winleafs.Wpf.Views.Scheduling
             InitializeComponent();
 
             SelectedTriggerType = EnumLocalizer.GetLocalizedEnum(TriggerType.Time);
+
+            EffectComboBox.InitializeEffects();
+            EffectComboBox.ParentUserControl = this;
         }
 
         private void TriggerTypeChanged()
@@ -105,7 +97,7 @@ namespace Winleafs.Wpf.Views.Scheduling
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(SelectedEffect))
+            if (EffectComboBox.SelectedEffect == null)
             {
                 PopupCreator.Error(Scheduling.Resources.MustChooseEffect);
                 return;
@@ -154,7 +146,7 @@ namespace Winleafs.Wpf.Views.Scheduling
                     EventTriggerType = _triggerType,
                     BeforeAfter = beforeAfter,
                     Brightness = _brightness,
-                    EffectName = SelectedEffect,
+                    EffectName = EffectComboBox.SelectedEffect.EffectName,
                     ExtraHours = hours,
                     ExtraMinutes = minutes,
                     Hours = GetHoursForTriggerType(_triggerType),
@@ -168,7 +160,7 @@ namespace Winleafs.Wpf.Views.Scheduling
                     EventTriggerType = _triggerType,
                     BeforeAfter = BeforeAfter.None,
                     Brightness = _brightness,
-                    EffectName = SelectedEffect,
+                    EffectName = EffectComboBox.SelectedEffect.EffectName,
                     ExtraHours = 0,
                     ExtraMinutes = 0,
                     Hours = hours,
@@ -232,6 +224,11 @@ namespace Winleafs.Wpf.Views.Scheduling
         {
             Regex regex = new Regex("[0-9][0-9]");
             e.Handled = regex.IsMatch(e.Text);
+        }
+
+        public void EffectComboBoxSelectionChanged(string selectedEffect)
+        {
+            //We do not need to do anything when the selection changed
         }
     }
 }

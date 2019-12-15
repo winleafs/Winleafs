@@ -244,7 +244,7 @@ namespace Winleafs.Wpf.Views.Options
             // Reload the orchestrator so custom effects are reloaded.
             OrchestratorCollection.ResetOrchestrators();
 
-            _mainWindow.ReloadEffects();
+            _mainWindow.ReloadEffectsInView();
             _mainWindow.UpdateContextMenuMostUsedEffects(); //Make sure none of the deleted custom colors stay in the context menu
 
             Close();

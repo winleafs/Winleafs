@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Threading.Tasks;
 
@@ -41,5 +42,22 @@ namespace Winleafs.Wpf.Api.Effects
         /// Return the name of this effect
         /// </summary>
         string GetName();
+    }
+
+    /// <summary>
+    /// Custom equality comparer for <see cref="ICustomEffect"/>
+    /// </summary>
+    public class CustomEffectEqualityComparer : IEqualityComparer<ICustomEffect>
+    {
+        public bool Equals([AllowNull] ICustomEffect x, [AllowNull] ICustomEffect y)
+        {
+            return (x == null && y == null) ||
+                (x.GetName() == y.GetName());
+        }
+
+        public int GetHashCode([DisallowNull] ICustomEffect obj)
+        {
+            return obj.GetName().GetHashCode();
+        }
     }
 }

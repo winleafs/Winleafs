@@ -131,15 +131,6 @@ namespace Winleafs.Wpf.Api
         }
 
         /// <summary>
-        /// Used to display a view of available effects in the view
-        /// </summary>
-        public List<Effect> GetCustomEffectAsEffects()
-        {
-            //TODO: remove 
-            return _customEffects.GetCustomEffectAsEffects();
-        }
-
-        /// <summary>
         /// Returns the list of custom effects for the device
         /// </summary>
         public List<ICustomEffect> GetCustomEffects()

@@ -95,8 +95,9 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         /// <summary>
         /// Update all effect dropdowns in the <see cref="_deviceUserControls"/>
+        /// and the effects in the context menu
         /// </summary>
-        public void ReloadEffects()
+        public void ReloadEffectsInView()
         {
             //TODO: implement this
         }
@@ -253,15 +254,9 @@ namespace Winleafs.Wpf.Views.MainWindows
             var setupWindow = new SetupWindow(this);
             setupWindow.Show();
         }
-        
-        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
-        {
-            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
-            e.Handled = true;
-        }
 
         //TODO: where to place button to remove a device?
-        private void RemoveDevice_Click(object sender, RoutedEventArgs e)
+        /*private void RemoveDevice_Click(object sender, RoutedEventArgs e)
         {
             var messageBoxResult = MessageBox.Show(string.Format(MainWindows.Resources.DeleteDeviceAreYouSure, _selectedDevice), MainWindows.Resources.DeleteConfirmation, MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
@@ -286,7 +281,7 @@ namespace Winleafs.Wpf.Views.MainWindows
                     Close();
                 }
             }
-        }
+        }*/
 
         public void UpdateActiveEffectLabelsAndLayout()
         {
@@ -348,5 +343,20 @@ namespace Winleafs.Wpf.Views.MainWindows
             return IntPtr.Zero;
         }
         #endregion
+
+        private void GitHub_Click(object sender, RoutedEventArgs e)
+        {
+            OpenURL("https://github.com/winleafs/Winleafs");
+        }
+
+        private void Donate_Click(object sender, RoutedEventArgs e)
+        {
+            OpenURL("https://www.paypal.com/paypalme2/winleafs");
+        }
+
+        private void OpenURL(string url)
+        {
+            Process.Start(new ProcessStartInfo("cmd", $"/c start {url}") { CreateNoWindow = true });
+        }
     }
 }
