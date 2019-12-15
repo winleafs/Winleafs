@@ -170,7 +170,11 @@ namespace Winleafs.Models.Models
         /// </summary>
         public void DeleteActiveDevice()
         {
-            var device = ActiveDevice;
+            DeleteDevice(ActiveDevice);
+        }
+
+        public void DeleteDevice(Device device)
+        {
             Devices.Remove(device);
             SaveSettings();
         }

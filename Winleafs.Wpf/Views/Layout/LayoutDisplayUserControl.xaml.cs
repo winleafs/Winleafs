@@ -81,6 +81,12 @@ namespace Winleafs.Wpf.Views.Layout
             CanvasArea.Children.Clear();
 
             var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice);
+
+            if (orchestrator == null)
+            {
+                return;
+            }
+
             _triangles = orchestrator.PanelLayout.GetScaledPolygons(_width, _height);
 
             if (_triangles == null || !_triangles.Any())

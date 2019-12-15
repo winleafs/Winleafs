@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Winleafs.Wpf.Views.Options"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:controls="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="{x:Static local:Resources.WinleafsOptions}" Height="670" Width="820" ResizeMode="CanMinimize">
@@ -35,7 +36,8 @@
     </Window.Resources>
 
     <Grid Background="{StaticResource NanoleafBlack}">
-        <TabControl Background="{StaticResource NanoleafBlack}" Margin="0,0,-0.333,42" BorderThickness="0,1,0,0">
+        <TabControl Style="{StaticResource MaterialDesignTabControl}"
+            Background="{StaticResource NanoleafBlack}" Margin="0,0,-0.333,42" BorderThickness="0,1,0,0">
             <TabItem Header="{x:Static local:Resources.General}">
                 <materialDesign:Card Padding="32" Margin="16" Background="{StaticResource NanoleafBlack}">
                     <Grid>
@@ -142,19 +144,23 @@
                     </Grid>
                 </materialDesign:Card>
             </TabItem>
-            <TabItem Header="{x:Static local:Resources.Color}" Height="21" VerticalAlignment="Top">
+            <TabItem Header="{x:Static local:Resources.Color}">
                 <materialDesign:Card Padding="32" Margin="16" Background="{StaticResource NanoleafBlack}">
                     <Grid>
-                        <ScrollViewer Margin="10,97,0,0" VerticalScrollBarVisibility="Visible"  HorizontalAlignment="Left" Width="520" Grid.ColumnSpan="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="128*"/>
+                            <RowDefinition Height="3*"/>
+                        </Grid.RowDefinitions>
+                        <ScrollViewer Margin="10,97,0,0" VerticalScrollBarVisibility="Visible"  HorizontalAlignment="Left" Width="520" Grid.RowSpan="2">
                             <StackPanel Margin="0,0,5,0" x:Name="ColorList" HorizontalAlignment="Right" Width="500"/>
                         </ScrollViewer>
 
                         <Label Margin="0,0,0,0"
                                Content="{x:Static local:Resources.PickAColor}" VerticalAlignment="Top"
-                               HorizontalAlignment="Left" FontSize="15" Foreground="White" Height="25" Width="150"/>
+                               HorizontalAlignment="Left" FontSize="15" Foreground="White" Height="30" Width="150"/>
 
-                        <xctk:ColorPicker x:Name="ColorPicker" Margin="0,30,0,0" Height="25" VerticalAlignment="Top"
-                                          Width="250" HorizontalAlignment="Left" Grid.ColumnSpan="2"/>
+                        <xctk:ColorPicker x:Name="ColorPicker" Margin="0,33,0,0" Height="25" VerticalAlignment="Top"
+                                          Width="250" HorizontalAlignment="Left"/>
 
                         <TextBox
                             Style="{DynamicResource MaterialDesignFloatingHintTextBox}"

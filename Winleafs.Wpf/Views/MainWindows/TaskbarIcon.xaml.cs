@@ -93,6 +93,11 @@ namespace Winleafs.Wpf.Views.MainWindows
         {
             MostUsedEffectList.Children.Clear();
 
+            if (UserSettings.Settings.ActiveDevice == null)
+            {
+                return;
+            }
+
             if (UserSettings.Settings.ActiveDevice.EffectCounter == null)
             {
                 UserSettings.Settings.ActiveDevice.EffectCounter = new Dictionary<string, ulong>();
