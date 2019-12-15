@@ -52,7 +52,7 @@ namespace Winleafs.Wpf.Views.MainWindows
 
             //Initialize the effect combox box
             EffectComboBox.InitializeEffects(_orchestrator);
-            EffectComboBox.Parent = this;
+            EffectComboBox.ParentUserControl = this;
 
             DataContext = this;
 
@@ -133,11 +133,13 @@ namespace Winleafs.Wpf.Views.MainWindows
 
                 var activeBrightness = _orchestrator.GetActiveBrightness();
                 Brightness = activeBrightness < 0 ? 0 : activeBrightness;
+                OnPropertyChanged(nameof(Brightness)); //Call property changed to correctly set slider position
 
                 //Update the colors in the mainwindow
                 _parent.UpdateLayoutColors(_device.Name);
 
-                //TODO: Update the dropdown
+                //Update the dropdown
+                EffectComboBox.UpdateSelection(_selectedEffect);
             }));            
         }
 

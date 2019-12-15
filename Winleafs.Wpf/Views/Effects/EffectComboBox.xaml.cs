@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -14,15 +15,17 @@ namespace Winleafs.Wpf.Views.Effects
     /// <summary>
     /// Interaction logic for EffectComboBox.xaml
     /// </summary>
-    public partial class EffectComboBox : UserControl
+    public partial class EffectComboBox : UserControl, INotifyPropertyChanged
     {
         private static readonly List<Color> _defaultColors = new List<Color> { Color.FromArgb(ICustomEffect.DefaultColor.A, ICustomEffect.DefaultColor.R, ICustomEffect.DefaultColor.G, ICustomEffect.DefaultColor.B) };
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public ObservableCollection<EffectComboBoxItemViewModel> Effects { get; set; }
 
         public EffectComboBoxItemViewModel SelectedEffect { get; set; }
 
-        public IEffectComboBoxContainer Parent { get; set; }
+        public IEffectComboBoxContainer ParentUserControl { get; set; }
 
         public EffectComboBox()
         {
@@ -96,12 +99,35 @@ namespace Winleafs.Wpf.Views.Effects
             Effects = new ObservableCollection<EffectComboBoxItemViewModel>(effects);
         }
 
+        public void UpdateSelection(string effectName)
+        {
+            if (effectName != null && (SelectedEffect == null || SelectedEffect.EffectName != effectName))
+            {
+                SelectedEffect = Effects.FirstOrDefault(effect => effect.EffectName == effectName);
+                OnPropertyChanged(nameof(SelectedEffect));
+            }
+            else if (effectName == null)
+            {
+                SelectedEffect = null;
+                OnPropertyChanged(nameof(SelectedEffect));
+            }
+        }
+
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (ComboBox.IsDropDownOpen)
             {
                 //Only trigger change when the user chosen an effect (when the dropdown is open)
-                Parent.EffectComboBoxSelectionChanged(SelectedEffect.EffectName);
+                ParentUserControl.EffectComboBoxSelectionChanged(SelectedEffect.EffectName);
+            }
+        }
+
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(name));
             }
         }
     }
