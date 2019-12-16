@@ -31,6 +31,9 @@
       <Component Id="MaterialDesignColors.dll" Guid="a12e1c56-87ce-4c08-bdc1-95af7ab7cd7b">
         <File Id="MaterialDesignColors.dll" Source="$(var.sourceFolder)\MaterialDesignColors.dll" KeyPath="yes" />
       </Component>
+      <Component Id="MaterialDesignExtensions.dll" Guid="b7110fe9-c451-43fd-be4c-51c022936c46">
+        <File Id="MaterialDesignExtensions.dll" Source="$(var.sourceFolder)\MaterialDesignExtensions.dll" KeyPath="yes" />
+      </Component>
       <Component Id="MaterialDesignThemes.Wpf.dll" Guid="24b7575f-c388-4386-a6b1-d78d5ee95e37">
         <File Id="MaterialDesignThemes.Wpf.dll" Source="$(var.sourceFolder)\MaterialDesignThemes.Wpf.dll" KeyPath="yes" />
       </Component>
@@ -54,6 +57,12 @@
       </Component>     
       <Component Id="Tmds.MDns.dll" Guid="5a242aee-8ecf-48c0-96fe-bb5ca4e9c70e">
         <File Id="Tmds.MDns.dll" Source="$(var.sourceFolder)\Tmds.MDns.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="ToastNotifications.dll" Guid="2b31b1ce-2a18-471e-b88a-a148bc6b4eea">
+        <File Id="ToastNotifications.dll" Source="$(var.sourceFolder)\ToastNotifications.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="ToastNotifications.Messages.dll" Guid="0a59a5e3-e8d9-4f26-8c86-ad6c30ab4f14">
+        <File Id="ToastNotifications.Messages.dll" Source="$(var.sourceFolder)\ToastNotifications.Messages.dll" KeyPath="yes" />
       </Component>
       <Component Id="WindowsDisplayAPI.dll" Guid="2b040161-eae6-4324-b23a-e95cb8c7bf55">
         <File Id="WindowsDisplayAPI.dll" Source="$(var.sourceFolder)\WindowsDisplayAPI.dll" KeyPath="yes" />
@@ -118,6 +127,7 @@
       <ComponentRef Id="Hardcodet.Wpf.TaskbarNotification.dll" />
       <ComponentRef Id="JsonMigrator.dll" />
       <ComponentRef Id="MaterialDesignColors.dll" />
+      <ComponentRef Id="MaterialDesignExtensions.dll" />
       <ComponentRef Id="MaterialDesignThemes.Wpf.dll" />
       <ComponentRef Id="Newtonsoft.Json.dll" />
       <ComponentRef Id="NLog.config" />
@@ -126,6 +136,8 @@
       <ComponentRef Id="Polly.dll" />
       <ComponentRef Id="RestSharp.dll" />      
       <ComponentRef Id="Tmds.MDns.dll" />
+      <ComponentRef Id="ToastNotifications.dll" />
+      <ComponentRef Id="ToastNotifications.Messages.dll" />
       <ComponentRef Id="WindowsDisplayAPI.dll" />
       <ComponentRef Id="Winleafs.Api.dll" />
       <ComponentRef Id="Winleafs.External.dll" />
