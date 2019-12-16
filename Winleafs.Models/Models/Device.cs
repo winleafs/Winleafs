@@ -28,11 +28,10 @@ namespace Winleafs.Models.Models
         /// </summary>
         public OperationMode OperationMode { get; set; }
 
-        public List<Schedule> Schedules { get; set; }
         public List<Effect> Effects { get; set; }
 
-        public string OverrideEffect { get; set; }
-        public int OverrideBrightness { get; set; }
+        public string ManualEffect { get; set; }
+        public int ManualBrightness { get; set; }
 
         public PercentageProfile PercentageProfile { get;set;}
 
@@ -44,34 +43,12 @@ namespace Winleafs.Models.Models
 
         public Dictionary<string, ulong> EffectCounter { get; set; }
 
-        [JsonIgnore]
-        public Schedule ActiveSchedule
-        {
-            get
-            {
-                return Schedules.FirstOrDefault(s => s.Active);
-            }
-        }
-
         public Device()
         {
-            Schedules = new List<Schedule>();
-
             Effects = new List<Effect>();
             ScreenMirrorRefreshRatePerSecond = 1;
             ScreenMirrorControlBrightness = false;
-        }
-
-        public TimeTrigger GetActiveTimeTrigger()
-        {
-            if (Schedules.Any(s => s.Active))
-            {
-                return Schedules.FirstOrDefault(s => s.Active).GetActiveTimeTrigger();
-            }
-            else //It is possible that a user deletes the active schedule, then there is no active program
-            {
-                return null;
-            }
+            OperationMode = OperationMode.Manual;
         }
 
         public void LoadEffectsFromNameList(IEnumerable<string> effectNames)
@@ -87,11 +64,32 @@ namespace Winleafs.Models.Models
         }
 
         /// <summary>
+        /// Removes all entrie in <see cref="EffectCounter"/>
+        /// which do not appear in the effects list or in the given
+        /// <paramref name="customEffectNames"/>.
+        /// </summary>
+        public void CleanEffectCounter(IEnumerable<string> customEffectNames)
+        {
+            foreach (var effectName in EffectCounter.Keys.ToList()) //ToList to make a copy so we can safely remove entries
+            {
+                if (!Effects.Any(effect => effect.Name == effectName) && !customEffectNames.Contains(effectName))
+                {
+                    EffectCounter.Remove(effectName);
+                }
+            }
+        }
+
+        /// <summary>
         /// Used by setup view
         /// </summary>
         public override string ToString()
         {
             return $"{Name} ({IPAddress}:{Port})";
+        }
+
+        public void UpdateEffect(Effect newEffect)
+        {
+            Effects[Effects.FindIndex(effect => effect.Name.Equals(newEffect.Name))] = newEffect;
         }
     }
 }

@@ -19,10 +19,10 @@ namespace Winleafs.Wpf.Views {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class EnumResources {
+    public class EnumResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Winleafs.Wpf.Views {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Winleafs.Wpf.Views.EnumResources", typeof(EnumResources).Assembly);
@@ -51,7 +51,7 @@ namespace Winleafs.Wpf.Views {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Winleafs.Wpf.Views {
         /// <summary>
         ///   Looks up a localized string similar to After.
         /// </summary>
-        internal static string After {
+        public static string After {
             get {
                 return ResourceManager.GetString("After", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace Winleafs.Wpf.Views {
         /// <summary>
         ///   Looks up a localized string similar to Ambilight.
         /// </summary>
-        internal static string Ambilight {
+        public static string Ambilight {
             get {
                 return ResourceManager.GetString("Ambilight", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace Winleafs.Wpf.Views {
         /// <summary>
         ///   Looks up a localized string similar to Before.
         /// </summary>
-        internal static string Before {
+        public static string Before {
             get {
                 return ResourceManager.GetString("Before", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace Winleafs.Wpf.Views {
         /// <summary>
         ///   Looks up a localized string similar to Borderlands 2 health event.
         /// </summary>
-        internal static string Borderlands2HealthEvent {
+        public static string Borderlands2HealthEvent {
             get {
                 return ResourceManager.GetString("Borderlands2HealthEvent", resourceCulture);
             }
@@ -99,25 +99,43 @@ namespace Winleafs.Wpf.Views {
         /// <summary>
         ///   Looks up a localized string similar to Event.
         /// </summary>
-        internal static string Event {
+        public static string Event {
             get {
                 return ResourceManager.GetString("Event", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manual.
+        /// </summary>
+        public static string Manual {
+            get {
+                return ResourceManager.GetString("Manual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Process event.
         /// </summary>
-        internal static string ProcessEvent {
+        public static string ProcessEvent {
             get {
                 return ResourceManager.GetString("ProcessEvent", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Schedule.
+        /// </summary>
+        public static string Schedule {
+            get {
+                return ResourceManager.GetString("Schedule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Screen Mirror fit.
         /// </summary>
-        internal static string ScreenMirrorFit {
+        public static string ScreenMirrorFit {
             get {
                 return ResourceManager.GetString("ScreenMirrorFit", resourceCulture);
             }
@@ -126,7 +144,7 @@ namespace Winleafs.Wpf.Views {
         /// <summary>
         ///   Looks up a localized string similar to Screen Mirror stretch.
         /// </summary>
-        internal static string ScreenMirrorStretch {
+        public static string ScreenMirrorStretch {
             get {
                 return ResourceManager.GetString("ScreenMirrorStretch", resourceCulture);
             }
@@ -135,7 +153,7 @@ namespace Winleafs.Wpf.Views {
         /// <summary>
         ///   Looks up a localized string similar to Sunrise.
         /// </summary>
-        internal static string Sunrise {
+        public static string Sunrise {
             get {
                 return ResourceManager.GetString("Sunrise", resourceCulture);
             }
@@ -144,7 +162,7 @@ namespace Winleafs.Wpf.Views {
         /// <summary>
         ///   Looks up a localized string similar to Sunset.
         /// </summary>
-        internal static string Sunset {
+        public static string Sunset {
             get {
                 return ResourceManager.GetString("Sunset", resourceCulture);
             }
@@ -153,7 +171,7 @@ namespace Winleafs.Wpf.Views {
         /// <summary>
         ///   Looks up a localized string similar to Time.
         /// </summary>
-        internal static string Time {
+        public static string Time {
             get {
                 return ResourceManager.GetString("Time", resourceCulture);
             }

@@ -120,20 +120,20 @@
   <data name="ActiveDevice" xml:space="preserve">
     <value>Active device</value>
   </data>
+  <data name="ActiveEffect" xml:space="preserve">
+    <value>Active effect</value>
+  </data>
   <data name="AddDevice" xml:space="preserve">
     <value>Add device</value>
+  </data>
+  <data name="AddSchedule" xml:space="preserve">
+    <value>Add schedule</value>
   </data>
   <data name="AreYouSure" xml:space="preserve">
     <value>Are you sure?</value>
   </data>
   <data name="Brightness" xml:space="preserve">
     <value>Brightness</value>
-  </data>
-  <data name="CurrentBrightness" xml:space="preserve">
-    <value>Current brightness</value>
-  </data>
-  <data name="CurrentEffect" xml:space="preserve">
-    <value>Current effect</value>
   </data>
   <data name="DeleteConfirmation" xml:space="preserve">
     <value>Delete confirmation</value>
@@ -150,20 +150,23 @@
   <data name="Donate" xml:space="preserve">
     <value>Donate</value>
   </data>
+  <data name="GitHub" xml:space="preserve">
+    <value>GitHub</value>
+  </data>
+  <data name="ManualControlError" xml:space="preserve">
+    <value>An unexpected error occurred during setting of manual control.</value>
+  </data>
   <data name="MostUsedEffects" xml:space="preserve">
     <value>Most used effects</value>
   </data>
-  <data name="Nothing" xml:space="preserve">
-    <value>Nothing</value>
+  <data name="None" xml:space="preserve">
+    <value>None</value>
   </data>
   <data name="Options" xml:space="preserve">
     <value>Options</value>
   </data>
   <data name="Override" xml:space="preserve">
     <value>Override</value>
-  </data>
-  <data name="OverrideError" xml:space="preserve">
-    <value>An unexpected error occurred during overriding.</value>
   </data>
   <data name="OverrideSchedule" xml:space="preserve">
     <value>Override schedule</value>
@@ -194,6 +197,9 @@
   </data>
   <data name="Stop" xml:space="preserve">
     <value>Stop</value>
+  </data>
+  <data name="StopManual" xml:space="preserve">
+    <value>Stop manual</value>
   </data>
   <data name="StopManualControl" xml:space="preserve">
     <value>Stop manual control</value>

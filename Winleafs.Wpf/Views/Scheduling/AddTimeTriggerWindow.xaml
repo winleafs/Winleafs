@@ -4,23 +4,23 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Winleafs.Wpf.Views.Scheduling"
+        xmlns:effects="clr-namespace:Winleafs.Wpf.Views.Effects"   
         mc:Ignorable="d"
-        Title="{x:Static local:Resources.AddTriggerTitle}" Height="250" Width="240" ResizeMode="NoResize">
+        Title="{x:Static local:Resources.AddTriggerTitle}" Height="250" Width="400" ResizeMode="NoResize">
     <Grid Background="{StaticResource NanoleafBlack}">
         <Label Content="{x:Static local:Resources.Trigger}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
-        <ComboBox HorizontalAlignment="Left" Margin="91,18,0,0" VerticalAlignment="Top" Width="120" SelectedItem="{Binding SelectedTriggerType}" ItemsSource="{Binding TriggerTypes}"/>
-
+        <ComboBox HorizontalAlignment="Left" Margin="91,18,0,0" VerticalAlignment="Top" Width="276" SelectedItem="{Binding SelectedTriggerType}" ItemsSource="{Binding TriggerTypes}" Foreground="White"/>
         <Button Content="{x:Static local:Resources.Cancel}" HorizontalAlignment="Left" Margin="10,0,0,10" Width="84" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Cancel_Click" Height="27" VerticalAlignment="Bottom"/>
-        <Button Content="{x:Static local:Resources.Add}" Margin="139,0,10,10" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Add_Click" Height="27" VerticalAlignment="Bottom"/>
-        <Label Content="{x:Static local:Resources.Time}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Foreground="White" x:Name="TimeLabel"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="93,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="47" x:Name="Hours" PreviewTextInput="NumberValidationTextBox" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White"/>
-        <Label Content=":" HorizontalAlignment="Left" Margin="145,38,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Height="30"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="164,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="47" x:Name="Minutes" PreviewTextInput="NumberValidationTextBox" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White"/>
+        <Button Content="{x:Static local:Resources.Add}" Margin="0,0,10,10" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Add_Click" Height="27" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+        <Label Content="{x:Static local:Resources.Time}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" Foreground="White" x:Name="TimeLabel"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="93,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="47" x:Name="Hours" PreviewTextInput="NumberValidationTextBox" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White"/>
+        <Label Content=":" HorizontalAlignment="Left" Margin="145,44,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" Height="30"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="164,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="47" x:Name="Minutes" PreviewTextInput="NumberValidationTextBox" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White"/>
         <Label Content="{x:Static local:Resources.Effect}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
-        <ComboBox HorizontalAlignment="Left" Margin="91,101,0,0" VerticalAlignment="Top" Width="120" SelectedItem="{Binding SelectedEffect}" ItemsSource="{Binding Effects}"/>
-        <Label Content="{x:Static local:Resources.Brightness}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,130,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <Label x:Name="BrightnessLabel" HorizontalAlignment="Left" Margin="78,130,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <Slider HorizontalAlignment="Left" Margin="10,156,0,0" VerticalAlignment="Top" Width="200" Minimum="0" Maximum="100" Value="{Binding Brightness}" IsSnapToTickEnabled="True" TickFrequency="1"/>
+        <effects:EffectComboBox x:Name="EffectComboBox" HorizontalAlignment="Left" Margin="93,91,0,0" VerticalAlignment="Top" Width="273" Height="40"/>
+        <Label Content="{x:Static local:Resources.Brightness}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,138,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label x:Name="BrightnessLabel" Content="0" HorizontalAlignment="Left" Margin="346,138,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Slider HorizontalAlignment="Left" Margin="91,141,0,0" VerticalAlignment="Top" Width="250" Minimum="0" Maximum="100" Value="{Binding Brightness}" IsSnapToTickEnabled="True" TickFrequency="5"/>
         <RadioButton x:Name="BeforeRadioButton" Content="{x:Static local:Resources.Before}" HorizontalAlignment="Left" Margin="20,75,0,0" VerticalAlignment="Top" Foreground="White" GroupName="BeforeAfter" Visibility="Hidden" IsChecked="False"/>
         <RadioButton x:Name="AfterRadioButton" Content="{x:Static local:Resources.After}" HorizontalAlignment="Left" Margin="78,75,0,0" VerticalAlignment="Top" Foreground="White" GroupName="BeforeAfter" Visibility="Hidden" IsChecked="False"/>
     </Grid>

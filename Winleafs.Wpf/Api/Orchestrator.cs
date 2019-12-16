@@ -46,7 +46,7 @@ namespace Winleafs.Wpf.Api
             }
             else if (device.OperationMode == OperationMode.Manual)
             {
-                Task.Run(() => ActivateEffect(Device.OverrideEffect, Device.OverrideBrightness));
+                Task.Run(() => ActivateEffect(Device.ManualEffect, Device.ManualBrightness));
             }
         }
 
@@ -55,7 +55,7 @@ namespace Winleafs.Wpf.Api
         /// Only the override is able to stop the override, effects and events may not remove the manual mode
         /// First stops all active effects and events before switching to the new effect or event claiming operation mode
         /// </summary>
-        public async Task<bool> TrySetOperationMode(OperationMode operationMode, bool isFromOverride = false)
+        public async Task<bool> TrySetOperationMode(OperationMode operationMode, bool isFromOverride = false, bool sync = false)
         {
             if (!isFromOverride && Device.OperationMode == OperationMode.Manual)
             {
@@ -70,7 +70,7 @@ namespace Winleafs.Wpf.Api
             //If its a schedule, then the schedule timer can start again. The events and override manage their own effect activation
             if (Device.OperationMode == OperationMode.Schedule)
             {
-                ScheduleTimer.StartTimer();
+                ScheduleTimer.StartTimer(sync);
             }
 
             return true;
@@ -131,11 +131,11 @@ namespace Winleafs.Wpf.Api
         }
 
         /// <summary>
-        /// Used to display a view of available effects in the view
+        /// Returns the list of custom effects for the device
         /// </summary>
-        public List<Effect> GetCustomEffectAsEffects()
+        public List<ICustomEffect> GetCustomEffects()
         {
-            return _customEffects.GetCustomEffectAsEffects();
+            return _customEffects.GetCustomEffects();
         }
 
         /// <summary>
@@ -146,7 +146,7 @@ namespace Winleafs.Wpf.Api
             switch (Device.OperationMode)
             {
                 case OperationMode.Manual:
-                    return Device.OverrideEffect;
+                    return Device.ManualEffect;
 
                 case OperationMode.Event:
                     var activeEvent = _eventTriggersCollection.EventTriggers.FirstOrDefault(e => e.IsActive());
@@ -154,7 +154,7 @@ namespace Winleafs.Wpf.Api
                     return activeEvent?.GetTrigger().GetEffectName();
 
                 case OperationMode.Schedule:
-                    var activeTimeTrigger = Device.GetActiveTimeTrigger();
+                    var activeTimeTrigger = UserSettings.Settings.GetActiveTimeTriggerForDevice(Device.Name);
 
                     return activeTimeTrigger?.GetEffectName();
 
@@ -172,7 +172,7 @@ namespace Winleafs.Wpf.Api
             switch (Device.OperationMode)
             {
                 case OperationMode.Manual:
-                    return Device.OverrideBrightness;
+                    return Device.ManualBrightness;
 
                 case OperationMode.Event:
                     var activeEvent = _eventTriggersCollection.EventTriggers.FirstOrDefault(e => e.IsActive());
@@ -184,7 +184,7 @@ namespace Winleafs.Wpf.Api
                     return -1;
 
                 case OperationMode.Schedule:
-                    var activeTimeTrigger = Device.GetActiveTimeTrigger();
+                    var activeTimeTrigger = UserSettings.Settings.GetActiveTimeTriggerForDevice(Device.Name);
 
                     if (activeTimeTrigger != null)
                     {

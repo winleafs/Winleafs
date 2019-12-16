@@ -25,7 +25,7 @@ namespace Winleafs.Wpf.Views.Scheduling
             InitializeComponent();
 
             Description = $"{EnumLocalizer.GetLocalizedEnum(trigger.GetTriggerType())}: {trigger.GetDescription()}";
-            EffectName = trigger.Effect;
+            EffectName = trigger.EffectName;
             Brightness = trigger.Brightness.ToString();
 
             DataContext = this;

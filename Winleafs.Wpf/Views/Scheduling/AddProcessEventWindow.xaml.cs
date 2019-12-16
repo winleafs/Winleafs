@@ -1,9 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Windows;
-using Winleafs.Models.Models;
-using Winleafs.Models.Models.Effects;
-using Winleafs.Wpf.Api;
-using Winleafs.Wpf.Views.Popup;
+﻿using System.Windows;
+using Winleafs.Wpf.Views.Effects;
 
 namespace Winleafs.Wpf.Views.Scheduling
 {
@@ -11,12 +7,10 @@ namespace Winleafs.Wpf.Views.Scheduling
     /// <summary>
     /// Interaction logic for AddTriggerWindow.xaml
     /// </summary>
-    public partial class AddProcessEventWindow : Window
+    public partial class AddProcessEventWindow : Window, IEffectComboBoxContainer
     {
         private EventUserControl _parent;
         private int _brightness { get; set; }
-
-        public string SelectedEffect { get; set; }
         public string ProcessName { get; set; }
 
         public int Brightness
@@ -28,18 +22,17 @@ namespace Winleafs.Wpf.Views.Scheduling
                 BrightnessLabel.Content = value.ToString();
             }
         }
-        
-        public List<Effect> Effects { get; set; }
 
         public AddProcessEventWindow(EventUserControl parent)
         {
             _parent = parent;
-            Effects = new List<Effect>(UserSettings.Settings.ActiveDevice.Effects);
-            Effects.InsertRange(0, OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice).GetCustomEffectAsEffects());
 
             DataContext = this;
 
             InitializeComponent();
+
+            EffectComboBox.InitializeEffects();
+            EffectComboBox.ParentUserControl = this;
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
@@ -49,10 +42,15 @@ namespace Winleafs.Wpf.Views.Scheduling
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            if (_parent.ProcessEventTriggerAdded(ProcessName, SelectedEffect, _brightness))
+            if (_parent.ProcessEventTriggerAdded(ProcessName, EffectComboBox.SelectedEffect.EffectName, _brightness))
             {
                 Close();
             }            
+        }
+
+        public void EffectComboBoxSelectionChanged(string selectedEffect)
+        {
+            //We do not need to do anything when the selection changed
         }
     }
 }

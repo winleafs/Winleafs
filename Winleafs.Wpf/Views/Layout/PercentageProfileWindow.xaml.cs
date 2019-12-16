@@ -18,9 +18,8 @@ namespace Winleafs.Wpf.Views.Layout
         {
             InitializeComponent();
 
-            LayoutDisplay.SetWithAndHeight((int)LayoutDisplay.Width, (int)LayoutDisplay.Height);
-            LayoutDisplay.DrawLayout();
             LayoutDisplay.EnableClick();
+            LayoutDisplay.DrawLayout();
             LayoutDisplay.DisableColorTimer();
 
             if (UserSettings.Settings.ActiveDevice.PercentageProfile != null)

@@ -10,7 +10,7 @@ namespace Winleafs.Wpf.Views.Scheduling
     /// </summary>
     public partial class EventTriggerUserControl : UserControl
     {
-        private BaseEventTrigger _trigger;
+        private TriggerBase _trigger;
         private EventUserControl _parent;
 
         public string TriggerType { get; set; }
@@ -18,7 +18,7 @@ namespace Winleafs.Wpf.Views.Scheduling
         public string EffectName { get; set; }
         public string Brightness { get; set; }
 
-        public EventTriggerUserControl(EventUserControl parent, BaseEventTrigger trigger)
+        public EventTriggerUserControl(EventUserControl parent, TriggerBase trigger)
         {
             _trigger = trigger;
             _parent = parent;

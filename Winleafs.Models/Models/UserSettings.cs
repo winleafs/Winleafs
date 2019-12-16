@@ -9,6 +9,7 @@ using Winleafs.Models.Enums;
 using Winleafs.Models.Exceptions;
 using Winleafs.Models.Models.Effects;
 using Winleafs.Models.Models.Scheduling;
+using Winleafs.Models.Models.Scheduling.Triggers;
 
 namespace Winleafs.Models.Models
 {
@@ -23,7 +24,7 @@ namespace Winleafs.Models.Models
         public static readonly string EffectNamePreface = "Winleafs - ";
 
         private static readonly string _settingsFileName = Path.Combine(SettingsFolder, "Settings.txt");
-        private static readonly string _latestSettingsVersion = "7";
+        private static readonly string _latestSettingsVersion = "8";
 
         private static UserSettings _settings { get; set; }
 
@@ -60,6 +61,8 @@ namespace Winleafs.Models.Models
         public string UserLocale { get; set; }
 
         public bool MinimizeToSystemTray { get; set; }
+
+        public List<Schedule> Schedules { get; set; }
         #endregion
 
         #region Methods
@@ -87,6 +90,7 @@ namespace Winleafs.Models.Models
                 {
                     // Defaults
                     Devices = new List<Device>(),
+                    Schedules = new List<Schedule>(),
                     JsonVersion = _latestSettingsVersion
                 };
                 _settings = userSettings;
@@ -186,16 +190,14 @@ namespace Winleafs.Models.Models
         /// <param name="makeActive">If the schedule added should be set as the active schedule.</param>
         public void AddSchedule(Schedule schedule, bool makeActive)
         {
-            var device = ActiveDevice;
-
             if (makeActive)
             {
-                device.Schedules.ForEach(s => s.Active = false);
+                Schedules.ForEach(s => s.Active = false);
                 schedule.Active = true;
             }
 
-            device.Schedules.Add(schedule);
-            device.Schedules = device.Schedules.OrderBy(s => s.Name).ToList();
+            Schedules.Add(schedule);
+            Schedules = Schedules.OrderBy(s => s.Name).ToList();
             SaveSettings();
         }
 
@@ -206,7 +208,7 @@ namespace Winleafs.Models.Models
         /// <param name="schedule">The <see cref="Schedule"/> object to be activated.</param>
         public void ActivateSchedule(Schedule schedule)
         {
-            ActiveDevice.Schedules.ForEach(s => s.Active = false);
+            Schedules.ForEach(s => s.Active = false);
 
             schedule.Active = true;
             SaveSettings();
@@ -218,7 +220,7 @@ namespace Winleafs.Models.Models
         /// <param name="schedule">The <see cref="Schedule"/> object to be deleted.</param>
         public void DeleteSchedule(Schedule schedule)
         {
-            ActiveDevice.Schedules.Remove(schedule);
+            Schedules.Remove(schedule);
             SaveSettings();
         }
 
@@ -239,30 +241,27 @@ namespace Winleafs.Models.Models
             SunsetMinute = sunsetMinute;
 
             //Update each sunset and sunrise trigger to the new times
-            foreach (var device in Devices)
+            foreach (var schedule in Schedules)
             {
-                foreach (var schedule in device.Schedules)
+                foreach (var program in schedule.Programs)
                 {
-                    foreach (var program in schedule.Programs)
+                    foreach (var trigger in program.Triggers)
                     {
-                        foreach (var trigger in program.Triggers)
+                        switch (trigger.EventTriggerType)
                         {
-                            switch (trigger.TriggerType)
-                            {
-                                case TriggerType.Sunrise:
-                                    trigger.Hours = sunriseHour;
-                                    trigger.Minutes = sunriseMinute;
-                                    break;
-                                case TriggerType.Sunset:
-                                    trigger.Hours = sunsetHour;
-                                    trigger.Minutes = sunsetMinute;
-                                    break;
-                            }
+                            case TriggerType.Sunrise:
+                                trigger.Hours = sunriseHour;
+                                trigger.Minutes = sunriseMinute;
+                                break;
+                            case TriggerType.Sunset:
+                                trigger.Hours = sunsetHour;
+                                trigger.Minutes = sunsetMinute;
+                                break;
                         }
-                        // Puts all triggers of all programs in correct order,
-                        // this is needed since the times of triggers can change due to sunrise and sunset times
-                        program.ReorderTriggers();
                     }
+                    // Puts all triggers of all programs in correct order,
+                    // this is needed since the times of triggers can change due to sunrise and sunset times
+                    program.ReorderTriggers();
                 }
             }
 
@@ -323,6 +322,28 @@ namespace Winleafs.Models.Models
             }
 
             CustomEffects = userCustomColorEffects;
+        }
+
+
+        [JsonIgnore]
+        public Schedule ActiveSchedule
+        {
+            get
+            {
+                return Schedules.FirstOrDefault(s => s.Active);
+            }
+        }
+
+        public TimeTrigger GetActiveTimeTriggerForDevice(string deviceName)
+        {
+            if (Schedules.Any(s => s.Active && s.AppliesToDeviceNames.Contains(deviceName)))
+            {
+                return Schedules.FirstOrDefault(s => s.Active && s.AppliesToDeviceNames.Contains(deviceName)).GetActiveTimeTrigger();
+            }
+            else //It is possible that a user deletes the active schedule, then there is no active program
+            {
+                return null;
+            }
         }
         #endregion
 
@@ -387,6 +408,15 @@ namespace Winleafs.Models.Models
             {
                 device[nameof(Device.EffectCounter)] = JToken.FromObject(new Dictionary<string, int>());
             }
+
+            return jToken;
+        }
+
+
+        [Migration("7", "8")]
+        private static JToken Migration_7_8(JToken jToken)
+        {
+            jToken[nameof(Schedules)] = new JArray();
 
             return jToken;
         }

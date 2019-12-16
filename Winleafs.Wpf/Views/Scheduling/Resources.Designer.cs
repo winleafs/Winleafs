@@ -19,7 +19,7 @@ namespace Winleafs.Wpf.Views.Scheduling {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -363,6 +363,15 @@ namespace Winleafs.Wpf.Views.Scheduling {
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a name, at least one device and at least one trigger or event.
+        /// </summary>
+        public static string SaveScheduleError {
+            get {
+                return ResourceManager.GetString("SaveScheduleError", resourceCulture);
             }
         }
         

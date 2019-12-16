@@ -38,13 +38,18 @@ namespace Winleafs.Wpf.Api
 
         /// <summary>
         /// Resets the <see cref="Orchestrator"/> to the <see cref="OperationMode.Schedule"/>
-        /// for the currently active device.
+        /// for all devices.
         /// </summary>
-        public static void ResetOrchestratorForActiveDevice()
+        public static void ResetOrchestrators()
         {
             //Reset operation mode back to schedule if an effect or event was active
-            _orchestratorForDevices[UserSettings.Settings.ActiveDevice.IPAddress].TrySetOperationMode(OperationMode.Schedule).GetAwaiter().GetResult(); 
-            _orchestratorForDevices[UserSettings.Settings.ActiveDevice.IPAddress] = new Orchestrator(UserSettings.Settings.ActiveDevice);
+            foreach (var orchestrator in _orchestratorForDevices.Values)
+            {
+                orchestrator.TrySetOperationMode(OperationMode.Schedule).GetAwaiter().GetResult();
+            }
+
+            //Reset all orchestrators
+            Initialize();
         }
 
         /// <summary>

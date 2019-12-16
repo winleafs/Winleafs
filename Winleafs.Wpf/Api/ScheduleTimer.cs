@@ -31,13 +31,20 @@ namespace Winleafs.Wpf.Api
         /// <summary>
         /// Starts the timer and fires the event to select an effect.
         /// </summary>
-        public void StartTimer()
+        public void StartTimer(bool sync = false)
         {
             _previouslyActivatedEffect = _defaultPreviouslyActivatedEffect; //Reset the previously activated effect
 
             _timer.Start();
 
-            FireTimer();
+            if (sync)
+            {
+                Task.Run(() => SetEffectsForDevices()).Wait();
+            }
+            else
+            {
+                Task.Run(() => SetEffectsForDevices());
+            }
         }
 
         /// <summary>
@@ -46,14 +53,6 @@ namespace Winleafs.Wpf.Api
         public void StopTimer()
         {
             _timer.Stop();
-        }
-
-        /// <summary>
-        /// Fires the timer to set the correct effect for the current time.
-        /// </summary>
-        private void FireTimer()
-        {
-            OnTimedEvent(this, null);
         }
 
         private void OnTimedEvent(object source, ElapsedEventArgs e)
@@ -65,10 +64,10 @@ namespace Winleafs.Wpf.Api
         {
             if (_orchestrator.Device.OperationMode == OperationMode.Schedule)
             {
-                var activeTrigger = _orchestrator.Device.GetActiveTimeTrigger();
+                var activeTrigger = UserSettings.Settings.GetActiveTimeTriggerForDevice(_orchestrator.Device.Name);
 
                 //Only switch effects if the effect is different from the previously activated effect
-                if ((activeTrigger == null && _previouslyActivatedEffect != null) || (activeTrigger != null && activeTrigger.Effect != _previouslyActivatedEffect))
+                if ((activeTrigger == null && _previouslyActivatedEffect != null) || (activeTrigger != null && activeTrigger.EffectName != _previouslyActivatedEffect))
                 {
                     if (activeTrigger == null)
                     {
@@ -79,10 +78,10 @@ namespace Winleafs.Wpf.Api
                     }
                     else
                     {
-                        await _orchestrator.ActivateEffect(activeTrigger.Effect, activeTrigger.Brightness);
+                        await _orchestrator.ActivateEffect(activeTrigger.EffectName, activeTrigger.Brightness);
                     }
 
-                    _previouslyActivatedEffect = activeTrigger?.Effect;
+                    _previouslyActivatedEffect = activeTrigger?.EffectName;
                 }
             }
         }

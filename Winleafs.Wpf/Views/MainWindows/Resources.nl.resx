@@ -154,8 +154,8 @@ Hover over deze knop.</value>
   <data name="Brightness" xml:space="preserve">
     <value>Helderheid</value>
   </data>
-  <data name="OverrideError" xml:space="preserve">
-    <value>Een onverwacht probleem is opgetreden tijdens het overschrijven</value>
+  <data name="ManualControlError" xml:space="preserve">
+    <value>Een onverwacht probleem is opgetreden tijdens het instellen van handmatige bediening.</value>
   </data>
   <data name="ActiveDevice" xml:space="preserve">
     <value>Actief apparaat</value>
@@ -166,17 +166,14 @@ Hover over deze knop.</value>
   <data name="DeleteDeviceAreYouSure" xml:space="preserve">
     <value>Weet je het zeker? Als je {0} verwijdert zullen ook de schemas verwijderd worden</value>
   </data>
-  <data name="CurrentBrightness" xml:space="preserve">
-    <value>Huidige helderheid</value>
-  </data>
-  <data name="CurrentEffect" xml:space="preserve">
-    <value>Huidig effect</value>
+  <data name="ActiveEffect" xml:space="preserve">
+    <value>Actief effect</value>
   </data>
   <data name="DeleteConfirmation" xml:space="preserve">
     <value>Verwijderen bevestigen</value>
   </data>
-  <data name="Nothing" xml:space="preserve">
-    <value>Niks</value>
+  <data name="None" xml:space="preserve">
+    <value>Geen</value>
   </data>
   <data name="RemoveDevice" xml:space="preserve">
     <value>Verwijder dit apparaat</value>
@@ -199,7 +196,16 @@ Hover over deze knop.</value>
   <data name="MostUsedEffects" xml:space="preserve">
     <value>Meest gebruikte effecten</value>
   </data>
+  <data name="StopManual" xml:space="preserve">
+    <value>Stop handmatig</value>
+  </data>
+  <data name="GitHub" xml:space="preserve">
+    <value>GitHub</value>
+  </data>
   <data name="StopManualControl" xml:space="preserve">
     <value>Stop handmatige bediening</value>
+  </data>
+  <data name="AddSchedule" xml:space="preserve">
+    <value>Schema toevoegen</value>
   </data>
 </root>

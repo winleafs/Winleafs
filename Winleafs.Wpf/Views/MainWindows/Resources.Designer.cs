@@ -70,11 +70,29 @@ namespace Winleafs.Wpf.Views.MainWindows {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Active effect.
+        /// </summary>
+        public static string ActiveEffect {
+            get {
+                return ResourceManager.GetString("ActiveEffect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add device.
         /// </summary>
         public static string AddDevice {
             get {
                 return ResourceManager.GetString("AddDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add schedule.
+        /// </summary>
+        public static string AddSchedule {
+            get {
+                return ResourceManager.GetString("AddSchedule", resourceCulture);
             }
         }
         
@@ -93,24 +111,6 @@ namespace Winleafs.Wpf.Views.MainWindows {
         public static string Brightness {
             get {
                 return ResourceManager.GetString("Brightness", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Current brightness.
-        /// </summary>
-        public static string CurrentBrightness {
-            get {
-                return ResourceManager.GetString("CurrentBrightness", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Current effect.
-        /// </summary>
-        public static string CurrentEffect {
-            get {
-                return ResourceManager.GetString("CurrentEffect", resourceCulture);
             }
         }
         
@@ -160,6 +160,24 @@ namespace Winleafs.Wpf.Views.MainWindows {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to GitHub.
+        /// </summary>
+        public static string GitHub {
+            get {
+                return ResourceManager.GetString("GitHub", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An unexpected error occurred during setting of manual control..
+        /// </summary>
+        public static string ManualControlError {
+            get {
+                return ResourceManager.GetString("ManualControlError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Most used effects.
         /// </summary>
         public static string MostUsedEffects {
@@ -169,11 +187,11 @@ namespace Winleafs.Wpf.Views.MainWindows {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nothing.
+        ///   Looks up a localized string similar to None.
         /// </summary>
-        public static string Nothing {
+        public static string None {
             get {
-                return ResourceManager.GetString("Nothing", resourceCulture);
+                return ResourceManager.GetString("None", resourceCulture);
             }
         }
         
@@ -192,15 +210,6 @@ namespace Winleafs.Wpf.Views.MainWindows {
         public static string Override {
             get {
                 return ResourceManager.GetString("Override", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An unexpected error occurred during overriding..
-        /// </summary>
-        public static string OverrideError {
-            get {
-                return ResourceManager.GetString("OverrideError", resourceCulture);
             }
         }
         
@@ -295,6 +304,15 @@ namespace Winleafs.Wpf.Views.MainWindows {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stop manual.
+        /// </summary>
+        public static string StopManual {
+            get {
+                return ResourceManager.GetString("StopManual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stop manual control.
         /// </summary>
         public static string StopManualControl {
@@ -310,15 +328,6 @@ namespace Winleafs.Wpf.Views.MainWindows {
         public static string Stuck {
             get {
                 return ResourceManager.GetString("Stuck", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Using Winleafs version {0}.
-        /// </summary>
-        public static string UsingWinleafsVersion {
-            get {
-                return ResourceManager.GetString("UsingWinleafsVersion", resourceCulture);
             }
         }
         

@@ -11,7 +11,7 @@ namespace Winleafs.Wpf.Views.Scheduling
     /// </summary>
     public partial class EventUserControl : UserControl
     {
-        public List<BaseEventTrigger> EventTriggers { get; set; }
+        public List<TriggerBase> EventTriggers { get; set; }
 
         public EventUserControl()
         {
@@ -73,7 +73,7 @@ namespace Winleafs.Wpf.Views.Scheduling
             }
         }
 
-        public void DeleteTrigger(BaseEventTrigger trigger)
+        public void DeleteTrigger(TriggerBase trigger)
         {
             EventTriggers.Remove(trigger);
 

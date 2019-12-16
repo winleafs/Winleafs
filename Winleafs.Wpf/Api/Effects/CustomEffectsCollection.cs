@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Winleafs.Api;
@@ -28,13 +29,17 @@ namespace Winleafs.Wpf.Api.Effects
             {
                 foreach (var customColorEffect in customColorEffects)
                 {
-                    _customEffects.Add($"{UserSettings.CustomColorNamePreface}{customColorEffect.EffectName}", new CustomColorEffect(nanoleafClient, customColorEffect.Color));
+                    var effect = new CustomColorEffect(nanoleafClient, customColorEffect.Color, customColorEffect.EffectName);
+                    _customEffects.Add(effect.GetName(), effect);
                 }
             }
 
             //We will not translate effect names since their names are identifiers
-            _customEffects.Add(ScreenMirrorEffect.Name, new ScreenMirrorEffect(device, orchestrator, nanoleafClient));
-            _customEffects.Add($"{UserSettings.EffectNamePreface}Turn lights off", new TurnOffEffect(nanoleafClient));
+            var screenMirrorEffect = new ScreenMirrorEffect(device, orchestrator, nanoleafClient);
+            _customEffects.Add(screenMirrorEffect.GetName(), screenMirrorEffect);
+
+            var turnOffEffect = new TurnOffEffect(nanoleafClient);
+            _customEffects.Add(turnOffEffect.GetName(), turnOffEffect);
         }
 
         /// <summary>
@@ -77,17 +82,11 @@ namespace Winleafs.Wpf.Api.Effects
         }
 
         /// <summary>
-        /// Gets the <see cref="ICustomEffect"/>s stored in this collection
-        /// as a <see cref="Effect"/> instance.
+        /// Returns the list of custom effects for the device
         /// </summary>
-        /// <returns>
-        /// The custom formats formatted as a <see cref="Effect"/>
-        /// </returns>
-        public List<Effect> GetCustomEffectAsEffects()
+        public List<ICustomEffect> GetCustomEffects()
         {
-            return _customEffects.Keys.OrderBy(name => name)
-                .Select(name => new Effect { Name = name })
-                .ToList();
+            return _customEffects.Values.ToList();
         }
     }
 }

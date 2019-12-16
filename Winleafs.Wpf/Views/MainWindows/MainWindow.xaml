@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:controls="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions"
-        Title="{x:Static mainWindows:Resources.Winleafs}" Height="670" Width="820" ResizeMode="CanMinimize"
+        Title="{x:Static mainWindows:Resources.Winleafs}" Height="800" MinHeight="800" Width="1400" MinWidth="1000" ResizeMode="CanResize"
         Closing="Window_Closing"
         Loaded="Window_Loaded"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -19,37 +19,33 @@
         TextOptions.TextRenderingMode="Auto"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto">
     <DockPanel Background="{StaticResource NanoleafBlack}">
-        <Grid DockPanel.Dock="Left" Margin="0,0,0,0" Width="360">
-            <Label Content="{x:Static mainWindows:Resources.Schedules}" HorizontalAlignment="Left" Margin="10,51,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
-            <Button  Grid.Row="0" VerticalAlignment="Top" Height="35" Background="{x:Null}" BorderBrush="{x:Null}" Click="AddSchedule_Click" Margin="0,51,10,0" HorizontalAlignment="Right" Width="35">
-                <Image Source="../../Icons/appbar.add.png"/>
-            </Button>
-            <StackPanel Height="Auto" Margin="10,86,10,104" VerticalAlignment="Stretch" x:Name="ScheduleList">
-                <Border BorderBrush="White" BorderThickness="0 1 1 0" Height="Auto"/>
-            </StackPanel>
-            <Label Content="{x:Static mainWindows:Resources.ActiveDevice}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Foreground="White" Margin="10,0,0,0"/>
-            <ComboBox x:Name="DevicesDropdown" Margin="0,10,10,0" VerticalAlignment="Top" SelectedItem="{Binding SelectedDevice}" ItemsSource="{Binding DeviceNames}" HorizontalAlignment="Right" Width="160"/>
-            <Button Content="{x:Static mainWindows:Resources.ReloadEffects}" HorizontalAlignment="Left" Margin="10,0,0,10" Width="118" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Reload_Click" Height="27" VerticalAlignment="Bottom"/>
-            <Button Content="{x:Static mainWindows:Resources.RemoveDevice}" Margin="0,0,10,10" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="RemoveDevice_Click" HorizontalAlignment="Right" Width="135" Height="27" VerticalAlignment="Bottom"/>
-            <Label Content="{x:Static mainWindows:Resources.DeviceActions}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" FontSize="15" Foreground="White" Margin="10,0,0,74" Height="30" VerticalAlignment="Bottom"/>
-            <Button Content="{x:Static mainWindows:Resources.PercentageProfile}" HorizontalAlignment="Left" Margin="10,0,0,42" Width="118" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="PercentageProfile_Click" Height="27" VerticalAlignment="Bottom"/>
-        </Grid>
-        <Grid DockPanel.Dock="Right">
-            <Button Content="{x:Static mainWindows:Resources.Options}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Options_Click"/>
-            <Button Content="{x:Static mainWindows:Resources.ResetAllSettings}" Margin="240,10,0,0" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Reset_Click" Height="27" VerticalAlignment="Top" HorizontalAlignment="Left" Width="120"/>
-            <mainWindows:OverrideScheduleUserControl x:Name="OverrideScheduleUserControl" VerticalAlignment="Top" Margin="10,117,0,0" Height="60" HorizontalAlignment="Left" Width="434"/>
-            <mainWindows:CurrentEffectUserControl x:Name="CurrentEffectUserControl" Margin="10,42,0,0" Height="70" Width="400" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <layout:LayoutDisplayUserControl x:Name="LayoutDisplay" Width="400" Height="400" Margin="10,187,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Button Content="{x:Static mainWindows:Resources.AddDevice}" HorizontalAlignment="Left" Margin="115,10,0,0" VerticalAlignment="Top" Width="120" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="AddDevice_Click"/>
-            <TextBlock HorizontalAlignment="Right" VerticalAlignment="Top" Width="54" Margin="0,5,0,0">
-                <Hyperlink NavigateUri="https://www.paypal.me/winleafs" RequestNavigate="Hyperlink_RequestNavigate">
-                    Donate
-                </Hyperlink>
-            </TextBlock>
-        </Grid>
-        <Grid Width="0" Height="0" Margin="0,0,0,0" DockPanel.Dock="Bottom">
+        <materialDesign:Card Padding="0,0,0,0" DockPanel.Dock="Left" Width="450" Background="{StaticResource NanoleafBlack}">
+            <Grid >
+                <Button Content="{x:Static mainWindows:Resources.AddDevice}" Margin="10,10,0,0" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Height="32" VerticalAlignment="Top" HorizontalAlignment="Left" Width="140" Click="AddDevice_Click"/>
+                <Button Content="{x:Static mainWindows:Resources.ReloadEffects}" Margin="155,10,0,0" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Height="32" VerticalAlignment="Top" HorizontalAlignment="Left" Width="140" Click="Reload_Click"/>
+
+                <StackPanel x:Name="DevicesStackPanel" Margin="0,50,0,50"/>
+
+                <Button Content="{x:Static mainWindows:Resources.Options}" Margin="10,0,0,10" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Height="32" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="140" Click="Options_Click"/>
+                <Button Content="{x:Static mainWindows:Resources.GitHub}" Margin="155,0,0,10" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Height="32" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="140" Click="GitHub_Click"/>
+                <Button Content="{x:Static mainWindows:Resources.Donate}" Margin="300,0,0,10" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Height="32" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="140" Click="Donate_Click"/>
+            </Grid>
+        </materialDesign:Card>
+        <materialDesign:Card Padding="0,0,0,0" DockPanel.Dock="Right" Width="300" Background="{StaticResource NanoleafBlack}">
+            <Grid>
+                <Button Content="{x:Static mainWindows:Resources.AddSchedule}" Margin="0,10,10,0" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Height="32" VerticalAlignment="Top" Click="AddSchedule_Click" HorizontalAlignment="Right" Width="140"/>
+                <Label Content="{x:Static mainWindows:Resources.Schedules}" FontSize="24" Foreground="White" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <StackPanel x:Name="SchedulesStackPanel" Margin="0,50,0,50"/>
+                <Label x:Name="VersionLabel" Content="Winleafs version" FontSize="12" Foreground="White" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+            </Grid>
+        </materialDesign:Card>
+        <Grid>
+            <layout:LayoutDisplayUserControl x:Name="LayoutDisplay" Margin="10,10,10,40"/>
+
+            <ComboBox x:Name="DevicesDropdown" HorizontalAlignment="Center" Width="200" VerticalAlignment="Bottom" Margin="0,0,0,5" ItemsSource="{Binding DeviceNames}" SelectedItem="{Binding SelectedDevice}"/>
+            
             <tb:TaskbarIcon x:Name="NotifyIcon" IconSource="../../Icons/icon.ico" ToolTipText="Winleafs" Visibility="Visible" PopupActivation="LeftOrRightClick">
-                 <!--https://www.codeproject.com/Articles/36468/WPF-NotifyIcon-2--> 
+                <!--https://www.codeproject.com/Articles/36468/WPF-NotifyIcon-2-->
                 <tb:TaskbarIcon.TrayPopup>
                     <mainWindows:TaskbarIcon x:Name="TaskbarIcon" Width="200" Height="300"/>
                 </tb:TaskbarIcon.TrayPopup>

@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-
+using System.Linq;
 using Winleafs.Models.Models.Scheduling.Triggers;
 
 namespace Winleafs.Models.Models.Scheduling
@@ -29,7 +29,18 @@ namespace Winleafs.Models.Models.Scheduling
         /// A schedule has a list of time-independent event triggers
         /// </summary>
         [JsonProperty(ItemTypeNameHandling = TypeNameHandling.All)] //Used such that the correct class is known during serialization
-        public List<BaseEventTrigger> EventTriggers { get; set; }
+        public List<TriggerBase> EventTriggers { get; set; }
+
+        /// <summary>
+        /// A list of <see cref="Device.Name"/>s to which devices this
+        /// schedule applies.
+        /// </summary>
+        public List<string> AppliesToDeviceNames { get; set; }
+
+        /// <summary>
+        /// Used to display the device names as a string
+        /// </summary>
+        public string AppliedDeviceNames => string.Join(", ", AppliesToDeviceNames);
 
         public Schedule(bool addPrograms = false)
         {
@@ -47,7 +58,8 @@ namespace Winleafs.Models.Models.Scheduling
                 Programs.Add(new Program());
             }
 
-            EventTriggers = new List<BaseEventTrigger>();
+            EventTriggers = new List<TriggerBase>();
+            AppliesToDeviceNames = new List<string>();
         }
 
         private bool ScheduleHasTriggers()

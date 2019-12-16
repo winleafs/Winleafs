@@ -14,6 +14,7 @@ using NLog;
 
 namespace Winleafs.Wpf.Views.Setup
 {
+    using Winleafs.Models.Enums;
     using Winleafs.Wpf.Api;
     using Winleafs.Wpf.Views.MainWindows;
     using Winleafs.Wpf.Views.Popup;
@@ -110,7 +111,12 @@ namespace Winleafs.Wpf.Views.Setup
             { //Only add devices that not have been added before
                 _logger.Info($"Discovered following device: {e.Announcement.Hostname}, IPs: {e.Announcement.Addresses}, Port: {e.Announcement.Port}");
 
-                discoveredDevices.Add(new Device { Name = e.Announcement.Hostname, IPAddress = e.Announcement.Addresses.First().ToString(), Port = e.Announcement.Port });
+                discoveredDevices.Add(new Device
+                {
+                    Name = e.Announcement.Hostname,
+                    IPAddress = e.Announcement.Addresses.First().ToString(),
+                    Port = e.Announcement.Port
+                });
             }
 
             BuildDeviceList();

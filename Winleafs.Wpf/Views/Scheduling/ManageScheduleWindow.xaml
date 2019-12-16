@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:scheduling="clr-namespace:Winleafs.Wpf.Views.Scheduling"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="{x:Static scheduling:Resources.ManageScheduleTitle}" Height="600" Width="1756" MinWidth="410" ResizeMode="CanMinimize">
+        Title="{x:Static scheduling:Resources.ManageScheduleTitle}" Height="600" Width="1773" ResizeMode="NoResize">
 
     <Grid Background="{StaticResource NanoleafBlack}">
         <Grid.RowDefinitions>
@@ -13,52 +14,60 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="220" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <scheduling:EventUserControl Grid.Row="1" Grid.Column="0" x:Name="EventUserControl"/>
 
-        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Grid.Row="1" Grid.Column="1">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition MinWidth="220" />
-                    <ColumnDefinition MinWidth="220" />
-                    <ColumnDefinition MinWidth="220" />
-                    <ColumnDefinition MinWidth="220" />
-                    <ColumnDefinition MinWidth="220" />
-                    <ColumnDefinition MinWidth="220" />
-                    <ColumnDefinition MinWidth="220" />
-                </Grid.ColumnDefinitions>
+        <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="220" />
+                <ColumnDefinition Width="220" />
+                <ColumnDefinition Width="220" />
+                <ColumnDefinition Width="220" />
+                <ColumnDefinition Width="220" />
+                <ColumnDefinition Width="220" />
+                <ColumnDefinition Width="220" />
+            </Grid.ColumnDefinitions>
 
-                <scheduling:DayUserControl Grid.Row="1" Grid.Column="0" NameOfDay="{x:Static scheduling:Resources.Monday}" IndexOfDay="0" x:Name="MondayUserControl"/>
-                <scheduling:DayUserControl Grid.Row="1" Grid.Column="1" NameOfDay="{x:Static scheduling:Resources.Tuesday}" IndexOfDay="1" x:Name="TuesdayUserControl"/>
-                <scheduling:DayUserControl Grid.Row="1" Grid.Column="2" NameOfDay="{x:Static scheduling:Resources.Wednesday}" IndexOfDay="2" x:Name="WednesdayUserControl"/>
-                <scheduling:DayUserControl Grid.Row="1" Grid.Column="3" NameOfDay="{x:Static scheduling:Resources.Thursday}" IndexOfDay="3" x:Name="ThursdayUserControl"/>
-                <scheduling:DayUserControl Grid.Row="1" Grid.Column="4" NameOfDay="{x:Static scheduling:Resources.Friday}" IndexOfDay="4" x:Name="FridayUserControl"/>
-                <scheduling:DayUserControl Grid.Row="1" Grid.Column="5" NameOfDay="{x:Static scheduling:Resources.Saturday}" IndexOfDay="5" x:Name="SaturdayUserControl"/>
-                <scheduling:DayUserControl Grid.Row="1" Grid.Column="6" NameOfDay="{x:Static scheduling:Resources.Sunday}" IndexOfDay="6" x:Name="SundayUserControl"/>
+            <scheduling:DayUserControl Grid.Row="1" Grid.Column="0" NameOfDay="{x:Static scheduling:Resources.Monday}" IndexOfDay="0" x:Name="MondayUserControl" HorizontalAlignment="Left"/>
+            <scheduling:DayUserControl Grid.Row="1" Grid.Column="1" NameOfDay="{x:Static scheduling:Resources.Tuesday}" IndexOfDay="1" x:Name="TuesdayUserControl" HorizontalAlignment="Left"/>
+            <scheduling:DayUserControl Grid.Row="1" Grid.Column="2" NameOfDay="{x:Static scheduling:Resources.Wednesday}" IndexOfDay="2" x:Name="WednesdayUserControl" HorizontalAlignment="Left"/>
+            <scheduling:DayUserControl Grid.Row="1" Grid.Column="3" NameOfDay="{x:Static scheduling:Resources.Thursday}" IndexOfDay="3" x:Name="ThursdayUserControl" HorizontalAlignment="Left"/>
+            <scheduling:DayUserControl Grid.Row="1" Grid.Column="4" NameOfDay="{x:Static scheduling:Resources.Friday}" IndexOfDay="4" x:Name="FridayUserControl" HorizontalAlignment="Left"/>
+            <scheduling:DayUserControl Grid.Row="1" Grid.Column="5" NameOfDay="{x:Static scheduling:Resources.Saturday}" IndexOfDay="5" x:Name="SaturdayUserControl" HorizontalAlignment="Left"/>
+            <scheduling:DayUserControl Grid.Row="1" Grid.Column="6" NameOfDay="{x:Static scheduling:Resources.Sunday}" IndexOfDay="6" x:Name="SundayUserControl" HorizontalAlignment="Left"/>
 
-                <Border Grid.Row="1" Grid.Column="0" BorderBrush="White" BorderThickness="1 0 1 0"/>
-                <Border Grid.Row="1" Grid.Column="1" BorderBrush="White" BorderThickness="0 0 1 0"/>
-                <Border Grid.Row="1" Grid.Column="2" BorderBrush="White" BorderThickness="0 0 1 0"/>
-                <Border Grid.Row="1" Grid.Column="3" BorderBrush="White" BorderThickness="0 0 1 0"/>
-                <Border Grid.Row="1" Grid.Column="4" BorderBrush="White" BorderThickness="0 0 1 0"/>
-                <Border Grid.Row="1" Grid.Column="5" BorderBrush="White" BorderThickness="0 0 1 0"/>
-            </Grid>
-        </ScrollViewer>
-
-        <Grid Grid.Row="0" Grid.ColumnSpan="8">
+            <Border Grid.Row="1" Grid.Column="0" BorderBrush="White" BorderThickness="1 0 1 0"/>
+            <Border Grid.Row="1" Grid.Column="1" BorderBrush="White" BorderThickness="0 0 1 0"/>
+            <Border Grid.Row="1" Grid.Column="2" BorderBrush="White" BorderThickness="0 0 1 0"/>
+            <Border Grid.Row="1" Grid.Column="3" BorderBrush="White" BorderThickness="0 0 1 0"/>
+            <Border Grid.Row="1" Grid.Column="4" BorderBrush="White" BorderThickness="0 0 1 0"/>
+            <Border Grid.Row="1" Grid.Column="5" BorderBrush="White" BorderThickness="0 0 1 0"/>
+        </Grid>
+        
+        <Grid Grid.Row="0" Grid.ColumnSpan="4">
             <Border BorderBrush="White" BorderThickness="0 0 0 1">
             </Border>
-            <Label Content="{x:Static scheduling:Resources.Name}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
-            <TextBox HorizontalAlignment="Left" Height="23" Margin="72,8,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="300" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White"/>
-            <Button Content="{x:Static scheduling:Resources.Save}" Background="{StaticResource NanoleafGreen}" BorderBrush="{x:Null}" Margin="0,1,5,0" Height="30" VerticalAlignment="Top" FontSize="20" Foreground="White" Click="Save_Click" HorizontalAlignment="Right" Width="100"/>
-            <CheckBox Content="{x:Static scheduling:Resources.TurnLightsOff}" HorizontalAlignment="Left" Margin="381,6,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="{Binding TurnOffAtApplicationShutdown}">
+            <Label Content="{x:Static scheduling:Resources.Name}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" FontSize="20" Height="35" Width="1754"/>
+            <TextBox HorizontalAlignment="Left" Height="23" Margin="72,8,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="300" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White" />
+            <Button Content="{x:Static scheduling:Resources.Save}" Background="{StaticResource NanoleafGreen}" BorderBrush="{x:Null}" Margin="0,1,5,0" Height="30" VerticalAlignment="Top" FontSize="20" Foreground="White" Click="Save_Click" HorizontalAlignment="Right" Width="100" Padding="0"/>
+            <CheckBox Content="{x:Static scheduling:Resources.TurnLightsOff}" HorizontalAlignment="Left" Margin="381,6,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="{Binding TurnOffAtApplicationShutdown}" Padding="5,0,0,0">
                 <CheckBox.LayoutTransform>
                     <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
                 </CheckBox.LayoutTransform>
             </CheckBox>
+            <xctk:CheckComboBox x:Name="DevicesDropdown" HorizontalAlignment="Left" Margin="830,3,0,0" VerticalAlignment="Top"
+                                SelectedItemsOverride="{Binding AppliedDeviceNames}" Width="200" Delimiter=", " Foreground="White" Background="{StaticResource NanoleafBlack}"
+                                BorderThickness="0 0 0 1" BorderBrush="DarkGray">
+                <xctk:CheckComboBox.ItemContainerStyle>
+                    <Style TargetType="xctk:SelectorItem">
+                        <Setter Property="Background" Value="{StaticResource NanoleafBlack}" />
+                        <Setter Property="BorderThickness" Value="0 0 0 0" />
+                    </Style>
+                </xctk:CheckComboBox.ItemContainerStyle>
+            </xctk:CheckComboBox>
         </Grid>
     </Grid>
 </Window>

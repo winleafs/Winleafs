@@ -4,18 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Winleafs.Wpf.Views.Scheduling"
+        xmlns:effects="clr-namespace:Winleafs.Wpf.Views.Effects"   
         mc:Ignorable="d"
-        Title="{x:Static local:Resources.AddProcessEventTitle}" Height="240" Width="340" ResizeMode="NoResize">
+        Title="{x:Static local:Resources.AddProcessEventTitle}" Height="260" Width="390" ResizeMode="NoResize">
     <Grid Background="{StaticResource NanoleafBlack}">
+        <Label Content="{x:Static local:Resources.ProcessName}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
         <Button Content="{x:Static local:Resources.Cancel}" HorizontalAlignment="Left" Margin="10,0,0,10" Width="84" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Cancel_Click" Height="27" VerticalAlignment="Bottom"/>
         <Button Content="{x:Static local:Resources.Add}" Margin="0,0,10,10" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Add_Click" HorizontalAlignment="Right" Width="84" Height="27" VerticalAlignment="Bottom"/>
-        <Label Content="{x:Static local:Resources.Effect}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,79,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
-        <ComboBox Margin="78,89,10,0" VerticalAlignment="Top" SelectedItem="{Binding SelectedEffect}" ItemsSource="{Binding Effects}"/>
-        <Label Content="{x:Static local:Resources.Brightness}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,118,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <Label x:Name="BrightnessLabel" HorizontalAlignment="Left" Margin="78,118,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <Slider Margin="10,144,10,0" VerticalAlignment="Top" Minimum="0" Maximum="100" Value="{Binding Brightness}" IsSnapToTickEnabled="True" TickFrequency="1"/>
-        <Label Content="{x:Static local:Resources.ProcessName}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
-        <TextBlock HorizontalAlignment="Left" Margin="145,15,0,0" TextWrapping="Wrap" Text="{x:Static local:Resources.ProcessNameHelp}" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="{x:Static local:Resources.Effect}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,96,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
+        <effects:EffectComboBox x:Name="EffectComboBox" HorizontalAlignment="Left" Margin="93,91,0,0" VerticalAlignment="Top" Width="273" Height="40"/>
+        <Label Content="{x:Static local:Resources.Brightness}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,141,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label x:Name="BrightnessLabel" Content="0" HorizontalAlignment="Left" Margin="331,141,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Slider Margin="96,147,70,0" VerticalAlignment="Top" Minimum="0" Maximum="100" Value="{Binding Brightness}" IsSnapToTickEnabled="True" TickFrequency="5"/>
+        <TextBlock HorizontalAlignment="Left" Margin="145,15,0,0" TextWrapping="Wrap" Text="{x:Static local:Resources.ProcessNameHelp}" VerticalAlignment="Top" Foreground="White" Width="225"/>
         <TextBox Height="23" Margin="10,51,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="{Binding ProcessName}" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White"/>
     </Grid>
 </Window>

@@ -45,38 +45,72 @@ namespace Winleafs.Wpf.Views.MainWindows
                 {
                     _selectedDevice = value;
                     SelectedDeviceChanged();
-                    DevicesDropdown.SelectedItem = _selectedDevice;
                 }
             }
         }
 
         public ObservableCollection<string> DeviceNames { get; set; }
+
+        private List<DeviceUserControl> _deviceUserControls;
         
         public MainWindow()
         {
             InitializeComponent();
 
-            LayoutDisplay.SetWithAndHeight((int)LayoutDisplay.Width, (int)LayoutDisplay.Height);
-            LayoutDisplay.DrawLayout();
-
             UpdateDeviceNames();
             SelectedDevice = UserSettings.Settings.ActiveDevice?.Name;
-
-            BuildScheduleList();
-
-            OverrideScheduleUserControl.MainWindow = this;
 
             DataContext = this;
 
             NotifyIcon.DoubleClickCommand = new TaskbarDoubleClickCommand(this);
 
+            BuildScheduleList();
+
+            VersionLabel.Content = $"Winleafs {UserSettings.APPLICATIONVERSION}";
+
             //Must appear last since this user control uses components of the main window
             TaskbarIcon.Initialize(this);
         }
 
-        public void ReloadEffects()
+        /// <summary>
+        /// Initializes devices, after the view has loaded.
+        /// Put all operations here that execute requests to the panels
+        /// </summary>
+        public void Initialize()
         {
-            OverrideScheduleUserControl.LoadEffects();
+            //Initialize device user controls
+            _deviceUserControls = new List<DeviceUserControl>();
+
+            foreach (var device in UserSettings.Settings.Devices)
+            {
+                var deviceUserControl = new DeviceUserControl(device, this);
+
+                _deviceUserControls.Add(deviceUserControl);
+                DevicesStackPanel.Children.Add(deviceUserControl);
+            }
+
+            LayoutDisplay.InitializeResizeTimer();
+            LayoutDisplay.DrawLayout();
+        }
+
+        /// <summary>
+        /// Update all effect dropdowns in the <see cref="_deviceUserControls"/>
+        /// and the effects in the context menu.
+        /// </summary>
+        public void ReloadEffectsInView()
+        {
+            foreach (var device in UserSettings.Settings.Devices)
+            {
+                var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(device);
+                device.CleanEffectCounter(orchestrator.GetCustomEffects().Select(customEffect => customEffect.GetName()));
+            }
+
+            foreach (var deviceUserControl in _deviceUserControls)
+            {
+                deviceUserControl.ReloadEffects();
+            }
+
+            //TODO: update context menu
         }
 
         public void UpdateDeviceNames()
@@ -86,21 +120,9 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         private void SelectedDeviceChanged()
         {
-            if (_selectedDevice == null)
-            {
-                return;
-            }
-
             UserSettings.Settings.SetActiveDevice(_selectedDevice);
 
-            BuildScheduleList();
-
-            LayoutDisplay.DrawLayout();
-
-            UpdateCurrentEffectLabelsAndLayout();
-
-            //Also trigger task bar icon device change
-            TaskbarIcon.SelectedDevice = SelectedDevice;
+            LayoutDisplay.DrawLayout(true);
         }
 
         private void AddSchedule_Click(object sender, RoutedEventArgs e)
@@ -113,11 +135,11 @@ namespace Winleafs.Wpf.Views.MainWindows
         {
             UserSettings.Settings.AddSchedule(schedule, true);
 
-            OrchestratorCollection.ResetOrchestratorForActiveDevice();
+            OrchestratorCollection.ResetOrchestrators();
 
             BuildScheduleList();
 
-            UpdateCurrentEffectLabelsAndLayout();
+            UpdateActiveEffectLabelsAndLayout();
         }
 
         public void UpdatedSchedule(Schedule originalSchedule, Schedule newSchedule)
@@ -125,25 +147,20 @@ namespace Winleafs.Wpf.Views.MainWindows
             UserSettings.Settings.DeleteSchedule(originalSchedule);
             UserSettings.Settings.AddSchedule(newSchedule, false);
 
-            OrchestratorCollection.ResetOrchestratorForActiveDevice();
+            OrchestratorCollection.ResetOrchestrators();
 
             BuildScheduleList();
 
-            UpdateCurrentEffectLabelsAndLayout();
+            UpdateActiveEffectLabelsAndLayout();
         }
 
         private void BuildScheduleList()
         {
-            ScheduleList.Children.Clear();
+            SchedulesStackPanel.Children.Clear();
 
-            if (UserSettings.Settings.ActiveDevice == null)
+            foreach (var schedule in UserSettings.Settings.Schedules)
             {
-                return;
-            }
-
-            foreach (var schedule in UserSettings.Settings.ActiveDevice.Schedules)
-            {
-                ScheduleList.Children.Add(new ScheduleItemUserControl(this, schedule));
+                SchedulesStackPanel.Children.Add(new ScheduleItemUserControl(this, schedule));
             }
         }
 
@@ -157,11 +174,11 @@ namespace Winleafs.Wpf.Views.MainWindows
         {
             UserSettings.Settings.DeleteSchedule(schedule);
 
-            OrchestratorCollection.ResetOrchestratorForActiveDevice();
+            OrchestratorCollection.ResetOrchestrators();
 
             BuildScheduleList();
 
-            UpdateCurrentEffectLabelsAndLayout();
+            UpdateActiveEffectLabelsAndLayout();
         }
 
         public void Window_Closing(object sender, CancelEventArgs e)
@@ -177,11 +194,11 @@ namespace Winleafs.Wpf.Views.MainWindows
         {
             UserSettings.Settings.ActivateSchedule(schedule);
 
-            OrchestratorCollection.ResetOrchestratorForActiveDevice();
+            OrchestratorCollection.ResetOrchestrators();
 
             BuildScheduleList();
 
-            UpdateCurrentEffectLabelsAndLayout();
+            UpdateActiveEffectLabelsAndLayout();
         }
 
         private void Options_Click(object sender, RoutedEventArgs e)
@@ -225,11 +242,22 @@ namespace Winleafs.Wpf.Views.MainWindows
         {
             try
             {
-                var device = UserSettings.Settings.ActiveDevice;
-                var nanoleafClient = NanoleafClient.GetClientForDevice(device);
-                var effects = await nanoleafClient.EffectsEndpoint.GetEffectsListAsync();
+                foreach (var device in UserSettings.Settings.Devices)
+                {
+                    var nanoleafClient = NanoleafClient.GetClientForDevice(device);
+                    var effects = await nanoleafClient.EffectsEndpoint.GetEffectsListAsync();
+                    var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(device);
 
-                device.LoadEffectsFromNameList(effects);
+                    device.LoadEffectsFromNameList(effects);
+                    device.CleanEffectCounter(orchestrator.GetCustomEffects().Select(customEffect => customEffect.GetName()));
+                }        
+                
+                foreach (var deviceUserControl in _deviceUserControls)
+                {
+                    deviceUserControl.ReloadEffects();
+                }
+
+                //TODO: update context menu
 
                 UserSettings.Settings.SaveSettings();
 
@@ -247,14 +275,9 @@ namespace Winleafs.Wpf.Views.MainWindows
             var setupWindow = new SetupWindow(this);
             setupWindow.Show();
         }
-        
-        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
-        {
-            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
-            e.Handled = true;
-        }
 
-        private void RemoveDevice_Click(object sender, RoutedEventArgs e)
+        //TODO: where to place button to remove a device?
+        /*private void RemoveDevice_Click(object sender, RoutedEventArgs e)
         {
             var messageBoxResult = MessageBox.Show(string.Format(MainWindows.Resources.DeleteDeviceAreYouSure, _selectedDevice), MainWindows.Resources.DeleteConfirmation, MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
@@ -264,11 +287,12 @@ namespace Winleafs.Wpf.Views.MainWindows
                 if (UserSettings.Settings.Devices.Count > 0)
                 {
                     DeviceNames.Remove(_selectedDevice);
+
                     SelectedDevice = DeviceNames.FirstOrDefault();
 
                     DevicesDropdown.SelectedItem = SelectedDevice;
 
-                    UpdateCurrentEffectLabelsAndLayout();
+                    UpdateActiveEffectLabelsAndLayout();
                 }
                 else
                 {
@@ -278,12 +302,24 @@ namespace Winleafs.Wpf.Views.MainWindows
                     Close();
                 }
             }
+        }*/
+
+        public void UpdateActiveEffectLabelsAndLayout()
+        {
+            LayoutDisplay.DrawLayout();
+
+            foreach (var deviceUserControl in _deviceUserControls)
+            {
+                deviceUserControl.Update();
+            }
         }
 
-        public void UpdateCurrentEffectLabelsAndLayout()
+        public void UpdateLayoutColors(string deviceName)
         {
-            CurrentEffectUserControl.UpdateLabels();
-            LayoutDisplay.UpdateColors();
+            if (deviceName == UserSettings.Settings.ActiveDevice.Name)
+            {
+                LayoutDisplay.UpdateColors();
+            }
         }
 
         private void PercentageProfile_Click(object sender, RoutedEventArgs e)
@@ -328,5 +364,20 @@ namespace Winleafs.Wpf.Views.MainWindows
             return IntPtr.Zero;
         }
         #endregion
+
+        private void GitHub_Click(object sender, RoutedEventArgs e)
+        {
+            OpenURL("https://github.com/winleafs/Winleafs");
+        }
+
+        private void Donate_Click(object sender, RoutedEventArgs e)
+        {
+            OpenURL("https://www.paypal.com/paypalme2/winleafs");
+        }
+
+        private void OpenURL(string url)
+        {
+            Process.Start(new ProcessStartInfo("cmd", $"/c start {url}") { CreateNoWindow = true });
+        }
     }
 }

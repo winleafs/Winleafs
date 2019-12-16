@@ -1,5 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Winleafs.Api;
+using Winleafs.Models.Models;
 
 namespace Winleafs.Wpf.Api.Effects
 {
@@ -35,6 +37,17 @@ namespace Winleafs.Wpf.Api.Effects
         public bool IsContinuous()
         {
             return false;
+        }
+
+        /// <inheritdoc />
+        public List<System.Drawing.Color> GetColors()
+        {
+            return new List<System.Drawing.Color> { ICustomEffect.DefaultColor };
+        }
+
+        public string GetName()
+        {
+            return $"{UserSettings.EffectNamePreface}Turn lights off";
         }
     }
 }
