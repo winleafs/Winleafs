@@ -43,14 +43,12 @@ namespace Winleafs.Models.Models.Effects
 
         public override bool Equals(object obj)
         {
-            var effect = obj as Effect;
-
-            if (effect == null)
+            if (obj is Effect effect)
             {
-                return false;
+                return effect.Name == Name;
             }
 
-            return ((Effect)obj).Name == Name;
+            return false;
         }
 
         public override int GetHashCode()
