@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Winleafs.Wpf.Views.Setup"
+             xmlns:controls="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions"
              mc:Ignorable="d"
              d:DesignHeight="730" d:DesignWidth="600">
 
@@ -18,5 +19,7 @@
                 Margin="250,227,0,0" VerticalAlignment="Top" Width="100" Height="45"
                 Background="{StaticResource NanoleafGreen}" Foreground="White" FontSize="25"
                 BorderBrush="{x:Null}" Click="Pair_Click"/>
+
+        <controls:StepButtonBar Back="BACK" Continue="CONTINUE" Cancel="CANCEL" />
     </Grid>
 </UserControl>
