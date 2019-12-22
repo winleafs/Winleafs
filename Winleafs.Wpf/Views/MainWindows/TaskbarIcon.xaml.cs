@@ -12,8 +12,6 @@ namespace Winleafs.Wpf.Views.MainWindows
     /// </summary>
     public partial class TaskbarIcon : UserControl
     {
-        private static readonly int _amountOfEffects = 5;
-
         private MainWindow _parent;
 
         private string _selectedDevice;
@@ -32,20 +30,6 @@ namespace Winleafs.Wpf.Views.MainWindows
             }
         }
 
-        private int _brightness;
-
-        public int Brightness
-        {
-            get { return _brightness; }
-            set
-            {
-                _brightness = value;
-                BrightnessLabel.Content = value.ToString();
-            }
-        }
-
-        private string _selectedEffect;
-
         public ObservableCollection<string> DeviceNames { get; set; }
 
         public TaskbarIcon()
@@ -61,9 +45,7 @@ namespace Winleafs.Wpf.Views.MainWindows
             _parent = mainWindow;
 
             DeviceNames = _parent.DeviceNames;
-            //TODO: Brightness = _parent.OverrideScheduleUserControl.Brightness;
-
-            BuildMostUsedEfectList();
+            SelectedDevice = _parent.SelectedDevice;
         }
 
         private void Quit_Click(object sender, RoutedEventArgs e)
@@ -73,56 +55,14 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         private void SelectedDeviceChanged()
         {
-            BuildMostUsedEfectList();
-        }
+            DeviceUserControlGrid.Children.Clear();
 
-        private void Reset_Click(object sender, RoutedEventArgs e)
-        {
-            _selectedEffect = null;
+            var deviceUserControl = new DeviceUserControl(UserSettings.Settings.Devices.FirstOrDefault(device => device.Name == SelectedDevice), _parent);
 
-            BuildMostUsedEfectList();
-        }
+            deviceUserControl.TopBorder.BorderThickness = new Thickness(0); //Hide the white top border
+            deviceUserControl.DeviceNameLabel.Visibility = Visibility.Hidden; //Hide the device name
 
-        public void BuildMostUsedEfectList()
-        {
-            MostUsedEffectList.Children.Clear();
-
-            if (UserSettings.Settings.ActiveDevice == null)
-            {
-                return;
-            }
-
-            if (UserSettings.Settings.ActiveDevice.EffectCounter == null)
-            {
-                UserSettings.Settings.ActiveDevice.EffectCounter = new Dictionary<string, ulong>();
-                return;
-            }
-
-            var mostUsedEffects = UserSettings.Settings.ActiveDevice.EffectCounter.Take(_amountOfEffects).ToList();
-
-            foreach (var mostUsedEffect in mostUsedEffects)
-            {
-                MostUsedEffectList.Children.Add(new MostUsedEffectUserControl(this, mostUsedEffect.Key, mostUsedEffect.Key == _selectedEffect));
-            }
-        }
-
-        public void EffectSelected(string effectName)
-        {
-            _selectedEffect = effectName;
-
-            BuildMostUsedEfectList();
-
-            SetManualControl();
-        }
-
-        private void SetManualControl()
-        {
-            //TODO: make this work, also update the correct user control in the main window
-        }
-
-        private void BrightnessSlider_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
-        {
-            SetManualControl();
+            DeviceUserControlGrid.Children.Add(deviceUserControl);
         }
     }
 }
