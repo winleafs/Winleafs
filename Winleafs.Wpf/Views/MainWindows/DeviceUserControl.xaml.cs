@@ -48,6 +48,9 @@ namespace Winleafs.Wpf.Views.MainWindows
 
             _device = device;
             _orchestrator = OrchestratorCollection.GetOrchestratorForDevice(_device);
+
+            _orchestrator.AddEffectChangedCallback(Update);
+
             _parent = parent;
 
             //Initialize the effect combox box
@@ -75,10 +78,7 @@ namespace Winleafs.Wpf.Views.MainWindows
         {
             if (_device.OperationMode == OperationMode.Manual)
             {
-                if (await _orchestrator.TrySetOperationMode(OperationMode.Schedule, true, true))
-                {
-                    Update();
-                }
+                await _orchestrator.TrySetOperationMode(OperationMode.Schedule, true, true);
             }
         }
 
@@ -95,7 +95,8 @@ namespace Winleafs.Wpf.Views.MainWindows
 
                     UserSettings.Settings.SaveSettings();
 
-                    Update();
+                    //Manually trigger the callbacks since we changed the effect manually
+                    _orchestrator.TriggerEffectChangedCallbacks();
                 }
             }
             catch (Exception e)

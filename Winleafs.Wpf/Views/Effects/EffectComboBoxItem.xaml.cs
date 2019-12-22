@@ -1,13 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using Winleafs.Api;
-using Winleafs.Models.Models;
-using Winleafs.Models.Models.Effects;
-using Winleafs.Wpf.Api.Effects;
-using Winleafs.Wpf.Helpers;
 using Winleafs.Wpf.ViewModels;
 
 namespace Winleafs.Wpf.Views.Effects

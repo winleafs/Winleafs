@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using MaterialDesignThemes.Wpf;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using Winleafs.Api;
 using Winleafs.Models.Models;
@@ -169,11 +171,7 @@ namespace Winleafs.Wpf.Views.Effects
 
         protected void OnPropertyChanged(string name)
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(name));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

@@ -99,12 +99,6 @@ namespace Winleafs.Wpf.Views.MainWindows
         /// </summary>
         public void ReloadEffectsInView()
         {
-            foreach (var device in UserSettings.Settings.Devices)
-            {
-                var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(device);
-                device.CleanEffectCounter(orchestrator.GetCustomEffects().Select(customEffect => customEffect.GetName()));
-            }
-
             foreach (var deviceUserControl in _deviceUserControls)
             {
                 deviceUserControl.ReloadEffects();
@@ -249,7 +243,6 @@ namespace Winleafs.Wpf.Views.MainWindows
                     var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(device);
 
                     device.LoadEffectsFromNameList(effects);
-                    device.CleanEffectCounter(orchestrator.GetCustomEffects().Select(customEffect => customEffect.GetName()));
                 }        
                 
                 foreach (var deviceUserControl in _deviceUserControls)
@@ -326,11 +319,6 @@ namespace Winleafs.Wpf.Views.MainWindows
         {
             var percentageProfileWindow = new PercentageProfileWindow();
             percentageProfileWindow.Show();
-        }
-
-        public void UpdateContextMenuMostUsedEffects()
-        {
-            TaskbarIcon.BuildMostUsedEfectList();
         }
 
         #region Open window from other process

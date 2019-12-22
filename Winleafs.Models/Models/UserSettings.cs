@@ -300,31 +300,6 @@ namespace Winleafs.Models.Models
             SaveSettings();
         }
 
-        /// <summary>
-        /// Set the custom color list and resolves conflicts in other effects lists
-        /// </summary>
-        /// <param name="userCustomColorEffects"></param>
-        public void SetCustomColors(List<UserCustomColorEffect> userCustomColorEffects)
-        {
-            if (CustomEffects != null)
-            {
-                var deletedEffectNames = CustomEffects.Select(effect => effect.EffectName).Except(userCustomColorEffects.Select(effect => effect.EffectName));
-
-                //Make sure any of the deleted effects are removed from the effect counters of the devices
-                foreach (var device in Devices)
-                {
-                    foreach (var deletedEffect in deletedEffectNames)
-                    {
-                        device.EffectCounter.Remove($"{CustomColorNamePreface}{deletedEffect}");
-
-                    }
-                }
-            }
-
-            CustomEffects = userCustomColorEffects;
-        }
-
-
         [JsonIgnore]
         public Schedule ActiveSchedule
         {
@@ -406,7 +381,7 @@ namespace Winleafs.Models.Models
         {
             foreach (var device in jToken["Devices"])
             {
-                device[nameof(Device.EffectCounter)] = JToken.FromObject(new Dictionary<string, int>());
+                device["EffectCounter"] = JToken.FromObject(new Dictionary<string, int>());
             }
 
             return jToken;

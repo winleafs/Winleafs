@@ -29,6 +29,8 @@ namespace Winleafs.Wpf.Api
         private readonly CustomEffectsCollection _customEffects;
         private readonly EventTriggersCollection _eventTriggersCollection;
 
+        private List<Action> _effectChangedCallbacks;
+
         public Orchestrator(Device device)
         {
             Device = device;
@@ -36,6 +38,7 @@ namespace Winleafs.Wpf.Api
             ScheduleTimer = new ScheduleTimer(this);
             PanelLayout = new PanelLayout(Device);
             _eventTriggersCollection = new EventTriggersCollection(this);
+            _effectChangedCallbacks = new List<Action>();
 
             // Custom effect initialization must come after panel layout initialization as custom screen mirror effect needs the panel layout
             _customEffects = new CustomEffectsCollection(Device, this); 
@@ -72,6 +75,12 @@ namespace Winleafs.Wpf.Api
             {
                 ScheduleTimer.StartTimer(sync);
             }
+
+            //Finally, trigger effect changed callback, but not for manual operation mode, since that one is responsible for setting the effect and triggering the callbacks itself
+            if (Device.OperationMode != OperationMode.Manual)
+            {
+                TriggerEffectChangedCallbacks();
+            }            
 
             return true;
         }
@@ -121,8 +130,6 @@ namespace Winleafs.Wpf.Api
                 {
                     await client.EffectsEndpoint.SetSelectedEffectAsync(effectName);
                 }
-
-                AddEffectNameToEffectCounter(effectName); //Update the counter of the selected effect
             }
             catch (Exception e)
             {
@@ -212,21 +219,17 @@ namespace Winleafs.Wpf.Api
             }
         }
 
-        /// <summary>
-        /// Adds or increases the counter for the given <paramref name="effectName"/>.
-        /// </summary>
-        private void AddEffectNameToEffectCounter(string effectName)
+        public void AddEffectChangedCallback(Action callback)
         {
-            if (Device.EffectCounter.ContainsKey(effectName))
-            {
-                Device.EffectCounter[effectName]++;
-            }
-            else
-            {
-                Device.EffectCounter.Add(effectName, 1);
-            }
+            _effectChangedCallbacks.Add(callback);
+        }
 
-            UserSettings.Settings.SaveSettings();
+        public void TriggerEffectChangedCallbacks()
+        {
+            foreach (var callback in _effectChangedCallbacks)
+            {
+                callback();
+            }
         }
     }
 }

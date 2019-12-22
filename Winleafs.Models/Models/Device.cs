@@ -41,8 +41,6 @@ namespace Winleafs.Models.Models
         public int ScreenMirrorMonitorIndex { get; set; }
         public bool ScreenMirrorControlBrightness { get; set; }
 
-        public Dictionary<string, ulong> EffectCounter { get; set; }
-
         public Device()
         {
             Effects = new List<Effect>();
@@ -61,22 +59,6 @@ namespace Winleafs.Models.Models
             }
 
             Effects = Effects.OrderBy(eff => eff.Name).ToList();
-        }
-
-        /// <summary>
-        /// Removes all entrie in <see cref="EffectCounter"/>
-        /// which do not appear in the effects list or in the given
-        /// <paramref name="customEffectNames"/>.
-        /// </summary>
-        public void CleanEffectCounter(IEnumerable<string> customEffectNames)
-        {
-            foreach (var effectName in EffectCounter.Keys.ToList()) //ToList to make a copy so we can safely remove entries
-            {
-                if (!Effects.Any(effect => effect.Name == effectName) && !customEffectNames.Contains(effectName))
-                {
-                    EffectCounter.Remove(effectName);
-                }
-            }
         }
 
         /// <summary>

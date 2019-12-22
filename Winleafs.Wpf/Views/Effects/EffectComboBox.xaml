@@ -4,9 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Winleafs.Wpf.Views.Effects"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="40" d:DesignWidth="273">
-    <ComboBox Foreground="White" x:Name="ComboBox" ItemsSource="{Binding Path=Effects}" SelectedValue="{Binding Path=SelectedEffect}" Height="40" SelectionChanged="ComboBox_SelectionChanged">
+             d:DesignHeight="45" d:DesignWidth="273">
+    <ComboBox Foreground="White" x:Name="ComboBox" ItemsSource="{Binding Path=Effects}" SelectedValue="{Binding Path=SelectedEffect}" Height="45" SelectionChanged="ComboBox_SelectionChanged">
         <ComboBox.ItemTemplate>
             <DataTemplate>
                 <local:EffectComboBoxItem/>

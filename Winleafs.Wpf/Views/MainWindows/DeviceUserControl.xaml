@@ -6,16 +6,16 @@
              xmlns:local="clr-namespace:Winleafs.Wpf.Views.MainWindows" 
              xmlns:effects="clr-namespace:Winleafs.Wpf.Views.Effects"                  
              mc:Ignorable="d" d:DesignWidth="450" Height="170">
-    <Border BorderThickness="0 1 0 0" BorderBrush="White" Margin="5,0,5,0">
+    <Border BorderThickness="0 1 0 0" BorderBrush="White" Margin="5,0,5,0" x:Name="TopBorder">
         <Grid>
-            <effects:EffectComboBox x:Name="EffectComboBox" HorizontalAlignment="Left" Margin="10,77,0,0" VerticalAlignment="Top" Width="273" Height="40"/>
+            <effects:EffectComboBox x:Name="EffectComboBox" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Width="273" Height="45"/>
             <Button Content="{x:Static local:Resources.StopManual}" HorizontalAlignment="Left" Margin="293,82,0,0" VerticalAlignment="Top" Width="147" Height="35" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="StopManual_Click"/>
-            <Label Content="{x:Static local:Resources.Brightness}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,130,0,0" Foreground="White" Height="24" VerticalAlignment="Top"/>
-            <Label Content="100" x:Name="BrightnessLabel" Margin="413,130,0,0" Foreground="White" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="37"/>
+            <Label Content="{x:Static local:Resources.Brightness}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,130,0,0" Foreground="White" Height="24" VerticalAlignment="Top" Padding="5,3,0,0"/>
+            <Label Content="100" x:Name="BrightnessLabel" Margin="413,130,0,0" Foreground="White" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="37"  Padding="0,3,0,0"/>
             <Slider HorizontalAlignment="Left" Margin="86,134,0,0" VerticalAlignment="Top" Width="320" Minimum="0" Maximum="100" Value="{Binding Brightness}" IsSnapToTickEnabled="True" TickFrequency="5" Thumb.DragCompleted="BrightnessSlider_DragCompleted"/>
-            <Label Content="{x:Static local:Resources.ActiveEffect}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,43,0,0" Foreground="White" Height="24" VerticalAlignment="Top"/>
+            <Label Content="{x:Static local:Resources.ActiveEffect}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,43,0,0" Foreground="White" Height="24" VerticalAlignment="Top" Padding="5,3,0,0"/>
             <Label Content="Device name" x:Name="DeviceNameLabel" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Width="430" FontSize="17"/>
-            <Label Content="Active effect is displayed here" x:Name="ActiveEffectLabel" Margin="91,43,0,0" Foreground="White" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="349"/>
+            <Label Content="Active effect is displayed here" x:Name="ActiveEffectLabel" Margin="91,43,0,0" Foreground="White" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="349" Padding="5,3,0,0"/>
         </Grid>
     </Border>
 </UserControl>
