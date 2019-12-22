@@ -4,31 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:setup="clr-namespace:Winleafs.Wpf.Views.Setup"
-        xmlns:model="clr-namespace:MaterialDesignExtensions.Model;assembly=MaterialDesignExtensions"
-        xmlns:controls="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions"
         mc:Ignorable="d"
         Title="{x:Static setup:Resources.WinleafsSetupTitle}" Height="760" Width="610" ResizeMode="CanMinimize"
         WindowStartupLocation="CenterOwner">
     <Grid>
-        <controls:TabControlStepper IsLinear="False" Layout="Horizontal">
-            <TabItem>
-                <TabItem.Header>
-                    <model:StepTitleHeader FirstLevelTitle="Find your device" />
-                </TabItem.Header>
-                <setup:DiscoverDeviceControl x:Name="DiscoverDevice" Loaded="DiscoverDevice_Loaded"/>
-            </TabItem>
-            <TabItem>
-                <TabItem.Header>
-                    <model:StepTitleHeader FirstLevelTitle="Authorize the device" />
-                </TabItem.Header>
-                <setup:AuthorizeDeviceControl x:Name="AuthorizeDevice" Loaded="AuthorizeDevice_Loaded"/>
-            </TabItem>
-            <TabItem>
-                <TabItem.Header>
-                    <model:StepTitleHeader FirstLevelTitle="Name your device" />
-                </TabItem.Header>
-                <setup:NameDeviceControl x:Name="NameDevice" Loaded="NameDevice_Loaded"/>
-            </TabItem>
-        </controls:TabControlStepper>
+        <setup:DiscoverDeviceControl x:Name="DiscoverDevice" Loaded="DiscoverDevice_Loaded"/>
+        <setup:AuthorizeDeviceControl x:Name="AuthorizeDevice" Loaded="AuthorizeDevice_Loaded" Visibility="Hidden"/>
+        <setup:NameDeviceControl x:Name="NameDevice" Loaded="NameDevice_Loaded" Visibility="Hidden"/>
     </Grid>
 </Window>
