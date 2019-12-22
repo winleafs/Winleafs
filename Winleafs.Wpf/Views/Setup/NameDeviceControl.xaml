@@ -8,8 +8,8 @@
              d:DesignHeight="730" d:DesignWidth="600">
     <Grid Background="{StaticResource NanoleafBlack}">
         <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="{x:Static local:Resources.PairingSuccessful}" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
-        <TextBox Text="{Binding Name}" HorizontalAlignment="Left" Height="25" Margin="175,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" x:Name="Hours" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White" FontSize="20"/>
-        <Button Content="{x:Static local:Resources.Cancel}" HorizontalAlignment="Left" Margin="10,693,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Cancel_Click"/>
-        <Button Content="{x:Static local:Resources.Finish}" HorizontalAlignment="Left" Margin="506,693,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Finish_Click"/>
+        <TextBox Text="{Binding Name}" HorizontalAlignment="Left" Height="50" Margin="175,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White" FontSize="20"/>
+        <Button Content="{x:Static local:Resources.Cancel}" HorizontalAlignment="Left" Margin="10,693,0,0" VerticalAlignment="Top" Width="100" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Cancel_Click"/>
+        <Button Content="{x:Static local:Resources.Finish}" HorizontalAlignment="Right" Margin="0,693,10,0" VerticalAlignment="Top" Width="100" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Finish_Click"/>
     </Grid>
 </UserControl>

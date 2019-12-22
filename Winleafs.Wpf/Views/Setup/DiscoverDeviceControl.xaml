@@ -8,8 +8,11 @@
              d:DesignHeight="730" d:DesignWidth="600">
 
     <Grid Background="{StaticResource NanoleafBlack}">
-        <Label Content="{x:Static local:Resources.Step1}" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
-        <ListBox x:Name="Devices" HorizontalAlignment="Left" Height="641" Margin="10,47,0,0" VerticalAlignment="Top" Width="580" ItemsSource="{Binding Devices}" Background="#FF1E1E1E" BorderBrush="Gray" SelectionMode="Single">
+        <Label Content="{x:Static local:Resources.Step1}" HorizontalAlignment="Left"
+               Margin="10,5,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
+        <ListBox x:Name="Devices" HorizontalAlignment="Left" Height="641" Margin="10,47,0,0"
+                 VerticalAlignment="Top" Width="580" ItemsSource="{Binding Devices}"
+                 Background="#FF1E1E1E" BorderBrush="Gray" SelectionMode="Single">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
                     <Setter Property="Foreground" Value="White"></Setter>
@@ -22,8 +25,13 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
-                                    <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}"
+                                        SnapsToDevicePixels="true">
+                                    <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                                 </Border>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
@@ -39,7 +47,11 @@
                 </Style>
             </ListBox.ItemContainerStyle>
         </ListBox>
-        <Button Content="{x:Static local:Resources.Cancel}" HorizontalAlignment="Left" Margin="10,693,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Cancel_Click"/>
-        <Button Content="{x:Static local:Resources.Continue}" HorizontalAlignment="Left" Margin="506,693,0,0" VerticalAlignment="Top" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Continue_Click"/>
+        <Button Content="{x:Static local:Resources.Cancel}" HorizontalAlignment="Left" Margin="10,693,0,0"
+                VerticalAlignment="Top" Width="100" Height="27" Background="{StaticResource NanoleafGreen}"
+                Foreground="White" BorderBrush="{x:Null}" Click="Cancel_Click"/>
+        <Button Content="{x:Static local:Resources.Continue}" HorizontalAlignment="Right" Margin="0,693,10,0"
+                VerticalAlignment="Top" Width="100" Height="27" Background="{StaticResource NanoleafGreen}"
+                Foreground="White" BorderBrush="{x:Null}" Click="Continue_Click"/>
     </Grid>
 </UserControl>
