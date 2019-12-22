@@ -173,12 +173,5 @@ namespace Winleafs.Wpf.Views.Effects
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
-
-        /*private void ComboBox_Loaded(object sender, System.Windows.RoutedEventArgs e)
-        {
-            var ct = ComboBox.Template;
-            var pop = ct.FindName("PART_Popup", ComboBox) as ComboBoxPopup;
-            pop.PopupPlacement = ComboBoxPopupPlacement.Up;
-        }*/
     }
 }
