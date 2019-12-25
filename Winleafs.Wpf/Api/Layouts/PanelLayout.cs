@@ -120,8 +120,9 @@ namespace Winleafs.Wpf.Api.Layouts
                         polygon.Points.Add(globalRotationTransform.Transform(rotateTransform.Transform(c)));
                         break;
                     }
+                case ShapeType.ControlSquarePrimary:
                 case ShapeType.Square:
-                    {
+                {
                         /*
                          * a------------d
                          * |            |
