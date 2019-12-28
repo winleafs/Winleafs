@@ -88,59 +88,54 @@
             <TabItem Header="{x:Static local:Resources.ScreenMirror}">
                 <materialDesign:Card Padding="32" Margin="16" Background="{StaticResource NanoleafBlack}">
                     <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="10*"/>
-                            <ColumnDefinition Width="17*"/>
-                        </Grid.ColumnDefinitions>
-                        <Label Content="{x:Static local:Resources.ScreenMirrorDeviceInfo}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Foreground="White" Grid.ColumnSpan="2"/>
+                        <Label Content="{x:Static local:Resources.ScreenMirrorDeviceInfo}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" Foreground="White" Margin="-1,100,0,0"/>
                         <ComboBox
                         Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
                         materialDesign:HintAssist.Hint="{x:Static local:Resources.Device}"
                         materialDesign:HintAssist.Foreground="White"
                         materialDesign:HintAssist.IsFloating="True"
                         Foreground="White"
-                        HorizontalAlignment="Left" Margin="0,62,0,0" VerticalAlignment="Top"
-                        Width="302" SelectedItem="{Binding SelectedDevice}" ItemsSource="{Binding DeviceNames}" Grid.ColumnSpan="2"/>
+                        HorizontalAlignment="Left" Margin="5,146,0,0" VerticalAlignment="Top"
+                        Width="302" SelectedItem="{Binding SelectedDevice}" ItemsSource="{Binding DeviceNames}" />
                         <ComboBox
                         Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
                         materialDesign:HintAssist.Hint="{x:Static local:Resources.Algorithm}"
                         materialDesign:HintAssist.Foreground="White"
                         materialDesign:HintAssist.IsFloating="True"
                         Foreground="White"
-                        HorizontalAlignment="Left" Margin="0,112,0,0" VerticalAlignment="Top" Width="302"
+                        HorizontalAlignment="Left" Margin="329,146,0,0" VerticalAlignment="Top" Width="302"
                         SelectedItem="{Binding SelectedScreenMirrorAlgorithm}"
-                        ItemsSource="{Binding ScreenMirrorAlgorithms}" RenderTransformOrigin="0.537,0.206" Grid.ColumnSpan="2"/>
+                        ItemsSource="{Binding ScreenMirrorAlgorithms}" RenderTransformOrigin="0.537,0.206" />
                         <Button
                             x:Name="VisualizeButton" Content="{x:Static local:Resources.Visualize}"
-                            Margin="0,210,0,0" Background="{StaticResource NanoleafGreen}" Foreground="White"
-                            BorderBrush="{x:Null}" Click="Visualize_Click" Height="24" VerticalAlignment="Top"
+                            Margin="329,190,0,0" Background="{StaticResource NanoleafGreen}" Foreground="White"
+                            BorderBrush="{x:Null}" Click="Visualize_Click" Height="30" VerticalAlignment="Top"
                             HorizontalAlignment="Left" Width="109"/>
                         <Label
                             Content="{x:Static local:Resources.ScreenMirrorRefreshRatePerSecond}"
-                            ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="102,62,0,0"
+                            ContentStringFormat="{}{0}:" HorizontalAlignment="Left"
                             VerticalAlignment="Top"
-                            Foreground="White" Grid.Column="2"/>
+                            Foreground="White" />
                         <Label
                             Content="{Binding ScreenMirrorRefreshRatePerSecond}"
-                            HorizontalAlignment="Left" Margin="425,113,0,0" VerticalAlignment="Top"
-                            FontSize="20" Foreground="White" Grid.Column="1" />
+                            HorizontalAlignment="Left" Margin="475,0,0,0" VerticalAlignment="Top"
+                            FontSize="12" Foreground="White"  />
                         <Slider
                             Style="{DynamicResource MaterialDesignSlider}"
                             Foreground="{StaticResource NanoleafGreen}"
-                            HorizontalAlignment="Left" Margin="102,112,0,0" VerticalAlignment="Top" Width="252"
+                            HorizontalAlignment="Left" Margin="214,4,0,0" VerticalAlignment="Top" Width="252"
                             Minimum="1" Maximum="10" Value="{Binding ScreenMirrorRefreshRatePerSecond}"
-                            IsSnapToTickEnabled="True" TickFrequency="1" Grid.Column="1"/>
+                            IsSnapToTickEnabled="True" TickFrequency="1" />
                         <ComboBox
                         Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
                         materialDesign:HintAssist.Hint="{x:Static local:Resources.ScreenMirrorMonitor}"
                         materialDesign:HintAssist.Foreground="White"
                         materialDesign:HintAssist.IsFloating="True"
                         Foreground="White"
-                        HorizontalAlignment="Left" Margin="0,157,0,0" VerticalAlignment="Top" Width="302"
-                        SelectedItem="{Binding SelectedMonitor}" ItemsSource="{Binding MonitorNames}" Grid.ColumnSpan="2"/>
-                        <CheckBox Content="{x:Static local:Resources.ScreenMirrorControlBrightness}" HorizontalAlignment="Left" Margin="102,148,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="{Binding ScreenMirrorControlBrightness}" Width="194" Grid.Column="1"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="10,521,0,0" TextWrapping="Wrap" Text="{x:Static local:Resources.ScreenMirrorResetMessage}" VerticalAlignment="Top" Width="469" FontSize="20" Foreground="White" Grid.ColumnSpan="2"/>
-                        <TextBlock Margin="0,253,28,0" TextWrapping="Wrap" Text="{x:Static local:Resources.ScreenMirrorBrightnessInfo}" VerticalAlignment="Top" FontSize="15" Foreground="White" Height="72" Grid.ColumnSpan="2"/>
+                        HorizontalAlignment="Left" Margin="5,26,0,0" VerticalAlignment="Top" Width="302"
+                        SelectedItem="{Binding SelectedMonitor}" ItemsSource="{Binding MonitorNames}" />
+                        <TextBlock HorizontalAlignment="Left" Margin="10,521,0,0" TextWrapping="Wrap" Text="{x:Static local:Resources.ScreenMirrorResetMessage}" VerticalAlignment="Top" Width="469" FontSize="20" Foreground="White" />
+                        <TextBlock Margin="2,253,28,0" TextWrapping="Wrap" Text="{x:Static local:Resources.ScreenMirrorResetMessage}" VerticalAlignment="Top" FontSize="15" Foreground="White" Height="72" />
                     </Grid>
                 </materialDesign:Card>
             </TabItem>

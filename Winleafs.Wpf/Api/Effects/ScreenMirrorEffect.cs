@@ -51,14 +51,9 @@ namespace Winleafs.Wpf.Api.Effects
 
             var timerRefreshRate = 1000;
 
-            if (device.ScreenMirrorRefreshRatePerSecond > 0 && device.ScreenMirrorRefreshRatePerSecond <= 10)
+            if (UserSettings.Settings.ScreenMirrorRefreshRatePerSecond > 0 && UserSettings.Settings.ScreenMirrorRefreshRatePerSecond <= 10)
             {
-                timerRefreshRate = 1000 / device.ScreenMirrorRefreshRatePerSecond;
-            }
-
-            if (_screenMirrorAlgorithm == ScreenMirrorAlgorithm.Ambilight && device.ScreenMirrorControlBrightness && timerRefreshRate > 1000 / 5)
-            {
-                timerRefreshRate = 1000 / 5; //When ambilight is on and controls brightness is enabled, we can update a maximum of 5 times per second since setting brightness is a different action
+                timerRefreshRate = 1000 / UserSettings.Settings.ScreenMirrorRefreshRatePerSecond;
             }
 
             _timer = new System.Timers.Timer(timerRefreshRate);

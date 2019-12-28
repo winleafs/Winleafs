@@ -9,15 +9,13 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
 {
     public class Ambilght : IScreenMirrorEffect
     {
-        private readonly bool _controlBrightness;
         private readonly INanoleafClient _nanoleafClient;
         private readonly Rectangle _screenBounds;
 
         public Ambilght(INanoleafClient nanoleafClient, Device device)
         {
             _nanoleafClient = nanoleafClient;
-            _controlBrightness = device.ScreenMirrorControlBrightness;
-            _screenBounds = ScreenBoundsHelper.GetScreenBounds(device.ScreenMirrorMonitorIndex);
+            _screenBounds = ScreenBoundsHelper.GetScreenBounds(UserSettings.Settings.ScreenMirrorMonitorIndex);
         }
 
         /// <summary>
@@ -34,21 +32,18 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
             var hue = (int)color.GetHue();
             var sat = (int)(color.GetSaturation() * 100);
 
-            if (_controlBrightness)
-            {
-                //For brightness calculation see: https://stackoverflow.com/a/596243 and https://www.w3.org/TR/AERT/#color-contrast
-                //We do not use Color.GetBrightness() since that value is always null because we use Color.FromArgb in the screengrabber.
-                //Birghtness can be maximum 100
-                var brightness = Math.Min(100, (int)(0.299 * color.R + 0.587 * color.G + 0.114 * color.B));
-
-                await _nanoleafClient.StateEndpoint.SetHueSaturationAndBrightnessAsync(hue, sat, brightness, disableLogging: true);
-            }
-            else
-            {
-                await _nanoleafClient.StateEndpoint.SetHueAndSaturationAsync(hue, sat, disableLogging: true);
-            }
+            await _nanoleafClient.StateEndpoint.SetHueAndSaturationAsync(hue, sat, disableLogging: true);
         }
 
-        
+        /*
+         * Saved code if we ever want to introduce brightness control again:
+         
+            //For brightness calculation see: https://stackoverflow.com/a/596243 and https://www.w3.org/TR/AERT/#color-contrast
+            //We do not use Color.GetBrightness() since that value is always null because we use Color.FromArgb in the screengrabber.
+            //Birghtness can be maximum 100
+            var brightness = Math.Min(100, (int)(0.299 * color.R + 0.587 * color.G + 0.114 * color.B));
+
+            await _nanoleafClient.StateEndpoint.SetHueSaturationAndBrightnessAsync(hue, sat, brightness, disableLogging: true);
+         */
     }
 }

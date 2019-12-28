@@ -26,7 +26,7 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
 
             _externalControlEndpoint = _nanoleafClient.ExternalControlEndpoint;
 
-            _screenBounds = ScreenBoundsHelper.GetScreenBounds(device.ScreenMirrorMonitorIndex);
+            _screenBounds = ScreenBoundsHelper.GetScreenBounds(UserSettings.Settings.ScreenMirrorMonitorIndex);
 
             _panels = orchestrator.PanelLayout.GetScaledPolygons(_screenBounds.Width, _screenBounds.Height, scaleType);
 
