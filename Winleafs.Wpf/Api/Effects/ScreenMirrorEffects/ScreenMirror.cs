@@ -8,32 +8,43 @@ using Winleafs.Wpf.Api.Layouts;
 using Winleafs.Wpf.Helpers;
 using Winleafs.Models.Models;
 using System.Drawing;
+using Winleafs.Models.Enums;
 
 namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
 {
     public class ScreenMirror : IScreenMirrorEffect
     {
-        private readonly INanoleafClient _nanoleafClient;
         private readonly IExternalControlEndpoint _externalControlEndpoint;
-        private readonly List<DrawablePanel> _panels;
         private readonly int _rectangleSize;
         private readonly Rectangle _screenBounds;
         private readonly Rectangle _capturedBounds; //Simple rectangle that start at 0,0 and has width and height set to the rectangle size
 
+        /// <summary>
+        /// Colection of panel ids with their screen shot areas
+        /// </summary>
+        private readonly Dictionary<int, Rectangle> _panels;
+
         public ScreenMirror(Device device, Orchestrator orchestrator, INanoleafClient nanoleafClient, ScaleType scaleType)
         {
-            _nanoleafClient = nanoleafClient;
-
-            _externalControlEndpoint = _nanoleafClient.ExternalControlEndpoint;
+            _externalControlEndpoint = nanoleafClient.ExternalControlEndpoint;
 
             _screenBounds = ScreenBoundsHelper.GetScreenBounds(UserSettings.Settings.ScreenMirrorMonitorIndex);
 
-            _panels = orchestrator.PanelLayout.GetScaledPolygons(_screenBounds.Width, _screenBounds.Height, scaleType);
+            var panels = orchestrator.PanelLayout.GetScaledPolygons(_screenBounds.Width, _screenBounds.Height, scaleType);
 
-            //Set the rectangle size to 1/3th of the length of a side of the triangle. TODO: test what size is best
-            var triangle = _panels.FirstOrDefault().Polygon;
-            _rectangleSize = (int)Math.Floor(System.Windows.Point.Subtract(triangle.Points[0], triangle.Points[1]).Length / 3);
-            _capturedBounds = new Rectangle(0, 0, _rectangleSize, _rectangleSize);
+            if (orchestrator.PanelLayout.DeviceType == DeviceType.Triangles)
+            {
+                //Set the rectangle size to 1/3th of the length of a side of the triangle
+                var triangle = _panels.FirstOrDefault().Polygon;
+                _rectangleSize = (int)Math.Floor(System.Windows.Point.Subtract(triangle.Points[0], triangle.Points[1]).Length / 3);
+                _capturedBounds = new Rectangle(0, 0, _rectangleSize, _rectangleSize);
+            }
+            else
+            {
+                //TODO
+            }
+
+            
         }
 
         /// <summary>
