@@ -34,7 +34,21 @@ namespace Winleafs.Wpf.ViewModels
 
         #region Screen mirror
         public Dictionary<string, ScreenMirrorAlgorithm> AlgorithmPerDevice { get; set; }
-        public int ScreenMirrorRefreshRatePerSecond { get; set; }
+
+        private int _screenMirrorRefreshRatePerSecond;
+
+        public int ScreenMirrorRefreshRatePerSecond
+        {
+            get
+            {
+                return _screenMirrorRefreshRatePerSecond;
+            }
+            set
+            {
+                _screenMirrorRefreshRatePerSecond = value;
+                OnPropertyChanged(nameof(ScreenMirrorRefreshRatePerSecond));
+            }
+        }
         public string SelectedMonitor { get; set; }
 
         #region Screen mirror algorithm dropdown
