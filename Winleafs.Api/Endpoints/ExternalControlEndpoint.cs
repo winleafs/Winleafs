@@ -40,7 +40,7 @@ namespace Winleafs.Api.Endpoints
         }
 
         /// <inheritdoc />
-        public void SetPanelColorAsync(int panelId, int red, int green, int blue, int transitionTime = 1)
+        public void SetPanelColor(int panelId, int red, int green, int blue, int transitionTime = 1)
         {
             if (transitionTime < 1)
             {

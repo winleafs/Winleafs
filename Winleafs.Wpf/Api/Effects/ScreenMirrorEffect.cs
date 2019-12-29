@@ -10,6 +10,7 @@ using Winleafs.Models.Enums;
 using Winleafs.Models.Models;
 using Winleafs.Wpf.Api.Effects.ScreenMirrorEffects;
 using Winleafs.Wpf.Api.Layouts;
+using Winleafs.Wpf.Helpers;
 
 namespace Winleafs.Wpf.Api.Effects
 {
@@ -83,6 +84,9 @@ namespace Winleafs.Wpf.Api.Effects
                 await _nanoleafClient.ExternalControlEndpoint.PrepareForExternalControl();
             }
 
+            //Start the screengrabber
+            ScreenGrabber.Start();
+
             _timer.Start();
         }
 
@@ -93,6 +97,9 @@ namespace Winleafs.Wpf.Api.Effects
         {
             _timer.Stop();
             Thread.Sleep(1000); //Give the last command the time to complete, 1000 is based on testing and a high value (better safe then sorry)
+            
+            //TODO: check if any screen mirror effects are active
+            ScreenGrabber.Stop();
         }
 
         /// <inheritdoc />

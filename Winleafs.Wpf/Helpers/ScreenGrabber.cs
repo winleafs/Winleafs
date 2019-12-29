@@ -12,7 +12,9 @@ namespace Winleafs.Wpf.Helpers
         private static readonly Timer _timer;
         private static readonly Rectangle _screenBounds;
 
+        private static Bitmap _bitmap;
         private static BitmapData _bitmapData;
+        private static int _garbageCollectionCounter;
         private static object _lockObject;
 
         static ScreenGrabber()
@@ -35,39 +37,48 @@ namespace Winleafs.Wpf.Helpers
 
         private static void CaptureScreen()
         {
-            //Note: these objects need to be initialized new everytime
-
-            //Create a new bitmap.
-            var bmpScreenshot = new Bitmap(_screenBounds.Width,
-                                           _screenBounds.Height,
-                                           PixelFormat.Format32bppArgb);
-
-            // Create a graphics object from the bitmap.
-            var gfxScreenshot = Graphics.FromImage(bmpScreenshot);
-
-            // Take the screenshot from the upper left corner to the right bottom corner.
-            gfxScreenshot.CopyFromScreen(_screenBounds.X, _screenBounds.Y,
-                                        0, 0,
-                                        new Size(_screenBounds.Width, _screenBounds.Height),
-                                        CopyPixelOperation.SourceCopy);
-
             lock (_lockObject)
             {
-                _bitmapData = bmpScreenshot.LockBits(new Rectangle(0, 0, _screenBounds.Width, _screenBounds.Height), ImageLockMode.ReadOnly, bmpScreenshot.PixelFormat);
+                _garbageCollectionCounter++;
+
+                if (_garbageCollectionCounter >= 10)
+                {
+                    //Force a garbage collection every 10 iterations since C# does not do a good job with disposing bitmaps
+                    GC.Collect();
+                    _garbageCollectionCounter = 0;
+                }
+                
+
+                //Create a new bitmap.
+                _bitmap = new Bitmap(_screenBounds.Width,
+                                               _screenBounds.Height,
+                                               PixelFormat.Format32bppArgb);
+
+                // Create a graphics object from the bitmap.
+                var gfxScreenshot = Graphics.FromImage(_bitmap);
+
+                // Take the screenshot from the upper left corner to the right bottom corner.
+                gfxScreenshot.CopyFromScreen(_screenBounds.X, _screenBounds.Y,
+                                            0, 0,
+                                            new Size(_screenBounds.Width, _screenBounds.Height),
+                                            CopyPixelOperation.SourceCopy);
+
+                _bitmapData = _bitmap.LockBits(new Rectangle(0, 0, _screenBounds.Width, _screenBounds.Height), ImageLockMode.ReadOnly, _bitmap.PixelFormat);
             }            
         }
 
         /// <summary>
-        /// Calculates the average color from the given bitmap
+        /// Calculates the average color for each of the given <paramref name="areasToCapture"/>.
         /// Use <param name="minDiversion"> to drop pixels that do not differ by at least minDiversion between color values (white, gray or black)
         /// </summary>
         public static List<Color> CalculateAverageColor(List<Rectangle> areasToCapture, int minDiversion = 50)
         {
             var colors = new List<Color>();
-            int bppModifier = 4; //bm.PixelFormat == PixelFormat.Format24bppRgb ? 3 : 4;
 
             lock (_lockObject)
             {
+                int bppModifier = _bitmap.PixelFormat == PixelFormat.Format24bppRgb ? 3 : 4;
+
                 int stride = _bitmapData.Stride;
                 IntPtr Scan0 = _bitmapData.Scan0;
 
@@ -86,12 +97,12 @@ namespace Winleafs.Wpf.Helpers
 
                         for (int y = area.Y; y < area.Y + area.Height; y++)
                         {
-                            for (int x = 0; x < area.X + area.Width; x++)
+                            for (int x = area.X; x < area.X + area.Width; x++)
                             {
                                 index = (y * stride) + x * bppModifier;
-                                red = p[index + 2];
-                                green = p[index + 1];
                                 blue = p[index];
+                                green = p[index + 1];
+                                red = p[index + 2];
 
                                 if (Math.Abs(red - green) > minDiversion || Math.Abs(red - blue) > minDiversion || Math.Abs(green - blue) > minDiversion)
                                 {
@@ -119,6 +130,8 @@ namespace Winleafs.Wpf.Helpers
 
         public static void Start()
         {
+            _garbageCollectionCounter = 0;
+
             _timer.Start();
         }
 

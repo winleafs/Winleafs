@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
 using Winleafs.Api;
@@ -10,12 +11,12 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
     public class Ambilght : IScreenMirrorEffect
     {
         private readonly INanoleafClient _nanoleafClient;
-        private readonly Rectangle _screenBounds;
+        private readonly List<Rectangle> _screenBounds;
 
         public Ambilght(INanoleafClient nanoleafClient, Device device)
         {
             _nanoleafClient = nanoleafClient;
-            _screenBounds = ScreenBoundsHelper.GetScreenBounds(UserSettings.Settings.ScreenMirrorMonitorIndex);
+            _screenBounds = new List<Rectangle> { ScreenBoundsHelper.GetScreenBounds(UserSettings.Settings.ScreenMirrorMonitorIndex) };
         }
 
         /// <summary>
@@ -26,8 +27,7 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
         /// </summary>
         public async Task ApplyEffect()
         {
-            var bitmap = ScreenGrabber.CaptureScreen(_screenBounds);
-            var color = ScreenGrabber.CalculateAverageColor(bitmap, _screenBounds);
+            var color = ScreenGrabber.CalculateAverageColor(_screenBounds)[0]; //Safe since we always have 1 area
 
             var hue = (int)color.GetHue();
             var sat = (int)(color.GetSaturation() * 100);

@@ -15,36 +15,40 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
     public class ScreenMirror : IScreenMirrorEffect
     {
         private readonly IExternalControlEndpoint _externalControlEndpoint;
-        private readonly int _rectangleSize;
-        private readonly Rectangle _screenBounds;
-        private readonly Rectangle _capturedBounds; //Simple rectangle that start at 0,0 and has width and height set to the rectangle size
 
         /// <summary>
-        /// Colection of panel ids with their screen shot areas
+        /// Collection of panel ids
         /// </summary>
-        private readonly Dictionary<int, Rectangle> _panels;
+        private readonly List<int> _panelIds;
+
+        /// <summary>
+        /// Collection of <see cref="Rectangle"/>s and each element
+        /// corresponds to a panel id in <see cref="_panelIds"/>.
+        /// Note that we chose to not put these in a dictionary for
+        /// performance reasons.
+        /// </summary>
+        private readonly List<Rectangle> _screenshotAreas;
 
         public ScreenMirror(Device device, Orchestrator orchestrator, INanoleafClient nanoleafClient, ScaleType scaleType)
         {
             _externalControlEndpoint = nanoleafClient.ExternalControlEndpoint;
+            _panelIds = new List<int>();
+            _screenshotAreas = new List<Rectangle>();
 
-            _screenBounds = ScreenBoundsHelper.GetScreenBounds(UserSettings.Settings.ScreenMirrorMonitorIndex);
-
-            var panels = orchestrator.PanelLayout.GetScaledPolygons(_screenBounds.Width, _screenBounds.Height, scaleType);
-
-            if (orchestrator.PanelLayout.DeviceType == DeviceType.Triangles)
-            {
-                //Set the rectangle size to 1/3th of the length of a side of the triangle
-                var triangle = _panels.FirstOrDefault().Polygon;
-                _rectangleSize = (int)Math.Floor(System.Windows.Point.Subtract(triangle.Points[0], triangle.Points[1]).Length / 3);
-                _capturedBounds = new Rectangle(0, 0, _rectangleSize, _rectangleSize);
-            }
-            else
-            {
-                //TODO
-            }
-
+            var screenBounds = ScreenBoundsHelper.GetScreenBounds(UserSettings.Settings.ScreenMirrorMonitorIndex);
+            var panels = orchestrator.PanelLayout.GetScaledPolygons(screenBounds.Width, screenBounds.Height, scaleType);
             
+            switch (orchestrator.PanelLayout.DeviceType)
+            {
+                case DeviceType.Triangles:
+                    LoadPanelsForTriangles(screenBounds, panels);
+                    break;
+                case DeviceType.Squares:
+                    LoadPanelsForSquares(screenBounds, panels);
+                    break;
+                default:
+                    throw new NotImplementedException($"Screen mirror constructor for device of type {orchestrator.PanelLayout.DeviceType.ToString()} not implemented");
+            }
         }
 
         /// <summary>
@@ -53,21 +57,55 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
         /// </summary>
         public async Task ApplyEffect()
         {        
-            foreach (var panel in _panels)
+            var colors = ScreenGrabber.CalculateAverageColor(_screenshotAreas, 0);
+
+            for (var i = 0; i < _panelIds.Count; i++)
             {
-                //For each panel, draw a rectangle around its midpoint, according to the set rectangle size
-                //Then get the average color of that rectangle and apply the color to the panel
-                var startX = (int)Math.Floor(panel.MidPoint.X - (_rectangleSize / 2));
-                var startY = (int)Math.Floor(panel.MidPoint.Y - (_rectangleSize / 2));
+                _externalControlEndpoint.SetPanelColor(_panelIds[i], colors[i].R, colors[i].G, colors[i].B);
+            }
+        }
+
+        private void LoadPanelsForTriangles(Rectangle screenBounds, List<DrawablePanel> panels)
+        {
+            //Set the square size to 1/3th of the length of a side of the triangle
+            var triangle = panels.FirstOrDefault().Polygon;
+            var squareSize = (int)Math.Floor(System.Windows.Point.Subtract(triangle.Points[0], triangle.Points[1]).Length / 3);
+
+            foreach (var panel in panels)
+            {
+                //For each panel, draw a square around its midpoint, according to the set square size
+                var startX = (int)Math.Floor(panel.MidPoint.X - (squareSize / 2));
+                var startY = (int)Math.Floor(panel.MidPoint.Y - (squareSize / 2));
 
                 // In multi monitor setup, all screens are joined in one larger pixel area. For example, if you want to take a screenshot of the second from left monitor,
-                // you need to start at the right of the first left monitor. Hence, we need to add _screenBounds X and Y here to the location of the rectangle we want to capture
-                var bounds = new Rectangle(_screenBounds.X + startX, _screenBounds.Y + startY, _rectangleSize, _rectangleSize);
-                var bitmap = ScreenGrabber.CaptureScreen(bounds);
+                // you need to start at the right of the first left monitor. Hence, we need to add _screenBounds X and Y here to the location of the square we want to capture
+                var bounds = new Rectangle(screenBounds.X + startX, screenBounds.Y + startY, squareSize, squareSize);
 
-                var color = ScreenGrabber.CalculateAverageColor(bitmap, _capturedBounds, 0);
+                _panelIds.Add(panel.PanelId);
+                _screenshotAreas.Add(bounds);
+            }
+        }
 
-                _externalControlEndpoint.SetPanelColorAsync(panel.PanelId, color.R, color.G, color.B);
+        private void LoadPanelsForSquares(Rectangle screenBounds, List<DrawablePanel> panels)
+        {
+            //Set the square size to half of the length of a side of the square,
+            //We do this since the squares can be placed in a diamond shape, then the largest square that can be drawn in such a diamond shape
+            //is a square half the length of a side of the square
+            var square = panels.FirstOrDefault().Polygon;
+            var rectangleSize = (int)Math.Floor(System.Windows.Point.Subtract(square.Points[0], square.Points[1]).Length / 2);
+
+            foreach (var panel in panels)
+            {
+                //For each panel, draw a square around its midpoint, according to the set square size
+                var startX = (int)Math.Floor(panel.MidPoint.X - (rectangleSize / 2));
+                var startY = (int)Math.Floor(panel.MidPoint.Y - (rectangleSize / 2));
+
+                // In multi monitor setup, all screens are joined in one larger pixel area. For example, if you want to take a screenshot of the second from left monitor,
+                // you need to start at the right of the first left monitor. Hence, we need to add _screenBounds X and Y here to the location of the square we want to capture
+                var bounds = new Rectangle(screenBounds.X + startX, screenBounds.Y + startY, rectangleSize, rectangleSize);
+
+                _panelIds.Add(panel.PanelId);
+                _screenshotAreas.Add(bounds);
             }
         }
     }
