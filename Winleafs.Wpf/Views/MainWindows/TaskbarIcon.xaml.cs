@@ -62,6 +62,10 @@ namespace Winleafs.Wpf.Views.MainWindows
             deviceUserControl.TopBorder.BorderThickness = new Thickness(0); //Hide the white top border
             deviceUserControl.DeviceNameLabel.Visibility = Visibility.Hidden; //Hide the device name
 
+            //Hide the device icons
+            deviceUserControl.SquareIcon.Visibility = Visibility.Hidden;
+            deviceUserControl.TriangleIcon.Visibility = Visibility.Hidden;
+
             DeviceUserControlGrid.Children.Add(deviceUserControl);
         }
     }

@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Winleafs.Wpf.Views.MainWindows" 
-             xmlns:effects="clr-namespace:Winleafs.Wpf.Views.Effects"                  
+             xmlns:effects="clr-namespace:Winleafs.Wpf.Views.Effects"     
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"             
              mc:Ignorable="d" d:DesignWidth="450" Height="170">
     <Border BorderThickness="0 1 0 0" BorderBrush="White" Margin="5,0,5,0" x:Name="TopBorder">
         <Grid>
@@ -14,8 +15,10 @@
             <Label Content="100" x:Name="BrightnessLabel" Margin="413,130,0,0" Foreground="White" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="37"  Padding="0,3,0,0"/>
             <Slider HorizontalAlignment="Left" Margin="86,134,0,0" VerticalAlignment="Top" Width="320" Minimum="0" Maximum="100" Value="{Binding Brightness}" IsSnapToTickEnabled="True" TickFrequency="5" Thumb.DragCompleted="BrightnessSlider_DragCompleted"/>
             <Label Content="{x:Static local:Resources.ActiveEffect}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,43,0,0" Foreground="White" Height="24" VerticalAlignment="Top" Padding="5,3,0,0"/>
-            <Label Content="Device name" x:Name="DeviceNameLabel" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Width="430" FontSize="17"/>
+            <Label Content="Device name" x:Name="DeviceNameLabel" HorizontalAlignment="Left" Margin="40,10,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Width="430" FontSize="17"/>
             <Label Content="Active effect is displayed here" x:Name="ActiveEffectLabel" Margin="91,43,0,0" Foreground="White" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="349" Padding="5,3,0,0"/>
+            <materialDesign:PackIcon x:Name="TriangleIcon" Kind="Triangle" Foreground="White" Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="13,10,0,0" Visibility="Hidden" />
+            <materialDesign:PackIcon x:Name="SquareIcon" Kind="Square" Foreground="White" Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,10,0,0" Visibility="Hidden"/>
         </Grid>
     </Border>
 </UserControl>
