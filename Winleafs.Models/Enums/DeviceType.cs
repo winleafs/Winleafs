@@ -2,7 +2,7 @@
 {
     public enum DeviceType
     {
-        Triangles = 0,
-        Squares = 1
+        Aurora = 0,
+        Canvas = 1
     }
 }

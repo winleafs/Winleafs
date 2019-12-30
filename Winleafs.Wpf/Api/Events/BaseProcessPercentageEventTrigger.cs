@@ -112,7 +112,7 @@ namespace Winleafs.Wpf.Api.Events
         {
             if (await _orchestrator.TrySetOperationMode(OperationMode.Event))
             {
-                await _externalControlEndpoint.PrepareForExternalControl();
+                await _externalControlEndpoint.PrepareForExternalControl(_orchestrator.PanelLayout.DeviceType, _orchestrator.Device.IPAddress);
                 _effectTimer.Start();
             }
         }
@@ -160,7 +160,7 @@ namespace Winleafs.Wpf.Api.Events
             {
                 foreach (var panel in step.PanelIds)
                 {
-                    _externalControlEndpoint.SetPanelColor(panel, _redColor.Color.R, _redColor.Color.G, _redColor.Color.B);
+                    _externalControlEndpoint.SetPanelColor(_orchestrator.PanelLayout.DeviceType, panel, _redColor.Color.R, _redColor.Color.G, _redColor.Color.B);
                 }
             }
 
@@ -168,7 +168,7 @@ namespace Winleafs.Wpf.Api.Events
             {
                 foreach (var panel in step.PanelIds)
                 {
-                    _externalControlEndpoint.SetPanelColor(panel, _whiteColor.Color.R, _whiteColor.Color.G, _whiteColor.Color.B);
+                    _externalControlEndpoint.SetPanelColor(_orchestrator.PanelLayout.DeviceType, panel, _whiteColor.Color.R, _whiteColor.Color.G, _whiteColor.Color.B);
                 }
             }
         }

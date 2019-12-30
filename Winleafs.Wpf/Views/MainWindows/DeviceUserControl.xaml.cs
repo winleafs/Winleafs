@@ -58,10 +58,10 @@ namespace Winleafs.Wpf.Views.MainWindows
             //Set the correct icon
             switch (_orchestrator.PanelLayout.DeviceType)
             {
-                case DeviceType.Squares:
+                case DeviceType.Canvas:
                     SquareIcon.Visibility = Visibility.Visible;
                     break;
-                case DeviceType.Triangles:
+                case DeviceType.Aurora:
                     TriangleIcon.Visibility = Visibility.Visible;
                     break;
                 default:

@@ -29,21 +29,24 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
         /// </summary>
         private readonly List<Rectangle> _screenshotAreas;
 
+        private readonly DeviceType _deviceType;
+
         public ScreenMirror(Device device, Orchestrator orchestrator, INanoleafClient nanoleafClient, ScaleType scaleType)
         {
             _externalControlEndpoint = nanoleafClient.ExternalControlEndpoint;
             _panelIds = new List<int>();
             _screenshotAreas = new List<Rectangle>();
+            _deviceType = orchestrator.PanelLayout.DeviceType;
 
             var screenBounds = ScreenBoundsHelper.GetScreenBounds(UserSettings.Settings.ScreenMirrorMonitorIndex);
             var panels = orchestrator.PanelLayout.GetScaledPolygons(screenBounds.Width, screenBounds.Height, scaleType);
             
-            switch (orchestrator.PanelLayout.DeviceType)
+            switch (_deviceType)
             {
-                case DeviceType.Triangles:
+                case DeviceType.Aurora:
                     LoadPanelsForTriangles(screenBounds, panels);
                     break;
-                case DeviceType.Squares:
+                case DeviceType.Canvas:
                     LoadPanelsForSquares(screenBounds, panels);
                     break;
                 default:
@@ -61,7 +64,7 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
 
             for (var i = 0; i < _panelIds.Count; i++)
             {
-                _externalControlEndpoint.SetPanelColor(_panelIds[i], colors[i].R, colors[i].G, colors[i].B);
+                _externalControlEndpoint.SetPanelColor(_deviceType, _panelIds[i], colors[i].R, colors[i].G, colors[i].B);
             }
         }
 

@@ -52,10 +52,10 @@ namespace Winleafs.Wpf.Api.Layouts
                     case ShapeType.ContolSquarePassive:
                     case ShapeType.ControlSquarePrimary:
                     case ShapeType.Square:
-                        DeviceType = DeviceType.Squares;
+                        DeviceType = DeviceType.Canvas;
                         break;
                     case ShapeType.Triangle:
-                        DeviceType = DeviceType.Triangles;
+                        DeviceType = DeviceType.Aurora;
                         break;
                 }
             }

@@ -19,6 +19,7 @@ namespace Winleafs.Wpf.Api.Effects
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
         
         private readonly INanoleafClient _nanoleafClient;
+        private readonly Orchestrator _orchestrator;
         private readonly System.Timers.Timer _timer;
         private readonly ScreenMirrorAlgorithm _screenMirrorAlgorithm;
         private readonly IScreenMirrorEffect _screenMirrorEffect;
@@ -26,6 +27,7 @@ namespace Winleafs.Wpf.Api.Effects
         public ScreenMirrorEffect(Device device, Orchestrator orchestrator, INanoleafClient nanoleafClient)
         {
             _nanoleafClient = nanoleafClient;
+            _orchestrator = orchestrator;
             _screenMirrorAlgorithm = device.ScreenMirrorAlgorithm;
 
             try
@@ -81,7 +83,7 @@ namespace Winleafs.Wpf.Api.Effects
             if (_screenMirrorAlgorithm == ScreenMirrorAlgorithm.ScreenMirrorFit || _screenMirrorAlgorithm == ScreenMirrorAlgorithm.ScreenMirrorStretch)
             {
                 //For screen mirror, we need to enable external control
-                await _nanoleafClient.ExternalControlEndpoint.PrepareForExternalControl();
+                await _nanoleafClient.ExternalControlEndpoint.PrepareForExternalControl(_orchestrator.PanelLayout.DeviceType, _orchestrator.Device.IPAddress);
             }
 
             //Start the screengrabber
