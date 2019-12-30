@@ -53,6 +53,21 @@ namespace Winleafs.Wpf.Views.MainWindows
 
             _parent = parent;
 
+            DeviceNameLabel.Content = _device.Name;
+
+            //Set the correct icon
+            switch (_orchestrator.PanelLayout.DeviceType)
+            {
+                case DeviceType.Squares:
+                    SquareIcon.Visibility = Visibility.Visible;
+                    break;
+                case DeviceType.Triangles:
+                    TriangleIcon.Visibility = Visibility.Visible;
+                    break;
+                default:
+                    throw new NotImplementedException($"No icon implemented for device type {_orchestrator.PanelLayout.DeviceType}");
+            }
+
             //Initialize the effect combox box
             EffectComboBox.InitializeEffects(_orchestrator);
             EffectComboBox.ParentUserControl = this;
@@ -60,8 +75,6 @@ namespace Winleafs.Wpf.Views.MainWindows
             DataContext = this;
 
             Update();
-
-            DeviceNameLabel.Content = _device.Name;
         }
 
         private void StopManual_Click(object sender, RoutedEventArgs e)
