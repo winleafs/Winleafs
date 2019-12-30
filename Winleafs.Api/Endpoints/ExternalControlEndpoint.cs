@@ -24,13 +24,13 @@ namespace Winleafs.Api.Endpoints
         /// <inheritdoc />
         public ExternalControlInfo GetExternalControlInfo()
         {
-            return SendRequest<ExternalControlInfo>(BaseUrl, Method.PUT, body: "{\"write\": {\"command\": \"display\", \"animType\": \"extControl\"}}");
+            return SendRequest<ExternalControlInfo>(BaseUrl, Method.PUT, body: "{\"write\": {\"command\": \"display\", \"animType\": \"extControl\", \"extControlVersion\": \"v2\"}}");
         }
 
         /// <inheritdoc />
         public async Task<ExternalControlInfo> GetExternalControlInfoAsync()
         {
-            return await SendRequestAsync<ExternalControlInfo>(BaseUrl, Method.PUT, body: "{\"write\": {\"command\": \"display\", \"animType\": \"extControl\"}}");
+            return await SendRequestAsync<ExternalControlInfo>(BaseUrl, Method.PUT, body: "{\"write\": {\"command\": \"display\", \"animType\": \"extControl\", \"extControlVersion\": \"v2\"}}");
         }
 
         /// <inheritdoc />
