@@ -45,9 +45,9 @@ namespace Winleafs.Wpf.Helpers
                 {
                     //Force a garbage collection every 10 iterations since C# does not do a good job with disposing bitmaps
                     GC.Collect();
+
                     _garbageCollectionCounter = 0;
                 }
-                
 
                 //Create a new bitmap.
                 _bitmap = new Bitmap(_screenBounds.Width,
@@ -137,6 +137,9 @@ namespace Winleafs.Wpf.Helpers
 
         public static void Stop()
         {
+            //Force a garbage collection to clean up the last bitmaps
+            GC.Collect();
+
             _timer.Stop();
         }
 

@@ -98,8 +98,11 @@ namespace Winleafs.Wpf.Api.Effects
             _timer.Stop();
             Thread.Sleep(1000); //Give the last command the time to complete, 1000 is based on testing and a high value (better safe then sorry)
             
-            //TODO: check if any screen mirror effects are active
-            ScreenGrabber.Stop();
+            //Check if any other screen mirror effects are active, if not, stop the screen grabber
+            if (OrchestratorCollection.CountOrchestratorsWithActiveScreenMirrorEffect() <= 0)
+            {
+                ScreenGrabber.Stop();
+            }           
         }
 
         /// <inheritdoc />
