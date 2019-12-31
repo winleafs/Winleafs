@@ -311,15 +311,15 @@ namespace Winleafs.Models.Models
         {
             get
             {
-                return Schedules.FirstOrDefault(s => s.Active);
+                return Schedules?.FirstOrDefault(s => s.Active);
             }
         }
 
         public TimeTrigger GetActiveTimeTriggerForDevice(string deviceName)
         {
-            if (Schedules.Any(s => s.Active && s.AppliesToDeviceNames.Contains(deviceName)))
+            if (Schedules?.Any(s => s.Active && s.AppliesToDeviceNames.Contains(deviceName)) == true)
             {
-                return Schedules.FirstOrDefault(s => s.Active && s.AppliesToDeviceNames.Contains(deviceName)).GetActiveTimeTrigger();
+                return Schedules?.FirstOrDefault(s => s.Active && s.AppliesToDeviceNames.Contains(deviceName)).GetActiveTimeTrigger();
             }
             else //It is possible that a user deletes the active schedule, then there is no active program
             {
