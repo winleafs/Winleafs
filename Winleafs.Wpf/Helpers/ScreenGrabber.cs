@@ -99,7 +99,7 @@ namespace Winleafs.Wpf.Helpers
                         {
                             for (int x = area.X; x < area.X + area.Width; x++)
                             {
-                                index = (y * stride) + x * bppModifier;
+                                index = (y * stride) + x * bppModifier; //Find the location of the byte of the current pixel that is being analyzed
                                 blue = p[index];
                                 green = p[index + 1];
                                 red = p[index + 2];

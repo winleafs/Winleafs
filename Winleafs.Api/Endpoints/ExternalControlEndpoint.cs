@@ -20,6 +20,8 @@ namespace Winleafs.Api.Endpoints
 
         private static readonly byte _zeroAsByte = Convert.ToByte(0);
         private static readonly byte _oneAsByte = Convert.ToByte(1);
+        private static readonly string _canvasStreamIPProtocol = "udp";
+        private static readonly int _canvasStreamPort = 60222;
 
         /// <inheritdoc />
         public ExternalControlEndpoint(NanoleafClient client)
@@ -60,8 +62,8 @@ namespace Winleafs.Api.Endpoints
                     _externalControlInfo = new ExternalControlInfo
                     {
                         StreamIPAddress = deviceIPAddress,
-                        StreamIProtocol = "udp",
-                        StreamPort = 60222
+                        StreamIProtocol = _canvasStreamIPProtocol,
+                        StreamPort = _canvasStreamPort
                     };
                     break;
                 default:

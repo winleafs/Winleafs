@@ -94,7 +94,7 @@ namespace Winleafs.Wpf.Api.Effects
         /// </summary>
         public bool HasActiveScreenMirrorEffect()
         {
-            return _customEffects.Values.Any(customEffect => customEffect is ScreenMirrorEffect && customEffect.IsActive());
+            return _customEffects.Values.Any(customEffect => customEffect.IsActive() && customEffect is ScreenMirrorEffect);
         }
     }
 }
