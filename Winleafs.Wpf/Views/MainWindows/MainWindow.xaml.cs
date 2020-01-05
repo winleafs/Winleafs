@@ -105,7 +105,7 @@ namespace Winleafs.Wpf.Views.MainWindows
                 deviceUserControl.ReloadEffects();
             }
 
-            //TODO: update context menu
+            TaskbarIcon.DeviceUserControl.ReloadEffects();
         }
 
         public void UpdateDeviceNames()

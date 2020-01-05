@@ -47,9 +47,7 @@ namespace Winleafs.Wpf.Views.MainWindows
             InitializeComponent();
 
             _device = device;
-            _orchestrator = OrchestratorCollection.GetOrchestratorForDevice(_device);
-
-            _orchestrator.AddEffectChangedCallback(Update);
+            SetOrchestrator();
 
             _parent = parent;
 
@@ -165,9 +163,19 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         public void ReloadEffects()
         {
+            //Reset the orchestrator since it can happen that the orchestrators have been reset before calling this function
+            SetOrchestrator();
+
             EffectComboBox.InitializeEffects(_orchestrator);
             
             EffectComboBox.UpdateSelection(_selectedEffect);
+        }
+
+        private void SetOrchestrator()
+        {
+            _orchestrator = OrchestratorCollection.GetOrchestratorForDevice(_device);
+
+            _orchestrator.AddEffectChangedCallback(Update);
         }
     }
 }

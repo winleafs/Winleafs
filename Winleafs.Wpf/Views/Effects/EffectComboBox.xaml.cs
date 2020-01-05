@@ -144,6 +144,7 @@ namespace Winleafs.Wpf.Views.Effects
             }
 
             Effects = new ObservableCollection<EffectComboBoxItemViewModel>(effects);
+            OnPropertyChanged(nameof(Effects));
         }
 
         public void UpdateSelection(string effectName)

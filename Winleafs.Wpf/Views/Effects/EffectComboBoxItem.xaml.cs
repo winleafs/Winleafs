@@ -58,7 +58,10 @@ namespace Winleafs.Wpf.Views.Effects
 
         private void UserControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            DrawColoredBorder();
+            if (DataContext is EffectComboBoxItemViewModel)
+            {
+                DrawColoredBorder();
+            }
         }
     }
 }

@@ -32,6 +32,8 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         public ObservableCollection<string> DeviceNames { get; set; }
 
+        public DeviceUserControl DeviceUserControl { get; set; }
+
         public TaskbarIcon()
         {
             InitializeComponent();
@@ -65,6 +67,8 @@ namespace Winleafs.Wpf.Views.MainWindows
             //Hide the device icons
             deviceUserControl.SquareIcon.Visibility = Visibility.Hidden;
             deviceUserControl.TriangleIcon.Visibility = Visibility.Hidden;
+
+            DeviceUserControl = deviceUserControl;
 
             DeviceUserControlGrid.Children.Add(deviceUserControl);
         }

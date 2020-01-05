@@ -231,6 +231,7 @@ namespace Winleafs.Wpf.Views.Options
             // Reload the orchestrator so custom effects are reloaded.
             OrchestratorCollection.ResetOrchestrators();
 
+            // Reload effects such that custom effects are updated in the view
             _mainWindow.ReloadEffectsInView();
 
             Close();

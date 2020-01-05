@@ -22,6 +22,7 @@ namespace Winleafs.Wpf.Api.Effects
             var nanoleafClient = NanoleafClient.GetClientForDevice(device);
 
             _customEffects = new Dictionary<string, ICustomEffect>();
+            _customEffects.Clear();
 
             var customColorEffects = UserSettings.Settings.CustomEffects;
 
