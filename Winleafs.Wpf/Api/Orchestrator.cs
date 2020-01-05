@@ -146,6 +146,14 @@ namespace Winleafs.Wpf.Api
         }
 
         /// <summary>
+        /// Returns true when any <see cref="ScreenMirrorEffect"/> is active.
+        /// </summary>
+        public bool HasActiveScreenMirrorEffect()
+        {
+            return _customEffects.HasActiveScreenMirrorEffect();
+        }
+
+        /// <summary>
         /// Get the current effect name, not equal the description as shown in the view
         /// </summary>
         public string GetActiveEffectName()

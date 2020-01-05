@@ -45,17 +45,17 @@ namespace Winleafs.Wpf.Api.Layouts
             if (_layout != null)
             {
                 ConstructPanelsAsPolygons();
-                
+
                 //Set the device type according to the type of panels
                 switch (_layout.PanelPositions.ElementAt(0).ShapeType)
                 {
                     case ShapeType.ContolSquarePassive:
                     case ShapeType.ControlSquarePrimary:
                     case ShapeType.Square:
-                        DeviceType = DeviceType.Squares;
+                        DeviceType = DeviceType.Canvas;
                         break;
                     case ShapeType.Triangle:
-                        DeviceType = DeviceType.Triangles;
+                        DeviceType = DeviceType.Aurora;
                         break;
                 }
             }

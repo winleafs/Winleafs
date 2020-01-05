@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Winleafs.Models.Enums;
 using Winleafs.Models.Models;
 
@@ -65,6 +66,15 @@ namespace Winleafs.Wpf.Api
             }
 
             return _orchestratorForDevices[device.IPAddress];
+        }
+
+        /// <summary>
+        /// Retrieves the number of orchestrators that have an
+        /// screen mirror effect active.
+        /// </summary>
+        public static int CountOrchestratorsWithActiveScreenMirrorEffect()
+        {
+            return _orchestratorForDevices.Values.Count(orchestrator => orchestrator.HasActiveScreenMirrorEffect());
         }
     }
 }

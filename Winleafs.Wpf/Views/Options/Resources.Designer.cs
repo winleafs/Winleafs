@@ -295,15 +295,6 @@ namespace Winleafs.Wpf.Views.Options {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Note: refresh rate when controlling brightness is max 5, since setting brightness and color are two seperate actions and the lights have a maximum refresh rate of 10hz..
-        /// </summary>
-        public static string ScreenMirrorBrightnessInfo {
-            get {
-                return ResourceManager.GetString("ScreenMirrorBrightnessInfo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Let ambilight control brightness.
         /// </summary>
         public static string ScreenMirrorControlBrightness {

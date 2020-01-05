@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using Winleafs.Models.Enums;
 using Winleafs.Models.Models.Effects;
@@ -8,9 +9,11 @@ using Winleafs.Wpf.Views.Options;
 
 namespace Winleafs.Wpf.ViewModels
 {
-    public class OptionsViewModel
+    public class OptionsViewModel : INotifyPropertyChanged
     {
         private OptionsWindow _parent;
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         #region Properties
         public bool StartAtWindowsStartUp { get; set; }
@@ -31,42 +34,22 @@ namespace Winleafs.Wpf.ViewModels
 
         #region Screen mirror
         public Dictionary<string, ScreenMirrorAlgorithm> AlgorithmPerDevice { get; set; }
-        public Dictionary<string, int> ScreenMirrorRefreshRatePerDevice { get; set; }
-        public Dictionary<string, bool> ScreenMirrorControlBrightnessPerDevice { get; set; }
-        public Dictionary<string, string> MonitorPerDevice { get; set; }
-
-        private string _selectedMonitor;
-        public string SelectedMonitor
-        {
-            get => _selectedMonitor;
-            set
-            {
-                _selectedMonitor = value;
-                MonitorPerDevice[_selectedDevice] = _selectedMonitor;
-            }
-        }
 
         private int _screenMirrorRefreshRatePerSecond;
+
         public int ScreenMirrorRefreshRatePerSecond
         {
-            get => _screenMirrorRefreshRatePerSecond;
+            get
+            {
+                return _screenMirrorRefreshRatePerSecond;
+            }
             set
             {
                 _screenMirrorRefreshRatePerSecond = value;
-                ScreenMirrorRefreshRatePerDevice[_selectedDevice] = _screenMirrorRefreshRatePerSecond;
+                OnPropertyChanged(nameof(ScreenMirrorRefreshRatePerSecond));
             }
         }
-
-        private bool _screenMirrorControlBrightness;
-        public bool ScreenMirrorControlBrightness
-        {
-            get => _screenMirrorControlBrightness;
-            set
-            {
-                _screenMirrorControlBrightness = value;
-                ScreenMirrorControlBrightnessPerDevice[_selectedDevice] = _screenMirrorControlBrightness;
-            }
-        }
+        public string SelectedMonitor { get; set; }
 
         #region Screen mirror algorithm dropdown
         //Map display values to enum values
@@ -83,6 +66,8 @@ namespace Winleafs.Wpf.ViewModels
                 AlgorithmPerDevice[_selectedDevice] = _selectedScreenMirrorAlgorithm;
 
                 _parent.ScreenMirrorAlgorithmChanged(_selectedScreenMirrorAlgorithm);
+
+                OnPropertyChanged(nameof(SelectedScreenMirrorAlgorithm));
             }
         }
 
@@ -99,14 +84,9 @@ namespace Winleafs.Wpf.ViewModels
             set
             {
                 _selectedDevice = value;
-                ScreenMirrorControlBrightness = ScreenMirrorControlBrightnessPerDevice[_selectedDevice];
-                ScreenMirrorRefreshRatePerSecond = ScreenMirrorRefreshRatePerDevice[_selectedDevice];
-                SelectedMonitor = MonitorPerDevice[_selectedDevice];
 
                 var screenMirrorAlgorithm = AlgorithmPerDevice[_selectedDevice];
                 SelectedScreenMirrorAlgorithm = ScreenMirrorAlgorithmMapping.FirstOrDefault(map => map.Value == screenMirrorAlgorithm).Key;
-
-                //_parent.SelectedDeviceChanged(); Will be used later if we visualize the algorithms
             }
         }
 
@@ -123,6 +103,11 @@ namespace Winleafs.Wpf.ViewModels
                 {  EnumLocalizer.GetLocalizedEnum(ScreenMirrorAlgorithm.ScreenMirrorFit), ScreenMirrorAlgorithm.ScreenMirrorFit },
                 {  EnumLocalizer.GetLocalizedEnum(ScreenMirrorAlgorithm.ScreenMirrorStretch), ScreenMirrorAlgorithm.ScreenMirrorStretch }
             };
+        }
+
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }
