@@ -46,6 +46,9 @@
       <Component Id="NLog.dll" Guid="c7e002b8-70d5-4fa5-89eb-4a992690b810">
         <File Id="NLog.dll" Source="$(var.sourceFolder)\NLog.dll" KeyPath="yes" />
       </Component>
+      <Component Id="NLog.xsd" Guid="f8083809-7bfb-4314-a488-46888676dd9d">
+        <File Id="NLog.xsd" Source="$(var.sourceFolder)\NLog.xsd" KeyPath="yes" />
+      </Component>
       <Component Id="Octokit.dll" Guid="d8195bb3-312d-4870-8b58-11b1bce1d91d">
         <File Id="Octokit.dll" Source="$(var.sourceFolder)\Octokit.dll" KeyPath="yes" />
       </Component>
@@ -132,6 +135,7 @@
       <ComponentRef Id="Newtonsoft.Json.dll" />
       <ComponentRef Id="NLog.config" />
       <ComponentRef Id="NLog.dll" />
+      <ComponentRef Id="NLog.xsd" />
       <ComponentRef Id="Octokit.dll" />
       <ComponentRef Id="Polly.dll" />
       <ComponentRef Id="RestSharp.dll" />      
