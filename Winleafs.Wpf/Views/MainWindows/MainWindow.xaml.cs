@@ -15,6 +15,7 @@ using Winleafs.Models.Models.Scheduling;
 using Winleafs.Wpf.Api;
 using Winleafs.Wpf.Enums;
 using Winleafs.Wpf.Helpers;
+using Winleafs.Wpf.Properties;
 using Winleafs.Wpf.Views.Options;
 using Winleafs.Wpf.Views.Scheduling;
 
@@ -151,6 +152,11 @@ namespace Winleafs.Wpf.Views.MainWindows
         private void BuildScheduleList()
         {
             SchedulesStackPanel.Children.Clear();
+
+            if (UserSettings.Settings.Schedules == null || UserSettings.Settings.Schedules.Any() == false)
+            {
+                return;
+            }
 
             foreach (var schedule in UserSettings.Settings.Schedules)
             {

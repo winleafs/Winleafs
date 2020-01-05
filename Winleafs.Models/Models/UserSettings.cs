@@ -24,7 +24,7 @@ namespace Winleafs.Models.Models
         public static readonly string EffectNamePreface = "Winleafs - ";
 
         private static readonly string _settingsFileName = Path.Combine(SettingsFolder, "Settings.txt");
-        private static readonly string _latestSettingsVersion = "8";
+        private static readonly string _latestSettingsVersion = "9";
 
         private static UserSettings _settings { get; set; }
 
@@ -63,6 +63,10 @@ namespace Winleafs.Models.Models
         public bool MinimizeToSystemTray { get; set; }
 
         public List<Schedule> Schedules { get; set; }
+
+        public int ScreenMirrorRefreshRatePerSecond { get; set; }
+
+        public int ScreenMirrorMonitorIndex { get; set; }
         #endregion
 
         #region Methods
@@ -91,7 +95,9 @@ namespace Winleafs.Models.Models
                     // Defaults
                     Devices = new List<Device>(),
                     Schedules = new List<Schedule>(),
-                    JsonVersion = _latestSettingsVersion
+                    JsonVersion = _latestSettingsVersion,
+                    ScreenMirrorRefreshRatePerSecond = 5,
+                    ScreenMirrorMonitorIndex = 0
                 };
                 _settings = userSettings;
             }
@@ -305,15 +311,15 @@ namespace Winleafs.Models.Models
         {
             get
             {
-                return Schedules.FirstOrDefault(s => s.Active);
+                return Schedules?.FirstOrDefault(s => s.Active);
             }
         }
 
         public TimeTrigger GetActiveTimeTriggerForDevice(string deviceName)
         {
-            if (Schedules.Any(s => s.Active && s.AppliesToDeviceNames.Contains(deviceName)))
+            if (Schedules?.Any(s => s.Active && s.AppliesToDeviceNames.Contains(deviceName)) == true)
             {
-                return Schedules.FirstOrDefault(s => s.Active && s.AppliesToDeviceNames.Contains(deviceName)).GetActiveTimeTrigger();
+                return Schedules?.FirstOrDefault(s => s.Active && s.AppliesToDeviceNames.Contains(deviceName)).GetActiveTimeTrigger();
             }
             else //It is possible that a user deletes the active schedule, then there is no active program
             {
@@ -332,7 +338,7 @@ namespace Winleafs.Models.Models
         [Migration("2", "3")]
         private static JToken Migration_2_3(JToken jToken)
         {
-            jToken[nameof(Device.ScreenMirrorControlBrightness)] = false;          
+            jToken["ScreenMirrorControlBrightness"] = false;          
 
             return jToken;
         }
@@ -356,9 +362,9 @@ namespace Winleafs.Models.Models
             foreach (var device in jToken["Devices"])
             {
                 device["ScreenMirrorAlgorithm"] = 0;
-                device[nameof(Device.ScreenMirrorControlBrightness)] = jToken["AmbilightControlBrightness"];
-                device[nameof(Device.ScreenMirrorMonitorIndex)] = jToken["AmbilightMonitorIndex"];
-                device[nameof(Device.ScreenMirrorRefreshRatePerSecond)] = jToken["AmbilightRefreshRatePerSecond"];
+                device["ScreenMirrorControlBrightness"] = jToken["AmbilightControlBrightness"];
+                device[nameof(ScreenMirrorMonitorIndex)] = jToken["AmbilightMonitorIndex"];
+                device[nameof(ScreenMirrorRefreshRatePerSecond)] = jToken["AmbilightRefreshRatePerSecond"];
             }
 
             jToken["AmbilightRefreshRatePerSecond"].Parent.Remove();
@@ -386,12 +392,20 @@ namespace Winleafs.Models.Models
 
             return jToken;
         }
-
-
+        
         [Migration("7", "8")]
         private static JToken Migration_7_8(JToken jToken)
         {
             jToken[nameof(Schedules)] = new JArray();
+
+            return jToken;
+        }
+
+        [Migration("8", "9")]
+        private static JToken Migration_8_9(JToken jToken)
+        {
+            jToken[nameof(ScreenMirrorMonitorIndex)] = 0;
+            jToken[nameof(ScreenMirrorRefreshRatePerSecond)] = 5;
 
             return jToken;
         }

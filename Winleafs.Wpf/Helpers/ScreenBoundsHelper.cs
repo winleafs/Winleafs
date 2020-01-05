@@ -1,7 +1,9 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using WindowsDisplayAPI.DisplayConfig;
 
 namespace Winleafs.Wpf.Helpers
 {
@@ -14,7 +16,7 @@ namespace Winleafs.Wpf.Helpers
         {
             // We select monitors via the new API but the MonitorInfo class works via the Windows Forms diaply name.
             // Hence we retrieve the selected WIndows Forms monitor via our settings and then by comapring the DevicePath
-            var monitors = WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.GetDisplayTargets();
+            var monitors = GetMonitors();
             var formsMonitors = WindowsDisplayAPI.Display.GetDisplays();
 
             var selectedMonitor = formsMonitors.FirstOrDefault(monitor => monitor.DevicePath.Equals(monitors[monitorIndex].DevicePath));
@@ -22,6 +24,16 @@ namespace Winleafs.Wpf.Helpers
             var monitorInfo = new MonitorInfo();
             EnumDisplaySettings(selectedMonitor.DisplayName, -1, ref monitorInfo);
             return new Rectangle(monitorInfo.dmPositionX, monitorInfo.dmPositionY, monitorInfo.dmPelsWidth, monitorInfo.dmPelsHeight);
+        }
+
+        public static List<PathDisplayTarget> GetMonitors()
+        {
+            return PathDisplayTarget.GetDisplayTargets().OrderBy(monitor => monitor.FriendlyName).ToList();
+        }
+
+        public static List<string> GetMonitorNames()
+        {
+            return GetMonitors().Select(monitor => monitor.FriendlyName).ToList();
         }
     }
 

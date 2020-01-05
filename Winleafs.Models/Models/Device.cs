@@ -37,15 +37,9 @@ namespace Winleafs.Models.Models
 
         public ScreenMirrorAlgorithm ScreenMirrorAlgorithm { get; set; }
 
-        public int ScreenMirrorRefreshRatePerSecond { get; set; }
-        public int ScreenMirrorMonitorIndex { get; set; }
-        public bool ScreenMirrorControlBrightness { get; set; }
-
         public Device()
         {
             Effects = new List<Effect>();
-            ScreenMirrorRefreshRatePerSecond = 1;
-            ScreenMirrorControlBrightness = false;
             OperationMode = OperationMode.Manual;
         }
 
