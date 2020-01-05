@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Winleafs.Api;
 using Winleafs.Models.Models;
+using Winleafs.Models.Models.Effects;
 using Color = System.Drawing.Color;
 
 namespace Winleafs.Wpf.Api.Effects
@@ -56,7 +57,7 @@ namespace Winleafs.Wpf.Api.Effects
 
         public string GetName()
         {
-            return $"{UserSettings.CustomColorNamePreface}{_effectName}";
+            return UserCustomColorEffect.DisplayName(_effectName);
         }
     }
 }

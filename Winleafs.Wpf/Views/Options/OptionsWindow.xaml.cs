@@ -222,16 +222,22 @@ namespace Winleafs.Wpf.Views.Options
 
             #region Colors
 
+            var deletedColors = UserSettings.Settings.CustomEffects.Except(OptionsViewModel.CustomColorEffects);
+
             UserSettings.Settings.CustomEffects = OptionsViewModel.CustomColorEffects;
+
+            //Remove invalid triggers from the schedules
+            UserSettings.Settings.DeleteTriggers(deletedColors.Select(color => UserCustomColorEffect.DisplayName(color.EffectName)));
 
             #endregion Colors
 
+
             UserSettings.Settings.SaveSettings();
 
-            // Reload the orchestrator so custom effects are reloaded.
+            //Reload the orchestrator so custom effects are reloaded.
             OrchestratorCollection.ResetOrchestrators();
 
-            // Reload effects such that custom effects are updated in the view
+            //Reload effects such that custom effects are updated in the view
             _mainWindow.ReloadEffectsInView();
 
             Close();

@@ -326,6 +326,18 @@ namespace Winleafs.Models.Models
                 return null;
             }
         }
+
+        /// <summary>
+        /// Deletes any trigger in all schedules which effect name is
+        /// contained within the given <paramref name="effectNames"/>.
+        /// </summary>
+        public void DeleteTriggers(IEnumerable<string> effectNames)
+        {
+            foreach (var schedule in Schedules)
+            {
+                schedule.DeleteTriggers(effectNames);
+            }
+        }
         #endregion
 
         #region Migration methods

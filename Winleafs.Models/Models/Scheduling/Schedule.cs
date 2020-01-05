@@ -129,5 +129,40 @@ namespace Winleafs.Models.Models.Scheduling
 
             return currentTrigger;
         }
+
+        /// <summary>
+        /// Deletes any trigger in the schedule which effect name is
+        /// contained within the given <paramref name="effectNames"/>.
+        /// </summary>
+        public void DeleteTriggers(IEnumerable<string> effectNames)
+        {
+            foreach (var program in Programs)
+            {
+                //Make a copy such that we do not modify the collection while looping
+                var triggersCopy = program.Triggers.ToList();
+
+                foreach (var trigger in program.Triggers)
+                {
+                    if (effectNames.Contains(trigger.EffectName))
+                    {
+                        triggersCopy.Remove(triggersCopy.FirstOrDefault(triggerCopy => triggerCopy.EffectName == trigger.EffectName));
+                    }
+                }
+
+                program.Triggers = triggersCopy;
+            }
+
+            var eventTriggersCopy = EventTriggers.ToList();
+
+            foreach (var trigger in EventTriggers)
+            {
+                if (effectNames.Contains(trigger.EffectName))
+                {
+                    eventTriggersCopy.Remove(eventTriggersCopy.FirstOrDefault(triggerCopy => triggerCopy.EffectName == trigger.EffectName));
+                }
+            }
+
+            EventTriggers = eventTriggersCopy;
+        }
     }
 }
