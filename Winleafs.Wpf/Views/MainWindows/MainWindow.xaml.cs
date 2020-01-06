@@ -82,6 +82,17 @@ namespace Winleafs.Wpf.Views.MainWindows
             //Initialize device user controls
             _deviceUserControls = new List<DeviceUserControl>();
 
+            BuildDeviceUserControls();
+
+            LayoutDisplay.InitializeResizeTimer();
+            LayoutDisplay.DrawLayout();
+        }
+
+        private void BuildDeviceUserControls()
+        {
+            DevicesStackPanel.Children.Clear();
+            _deviceUserControls.Clear();
+
             foreach (var device in UserSettings.Settings.Devices)
             {
                 var deviceUserControl = new DeviceUserControl(device, this);
@@ -89,9 +100,6 @@ namespace Winleafs.Wpf.Views.MainWindows
                 _deviceUserControls.Add(deviceUserControl);
                 DevicesStackPanel.Children.Add(deviceUserControl);
             }
-
-            LayoutDisplay.InitializeResizeTimer();
-            LayoutDisplay.DrawLayout();
         }
 
         /// <summary>
@@ -153,7 +161,7 @@ namespace Winleafs.Wpf.Views.MainWindows
         {
             SchedulesStackPanel.Children.Clear();
 
-            if (UserSettings.Settings.Schedules == null || UserSettings.Settings.Schedules.Any() == false)
+            if (UserSettings.Settings.Schedules == null || !UserSettings.Settings.Schedules.Any())
             {
                 return;
             }
@@ -249,14 +257,9 @@ namespace Winleafs.Wpf.Views.MainWindows
                     var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(device);
 
                     device.LoadEffectsFromNameList(effects);
-                }        
-                
-                foreach (var deviceUserControl in _deviceUserControls)
-                {
-                    deviceUserControl.ReloadEffects();
                 }
 
-                //TODO: update context menu
+                ReloadEffectsInView();
 
                 UserSettings.Settings.SaveSettings();
 
@@ -275,33 +278,30 @@ namespace Winleafs.Wpf.Views.MainWindows
             setupWindow.Show();
         }
 
-        //TODO: where to place button to remove a device?
-        /*private void RemoveDevice_Click(object sender, RoutedEventArgs e)
+        public void DeleteDevice(string deviceName)
         {
-            var messageBoxResult = MessageBox.Show(string.Format(MainWindows.Resources.DeleteDeviceAreYouSure, _selectedDevice), MainWindows.Resources.DeleteConfirmation, MessageBoxButton.YesNo);
-            if (messageBoxResult == MessageBoxResult.Yes)
+            UserSettings.Settings.DeleteDevice(deviceName);
+
+            if (UserSettings.Settings.Devices.Count > 0)
             {
-                UserSettings.Settings.DeleteActiveDevice();
+                DeviceNames.Remove(_selectedDevice);
 
-                if (UserSettings.Settings.Devices.Count > 0)
-                {
-                    DeviceNames.Remove(_selectedDevice);
+                SelectedDevice = DeviceNames.FirstOrDefault();
 
-                    SelectedDevice = DeviceNames.FirstOrDefault();
+                DevicesDropdown.SelectedItem = SelectedDevice;
 
-                    DevicesDropdown.SelectedItem = SelectedDevice;
+                BuildDeviceUserControls();
 
-                    UpdateActiveEffectLabelsAndLayout();
-                }
-                else
-                {
-                    var setupWindow = new SetupWindow();
-                    setupWindow.Show();
-
-                    Close();
-                }
+                BuildScheduleList();
             }
-        }*/
+            else
+            {
+                var setupWindow = new SetupWindow();
+                setupWindow.Show();
+
+                Close();
+            }
+        }
 
         public void UpdateActiveEffectLabelsAndLayout()
         {

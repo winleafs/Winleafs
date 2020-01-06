@@ -176,16 +176,17 @@ namespace Winleafs.Models.Models
         }
 
         /// <summary>
-        /// Deletes the currently active <see cref="Device"/> and saves the settings.
+        /// Deletes the given <see cref="Device"/> and saves the settings.
         /// </summary>
-        public void DeleteActiveDevice()
+        public void DeleteDevice(string deviceName)
         {
-            DeleteDevice(ActiveDevice);
-        }
+            Devices.Remove(Devices.FirstOrDefault(device => device.Name == deviceName));
 
-        public void DeleteDevice(Device device)
-        {
-            Devices.Remove(device);
+            foreach (var schedule in Schedules)
+            {
+                schedule.AppliesToDeviceNames.Remove(deviceName);
+            }
+
             SaveSettings();
         }
 

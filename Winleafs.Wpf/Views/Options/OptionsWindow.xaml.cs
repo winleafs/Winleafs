@@ -334,5 +334,15 @@ namespace Winleafs.Wpf.Views.Options
             ColorList.Children.Remove(child);
             
         }
+
+        public void DeleteDevice(string deviceName)
+        {
+            var messageBoxResult = MessageBox.Show(string.Format(Options.Resources.AreYouSureDeviceDeletion, deviceName), MainWindows.Resources.DeleteConfirmation, MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                //Close this window then start deletion process in main window
+                Close();
+            }
+        }
     }
 }

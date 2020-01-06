@@ -233,4 +233,14 @@ by IP Adress</value>
   <data name="Color" xml:space="preserve">
     <value>Color</value>
   </data>
+  <data name="Devices" xml:space="preserve">
+    <value>Devices</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="AreYouSureDeviceDeletion" xml:space="preserve">
+    <value>Are you sure you want to delete {0}?</value>
+    <comment>Formatted string with 0: device name</comment>
+  </data>
 </root>

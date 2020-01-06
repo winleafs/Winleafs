@@ -139,6 +139,15 @@
                     </Grid>
                 </materialDesign:Card>
             </TabItem>
+            <TabItem Header="{x:Static local:Resources.Devices}">
+                <materialDesign:Card Padding="32" Margin="16" Background="{StaticResource NanoleafBlack}">
+                    <Grid>
+                        <ScrollViewer VerticalScrollBarVisibility="Visible" >
+                            <StackPanel Margin="0,0,5,0" x:Name="DeviceList" />
+                        </ScrollViewer>
+                    </Grid>
+                </materialDesign:Card>
+            </TabItem>
             <TabItem Header="{x:Static local:Resources.Color}">
                 <materialDesign:Card Padding="32" Margin="16" Background="{StaticResource NanoleafBlack}">
                     <Grid>
