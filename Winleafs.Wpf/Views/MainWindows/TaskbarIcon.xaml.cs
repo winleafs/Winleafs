@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,11 +10,13 @@ namespace Winleafs.Wpf.Views.MainWindows
     /// <summary>
     /// Interaction logic for TaskbarIcon.xaml
     /// </summary>
-    public partial class TaskbarIcon : UserControl
+    public partial class TaskbarIcon : UserControl, INotifyPropertyChanged
     {
         private MainWindow _parent;
 
         private string _selectedDevice;
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public string SelectedDevice
         {
@@ -24,6 +26,7 @@ namespace Winleafs.Wpf.Views.MainWindows
                 if (_selectedDevice != value)
                 {
                     _selectedDevice = value;
+                    OnPropertyChanged(nameof(SelectedDevice));
                     SelectedDeviceChanged();
                     DevicesDropdown.SelectedItem = _selectedDevice;
                 }
@@ -57,20 +60,46 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         private void SelectedDeviceChanged()
         {
-            DeviceUserControlGrid.Children.Clear();
+            if (_selectedDevice != null)
+            {
+                DeviceUserControlGrid.Children.Clear();
 
-            var deviceUserControl = new DeviceUserControl(UserSettings.Settings.Devices.FirstOrDefault(device => device.Name == SelectedDevice), _parent);
+                var deviceUserControl = new DeviceUserControl(UserSettings.Settings.Devices.FirstOrDefault(device => device.Name == SelectedDevice), _parent);
 
-            deviceUserControl.TopBorder.BorderThickness = new Thickness(0); //Hide the white top border
-            deviceUserControl.DeviceNameLabel.Visibility = Visibility.Hidden; //Hide the device name
+                deviceUserControl.TopBorder.BorderThickness = new Thickness(0); //Hide the white top border
+                deviceUserControl.DeviceNameLabel.Visibility = Visibility.Hidden; //Hide the device name
 
-            //Hide the device icons
-            deviceUserControl.SquareIcon.Visibility = Visibility.Hidden;
-            deviceUserControl.TriangleIcon.Visibility = Visibility.Hidden;
+                //Hide the device icons
+                deviceUserControl.SquareIcon.Visibility = Visibility.Hidden;
+                deviceUserControl.TriangleIcon.Visibility = Visibility.Hidden;
 
-            DeviceUserControl = deviceUserControl;
+                DeviceUserControl = deviceUserControl;
 
-            DeviceUserControlGrid.Children.Add(deviceUserControl);
+                DeviceUserControlGrid.Children.Add(deviceUserControl);
+            }            
+        }
+
+        public void DeviceDeleted(string deviceName)
+        {
+            var deviceCurrentlySelected = _selectedDevice == deviceName;
+
+            //This changes the _selectedDevice, hence the boolean must be saved before the removal, but the assignment must take place after removal
+            DeviceNames.Remove(deviceName);
+
+            //The deleted device was active in the view
+            if (deviceCurrentlySelected)
+            {
+                SelectedDevice = DeviceNames.FirstOrDefault();
+
+                DevicesDropdown.SelectedItem = SelectedDevice;
+            }
+
+            OnPropertyChanged(nameof(DeviceNames));
+        }
+
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

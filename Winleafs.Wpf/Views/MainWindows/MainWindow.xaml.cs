@@ -1,21 +1,14 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Navigation;
-using Hardcodet.Wpf.TaskbarNotification;
-
-using NLog;
 using Winleafs.Api;
 using Winleafs.Models.Enums;
 using Winleafs.Models.Models;
 using Winleafs.Models.Models.Scheduling;
 using Winleafs.Wpf.Api;
-using Winleafs.Wpf.Enums;
-using Winleafs.Wpf.Helpers;
-using Winleafs.Wpf.Properties;
 using Winleafs.Wpf.Views.Options;
 using Winleafs.Wpf.Views.Scheduling;
 
@@ -33,7 +26,7 @@ namespace Winleafs.Wpf.Views.MainWindows
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
         private string _selectedDevice;
 
@@ -45,6 +38,7 @@ namespace Winleafs.Wpf.Views.MainWindows
                 if (_selectedDevice != value)
                 {
                     _selectedDevice = value;
+                    OnPropertyChanged(nameof(SelectedDevice));
                     SelectedDeviceChanged();
                 }
             }
@@ -53,7 +47,9 @@ namespace Winleafs.Wpf.Views.MainWindows
         public ObservableCollection<string> DeviceNames { get; set; }
 
         private List<DeviceUserControl> _deviceUserControls;
-        
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -116,16 +112,30 @@ namespace Winleafs.Wpf.Views.MainWindows
             TaskbarIcon.DeviceUserControl.ReloadEffects();
         }
 
-        public void UpdateDeviceNames()
+        private void UpdateDeviceNames()
         {
             DeviceNames = new ObservableCollection<string>(UserSettings.Settings.Devices.Select(d => d.Name));
+            OnPropertyChanged(nameof(DeviceNames));
+        }
+
+        public void DeviceAdded(Device device)
+        {
+            UpdateDeviceNames();
+
+            var deviceUserControl = new DeviceUserControl(device, this);
+
+            _deviceUserControls.Add(deviceUserControl);
+            DevicesStackPanel.Children.Add(deviceUserControl);
         }
 
         private void SelectedDeviceChanged()
         {
-            UserSettings.Settings.SetActiveDevice(_selectedDevice);
+            if (_selectedDevice != null)
+            {
+                UserSettings.Settings.SetActiveDevice(_selectedDevice);
 
-            LayoutDisplay.DrawLayout(true);
+                LayoutDisplay.DrawLayout(true);
+            }            
         }
 
         private void AddSchedule_Click(object sender, RoutedEventArgs e)
@@ -280,19 +290,31 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         public void DeleteDevice(string deviceName)
         {
+            //Delete the orchestrator before deleting the device itself
+            OrchestratorCollection.DeleteOrchestrator(UserSettings.Settings.Devices.FirstOrDefault(device => device.Name == deviceName));
+
             UserSettings.Settings.DeleteDevice(deviceName);
 
             if (UserSettings.Settings.Devices.Count > 0)
             {
-                DeviceNames.Remove(_selectedDevice);
+                var deviceCurrentlySelected = _selectedDevice == deviceName;
 
-                SelectedDevice = DeviceNames.FirstOrDefault();
+                //This changes the _selectedDevice, hence the boolean must be saved before the removal, but the assignment must take place after removal
+                DeviceNames.Remove(deviceName);
 
-                DevicesDropdown.SelectedItem = SelectedDevice;
+                //The deleted device was active in the view
+                if (deviceCurrentlySelected)
+                {
+                    SelectedDevice = DeviceNames.FirstOrDefault();
+
+                    DevicesDropdown.SelectedItem = SelectedDevice;
+                }                
 
                 BuildDeviceUserControls();
 
                 BuildScheduleList();
+
+                TaskbarIcon.DeviceDeleted(deviceName);
             }
             else
             {
@@ -315,7 +337,7 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         public void UpdateLayoutColors(string deviceName)
         {
-            if (deviceName == UserSettings.Settings.ActiveDevice.Name)
+            if (deviceName == UserSettings.Settings.ActiveDevice?.Name)
             {
                 LayoutDisplay.UpdateColors();
             }
@@ -372,6 +394,11 @@ namespace Winleafs.Wpf.Views.MainWindows
         private void OpenURL(string url)
         {
             Process.Start(new ProcessStartInfo("cmd", $"/c start {url}") { CreateNoWindow = true });
+        }
+
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

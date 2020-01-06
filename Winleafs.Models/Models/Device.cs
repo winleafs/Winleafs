@@ -40,7 +40,7 @@ namespace Winleafs.Models.Models
         public Device()
         {
             Effects = new List<Effect>();
-            OperationMode = OperationMode.Manual;
+            OperationMode = OperationMode.Schedule;
         }
 
         public void LoadEffectsFromNameList(IEnumerable<string> effectNames)

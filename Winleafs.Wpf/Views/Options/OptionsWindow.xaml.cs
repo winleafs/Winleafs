@@ -77,6 +77,11 @@ namespace Winleafs.Wpf.Views.Options
             _startupKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", RegistryKeyPermissionCheck.ReadWriteSubTree, RegistryRights.FullControl);
             _visualizationOpen = false;
 
+            foreach (var device in UserSettings.Settings.Devices)
+            {
+                DeviceList.Children.Add(new DeviceUserControl(device.Name, this));
+            }
+
             DataContext = OptionsViewModel;
         }
 
@@ -340,7 +345,9 @@ namespace Winleafs.Wpf.Views.Options
             var messageBoxResult = MessageBox.Show(string.Format(Options.Resources.AreYouSureDeviceDeletion, deviceName), MainWindows.Resources.DeleteConfirmation, MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
-                //Close this window then start deletion process in main window
+                //Start deletion process in main window then close this window
+                _mainWindow.DeleteDevice(deviceName);
+
                 Close();
             }
         }

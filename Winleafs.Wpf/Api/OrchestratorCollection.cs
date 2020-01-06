@@ -76,5 +76,13 @@ namespace Winleafs.Wpf.Api
         {
             return _orchestratorForDevices.Values.Count(orchestrator => orchestrator.HasActiveScreenMirrorEffect());
         }
+
+        /// <summary>
+        /// Deletes the <see cref="Orchestrator"/> for the given <paramref name="device"/>.
+        /// </summary>
+        public static void DeleteOrchestrator(Device device)
+        {
+            _orchestratorForDevices.Remove(device.IPAddress);
+        }
     }
 }
