@@ -81,18 +81,19 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         public void DeviceDeleted(string deviceName)
         {
-            var deviceCurrentlySelected = _selectedDevice == deviceName;
-
-            //This changes the _selectedDevice, hence the boolean must be saved before the removal, but the assignment must take place after removal
             DeviceNames.Remove(deviceName);
 
-            //The deleted device was active in the view
-            if (deviceCurrentlySelected)
-            {
-                SelectedDevice = DeviceNames.FirstOrDefault();
+            //Reset the selected device to make sure the deleted device is not selected
+            SelectedDevice = DeviceNames.FirstOrDefault();
 
-                DevicesDropdown.SelectedItem = SelectedDevice;
-            }
+            DevicesDropdown.SelectedItem = SelectedDevice;
+
+            OnPropertyChanged(nameof(DeviceNames));
+        }
+
+        public void DeviceAdded()
+        {
+            DeviceNames = _parent.DeviceNames;
 
             OnPropertyChanged(nameof(DeviceNames));
         }

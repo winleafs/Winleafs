@@ -126,6 +126,8 @@ namespace Winleafs.Wpf.Views.MainWindows
 
             _deviceUserControls.Add(deviceUserControl);
             DevicesStackPanel.Children.Add(deviceUserControl);
+
+            TaskbarIcon.DeviceAdded();
         }
 
         private void SelectedDeviceChanged()
