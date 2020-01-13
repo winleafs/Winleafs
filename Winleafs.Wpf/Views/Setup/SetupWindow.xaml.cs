@@ -63,7 +63,7 @@ namespace Winleafs.Wpf.Views.Setup
             if (_parent != null)
             {
                 OrchestratorCollection.AddOrchestratorForDevice(selectedDevice);
-                _parent.UpdateDeviceNames();
+                _parent.DeviceAdded(selectedDevice);
                 _parent.SelectedDevice = selectedDevice.Name;
             }
             else
