@@ -323,6 +323,8 @@ namespace Winleafs.Wpf.Views.MainWindows
                 var setupWindow = new SetupWindow();
                 setupWindow.Show();
 
+                NotifyIcon.Dispose();
+
                 Close();
             }
         }
