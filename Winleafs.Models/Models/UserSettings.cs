@@ -182,6 +182,13 @@ namespace Winleafs.Models.Models
         {
             Devices.Remove(Devices.FirstOrDefault(device => device.Name == deviceName));
 
+
+            if (Schedules == null)
+            {
+                SaveSettings();
+                return;
+            }
+
             foreach (var schedule in Schedules)
             {
                 schedule.AppliesToDeviceNames.Remove(deviceName);
