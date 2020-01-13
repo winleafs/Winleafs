@@ -232,4 +232,14 @@ per IP adres</value>
   <data name="Color" xml:space="preserve">
     <value>Kleur</value>
   </data>
+  <data name="Devices" xml:space="preserve">
+    <value>Apparaten</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="AreYouSureDeviceDeletion" xml:space="preserve">
+    <value>Weet je zeker dat je {0} wilt verwijderen?</value>
+    <comment>Formatted string with 0: device name</comment>
+  </data>
 </root>
