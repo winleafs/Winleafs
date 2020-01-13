@@ -369,7 +369,7 @@ namespace Winleafs.Wpf.Views.MainWindows
             OpenURL("https://www.paypal.com/paypalme2/winleafs");
         }
 
-        private void OpenURL(string url)
+        public static void OpenURL(string url)
         {
             Process.Start(new ProcessStartInfo("cmd", $"/c start {url}") { CreateNoWindow = true });
         }
