@@ -43,7 +43,7 @@ We would appreciate it if you'd contact us before picking up a task so we can av
 - [Screen mirror](https://www.youtube.com/watch?v=iT_jQnQLVQA)
 
 ## Troubleshooting
-If you are experiencing problems, try deleting the settings file from %appdata%/Winleafs. Note: this removes all settings and schedules.
+If you are experiencing problems, try deleting the settings file from %appdata%/Winleafs. Note: this removes all settings and schedules. Otherwise, you can create an issue [here](https://github.com/winleafs/Winleafs/issues/new/choose) and we will get back to you as soon as possible.
 
 ## Projects and APIs used
 
