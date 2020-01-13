@@ -271,7 +271,7 @@ namespace Winleafs.Wpf.Views.Options
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
-            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+            MainWindow.OpenURL(e.Uri.AbsoluteUri);
             e.Handled = true;
         }
 
