@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="*" UpgradeCode="42ee9157-4382-4852-bed7-72b25fb2d0bf" Version="1.0.0" Language="1033" Name="Winleafs" Manufacturer="Stijn Oostdam">
+    <Package Compressed="yes" />
+    <Media Id="1" Cabinet="myapplication.cab" EmbedCab="yes" />
+    <!-- Add installer icon -->
+    <Icon Id="icon.ico" SourceFile="..\Winleafs.Wpf\Icons\icon.ico" />
+    <Property Id="ARPPRODUCTICON" Value="icon.ico" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of Winleafs is already installed." />
+
+    <Feature Id="ProductFeature" Title="Main Application" Level="1">
+      <ComponentRef Id="ApplicationShortcut" />
+      <ComponentRef Id="ApplicationShortcutDesktop" />
+      <ComponentGroupRef Id="ClefTool_Project" />
+    </Feature>
+  </Product>
+
+  <Fragment>
+    <!-- Step  1: Define the directory structure -->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="Winleafs">
+          <Directory Id="directory_nl" Name="nl" />
+        </Directory>
+      </Directory>
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="Winleafs" />
+      </Directory>
+      <Directory Id="DesktopFolder" Name="Desktop">
+      </Directory>
+    </Directory>
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="ApplicationShortcut" Guid="33bf752d-c561-4abe-b830-450437a70da6">
+        <Shortcut Id="ApplicationStartMenuShortcut" Name="Winleafs" Description="Windows application to control your Nanoleaf lights" Target="[#fil5902A7E8A9E813E7EBDA7CF63326FAC5]" WorkingDirectory="APPLICATIONROOTDIRECTORY" />
+        <RemoveFolder Id="CleanUpShortCut" Directory="ApplicationProgramsFolder" On="uninstall" />
+        <RegistryValue Root="HKCU" Key="Software\Winleafs" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="DesktopFolder">
+      <Component Id="ApplicationShortcutDesktop" Guid="*">
+        <Shortcut Id="ApplicationDesktopShortcut" Name="Winleafs" Description="Windows application to control your Nanoleaf lights" Target="[#fil5902A7E8A9E813E7EBDA7CF63326FAC5]" WorkingDirectory="APPLICATIONROOTDIRECTORY" />
+        <RemoveFolder Id="DesktopFolder" On="uninstall" />
+        <RegistryValue Root="HKCU" Key="Software/Winleafs" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+
+  <Fragment>
+    <!--<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">-->
+      <!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
+      <!--<Component Id="ProductComponent">-->
+
+        <!-- TODO: Insert files, registry keys, and other resources here. -->
+
+      <!--</Component>-->
+    <!--</ComponentGroup>-->
+  </Fragment>
+</Wix>
