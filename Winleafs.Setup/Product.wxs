@@ -4,12 +4,14 @@
     <Package Compressed="yes" />
     <Media Id="1" Cabinet="myapplication.cab" EmbedCab="yes" />
     <!-- Add installer icon -->
-    <Icon Id="icon.ico" SourceFile="\..\Icons\icon.ico" />
+    <Icon Id="icon.ico" SourceFile="..\Winleafs.Wpf\Icons\icon.ico" />
     <Property Id="ARPPRODUCTICON" Value="icon.ico" />
 
-    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MajorUpgrade DowngradeErrorMessage="A newer version of Winleafs is already installed." />
 
-    <Feature Id="ProductFeature" Title="CLEF Tool" Level="1">
+    <Feature Id="ProductFeature" Title="Main Application" Level="1">
+      <ComponentRef Id="ApplicationShortcut" />
+      <ComponentRef Id="ApplicationShortcutDesktop" />
       <ComponentGroupRef Id="ClefTool_Project" />
     </Feature>
   </Product>
@@ -18,7 +20,7 @@
     <!-- Step  1: Define the directory structure -->
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder">
-        <Directory Id="APPLICATIONROOTDIRECTORY" Name="Winleafs">
+        <Directory Id="INSTALLFOLDER" Name="Winleafs">
           <Directory Id="directory_nl" Name="nl" />
         </Directory>
       </Directory>
@@ -30,14 +32,14 @@
     </Directory>
     <DirectoryRef Id="ApplicationProgramsFolder">
       <Component Id="ApplicationShortcut" Guid="33bf752d-c561-4abe-b830-450437a70da6">
-        <Shortcut Id="ApplicationStartMenuShortcut" Name="Winleafs" Description="Windows application to control your Nanoleaf lights" Target="[#Winleafs.Wpf.exe]" WorkingDirectory="APPLICATIONROOTDIRECTORY" />
+        <Shortcut Id="ApplicationStartMenuShortcut" Name="Winleafs" Description="Windows application to control your Nanoleaf lights" Target="$(var.BasePath)\Winleafs.Wpf.exe" WorkingDirectory="APPLICATIONROOTDIRECTORY" />
         <RemoveFolder Id="CleanUpShortCut" Directory="ApplicationProgramsFolder" On="uninstall" />
         <RegistryValue Root="HKCU" Key="Software\Winleafs" Name="installed" Type="integer" Value="1" KeyPath="yes" />
       </Component>
     </DirectoryRef>
     <DirectoryRef Id="DesktopFolder">
       <Component Id="ApplicationShortcutDesktop" Guid="*">
-        <Shortcut Id="ApplicationDesktopShortcut" Name="Winleafs" Description="Windows application to control your Nanoleaf lights" Target="[#Winleafs.Wpf.exe]" WorkingDirectory="APPLICATIONROOTDIRECTORY" />
+        <Shortcut Id="ApplicationDesktopShortcut" Name="Winleafs" Description="Windows application to control your Nanoleaf lights" Target="$(var.BasePath)\Winleafs.Wpf.exe" WorkingDirectory="APPLICATIONROOTDIRECTORY" />
         <RemoveFolder Id="DesktopFolder" On="uninstall" />
         <RegistryValue Root="HKCU" Key="Software/Winleafs" Name="installed" Type="integer" Value="1" KeyPath="yes" />
       </Component>
