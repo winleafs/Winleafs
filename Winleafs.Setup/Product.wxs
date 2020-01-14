@@ -32,14 +32,14 @@
     </Directory>
     <DirectoryRef Id="ApplicationProgramsFolder">
       <Component Id="ApplicationShortcut" Guid="33bf752d-c561-4abe-b830-450437a70da6">
-        <Shortcut Id="ApplicationStartMenuShortcut" Name="Winleafs" Description="Windows application to control your Nanoleaf lights" Target="Winleafs.Wpf.exe" WorkingDirectory="APPLICATIONROOTDIRECTORY" />
+        <Shortcut Id="ApplicationStartMenuShortcut" Name="Winleafs" Description="Windows application to control your Nanoleaf lights" Target="[#fil5902A7E8A9E813E7EBDA7CF63326FAC5]" WorkingDirectory="APPLICATIONROOTDIRECTORY" />
         <RemoveFolder Id="CleanUpShortCut" Directory="ApplicationProgramsFolder" On="uninstall" />
         <RegistryValue Root="HKCU" Key="Software\Winleafs" Name="installed" Type="integer" Value="1" KeyPath="yes" />
       </Component>
     </DirectoryRef>
     <DirectoryRef Id="DesktopFolder">
       <Component Id="ApplicationShortcutDesktop" Guid="*">
-        <Shortcut Id="ApplicationDesktopShortcut" Name="Winleafs" Description="Windows application to control your Nanoleaf lights" Target="Winleafs.Wpf.exe" WorkingDirectory="APPLICATIONROOTDIRECTORY" />
+        <Shortcut Id="ApplicationDesktopShortcut" Name="Winleafs" Description="Windows application to control your Nanoleaf lights" Target="[#fil5902A7E8A9E813E7EBDA7CF63326FAC5]" WorkingDirectory="APPLICATIONROOTDIRECTORY" />
         <RemoveFolder Id="DesktopFolder" On="uninstall" />
         <RegistryValue Root="HKCU" Key="Software/Winleafs" Name="installed" Type="integer" Value="1" KeyPath="yes" />
       </Component>
