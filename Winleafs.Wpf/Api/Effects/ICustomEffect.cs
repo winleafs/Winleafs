@@ -56,7 +56,8 @@ namespace Winleafs.Wpf.Api.Effects
                 return false;
             }
 
-            return (x == null && y == null) ||
+            // If X is null here, both x and y must be null.
+            return x == null ||
                 (x.GetName() == y.GetName());
         }
 
