@@ -51,7 +51,13 @@ namespace Winleafs.Wpf.Api.Effects
     {
         public bool Equals([AllowNull] ICustomEffect x, [AllowNull] ICustomEffect y)
         {
-            return (x == null && y == null) ||
+            if (x == null && y != null || y == null && x != null)
+            {
+                return false;
+            }
+
+            // If X is null here, both x and y must be null.
+            return x == null ||
                 (x.GetName() == y.GetName());
         }
 
