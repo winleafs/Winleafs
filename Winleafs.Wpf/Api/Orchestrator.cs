@@ -74,13 +74,7 @@ namespace Winleafs.Wpf.Api
             if (Device.OperationMode == OperationMode.Schedule)
             {
                 ScheduleTimer.StartTimer(sync);
-            }
-
-            //Finally, trigger effect changed callback, but not for manual operation mode, since that one is responsible for setting the effect and triggering the callbacks itself
-            if (Device.OperationMode != OperationMode.Manual)
-            {
-                TriggerEffectChangedCallbacks();
-            }            
+            }          
 
             return true;
         }
@@ -130,6 +124,9 @@ namespace Winleafs.Wpf.Api
                 {
                     await client.EffectsEndpoint.SetSelectedEffectAsync(effectName);
                 }
+
+                //Finally, trigger effect changed callback
+                TriggerEffectChangedCallbacks();
             }
             catch (Exception e)
             {
@@ -232,7 +229,7 @@ namespace Winleafs.Wpf.Api
             _effectChangedCallbacks.Add(callback);
         }
 
-        public void TriggerEffectChangedCallbacks()
+        private void TriggerEffectChangedCallbacks()
         {
             foreach (var callback in _effectChangedCallbacks)
             {

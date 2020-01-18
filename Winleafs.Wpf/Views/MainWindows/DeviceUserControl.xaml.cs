@@ -105,9 +105,6 @@ namespace Winleafs.Wpf.Views.MainWindows
                     await _orchestrator.ActivateEffect(_selectedEffect, Brightness);
 
                     UserSettings.Settings.SaveSettings();
-
-                    //Manually trigger the callbacks since we changed the effect manually
-                    _orchestrator.TriggerEffectChangedCallbacks();
                 }
             }
             catch (Exception e)
