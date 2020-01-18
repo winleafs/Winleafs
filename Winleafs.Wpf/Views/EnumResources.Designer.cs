@@ -97,6 +97,15 @@ namespace Winleafs.Wpf.Views {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Color.
+        /// </summary>
+        public static string Color {
+            get {
+                return ResourceManager.GetString("Color", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Event.
         /// </summary>
         public static string Event {
@@ -120,6 +129,15 @@ namespace Winleafs.Wpf.Views {
         public static string ProcessEvent {
             get {
                 return ResourceManager.GetString("ProcessEvent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rhythm.
+        /// </summary>
+        public static string Rhythm {
+            get {
+                return ResourceManager.GetString("Rhythm", resourceCulture);
             }
         }
         
@@ -174,6 +192,24 @@ namespace Winleafs.Wpf.Views {
         public static string Time {
             get {
                 return ResourceManager.GetString("Time", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown.
+        /// </summary>
+        public static string Unknown {
+            get {
+                return ResourceManager.GetString("Unknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Winleafs.
+        /// </summary>
+        public static string Winleafs {
+            get {
+                return ResourceManager.GetString("Winleafs", resourceCulture);
             }
         }
     }

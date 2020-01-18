@@ -129,6 +129,9 @@
   <data name="Borderlands2HealthEvent" xml:space="preserve">
     <value>Borderlands 2 health event</value>
   </data>
+  <data name="Color" xml:space="preserve">
+    <value>Kleur</value>
+  </data>
   <data name="Event" xml:space="preserve">
     <value>Event</value>
   </data>
@@ -137,6 +140,9 @@
   </data>
   <data name="ProcessEvent" xml:space="preserve">
     <value>Procesevent</value>
+  </data>
+  <data name="Rhythm" xml:space="preserve">
+    <value>Rhythm</value>
   </data>
   <data name="Schedule" xml:space="preserve">
     <value>Schema</value>
@@ -155,5 +161,11 @@
   </data>
   <data name="Time" xml:space="preserve">
     <value>Tijd</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Onbekend</value>
+  </data>
+  <data name="Winleafs" xml:space="preserve">
+    <value>Winleafs</value>
   </data>
 </root>

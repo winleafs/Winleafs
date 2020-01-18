@@ -2,12 +2,14 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Threading.Tasks;
+using Winleafs.Models.Enums;
 
 namespace Winleafs.Wpf.Api.Effects
 {
     public interface ICustomEffect
     {
         public static readonly Color DefaultColor = Color.DarkGray;
+        public static readonly EffectType EffectType = EffectType.Winleafs;
 
         /// <summary>
         /// Activates the custom effect.
