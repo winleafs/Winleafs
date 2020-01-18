@@ -209,15 +209,16 @@ namespace Winleafs.Wpf.Views.Scheduling
 
         private BeforeAfter GetBeforeAfter()
         {
-            if (BeforeRadioButton.IsChecked != null && BeforeRadioButton.IsChecked.Value)
+            if (BeforeRadioButton.IsChecked == true)
+            {
+                return BeforeAfter.Before;
+            }
+            else if (AfterRadioButton.IsChecked == true)
             {
                 return BeforeAfter.After;
-            }
-
-            return AfterRadioButton.IsChecked != null
-                   && AfterRadioButton.IsChecked.Value
-                       ? BeforeAfter.After
-                       : BeforeAfter.None;
+            }               
+            
+            return BeforeAfter.None;
         }
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
