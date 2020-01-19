@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Winleafs.Models.Enums;
 using Winleafs.Wpf.ViewModels;
 
 namespace Winleafs.Wpf.Views.Effects
@@ -16,11 +17,8 @@ namespace Winleafs.Wpf.Views.Effects
             InitializeComponent();
         }
 
-        public void DrawColoredBorder()
+        private void DrawColoredBorder(EffectComboBoxItemViewModel dataContext)
         {
-            //Cast is safe since we always now this is the type of the data context
-            var dataContext = (EffectComboBoxItemViewModel)DataContext;
-
             //Remove duplicate colors, palettes from Nanoleaf can contain the same color multiple times
             var colors = dataContext.Colors.Distinct();
 
@@ -56,11 +54,29 @@ namespace Winleafs.Wpf.Views.Effects
             }        
         }
 
+        private void SetIcon(EffectComboBoxItemViewModel dataContext)
+        {
+            //Display icons when the effect is either color or rhythm
+            switch (dataContext.EffectType)
+            {
+                case EffectType.Color:
+                    ColorIcon.Visibility = Visibility.Visible;
+                    break;
+                case EffectType.Rhythm:
+                    RhythmIcon.Visibility = Visibility.Visible;
+                    break;
+            }
+        }
+
         private void UserControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (DataContext is EffectComboBoxItemViewModel)
             {
-                DrawColoredBorder();
+                //Cast is safe since we always now this is the type of the data context
+                var dataContext = (EffectComboBoxItemViewModel)DataContext;
+
+                DrawColoredBorder(dataContext);
+                SetIcon(dataContext);
             }
         }
     }

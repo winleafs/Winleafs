@@ -69,7 +69,7 @@ namespace Winleafs.Models.Models.Effects
         {
             get
             {
-                switch (PluginType.ToLower())
+                switch (PluginType?.ToLower())
                 {
                     case "color":
                         return EffectType.Color;
