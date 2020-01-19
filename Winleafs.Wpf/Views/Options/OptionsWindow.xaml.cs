@@ -56,7 +56,8 @@ namespace Winleafs.Wpf.Views.Options
             {
                 AlgorithmPerDevice = UserSettings.Settings.Devices.ToDictionary(d => d.Name, d => d.ScreenMirrorAlgorithm),
                 ScreenMirrorRefreshRatePerSecond = UserSettings.Settings.ScreenMirrorRefreshRatePerSecond,
-                SelectedMonitor = _monitorNames.ElementAt(UserSettings.Settings.ScreenMirrorMonitorIndex),
+                SelectedMonitor = _monitorNames.Count < UserSettings.Settings.ScreenMirrorMonitorIndex 
+                    ? _monitorNames.ElementAt(UserSettings.Settings.ScreenMirrorMonitorIndex) : null,
                 DeviceNames = new ObservableCollection<string>(UserSettings.Settings.Devices.Select(d => d.Name)),
                 MonitorNames = _monitorNames,
                 StartAtWindowsStartUp = UserSettings.Settings.StartAtWindowsStartup,
