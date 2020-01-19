@@ -4,9 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Winleafs.Wpf.Views.Effects"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="40" d:DesignWidth="273" Width="{Binding Width}" DataContextChanged="UserControl_DataContextChanged">
     <Grid x:Name="ContentGrid">
-        <Label x:Name="EffectLabel" Foreground="White" Margin="0,10,0,0" Content="{Binding EffectName}" Padding="5,3,0,0"/>
+        <Label x:Name="EffectLabel" Foreground="White" Margin="0,10,30,0" Content="{Binding EffectName}" Padding="5,3,0,0"/>
+        <materialDesign:PackIcon x:Name="RhythmIcon" Kind="Music" Foreground="White" Height="18" Width="18" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,0" Visibility="Hidden"/>
+        <materialDesign:PackIcon x:Name="ColorIcon" Kind="Palette" Foreground="White" Height="18" Width="18" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,0" Visibility="Hidden"/>
     </Grid>
 </UserControl>

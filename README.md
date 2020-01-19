@@ -34,7 +34,7 @@ We would appreciate it if you'd contact us before picking up a task so we can av
 
 ## Showcase
 ![Screenshot](Media/Screenshot1.jpg)
-![Screenshot](Media/Screenshot2.jpg)
+![Screenshot](Media/Screenshot2.png)
 
 ### Screen Mirror
 ![Screenshot](Media/ScreenMirror.jpeg)

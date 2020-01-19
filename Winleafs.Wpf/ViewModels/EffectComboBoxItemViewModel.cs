@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Media;
+using Winleafs.Models.Enums;
 
 namespace Winleafs.Wpf.ViewModels
 {
@@ -10,5 +11,7 @@ namespace Winleafs.Wpf.ViewModels
         public string EffectName { get; set; }
 
         public IEnumerable<Color> Colors { get; set; }
+
+        public EffectType EffectType { get; set; }
     }
 }

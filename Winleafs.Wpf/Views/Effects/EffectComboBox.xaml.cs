@@ -1,12 +1,11 @@
-﻿using MaterialDesignThemes.Wpf;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using Winleafs.Api;
+using Winleafs.Models.Enums;
 using Winleafs.Models.Models;
 using Winleafs.Models.Models.Effects;
 using Winleafs.Wpf.Api;
@@ -89,7 +88,8 @@ namespace Winleafs.Wpf.Views.Effects
                 {
                     EffectName = customEffect.GetName(),
                     Width = (int)Width,
-                    Colors = customEffect.GetColors().Select(color => Color.FromArgb(color.A, color.R, color.G, color.B))
+                    Colors = customEffect.GetColors().Select(color => Color.FromArgb(color.A, color.R, color.G, color.B)),
+                    EffectType = ICustomEffect.EffectType
                 });
             }
 
@@ -102,7 +102,8 @@ namespace Winleafs.Wpf.Views.Effects
                     {
                         EffectName = effect.Name,
                         Width = (int)Width,
-                        Colors = _defaultColors
+                        Colors = _defaultColors,
+                        EffectType = EffectType.Unknown
                     });
                 }
 
@@ -128,7 +129,8 @@ namespace Winleafs.Wpf.Views.Effects
                     {
                         EffectName = effectWithPalette.Name,
                         Width = (int)Width,
-                        Colors = effectWithPalette.Palette.Select(palette => HsbToRgbConverter.ConvertToMediaColor(palette.Hue, palette.Saturation, palette.Brightness))
+                        Colors = effectWithPalette.Palette.Select(palette => HsbToRgbConverter.ConvertToMediaColor(palette.Hue, palette.Saturation, palette.Brightness)),
+                        EffectType = effectWithPalette.EffectType
                     });
                 }
                 catch
@@ -138,7 +140,8 @@ namespace Winleafs.Wpf.Views.Effects
                     {
                         EffectName = effect.Name,
                         Width = (int)Width,
-                        Colors = _defaultColors
+                        Colors = _defaultColors,
+                        EffectType = EffectType.Unknown
                     });
                 }
             }
