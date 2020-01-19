@@ -12,6 +12,13 @@ namespace Winleafs.Wpf.Helpers
         [DllImport("user32.dll")]
         internal static extern bool EnumDisplaySettings(string lpszDeviceName, int iModeNum, ref MonitorInfo monitorInfo);
 
+        /// <summary>
+        /// Get the position of a monitor as a <see cref="Rectangle"/>. 
+        /// </summary>
+        /// <exception cref="NullReferenceException">
+        /// Thrown when the given monitor index is too high or the monitor is somehow not
+        /// responsive (e.g. disabled in Windows).
+        /// </exception>
         public static Rectangle GetScreenBounds(int monitorIndex)
         {
             // We select monitors via the new API but the MonitorInfo class works via the Windows Forms diaply name.
@@ -28,12 +35,19 @@ namespace Winleafs.Wpf.Helpers
 
         public static List<PathDisplayTarget> GetMonitors()
         {
-            return PathDisplayTarget.GetDisplayTargets().OrderBy(monitor => monitor.FriendlyName).ToList();
+            //WindowsDisplayAPI does not return disabled monitors, while PathDisplayTarget does. Hence we use WindowsDisplayAPI to filter out the
+            //inactive monitors that PathDisplayTarget returns
+            var formsMonitorsDevicePaths = WindowsDisplayAPI.Display.GetDisplays().Select(monitor => monitor.DevicePath);
+
+            var enabledMonitors = PathDisplayTarget.GetDisplayTargets().Where(monitor => formsMonitorsDevicePaths.Contains(monitor.DevicePath));
+
+            return enabledMonitors.OrderBy(monitor => monitor.FriendlyName).ToList();
         }
 
         public static List<string> GetMonitorNames()
         {
-            return GetMonitors().Select(monitor => monitor.FriendlyName).ToList();
+            var i = 1;
+            return GetMonitors().Select(monitor => $"{i++} - {monitor.FriendlyName}").ToList();
         }
     }
 

@@ -1,26 +1,25 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Windows;
-using Microsoft.Win32;
-using Winleafs.External;
-using Winleafs.Models.Models;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Windows.Navigation;
-using Winleafs.Wpf.Views.Popup;
-using Winleafs.Wpf.ViewModels;
-using System.Collections.ObjectModel;
-using Winleafs.Wpf.Helpers;
-using Winleafs.Models.Enums;
-using System.Windows.Media;
-using System.Drawing;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using Winleafs.External;
+using Winleafs.Models.Enums;
+using Winleafs.Models.Models;
 using Winleafs.Models.Models.Effects;
 using Winleafs.Wpf.Api;
+using Winleafs.Wpf.Helpers;
+using Winleafs.Wpf.ViewModels;
 using Winleafs.Wpf.Views.MainWindows;
-using Winleafs.Wpf.Views.Setup;
+using Winleafs.Wpf.Views.Popup;
 using Brushes = System.Windows.Media.Brushes;
 using Color = System.Drawing.Color;
 
@@ -43,21 +42,23 @@ namespace Winleafs.Wpf.Views.Options
 
         private readonly MainWindow _mainWindow;
 
+        private readonly List<string> _monitorNames;
+
         public OptionsWindow(MainWindow mainWindow)
         {
             _mainWindow = mainWindow;
 
             InitializeComponent();
 
-            var monitorNames = ScreenBoundsHelper.GetMonitorNames();
+            _monitorNames = ScreenBoundsHelper.GetMonitorNames();
 
             OptionsViewModel = new OptionsViewModel(this)
             {
                 AlgorithmPerDevice = UserSettings.Settings.Devices.ToDictionary(d => d.Name, d => d.ScreenMirrorAlgorithm),
                 ScreenMirrorRefreshRatePerSecond = UserSettings.Settings.ScreenMirrorRefreshRatePerSecond,
-                SelectedMonitor = monitorNames.ElementAt(UserSettings.Settings.ScreenMirrorMonitorIndex),
+                SelectedMonitor = _monitorNames.ElementAt(UserSettings.Settings.ScreenMirrorMonitorIndex),
                 DeviceNames = new ObservableCollection<string>(UserSettings.Settings.Devices.Select(d => d.Name)),
-                MonitorNames = monitorNames,
+                MonitorNames = _monitorNames,
                 StartAtWindowsStartUp = UserSettings.Settings.StartAtWindowsStartup,
                 Latitude = UserSettings.Settings.Latitude?.ToString("N7", CultureInfo.InvariantCulture),
                 Longitude = UserSettings.Settings.Longitude?.ToString("N7", CultureInfo.InvariantCulture),
@@ -81,6 +82,8 @@ namespace Winleafs.Wpf.Views.Options
             {
                 DeviceList.Children.Add(new DeviceUserControl(device.Name, this));
             }
+
+            DrawMonitors();
 
             DataContext = OptionsViewModel;
         }
@@ -110,8 +113,7 @@ namespace Winleafs.Wpf.Views.Options
             {
                 var screenMirrorAlgorithm = OptionsViewModel.ScreenMirrorAlgorithmMapping[OptionsViewModel.SelectedScreenMirrorAlgorithm];
 
-                var monitorNames = ScreenBoundsHelper.GetMonitorNames();
-                var monitorIndex = Array.IndexOf(monitorNames.ToArray(), OptionsViewModel.SelectedMonitor);
+                var monitorIndex = Array.IndexOf(_monitorNames.ToArray(), OptionsViewModel.SelectedMonitor);
 
                 var device = UserSettings.Settings.Devices.FirstOrDefault(d => d.Name == OptionsViewModel.SelectedDevice);
 
@@ -200,14 +202,12 @@ namespace Winleafs.Wpf.Views.Options
             #endregion
 
             #region ScreenMirror
-            var monitorNames = ScreenBoundsHelper.GetMonitorNames();
-
             foreach (var device in UserSettings.Settings.Devices)
             {
                 device.ScreenMirrorAlgorithm = OptionsViewModel.AlgorithmPerDevice[device.Name];
             }
 
-            UserSettings.Settings.ScreenMirrorMonitorIndex = Array.IndexOf(monitorNames.ToArray(), OptionsViewModel.SelectedMonitor);
+            UserSettings.Settings.ScreenMirrorMonitorIndex = Array.IndexOf(_monitorNames.ToArray(), OptionsViewModel.SelectedMonitor);
             UserSettings.Settings.ScreenMirrorRefreshRatePerSecond = OptionsViewModel.ScreenMirrorRefreshRatePerSecond;
 
             #endregion
@@ -349,6 +349,84 @@ namespace Winleafs.Wpf.Views.Options
                 _mainWindow.DeleteDevice(deviceName);
 
                 Close();
+            }
+        }
+
+        private void DrawMonitors()
+        {
+            var monitorBounds = new List<System.Drawing.Rectangle>();
+            for (var i = 0; i < _monitorNames.Count; i++)
+            {
+                monitorBounds.Add(ScreenBoundsHelper.GetScreenBounds(i));
+            }
+
+            var minX = monitorBounds.Min(bounds => bounds.X);
+            var minY = monitorBounds.Min(bounds => bounds.Y);
+
+            //Normalize all X and Y coordinates such that the left most bottom monitor start at 0,0
+            for (var i = 0; i < monitorBounds.Count; i++)
+            {
+                var rectangle = monitorBounds[i];
+
+                var x = rectangle.X;
+                if (minX > 0)
+                {
+                    x = rectangle.X - minX;
+                }
+                else if (minX < 0)
+                {
+                    x = rectangle.X + Math.Abs(minX);
+                }
+
+                var y = rectangle.Y;
+                if (minY > 0)
+                {
+                    y = rectangle.Y - minY;
+                }
+                else if (minY < 0)
+                {
+                    y = rectangle.Y + Math.Abs(minY);
+                }
+
+                monitorBounds[i] = new System.Drawing.Rectangle(x, y, rectangle.Width, rectangle.Height);
+            }
+
+            var maxMonitorWidth = monitorBounds.Max(bounds => bounds.X + bounds.Width);
+            var maxMonitorHeight = monitorBounds.Max(bounds => bounds.Y + bounds.Height);
+
+            var scale = Math.Max(maxMonitorWidth / MonitorCanvas.Width, maxMonitorHeight / MonitorCanvas.Height);
+
+            for (var i = 0; i < monitorBounds.Count; i++)
+            {
+                //Draw a polygon in the shape of the monitor, scaled down
+                var polygon = new Polygon();
+
+                var scaledX = monitorBounds[i].X / scale;
+                var scaledY = monitorBounds[i].Y / scale;
+                var scaledXWidth = (monitorBounds[i].X + monitorBounds[i].Width) / scale;
+                var scaledYHeight = (monitorBounds[i].Y + monitorBounds[i].Height) / scale;
+                
+                polygon.Points.Add(new System.Windows.Point(scaledX, scaledY)); //Left top
+                polygon.Points.Add(new System.Windows.Point(scaledX, scaledYHeight)); //Left bottom
+                polygon.Points.Add(new System.Windows.Point(scaledXWidth, scaledYHeight)); //Right bottom
+                polygon.Points.Add(new System.Windows.Point(scaledXWidth, scaledY)); //Right top
+
+                polygon.Stroke = Brushes.LightGray;
+                polygon.StrokeThickness = 3;
+
+                MonitorCanvas.Children.Add(polygon);
+
+                //Draw the number of the monitor
+                var textBlock = new TextBlock();
+
+                textBlock.Text = (i + 1).ToString(); //+ 1 since i starts at 0
+                textBlock.Foreground = Brushes.LightGray;
+                textBlock.FontSize = 20;
+
+                Canvas.SetLeft(textBlock, ((monitorBounds[i].X + (monitorBounds[i].Width / 2)) / scale) - 5); //-5 and -15 to position the numbers more to the center
+                Canvas.SetTop(textBlock, ((monitorBounds[i].Y + (monitorBounds[i].Height / 2)) / scale) - 15);
+
+                MonitorCanvas.Children.Add(textBlock);
             }
         }
     }

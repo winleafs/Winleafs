@@ -135,7 +135,8 @@
                         HorizontalAlignment="Left" Margin="5,26,0,0" VerticalAlignment="Top" Width="302"
                         SelectedItem="{Binding SelectedMonitor}" ItemsSource="{Binding MonitorNames}" />
                         <TextBlock HorizontalAlignment="Left" Margin="10,521,0,0" TextWrapping="Wrap" Text="{x:Static local:Resources.ScreenMirrorResetMessage}" VerticalAlignment="Top" Width="469" FontSize="20" Foreground="White" />
-                        <TextBlock Margin="2,253,28,0" TextWrapping="Wrap" Text="{x:Static local:Resources.ScreenMirrorResetMessage}" VerticalAlignment="Top" FontSize="15" Foreground="White" Height="72" />
+                        <TextBlock Margin="5,225,25,0" TextWrapping="Wrap" Text="{x:Static local:Resources.ScreenMirrorResetMessage}" VerticalAlignment="Top" FontSize="15" Foreground="White" Height="29" />
+                        <Canvas x:Name="MonitorCanvas" VerticalAlignment="Bottom" Height="190" Width="720"></Canvas>
                     </Grid>
                 </materialDesign:Card>
             </TabItem>
