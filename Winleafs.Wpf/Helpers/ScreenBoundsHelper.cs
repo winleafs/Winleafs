@@ -35,7 +35,13 @@ namespace Winleafs.Wpf.Helpers
 
         public static List<PathDisplayTarget> GetMonitors()
         {
-            return PathDisplayTarget.GetDisplayTargets().OrderBy(monitor => monitor.FriendlyName).ToList();
+            //WindowsDisplayAPI does not return disabled monitors, while PathDisplayTarget does. Hence we use WindowsDisplayAPI to filter out the
+            //inactive monitors that PathDisplayTarget returns
+            var formsMonitorsDevicePaths = WindowsDisplayAPI.Display.GetDisplays().Select(monitor => monitor.DevicePath);
+
+            var enabledMonitors = PathDisplayTarget.GetDisplayTargets().Where(monitor => formsMonitorsDevicePaths.Contains(monitor.DevicePath));
+
+            return enabledMonitors.OrderBy(monitor => monitor.FriendlyName).ToList();
         }
 
         public static List<string> GetMonitorNames()
