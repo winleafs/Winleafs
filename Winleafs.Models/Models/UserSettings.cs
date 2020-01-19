@@ -24,7 +24,7 @@ namespace Winleafs.Models.Models
         public static readonly string EffectNamePreface = "Winleafs - ";
 
         private static readonly string _settingsFileName = Path.Combine(SettingsFolder, "Settings.txt");
-        private static readonly string _latestSettingsVersion = "9";
+        private static readonly string _latestSettingsVersion = "10";
 
         private static UserSettings _settings { get; set; }
 
@@ -426,6 +426,15 @@ namespace Winleafs.Models.Models
         {
             jToken[nameof(ScreenMirrorMonitorIndex)] = 0;
             jToken[nameof(ScreenMirrorRefreshRatePerSecond)] = 5;
+
+            return jToken;
+        }
+
+        [Migration("9", "10")]
+        private static JToken Migration_9_10(JToken jToken)
+        {
+            //Reset the selected monitor since we updated the screen that are displayed in the dropdown
+            jToken[nameof(ScreenMirrorMonitorIndex)] = 0;
 
             return jToken;
         }
