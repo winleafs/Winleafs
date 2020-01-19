@@ -354,34 +354,57 @@ namespace Winleafs.Wpf.Views.Options
 
         private void DrawMonitors()
         {
-            var monitorBounds = new Dictionary<int, System.Drawing.Rectangle>();
+            var monitorBounds = new List<System.Drawing.Rectangle>();
             for (var i = 0; i < _monitorNames.Count; i++)
             {
-                try
-                {
-                    monitorBounds.Add(i, ScreenBoundsHelper.GetScreenBounds(i));
-                }
-                catch
-                {
-                    //It can happen that a screen is disabled in windows, then an exception will be thrown
-                    //This is no problem, that monitor will simply not be visualized
-                }
+                monitorBounds.Add(ScreenBoundsHelper.GetScreenBounds(i));
             }
 
-            var maxMonitorWidth = monitorBounds.Values.Max(bounds => bounds.X + bounds.Width);
-            var maxMonitorHeight = monitorBounds.Values.Max(bounds => bounds.Y + bounds.Height);
+            var minX = monitorBounds.Min(bounds => bounds.X);
+            var minY = monitorBounds.Min(bounds => bounds.Y);
+
+            //Normalize all X and Y coordinates such that the left most bottom monitor start at 0,0
+            for (var i = 0; i < monitorBounds.Count; i++)
+            {
+                var rectangle = monitorBounds[i];
+
+                var x = rectangle.X;
+                if (minX > 0)
+                {
+                    x = rectangle.X - minX;
+                }
+                else if (minX < 0)
+                {
+                    x = rectangle.X + Math.Abs(minX);
+                }
+
+                var y = rectangle.Y;
+                if (minY > 0)
+                {
+                    y = rectangle.Y - minY;
+                }
+                else if (minY < 0)
+                {
+                    y = rectangle.Y + Math.Abs(minY);
+                }
+
+                monitorBounds[i] = new System.Drawing.Rectangle(x, y, rectangle.Width, rectangle.Height);
+            }
+
+            var maxMonitorWidth = monitorBounds.Max(bounds => bounds.X + bounds.Width);
+            var maxMonitorHeight = monitorBounds.Max(bounds => bounds.Y + bounds.Height);
 
             var scale = Math.Max(maxMonitorWidth / MonitorCanvas.Width, maxMonitorHeight / MonitorCanvas.Height);
 
-            foreach (var monitorBound in monitorBounds)
+            for (var i = 0; i < monitorBounds.Count; i++)
             {
                 //Draw a polygon in the shape of the monitor, scaled down
                 var polygon = new Polygon();
 
-                polygon.Points.Add(new System.Windows.Point(monitorBound.Value.X / scale, monitorBound.Value.Y / scale)); //Left bottom
-                polygon.Points.Add(new System.Windows.Point(monitorBound.Value.X / scale, (monitorBound.Value.Y + monitorBound.Value.Height) / scale)); //Left top
-                polygon.Points.Add(new System.Windows.Point((monitorBound.Value.X + monitorBound.Value.Width) / scale, (monitorBound.Value.Y + monitorBound.Value.Height) / scale)); //Right top
-                polygon.Points.Add(new System.Windows.Point((monitorBound.Value.X + monitorBound.Value.Width) / scale, monitorBound.Value.Y / scale)); //Right bottom
+                polygon.Points.Add(new System.Windows.Point(monitorBounds[i].X / scale, monitorBounds[i].Y / scale)); //Left bottom
+                polygon.Points.Add(new System.Windows.Point(monitorBounds[i].X / scale, (monitorBounds[i].Y + monitorBounds[i].Height) / scale)); //Left top
+                polygon.Points.Add(new System.Windows.Point((monitorBounds[i].X + monitorBounds[i].Width) / scale, (monitorBounds[i].Y + monitorBounds[i].Height) / scale)); //Right top
+                polygon.Points.Add(new System.Windows.Point((monitorBounds[i].X + monitorBounds[i].Width) / scale, monitorBounds[i].Y / scale)); //Right bottom
 
                 polygon.Stroke = Brushes.LightGray;
                 polygon.StrokeThickness = 2;
@@ -391,12 +414,12 @@ namespace Winleafs.Wpf.Views.Options
                 //Draw the number of the monitor
                 var textBlock = new TextBlock();
 
-                textBlock.Text = (monitorBound.Key + 1).ToString(); //+ 1 since the indexes are 0 based
+                textBlock.Text = (i + 1).ToString(); //+ 1 since i starts at 0
                 textBlock.Foreground = Brushes.LightGray;
                 textBlock.FontSize = 20;
 
-                Canvas.SetLeft(textBlock, ((monitorBound.Value.X + (monitorBound.Value.Width / 2)) / scale) - 5); //-5 and -15 to position the numbers more to the center
-                Canvas.SetTop(textBlock, ((monitorBound.Value.Y + (monitorBound.Value.Height / 2)) / scale) - 15);
+                Canvas.SetLeft(textBlock, ((monitorBounds[i].X + (monitorBounds[i].Width / 2)) / scale) - 5); //-5 and -15 to position the numbers more to the center
+                Canvas.SetTop(textBlock, ((monitorBounds[i].Y + (monitorBounds[i].Height / 2)) / scale) - 15);
 
                 MonitorCanvas.Children.Add(textBlock);
             }
