@@ -401,13 +401,18 @@ namespace Winleafs.Wpf.Views.Options
                 //Draw a polygon in the shape of the monitor, scaled down
                 var polygon = new Polygon();
 
-                polygon.Points.Add(new System.Windows.Point(monitorBounds[i].X / scale, monitorBounds[i].Y / scale)); //Left bottom
-                polygon.Points.Add(new System.Windows.Point(monitorBounds[i].X / scale, (monitorBounds[i].Y + monitorBounds[i].Height) / scale)); //Left top
-                polygon.Points.Add(new System.Windows.Point((monitorBounds[i].X + monitorBounds[i].Width) / scale, (monitorBounds[i].Y + monitorBounds[i].Height) / scale)); //Right top
-                polygon.Points.Add(new System.Windows.Point((monitorBounds[i].X + monitorBounds[i].Width) / scale, monitorBounds[i].Y / scale)); //Right bottom
+                var scaledX = monitorBounds[i].X / scale;
+                var scaledY = monitorBounds[i].Y / scale;
+                var scaledXWidth = (monitorBounds[i].X + monitorBounds[i].Width) / scale;
+                var scaledYHeight = (monitorBounds[i].Y + monitorBounds[i].Height) / scale;
+                
+                polygon.Points.Add(new System.Windows.Point(scaledX, scaledY)); //Left top
+                polygon.Points.Add(new System.Windows.Point(scaledX, scaledYHeight)); //Left bottom
+                polygon.Points.Add(new System.Windows.Point(scaledXWidth, scaledYHeight)); //Right bottom
+                polygon.Points.Add(new System.Windows.Point(scaledXWidth, scaledY)); //Right top
 
                 polygon.Stroke = Brushes.LightGray;
-                polygon.StrokeThickness = 2;
+                polygon.StrokeThickness = 3;
 
                 MonitorCanvas.Children.Add(polygon);
 
