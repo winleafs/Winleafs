@@ -51,11 +51,21 @@ namespace Winleafs.Wpf.Api.Effects
         /// </returns>
         public bool EffectIsCustomEffect(string effectName)
         {
+            if (string.IsNullOrWhitespace(effectName))
+            {
+                return false;
+            }
+            
             return _customEffects.ContainsKey(effectName);
         }
 
         public ICustomEffect GetCustomEffect(string effectName)
         {
+            if (string.IsNullOrWhitespace(effectName))
+            {
+                return null;
+            }
+            
             return _customEffects[effectName];
         }
 
