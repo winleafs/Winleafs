@@ -227,12 +227,16 @@ namespace Winleafs.Wpf.Views.Options
 
             #region Colors
 
-            var deletedColors = UserSettings.Settings.CustomEffects.Except(OptionsViewModel.CustomColorEffects);
+            var deletedColors = UserSettings.Settings.CustomEffects?.Except(OptionsViewModel.CustomColorEffects).ToList();
 
             UserSettings.Settings.CustomEffects = OptionsViewModel.CustomColorEffects;
 
             //Remove invalid triggers from the schedules
-            UserSettings.Settings.DeleteTriggers(deletedColors.Select(color => UserCustomColorEffect.DisplayName(color.EffectName)));
+            if (deletedColors?.Any() == true)
+            {
+                UserSettings.Settings.DeleteTriggers(deletedColors.Select(color =>
+                    UserCustomColorEffect.DisplayName(color.EffectName)));
+            }
 
             #endregion Colors
 
