@@ -176,6 +176,14 @@ namespace Winleafs.Wpf.Api
         }
 
         /// <summary>
+        /// Returns true when any effect is active
+        /// </summary>
+        public bool HasActiveEffect()
+        {
+            return GetActiveEffectName() != null;
+        }
+
+        /// <summary>
         /// Get the currently active brightness
         /// </summary>
         /// <returns>The currently active brightness, -1 if there is no current brightness</returns>
