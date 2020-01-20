@@ -1,6 +1,5 @@
 ﻿using NLog;
 using System;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -90,6 +89,13 @@ namespace Winleafs.Wpf.Views.MainWindows
             if (_device.OperationMode == OperationMode.Manual)
             {
                 await _orchestrator.TrySetOperationMode(OperationMode.Schedule, true, true);
+
+                if (!_orchestrator.HasActiveEffect())
+                {
+                    //Special case: when the user has no active schedule, the schedule will not set an effect and therefore
+                    //not trigger an update to the effects, hence we need to call update here
+                    Update();
+                }
             }
         }
 
