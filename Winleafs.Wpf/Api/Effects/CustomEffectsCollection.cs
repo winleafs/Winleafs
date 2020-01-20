@@ -51,7 +51,7 @@ namespace Winleafs.Wpf.Api.Effects
         /// </returns>
         public bool EffectIsCustomEffect(string effectName)
         {
-            if (string.IsNullOrWhitespace(effectName))
+            if (string.IsNullOrWhiteSpace(effectName))
             {
                 return false;
             }
@@ -61,7 +61,7 @@ namespace Winleafs.Wpf.Api.Effects
 
         public ICustomEffect GetCustomEffect(string effectName)
         {
-            if (string.IsNullOrWhitespace(effectName))
+            if (string.IsNullOrWhiteSpace(effectName))
             {
                 return null;
             }
