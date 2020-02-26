@@ -34,11 +34,11 @@ namespace Winleafs.Wpf.Api.Effects
             {
                 if (_screenMirrorAlgorithm == ScreenMirrorAlgorithm.ScreenMirrorFit)
                 {
-                    _screenMirrorEffect = new ScreenMirror(device, orchestrator, nanoleafClient, ScaleType.Fit);
+                    _screenMirrorEffect = new ScreenMirror(orchestrator, nanoleafClient, ScaleType.Fit);
                 }
                 else if (_screenMirrorAlgorithm == ScreenMirrorAlgorithm.ScreenMirrorStretch)
                 {
-                    _screenMirrorEffect = new ScreenMirror(device, orchestrator, nanoleafClient, ScaleType.Stretch);
+                    _screenMirrorEffect = new ScreenMirror(orchestrator, nanoleafClient, ScaleType.Stretch);
                 }
                 else if (_screenMirrorAlgorithm == ScreenMirrorAlgorithm.Ambilight)
                 {
@@ -52,14 +52,7 @@ namespace Winleafs.Wpf.Api.Effects
                 _screenMirrorEffect = null;
             }
 
-            var timerRefreshRate = 1000;
-
-            if (UserSettings.Settings.ScreenMirrorRefreshRatePerSecond > 0 && UserSettings.Settings.ScreenMirrorRefreshRatePerSecond <= 10)
-            {
-                timerRefreshRate = 1000 / UserSettings.Settings.ScreenMirrorRefreshRatePerSecond;
-            }
-
-            _timer = new System.Timers.Timer(timerRefreshRate);
+            _timer = new System.Timers.Timer(100); //Refresh a panel every 10th of a second (10hz)
             _timer.Elapsed += OnTimedEvent;
             _timer.AutoReset = true;
         }
