@@ -59,6 +59,7 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
 
             for (var i = 0; i < panelsToUpdate.Count; i++)
             {
+                //Only update the color of a panel that has a large enough color difference
                 if (ColorDistance(panelsToUpdate[i].CurrentColor, colors[i]) > minimumColorDifference)
                 {
                     numberOfPanelsChanged++;
