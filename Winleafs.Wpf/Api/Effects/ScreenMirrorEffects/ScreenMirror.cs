@@ -9,6 +9,7 @@ using Winleafs.Wpf.Helpers;
 using Winleafs.Models.Models;
 using System.Drawing;
 using Winleafs.Models.Enums;
+using Winleafs.Models.Models.Layouts;
 
 namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
 {
@@ -16,26 +17,14 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
     {
         private readonly IExternalControlEndpoint _externalControlEndpoint;
 
-        /// <summary>
-        /// Collection of panel ids
-        /// </summary>
-        private readonly List<int> _panelIds;
-
-        /// <summary>
-        /// Collection of <see cref="Rectangle"/>s and each element
-        /// corresponds to a panel id in <see cref="_panelIds"/>.
-        /// Note that we chose to not put these in a dictionary for
-        /// performance reasons.
-        /// </summary>
-        private readonly List<Rectangle> _screenshotAreas;
+        private readonly List<ScreenMirrorPanel> _panels;
 
         private readonly DeviceType _deviceType;
 
-        public ScreenMirror(Device device, Orchestrator orchestrator, INanoleafClient nanoleafClient, ScaleType scaleType)
+        public ScreenMirror(Orchestrator orchestrator, INanoleafClient nanoleafClient, ScaleType scaleType)
         {
             _externalControlEndpoint = nanoleafClient.ExternalControlEndpoint;
-            _panelIds = new List<int>();
-            _screenshotAreas = new List<Rectangle>();
+            _panels = new List<ScreenMirrorPanel>();
             _deviceType = orchestrator.PanelLayout.DeviceType;
 
             var screenBounds = ScreenBoundsHelper.GetScreenBounds(UserSettings.Settings.ScreenMirrorMonitorIndex);
@@ -55,16 +44,36 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
         }
 
         /// <summary>
-        /// Applies the screen mirror effect to the ligts.
-        /// Screen mirror takes the average color of each triangle and applies it to that triangle
+        /// Applies the screen mirror effect to the lights.
+        /// This method is called 10x per second by <see cref="ScreenMirrorEffect"/>
         /// </summary>
         public async Task ApplyEffect()
-        {        
-            var colors = ScreenGrabber.CalculateAverageColor(_screenshotAreas, 0);
+        {
+            const int numberOfPanelsPerIteration = 5; //5x10 = 50hz. Note: 50hz seems to work good, higher values can make Canvas stop its external control
+            const int minimumColorDifference = 30;
 
-            for (var i = 0; i < _panelIds.Count; i++)
+            var panelsToUpdate = _panels.Take(numberOfPanelsPerIteration * 2).ToList(); //Take 2 times the number of panels, in case any color differences are not large enough
+
+            var colors = ScreenGrabber.CalculateAverageColor(panelsToUpdate.Select(panel => panel.ScreenshotArea), 0);
+            var numberOfPanelsChanged = 0;
+
+            for (var i = 0; i < panelsToUpdate.Count; i++)
             {
-                _externalControlEndpoint.SetPanelColor(_deviceType, _panelIds[i], colors[i].R, colors[i].G, colors[i].B);
+                //Only update the color of a panel that has a large enough color difference
+                if (ColorDistance(panelsToUpdate[i].CurrentColor, colors[i]) > minimumColorDifference)
+                {
+                    numberOfPanelsChanged++;
+                    panelsToUpdate[i].CurrentColor = colors[i];
+                    _externalControlEndpoint.SetPanelColor(_deviceType, panelsToUpdate[i].PanelId, colors[i].R, colors[i].G, colors[i].B);
+
+                    _panels.Remove(panelsToUpdate[i]); //Remove the current panel and place it at the back of the list
+                    _panels.Add(panelsToUpdate[i]);
+                }
+
+                if (numberOfPanelsChanged >= numberOfPanelsPerIteration)
+                {
+                    break;
+                }
             }
         }
 
@@ -84,8 +93,12 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
                 // you need to start at the right of the first left monitor. Hence, we need to add _screenBounds X and Y here to the location of the square we want to capture
                 var bounds = new Rectangle(screenBounds.X + startX, screenBounds.Y + startY, squareSize, squareSize);
 
-                _panelIds.Add(panel.PanelId);
-                _screenshotAreas.Add(bounds);
+                _panels.Add(new ScreenMirrorPanel
+                {
+                    PanelId = panel.PanelId,
+                    ScreenshotArea = bounds,
+                    CurrentColor = Color.Black
+                });
             }
         }
 
@@ -107,9 +120,29 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
                 // you need to start at the right of the first left monitor. Hence, we need to add _screenBounds X and Y here to the location of the square we want to capture
                 var bounds = new Rectangle(screenBounds.X + startX, screenBounds.Y + startY, rectangleSize, rectangleSize);
 
-                _panelIds.Add(panel.PanelId);
-                _screenshotAreas.Add(bounds);
+                _panels.Add(new ScreenMirrorPanel
+                {
+                    PanelId = panel.PanelId,
+                    ScreenshotArea = bounds,
+                    CurrentColor = Color.Black
+                });
             }
+        }
+
+        /// <summary>
+        /// Calculates the distance from 0-100 between the
+        /// two given colors
+        /// </summary>
+        /// <remarks>
+        /// Code inspired by: https://www.compuphase.com/cmetric.htm
+        /// </remarks>
+        private double ColorDistance(Color color1, Color color2)
+        {
+            var rmean = (color1.R + color2.R) / 2;
+            var r = color1.R - color2.R;
+            var g = color1.G - color2.G;
+            var b = color1.B - color2.B;
+            return Math.Sqrt((((512 + rmean) * r * r) >> 8) + 4 * g * g + (((767 - rmean) * b * b) >> 8));
         }
     }
 }

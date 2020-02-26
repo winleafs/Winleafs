@@ -71,7 +71,7 @@ namespace Winleafs.Wpf.Helpers
         /// Calculates the average color for each of the given <paramref name="areasToCapture"/>.
         /// Use <param name="minDiversion"> to drop pixels that do not differ by at least minDiversion between color values (white, gray or black)
         /// </summary>
-        public static List<Color> CalculateAverageColor(List<Rectangle> areasToCapture, int minDiversion = 50)
+        public static List<Color> CalculateAverageColor(IEnumerable<Rectangle> areasToCapture, int minDiversion = 50)
         {
             var colors = new List<Color>();
 

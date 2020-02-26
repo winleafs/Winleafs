@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Id="*" UpgradeCode="42ee9157-4382-4852-bed7-72b25fb2d0bf" Version="1.0.2" Language="1033" Name="Winleafs" Manufacturer="Stijn Oostdam">
+  <Product Id="*" UpgradeCode="42ee9157-4382-4852-bed7-72b25fb2d0bf" Version="1.0.4" Language="1033" Name="Winleafs" Manufacturer="Stijn Oostdam">
     <Package Compressed="yes" />
     <Media Id="1" Cabinet="myapplication.cab" EmbedCab="yes" />
     
