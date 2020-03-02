@@ -135,14 +135,23 @@
   <data name="Event" xml:space="preserve">
     <value>Event</value>
   </data>
+  <data name="Friday" xml:space="preserve">
+    <value>Vrijdag</value>
+  </data>
   <data name="Manual" xml:space="preserve">
     <value>Handmatig</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Maandag</value>
   </data>
   <data name="ProcessEvent" xml:space="preserve">
     <value>Procesevent</value>
   </data>
   <data name="Rhythm" xml:space="preserve">
     <value>Rhythm</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>Zaterdag</value>
   </data>
   <data name="Schedule" xml:space="preserve">
     <value>Schema</value>
@@ -153,17 +162,29 @@
   <data name="ScreenMirrorStretch" xml:space="preserve">
     <value>Scherm spiegelen rekken</value>
   </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>Zondag</value>
+  </data>
   <data name="Sunrise" xml:space="preserve">
     <value>Zonsopgang</value>
   </data>
   <data name="Sunset" xml:space="preserve">
     <value>Zonsondergang</value>
   </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Donderdag</value>
+  </data>
   <data name="Time" xml:space="preserve">
     <value>Tijd</value>
   </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Dinsdag</value>
+  </data>
   <data name="Unknown" xml:space="preserve">
     <value>Onbekend</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Woensdag</value>
   </data>
   <data name="Winleafs" xml:space="preserve">
     <value>Winleafs</value>

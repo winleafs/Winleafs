@@ -159,6 +159,12 @@
   <data name="MostUsedEffects" xml:space="preserve">
     <value>Most used effects</value>
   </data>
+  <data name="NextEffect" xml:space="preserve">
+    <value>Up next {0} at {1}: {2}</value>
+  </data>
+  <data name="NextEffectNone" xml:space="preserve">
+    <value>Up next: none</value>
+  </data>
   <data name="None" xml:space="preserve">
     <value>None</value>
   </data>

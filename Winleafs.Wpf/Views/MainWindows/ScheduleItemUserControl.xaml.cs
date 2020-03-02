@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 
 using Winleafs.Models.Models.Scheduling;
+using Winleafs.Wpf.Helpers;
 
 namespace Winleafs.Wpf.Views.MainWindows
 {
@@ -12,7 +13,10 @@ namespace Winleafs.Wpf.Views.MainWindows
     public partial class ScheduleItemUserControl : UserControl
     {
         private MainWindow _parent;
+
         public Schedule Schedule { get; set; } //Must stay public since its used in the view
+
+        public string NextEffectDisplay { get; set; }
 
         public ScheduleItemUserControl(MainWindow parent, Schedule schedule)
         {
@@ -25,6 +29,17 @@ namespace Winleafs.Wpf.Views.MainWindows
             if (Schedule.Active)
             {
                 Background = (Brush)new BrushConverter().ConvertFromInvariantString("#7F3F6429");
+            }
+
+            var nextEffect = schedule.GetNextTimeTrigger();
+
+            if (nextEffect != null)
+            {
+                NextEffectDisplay = string.Format(MainWindows.Resources.NextEffect, EnumLocalizer.GetLocalizedEnum(nextEffect.Item1), nextEffect.Item2.GetActualDateTime().ToString("HH:mm"), nextEffect.Item2.EffectName);
+            }
+            else
+            {
+                NextEffectDisplay = MainWindows.Resources.NextEffectNone;
             }
         }
 
