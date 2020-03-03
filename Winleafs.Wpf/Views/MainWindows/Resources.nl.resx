@@ -208,4 +208,10 @@ Hover over deze knop.</value>
   <data name="AddSchedule" xml:space="preserve">
     <value>Schema toevoegen</value>
   </data>
+  <data name="NextEffect" xml:space="preserve">
+    <value>Volgende op {0} {1}: {2}</value>
+  </data>
+  <data name="NextEffectNone" xml:space="preserve">
+    <value>Volgende: geen</value>
+  </data>
 </root>

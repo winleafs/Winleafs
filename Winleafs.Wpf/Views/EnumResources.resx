@@ -135,14 +135,23 @@
   <data name="Event" xml:space="preserve">
     <value>Event</value>
   </data>
+  <data name="Friday" xml:space="preserve">
+    <value>Friday</value>
+  </data>
   <data name="Manual" xml:space="preserve">
     <value>Manual</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Monday</value>
   </data>
   <data name="ProcessEvent" xml:space="preserve">
     <value>Process event</value>
   </data>
   <data name="Rhythm" xml:space="preserve">
     <value>Rhythm</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>Saturday</value>
   </data>
   <data name="Schedule" xml:space="preserve">
     <value>Schedule</value>
@@ -153,17 +162,29 @@
   <data name="ScreenMirrorStretch" xml:space="preserve">
     <value>Screen Mirror stretch</value>
   </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>Sunday</value>
+  </data>
   <data name="Sunrise" xml:space="preserve">
     <value>Sunrise</value>
   </data>
   <data name="Sunset" xml:space="preserve">
     <value>Sunset</value>
   </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Thursday</value>
+  </data>
   <data name="Time" xml:space="preserve">
     <value>Time</value>
   </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Tuesday</value>
+  </data>
   <data name="Unknown" xml:space="preserve">
     <value>Unknown</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Wednesday</value>
   </data>
   <data name="Winleafs" xml:space="preserve">
     <value>Winleafs</value>

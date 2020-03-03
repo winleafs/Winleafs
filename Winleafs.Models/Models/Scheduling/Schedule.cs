@@ -64,15 +64,7 @@ namespace Winleafs.Models.Models.Scheduling
 
         private bool ScheduleHasTriggers()
         {
-            foreach (var program in Programs)
-            {
-                if (program.Triggers.Count > 0)
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return Programs.Any(program => program.Triggers.Any());
         }
 
         private int GetTodaysProgramIndex()
@@ -114,6 +106,41 @@ namespace Winleafs.Models.Models.Scheduling
             }
         }
 
+        public Tuple<DayOfWeek, TimeTrigger> GetNextTimeTrigger()
+        {
+            if (Programs.Sum(program => program.Triggers.Count) >= 2) //The schedule must have at least 2 triggers to have a next trigger
+            {
+                var now = DateTime.Now;
+
+                var todaysIndex = GetTodaysProgramIndex();
+
+                var nextTrigger = GetNextTimeTriggerForProgram(now, now, Programs[todaysIndex]); //First check if any trigger of today is next
+
+                if (nextTrigger == null) //We need to look in the upcoming days for the trigger that is next
+                {
+                    var dayIndex = todaysIndex;
+                    var dateOfProgram = now;
+
+                    while (nextTrigger == null)
+                    {
+                        dayIndex = dayIndex == 6 ? 0 : dayIndex + 1;
+                        dateOfProgram = dateOfProgram.AddDays(1);
+
+                        nextTrigger = GetNextTimeTriggerForProgram(now, dateOfProgram, Programs[dayIndex]);
+                    }
+
+                    todaysIndex = dayIndex;
+                }
+
+                var dayOfWeek = todaysIndex == 6 ? DayOfWeek.Monday : (DayOfWeek)(todaysIndex + 1); //Convert our index back to the DayOfWeek enum
+                return new Tuple<DayOfWeek, TimeTrigger>(dayOfWeek, nextTrigger);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         private TimeTrigger GetCurrentTimeTriggerForProgram(DateTime now, DateTime dateOfProgram, Program program)
         {
             TimeTrigger currentTrigger = null;
@@ -128,6 +155,22 @@ namespace Winleafs.Models.Models.Scheduling
             }
 
             return currentTrigger;
+        }
+
+        private TimeTrigger GetNextTimeTriggerForProgram(DateTime now, DateTime dateOfProgram, Program program)
+        {
+            TimeTrigger nextTrigger = null;
+
+            //This assumes Triggers are sorted in ascending time order
+            for (var i = program.Triggers.Count - 1; i >= 0; i--)
+            {
+                if (now.Ticks < program.Triggers[i].GetActualDateTime(dateOfProgram).Ticks)
+                {
+                    nextTrigger = program.Triggers[i];
+                }
+            }
+
+            return nextTrigger;
         }
 
         /// <summary>

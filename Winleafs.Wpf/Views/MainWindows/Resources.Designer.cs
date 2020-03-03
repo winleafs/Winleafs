@@ -187,6 +187,24 @@ namespace Winleafs.Wpf.Views.MainWindows {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Up next {0} at {1}: {2}.
+        /// </summary>
+        public static string NextEffect {
+            get {
+                return ResourceManager.GetString("NextEffect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Up next: none.
+        /// </summary>
+        public static string NextEffectNone {
+            get {
+                return ResourceManager.GetString("NextEffectNone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to None.
         /// </summary>
         public static string None {
