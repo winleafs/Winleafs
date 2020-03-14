@@ -242,4 +242,16 @@ per IP adres</value>
     <value>Weet je zeker dat je {0} wilt verwijderen?</value>
     <comment>Formatted string with 0: device name</comment>
   </data>
+  <data name="ConnectToSpotify" xml:space="preserve">
+    <value>Verbinden met Spotify</value>
+  </data>
+  <data name="SpotifyNotConnected" xml:space="preserve">
+    <value>Kon geen verbinding maken met Spotify. Probeer het nogmaals. Als dit probleem zich blijft voordoen, probeer dan Winleafs te verwijderen uit de lijst van apps in uw Spotify account.</value>
+  </data>
+  <data name="SpotifySuccessfullyConnected" xml:space="preserve">
+    <value>Verbinding met Spotify gelukt!</value>
+  </data>
+  <data name="SpotifyUnknownError" xml:space="preserve">
+    <value>Onbekende fout tijdens het verbinden met Spotify. Ligt aub de developers in.</value>
+  </data>
 </root>

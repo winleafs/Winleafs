@@ -82,6 +82,11 @@
                         ItemsSource="{Binding Languages}" Foreground="White"/>
                         <Label Content="{x:Static local:Resources.LanguageRestartNote}" HorizontalAlignment="Left"
                            VerticalAlignment="Top" Margin="10,253,0,0" FontSize="15" Foreground="White"/>
+
+                        <Button Content="{x:Static local:Resources.ConnectToSpotify}" HorizontalAlignment="Left"
+                            Margin="10,325,0,0" VerticalAlignment="Top" Width="200" Height="30"
+                            Background="{StaticResource NanoleafGreen}" Foreground="White"
+                            BorderBrush="{x:Null}" Click="ConnectToSpotify_Click"/>
                     </Grid>
                 </materialDesign:Card>
             </TabItem>

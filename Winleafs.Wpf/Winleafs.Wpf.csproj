@@ -35,7 +35,7 @@
       <PackageReference Include="MaterialDesignExtensions" Version="2.8.0" />
       <PackageReference Include="MaterialDesignThemes" Version="2.6.0" />
       <PackageReference Include="Newtonsoft.Json">
-        <Version>12.0.1</Version>
+        <Version>12.0.3</Version>
       </PackageReference>
       <PackageReference Include="NLog">
         <Version>4.6.8</Version>
@@ -55,6 +55,7 @@
       <PackageReference Include="RestSharp">
         <Version>106.6.7</Version>
       </PackageReference>
+      <PackageReference Include="SpotifyAPI.Web.Auth" Version="5.1.0" />
       <PackageReference Include="System.Drawing.Common" Version="4.6.0" />
       <PackageReference Include="Tmds.MDns">
         <Version>0.7.0</Version>

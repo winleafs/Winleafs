@@ -67,6 +67,9 @@ namespace Winleafs.Models.Models
         public int ScreenMirrorRefreshRatePerSecond { get; set; }
 
         public int ScreenMirrorMonitorIndex { get; set; }
+
+        public string SpotifyAPITokenType { get; set; }
+        public string SpotifyAPIAccessToken { get; set; }
         #endregion
 
         #region Methods

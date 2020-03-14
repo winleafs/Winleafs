@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using Winleafs.Models.Enums;
 using Winleafs.Models.Models.Scheduling.Triggers;
+using Winleafs.Wpf.Helpers;
 using Winleafs.Wpf.Views.Popup;
 
 namespace Winleafs.Wpf.Views.Scheduling
@@ -18,7 +19,7 @@ namespace Winleafs.Wpf.Views.Scheduling
             InitializeComponent();
         }
 
-        private void Plus_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void AddProcessEvent_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             var addProcessEventWindow = new AddProcessEventWindow(this);
             addProcessEventWindow.ShowDialog();
@@ -56,6 +57,58 @@ namespace Winleafs.Wpf.Views.Scheduling
                 EffectName = effectName,
                 EventTriggerType = TriggerType.ProcessEvent,
                 ProcessName = processName
+            });
+
+            BuildTriggerList();
+
+            return true;
+        }
+
+        private void AddSpotifyEvent_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (Spotify.WebAPIIsConnected())
+            {
+                var addSpotiofyEventWindow = new AddSpotifyEventWindow(this);
+                addSpotiofyEventWindow.ShowDialog();
+            }
+            else
+            {
+                PopupCreator.Error(Scheduling.Resources.ConnectToSpotify);
+            }
+        }
+
+        public bool SpotifyEventTriggerAdded(string playlistname, string effectName, int brightness)
+        {
+            if (string.IsNullOrWhiteSpace(playlistname))
+            {
+                PopupCreator.Error(Scheduling.Resources.PlaylistNameCanNotBeEmpty);
+                return false;
+            }
+
+            playlistname = playlistname.Trim();
+
+            if (string.IsNullOrEmpty(effectName))
+            {
+                PopupCreator.Error(Scheduling.Resources.MustChooseEffect);
+                return false;
+            }
+
+            foreach (var eventTrigger in EventTriggers)
+            {
+                var spotifyEventTrigger = eventTrigger as SpotifyEventTrigger;
+                if (spotifyEventTrigger != null && spotifyEventTrigger.PlaylistName.ToLower().Equals(playlistname.ToLower()))
+                {
+                    PopupCreator.Error(string.Format(Scheduling.Resources.PlaylistNameAlreadyExists, playlistname));
+                    return false;
+                }
+            }
+
+            EventTriggers.Add(new SpotifyEventTrigger()
+            {
+                Brightness = brightness,
+                EffectName = effectName,
+                EventTriggerType = TriggerType.SpotifyEvent,
+                PlaylistName = playlistname
             });
 
             BuildTriggerList();

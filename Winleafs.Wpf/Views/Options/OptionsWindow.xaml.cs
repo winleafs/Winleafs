@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -31,6 +32,8 @@ namespace Winleafs.Wpf.Views.Options
     /// </summary>
     public partial class OptionsWindow : Window
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         public OptionsViewModel OptionsViewModel { get; set; }
 
         private RegistryKey _startupKey;
@@ -271,6 +274,35 @@ namespace Winleafs.Wpf.Views.Options
 
                 PopupCreator.Error(Options.Resources.LatLongReceiveError);
             }
+        }
+
+        private void ConnectToSpotify_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Spotify.Connect(ConnectToSpotifyFinished);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, "Unknown error when trying to connect to Spotify");
+                PopupCreator.Success(Options.Resources.SpotifyUnknownError, true);
+            }
+        }
+
+        private void ConnectToSpotifyFinished()
+        {
+            //Run code on main thread since we update the UI
+            Dispatcher.Invoke(new Action(() =>
+            {
+                if (Spotify.WebAPIIsConnected())
+                {
+                    PopupCreator.Success(Options.Resources.SpotifySuccessfullyConnected, true);
+                }
+                else
+                {
+                    PopupCreator.Success(Options.Resources.SpotifyNotConnected, true);
+                }
+            }));
         }
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)

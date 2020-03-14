@@ -162,6 +162,9 @@
   <data name="ScreenMirrorStretch" xml:space="preserve">
     <value>Screen Mirror stretch</value>
   </data>
+  <data name="SpotifyEvent" xml:space="preserve">
+    <value>Spotify event</value>
+  </data>
   <data name="Sunday" xml:space="preserve">
     <value>Sunday</value>
   </data>

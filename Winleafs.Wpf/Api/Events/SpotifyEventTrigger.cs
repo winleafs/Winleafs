@@ -1,28 +1,32 @@
-﻿using System.Diagnostics;
+﻿using NLog;
+using System;
 using System.Threading.Tasks;
 using System.Timers;
 using Winleafs.Models.Enums;
 using Winleafs.Models.Models.Scheduling.Triggers;
+using Winleafs.Wpf.Helpers;
 
 namespace Winleafs.Wpf.Api.Events
 {
     /// <summary>
     /// Event trigger that is activated when a certain process starts
     /// </summary>
-    public class ProcessEventTrigger : IEventTrigger
+    public class SpotifyEventTrigger : IEventTrigger
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         private readonly ITrigger _trigger;
         private readonly Orchestrator _orchestrator;
-        private readonly string _processName;
+        private readonly string _playlistName;
         private readonly string _effectName;
         private readonly int _brightness;
         private bool _isActive;
 
-        public ProcessEventTrigger(ITrigger trigger, Orchestrator orchestrator, string processName, string effectName, int brightness)
+        public SpotifyEventTrigger(ITrigger trigger, Orchestrator orchestrator, string playlistName, string effectName, int brightness)
         {
             _trigger = trigger;
             _orchestrator = orchestrator;
-            _processName = processName;
+            _playlistName = playlistName;
             _effectName = effectName;
             _brightness = brightness;
             _isActive = false;
@@ -35,17 +39,27 @@ namespace Winleafs.Wpf.Api.Events
 
         private void CheckProcess(object source, ElapsedEventArgs e)
         {
-            Task.Run(() => CheckProcessAsync());
+            Task.Run(() => CheckPlaylistAsync());
         }
 
         /// <summary>
-        /// Checks if a process is running then execute TryStartEffect(), else stop the effect
+        /// Checks if a playlist is being played in Spotify then execute TryStartEffect(), else stop the effect
         /// </summary>
-        private async Task CheckProcessAsync()
+        private async Task CheckPlaylistAsync()
         {
-            Process[] processes = Process.GetProcessesByName(_processName);
+            var shouldBeActive = false;
 
-            if (processes.Length > 0 && !_isActive)
+            try
+            {
+                var currentPlaylistName = await Spotify.GetCurrentPlayingPlaylist();
+                shouldBeActive = currentPlaylistName!= null && _playlistName.ToLower() == currentPlaylistName.ToLower();
+            }
+            catch (Exception e)
+            {
+                Logger.Warn(e, "Retrieving the Spotify current playlist failed.");
+            }
+
+            if (shouldBeActive && !_isActive)
             {
                 await TryStartEffect();
             }
@@ -53,7 +67,7 @@ namespace Winleafs.Wpf.Api.Events
             {
                 if (_isActive)
                 {
-                    //Let orchestrator know that the process event has stopped so it can continue with normal program, will not fail since an event can only be activated when no override is active
+                    //Let orchestrator know that the spotify event has stopped so it can continue with normal program, will not fail since an event can only be activated when no override is active
                     //Always return to schedule since only 1 event can be active at a time
                     await _orchestrator.TrySetOperationMode(OperationMode.Schedule);
                     _isActive = false;

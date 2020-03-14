@@ -26,6 +26,11 @@ namespace Winleafs.Wpf.Api.Events
                             EventTriggers.Add(new ProcessEventTrigger(eventTrigger, orchestrator, processEventTrigger.ProcessName, processEventTrigger.EffectName, processEventTrigger.Brightness));
                             break;
 
+                        case TriggerType.SpotifyEvent:
+                            var spotifyEventTrigger = (Models.Models.Scheduling.Triggers.SpotifyEventTrigger)eventTrigger;
+                            EventTriggers.Add(new SpotifyEventTrigger(eventTrigger, orchestrator, spotifyEventTrigger.PlaylistName, spotifyEventTrigger.EffectName, spotifyEventTrigger.Brightness));
+                            break;
+
                         case TriggerType.Borderlands2HealthEvent:
                             //This will never be reached currently, since users cannot add this type of event yet
                             EventTriggers.Add(new Borderlands2HealthEventTrigger(eventTrigger, orchestrator));

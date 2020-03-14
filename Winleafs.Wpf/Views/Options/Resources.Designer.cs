@@ -115,6 +115,15 @@ namespace Winleafs.Wpf.Views.Options {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Connect to spotify.
+        /// </summary>
+        public static string ConnectToSpotify {
+            get {
+                return ResourceManager.GetString("ConnectToSpotify", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string Delete {
@@ -373,6 +382,33 @@ namespace Winleafs.Wpf.Views.Options {
         public static string SetLocationByIp {
             get {
                 return ResourceManager.GetString("SetLocationByIp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to connect to Spotify. Please try again. If this issue persists, try deleting Winleafs from the list of apps in your Spotify account..
+        /// </summary>
+        public static string SpotifyNotConnected {
+            get {
+                return ResourceManager.GetString("SpotifyNotConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successfully connected to Spotify!.
+        /// </summary>
+        public static string SpotifySuccessfullyConnected {
+            get {
+                return ResourceManager.GetString("SpotifySuccessfullyConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown error when trying to connect with Spotify. Please report to the developers..
+        /// </summary>
+        public static string SpotifyUnknownError {
+            get {
+                return ResourceManager.GetString("SpotifyUnknownError", resourceCulture);
             }
         }
         

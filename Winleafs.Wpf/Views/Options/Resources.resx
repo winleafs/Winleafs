@@ -243,4 +243,16 @@ by IP Adress</value>
     <value>Are you sure you want to delete {0}?</value>
     <comment>Formatted string with 0: device name</comment>
   </data>
+  <data name="ConnectToSpotify" xml:space="preserve">
+    <value>Connect to spotify</value>
+  </data>
+  <data name="SpotifyNotConnected" xml:space="preserve">
+    <value>Failed to connect to Spotify. Please try again. If this issue persists, try deleting Winleafs from the list of apps in your Spotify account.</value>
+  </data>
+  <data name="SpotifySuccessfullyConnected" xml:space="preserve">
+    <value>Successfully connected to Spotify!</value>
+  </data>
+  <data name="SpotifyUnknownError" xml:space="preserve">
+    <value>Unknown error when trying to connect with Spotify. Please report to the developers.</value>
+  </data>
 </root>

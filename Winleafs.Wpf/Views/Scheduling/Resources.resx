@@ -123,6 +123,9 @@
   <data name="AddProcessEventTitle" xml:space="preserve">
     <value>Winleafs Add Process Event</value>
   </data>
+  <data name="AddSpotifyEventTitle" xml:space="preserve">
+    <value>Winleafs Add Spotify Event</value>
+  </data>
   <data name="AddTriggerTitle" xml:space="preserve">
     <value>Winleafs Add Trigger</value>
   </data>
@@ -137,6 +140,9 @@
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
+  </data>
+  <data name="ConnectToSpotify" xml:space="preserve">
+    <value>Connect to Spotify before adding a Spotify event</value>
   </data>
   <data name="CopyToAllDays" xml:space="preserve">
     <value>Copy to all days</value>
@@ -201,6 +207,18 @@
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="PlaylistName" xml:space="preserve">
+    <value>Playlist name</value>
+  </data>
+  <data name="PlaylistNameAlreadyExists" xml:space="preserve">
+    <value>Playlist "{0}" alreadye exists for this schedule</value>
+  </data>
+  <data name="PlaylistNameCanNotBeEmpty" xml:space="preserve">
+    <value>Playlist name cannot be empty</value>
+  </data>
+  <data name="ProcessEvent" xml:space="preserve">
+    <value>Process event</value>
+  </data>
   <data name="ProcessName" xml:space="preserve">
     <value>Process name</value>
   </data>
@@ -208,7 +226,7 @@
     <value>Process "{0}" already exists for this schedule</value>
   </data>
   <data name="ProcessNameCanNotBeEmpty" xml:space="preserve">
-    <value>Process name can not be empty</value>
+    <value>Process name cannot be empty</value>
   </data>
   <data name="ProcessNameHelp" xml:space="preserve">
     <value>Name as found in the taskmanager (without .exe)</value>
@@ -221,6 +239,9 @@
   </data>
   <data name="SaveScheduleError" xml:space="preserve">
     <value>Please enter a name, at least one device and at least one trigger or event</value>
+  </data>
+  <data name="SpotifyEvent" xml:space="preserve">
+    <value>Spotify event</value>
   </data>
   <data name="Sunday" xml:space="preserve">
     <value>Sunday</value>

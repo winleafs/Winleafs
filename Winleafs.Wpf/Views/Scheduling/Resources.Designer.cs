@@ -79,6 +79,15 @@ namespace Winleafs.Wpf.Views.Scheduling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Winleafs Add Spotify Event.
+        /// </summary>
+        public static string AddSpotifyEventTitle {
+            get {
+                return ResourceManager.GetString("AddSpotifyEventTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Winleafs Add Trigger.
         /// </summary>
         public static string AddTriggerTitle {
@@ -120,6 +129,15 @@ namespace Winleafs.Wpf.Views.Scheduling {
         public static string Cancel {
             get {
                 return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connect to Spotify before adding a Spotify event.
+        /// </summary>
+        public static string ConnectToSpotify {
+            get {
+                return ResourceManager.GetString("ConnectToSpotify", resourceCulture);
             }
         }
         
@@ -313,6 +331,42 @@ namespace Winleafs.Wpf.Views.Scheduling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Playlist name.
+        /// </summary>
+        public static string PlaylistName {
+            get {
+                return ResourceManager.GetString("PlaylistName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Playlist &quot;{0}&quot; alreadye exists for this schedule.
+        /// </summary>
+        public static string PlaylistNameAlreadyExists {
+            get {
+                return ResourceManager.GetString("PlaylistNameAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Playlist name cannot be empty.
+        /// </summary>
+        public static string PlaylistNameCanNotBeEmpty {
+            get {
+                return ResourceManager.GetString("PlaylistNameCanNotBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Process event.
+        /// </summary>
+        public static string ProcessEvent {
+            get {
+                return ResourceManager.GetString("ProcessEvent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Process name.
         /// </summary>
         public static string ProcessName {
@@ -331,7 +385,7 @@ namespace Winleafs.Wpf.Views.Scheduling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Process name can not be empty.
+        ///   Looks up a localized string similar to Process name cannot be empty.
         /// </summary>
         public static string ProcessNameCanNotBeEmpty {
             get {
@@ -372,6 +426,15 @@ namespace Winleafs.Wpf.Views.Scheduling {
         public static string SaveScheduleError {
             get {
                 return ResourceManager.GetString("SaveScheduleError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spotify event.
+        /// </summary>
+        public static string SpotifyEvent {
+            get {
+                return ResourceManager.GetString("SpotifyEvent", resourceCulture);
             }
         }
         
