@@ -1,37 +1,28 @@
-﻿using System.Threading.Tasks;
-using System.Windows;
-
-using Winleafs.Api;
-
-using Winleafs.Models.Models;
-
+﻿using MaterialDesignThemes.Wpf;
 using NLog;
-
-using Winleafs.Wpf.Views.MainWindows;
-using Winleafs.Wpf.Views.Setup;
-using Winleafs.Api.Helpers;
-using Winleafs.Wpf.Api;
+using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Security;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
-using MaterialDesignThemes.Wpf;
+using Winleafs.Api;
+using Winleafs.Api.Helpers;
 using Winleafs.External;
 using Winleafs.Models.Exceptions;
-using Winleafs.Wpf.Enums;
-using Winleafs.Wpf.Helpers;
+using Winleafs.Models.Models;
+using Winleafs.Wpf.Api;
+using Winleafs.Wpf.Views.MainWindows;
+using Winleafs.Wpf.Views.Popup;
+using Winleafs.Wpf.Views.Setup;
 using Application = System.Windows.Application;
 
 namespace Winleafs.Wpf.Views
 {
-    using System;
-
-    using Winleafs.Wpf.Views.Popup;
-
-    using System.Globalization;
-    using System.Threading;
-    using System.Security;
-
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
