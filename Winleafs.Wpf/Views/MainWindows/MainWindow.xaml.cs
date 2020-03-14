@@ -197,7 +197,11 @@ namespace Winleafs.Wpf.Views.MainWindows
         /// </summary>
         private void BuildScheduleListFromTimer(object source, ElapsedEventArgs e)
         {
-            BuildScheduleList();
+            //Run code on main thread since we update the UI
+            Dispatcher.Invoke(new Action(() =>
+            {
+                BuildScheduleList();
+            }));
         }
 
         public void EditSchedule(Schedule schedule)
