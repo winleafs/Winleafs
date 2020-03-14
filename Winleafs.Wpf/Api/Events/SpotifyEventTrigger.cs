@@ -63,15 +63,12 @@ namespace Winleafs.Wpf.Api.Events
             {
                 await TryStartEffect();
             }
-            else
+            else if (!shouldBeActive && _isActive)
             {
-                if (_isActive)
-                {
-                    //Let orchestrator know that the spotify event has stopped so it can continue with normal program, will not fail since an event can only be activated when no override is active
-                    //Always return to schedule since only 1 event can be active at a time
-                    await _orchestrator.TrySetOperationMode(OperationMode.Schedule);
-                    _isActive = false;
-                }
+                //Let orchestrator know that the spotify event has stopped so it can continue with normal program, will not fail since an event can only be activated when no override is active
+                //Always return to schedule since only 1 event can be active at a time
+                await _orchestrator.TrySetOperationMode(OperationMode.Schedule);
+                _isActive = false;
             }
         }
 
