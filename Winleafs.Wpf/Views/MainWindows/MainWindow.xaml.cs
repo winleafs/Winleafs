@@ -18,6 +18,7 @@ namespace Winleafs.Wpf.Views.MainWindows
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Runtime.InteropServices;
+    using System.Timers;
     using System.Windows.Interop;
     using Winleafs.Wpf.Views.Layout;
     using Winleafs.Wpf.Views.Popup;
@@ -64,6 +65,12 @@ namespace Winleafs.Wpf.Views.MainWindows
             BuildScheduleList();
 
             VersionLabel.Content = $"Winleafs {UserSettings.APPLICATIONVERSION}";
+
+            //Rebuild the schedule list once every minute such that the next effect label is kept up to date
+            var buildScheduleListTimer = new Timer(60000);
+            buildScheduleListTimer.Elapsed += BuildScheduleListFromTimer;
+            buildScheduleListTimer.AutoReset = true;
+            buildScheduleListTimer.Start();
 
             //Must appear last since this user control uses components of the main window
             TaskbarIcon.Initialize(this);
@@ -182,6 +189,15 @@ namespace Winleafs.Wpf.Views.MainWindows
             {
                 SchedulesStackPanel.Children.Add(new ScheduleItemUserControl(this, schedule));
             }
+        }
+
+        /// <summary>
+        /// Fired once per minute to keep the schedule list up to date with regards to
+        /// which effect is up next
+        /// </summary>
+        private void BuildScheduleListFromTimer(object source, ElapsedEventArgs e)
+        {
+            BuildScheduleList();
         }
 
         public void EditSchedule(Schedule schedule)
