@@ -9,7 +9,7 @@ using Winleafs.Wpf.Helpers;
 namespace Winleafs.Wpf.Api.Events
 {
     /// <summary>
-    /// Event trigger that is activated when a certain process starts
+    /// Event trigger that is activated when a Spotify playlist is played
     /// </summary>
     public class SpotifyEventTrigger : IEventTrigger
     {
