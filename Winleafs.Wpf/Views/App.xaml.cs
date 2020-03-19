@@ -16,6 +16,7 @@ using Winleafs.External;
 using Winleafs.Models.Exceptions;
 using Winleafs.Models.Models;
 using Winleafs.Wpf.Api;
+using Winleafs.Wpf.Helpers;
 using Winleafs.Wpf.Views.MainWindows;
 using Winleafs.Wpf.Views.Popup;
 using Winleafs.Wpf.Views.Setup;
@@ -112,7 +113,8 @@ namespace Winleafs.Wpf.Views
 
             mainWindow.Initialize();
 
-            CheckForUpdate();
+            CheckForUpdate(); 
+            CheckSpotifyConnection();
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)
@@ -179,6 +181,7 @@ namespace Winleafs.Wpf.Views
             mainWindow.Close();
         }
 
+        #region Startup checks
         private static void CheckForUpdate()
         {
             try
@@ -199,6 +202,19 @@ namespace Winleafs.Wpf.Views
                 //Do nothing
             }
         }
+
+        private static void CheckSpotifyConnection()
+        {
+            if (!string.IsNullOrEmpty(UserSettings.Settings.SpotifyAPIAccessToken)) //The user has connected to Spotify
+            {
+                if (!Spotify.WebAPIIsConnected())
+                {
+                    new SpotifyReconnectPopup().Show();
+                }
+            }
+        }
+
+        #endregion
 
         #region Show window of other process
         //Source: https://stackoverflow.com/questions/11399528/show-wpf-window-from-another-application-in-c-sharp

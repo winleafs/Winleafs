@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Winleafs.Api;
 using Winleafs.Models.Enums;
 using Winleafs.Models.Models;
-using Winleafs.Models.Models.Effects;
 using Winleafs.Wpf.Api.Effects;
 using Winleafs.Wpf.Api.Events;
 using Winleafs.Wpf.Api.Layouts;

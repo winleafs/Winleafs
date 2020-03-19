@@ -255,4 +255,10 @@ by IP Adress</value>
   <data name="SpotifyUnknownError" xml:space="preserve">
     <value>Unknown error when trying to connect with Spotify. Please report to the developers.</value>
   </data>
+  <data name="DisconnectFromSpotify" xml:space="preserve">
+    <value>Disconnect from Spotify</value>
+  </data>
+  <data name="DisconnectSuccessful" xml:space="preserve">
+    <value>Disconnect successful</value>
+  </data>
 </root>

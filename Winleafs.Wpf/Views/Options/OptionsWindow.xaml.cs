@@ -285,7 +285,7 @@ namespace Winleafs.Wpf.Views.Options
             catch (Exception ex)
             {
                 Logger.Error(ex, "Unknown error when trying to connect to Spotify");
-                PopupCreator.Success(Options.Resources.SpotifyUnknownError, true);
+                PopupCreator.Error(Options.Resources.SpotifyUnknownError);
             }
         }
 
@@ -300,9 +300,15 @@ namespace Winleafs.Wpf.Views.Options
                 }
                 else
                 {
-                    PopupCreator.Success(Options.Resources.SpotifyNotConnected, true);
+                    PopupCreator.Error(Options.Resources.SpotifyNotConnected);
                 }
             }));
+        }
+
+        private void DisconnectFromSpotify_Click(object sender, RoutedEventArgs e)
+        {
+            Spotify.Disconnect();
+            PopupCreator.Success(Options.Resources.DisconnectSuccessful, true);
         }
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)

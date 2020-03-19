@@ -57,6 +57,7 @@ namespace Winleafs.Wpf.Api.Events
             catch (Exception e)
             {
                 Logger.Warn(e, "Retrieving the Spotify current playlist failed.");
+                return;
             }
 
             if (shouldBeActive && !_isActive)

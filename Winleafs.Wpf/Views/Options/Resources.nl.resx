@@ -254,4 +254,10 @@ per IP adres</value>
   <data name="SpotifyUnknownError" xml:space="preserve">
     <value>Onbekende fout tijdens het verbinden met Spotify. Ligt aub de developers in.</value>
   </data>
+  <data name="DisconnectFromSpotify" xml:space="preserve">
+    <value>Spotify-verbinding verbreken</value>
+  </data>
+  <data name="DisconnectSuccessful" xml:space="preserve">
+    <value>Verbinding verbreken gelukt</value>
+  </data>
 </root>

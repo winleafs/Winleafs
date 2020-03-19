@@ -120,6 +120,9 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="Disconnect" xml:space="preserve">
+    <value>Disconnect</value>
+  </data>
   <data name="Error" xml:space="preserve">
     <value>Error</value>
   </data>
@@ -131,6 +134,24 @@
   </data>
   <data name="Ok" xml:space="preserve">
     <value>Ok</value>
+  </data>
+  <data name="Reconnect" xml:space="preserve">
+    <value>Reconnect</value>
+  </data>
+  <data name="SpotifyConnectionFailed" xml:space="preserve">
+    <value>Failed to connect to Spotify. Please try again. If this issue persists, try deleting Winleafs from the list of apps in your Spotify account.</value>
+  </data>
+  <data name="SpotifyNotConnected" xml:space="preserve">
+    <value>Warning: Spotify is no longer connected</value>
+  </data>
+  <data name="SpotifyNotConnectedTitle" xml:space="preserve">
+    <value>Spotify not connected</value>
+  </data>
+  <data name="SpotifySuccessfullyConnected" xml:space="preserve">
+    <value>Successfully connected to Spotify!</value>
+  </data>
+  <data name="SpotifyUnknownError" xml:space="preserve">
+    <value>Unknown error when trying to connect with Spotify. Please report to the developers.</value>
   </data>
   <data name="Success" xml:space="preserve">
     <value>Success</value>

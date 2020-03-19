@@ -54,6 +54,15 @@ namespace Winleafs.Wpf.Helpers
             auth.OpenBrowser();
         }
 
+        public static void Disconnect()
+        {
+            _webAPI = null;
+
+            UserSettings.Settings.SpotifyAPITokenType = null;
+            UserSettings.Settings.SpotifyAPIAccessToken = null;
+            UserSettings.Settings.SaveSettings();
+        }
+
         /// <summary>
         /// Retrieves the playlist that is currently playing.
         /// Returns null of the user is not palying any music.

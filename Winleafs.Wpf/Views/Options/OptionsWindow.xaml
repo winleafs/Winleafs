@@ -87,6 +87,11 @@
                             Margin="10,325,0,0" VerticalAlignment="Top" Width="200" Height="30"
                             Background="{StaticResource NanoleafGreen}" Foreground="White"
                             BorderBrush="{x:Null}" Click="ConnectToSpotify_Click"/>
+
+                        <Button Content="{x:Static local:Resources.DisconnectFromSpotify}" HorizontalAlignment="Left"
+                            Margin="220,325,0,0" VerticalAlignment="Top" Width="230" Height="30"
+                            Background="{StaticResource NanoleafGreen}" Foreground="White"
+                            BorderBrush="{x:Null}" Click="DisconnectFromSpotify_Click"/>
                     </Grid>
                 </materialDesign:Card>
             </TabItem>

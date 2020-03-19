@@ -160,6 +160,24 @@ namespace Winleafs.Wpf.Views.Options {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disconnect from Spotify.
+        /// </summary>
+        public static string DisconnectFromSpotify {
+            get {
+                return ResourceManager.GetString("DisconnectFromSpotify", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disconnect successful.
+        /// </summary>
+        public static string DisconnectSuccessful {
+            get {
+                return ResourceManager.GetString("DisconnectSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to General.
         /// </summary>
         public static string General {
