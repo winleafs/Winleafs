@@ -69,7 +69,10 @@ namespace Winleafs.Models.Models
         public int ScreenMirrorMonitorIndex { get; set; }
 
         public string SpotifyAPITokenType { get; set; }
+
         public string SpotifyAPIAccessToken { get; set; }
+
+        public string SpotifyRefreshToken { get; set; }
         #endregion
 
         #region Methods

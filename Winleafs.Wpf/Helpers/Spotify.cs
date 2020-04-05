@@ -29,29 +29,20 @@ namespace Winleafs.Wpf.Helpers
             }
         }
 
-        public static void Connect(Action finishedCallback)
+        public static void Connect(Action finishedCallback = null)
         {
-            var auth = new ImplicitGrantAuth(
-               "505351b8f037447eb8669f4213eda214",
-               "http://localhost:4002",
-               "http://localhost:4002",
-               Scope.PlaylistReadPrivate | Scope.PlaylistReadCollaborative | Scope.UserReadCurrentlyPlaying | Scope.UserReadPlaybackState
-           );
-
-            auth.AuthReceived += (sender, payload) =>
-            {
-                auth.Stop();
-
-                UserSettings.Settings.SpotifyAPITokenType = payload.TokenType;
-                UserSettings.Settings.SpotifyAPIAccessToken = payload.AccessToken;
-                UserSettings.Settings.SaveSettings();
-
-                _webAPI = null; //Reset the _webAPI object such that a new one is created at the next request with the new tokens
-
-                finishedCallback();
-            };
-            auth.Start(); // Starts an internal HTTP Server
+            var auth = GetSpotifyAuthenticator(finishedCallback);
+            
+            auth.Start();
             auth.OpenBrowser();
+        }
+
+        public static async Task RefreshToken(Action finishedCallback = null)
+        {
+            var auth = GetSpotifyAuthenticator(finishedCallback);
+
+            auth.Start();
+            await auth.RefreshAuthAsync(UserSettings.Settings.SpotifyRefreshToken);
         }
 
         public static void Disconnect()
@@ -60,6 +51,7 @@ namespace Winleafs.Wpf.Helpers
 
             UserSettings.Settings.SpotifyAPITokenType = null;
             UserSettings.Settings.SpotifyAPIAccessToken = null;
+            UserSettings.Settings.SpotifyRefreshToken = null;
             UserSettings.Settings.SaveSettings();
         }
 
@@ -98,6 +90,39 @@ namespace Winleafs.Wpf.Helpers
             {
                 return false;
             }
+        }
+
+        private static TokenSwapAuth GetSpotifyAuthenticator(Action finishedCallback = null)
+        {
+            var auth = new TokenSwapAuth(
+                exchangeServerUri: "https://localhost:44330/api/spotify",
+                serverUri: "http://localhost:4002",
+               Scope.PlaylistReadPrivate | Scope.PlaylistReadCollaborative | Scope.UserReadCurrentlyPlaying | Scope.UserReadPlaybackState
+            );
+
+            auth.AuthReceived += async (sender, response) =>
+            {
+                var token = await auth.ExchangeCodeAsync(response.Code);
+
+                UserSettings.Settings.SpotifyAPITokenType = token.TokenType;
+                UserSettings.Settings.SpotifyAPIAccessToken = token.AccessToken;
+                UserSettings.Settings.SpotifyRefreshToken = token.RefreshToken;
+                UserSettings.Settings.SaveSettings();
+
+                auth.Stop();
+
+                _webAPI = null; //Reset the _webAPI object such that a new one is created at the next request with the new tokens
+
+                finishedCallback?.Invoke();
+            };
+
+            auth.OnAccessTokenExpired += async (sender, e) =>
+            {
+                UserSettings.Settings.SpotifyAPIAccessToken = (await auth.RefreshAuthAsync(UserSettings.Settings.SpotifyRefreshToken)).AccessToken;
+                UserSettings.Settings.SaveSettings();
+            };
+
+            return auth;
         }
     }
 }

@@ -114,7 +114,7 @@ namespace Winleafs.Wpf.Views
             mainWindow.Initialize();
 
             CheckForUpdate(); 
-            CheckSpotifyConnection();
+            //CheckSpotifyConnection();
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)
