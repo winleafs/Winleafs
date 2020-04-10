@@ -258,13 +258,13 @@
   <data name="SpotifyEvent" xml:space="preserve">
     <value>Spotify event</value>
   </data>
-  <data name="PlaylistNameAlreadyExists" xml:space="preserve">
+  <data name="PlaylistAlreadyExists" xml:space="preserve">
     <value>Playlist {0} bestaat al voor dit schema</value>
   </data>
-  <data name="PlaylistNameCanNotBeEmpty" xml:space="preserve">
-    <value>Playlistnaam mag niet leeg zijn</value>
+  <data name="PlaylistCanNotBeEmpty" xml:space="preserve">
+    <value>Playlist mag niet leeg zijn</value>
   </data>
   <data name="ConnectToSpotify" xml:space="preserve">
-    <value>Verbind eerst met Spotify voordat u een Spotify event toevoegd.</value>
+    <value>Verbind eerst met Spotify voordat u een Spotify event toevoegd. Als u verbonden bent, dan is de Winleafs/Spotify server offline en kunt u het later nog een keer proberen.</value>
   </data>
 </root>

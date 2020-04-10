@@ -133,11 +133,11 @@ namespace Winleafs.Wpf.Views.Scheduling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Connect to Spotify before adding a Spotify event.
+        ///   Looks up a localized string similar to Connect to Spotify before adding a Spotify event. If you are connected, the Winleafs/Spotify server is offline and you can try again later..
         /// </summary>
-        public static string ConnectToSpotify {
+        public static string ConnectToSpotifyOrError {
             get {
-                return ResourceManager.GetString("ConnectToSpotify", resourceCulture);
+                return ResourceManager.GetString("ConnectToSpotifyOrError", resourceCulture);
             }
         }
         
@@ -331,29 +331,29 @@ namespace Winleafs.Wpf.Views.Scheduling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Playlist &quot;{0}&quot; alreadye exists for this schedule.
+        /// </summary>
+        public static string PlaylistAlreadyExists {
+            get {
+                return ResourceManager.GetString("PlaylistAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Playlist cannot be empty.
+        /// </summary>
+        public static string PlaylistCanNotBeEmpty {
+            get {
+                return ResourceManager.GetString("PlaylistCanNotBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Playlist name.
         /// </summary>
         public static string PlaylistName {
             get {
                 return ResourceManager.GetString("PlaylistName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Playlist &quot;{0}&quot; alreadye exists for this schedule.
-        /// </summary>
-        public static string PlaylistNameAlreadyExists {
-            get {
-                return ResourceManager.GetString("PlaylistNameAlreadyExists", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Playlist name cannot be empty.
-        /// </summary>
-        public static string PlaylistNameCanNotBeEmpty {
-            get {
-                return ResourceManager.GetString("PlaylistNameCanNotBeEmpty", resourceCulture);
             }
         }
         

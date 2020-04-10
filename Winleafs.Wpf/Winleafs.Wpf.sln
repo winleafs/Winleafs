@@ -25,6 +25,8 @@ Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Winleafs.Setup", "..\Winlea
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 Setup", "4 Setup", "{0D100008-BECF-4FA3-909D-6B680CF7F9FF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Winleafs.Server", "..\Winleafs.Server\Winleafs.Server.csproj", "{24A9FF96-56D8-4E0A-AA5E-AE82BBF2B69B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +81,14 @@ Global
 		{27AF9700-52FD-4DA7-B85A-27436BC02E4F}.Release|Any CPU.ActiveCfg = Release|x86
 		{27AF9700-52FD-4DA7-B85A-27436BC02E4F}.Release|x86.ActiveCfg = Release|x86
 		{27AF9700-52FD-4DA7-B85A-27436BC02E4F}.Release|x86.Build.0 = Release|x86
+		{24A9FF96-56D8-4E0A-AA5E-AE82BBF2B69B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24A9FF96-56D8-4E0A-AA5E-AE82BBF2B69B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24A9FF96-56D8-4E0A-AA5E-AE82BBF2B69B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{24A9FF96-56D8-4E0A-AA5E-AE82BBF2B69B}.Debug|x86.Build.0 = Debug|Any CPU
+		{24A9FF96-56D8-4E0A-AA5E-AE82BBF2B69B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24A9FF96-56D8-4E0A-AA5E-AE82BBF2B69B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24A9FF96-56D8-4E0A-AA5E-AE82BBF2B69B}.Release|x86.ActiveCfg = Release|Any CPU
+		{24A9FF96-56D8-4E0A-AA5E-AE82BBF2B69B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,6 +100,7 @@ Global
 		{D47A3540-3E21-4F5B-8B57-A9F9EA31426E} = {04253D20-9CA2-4737-8594-C73381F4B2FB}
 		{432BED7A-AAB5-4E9D-BB19-CDD4B07477B8} = {A630776E-B52F-4BF0-A90E-4CCB953FE8B9}
 		{27AF9700-52FD-4DA7-B85A-27436BC02E4F} = {0D100008-BECF-4FA3-909D-6B680CF7F9FF}
+		{24A9FF96-56D8-4E0A-AA5E-AE82BBF2B69B} = {A630776E-B52F-4BF0-A90E-4CCB953FE8B9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {80386817-4CBF-4EC3-A38E-31251DEB6BF9}

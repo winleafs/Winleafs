@@ -14,6 +14,7 @@
     <ProjectReference Include="..\Winleafs.Api\Winleafs.Api.csproj" />
     <ProjectReference Include="..\Winleafs.External\Winleafs.External.csproj" />
     <ProjectReference Include="..\Winleafs.Models\Winleafs.Models.csproj" />
+    <ProjectReference Include="..\Winleafs.Server\Winleafs.Server.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\icon.ico">

@@ -114,7 +114,6 @@ namespace Winleafs.Wpf.Views
             mainWindow.Initialize();
 
             CheckForUpdate(); 
-            //CheckSpotifyConnection();
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)
@@ -200,17 +199,6 @@ namespace Winleafs.Wpf.Views
             catch (Octokit.RateLimitExceededException)
             {
                 //Do nothing
-            }
-        }
-
-        private static void CheckSpotifyConnection()
-        {
-            if (!string.IsNullOrEmpty(UserSettings.Settings.SpotifyAPIAccessToken)) //The user has connected to Spotify
-            {
-                if (!Spotify.WebAPIIsConnected())
-                {
-                    new SpotifyReconnectPopup().Show();
-                }
             }
         }
 

@@ -141,8 +141,8 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
-  <data name="ConnectToSpotify" xml:space="preserve">
-    <value>Connect to Spotify before adding a Spotify event</value>
+  <data name="ConnectToSpotifyOrError" xml:space="preserve">
+    <value>Connect to Spotify before adding a Spotify event. If you are connected, the Winleafs/Spotify server is offline and you can try again later.</value>
   </data>
   <data name="CopyToAllDays" xml:space="preserve">
     <value>Copy to all days</value>
@@ -207,14 +207,14 @@
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
-  <data name="PlaylistName" xml:space="preserve">
-    <value>Playlist name</value>
-  </data>
-  <data name="PlaylistNameAlreadyExists" xml:space="preserve">
+  <data name="PlaylistAlreadyExists" xml:space="preserve">
     <value>Playlist "{0}" alreadye exists for this schedule</value>
   </data>
-  <data name="PlaylistNameCanNotBeEmpty" xml:space="preserve">
-    <value>Playlist name cannot be empty</value>
+  <data name="PlaylistCanNotBeEmpty" xml:space="preserve">
+    <value>Playlist cannot be empty</value>
+  </data>
+  <data name="PlaylistName" xml:space="preserve">
+    <value>Playlist name</value>
   </data>
   <data name="ProcessEvent" xml:space="preserve">
     <value>Process event</value>

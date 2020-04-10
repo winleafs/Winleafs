@@ -1,4 +1,8 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
+using Winleafs.Server;
+using Winleafs.Wpf.ViewModels;
 using Winleafs.Wpf.Views.Effects;
 
 namespace Winleafs.Wpf.Views.Scheduling
@@ -11,7 +15,8 @@ namespace Winleafs.Wpf.Views.Scheduling
     {
         private EventUserControl _parent;
         private int _brightness { get; set; }
-        public string PlaylistName { get; set; }
+        public List<SpotifyPlaylistViewModel> Playlists { get; set; }
+        public SpotifyPlaylistViewModel SelectedPlaylist { get; set; }
 
         public int Brightness
         {
@@ -23,9 +28,11 @@ namespace Winleafs.Wpf.Views.Scheduling
             }
         }
 
-        public AddSpotifyEventWindow(EventUserControl parent)
+        public AddSpotifyEventWindow(EventUserControl parent, Dictionary<string, string> playlists)
         {
             _parent = parent;
+
+            Playlists = playlists.Select(playlist => new SpotifyPlaylistViewModel { PlaylistId = playlist.Key, PlaylistName = playlist.Value }).ToList();
 
             DataContext = this;
 
@@ -42,7 +49,7 @@ namespace Winleafs.Wpf.Views.Scheduling
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            if (_parent.SpotifyEventTriggerAdded(PlaylistName, EffectComboBox.SelectedEffect?.EffectName, _brightness))
+            if (_parent.SpotifyEventTriggerAdded(SelectedPlaylist.PlaylistId, SelectedPlaylist.PlaylistName, EffectComboBox.SelectedEffect?.EffectName, _brightness))
             {
                 Close();
             }        

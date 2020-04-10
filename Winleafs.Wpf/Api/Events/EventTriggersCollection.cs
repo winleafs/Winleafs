@@ -28,7 +28,7 @@ namespace Winleafs.Wpf.Api.Events
 
                         case TriggerType.SpotifyEvent:
                             var spotifyEventTrigger = (Models.Models.Scheduling.Triggers.SpotifyEventTrigger)eventTrigger;
-                            EventTriggers.Add(new SpotifyEventTrigger(eventTrigger, orchestrator, spotifyEventTrigger.PlaylistName, spotifyEventTrigger.EffectName, spotifyEventTrigger.Brightness));
+                            EventTriggers.Add(new SpotifyEventTrigger(eventTrigger, orchestrator, spotifyEventTrigger.PlaylistId, spotifyEventTrigger.EffectName, spotifyEventTrigger.Brightness));
                             break;
 
                         case TriggerType.Borderlands2HealthEvent:

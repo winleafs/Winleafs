@@ -115,60 +115,6 @@ namespace Winleafs.Wpf.Views.Popup {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reconnect.
-        /// </summary>
-        public static string Reconnect {
-            get {
-                return ResourceManager.GetString("Reconnect", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Failed to connect to Spotify. Please try again. If this issue persists, try deleting Winleafs from the list of apps in your Spotify account..
-        /// </summary>
-        public static string SpotifyConnectionFailed {
-            get {
-                return ResourceManager.GetString("SpotifyConnectionFailed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Warning: Spotify is no longer connected.
-        /// </summary>
-        public static string SpotifyNotConnected {
-            get {
-                return ResourceManager.GetString("SpotifyNotConnected", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Spotify not connected.
-        /// </summary>
-        public static string SpotifyNotConnectedTitle {
-            get {
-                return ResourceManager.GetString("SpotifyNotConnectedTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Successfully connected to Spotify!.
-        /// </summary>
-        public static string SpotifySuccessfullyConnected {
-            get {
-                return ResourceManager.GetString("SpotifySuccessfullyConnected", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unknown error when trying to connect with Spotify. Please report to the developers..
-        /// </summary>
-        public static string SpotifyUnknownError {
-            get {
-                return ResourceManager.GetString("SpotifyUnknownError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Success.
         /// </summary>
         public static string Success {

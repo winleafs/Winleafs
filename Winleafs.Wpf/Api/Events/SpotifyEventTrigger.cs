@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using Winleafs.Models.Enums;
 using Winleafs.Models.Models.Scheduling.Triggers;
+using Winleafs.Server;
 using Winleafs.Wpf.Helpers;
 
 namespace Winleafs.Wpf.Api.Events
@@ -17,21 +18,23 @@ namespace Winleafs.Wpf.Api.Events
 
         private readonly ITrigger _trigger;
         private readonly Orchestrator _orchestrator;
-        private readonly string _playlistName;
+        private readonly string _playlistId;
         private readonly string _effectName;
         private readonly int _brightness;
         private bool _isActive;
+        private WinleafsServerClient _winleafsServerClient;
 
-        public SpotifyEventTrigger(ITrigger trigger, Orchestrator orchestrator, string playlistName, string effectName, int brightness)
+        public SpotifyEventTrigger(ITrigger trigger, Orchestrator orchestrator, string playlistId, string effectName, int brightness)
         {
             _trigger = trigger;
             _orchestrator = orchestrator;
-            _playlistName = playlistName;
+            _playlistId = playlistId;
             _effectName = effectName;
             _brightness = brightness;
             _isActive = false;
+            _winleafsServerClient = new WinleafsServerClient();
 
-            var processCheckTimer = new Timer(60000);
+            var processCheckTimer = new Timer(10000);
             processCheckTimer.Elapsed += CheckProcess;
             processCheckTimer.AutoReset = true;
             processCheckTimer.Start();
@@ -51,8 +54,8 @@ namespace Winleafs.Wpf.Api.Events
 
             try
             {
-                var currentPlaylistName = await Spotify.GetCurrentPlayingPlaylist();
-                shouldBeActive = currentPlaylistName!= null && _playlistName.ToLower() == currentPlaylistName.ToLower();
+                var currentPlaylistId = await _winleafsServerClient.SpotifyEndpoint.GetCurrentPlayingPlaylistId();
+                shouldBeActive = currentPlaylistId!= null && _playlistId == currentPlaylistId;
             }
             catch (Exception e)
             {

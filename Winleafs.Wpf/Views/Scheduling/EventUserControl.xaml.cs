@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using Winleafs.Models.Enums;
 using Winleafs.Models.Models.Scheduling.Triggers;
+using Winleafs.Server;
 using Winleafs.Wpf.Helpers;
 using Winleafs.Wpf.Views.Popup;
 
@@ -66,26 +67,30 @@ namespace Winleafs.Wpf.Views.Scheduling
 
         private void AddSpotifyEvent_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            if (Spotify.WebAPIIsConnected())
+            var winleafsServerClient = new WinleafsServerClient();
+            
+            try
             {
-                var addSpotiofyEventWindow = new AddSpotifyEventWindow(this);
+                var playlist = winleafsServerClient.SpotifyEndpoint.GetPlaylists();
+
+                var addSpotiofyEventWindow = new AddSpotifyEventWindow(this, playlist);
                 addSpotiofyEventWindow.ShowDialog();
             }
-            else
+            catch
             {
-                PopupCreator.Error(Scheduling.Resources.ConnectToSpotify);
+                PopupCreator.Error(Scheduling.Resources.ConnectToSpotifyOrError);
             }
         }
 
-        public bool SpotifyEventTriggerAdded(string playlistname, string effectName, int brightness)
+        public bool SpotifyEventTriggerAdded(string playlistId, string playlistName, string effectName, int brightness)
         {
-            if (string.IsNullOrWhiteSpace(playlistname))
+            if (string.IsNullOrWhiteSpace(playlistId) || string.IsNullOrWhiteSpace(playlistName))
             {
-                PopupCreator.Error(Scheduling.Resources.PlaylistNameCanNotBeEmpty);
+                PopupCreator.Error(Scheduling.Resources.PlaylistCanNotBeEmpty);
                 return false;
             }
 
-            playlistname = playlistname.Trim();
+            playlistName = playlistName.Trim();
 
             if (string.IsNullOrEmpty(effectName))
             {
@@ -96,9 +101,9 @@ namespace Winleafs.Wpf.Views.Scheduling
             foreach (var eventTrigger in EventTriggers)
             {
                 var spotifyEventTrigger = eventTrigger as SpotifyEventTrigger;
-                if (spotifyEventTrigger != null && spotifyEventTrigger.PlaylistName.ToLower().Equals(playlistname.ToLower()))
+                if (spotifyEventTrigger != null && spotifyEventTrigger.PlaylistId.ToLower().Equals(playlistId.ToLower()))
                 {
-                    PopupCreator.Error(string.Format(Scheduling.Resources.PlaylistNameAlreadyExists, playlistname));
+                    PopupCreator.Error(string.Format(Scheduling.Resources.PlaylistAlreadyExists, playlistName));
                     return false;
                 }
             }
@@ -108,7 +113,8 @@ namespace Winleafs.Wpf.Views.Scheduling
                 Brightness = brightness,
                 EffectName = effectName,
                 EventTriggerType = TriggerType.SpotifyEvent,
-                PlaylistName = playlistname
+                PlaylistName = playlistName,
+                PlaylistId = playlistId
             });
 
             BuildTriggerList();

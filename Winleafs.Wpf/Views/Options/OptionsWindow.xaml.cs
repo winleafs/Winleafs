@@ -16,6 +16,7 @@ using Winleafs.External;
 using Winleafs.Models.Enums;
 using Winleafs.Models.Models;
 using Winleafs.Models.Models.Effects;
+using Winleafs.Server;
 using Winleafs.Wpf.Api;
 using Winleafs.Wpf.Helpers;
 using Winleafs.Wpf.ViewModels;
@@ -278,9 +279,11 @@ namespace Winleafs.Wpf.Views.Options
 
         private void ConnectToSpotify_Click(object sender, RoutedEventArgs e)
         {
+            var winleafsServerClient = new WinleafsServerClient();
+
             try
             {
-                Spotify.Connect(ConnectToSpotifyFinished);
+                winleafsServerClient.SpotifyEndpoint.Connect();
             }
             catch (Exception ex)
             {
@@ -289,26 +292,10 @@ namespace Winleafs.Wpf.Views.Options
             }
         }
 
-        private void ConnectToSpotifyFinished()
-        {
-            //Run code on main thread since we update the UI
-            Dispatcher.Invoke(new Action(() =>
-            {
-                if (Spotify.WebAPIIsConnected())
-                {
-                    PopupCreator.Success(Options.Resources.SpotifySuccessfullyConnected, true);
-                }
-                else
-                {
-                    PopupCreator.Error(Options.Resources.SpotifyNotConnected);
-                }
-            }));
-        }
-
         private void DisconnectFromSpotify_Click(object sender, RoutedEventArgs e)
         {
-            Spotify.Disconnect();
-            PopupCreator.Success(Options.Resources.DisconnectSuccessful, true);
+            //Spotify.Disconnect();
+            //PopupCreator.Success(Options.Resources.DisconnectSuccessful, true);
         }
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
