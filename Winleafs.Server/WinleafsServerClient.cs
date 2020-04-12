@@ -6,7 +6,7 @@ namespace Winleafs.Server
 {
     public class WinleafsServerClient
     {
-        internal Uri BaseUri = new Uri("https://localhost:44330/api");
+        internal Uri BaseUri = new Uri("https://localhost:44330");
 
         private ISpotifyEndpoint _spotifyEndpoint;
 
