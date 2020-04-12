@@ -248,9 +248,6 @@ per IP adres</value>
   <data name="SpotifyNotConnected" xml:space="preserve">
     <value>Kon geen verbinding maken met Spotify. Probeer het nogmaals. Als dit probleem zich blijft voordoen, probeer dan Winleafs te verwijderen uit de lijst van apps in uw Spotify account.</value>
   </data>
-  <data name="SpotifySuccessfullyConnected" xml:space="preserve">
-    <value>Verbinding met Spotify gelukt!</value>
-  </data>
   <data name="SpotifyUnknownError" xml:space="preserve">
     <value>Onbekende fout tijdens het verbinden met Spotify. Ligt aub de developers in.</value>
   </data>
@@ -258,6 +255,6 @@ per IP adres</value>
     <value>Spotify-verbinding verbreken</value>
   </data>
   <data name="DisconnectSuccessful" xml:space="preserve">
-    <value>Verbinding verbreken gelukt</value>
+    <value>Verbinding verbreken gelukt. Vergeet niet om Spotify uit uw applicatielijst te halen bij uw Spotify account.</value>
   </data>
 </root>

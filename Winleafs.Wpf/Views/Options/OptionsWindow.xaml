@@ -83,15 +83,18 @@
                         <Label Content="{x:Static local:Resources.LanguageRestartNote}" HorizontalAlignment="Left"
                            VerticalAlignment="Top" Margin="10,253,0,0" FontSize="15" Foreground="White"/>
 
-                        <Button Content="{x:Static local:Resources.ConnectToSpotify}" HorizontalAlignment="Left"
+                        <Button x:Name="ConnectToSpotifyButton" Content="{x:Static local:Resources.ConnectToSpotify}" HorizontalAlignment="Left"
                             Margin="10,325,0,0" VerticalAlignment="Top" Width="200" Height="30"
                             Background="{StaticResource NanoleafGreen}" Foreground="White"
                             BorderBrush="{x:Null}" Click="ConnectToSpotify_Click"/>
 
-                        <Button Content="{x:Static local:Resources.DisconnectFromSpotify}" HorizontalAlignment="Left"
-                            Margin="220,325,0,0" VerticalAlignment="Top" Width="230" Height="30"
+                        <Button x:Name="DisconnectFromSpotifyButton" Content="{x:Static local:Resources.DisconnectFromSpotify}" HorizontalAlignment="Left"
+                            Margin="10,325,0,0" VerticalAlignment="Top" Width="230" Height="30"
                             Background="{StaticResource NanoleafGreen}" Foreground="White"
                             BorderBrush="{x:Null}" Click="DisconnectFromSpotify_Click"/>
+                        
+                        <Label x:Name="SpotifyUnknownErrorLabel" Content="{x:Static local:Resources.SpotifyUnknownError}" HorizontalAlignment="Left"
+                           VerticalAlignment="Top" Margin="10,325,0,0" FontSize="15" Foreground="White" Visibility="Hidden"/>
                     </Grid>
                 </materialDesign:Card>
             </TabItem>

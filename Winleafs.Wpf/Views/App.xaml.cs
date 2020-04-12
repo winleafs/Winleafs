@@ -16,7 +16,6 @@ using Winleafs.External;
 using Winleafs.Models.Exceptions;
 using Winleafs.Models.Models;
 using Winleafs.Wpf.Api;
-using Winleafs.Wpf.Helpers;
 using Winleafs.Wpf.Views.MainWindows;
 using Winleafs.Wpf.Views.Popup;
 using Winleafs.Wpf.Views.Setup;

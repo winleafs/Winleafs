@@ -10,5 +10,9 @@ namespace Winleafs.Server.Endpoints.Interfaces
         Task<string> GetCurrentPlayingPlaylistId();
 
         void Connect();
+
+        void Disconnect();
+
+        bool IsConnected();
     }
 }

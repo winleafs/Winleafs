@@ -34,7 +34,7 @@ namespace Winleafs.Wpf.Api.Events
             _isActive = false;
             _winleafsServerClient = new WinleafsServerClient();
 
-            var processCheckTimer = new Timer(10000);
+            var processCheckTimer = new Timer(60000);
             processCheckTimer.Elapsed += CheckProcess;
             processCheckTimer.AutoReset = true;
             processCheckTimer.Start();

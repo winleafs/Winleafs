@@ -169,7 +169,7 @@ namespace Winleafs.Wpf.Views.Options {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disconnect successful.
+        ///   Looks up a localized string similar to Disconnect successful. Do not forget to remove Winleafs from your application list in your Spotify account..
         /// </summary>
         public static string DisconnectSuccessful {
             get {
@@ -409,15 +409,6 @@ namespace Winleafs.Wpf.Views.Options {
         public static string SpotifyNotConnected {
             get {
                 return ResourceManager.GetString("SpotifyNotConnected", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Successfully connected to Spotify!.
-        /// </summary>
-        public static string SpotifySuccessfullyConnected {
-            get {
-                return ResourceManager.GetString("SpotifySuccessfullyConnected", resourceCulture);
             }
         }
         

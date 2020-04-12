@@ -249,9 +249,6 @@ by IP Adress</value>
   <data name="SpotifyNotConnected" xml:space="preserve">
     <value>Failed to connect to Spotify. Please try again. If this issue persists, try deleting Winleafs from the list of apps in your Spotify account.</value>
   </data>
-  <data name="SpotifySuccessfullyConnected" xml:space="preserve">
-    <value>Successfully connected to Spotify!</value>
-  </data>
   <data name="SpotifyUnknownError" xml:space="preserve">
     <value>Unknown error when trying to connect with Spotify. Please report to the developers.</value>
   </data>
@@ -259,6 +256,6 @@ by IP Adress</value>
     <value>Disconnect from Spotify</value>
   </data>
   <data name="DisconnectSuccessful" xml:space="preserve">
-    <value>Disconnect successful</value>
+    <value>Disconnect successful. Do not forget to remove Winleafs from your application list in your Spotify account.</value>
   </data>
 </root>

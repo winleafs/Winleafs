@@ -45,8 +45,8 @@ namespace Winleafs.Wpf.Views.Options
         private bool _visualizationOpen;
 
         private readonly MainWindow _mainWindow;
-
         private readonly List<string> _monitorNames;
+        private readonly WinleafsServerClient _winleafsServerClient;
 
         public OptionsWindow(MainWindow mainWindow)
         {
@@ -54,6 +54,7 @@ namespace Winleafs.Wpf.Views.Options
 
             InitializeComponent();
 
+            //Initialize the viewmodel
             _monitorNames = ScreenBoundsHelper.GetMonitorNames();
 
             OptionsViewModel = new OptionsViewModel(this)
@@ -79,6 +80,7 @@ namespace Winleafs.Wpf.Views.Options
 
             OptionsViewModel.SelectedDevice = UserSettings.Settings.ActiveDevice.Name; //Set this one last since it triggers changes in properties
 
+            //Initialize variables
             _startupKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", RegistryKeyPermissionCheck.ReadWriteSubTree, RegistryRights.FullControl);
             _visualizationOpen = false;
 
@@ -87,8 +89,14 @@ namespace Winleafs.Wpf.Views.Options
                 DeviceList.Children.Add(new DeviceUserControl(device.Name, this));
             }
 
+            //Draw monitors
             DrawMonitors();
 
+            //Check Spotify connection
+            _winleafsServerClient = new WinleafsServerClient();
+            InitializeSpotifyButtons();
+
+            //last: set datacontext
             DataContext = OptionsViewModel;
         }
 
@@ -279,11 +287,9 @@ namespace Winleafs.Wpf.Views.Options
 
         private void ConnectToSpotify_Click(object sender, RoutedEventArgs e)
         {
-            var winleafsServerClient = new WinleafsServerClient();
-
             try
             {
-                winleafsServerClient.SpotifyEndpoint.Connect();
+                _winleafsServerClient.SpotifyEndpoint.Connect();
             }
             catch (Exception ex)
             {
@@ -294,8 +300,19 @@ namespace Winleafs.Wpf.Views.Options
 
         private void DisconnectFromSpotify_Click(object sender, RoutedEventArgs e)
         {
-            //Spotify.Disconnect();
-            //PopupCreator.Success(Options.Resources.DisconnectSuccessful, true);
+            try
+            {
+                _winleafsServerClient.SpotifyEndpoint.Disconnect();
+                PopupCreator.Success(Options.Resources.DisconnectSuccessful, true);
+
+                DisconnectFromSpotifyButton.Visibility = Visibility.Hidden;
+                ConnectToSpotifyButton.Visibility = Visibility.Visible;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, "Unknown error when trying to connect to Spotify");
+                PopupCreator.Error(Options.Resources.SpotifyUnknownError);
+            }
         }
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
@@ -379,6 +396,29 @@ namespace Winleafs.Wpf.Views.Options
 
                 Close();
             }
+        }
+
+        private void InitializeSpotifyButtons()
+        {
+            try
+            {
+                if (_winleafsServerClient.SpotifyEndpoint.IsConnected())
+                {
+                    ConnectToSpotifyButton.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    DisconnectFromSpotifyButton.Visibility = Visibility.Hidden;
+                }
+            }
+            catch (Exception ex)
+            {
+                //Winleafs server is offline/unreachable, disable both buttons and show the error message
+                Logger.Error(ex, "Unknown error when trying to connect to Spotify");
+                ConnectToSpotifyButton.Visibility = Visibility.Hidden;
+                DisconnectFromSpotifyButton.Visibility = Visibility.Hidden;
+                SpotifyUnknownErrorLabel.Visibility = Visibility.Visible;
+            }            
         }
 
         private void DrawMonitors()
