@@ -28,7 +28,7 @@ namespace Winleafs.Server.Endpoints
 
         public void Disconnect()
         {
-            SendRequest($"{BaseUrl}/disconnect/{UserSettings.Settings.ApplicationId}", Method.POST);
+            SendRequest($"{BaseUrl}/disconnect/{UserSettings.Settings.ApplicationId}", Method.DELETE);
         }
 
         public bool IsConnected()
