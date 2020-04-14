@@ -50,18 +50,7 @@ namespace Winleafs.Wpf.Api.Events
         /// </summary>
         private async Task CheckPlaylistAsync()
         {
-            var shouldBeActive = false;
-
-            try
-            {
-                var currentPlaylistId = await _winleafsServerClient.SpotifyEndpoint.GetCurrentPlayingPlaylistId();
-                shouldBeActive = currentPlaylistId!= null && _playlistId == currentPlaylistId;
-            }
-            catch (Exception e)
-            {
-                Logger.Warn(e, "Retrieving the Spotify current playlist failed.");
-                return;
-            }
+            var shouldBeActive = _playlistId == SpotifyEventTimer.CurrentPlaylistId;
 
             if (shouldBeActive && !_isActive)
             {

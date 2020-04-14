@@ -103,6 +103,8 @@ namespace Winleafs.Wpf.Views
 
             OrchestratorCollection.Initialize();
 
+            SpotifyEventTimer.Initialize();
+
             var mainWindow = new MainWindow();
 
             if (!silent)

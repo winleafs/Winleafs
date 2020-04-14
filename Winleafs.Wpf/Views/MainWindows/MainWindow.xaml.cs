@@ -147,6 +147,7 @@ namespace Winleafs.Wpf.Views.MainWindows
             }            
         }
 
+        #region Schedules
         private void AddSchedule_Click(object sender, RoutedEventArgs e)
         {
             var scheduleWindow = new ManageScheduleWindow(this, WorkMode.Add);
@@ -157,11 +158,7 @@ namespace Winleafs.Wpf.Views.MainWindows
         {
             UserSettings.Settings.AddSchedule(schedule, true);
 
-            OrchestratorCollection.ResetOrchestrators();
-
-            BuildScheduleList();
-
-            UpdateActiveEffectLabelsAndLayout();
+            ScheduleChanged();
         }
 
         public void UpdatedSchedule(Schedule originalSchedule, Schedule newSchedule)
@@ -169,7 +166,31 @@ namespace Winleafs.Wpf.Views.MainWindows
             UserSettings.Settings.DeleteSchedule(originalSchedule);
             UserSettings.Settings.AddSchedule(newSchedule, false);
 
+            ScheduleChanged();
+        }
+
+        public void DeleteSchedule(Schedule schedule)
+        {
+            UserSettings.Settings.DeleteSchedule(schedule);
+
+            ScheduleChanged();
+        }
+
+        public void ActivateSchedule(Schedule schedule)
+        {
+            UserSettings.Settings.ActivateSchedule(schedule);
+
+            ScheduleChanged();
+        }
+
+        /// <summary>
+        /// Contains logic that must be executed every time a schedule changed
+        /// </summary>
+        private void ScheduleChanged()
+        {
             OrchestratorCollection.ResetOrchestrators();
+
+            SpotifyEventTimer.Initialize();
 
             BuildScheduleList();
 
@@ -209,17 +230,7 @@ namespace Winleafs.Wpf.Views.MainWindows
             var scheduleWindow = new ManageScheduleWindow(this, WorkMode.Edit, schedule);
             scheduleWindow.ShowDialog();
         }
-
-        public void DeleteSchedule(Schedule schedule)
-        {
-            UserSettings.Settings.DeleteSchedule(schedule);
-
-            OrchestratorCollection.ResetOrchestrators();
-
-            BuildScheduleList();
-
-            UpdateActiveEffectLabelsAndLayout();
-        }
+        #endregion
 
         public void Window_Closing(object sender, CancelEventArgs e)
         {
@@ -228,17 +239,6 @@ namespace Winleafs.Wpf.Views.MainWindows
                 Hide();
                 e.Cancel = true;
             }
-        }
-
-        public void ActivateSchedule(Schedule schedule)
-        {
-            UserSettings.Settings.ActivateSchedule(schedule);
-
-            OrchestratorCollection.ResetOrchestrators();
-
-            BuildScheduleList();
-
-            UpdateActiveEffectLabelsAndLayout();
         }
 
         private void Options_Click(object sender, RoutedEventArgs e)
