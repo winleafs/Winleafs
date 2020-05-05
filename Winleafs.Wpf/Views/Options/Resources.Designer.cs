@@ -70,6 +70,15 @@ namespace Winleafs.Wpf.Views.Options {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Advanced.
+        /// </summary>
+        public static string Advanced {
+            get {
+                return ResourceManager.GetString("Advanced", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Algorithm.
         /// </summary>
         public static string Algorithm {
@@ -463,6 +472,15 @@ namespace Winleafs.Wpf.Views.Options {
         public static string WinleafsOptions {
             get {
                 return ResourceManager.GetString("WinleafsOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server URL.
+        /// </summary>
+        public static string WinleafsServerURL {
+            get {
+                return ResourceManager.GetString("WinleafsServerURL", resourceCulture);
             }
         }
         

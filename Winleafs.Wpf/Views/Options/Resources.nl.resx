@@ -257,4 +257,10 @@ per IP adres</value>
   <data name="DisconnectSuccessful" xml:space="preserve">
     <value>Verbinding verbreken gelukt. Vergeet niet om Spotify uit uw applicatielijst te halen bij uw Spotify account.</value>
   </data>
+  <data name="Advanced" xml:space="preserve">
+    <value>Geavanceerd</value>
+  </data>
+  <data name="WinleafsServerURL" xml:space="preserve">
+    <value>Server URL</value>
+  </data>
 </root>

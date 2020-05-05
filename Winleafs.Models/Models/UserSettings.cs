@@ -69,6 +69,8 @@ namespace Winleafs.Models.Models
         public int ScreenMirrorRefreshRatePerSecond { get; set; }
 
         public int ScreenMirrorMonitorIndex { get; set; }
+
+        public string WinleafServerURL { get; set; }
         #endregion
 
         #region Methods
@@ -100,8 +102,9 @@ namespace Winleafs.Models.Models
                     Schedules = new List<Schedule>(),
                     JsonVersion = _latestSettingsVersion,
                     ScreenMirrorRefreshRatePerSecond = 5,
-                    ScreenMirrorMonitorIndex = 0
-                };
+                    ScreenMirrorMonitorIndex = 0,
+                    WinleafServerURL = "http://api.winleafs.com"
+            };
                 _settings = userSettings;
             }
             else
@@ -446,6 +449,7 @@ namespace Winleafs.Models.Models
         private static JToken Migration_10_11(JToken jToken)
         {
             jToken[nameof(ApplicationId)] = Guid.NewGuid().ToString();
+            jToken[nameof(WinleafServerURL)] = "http://api.winleafs.com";
 
             return jToken;
         }

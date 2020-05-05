@@ -258,4 +258,10 @@ by IP Adress</value>
   <data name="DisconnectSuccessful" xml:space="preserve">
     <value>Disconnect successful. Do not forget to remove Winleafs from your application list in your Spotify account.</value>
   </data>
+  <data name="Advanced" xml:space="preserve">
+    <value>Advanced</value>
+  </data>
+  <data name="WinleafsServerURL" xml:space="preserve">
+    <value>Server URL</value>
+  </data>
 </root>

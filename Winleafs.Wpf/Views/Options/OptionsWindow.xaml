@@ -227,6 +227,20 @@
                     </Grid>
                 </materialDesign:Card>
             </TabItem>
+            <TabItem Header="{x:Static local:Resources.Advanced}">
+                <materialDesign:Card Padding="32" Margin="16" Background="{StaticResource NanoleafBlack}">
+                    <Grid>
+                        <TextBox
+                        Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                        materialDesign:HintAssist.Hint="{x:Static local:Resources.WinleafsServerURL}"
+                        materialDesign:HintAssist.Foreground="White"
+                        materialDesign:HintAssist.IsFloating="True"
+                        x:Name="WinleafsServerURLTextBox" HorizontalAlignment="Left" Height="40"
+                        Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300"
+                        BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White" Text="{Binding WinleafsServerURL}"/>
+                    </Grid>
+                </materialDesign:Card>
+            </TabItem>
         </TabControl>
 
         <Button Content="{x:Static local:Resources.Cancel}" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Cancel_Click"/>

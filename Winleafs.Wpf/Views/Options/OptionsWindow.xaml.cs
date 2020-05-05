@@ -3,13 +3,11 @@ using NLog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Winleafs.External;
@@ -70,7 +68,8 @@ namespace Winleafs.Wpf.Views.Options
                 SelectedLanguage = FullNameForCulture(UserSettings.Settings.UserLocale),
                 Languages = _languageDictionary.Keys.ToList(),
                 MinimizeToSystemTray = UserSettings.Settings.MinimizeToSystemTray,
-                CustomColorEffects = UserSettings.Settings.CustomEffects == null ? new List<UserCustomColorEffect>() : UserSettings.Settings.CustomEffects.ToList()
+                CustomColorEffects = UserSettings.Settings.CustomEffects == null ? new List<UserCustomColorEffect>() : UserSettings.Settings.CustomEffects.ToList(),
+                WinleafsServerURL = UserSettings.Settings.WinleafServerURL
             };
 
             foreach (var customEffects in OptionsViewModel.CustomColorEffects)
@@ -252,6 +251,12 @@ namespace Winleafs.Wpf.Views.Options
 
             #endregion Colors
 
+            #region Advanced
+            if (!string.IsNullOrWhiteSpace(OptionsViewModel.WinleafsServerURL))
+            {
+                UserSettings.Settings.WinleafServerURL = OptionsViewModel.WinleafsServerURL;
+            }
+            #endregion
 
             UserSettings.Settings.SaveSettings();
 
