@@ -64,10 +64,10 @@
   <Target Name="BeforeBuild">
     <Exec Command="dotnet publish ..\Winleafs.Wpf\Winleafs.Wpf.csproj -c $(Configuration) --self-contained -r win10-x64" />
     <PropertyGroup>
-      <LinkerBaseInputPaths>..\Winleafs.Wpf\bin\$(Configuration)\netcoreapp3.0\win10-x64\publish</LinkerBaseInputPaths>
-      <DefineConstants>BasePath=..\Winleafs.Wpf\bin\$(Configuration)\netcoreapp3.0\win10-x64\publish</DefineConstants>
+      <LinkerBaseInputPaths>..\Winleafs.Wpf\bin\$(Configuration)\netcoreapp3.1\win10-x64\publish</LinkerBaseInputPaths>
+      <DefineConstants>BasePath=..\Winleafs.Wpf\bin\$(Configuration)\netcoreapp3.1\win10-x64\publish</DefineConstants>
     </PropertyGroup>
-    <HeatDirectory OutputFile="Winleafs.wxs" DirectoryRefId="INSTALLFOLDER" ComponentGroupName="ClefTool_Project" SuppressCom="true" Directory="..\Winleafs.Wpf\bin\$(Configuration)\netcoreapp3.0\win10-x64\publish" SuppressFragments="true" SuppressRegistry="true" SuppressRootDirectory="true" AutoGenerateGuids="false" GenerateGuidsNow="true" ToolPath="$(WixToolPath)" PreprocessorVariable="var.BasePath" />
+    <HeatDirectory OutputFile="Winleafs.wxs" DirectoryRefId="INSTALLFOLDER" ComponentGroupName="ClefTool_Project" SuppressCom="true" Directory="..\Winleafs.Wpf\bin\$(Configuration)\netcoreapp3.1\win10-x64\publish" SuppressFragments="true" SuppressRegistry="true" SuppressRootDirectory="true" AutoGenerateGuids="false" GenerateGuidsNow="true" ToolPath="$(WixToolPath)" PreprocessorVariable="var.BasePath" />
   </Target>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.
