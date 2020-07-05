@@ -94,17 +94,17 @@
                            VerticalAlignment="Top" Margin="10,311,0,0" FontSize="15" Foreground="White"/>
 
                         <Button x:Name="ConnectToSpotifyButton" Content="{x:Static local:Resources.ConnectToSpotify}" HorizontalAlignment="Left"
-                            Margin="10,325,0,0" VerticalAlignment="Top" Width="200" Height="30"
+                            Margin="10,350,0,0" VerticalAlignment="Top" Width="200" Height="30"
                             Background="{StaticResource NanoleafGreen}" Foreground="White"
                             BorderBrush="{x:Null}" Click="ConnectToSpotify_Click"/>
 
                         <Button x:Name="DisconnectFromSpotifyButton" Content="{x:Static local:Resources.DisconnectFromSpotify}" HorizontalAlignment="Left"
-                            Margin="10,325,0,0" VerticalAlignment="Top" Width="230" Height="30"
+                            Margin="10,350,0,0" VerticalAlignment="Top" Width="230" Height="30"
                             Background="{StaticResource NanoleafGreen}" Foreground="White"
                             BorderBrush="{x:Null}" Click="DisconnectFromSpotify_Click"/>
                         
                         <Label x:Name="SpotifyUnknownErrorLabel" Content="{x:Static local:Resources.SpotifyUnknownError}" HorizontalAlignment="Left"
-                           VerticalAlignment="Top" Margin="10,325,0,0" FontSize="15" Foreground="White" Visibility="Hidden"/>
+                           VerticalAlignment="Top" Margin="10,350,0,0" FontSize="15" Foreground="White" Visibility="Hidden"/>
                     </Grid>
                 </materialDesign:Card>
             </TabItem>
