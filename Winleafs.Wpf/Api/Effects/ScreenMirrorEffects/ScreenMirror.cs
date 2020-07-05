@@ -56,7 +56,7 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
 
             var colors = ScreenGrabber.CalculateAverageColor(panelsToUpdate.Select(panel => panel.ScreenshotArea), 0);
 
-            if (!colors.Any())
+            if (colors == null)
             {
                 //This can happen when before the first screen shot is taken when the effect is enabled
                 return;

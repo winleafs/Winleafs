@@ -30,6 +30,8 @@ namespace Winleafs.Wpf.ViewModels
         public bool MinimizeToSystemTray { get; set; }
 
         public List<UserCustomColorEffect> CustomColorEffects { get; set; }
+
+        public string ProcessResetIntervalText { get; set; }
         #endregion
 
         #region Screen mirror

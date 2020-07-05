@@ -24,7 +24,7 @@ namespace Winleafs.Models.Models
         public static readonly string EffectNamePreface = "Winleafs - ";
 
         private static readonly string _settingsFileName = Path.Combine(SettingsFolder, "Settings.txt");
-        private static readonly string _latestSettingsVersion = "10";
+        private static readonly string _latestSettingsVersion = "11";
 
         private static UserSettings _settings { get; set; }
 
@@ -67,6 +67,8 @@ namespace Winleafs.Models.Models
         public int ScreenMirrorRefreshRatePerSecond { get; set; }
 
         public int ScreenMirrorMonitorIndex { get; set; }
+
+        public int ProcessResetIntervalInSeconds { get; set; }
         #endregion
 
         #region Methods
@@ -97,7 +99,8 @@ namespace Winleafs.Models.Models
                     Schedules = new List<Schedule>(),
                     JsonVersion = _latestSettingsVersion,
                     ScreenMirrorRefreshRatePerSecond = 5,
-                    ScreenMirrorMonitorIndex = 0
+                    ScreenMirrorMonitorIndex = 0,
+                    ProcessResetIntervalInSeconds = 60
                 };
                 _settings = userSettings;
             }
@@ -435,6 +438,14 @@ namespace Winleafs.Models.Models
         {
             //Reset the selected monitor since we updated the screen that are displayed in the dropdown
             jToken[nameof(ScreenMirrorMonitorIndex)] = 0;
+
+            return jToken;
+        }
+
+        [Migration("10", "11")]
+        private static JToken Migration_10_11(JToken jToken)
+        {
+            jToken[nameof(ProcessResetIntervalInSeconds)] = 60;
 
             return jToken;
         }

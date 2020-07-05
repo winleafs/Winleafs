@@ -242,4 +242,10 @@ per IP adres</value>
     <value>Weet je zeker dat je {0} wilt verwijderen?</value>
     <comment>Formatted string with 0: device name</comment>
   </data>
+  <data name="ProcessResetInterval" xml:space="preserve">
+    <value>Proces reset interval in seconden</value>
+  </data>
+  <data name="ProcessResetIntervalError" xml:space="preserve">
+    <value>Vul een geldige waarde in voor proces reset interval (een nummer groter dan 0)</value>
+  </data>
 </root>

@@ -243,4 +243,10 @@ by IP Adress</value>
     <value>Are you sure you want to delete {0}?</value>
     <comment>Formatted string with 0: device name</comment>
   </data>
+  <data name="ProcessResetInterval" xml:space="preserve">
+    <value>Process reset interval in seconds</value>
+  </data>
+  <data name="ProcessResetIntervalError" xml:space="preserve">
+    <value>Please enter a valid value for process reset interval (a number larger than 0)</value>
+  </data>
 </root>

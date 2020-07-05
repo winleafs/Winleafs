@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Timers;
 using Winleafs.Models.Enums;
+using Winleafs.Models.Models;
 using Winleafs.Models.Models.Scheduling.Triggers;
 
 namespace Winleafs.Wpf.Api.Events
@@ -30,7 +31,7 @@ namespace Winleafs.Wpf.Api.Events
             _brightness = brightness;
             _isActive = false;
 
-            var processCheckTimer = new Timer(60000);
+            var processCheckTimer = new Timer(UserSettings.Settings.ProcessResetIntervalInSeconds * 1000);
             processCheckTimer.Elapsed += CheckProcess;
             processCheckTimer.AutoReset = true;
             processCheckTimer.Start();

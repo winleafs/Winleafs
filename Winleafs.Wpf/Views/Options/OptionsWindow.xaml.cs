@@ -65,7 +65,8 @@ namespace Winleafs.Wpf.Views.Options
                 SelectedLanguage = FullNameForCulture(UserSettings.Settings.UserLocale),
                 Languages = _languageDictionary.Keys.ToList(),
                 MinimizeToSystemTray = UserSettings.Settings.MinimizeToSystemTray,
-                CustomColorEffects = UserSettings.Settings.CustomEffects == null ? new List<UserCustomColorEffect>() : UserSettings.Settings.CustomEffects.ToList()
+                CustomColorEffects = UserSettings.Settings.CustomEffects == null ? new List<UserCustomColorEffect>() : UserSettings.Settings.CustomEffects.ToList(),
+                ProcessResetIntervalText = UserSettings.Settings.ProcessResetIntervalInSeconds.ToString()
             };
 
             foreach (var customEffects in OptionsViewModel.CustomColorEffects)
@@ -240,6 +241,28 @@ namespace Winleafs.Wpf.Views.Options
 
             #endregion Colors
 
+            #region ProcessResetInterval
+            if (OptionsViewModel.ProcessResetIntervalText != UserSettings.Settings.ProcessResetIntervalInSeconds.ToString())
+            {
+                try
+                {
+                    var processResetIntervalInSeconds = Convert.ToInt32(OptionsViewModel.ProcessResetIntervalText);
+
+                    if (processResetIntervalInSeconds <= 0)
+                    {
+                        //Just throw an empty exception here, it is not logged
+                        throw new Exception();
+                    }
+
+                    UserSettings.Settings.ProcessResetIntervalInSeconds = processResetIntervalInSeconds;
+                }
+                catch
+                {
+                    PopupCreator.Error(Options.Resources.ProcessResetIntervalError);
+                    return;
+                }
+            }
+            #endregion
 
             UserSettings.Settings.SaveSettings();
 
