@@ -66,7 +66,17 @@ namespace Winleafs.Wpf.Api.Effects
         {
             if (_screenMirrorEffect != null)
             {
-                await _screenMirrorEffect.ApplyEffect();
+                try
+                {                    
+                    await _screenMirrorEffect.ApplyEffect();
+                }
+                catch (Exception e)
+                {
+                    _logger.Error(e, $"Unexpected error for screen mirror with algorithm {_screenMirrorAlgorithm}");
+
+                    //Deactivate on error, we do not want to keep applying screen mirror effects when there is one error.
+                    await Deactivate();
+                }
             }            
         }
 

@@ -197,9 +197,9 @@ namespace Winleafs.Wpf.Views
                 new NewVersionPopup().Show();
                 _logger.Info($"New version available upgrade from {UserSettings.APPLICATIONVERSION} to {release}");
             }
-            catch (Octokit.RateLimitExceededException)
+            catch
             {
-                //Do nothing
+                //Do nothing, does not matter if the user is offline or github is unreachable
             }
         }
 

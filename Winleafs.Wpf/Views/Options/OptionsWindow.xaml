@@ -37,7 +37,7 @@
 
     <Grid Background="{StaticResource NanoleafBlack}">
         <TabControl Style="{StaticResource MaterialDesignTabControl}"
-            Background="{StaticResource NanoleafBlack}" Margin="0,0,-0.333,42" BorderThickness="0,1,0,0">
+            Background="{StaticResource NanoleafBlack}" Margin="0,0,0,42" BorderThickness="0,1,0,0">
             <TabItem Header="{x:Static local:Resources.General}">
                 <materialDesign:Card Padding="32" Margin="16" Background="{StaticResource NanoleafBlack}">
                     <Grid>
@@ -71,6 +71,16 @@
                             Background="{StaticResource NanoleafGreen}" Foreground="White"
                             BorderBrush="{x:Null}" Click="GeoIp_Click"/>
 
+                        <TextBox
+                            Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                            materialDesign:HintAssist.Hint="{x:Static local:Resources.ProcessResetInterval}"
+                            materialDesign:HintAssist.Foreground="White"
+                            materialDesign:HintAssist.IsFloating="True"
+                            x:Name="ProcessResetIntervalTextBox" HorizontalAlignment="Left" Height="40"
+                            Margin="10,201,0,0" TextWrapping="Wrap" VerticalAlignment="Top"
+                            Width="230" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White"
+                            CaretBrush="White" Text="{Binding ProcessResetIntervalText}"/>
+
                         <ComboBox
                         Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
                         materialDesign:HintAssist.Hint="{x:Static local:Resources.Language}"
@@ -78,10 +88,10 @@
                         materialDesign:HintAssist.IsFloating="True"
                         
                         Height="40" Width="230" HorizontalAlignment="Left" VerticalAlignment="Top"
-                        Margin="10,201,0,0"  SelectedItem="{Binding SelectedLanguage}"
+                        Margin="10,259,0,0"  SelectedItem="{Binding SelectedLanguage}"
                         ItemsSource="{Binding Languages}" Foreground="White"/>
                         <Label Content="{x:Static local:Resources.LanguageRestartNote}" HorizontalAlignment="Left"
-                           VerticalAlignment="Top" Margin="10,253,0,0" FontSize="15" Foreground="White"/>
+                           VerticalAlignment="Top" Margin="10,311,0,0" FontSize="15" Foreground="White"/>
 
                         <Button x:Name="ConnectToSpotifyButton" Content="{x:Static local:Resources.ConnectToSpotify}" HorizontalAlignment="Left"
                             Margin="10,325,0,0" VerticalAlignment="Top" Width="200" Height="30"

@@ -24,7 +24,7 @@ namespace Winleafs.Models.Models
         public static readonly string EffectNamePreface = "Winleafs - ";
 
         private static readonly string _settingsFileName = Path.Combine(SettingsFolder, "Settings.txt");
-        private static readonly string _latestSettingsVersion = "11";
+        private static readonly string _latestSettingsVersion = "12";
 
         private static UserSettings _settings { get; set; }
 
@@ -71,6 +71,8 @@ namespace Winleafs.Models.Models
         public int ScreenMirrorMonitorIndex { get; set; }
 
         public string WinleafServerURL { get; set; }
+
+        public int ProcessResetIntervalInSeconds { get; set; }
         #endregion
 
         #region Methods
@@ -103,8 +105,9 @@ namespace Winleafs.Models.Models
                     JsonVersion = _latestSettingsVersion,
                     ScreenMirrorRefreshRatePerSecond = 5,
                     ScreenMirrorMonitorIndex = 0,
-                    WinleafServerURL = "http://api.winleafs.com"
-            };
+                    WinleafServerURL = "https://api.winleafs.com",
+                    ProcessResetIntervalInSeconds = 60
+                };
                 _settings = userSettings;
             }
             else
@@ -448,8 +451,16 @@ namespace Winleafs.Models.Models
         [Migration("10", "11")]
         private static JToken Migration_10_11(JToken jToken)
         {
+            jToken[nameof(ProcessResetIntervalInSeconds)] = 60;
+
+            return jToken;
+        }
+
+        [Migration("11", "12")]
+        private static JToken Migration_11_12(JToken jToken)
+        {
             jToken[nameof(ApplicationId)] = Guid.NewGuid().ToString();
-            jToken[nameof(WinleafServerURL)] = "http://api.winleafs.com";
+            jToken[nameof(WinleafServerURL)] = "https://api.winleafs.com";
 
             return jToken;
         }

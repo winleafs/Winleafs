@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Threading.Tasks;
 using Winleafs.Api;
 using Winleafs.Models.Models;
@@ -26,10 +27,16 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
         /// </summary>
         public async Task ApplyEffect()
         {
-            var color = ScreenGrabber.CalculateAverageColor(_screenBounds)[0]; //Safe since we always have 1 area
+            var colors = ScreenGrabber.CalculateAverageColor(_screenBounds);
 
-            var hue = (int)color.GetHue();
-            var sat = (int)(color.GetSaturation() * 100);
+            if (colors == null)
+            {
+                //This can happen when before the first screen shot is taken when the effect is enabled
+                return;
+            }
+
+            var hue = (int)colors[0].GetHue(); //Safe since we always have 1 area
+            var sat = (int)(colors[0].GetSaturation() * 100); //Safe since we always have 1 area
 
             await _nanoleafClient.StateEndpoint.SetHueAndSaturationAsync(hue, sat, disableLogging: true);
         }

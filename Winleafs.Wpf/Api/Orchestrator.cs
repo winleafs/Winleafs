@@ -18,6 +18,7 @@ namespace Winleafs.Wpf.Api
     public class Orchestrator
     {
         private static Logger _logger = LogManager.GetCurrentClassLogger();
+        private static Type _turnOffEffectType = typeof(TurnOffEffect);
 
         public Device Device { get; set; }
 
@@ -98,6 +99,8 @@ namespace Winleafs.Wpf.Api
         /// </summary>
         public async Task ActivateEffect(string effectName, int brightness)
         {
+            _logger.Info($"Orchestrator is activating effect {effectName} with brightness {brightness} for device {Device.IPAddress}");
+
             try
             {
                 var client = NanoleafClient.GetClientForDevice(Device);
@@ -108,11 +111,16 @@ namespace Winleafs.Wpf.Api
                     await _customEffects.DeactivateAllEffects();
                 }
 
-                await client.StateEndpoint.SetBrightnessAsync(brightness);
 
                 if (_customEffects.EffectIsCustomEffect(effectName))
                 {
                     var customEffect = _customEffects.GetCustomEffect(effectName);
+
+                    //Special case: no need to set the brightness if we are turning off the device
+                    if (customEffect.GetType() != _turnOffEffectType)
+                    {
+                        await client.StateEndpoint.SetBrightnessAsync(brightness);
+                    }
 
                     if (!customEffect.IsActive())
                     {
@@ -121,6 +129,7 @@ namespace Winleafs.Wpf.Api
                 }
                 else
                 {
+                    await client.StateEndpoint.SetBrightnessAsync(brightness);
                     await client.EffectsEndpoint.SetSelectedEffectAsync(effectName);
                 }
 

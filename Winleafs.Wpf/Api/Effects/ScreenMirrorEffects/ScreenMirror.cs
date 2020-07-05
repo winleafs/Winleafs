@@ -55,6 +55,13 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
             var panelsToUpdate = _panels.Take(numberOfPanelsPerIteration * 2).ToList(); //Take 2 times the number of panels, in case any color differences are not large enough
 
             var colors = ScreenGrabber.CalculateAverageColor(panelsToUpdate.Select(panel => panel.ScreenshotArea), 0);
+
+            if (colors == null)
+            {
+                //This can happen when before the first screen shot is taken when the effect is enabled
+                return;
+            }
+
             var numberOfPanelsChanged = 0;
 
             for (var i = 0; i < panelsToUpdate.Count; i++)

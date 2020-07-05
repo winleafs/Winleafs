@@ -32,6 +32,8 @@ namespace Winleafs.Wpf.ViewModels
         public List<UserCustomColorEffect> CustomColorEffects { get; set; }
 
         public string WinleafsServerURL { get; set; }
+
+        public string ProcessResetIntervalText { get; set; }
         #endregion
 
         #region Screen mirror

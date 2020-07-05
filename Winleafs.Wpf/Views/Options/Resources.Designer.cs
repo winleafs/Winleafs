@@ -340,6 +340,24 @@ namespace Winleafs.Wpf.Views.Options {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Process reset interval in seconds.
+        /// </summary>
+        public static string ProcessResetInterval {
+            get {
+                return ResourceManager.GetString("ProcessResetInterval", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a valid value for process reset interval (a number larger than 0).
+        /// </summary>
+        public static string ProcessResetIntervalError {
+            get {
+                return ResourceManager.GetString("ProcessResetIntervalError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string Save {

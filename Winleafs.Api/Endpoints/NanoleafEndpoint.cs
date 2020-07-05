@@ -77,7 +77,7 @@ namespace Winleafs.Api.Endpoints
 
             var response = await restClient.ExecuteTaskAsync(request).ConfigureAwait(false);
 
-            if (response.StatusCode != HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.NoContent)
             {
                 LogError(response);
             }
@@ -114,7 +114,7 @@ namespace Winleafs.Api.Endpoints
 
             var response = restClient.Execute(request);
 
-            if (response.StatusCode != HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.NoContent)
             {
                 LogError(response);
             }

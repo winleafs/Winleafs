@@ -69,7 +69,8 @@ namespace Winleafs.Wpf.Views.Options
                 Languages = _languageDictionary.Keys.ToList(),
                 MinimizeToSystemTray = UserSettings.Settings.MinimizeToSystemTray,
                 CustomColorEffects = UserSettings.Settings.CustomEffects == null ? new List<UserCustomColorEffect>() : UserSettings.Settings.CustomEffects.ToList(),
-                WinleafsServerURL = UserSettings.Settings.WinleafServerURL
+                WinleafsServerURL = UserSettings.Settings.WinleafServerURL,
+                ProcessResetIntervalText = UserSettings.Settings.ProcessResetIntervalInSeconds.ToString()
             };
 
             foreach (var customEffects in OptionsViewModel.CustomColorEffects)
@@ -250,6 +251,29 @@ namespace Winleafs.Wpf.Views.Options
             }
 
             #endregion Colors
+
+            #region ProcessResetInterval
+            if (OptionsViewModel.ProcessResetIntervalText != UserSettings.Settings.ProcessResetIntervalInSeconds.ToString())
+            {
+                try
+                {
+                    var processResetIntervalInSeconds = Convert.ToInt32(OptionsViewModel.ProcessResetIntervalText);
+
+                    if (processResetIntervalInSeconds <= 0)
+                    {
+                        //Just throw an empty exception here, it is not logged
+                        throw new Exception();
+                    }
+
+                    UserSettings.Settings.ProcessResetIntervalInSeconds = processResetIntervalInSeconds;
+                }
+                catch
+                {
+                    PopupCreator.Error(Options.Resources.ProcessResetIntervalError);
+                    return;
+                }
+            }
+            #endregion
 
             #region Advanced
             if (!string.IsNullOrWhiteSpace(OptionsViewModel.WinleafsServerURL))
