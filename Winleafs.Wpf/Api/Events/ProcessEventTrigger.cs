@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using NLog;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Timers;
 using Winleafs.Models.Enums;
@@ -11,6 +12,8 @@ namespace Winleafs.Wpf.Api.Events
     /// </summary>
     public class ProcessEventTrigger : IEventTrigger
     {
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
+
         private readonly ITrigger _trigger;
         private readonly Orchestrator _orchestrator;
         private readonly string _processName;
@@ -68,6 +71,8 @@ namespace Winleafs.Wpf.Api.Events
         {
             if (await _orchestrator.TrySetOperationMode(OperationMode.Event))
             {
+                _logger.Info($"Process event started with effect {_effectName} with brightness {_brightness} for device {_orchestrator.Device.IPAddress}");
+
                 await _orchestrator.ActivateEffect(_effectName, _brightness);
                 _isActive = true;
             }
@@ -75,6 +80,8 @@ namespace Winleafs.Wpf.Api.Events
 
         public void StopEvent()
         {
+            _logger.Info($"Process event stopped with effect {_effectName} with brightness {_brightness} for device {_orchestrator.Device.IPAddress}");
+
             _isActive = false;
         }
 

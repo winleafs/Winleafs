@@ -73,6 +73,12 @@ namespace Winleafs.Wpf.Helpers
         /// </summary>
         public static List<Color> CalculateAverageColor(IEnumerable<Rectangle> areasToCapture, int minDiversion = 50)
         {
+            if (_bitmap == null)
+            {
+                //This can happen when before the first screen shot is taken when the effect is enabled
+                return null;
+            }
+
             var colors = new List<Color>();
 
             lock (_lockObject)

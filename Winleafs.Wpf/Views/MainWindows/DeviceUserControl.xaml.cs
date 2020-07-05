@@ -105,6 +105,8 @@ namespace Winleafs.Wpf.Views.MainWindows
             {
                 if (await _orchestrator.TrySetOperationMode(OperationMode.Manual, true, true))
                 {
+                    _logger.Info($"User manually enabling effect {_selectedEffect} with brightness {Brightness} for device {_device.IPAddress}");
+
                     _device.ManualEffect = _selectedEffect;
                     _device.ManualBrightness = Brightness;
 

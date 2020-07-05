@@ -12,6 +12,7 @@ namespace Winleafs.Wpf.Api
 {
     public class ScheduleTimer
     {
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
         private static readonly string _defaultPreviouslyActivatedEffect = "_NO_PREVIOUSLY_ACTIVATED_EFFECT_";
 
         private readonly Timer _timer;
@@ -71,6 +72,8 @@ namespace Winleafs.Wpf.Api
                 {
                     if (activeTrigger == null)
                     {
+                        _logger.Info($"Scheduler turning device {_orchestrator.Device.IPAddress} off");
+
                         var client = NanoleafClient.GetClientForDevice(_orchestrator.Device);
 
                         //There are no triggers so the lights can be turned off if it is not off already
@@ -78,6 +81,7 @@ namespace Winleafs.Wpf.Api
                     }
                     else
                     {
+                        _logger.Info($"Scheduler activating effect {activeTrigger.EffectName} with brightness {activeTrigger.Brightness} for device {_orchestrator.Device.IPAddress}");
                         await _orchestrator.ActivateEffect(activeTrigger.EffectName, activeTrigger.Brightness);
                     }
 
