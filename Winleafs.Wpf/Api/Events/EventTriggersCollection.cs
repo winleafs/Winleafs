@@ -94,7 +94,7 @@ namespace Winleafs.Wpf.Api.Events
                     }
                 }
             }
-            else if (_orchestrator.Device.OperationMode == OperationMode.Event)
+            else if (_orchestrator.Device.OperationMode == OperationMode.Event) //Only go back to schedule if the current devices operation mode is event
             {
                 //Let orchestrator know that all events have stopped so it can continue with normal program, will not fail since an event can only be activated when no override is active
                 //Always return to schedule since only 1 event can be active at a time
