@@ -51,7 +51,10 @@ namespace Winleafs.Wpf.Api.Events
 
             if (processes.Length > 0 && !_isActive)
             {
-                await TryStartEffect();
+                if (!_isActive)
+                {
+                    await TryStartEffect();
+                }
             }
             else if (processes.Length <= 0 && _isActive)
             {
