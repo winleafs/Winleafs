@@ -462,6 +462,18 @@ namespace Winleafs.Models.Models
             jToken[nameof(ApplicationId)] = Guid.NewGuid().ToString();
             jToken[nameof(WinleafServerURL)] = "https://api.winleafs.com";
 
+            //Set priority on all event triggers
+            foreach (var schedule in jToken[nameof(Schedules)])
+            {
+                var triggerCounter = 1;
+
+                foreach (var eventTrigger in schedule[nameof(Schedule.EventTriggers)])
+                {
+                    eventTrigger[nameof(TriggerBase.Priority)] = triggerCounter;
+                    triggerCounter++;
+                }
+            }
+
             return jToken;
         }
         #endregion

@@ -169,9 +169,9 @@ namespace Winleafs.Wpf.Api
                     return Device.ManualEffect;
 
                 case OperationMode.Event:
-                    var activeEvent = _eventTriggersCollection.EventTriggers.FirstOrDefault(e => e.IsActive());
+                    var activeTrigger = _eventTriggersCollection.ActiveTrigger;
 
-                    return activeEvent?.GetTrigger().GetEffectName();
+                    return activeTrigger?.EffectName;
 
                 case OperationMode.Schedule:
                     var activeTimeTrigger = UserSettings.Settings.GetActiveTimeTriggerForDevice(Device.Name);
@@ -203,12 +203,13 @@ namespace Winleafs.Wpf.Api
                     return Device.ManualBrightness;
 
                 case OperationMode.Event:
-                    var activeEvent = _eventTriggersCollection.EventTriggers.FirstOrDefault(e => e.IsActive());
+                    var activeTrigger = _eventTriggersCollection.ActiveTrigger;
 
-                    if (activeEvent != null)
+                    if (activeTrigger != null)
                     {
-                        return activeEvent.GetTrigger().GetBrightness();
+                        return activeTrigger.Brightness;
                     }
+
                     return -1;
 
                 case OperationMode.Schedule:

@@ -26,5 +26,10 @@ namespace Winleafs.Models.Models.Scheduling.Triggers
         /// Get the brightness of the trigger
         /// </summary>
         int GetBrightness();
+
+        /// <summary>
+        /// Get the priority of the trigger
+        /// </summary>
+        int GetPriority();
     }
 }

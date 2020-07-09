@@ -16,7 +16,7 @@ namespace Winleafs.Wpf.Api.Events
     /// <summary>
     /// Base class for process percentage event triggers
     /// </summary>
-    public abstract class BaseProcessPercentageEventTrigger : IEventTrigger
+    /*public abstract class BaseProcessPercentageEventTrigger : IEventTrigger
     {
         private readonly ITrigger _trigger;
         private readonly Timer _effectTimer;
@@ -172,5 +172,5 @@ namespace Winleafs.Wpf.Api.Events
                 }
             }
         }
-    }
+    }*/
 }

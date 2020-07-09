@@ -19,7 +19,7 @@ namespace Winleafs.Wpf.Api
         /// </summary>
         public static void Initialize()
         {
-            _orchestratorForDevices = new Dictionary<string, Orchestrator>();
+            _orchestratorForDevices.Clear();
 
             foreach (var device in UserSettings.Settings.Devices)
             {

@@ -2,34 +2,23 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Timers;
-using Winleafs.Models.Enums;
 using Winleafs.Models.Models;
-using Winleafs.Models.Models.Scheduling.Triggers;
 
 namespace Winleafs.Wpf.Api.Events
 {
     /// <summary>
     /// Event trigger that is activated when a certain process starts
     /// </summary>
-    public class ProcessEventTrigger : IEventTrigger
+    public class ProcessEventTrigger : EventTriggerBase
     {
-        private static Logger _logger = LogManager.GetCurrentClassLogger();
-
-        private readonly ITrigger _trigger;
-        private readonly Orchestrator _orchestrator;
+        private readonly EventTriggersCollection _eventTriggersCollection;
         private readonly string _processName;
-        private readonly string _effectName;
-        private readonly int _brightness;
-        private bool _isActive;
 
-        public ProcessEventTrigger(ITrigger trigger, Orchestrator orchestrator, string processName, string effectName, int brightness)
+        public ProcessEventTrigger(EventTriggersCollection eventTriggersCollection, Models.Models.Scheduling.Triggers.ProcessEventTrigger processEventTrigger)
+            : base(processEventTrigger.Brightness, processEventTrigger.EffectName, processEventTrigger.Priority)
         {
-            _trigger = trigger;
-            _orchestrator = orchestrator;
-            _processName = processName;
-            _effectName = effectName;
-            _brightness = brightness;
-            _isActive = false;
+            _eventTriggersCollection = eventTriggersCollection;
+            _processName = processEventTrigger.ProcessName;
 
             var processCheckTimer = new Timer(UserSettings.Settings.ProcessResetIntervalInSeconds * 1000);
             processCheckTimer.Elapsed += CheckProcess;
@@ -43,57 +32,19 @@ namespace Winleafs.Wpf.Api.Events
         }
 
         /// <summary>
-        /// Checks if a process is running then execute TryStartEffect(), else stop the effect
+        /// Checks if a process is running then activate the trigger,
+        /// otherwise deactivate the trigger.
         /// </summary>
         private async Task CheckProcessAsync()
         {
-            Process[] processes = Process.GetProcessesByName(_processName);
-
-            if (processes.Length > 0 && !_isActive)
+            if (Process.GetProcessesByName(_processName).Length > 0)
             {
-                if (!_isActive)
-                {
-                    await TryStartEffect();
-                }
+                await _eventTriggersCollection.ActivateTrigger(Priority);
             }
-            else if (processes.Length <= 0 && _isActive)
+            else
             {
-                //Let orchestrator know that the process event has stopped so it can continue with normal program, will not fail since an event can only be activated when no override is active
-                //Always return to schedule since only 1 event can be active at a time
-                await _orchestrator.TrySetOperationMode(OperationMode.Schedule);
-                _isActive = false;
+                await _eventTriggersCollection.DeactivateTrigger(Priority);
             }
-        }
-
-        /// <summary>
-        /// Start the effect if possible
-        /// </summary>
-        private async Task TryStartEffect()
-        {
-            if (await _orchestrator.TrySetOperationMode(OperationMode.Event))
-            {
-                _isActive = true;
-                _logger.Info($"Process event started with effect {_effectName} with brightness {_brightness} for device {_orchestrator.Device.IPAddress}");
-
-                await _orchestrator.ActivateEffect(_effectName, _brightness);
-            }
-        }
-
-        public void StopEvent()
-        {
-            _logger.Info($"Process event stopped with effect {_effectName} with brightness {_brightness} for device {_orchestrator.Device.IPAddress}");
-
-            _isActive = false;
-        }
-
-        public bool IsActive()
-        {
-            return _isActive;
-        }
-
-        public ITrigger GetTrigger()
-        {
-            return _trigger;
         }
     }
 }

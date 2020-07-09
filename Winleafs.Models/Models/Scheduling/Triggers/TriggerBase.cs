@@ -8,9 +8,12 @@ namespace Winleafs.Models.Models.Scheduling.Triggers
     public abstract class TriggerBase : ITrigger
     {
         public string EffectName { get; set; }
+
         public int Brightness { get; set; }
 
         public TriggerType EventTriggerType { get; set; }
+
+        public int Priority { get; set; }
 
         public int GetBrightness()
         {
@@ -27,6 +30,11 @@ namespace Winleafs.Models.Models.Scheduling.Triggers
         public TriggerType GetTriggerType()
         {
             return EventTriggerType;
+        }
+
+        public int GetPriority()
+        {
+            return Priority;
         }
     }
 }
