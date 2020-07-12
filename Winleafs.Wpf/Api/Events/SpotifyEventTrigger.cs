@@ -9,6 +9,7 @@ namespace Winleafs.Wpf.Api.Events
     /// </summary>
     public class SpotifyEventTrigger : EventTriggerBase
     {
+        private const int _timerMilliseconds = 60000; //1 minute
         private readonly EventTriggersCollection _eventTriggersCollection;
         private readonly string _playlistId;
 
@@ -18,7 +19,7 @@ namespace Winleafs.Wpf.Api.Events
             _eventTriggersCollection = eventTriggersCollection;
             _playlistId = spotifyEventTrigger.PlaylistId;
 
-            var processCheckTimer = new Timer(60000);
+            var processCheckTimer = new Timer(_timerMilliseconds);
             processCheckTimer.Elapsed += CheckProcess;
             processCheckTimer.AutoReset = true;
             processCheckTimer.Start();

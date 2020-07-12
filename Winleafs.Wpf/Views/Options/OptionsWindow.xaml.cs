@@ -31,9 +31,9 @@ namespace Winleafs.Wpf.Views.Options
     /// </summary>
     public partial class OptionsWindow : Window
     {
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-
         public OptionsViewModel OptionsViewModel { get; set; }
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         private RegistryKey _startupKey;
 

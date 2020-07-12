@@ -12,6 +12,7 @@ namespace Winleafs.Wpf.Api
     /// </summary>
     public static class SpotifyEventTimer
     {
+        private const int _timerMilliseconds = 60000; //1 minute
         private static Logger Logger = LogManager.GetCurrentClassLogger();
 
         public static string CurrentPlaylistId { get; private set; }
@@ -21,7 +22,7 @@ namespace Winleafs.Wpf.Api
 
         static SpotifyEventTimer()
         {
-            _timer = new Timer(60000);
+            _timer = new Timer(_timerMilliseconds);
             _timer.Elapsed += OnTimedEvent;
             _timer.AutoReset = true;
             _timer.Enabled = true;

@@ -12,14 +12,14 @@ namespace Winleafs.Wpf.Api.Events
     /// </summary>
     public class EventTriggersCollection
     {
+        public EventTriggerBase ActiveTrigger { get; private set; }
+
         private static Logger _logger = LogManager.GetCurrentClassLogger();
 
         private List<EventTriggerBase> _eventTriggers;
 
         //We can use the priority of an event trigger as unique identifier here, since no events can have equal priority
         private HashSet<int> _activeTriggersPriorities;
-
-        public EventTriggerBase ActiveTrigger { get; private set; }
 
         private readonly Orchestrator _orchestrator;
 
@@ -83,11 +83,11 @@ namespace Winleafs.Wpf.Api.Events
                     //Event operation mode is already active or we try to activate it (can fail if the user has manual enabled)
                     var eventOperationModeActive = _orchestrator.Device.OperationMode == OperationMode.Event || await _orchestrator.TrySetOperationMode(OperationMode.Event);
 
-                    //A trigger has been activated or deactivated and the current active trigger is no longer the trigger with the highest priority (priority 1 is highest)
-                    ActiveTrigger = _eventTriggers.FirstOrDefault(eventTrigger => eventTrigger.Priority == lowestPriority);
-
                     if (eventOperationModeActive)
                     {
+                        //A trigger has been activated or deactivated and the current active trigger is no longer the trigger with the highest priority (priority 1 is highest)
+                        ActiveTrigger = _eventTriggers.FirstOrDefault(eventTrigger => eventTrigger.Priority == lowestPriority);
+
                         await _orchestrator.ActivateEffect(ActiveTrigger.EffectName, ActiveTrigger.Brightness);
 
                         _logger.Info($"Process event started with effect {ActiveTrigger.EffectName} with brightness {ActiveTrigger.Brightness} for device {_orchestrator.Device.IPAddress}");
