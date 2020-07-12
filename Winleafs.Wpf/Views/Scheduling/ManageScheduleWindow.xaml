@@ -6,7 +6,7 @@
         xmlns:scheduling="clr-namespace:Winleafs.Wpf.Views.Scheduling"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="{x:Static scheduling:Resources.ManageScheduleTitle}" Height="600" Width="1773" ResizeMode="NoResize">
+        Title="{x:Static scheduling:Resources.ManageScheduleTitle}" Height="600" Width="1793" ResizeMode="NoResize">
 
     <Grid Background="{StaticResource NanoleafBlack}">
         <Grid.RowDefinitions>
@@ -14,7 +14,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="220" />
+            <ColumnDefinition Width="240" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 

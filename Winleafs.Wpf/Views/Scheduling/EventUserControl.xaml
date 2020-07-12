@@ -7,7 +7,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:helpers="clr-namespace:Winleafs.Wpf.Helpers"
              mc:Ignorable="d"
-             Width="220" Height="Auto">
+             Width="240" Height="Auto">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="35" />

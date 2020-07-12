@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Controls;
 using Winleafs.Models.Enums;
 using Winleafs.Models.Models.Scheduling.Triggers;
@@ -57,7 +58,8 @@ namespace Winleafs.Wpf.Views.Scheduling
                 Brightness = brightness,
                 EffectName = effectName,
                 EventTriggerType = TriggerType.ProcessEvent,
-                ProcessName = processName
+                ProcessName = processName,
+                Priority = EventTriggers.Max(eventTrigger => eventTrigger.Priority) + 1
             });
 
             BuildTriggerList();
@@ -114,7 +116,8 @@ namespace Winleafs.Wpf.Views.Scheduling
                 EffectName = effectName,
                 EventTriggerType = TriggerType.SpotifyEvent,
                 PlaylistName = playlistName,
-                PlaylistId = playlistId
+                PlaylistId = playlistId,
+                Priority = EventTriggers.Max(eventTrigger => eventTrigger.Priority) + 1
             });
 
             BuildTriggerList();
@@ -126,15 +129,70 @@ namespace Winleafs.Wpf.Views.Scheduling
         {
             TriggerList.Children.Clear();
 
+            EventTriggers.Sort(); //Do not use OrderBy().ToList() since the schedule then loses its binding to the EventTriggers object
+
+            var maxPriority = EventTriggers.Any() ? EventTriggers.Last().Priority : 0;
+
             foreach (var trigger in EventTriggers)
             {
-                TriggerList.Children.Add(new EventTriggerUserControl(this, trigger));
+                TriggerList.Children.Add(
+                    new EventTriggerUserControl(
+                        this,
+                        trigger,
+                        trigger.Priority <= 1,
+                        trigger.Priority == maxPriority));
             }
         }
 
         public void DeleteTrigger(TriggerBase trigger)
         {
             EventTriggers.Remove(trigger);
+
+            EventTriggers.Sort(); //Do not use OrderBy().ToList() since the schedule then loses its binding to the EventTriggers object
+
+            //Restore the gap in priorities when a trigger is deleted
+            for (var i = 0; i < EventTriggers.Count; i++)
+            {
+                EventTriggers[i].Priority = i + 1;
+            }
+
+            BuildTriggerList();
+        }
+
+        /// <summary>
+        /// Increases the priority of the event trigger with the given
+        /// <paramref name="priorityOfItem"/>.
+        /// </summary>
+        /// <remarks>
+        /// Increasing means positioning it higher in the priority,
+        /// hence decreasing the priority value.
+        /// </remarks>
+        public void PriorityUp(int priorityOfItem)
+        {
+            EventTriggers.Sort(); //Do not use OrderBy().ToList() since the schedule then loses its binding to the EventTriggers object
+
+            //This works on the assumption that priority is always a positive integer and there are no gaps in the priorities in triggers
+            EventTriggers[priorityOfItem - 1].Priority--; //Current item should go up in priority
+            EventTriggers[priorityOfItem - 2].Priority++; //Item before current item should go down in priority
+
+            BuildTriggerList();
+        }
+
+        /// <summary>
+        /// Decreases the priority of the event trigger with the given
+        /// <paramref name="priorityOfItem"/>.
+        /// </summary>
+        /// <remarks>
+        /// Decreasing means positioning it lower in the priority,
+        /// hence increasing the priority value.
+        /// </remarks>
+        public void PriorityDown(int priorityOfItem)
+        {
+            EventTriggers.Sort(); //Do not use OrderBy().ToList() since the schedule then loses its binding to the EventTriggers object
+
+            //This works on the assumption that priority is always a positive integer and there are no gaps in the priorities in triggers
+            EventTriggers[priorityOfItem].Priority--; //Item after current item should go up in priority
+            EventTriggers[priorityOfItem - 1].Priority++; //Current item should go down in priority
 
             BuildTriggerList();
         }
