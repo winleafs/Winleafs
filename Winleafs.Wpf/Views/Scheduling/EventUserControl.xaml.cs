@@ -75,8 +75,8 @@ namespace Winleafs.Wpf.Views.Scheduling
             {
                 var playlist = winleafsServerClient.SpotifyEndpoint.GetPlaylists();
 
-                var addSpotiofyEventWindow = new AddSpotifyEventWindow(this, playlist);
-                addSpotiofyEventWindow.ShowDialog();
+                var spotifyEventWindow = new AddSpotifyEventWindow(this, playlist);
+                spotifyEventWindow.ShowDialog();
             }
             catch
             {
@@ -117,7 +117,7 @@ namespace Winleafs.Wpf.Views.Scheduling
                 EventTriggerType = TriggerType.SpotifyEvent,
                 PlaylistName = playlistName,
                 PlaylistId = playlistId,
-                Priority = EventTriggers.Max(eventTrigger => eventTrigger.Priority) + 1
+                Priority = EventTriggers.Count == 0 ? 1 : EventTriggers.Max(eventTrigger => eventTrigger.Priority) + 1
             });
 
             BuildTriggerList();
