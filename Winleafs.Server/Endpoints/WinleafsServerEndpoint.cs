@@ -4,6 +4,7 @@ using RestSharp;
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using Winleafs.Server.Exceptions;
 
 namespace Winleafs.Server.Endpoints
 {
@@ -77,6 +78,7 @@ namespace Winleafs.Server.Endpoints
             if (response.StatusCode != HttpStatusCode.OK)
             {
                 LogError(response);
+                throw new WinleafsServerException("Error during request to Winleafs server");
             }
 
             return returnType == null ? null : JsonConvert.DeserializeObject(response.Content, returnType);
@@ -114,6 +116,7 @@ namespace Winleafs.Server.Endpoints
             if (response.StatusCode != HttpStatusCode.OK)
             {
                 LogError(response);
+                throw new WinleafsServerException("Error during request to Winleafs server");
             }
 
             return returnType == null ? null : JsonConvert.DeserializeObject(response.Content, returnType);

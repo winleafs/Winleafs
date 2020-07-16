@@ -36,7 +36,8 @@ namespace Winleafs.Wpf.Views.Scheduling
             {
                 PriorityUpButton.Visibility = System.Windows.Visibility.Hidden;
             }
-            else if (lowestPriority)
+            
+            if (lowestPriority)
             {
                 PriorityDownButton.Visibility = System.Windows.Visibility.Hidden;
             }

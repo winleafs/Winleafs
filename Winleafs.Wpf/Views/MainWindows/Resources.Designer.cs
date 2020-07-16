@@ -214,6 +214,15 @@ namespace Winleafs.Wpf.Views.MainWindows {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} event triggers.
+        /// </summary>
+        public static string NumberOfTriggers {
+            get {
+                return ResourceManager.GetString("NumberOfTriggers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Options.
         /// </summary>
         public static string Options {

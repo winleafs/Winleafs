@@ -18,6 +18,8 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         public string NextEffectDisplay { get; set; }
 
+        public string NumberOfTriggersDisplay { get; set; }
+
         public ScheduleItemUserControl(MainWindow parent, Schedule schedule)
         {
             Schedule = schedule;
@@ -41,6 +43,8 @@ namespace Winleafs.Wpf.Views.MainWindows
             {
                 NextEffectDisplay = MainWindows.Resources.NextEffectNone;
             }
+
+            NumberOfTriggersDisplay = string.Format(MainWindows.Resources.NumberOfTriggers, Schedule.EventTriggers.Count);
         }
 
         private void Edit_Click(object sender, RoutedEventArgs e)
