@@ -16,6 +16,7 @@ Installers can be found on the [release page](https://github.com/StijnOostdam/Wi
 - Add triggers based on your sunrise and sunset times (requires location)
 - Screen mirror, project your screen (like Netflix or games) onto your lights and your lights will be the same color as their position on your monitor
 - Ambilight, make your lights the average color of your monitor
+- Spotify integration: automatically play an effect when you listen to a specific playlist on Spotify
 - Start the program at Windows startup
 - Automatically turn off your lights when your PC shuts down
 - All settings are saved locally
