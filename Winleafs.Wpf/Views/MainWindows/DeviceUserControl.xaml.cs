@@ -38,7 +38,6 @@ namespace Winleafs.Wpf.Views.MainWindows
         }
 
         private Device _device;
-        private Orchestrator _orchestrator;
         private string _selectedEffect;
 
         public DeviceUserControl(Device device, MainWindow parent)
@@ -46,14 +45,16 @@ namespace Winleafs.Wpf.Views.MainWindows
             InitializeComponent();
 
             _device = device;
-            SetOrchestrator();
+            RegisterWithOrchestrator();
 
             _parent = parent;
 
             DeviceNameLabel.Content = _device.Name;
 
+            var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(_device);
+
             //Set the correct icon
-            switch (_orchestrator.PanelLayout.DeviceType)
+            switch (orchestrator.PanelLayout.DeviceType)
             {
                 case DeviceType.Canvas:
                     SquareIcon.Visibility = Visibility.Visible;
@@ -62,11 +63,11 @@ namespace Winleafs.Wpf.Views.MainWindows
                     TriangleIcon.Visibility = Visibility.Visible;
                     break;
                 default:
-                    throw new NotImplementedException($"No icon implemented for device type {_orchestrator.PanelLayout.DeviceType}");
+                    throw new NotImplementedException($"No icon implemented for device type {orchestrator.PanelLayout.DeviceType}");
             }
 
             //Initialize the effect combox box
-            EffectComboBox.InitializeEffects(_orchestrator);
+            EffectComboBox.InitializeEffects(orchestrator);
             EffectComboBox.ParentUserControl = this;
 
             DataContext = this;
@@ -88,9 +89,10 @@ namespace Winleafs.Wpf.Views.MainWindows
         {
             if (_device.OperationMode == OperationMode.Manual)
             {
-                await _orchestrator.TrySetOperationMode(OperationMode.Schedule, true, true);
+                var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(_device);
+                await orchestrator.TrySetOperationMode(OperationMode.Schedule, true, true);
 
-                if (!_orchestrator.HasActiveEffect())
+                if (!orchestrator.HasActiveEffect())
                 {
                     //Special case: when the user has no active schedule, the schedule will not set an effect and therefore
                     //not trigger an update to the effects, hence we need to call update here
@@ -103,14 +105,15 @@ namespace Winleafs.Wpf.Views.MainWindows
         {
             try
             {
-                if (await _orchestrator.TrySetOperationMode(OperationMode.Manual, true, true))
+                var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(_device);
+                if (await orchestrator.TrySetOperationMode(OperationMode.Manual, true, true))
                 {
                     _logger.Info($"User manually enabling effect {_selectedEffect} with brightness {Brightness} for device {_device.IPAddress}");
 
                     _device.ManualEffect = _selectedEffect;
                     _device.ManualBrightness = Brightness;
 
-                    await _orchestrator.ActivateEffect(_selectedEffect, Brightness);
+                    await orchestrator.ActivateEffect(_selectedEffect, Brightness);
 
                     UserSettings.Settings.SaveSettings();
                 }
@@ -135,7 +138,8 @@ namespace Winleafs.Wpf.Views.MainWindows
             //Update UI on main thread
             Dispatcher.Invoke(new Action(() =>
             {
-                var activeEffect = _orchestrator.GetActiveEffectName();
+                var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(_device);
+                var activeEffect = orchestrator.GetActiveEffectName();
 
                 if (string.IsNullOrEmpty(activeEffect))
                 {
@@ -148,7 +152,7 @@ namespace Winleafs.Wpf.Views.MainWindows
 
                 _selectedEffect = activeEffect;
 
-                var activeBrightness = _orchestrator.GetActiveBrightness();
+                var activeBrightness = orchestrator.GetActiveBrightness();
                 Brightness = activeBrightness < 0 ? 0 : activeBrightness;
                 OnPropertyChanged(nameof(Brightness)); //Call property changed to correctly set slider position
 
@@ -169,18 +173,20 @@ namespace Winleafs.Wpf.Views.MainWindows
         public void ReloadEffects()
         {
             //Reset the orchestrator since it can happen that the orchestrators have been reset before calling this function
-            SetOrchestrator();
+            RegisterWithOrchestrator();
 
-            EffectComboBox.InitializeEffects(_orchestrator);
+            var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(_device);
+
+            EffectComboBox.InitializeEffects(orchestrator);
             
             EffectComboBox.UpdateSelection(_selectedEffect);
         }
 
-        private void SetOrchestrator()
+        public void RegisterWithOrchestrator()
         {
-            _orchestrator = OrchestratorCollection.GetOrchestratorForDevice(_device);
+            var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(_device);
 
-            _orchestrator.AddEffectChangedCallback(Update);
+            orchestrator.AddEffectChangedCallback(Update);
         }
     }
 }

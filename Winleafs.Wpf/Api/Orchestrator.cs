@@ -1,7 +1,6 @@
 ﻿using NLog;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Winleafs.Api;
 using Winleafs.Models.Enums;
@@ -22,12 +21,13 @@ namespace Winleafs.Wpf.Api
 
         public Device Device { get; set; }
 
-        public ScheduleTimer ScheduleTimer { get; set; }
+        public ScheduleTimer ScheduleTimer { get; private set; }
 
         public PanelLayout PanelLayout { get; set; }
 
+        public EventTriggersCollection EventTriggersCollection { get; private set; }
+
         private readonly CustomEffectsCollection _customEffects;
-        private readonly EventTriggersCollection _eventTriggersCollection;
 
         private List<Action> _effectChangedCallbacks;
 
@@ -35,13 +35,13 @@ namespace Winleafs.Wpf.Api
         {
             Device = device;
 
-            ScheduleTimer = new ScheduleTimer(this);
+            ScheduleTimer = new ScheduleTimer(Device);
             PanelLayout = new PanelLayout(Device);
-            _eventTriggersCollection = new EventTriggersCollection(this);
+            EventTriggersCollection = new EventTriggersCollection(Device);
             _effectChangedCallbacks = new List<Action>();
 
             // Custom effect initialization must come after panel layout initialization as custom screen mirror effect needs the panel layout
-            _customEffects = new CustomEffectsCollection(Device, this); 
+            _customEffects = new CustomEffectsCollection(this); 
 
             if (device.OperationMode == OperationMode.Schedule)
             {
@@ -85,7 +85,7 @@ namespace Winleafs.Wpf.Api
         private async Task StopAllEffectsAndEvents()
         {
             ScheduleTimer.StopTimer();
-            _eventTriggersCollection.StopAllEvents();
+            EventTriggersCollection.StopAllEvents();
 
             if (_customEffects.HasActiveEffects())
             {
@@ -169,7 +169,7 @@ namespace Winleafs.Wpf.Api
                     return Device.ManualEffect;
 
                 case OperationMode.Event:
-                    return _eventTriggersCollection.ActiveTrigger?.EffectName;
+                    return EventTriggersCollection.ActiveTrigger?.EffectName;
 
                 case OperationMode.Schedule:
                     return UserSettings.Settings.GetActiveTimeTriggerForDevice(Device.Name)?.GetEffectName();
@@ -199,7 +199,7 @@ namespace Winleafs.Wpf.Api
                     return Device.ManualBrightness;
 
                 case OperationMode.Event:
-                    var activeTrigger = _eventTriggersCollection.ActiveTrigger;
+                    var activeTrigger = EventTriggersCollection.ActiveTrigger;
 
                     if (activeTrigger != null)
                     {

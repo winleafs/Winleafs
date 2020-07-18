@@ -1,6 +1,6 @@
 ﻿namespace Winleafs.Wpf.Api.Events
 {
-    public class EventTriggerBase
+    public abstract class EventTriggerBase
     {
         public EventTriggerBase(int _brightness, string _effectName, int _priority)
         {
@@ -14,5 +14,7 @@
         public string EffectName { get; set; }
 
         public int Priority { get; set; }
+
+        public abstract void Stop();
     }
 }

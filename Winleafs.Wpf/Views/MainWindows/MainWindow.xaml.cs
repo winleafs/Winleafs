@@ -195,6 +195,12 @@ namespace Winleafs.Wpf.Views.MainWindows
             BuildScheduleList();
 
             UpdateActiveEffectLabelsAndLayout();
+
+            foreach (var deviceUserControl in _deviceUserControls)
+            {
+                //Reregister the orchestrators for the device user controls since they have been reset
+                deviceUserControl.RegisterWithOrchestrator();
+            }
         }
 
         private void BuildScheduleList()

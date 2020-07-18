@@ -1,5 +1,4 @@
-﻿using NLog;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Timers;
 
 namespace Winleafs.Wpf.Api.Events
@@ -12,6 +11,7 @@ namespace Winleafs.Wpf.Api.Events
         private const int _timerMilliseconds = 60000; //1 minute
         private readonly EventTriggersCollection _eventTriggersCollection;
         private readonly string _playlistId;
+        private readonly Timer _playlistCheckTimer;
 
         public SpotifyEventTrigger(EventTriggersCollection eventTriggersCollection, Models.Models.Scheduling.Triggers.SpotifyEventTrigger spotifyEventTrigger)
             : base(spotifyEventTrigger.Brightness, spotifyEventTrigger.EffectName, spotifyEventTrigger.Priority)
@@ -19,10 +19,10 @@ namespace Winleafs.Wpf.Api.Events
             _eventTriggersCollection = eventTriggersCollection;
             _playlistId = spotifyEventTrigger.PlaylistId;
 
-            var processCheckTimer = new Timer(_timerMilliseconds);
-            processCheckTimer.Elapsed += CheckProcess;
-            processCheckTimer.AutoReset = true;
-            processCheckTimer.Start();
+            _playlistCheckTimer = new Timer(_timerMilliseconds);
+            _playlistCheckTimer.Elapsed += CheckProcess;
+            _playlistCheckTimer.AutoReset = true;
+            _playlistCheckTimer.Start();
         }
 
         private void CheckProcess(object source, ElapsedEventArgs e)
@@ -43,6 +43,11 @@ namespace Winleafs.Wpf.Api.Events
             {
                 await _eventTriggersCollection.DeactivateTrigger(Priority);
             }
+        }
+
+        public override void Stop()
+        {
+            _playlistCheckTimer.Stop();
         }
     }
 }

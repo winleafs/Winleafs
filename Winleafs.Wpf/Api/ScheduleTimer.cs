@@ -16,12 +16,12 @@ namespace Winleafs.Wpf.Api
         private static readonly string _defaultPreviouslyActivatedEffect = "_NO_PREVIOUSLY_ACTIVATED_EFFECT_";
 
         private readonly Timer _timer;
-        private readonly Orchestrator _orchestrator;
+        private readonly Device _device;
         private string _previouslyActivatedEffect;
 
-        public ScheduleTimer(Orchestrator orchestrator)
+        public ScheduleTimer(Device device)
         {
-            _orchestrator = orchestrator;
+            _device = device;
 
             _timer = new Timer(60000);
             _timer.Elapsed += OnTimedEvent;
@@ -63,26 +63,28 @@ namespace Winleafs.Wpf.Api
 
         private async Task SetEffectsForDevices()
         {
-            if (_orchestrator.Device.OperationMode == OperationMode.Schedule)
+            if (_device.OperationMode == OperationMode.Schedule)
             {
-                var activeTrigger = UserSettings.Settings.GetActiveTimeTriggerForDevice(_orchestrator.Device.Name);
+                var activeTrigger = UserSettings.Settings.GetActiveTimeTriggerForDevice(_device.Name);
 
                 //Only switch effects if the effect is different from the previously activated effect
                 if ((activeTrigger == null && _previouslyActivatedEffect != null) || (activeTrigger != null && activeTrigger.EffectName != _previouslyActivatedEffect))
                 {
                     if (activeTrigger == null)
                     {
-                        _logger.Info($"Scheduler turning device {_orchestrator.Device.IPAddress} off");
+                        _logger.Info($"Scheduler turning device {_device.IPAddress} off");
 
-                        var client = NanoleafClient.GetClientForDevice(_orchestrator.Device);
+                        var client = NanoleafClient.GetClientForDevice(_device);
 
                         //There are no triggers so the lights can be turned off if it is not off already
                         await client.StateEndpoint.SetStateWithStateCheckAsync(false);
                     }
                     else
                     {
-                        _logger.Info($"Scheduler activating effect {activeTrigger.EffectName} with brightness {activeTrigger.Brightness} for device {_orchestrator.Device.IPAddress}");
-                        await _orchestrator.ActivateEffect(activeTrigger.EffectName, activeTrigger.Brightness);
+                        _logger.Info($"Scheduler activating effect {activeTrigger.EffectName} with brightness {activeTrigger.Brightness} for device {_device.IPAddress}");
+
+                        var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(_device);
+                        await orchestrator.ActivateEffect(activeTrigger.EffectName, activeTrigger.Brightness);
                     }
 
                     _previouslyActivatedEffect = activeTrigger?.EffectName;
