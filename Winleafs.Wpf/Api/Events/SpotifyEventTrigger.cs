@@ -8,7 +8,7 @@ namespace Winleafs.Wpf.Api.Events
     /// </summary>
     public class SpotifyEventTrigger : EventTriggerBase
     {
-        private const int _timerMilliseconds = 60000; //1 minute
+        private const int _timerMilliseconds = 10000; //10 seconds
         private readonly EventTriggersCollection _eventTriggersCollection;
         private readonly string _playlistId;
         private readonly Timer _playlistCheckTimer;
