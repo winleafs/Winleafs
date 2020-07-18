@@ -13,8 +13,8 @@ namespace Winleafs.Api.Endpoints
     {
         private const string BaseUrl = "effects";
 
-	    /// <inheritdoc />
-	    public EffectsEndpoint(NanoleafClient client)
+        /// <inheritdoc />
+        public EffectsEndpoint(NanoleafClient client)
         {
             Client = client;
         }

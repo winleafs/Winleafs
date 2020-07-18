@@ -243,6 +243,27 @@ by IP Adress</value>
     <value>Are you sure you want to delete {0}?</value>
     <comment>Formatted string with 0: device name</comment>
   </data>
+  <data name="ConnectToSpotify" xml:space="preserve">
+    <value>Connect to spotify</value>
+  </data>
+  <data name="SpotifyNotConnected" xml:space="preserve">
+    <value>Failed to connect to Spotify. Please try again. If this issue persists, try deleting Winleafs from the list of apps in your Spotify account.</value>
+  </data>
+  <data name="SpotifyUnknownError" xml:space="preserve">
+    <value>Unknown error when trying to connect with Spotify. Please report to the developers.</value>
+  </data>
+  <data name="DisconnectFromSpotify" xml:space="preserve">
+    <value>Disconnect from Spotify</value>
+  </data>
+  <data name="DisconnectSuccessful" xml:space="preserve">
+    <value>Disconnect successful. Do not forget to remove Winleafs from your application list in your Spotify account.</value>
+  </data>
+  <data name="Advanced" xml:space="preserve">
+    <value>Advanced</value>
+  </data>
+  <data name="WinleafsServerURL" xml:space="preserve">
+    <value>Server URL</value>
+  </data>
   <data name="ProcessResetInterval" xml:space="preserve">
     <value>Process reset interval in seconds</value>
   </data>

@@ -1,5 +1,5 @@
 ﻿using System.Windows.Controls;
-
+using Winleafs.Models.Models;
 using Winleafs.Models.Models.Scheduling.Triggers;
 using Winleafs.Wpf.Helpers;
 
@@ -17,8 +17,9 @@ namespace Winleafs.Wpf.Views.Scheduling
         public string Description { get; set; }
         public string EffectName { get; set; }
         public string Brightness { get; set; }
+        public int Priority { get; set; }
 
-        public EventTriggerUserControl(EventUserControl parent, TriggerBase trigger)
+        public EventTriggerUserControl(EventUserControl parent, TriggerBase trigger, bool highestPriority, bool lowestPriority)
         {
             _trigger = trigger;
             _parent = parent;
@@ -29,6 +30,17 @@ namespace Winleafs.Wpf.Views.Scheduling
             Description = trigger.GetDescription();
             EffectName = trigger.GetEffectName();
             Brightness = trigger.GetBrightness().ToString();
+            Priority = trigger.Priority;
+
+            if (highestPriority)
+            {
+                PriorityUpButton.Visibility = System.Windows.Visibility.Hidden;
+            }
+            
+            if (lowestPriority)
+            {
+                PriorityDownButton.Visibility = System.Windows.Visibility.Hidden;
+            }
 
             DataContext = this;
         }
@@ -36,6 +48,16 @@ namespace Winleafs.Wpf.Views.Scheduling
         private void Delete_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             _parent.DeleteTrigger(_trigger);
+        }
+
+        private void PriorityUp_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            _parent.PriorityUp(Priority);
+        }
+
+        private void PriorityDown_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            _parent.PriorityDown(Priority);
         }
     }
 }

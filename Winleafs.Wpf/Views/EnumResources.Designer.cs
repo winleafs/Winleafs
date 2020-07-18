@@ -196,6 +196,15 @@ namespace Winleafs.Wpf.Views {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Spotify event.
+        /// </summary>
+        public static string SpotifyEvent {
+            get {
+                return ResourceManager.GetString("SpotifyEvent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sunday.
         /// </summary>
         public static string Sunday {

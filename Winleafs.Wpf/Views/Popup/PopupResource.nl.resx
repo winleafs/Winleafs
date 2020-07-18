@@ -120,6 +120,9 @@
   <data name="Cancel" xml:space="preserve">
     <value>Annuleren</value>
   </data>
+  <data name="Disconnect" xml:space="preserve">
+    <value>Verbreken</value>
+  </data>
   <data name="Error" xml:space="preserve">
     <value>Probleem</value>
   </data>

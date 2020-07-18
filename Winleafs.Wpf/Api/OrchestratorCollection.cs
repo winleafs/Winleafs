@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Winleafs.Models.Enums;
 using Winleafs.Models.Models;
@@ -19,7 +20,14 @@ namespace Winleafs.Wpf.Api
         /// </summary>
         public static void Initialize()
         {
-            _orchestratorForDevices = new Dictionary<string, Orchestrator>();
+            foreach (var orchestrator in _orchestratorForDevices.Values)
+            {
+                //Stop all event triggers such that all timers are disposed for correct disposal of all classes
+                orchestrator.EventTriggersCollection.StopAllEvents();
+            }
+
+            _orchestratorForDevices.Clear();
+            GC.Collect(); //Make sure all previous orchestrators are removed from memory
 
             foreach (var device in UserSettings.Settings.Devices)
             {

@@ -32,7 +32,7 @@ Memory address locations:
 
 namespace Winleafs.Wpf.Api.Events
 {
-    public class Borderlands2HealthEventTrigger : BaseProcessPercentageEventTrigger
+    /*public class Borderlands2HealthEventTrigger : BaseProcessPercentageEventTrigger
     {
         private static readonly string _processName = "Borderlands2";
         private static readonly int _maxHealthBaseAddress = 32506856;
@@ -63,5 +63,5 @@ namespace Winleafs.Wpf.Api.Events
                 //Do nothing, percentage is applied with UDP and if that fails, it is not interesting
             }
         }
-    }
+    }*/
 }

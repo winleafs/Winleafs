@@ -6,6 +6,7 @@
         Sunrise = 1,
         Sunset = 2,
         ProcessEvent = 3,
-        Borderlands2HealthEvent = 4
+        Borderlands2HealthEvent = 4,
+        SpotifyEvent = 5
     }
 }

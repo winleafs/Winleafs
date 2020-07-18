@@ -103,6 +103,8 @@ namespace Winleafs.Wpf.Views
 
             OrchestratorCollection.Initialize();
 
+            SpotifyEventTimer.Initialize();
+
             var mainWindow = new MainWindow();
 
             if (!silent)
@@ -112,7 +114,7 @@ namespace Winleafs.Wpf.Views
 
             mainWindow.Initialize();
 
-            CheckForUpdate();
+            CheckForUpdate(); 
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)
@@ -179,6 +181,7 @@ namespace Winleafs.Wpf.Views
             mainWindow.Close();
         }
 
+        #region Startup checks
         private static void CheckForUpdate()
         {
             try
@@ -199,6 +202,8 @@ namespace Winleafs.Wpf.Views
                 //Do nothing, does not matter if the user is offline or github is unreachable
             }
         }
+
+        #endregion
 
         #region Show window of other process
         //Source: https://stackoverflow.com/questions/11399528/show-wpf-window-from-another-application-in-c-sharp

@@ -206,7 +206,7 @@ namespace Winleafs.Api.Endpoints
 
 		public async Task SetStateWithStateCheckAsync(bool state)
         {
-            var currentState = (await GetStateAsync()).IsTurnedOn;
+            var currentState = (await GetStateAsync())?.IsTurnedOn;
 
             if (currentState != state)
             {

@@ -207,5 +207,10 @@ namespace Winleafs.Models.Models.Scheduling
 
             EventTriggers = eventTriggersCopy;
         }
+
+        public bool HasSpotifyTriggers()
+        {
+            return EventTriggers.Any(eventTrigger => eventTrigger is SpotifyEventTrigger);
+        }
     }
 }

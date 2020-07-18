@@ -16,7 +16,7 @@ namespace Winleafs.Models.Models
     public class UserSettings
     {
         public static readonly string APPLICATIONNAME = "Winleafs";
-        public static readonly string APPLICATIONVERSION = "v1.0.5.1";
+        public static readonly string APPLICATIONVERSION = "v1.1.0";
 
         public static readonly string SettingsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), APPLICATIONNAME);
 
@@ -24,7 +24,7 @@ namespace Winleafs.Models.Models
         public static readonly string EffectNamePreface = "Winleafs - ";
 
         private static readonly string _settingsFileName = Path.Combine(SettingsFolder, "Settings.txt");
-        private static readonly string _latestSettingsVersion = "11";
+        private static readonly string _latestSettingsVersion = "12";
 
         private static UserSettings _settings { get; set; }
 
@@ -42,6 +42,8 @@ namespace Winleafs.Models.Models
         }
 
         #region Stored properties
+        public string ApplicationId { get; set; }
+
         public string JsonVersion { get; set; }
 
         public List<Device> Devices { get; set; }
@@ -67,6 +69,8 @@ namespace Winleafs.Models.Models
         public int ScreenMirrorRefreshRatePerSecond { get; set; }
 
         public int ScreenMirrorMonitorIndex { get; set; }
+
+        public string WinleafServerURL { get; set; }
 
         public int ProcessResetIntervalInSeconds { get; set; }
         #endregion
@@ -95,11 +99,13 @@ namespace Winleafs.Models.Models
                 var userSettings = new UserSettings
                 {
                     // Defaults
+                    ApplicationId = Guid.NewGuid().ToString(),
                     Devices = new List<Device>(),
                     Schedules = new List<Schedule>(),
                     JsonVersion = _latestSettingsVersion,
                     ScreenMirrorRefreshRatePerSecond = 5,
                     ScreenMirrorMonitorIndex = 0,
+                    WinleafServerURL = "https://api.winleafs.com",
                     ProcessResetIntervalInSeconds = 60
                 };
                 _settings = userSettings;
@@ -446,6 +452,27 @@ namespace Winleafs.Models.Models
         private static JToken Migration_10_11(JToken jToken)
         {
             jToken[nameof(ProcessResetIntervalInSeconds)] = 60;
+
+            return jToken;
+        }
+
+        [Migration("11", "12")]
+        private static JToken Migration_11_12(JToken jToken)
+        {
+            jToken[nameof(ApplicationId)] = Guid.NewGuid().ToString();
+            jToken[nameof(WinleafServerURL)] = "https://api.winleafs.com";
+
+            //Set priority on all event triggers
+            foreach (var schedule in jToken[nameof(Schedules)])
+            {
+                var triggerCounter = 1;
+
+                foreach (var eventTrigger in schedule[nameof(Schedule.EventTriggers)])
+                {
+                    eventTrigger[nameof(TriggerBase.Priority)] = triggerCounter;
+                    triggerCounter++;
+                }
+            }
 
             return jToken;
         }

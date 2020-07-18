@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Winleafs.Api;
 using Winleafs.Models.Models;
-using Winleafs.Models.Models.Effects;
 
 namespace Winleafs.Wpf.Api.Effects
 {
@@ -15,11 +13,10 @@ namespace Winleafs.Wpf.Api.Effects
         /// <summary>
         /// Initializes a new instance of the <see cref="CustomEffectsCollection"/> class.
         /// </summary>
-        /// <param name="device">The device to be used to generate a <see cref="NanoleafClient"/></param>
         /// <param name="orchestrator">The orchestrator instance currently in use.</param>
-        public CustomEffectsCollection(Device device, Orchestrator orchestrator)
+        public CustomEffectsCollection(Orchestrator orchestrator)
         {
-            var nanoleafClient = NanoleafClient.GetClientForDevice(device);
+            var nanoleafClient = NanoleafClient.GetClientForDevice(orchestrator.Device);
 
             _customEffects = new Dictionary<string, ICustomEffect>();
 
@@ -35,7 +32,7 @@ namespace Winleafs.Wpf.Api.Effects
             }
 
             //We will not translate effect names since their names are identifiers
-            var screenMirrorEffect = new ScreenMirrorEffect(device, orchestrator, nanoleafClient);
+            var screenMirrorEffect = new ScreenMirrorEffect(orchestrator, nanoleafClient);
             _customEffects.Add(screenMirrorEffect.GetName(), screenMirrorEffect);
 
             var turnOffEffect = new TurnOffEffect(nanoleafClient);

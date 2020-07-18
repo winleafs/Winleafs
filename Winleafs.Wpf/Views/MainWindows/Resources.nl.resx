@@ -214,4 +214,7 @@ Hover over deze knop.</value>
   <data name="NextEffectNone" xml:space="preserve">
     <value>Volgende: geen</value>
   </data>
+  <data name="NumberOfTriggers" xml:space="preserve">
+    <value>{0} event triggers</value>
+  </data>
 </root>

@@ -1,20 +1,20 @@
 ﻿using Microsoft.Win32;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Winleafs.External;
 using Winleafs.Models.Enums;
 using Winleafs.Models.Models;
 using Winleafs.Models.Models.Effects;
+using Winleafs.Server;
 using Winleafs.Wpf.Api;
 using Winleafs.Wpf.Helpers;
 using Winleafs.Wpf.ViewModels;
@@ -33,6 +33,8 @@ namespace Winleafs.Wpf.Views.Options
     {
         public OptionsViewModel OptionsViewModel { get; set; }
 
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         private RegistryKey _startupKey;
 
         private static readonly Dictionary<string, string> _languageDictionary =
@@ -41,8 +43,8 @@ namespace Winleafs.Wpf.Views.Options
         private bool _visualizationOpen;
 
         private readonly MainWindow _mainWindow;
-
         private readonly List<string> _monitorNames;
+        private readonly WinleafsServerClient _winleafsServerClient;
 
         public OptionsWindow(MainWindow mainWindow)
         {
@@ -50,6 +52,7 @@ namespace Winleafs.Wpf.Views.Options
 
             InitializeComponent();
 
+            //Initialize the viewmodel
             _monitorNames = ScreenBoundsHelper.GetMonitorNames();
 
             OptionsViewModel = new OptionsViewModel(this)
@@ -66,6 +69,7 @@ namespace Winleafs.Wpf.Views.Options
                 Languages = _languageDictionary.Keys.ToList(),
                 MinimizeToSystemTray = UserSettings.Settings.MinimizeToSystemTray,
                 CustomColorEffects = UserSettings.Settings.CustomEffects == null ? new List<UserCustomColorEffect>() : UserSettings.Settings.CustomEffects.ToList(),
+                WinleafsServerURL = UserSettings.Settings.WinleafServerURL,
                 ProcessResetIntervalText = UserSettings.Settings.ProcessResetIntervalInSeconds.ToString()
             };
 
@@ -76,6 +80,7 @@ namespace Winleafs.Wpf.Views.Options
 
             OptionsViewModel.SelectedDevice = UserSettings.Settings.ActiveDevice.Name; //Set this one last since it triggers changes in properties
 
+            //Initialize variables
             _startupKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", RegistryKeyPermissionCheck.ReadWriteSubTree, RegistryRights.FullControl);
             _visualizationOpen = false;
 
@@ -84,8 +89,14 @@ namespace Winleafs.Wpf.Views.Options
                 DeviceList.Children.Add(new DeviceUserControl(device.Name, this));
             }
 
+            //Draw monitors
             DrawMonitors();
 
+            //Check Spotify connection
+            _winleafsServerClient = new WinleafsServerClient();
+            InitializeSpotifyButtons();
+
+            //last: set datacontext
             DataContext = OptionsViewModel;
         }
 
@@ -264,6 +275,13 @@ namespace Winleafs.Wpf.Views.Options
             }
             #endregion
 
+            #region Advanced
+            if (!string.IsNullOrWhiteSpace(OptionsViewModel.WinleafsServerURL))
+            {
+                UserSettings.Settings.WinleafServerURL = OptionsViewModel.WinleafsServerURL;
+            }
+            #endregion
+
             UserSettings.Settings.SaveSettings();
 
             //Reload the orchestrator so custom effects are reloaded.
@@ -293,6 +311,36 @@ namespace Winleafs.Wpf.Views.Options
             {
 
                 PopupCreator.Error(Options.Resources.LatLongReceiveError);
+            }
+        }
+
+        private void ConnectToSpotify_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                _winleafsServerClient.SpotifyEndpoint.Connect();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, "Unknown error when trying to connect to Spotify");
+                PopupCreator.Error(Options.Resources.SpotifyUnknownError);
+            }
+        }
+
+        private void DisconnectFromSpotify_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                _winleafsServerClient.SpotifyEndpoint.Disconnect();
+                PopupCreator.Success(Options.Resources.DisconnectSuccessful, true);
+
+                DisconnectFromSpotifyButton.Visibility = Visibility.Hidden;
+                ConnectToSpotifyButton.Visibility = Visibility.Visible;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, "Unknown error when trying to connect to Spotify");
+                PopupCreator.Error(Options.Resources.SpotifyUnknownError);
             }
         }
 
@@ -377,6 +425,29 @@ namespace Winleafs.Wpf.Views.Options
 
                 Close();
             }
+        }
+
+        private void InitializeSpotifyButtons()
+        {
+            try
+            {
+                if (_winleafsServerClient.SpotifyEndpoint.IsConnected())
+                {
+                    ConnectToSpotifyButton.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    DisconnectFromSpotifyButton.Visibility = Visibility.Hidden;
+                }
+            }
+            catch (Exception ex)
+            {
+                //Winleafs server is offline/unreachable, disable both buttons and show the error message
+                Logger.Error(ex, "Unknown error when trying to connect to Spotify");
+                ConnectToSpotifyButton.Visibility = Visibility.Hidden;
+                DisconnectFromSpotifyButton.Visibility = Visibility.Hidden;
+                SpotifyUnknownErrorLabel.Visibility = Visibility.Visible;
+            }            
         }
 
         private void DrawMonitors()

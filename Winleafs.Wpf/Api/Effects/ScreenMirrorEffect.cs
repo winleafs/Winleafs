@@ -19,16 +19,16 @@ namespace Winleafs.Wpf.Api.Effects
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
         
         private readonly INanoleafClient _nanoleafClient;
-        private readonly Orchestrator _orchestrator;
+        private readonly Device _device;
         private readonly System.Timers.Timer _timer;
         private readonly ScreenMirrorAlgorithm _screenMirrorAlgorithm;
         private readonly IScreenMirrorEffect _screenMirrorEffect;
 
-        public ScreenMirrorEffect(Device device, Orchestrator orchestrator, INanoleafClient nanoleafClient)
+        public ScreenMirrorEffect(Orchestrator orchestrator, INanoleafClient nanoleafClient)
         {
             _nanoleafClient = nanoleafClient;
-            _orchestrator = orchestrator;
-            _screenMirrorAlgorithm = device.ScreenMirrorAlgorithm;
+            _device = orchestrator.Device;
+            _screenMirrorAlgorithm = orchestrator.Device.ScreenMirrorAlgorithm;
 
             try
             {
@@ -42,13 +42,13 @@ namespace Winleafs.Wpf.Api.Effects
                 }
                 else if (_screenMirrorAlgorithm == ScreenMirrorAlgorithm.Ambilight)
                 {
-                    _screenMirrorEffect = new Ambilght(nanoleafClient, device);
+                    _screenMirrorEffect = new Ambilght(nanoleafClient, orchestrator.Device);
                 }
             }
             catch (Exception e)
             {
                 // It is possible that the user adjusted his/her screens and therefore we get an error when initializing the effect
-                _logger.Error(e, $"Something went wrong initializing the screen mirror effect for device {device.ToString()}");
+                _logger.Error(e, $"Something went wrong initializing the screen mirror effect for device {orchestrator.Device.ToString()}");
                 _screenMirrorEffect = null;
             }
 
@@ -86,7 +86,8 @@ namespace Winleafs.Wpf.Api.Effects
             if (_screenMirrorAlgorithm == ScreenMirrorAlgorithm.ScreenMirrorFit || _screenMirrorAlgorithm == ScreenMirrorAlgorithm.ScreenMirrorStretch)
             {
                 //For screen mirror, we need to enable external control
-                await _nanoleafClient.ExternalControlEndpoint.PrepareForExternalControl(_orchestrator.PanelLayout.DeviceType, _orchestrator.Device.IPAddress);
+                var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(_device);
+                await _nanoleafClient.ExternalControlEndpoint.PrepareForExternalControl(orchestrator.PanelLayout.DeviceType, orchestrator.Device.IPAddress);
             }
 
             //Start the screengrabber

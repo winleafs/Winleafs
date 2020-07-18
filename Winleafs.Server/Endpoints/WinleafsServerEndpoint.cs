@@ -1,26 +1,24 @@
-﻿using System;
-using System.Net;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using NLog;
 using RestSharp;
+using System;
+using System.Net;
+using System.Threading.Tasks;
+using Winleafs.Server.Exceptions;
 
-namespace Winleafs.Api.Endpoints
+namespace Winleafs.Server.Endpoints
 {
-    /// <summary>
-    /// A class used to easily send requests to the Nanoleaf device.
-    /// </summary>
-    public abstract class NanoleafEndpoint
+    public abstract class WinleafsServerEndpoint
     {
         private static Logger _logger = LogManager.GetCurrentClassLogger();
 
-        protected NanoleafClient Client { get; set; }
+        protected WinleafsServerClient Client { get; set; }
 
         // 2 Second default timeout.
         protected int Timeout { get; set; } = 2000;
 
         /// <summary>
-        /// Sends a request to the Nanoleaf.
+        /// Sends a request to the Winleafs server.
         /// </summary>
         /// <typeparam name="T">The type of response wanting to be gotten.</typeparam>
         /// <param name="endpoint">The endpoint where the requests needs to be send to.</param>
@@ -33,7 +31,7 @@ namespace Winleafs.Api.Endpoints
         }
 
         /// <summary>
-        /// Sends a request to the Nanoleaf.
+        /// Sends a request to the Winleafs server.
         /// </summary>
         /// <typeparam name="T">The type of response wanting to be gotten.</typeparam>
         /// <param name="endpoint">The endpoint where the requests needs to be send to.</param>
@@ -46,7 +44,7 @@ namespace Winleafs.Api.Endpoints
         }
 
         /// <summary>
-        /// Sends a request to the Nanoleaf.
+        /// Sends a request to the Winleafs server.
         /// </summary>
         /// <param name="endpoint">The endpoint where the requests needs to be send to.</param>
         /// <param name="method">The method that should be used.</param>
@@ -60,7 +58,7 @@ namespace Winleafs.Api.Endpoints
             Type returnType = null, object body = null, bool disableLogging = false)
         {
             var restClient = new RestClient(Client.BaseUri);
-            var request = new RestRequest(GetUrlForRequest(endpoint), method)
+            var request = new RestRequest($"/{endpoint}", method)
             {
                 Timeout = Timeout
             };
@@ -77,9 +75,10 @@ namespace Winleafs.Api.Endpoints
 
             var response = await restClient.ExecuteTaskAsync(request).ConfigureAwait(false);
 
-            if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.NoContent)
+            if (response.StatusCode != HttpStatusCode.OK)
             {
                 LogError(response);
+                throw new WinleafsServerException("Error during request to Winleafs server");
             }
 
             return returnType == null ? null : JsonConvert.DeserializeObject(response.Content, returnType);
@@ -97,7 +96,7 @@ namespace Winleafs.Api.Endpoints
         protected object SendRequest(string endpoint, Method method, Type returnType = null, object body = null, bool disableLogging = false)
         {
             var restClient = new RestClient(Client.BaseUri);
-            var request = new RestRequest(GetUrlForRequest(endpoint), method)
+            var request = new RestRequest($"/{endpoint}", method)
             {
                 Timeout = Timeout //Set timeout to 2 seconds
             };
@@ -114,30 +113,26 @@ namespace Winleafs.Api.Endpoints
 
             var response = restClient.Execute(request);
 
-            if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.NoContent)
+            if (response.StatusCode != HttpStatusCode.OK)
             {
                 LogError(response);
+                throw new WinleafsServerException("Error during request to Winleafs server");
             }
 
             return returnType == null ? null : JsonConvert.DeserializeObject(response.Content, returnType);
         }
 
-        protected string GetUrlForRequest(string endpoint)
-        {
-            return $"api/v1/{Client.Token}/{endpoint}";
-        }
-
         protected void LogRequest(RestRequest request, Method method, object body)
         {
             _logger.Info(
-                $"Sending following request to Nanoleaf: Address: {Client.BaseUri}, " +
+                $"Sending following request Winleafs Server: Address: {Client.BaseUri}, " +
                 $"URL: {request.Resource}, Method: {method.ToString()}, " +
                 $"Body: {(body != null ? body.ToString() : "")}");
         }
 
         protected void LogError(IRestResponse response)
         {
-            _logger.Warn($"Nanoleaf request failed, statuscode: {(int)response.StatusCode} " +
+            _logger.Warn($"Winleafs server request failed, statuscode: {(int)response.StatusCode} " +
                          $"{response.StatusCode.ToString()}, status description: " +
                          $"{response.StatusDescription}, content: {response.Content}");
         }
