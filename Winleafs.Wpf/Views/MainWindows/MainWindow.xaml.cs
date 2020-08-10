@@ -53,6 +53,7 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         public MainWindow()
         {
+            throw new Exception();
             InitializeComponent();
 
             UpdateDeviceNames();
