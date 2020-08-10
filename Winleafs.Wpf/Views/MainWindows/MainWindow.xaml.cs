@@ -53,6 +53,7 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         public MainWindow()
         {
+            // This time it should work
             throw new Exception();
             InitializeComponent();
 
