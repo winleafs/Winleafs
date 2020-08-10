@@ -270,4 +270,7 @@ by IP Adress</value>
   <data name="ProcessResetIntervalError" xml:space="preserve">
     <value>Please enter a valid value for process reset interval (a number larger than 0)</value>
   </data>
+  <data name="Flip" xml:space="preserve">
+    <value>Flip</value>
+  </data>
 </root>

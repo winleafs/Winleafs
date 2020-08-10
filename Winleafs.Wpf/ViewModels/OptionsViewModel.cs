@@ -37,7 +37,9 @@ namespace Winleafs.Wpf.ViewModels
         #endregion
 
         #region Screen mirror
-        public Dictionary<string, ScreenMirrorAlgorithm> AlgorithmPerDevice { get; set; }
+        public Dictionary<string, ScreenMirrorAlgorithm> ScreenMirrorAlgorithmPerDevice { get; set; }
+
+        public Dictionary<string, ScreenMirrorFlip> ScreenMirrorFlipPerDevice { get; set; }
 
         private int _screenMirrorRefreshRatePerSecond;
 
@@ -67,7 +69,7 @@ namespace Winleafs.Wpf.ViewModels
             {
                 _selectedScreenMirrorAlgorithm = ScreenMirrorAlgorithmMapping[value];
 
-                AlgorithmPerDevice[_selectedDevice] = _selectedScreenMirrorAlgorithm;
+                ScreenMirrorAlgorithmPerDevice[_selectedDevice] = _selectedScreenMirrorAlgorithm;
 
                 _parent.ScreenMirrorAlgorithmChanged(_selectedScreenMirrorAlgorithm);
 
@@ -76,6 +78,27 @@ namespace Winleafs.Wpf.ViewModels
         }
 
         public IEnumerable<string> ScreenMirrorAlgorithms => ScreenMirrorAlgorithmMapping.Keys;
+        #endregion
+
+        #region Screen mirror flip dropdown
+        //Map display values to enum values
+        public Dictionary<string, ScreenMirrorFlip> ScreenMirrorFlipMapping { get; set; }
+
+        private ScreenMirrorFlip _selectedScreenMirrorFlip;
+        public string SelectedScreenMirrorFlip
+        {
+            get { return EnumLocalizer.GetLocalizedEnum(_selectedScreenMirrorFlip); }
+            set
+            {
+                _selectedScreenMirrorFlip = ScreenMirrorFlipMapping[value];
+
+                ScreenMirrorFlipPerDevice[_selectedDevice] = _selectedScreenMirrorFlip;
+
+                OnPropertyChanged(nameof(SelectedScreenMirrorFlip));
+            }
+        }
+
+        public IEnumerable<string> ScreenMirrorFlips => ScreenMirrorFlipMapping.Keys;
         #endregion
         #endregion
 
@@ -89,8 +112,11 @@ namespace Winleafs.Wpf.ViewModels
             {
                 _selectedDevice = value;
 
-                var screenMirrorAlgorithm = AlgorithmPerDevice[_selectedDevice];
+                var screenMirrorAlgorithm = ScreenMirrorAlgorithmPerDevice[_selectedDevice];
                 SelectedScreenMirrorAlgorithm = ScreenMirrorAlgorithmMapping.FirstOrDefault(map => map.Value == screenMirrorAlgorithm).Key;
+
+                var screenMirrorFlip = ScreenMirrorFlipPerDevice[_selectedDevice];
+                SelectedScreenMirrorFlip = ScreenMirrorFlipMapping.FirstOrDefault(map => map.Value == screenMirrorFlip).Key;
             }
         }
 
@@ -106,6 +132,14 @@ namespace Winleafs.Wpf.ViewModels
                 {  EnumLocalizer.GetLocalizedEnum(ScreenMirrorAlgorithm.Ambilight), ScreenMirrorAlgorithm.Ambilight },
                 {  EnumLocalizer.GetLocalizedEnum(ScreenMirrorAlgorithm.ScreenMirrorFit), ScreenMirrorAlgorithm.ScreenMirrorFit },
                 {  EnumLocalizer.GetLocalizedEnum(ScreenMirrorAlgorithm.ScreenMirrorStretch), ScreenMirrorAlgorithm.ScreenMirrorStretch }
+            };
+
+            ScreenMirrorFlipMapping = new Dictionary<string, ScreenMirrorFlip>()
+            {
+                {  EnumLocalizer.GetLocalizedEnum(ScreenMirrorFlip.None), ScreenMirrorFlip.None },
+                {  EnumLocalizer.GetLocalizedEnum(ScreenMirrorFlip.Horizontal), ScreenMirrorFlip.Horizontal },
+                {  EnumLocalizer.GetLocalizedEnum(ScreenMirrorFlip.Vertical), ScreenMirrorFlip.Vertical },
+                {  EnumLocalizer.GetLocalizedEnum(ScreenMirrorFlip.HorizontalVertical), ScreenMirrorFlip.HorizontalVertical }
             };
         }
 

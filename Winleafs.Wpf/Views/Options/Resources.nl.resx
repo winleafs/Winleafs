@@ -269,4 +269,7 @@ per IP adres</value>
   <data name="ProcessResetIntervalError" xml:space="preserve">
     <value>Vul een geldige waarde in voor proces reset interval (een nummer groter dan 0)</value>
   </data>
+  <data name="Flip" xml:space="preserve">
+    <value>Flip</value>
+  </data>
 </root>

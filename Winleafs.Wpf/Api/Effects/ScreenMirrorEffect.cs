@@ -29,16 +29,17 @@ namespace Winleafs.Wpf.Api.Effects
             _nanoleafClient = nanoleafClient;
             _device = orchestrator.Device;
             _screenMirrorAlgorithm = orchestrator.Device.ScreenMirrorAlgorithm;
+            var flipType = FlipTypeHelper.ScreenMirrorFlipToFlipType(orchestrator.Device.ScreenMirrorFlip);
 
             try
             {
                 if (_screenMirrorAlgorithm == ScreenMirrorAlgorithm.ScreenMirrorFit)
                 {
-                    _screenMirrorEffect = new ScreenMirror(orchestrator, nanoleafClient, ScaleType.Fit);
+                    _screenMirrorEffect = new ScreenMirror(orchestrator, nanoleafClient, ScaleType.Fit, flipType);
                 }
                 else if (_screenMirrorAlgorithm == ScreenMirrorAlgorithm.ScreenMirrorStretch)
                 {
-                    _screenMirrorEffect = new ScreenMirror(orchestrator, nanoleafClient, ScaleType.Stretch);
+                    _screenMirrorEffect = new ScreenMirror(orchestrator, nanoleafClient, ScaleType.Stretch, flipType);
                 }
                 else if (_screenMirrorAlgorithm == ScreenMirrorAlgorithm.Ambilight)
                 {

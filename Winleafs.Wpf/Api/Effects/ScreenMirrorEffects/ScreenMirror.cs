@@ -21,14 +21,14 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
 
         private readonly DeviceType _deviceType;
 
-        public ScreenMirror(Orchestrator orchestrator, INanoleafClient nanoleafClient, ScaleType scaleType)
+        public ScreenMirror(Orchestrator orchestrator, INanoleafClient nanoleafClient, ScaleType scaleType, FlipType flipType)
         {
             _externalControlEndpoint = nanoleafClient.ExternalControlEndpoint;
             _panels = new List<ScreenMirrorPanel>();
             _deviceType = orchestrator.PanelLayout.DeviceType;
 
             var screenBounds = ScreenBoundsHelper.GetScreenBounds(UserSettings.Settings.ScreenMirrorMonitorIndex);
-            var panels = orchestrator.PanelLayout.GetScaledPolygons(screenBounds.Width, screenBounds.Height, scaleType);
+            var panels = orchestrator.PanelLayout.GetScaledPolygons(screenBounds.Width, screenBounds.Height, scaleType, flipType);
             
             switch (_deviceType)
             {
@@ -39,7 +39,7 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
                     LoadPanelsForSquares(screenBounds, panels);
                     break;
                 default:
-                    throw new NotImplementedException($"Screen mirror constructor for device of type {orchestrator.PanelLayout.DeviceType.ToString()} not implemented");
+                    throw new NotImplementedException($"Screen mirror constructor for device of type {orchestrator.PanelLayout.DeviceType} not implemented");
             }
         }
 

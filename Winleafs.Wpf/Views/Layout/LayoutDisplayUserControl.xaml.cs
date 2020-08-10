@@ -104,7 +104,7 @@ namespace Winleafs.Wpf.Views.Layout
                 _panelLayout = orchestrator.PanelLayout;
             }
             
-            _polygons = _panelLayout.GetScaledPolygons((int)ActualWidth, (int)ActualHeight);
+            _polygons = _panelLayout.GetScaledPolygons((int)ActualWidth, (int)ActualHeight, ScaleType.Fit, FlipType.None);
 
             if (_polygons == null || !_polygons.Any())
             {
