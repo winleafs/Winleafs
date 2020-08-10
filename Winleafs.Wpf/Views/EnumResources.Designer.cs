@@ -124,6 +124,24 @@ namespace Winleafs.Wpf.Views {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Horizontal.
+        /// </summary>
+        public static string Horizontal {
+            get {
+                return ResourceManager.GetString("Horizontal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Horizontal &amp; vertical.
+        /// </summary>
+        public static string HorizontalVertical {
+            get {
+                return ResourceManager.GetString("HorizontalVertical", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Manual.
         /// </summary>
         public static string Manual {
@@ -138,6 +156,15 @@ namespace Winleafs.Wpf.Views {
         public static string Monday {
             get {
                 return ResourceManager.GetString("Monday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        public static string None {
+            get {
+                return ResourceManager.GetString("None", resourceCulture);
             }
         }
         
@@ -178,7 +205,7 @@ namespace Winleafs.Wpf.Views {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Screen Mirror fit.
+        ///   Looks up a localized string similar to Fit.
         /// </summary>
         public static string ScreenMirrorFit {
             get {
@@ -187,7 +214,7 @@ namespace Winleafs.Wpf.Views {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Screen Mirror stretch.
+        ///   Looks up a localized string similar to Stretch.
         /// </summary>
         public static string ScreenMirrorStretch {
             get {
@@ -264,6 +291,15 @@ namespace Winleafs.Wpf.Views {
         public static string Unknown {
             get {
                 return ResourceManager.GetString("Unknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vertical.
+        /// </summary>
+        public static string Vertical {
+            get {
+                return ResourceManager.GetString("Vertical", resourceCulture);
             }
         }
         

@@ -190,7 +190,7 @@ namespace Winleafs.Wpf.Api.Layouts
         /// Returns the panels represented as <see cref="DrawablePanel"/>s scaled to fit the desired width and height.
         /// Returns null if there is no layout
         /// </summary>
-        public List<DrawablePanel> GetScaledPolygons(int width, int height, ScaleType scaleType = ScaleType.Fit)
+        public List<DrawablePanel> GetScaledPolygons(int width, int height, ScaleType scaleType, FlipType flipType)
         {
             if (_layout == null)
             {
@@ -227,18 +227,46 @@ namespace Winleafs.Wpf.Api.Layouts
                 var polygon = new Polygon();
                 foreach (var point in panel.Polygon.Points)
                 {
-                    polygon.Points.Add(scaleTransform.Transform(point));
+                    var scaledPoint = scaleTransform.Transform(point);
+                    var flippedPoint = FlipTransform(scaledPoint, flipType, width, height);
+                    polygon.Points.Add(flippedPoint);
                 }
+
+                var scaledMidPoint = scaleTransform.Transform(panel.MidPoint);
+                var flippedMidPoint = FlipTransform(scaledMidPoint, flipType, width, height);
 
                 scaledPolygons.Add(new DrawablePanel
                 {
-                    MidPoint = scaleTransform.Transform(panel.MidPoint),
+                    MidPoint = flippedMidPoint,
                     PanelId = panel.PanelId,
                     Polygon = polygon
                 });
             }
 
             return scaledPolygons;
+        }
+
+        private Point FlipTransform(Point point, FlipType flipType, double maxX, double maxY)
+        {
+            switch (flipType)
+            {
+                case FlipType.Horizontal:
+                    point.X = maxX - point.X;
+                    break;
+                case FlipType.Vertical:
+                    point.Y = maxY - point.Y;
+                    break;
+                case FlipType.HorizontalVertical:
+                    point.X = maxX - point.X;
+                    point.Y = maxY - point.Y;
+                    break;
+                case FlipType.None:
+                    break; //Do nothing
+                default:
+                    throw new NotImplementedException($"Flipping for {nameof(FlipType)}.{flipType} not implemented.");
+            }
+
+            return point;
         }
     }
 }

@@ -21,13 +21,14 @@ namespace Winleafs.Wpf.Views.Options
         private readonly Rectangle _screenBounds;
         private readonly Device _device;
         private readonly ScreenMirrorAlgorithm _screenMirrorAlgorithm;
+        private readonly ScreenMirrorFlip _screenMirrorFlip;
 
-        public ScreenMirrorVisualizationWindow(Device device, int monitorIndex, ScreenMirrorAlgorithm screenMirrorAlgorithm)
+        public ScreenMirrorVisualizationWindow(Device device, int monitorIndex, ScreenMirrorAlgorithm screenMirrorAlgorithm, ScreenMirrorFlip screenMirrorFlip)
         {
             _screenMirrorAlgorithm = screenMirrorAlgorithm;
+            _screenMirrorFlip = screenMirrorFlip;
             _device = device;
             _screenBounds = ScreenBoundsHelper.GetScreenBounds(monitorIndex);
-
 
             Width = _screenBounds.Width;
             Height = _screenBounds.Height;
@@ -40,11 +41,12 @@ namespace Winleafs.Wpf.Views.Options
 
         public void Visualize(double scale)
         {
-            var scaleType = _screenMirrorAlgorithm == ScreenMirrorAlgorithm.ScreenMirrorFit ? ScaleType.Fit : ScaleType.Stretch;
             var width = Convert.ToInt32(_screenBounds.Width / scale);
             var height = Convert.ToInt32(_screenBounds.Height / scale);
+            var scaleType = _screenMirrorAlgorithm == ScreenMirrorAlgorithm.ScreenMirrorFit ? ScaleType.Fit : ScaleType.Stretch;
+            var flipType = FlipTypeHelper.ScreenMirrorFlipToFlipType(_screenMirrorFlip);
 
-            var panels = OrchestratorCollection.GetOrchestratorForDevice(_device).PanelLayout.GetScaledPolygons(width, height, scaleType);
+            var panels = OrchestratorCollection.GetOrchestratorForDevice(_device).PanelLayout.GetScaledPolygons(width, height, scaleType, flipType);
 
             DrawPanels(panels);
 
