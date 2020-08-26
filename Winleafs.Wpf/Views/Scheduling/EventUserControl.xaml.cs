@@ -59,7 +59,7 @@ namespace Winleafs.Wpf.Views.Scheduling
                 EffectName = effectName,
                 EventTriggerType = TriggerType.ProcessEvent,
                 ProcessName = processName,
-                Priority = EventTriggers.Max(eventTrigger => eventTrigger.Priority) + 1
+                Priority = EventTriggers.Count == 0 ? 1 : EventTriggers.Max(eventTrigger => eventTrigger.Priority) + 1
             });
 
             BuildTriggerList();
