@@ -66,7 +66,7 @@ namespace Winleafs.Wpf.Views.MainWindows
 
                 var deviceUserControl = new DeviceUserControl(UserSettings.Settings.Devices.FirstOrDefault(device => device.Name == SelectedDevice), _parent);
 
-                deviceUserControl.TopBorder.BorderThickness = new Thickness(0); //Hide the white top border
+                //deviceUserControl.TopBorder.BorderThickness = new Thickness(0); //Hide the white top border
                 deviceUserControl.DeviceNameLabel.Visibility = Visibility.Hidden; //Hide the device name
 
                 //Hide the device icons

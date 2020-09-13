@@ -30,7 +30,7 @@ namespace Winleafs.Wpf.Views.MainWindows
 
             if (Schedule.Active)
             {
-                Background = (Brush)new BrushConverter().ConvertFromInvariantString("#7F3F6429");
+                //Background = (Brush)new BrushConverter().ConvertFromInvariantString("#7F3F6429");
             }
 
             var nextEffect = schedule.GetNextTimeTrigger();
