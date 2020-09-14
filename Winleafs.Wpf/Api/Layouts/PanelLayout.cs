@@ -42,22 +42,24 @@ namespace Winleafs.Wpf.Api.Layouts
             _layout = _nanoleafClient.LayoutEndpoint.GetLayout();
             _globalOrientation = _nanoleafClient.LayoutEndpoint.GetGlobalOrientation();
 
-            if (_layout != null)
+            if (_layout == null || _layout.NumberOfPanels <= 0)
             {
-                ConstructPanelsAsPolygons();
+                return;
+            }
 
-                //Set the device type according to the type of panels
-                switch (_layout.PanelPositions.ElementAt(0).ShapeType)
-                {
-                    case ShapeType.ContolSquarePassive:
-                    case ShapeType.ControlSquarePrimary:
-                    case ShapeType.Square:
-                        DeviceType = DeviceType.Canvas;
-                        break;
-                    case ShapeType.Triangle:
-                        DeviceType = DeviceType.Aurora;
-                        break;
-                }
+            ConstructPanelsAsPolygons();
+
+            //Set the device type according to the type of panels
+            switch (_layout.PanelPositions.ElementAt(0).ShapeType)
+            {
+                case ShapeType.ContolSquarePassive:
+                case ShapeType.ControlSquarePrimary:
+                case ShapeType.Square:
+                    DeviceType = DeviceType.Canvas;
+                    break;
+                case ShapeType.Triangle:
+                    DeviceType = DeviceType.Aurora;
+                    break;
             }
         }
 
