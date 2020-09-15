@@ -85,6 +85,11 @@ namespace Winleafs.Wpf.Api.Layouts
                 CreatePolygon(panelPosition.X, panelPosition.Y, panelPosition.Orientation, panelPosition.PanelId, globalRotationTransform, panelPosition.ShapeType);
             }
 
+            if (!_unscaledPolygons.Any())
+            {
+                return;
+            }
+
             //Normalize the triangle positions such that the coordinates start at 0
             double minPolygonX = _unscaledPolygons.SelectMany(p => p.Polygon.Points).Min(p => p.X);
             double minPolygonY = _unscaledPolygons.SelectMany(p => p.Polygon.Points).Min(p => p.Y);
@@ -127,7 +132,7 @@ namespace Winleafs.Wpf.Api.Layouts
                     //  /____\
                     // B      C
 
-                    var triangleSize = _layout.SideLength;
+                    var triangleSize = 150;
                     var a = new Point(x, y - ((Math.Sqrt(3) / 3) * triangleSize));
                     var b = new Point(x - (triangleSize / 2), y + ((Math.Sqrt(3) / 6) * triangleSize));
                     var c = new Point(x + (triangleSize / 2), y + ((Math.Sqrt(3) / 6) * triangleSize));
@@ -162,7 +167,7 @@ namespace Winleafs.Wpf.Api.Layouts
                     */
 
                     // This is the distance from one of the corners to the center.
-                    var distanceToCenter = _layout.SideLength / (double)2;
+                    var distanceToCenter = 100 / (double)2;
                     var a = new Point(x - distanceToCenter, y + distanceToCenter);
                     var b = new Point(x - distanceToCenter, y - distanceToCenter);
                     var c = new Point(x + distanceToCenter, y - distanceToCenter);
@@ -173,6 +178,24 @@ namespace Winleafs.Wpf.Api.Layouts
                     polygon.Points.Add(globalRotationTransform.Transform(rotateTransform.Transform(d)));
                     break;
                 }
+
+                case ShapeType.Hexagon:
+                {
+                    //Create 6 points
+                        var distanceToCenter = 67;
+                        for (var points = 0; points < 6; points++)
+                        {
+                            var a = new Point(
+                                x + distanceToCenter * (float)Math.Cos(points * 60 * Math.PI / 180f),
+                                y + distanceToCenter * (float)Math.Sin(points * 60 * Math.PI / 180f)
+                                );
+                            polygon.Points.Add(globalRotationTransform.Transform(rotateTransform.Transform(a)));
+                        }
+                        break;
+                }
+                // If the type is new, return instead of making a wrong polygon
+                default:
+                    return;
             }
 
             polygon.Stroke = _borderColor;
@@ -194,11 +217,11 @@ namespace Winleafs.Wpf.Api.Layouts
         /// </summary>
         public List<DrawablePanel> GetScaledPolygons(int width, int height, ScaleType scaleType, FlipType flipType)
         {
-            if (_layout == null)
+            if (_layout == null || !_unscaledPolygons.Any())
             {
                 GetLayout(); // Try to retrieve the layout one more time
 
-                if (_layout == null) // Layout retrieval failed, return null
+                if (_layout == null || !_unscaledPolygons.Any()) // Layout retrieval failed, return null
                 {
                     return null;
                 }
