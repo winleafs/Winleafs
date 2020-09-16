@@ -1,5 +1,6 @@
 ﻿using RestSharp;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Winleafs.Api.Endpoints.Interfaces;
 using Winleafs.Models.Models.Layouts;
 
@@ -28,6 +29,39 @@ namespace Winleafs.Api.Endpoints
         /// <inheritdoc />
         public Layout GetLayout()
         {
+            return JsonConvert.DeserializeObject<Layout>(@"{
+	""numPanels"": 4,
+	""sideLength"": 67,
+	""positionData"": [{
+			""panelId"": 19544,
+			""x"": 100,
+			""y"": 174,
+			""o"": 0,
+			""shapeType"": 7
+		},
+		{
+			""panelId"": 55960,
+			""x"": 0,
+			""y"": 116,
+			""o"": 180,
+			""shapeType"": 7
+		},
+		{
+			""panelId"": 46666,
+			""x"": 0,
+			""y"": 0,
+			""o"": 180,
+			""shapeType"": 7
+		},
+		{
+			""panelId"": 0,
+			""x"": 41,
+			""y"": 208,
+			""o"": 60,
+			""shapeType"": 12
+		}
+	]
+}");
             return SendRequest<Layout>($"{BaseEndpoint}/layout", Method.GET);
         }
 

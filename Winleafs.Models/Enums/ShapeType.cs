@@ -11,6 +11,8 @@ namespace Winleafs.Models.Enums
         Square = 2,
         ControlSquarePrimary = 3,
         ContolSquarePassive = 4,
-        PowerSupply = 5
+        PowerSupply = 5,
+        Hexagon = 7,
+        ULPController = 12
     }
 }
