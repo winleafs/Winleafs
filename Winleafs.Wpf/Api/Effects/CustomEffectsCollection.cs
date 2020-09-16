@@ -32,8 +32,12 @@ namespace Winleafs.Wpf.Api.Effects
             }
 
             //We will not translate effect names since their names are identifiers
-            var screenMirrorEffect = new ScreenMirrorEffect(orchestrator, nanoleafClient);
-            _customEffects.Add(screenMirrorEffect.GetName(), screenMirrorEffect);
+            if (ScreenMirrorEffect.SupportedDeviceTypes.Contains(orchestrator.PanelLayout.DeviceType))
+            {
+                //Only add screen mirror to supported devices
+                var screenMirrorEffect = new ScreenMirrorEffect(orchestrator, nanoleafClient);
+                _customEffects.Add(screenMirrorEffect.GetName(), screenMirrorEffect);
+            }
 
             var turnOffEffect = new TurnOffEffect(nanoleafClient);
             _customEffects.Add(turnOffEffect.GetName(), turnOffEffect);

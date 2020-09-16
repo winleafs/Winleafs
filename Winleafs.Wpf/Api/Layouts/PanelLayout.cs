@@ -49,8 +49,8 @@ namespace Winleafs.Wpf.Api.Layouts
 
             ConstructPanelsAsPolygons();
 
-            //Set the device type according to the type of panels
-            switch (_layout.PanelPositions.ElementAt(0).ShapeType)
+            //Set the device type according to the type of panels (which panel type occurs most)
+            switch (_layout.PanelPositions.GroupBy(panel => panel.ShapeType).OrderByDescending(group => group.Count()).First().Key)
             {
                 case ShapeType.ContolSquarePassive:
                 case ShapeType.ControlSquarePrimary:
@@ -59,6 +59,12 @@ namespace Winleafs.Wpf.Api.Layouts
                     break;
                 case ShapeType.Triangle:
                     DeviceType = DeviceType.Aurora;
+                    break;
+                case ShapeType.Hexagon:
+                    DeviceType = DeviceType.Hexagon;
+                    break;
+                default:
+                    DeviceType = DeviceType.Unknown;
                     break;
             }
         }
@@ -79,18 +85,19 @@ namespace Winleafs.Wpf.Api.Layouts
 
             var globalRotationTransform = new RotateTransform(_globalOrientation.Value, Math.Abs(maxX - minX) / 2, Math.Abs(maxY - minY) / 2);
 
-            //Create the triangles
+            //Create the polygons
             foreach (var panelPosition in _layout.PanelPositions)
             {
                 CreatePolygon(panelPosition.X, panelPosition.Y, panelPosition.Orientation, panelPosition.PanelId, globalRotationTransform, panelPosition.ShapeType);
             }
 
+            //Can be empty in theory, when a device only exists of a power supply for example
             if (!_unscaledPolygons.Any())
             {
                 return;
             }
 
-            //Normalize the triangle positions such that the coordinates start at 0
+            //Normalize the polygon positions such that the coordinates start at 0
             double minPolygonX = _unscaledPolygons.SelectMany(p => p.Polygon.Points).Min(p => p.X);
             double minPolygonY = _unscaledPolygons.SelectMany(p => p.Polygon.Points).Min(p => p.Y);
 
@@ -111,7 +118,7 @@ namespace Winleafs.Wpf.Api.Layouts
         }
 
         /// <summary>
-        /// Draws an equilateral polygon from the given center point and rotation. Also applies the global rotation
+        /// Draws a polygon based on the shape type from the given center point and rotation. Also applies the global rotation
         /// </summary>
         private void CreatePolygon(double x, double y, double rotation, int panelId,
             Transform globalRotationTransform, ShapeType shapeType)
@@ -132,10 +139,10 @@ namespace Winleafs.Wpf.Api.Layouts
                     //  /____\
                     // B      C
 
-                    var triangleSize = 150;
-                    var a = new Point(x, y - ((Math.Sqrt(3) / 3) * triangleSize));
-                    var b = new Point(x - (triangleSize / 2), y + ((Math.Sqrt(3) / 6) * triangleSize));
-                    var c = new Point(x + (triangleSize / 2), y + ((Math.Sqrt(3) / 6) * triangleSize));
+                    const int triangleSideLength = 150;
+                    var a = new Point(x, y - ((Math.Sqrt(3) / 3) * triangleSideLength));
+                    var b = new Point(x - (triangleSideLength / 2), y + ((Math.Sqrt(3) / 6) * triangleSideLength));
+                    var c = new Point(x + (triangleSideLength / 2), y + ((Math.Sqrt(3) / 6) * triangleSideLength));
 
                     polygon.Points.Add(globalRotationTransform.Transform(rotateTransform.Transform(a)));
                     polygon.Points.Add(globalRotationTransform.Transform(rotateTransform.Transform(b)));
@@ -167,7 +174,8 @@ namespace Winleafs.Wpf.Api.Layouts
                     */
 
                     // This is the distance from one of the corners to the center.
-                    var distanceToCenter = 100 / (double)2;
+                    const int squareSideLength = 100;
+                    var distanceToCenter = squareSideLength / (double)2;
                     var a = new Point(x - distanceToCenter, y + distanceToCenter);
                     var b = new Point(x - distanceToCenter, y - distanceToCenter);
                     var c = new Point(x + distanceToCenter, y - distanceToCenter);
@@ -181,19 +189,29 @@ namespace Winleafs.Wpf.Api.Layouts
 
                 case ShapeType.Hexagon:
                 {
-                    //Create 6 points
-                        var distanceToCenter = 67;
-                        for (var points = 0; points < 6; points++)
-                        {
-                            var a = new Point(
-                                x + distanceToCenter * (float)Math.Cos(points * 60 * Math.PI / 180f),
-                                y + distanceToCenter * (float)Math.Sin(points * 60 * Math.PI / 180f)
-                                );
-                            polygon.Points.Add(globalRotationTransform.Transform(rotateTransform.Transform(a)));
-                        }
-                        break;
+                    /*      ____
+                     *     /    \
+                     *    /      \
+                     *    |       |
+                     *    |       |
+                     *    \      /
+                     *     \____/
+                     *     
+                     * A hexagon has 6 sides. Use a loop to draw a hexagon with the x,y midpoint
+                     * and its side length.
+                     */ 
+                    var hexagonSideLength = 67;
+                    for (var currentPoint = 0; currentPoint < 6; currentPoint++)
+                    {
+                        var point = new Point(
+                            x + hexagonSideLength * (float)Math.Cos(currentPoint * 60 * Math.PI / 180f),
+                            y + hexagonSideLength * (float)Math.Sin(currentPoint * 60 * Math.PI / 180f)
+                            );
+                        polygon.Points.Add(globalRotationTransform.Transform(rotateTransform.Transform(point)));
+                    }
+                    break;
                 }
-                // If the type is new, return instead of making a wrong polygon
+                // If the type is unknown or an unsupported shape (e.g. power supply), return instead of making a wrong polygon
                 default:
                     return;
             }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Winleafs.Models.Enums
+﻿namespace Winleafs.Models.Enums
 {
     public enum ShapeType
     {
