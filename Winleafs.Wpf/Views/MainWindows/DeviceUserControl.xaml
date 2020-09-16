@@ -19,6 +19,7 @@
             <Label Content="Active effect is displayed here" x:Name="ActiveEffectLabel" Margin="91,43,0,0" Foreground="White" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="349" Padding="5,3,0,0"/>
             <materialDesign:PackIcon x:Name="TriangleIcon" Kind="Triangle" Foreground="White" Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="13,10,0,0" Visibility="Hidden" />
             <materialDesign:PackIcon x:Name="SquareIcon" Kind="Square" Foreground="White" Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,10,0,0" Visibility="Hidden"/>
+            <materialDesign:PackIcon x:Name="HexagonIcon" Kind="Hexagon" Foreground="White" Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,10,0,0" Visibility="Hidden"/>
         </Grid>
     </Border>
 </UserControl>

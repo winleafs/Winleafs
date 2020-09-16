@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
-using System.Windows.Media;
 using Winleafs.Api;
 using Winleafs.Models.Enums;
 using Winleafs.Models.Models;
@@ -16,6 +15,8 @@ namespace Winleafs.Wpf.Api.Effects
 {
     public class ScreenMirrorEffect : ICustomEffect
     {
+        public static readonly HashSet<DeviceType> SupportedDeviceTypes = new HashSet<DeviceType> { DeviceType.Aurora, DeviceType.Canvas };
+
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
         
         private readonly INanoleafClient _nanoleafClient;

@@ -2,7 +2,9 @@
 {
     public enum DeviceType
     {
-        Aurora = 0,
-        Canvas = 1
+        Unknown = 0,
+        Aurora = 1,
+        Canvas = 2,
+        Hexagon = 3
     }
 }
