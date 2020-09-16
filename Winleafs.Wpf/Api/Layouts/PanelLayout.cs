@@ -200,7 +200,7 @@ namespace Winleafs.Wpf.Api.Layouts
                      * A hexagon has 6 sides. Use a loop to draw a hexagon with the x,y midpoint
                      * and its side length.
                      */ 
-                    var hexagonSideLength = 67;
+                    const int hexagonSideLength = 67;
                     for (var currentPoint = 0; currentPoint < 6; currentPoint++)
                     {
                         var point = new Point(
