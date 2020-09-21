@@ -63,7 +63,7 @@
       </PackageReference>
       <PackageReference Include="ToastNotifications.Messages" Version="2.5.1" />
       <PackageReference Include="WindowsDisplayAPI">
-        <Version>1.2.0.2</Version>
+        <Version>1.3.0.13</Version>
       </PackageReference>
     </ItemGroup>
   <ItemGroup>
