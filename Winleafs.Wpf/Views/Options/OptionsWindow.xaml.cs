@@ -57,7 +57,8 @@ namespace Winleafs.Wpf.Views.Options
 
             OptionsViewModel = new OptionsViewModel(this)
             {
-                AlgorithmPerDevice = UserSettings.Settings.Devices.ToDictionary(d => d.Name, d => d.ScreenMirrorAlgorithm),
+                ScreenMirrorAlgorithmPerDevice = UserSettings.Settings.Devices.ToDictionary(d => d.Name, d => d.ScreenMirrorAlgorithm),
+                ScreenMirrorFlipPerDevice = UserSettings.Settings.Devices.ToDictionary(d => d.Name, d => d.ScreenMirrorFlip),
                 ScreenMirrorRefreshRatePerSecond = UserSettings.Settings.ScreenMirrorRefreshRatePerSecond,
                 SelectedMonitor = _monitorNames.ElementAt(UserSettings.Settings.ScreenMirrorMonitorIndex),
                 DeviceNames = new ObservableCollection<string>(UserSettings.Settings.Devices.Select(d => d.Name)),
@@ -124,12 +125,13 @@ namespace Winleafs.Wpf.Views.Options
             if (!_visualizationOpen)
             {
                 var screenMirrorAlgorithm = OptionsViewModel.ScreenMirrorAlgorithmMapping[OptionsViewModel.SelectedScreenMirrorAlgorithm];
+                var screenMirrorFlip = OptionsViewModel.ScreenMirrorFlipMapping[OptionsViewModel.SelectedScreenMirrorFlip];
 
                 var monitorIndex = Array.IndexOf(_monitorNames.ToArray(), OptionsViewModel.SelectedMonitor);
 
                 var device = UserSettings.Settings.Devices.FirstOrDefault(d => d.Name == OptionsViewModel.SelectedDevice);
 
-                var visualizeWindow = new ScreenMirrorVisualizationWindow(device, monitorIndex, screenMirrorAlgorithm);
+                var visualizeWindow = new ScreenMirrorVisualizationWindow(device, monitorIndex, screenMirrorAlgorithm, screenMirrorFlip);
                 visualizeWindow.Show();
 
                 var scale = ScreenParameters.GetScreenScaleFactorNonDpiAware(visualizeWindow);
@@ -216,7 +218,8 @@ namespace Winleafs.Wpf.Views.Options
             #region ScreenMirror
             foreach (var device in UserSettings.Settings.Devices)
             {
-                device.ScreenMirrorAlgorithm = OptionsViewModel.AlgorithmPerDevice[device.Name];
+                device.ScreenMirrorAlgorithm = OptionsViewModel.ScreenMirrorAlgorithmPerDevice[device.Name];
+                device.ScreenMirrorFlip = OptionsViewModel.ScreenMirrorFlipPerDevice[device.Name];
             }
 
             UserSettings.Settings.ScreenMirrorMonitorIndex = Array.IndexOf(_monitorNames.ToArray(), OptionsViewModel.SelectedMonitor);

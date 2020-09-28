@@ -37,6 +37,8 @@ namespace Winleafs.Models.Models
 
         public ScreenMirrorAlgorithm ScreenMirrorAlgorithm { get; set; }
 
+        public ScreenMirrorFlip ScreenMirrorFlip { get; set; }
+
         public Device()
         {
             Effects = new List<Effect>();

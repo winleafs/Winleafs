@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
-using System.Windows.Media;
 using Winleafs.Api;
 using Winleafs.Models.Enums;
 using Winleafs.Models.Models;
@@ -16,6 +15,8 @@ namespace Winleafs.Wpf.Api.Effects
 {
     public class ScreenMirrorEffect : ICustomEffect
     {
+        public static readonly HashSet<DeviceType> SupportedDeviceTypes = new HashSet<DeviceType> { DeviceType.Aurora, DeviceType.Canvas };
+
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
         
         private readonly INanoleafClient _nanoleafClient;
@@ -29,16 +30,17 @@ namespace Winleafs.Wpf.Api.Effects
             _nanoleafClient = nanoleafClient;
             _device = orchestrator.Device;
             _screenMirrorAlgorithm = orchestrator.Device.ScreenMirrorAlgorithm;
+            var flipType = FlipTypeHelper.ScreenMirrorFlipToFlipType(orchestrator.Device.ScreenMirrorFlip);
 
             try
             {
                 if (_screenMirrorAlgorithm == ScreenMirrorAlgorithm.ScreenMirrorFit)
                 {
-                    _screenMirrorEffect = new ScreenMirror(orchestrator, nanoleafClient, ScaleType.Fit);
+                    _screenMirrorEffect = new ScreenMirror(orchestrator, nanoleafClient, ScaleType.Fit, flipType);
                 }
                 else if (_screenMirrorAlgorithm == ScreenMirrorAlgorithm.ScreenMirrorStretch)
                 {
-                    _screenMirrorEffect = new ScreenMirror(orchestrator, nanoleafClient, ScaleType.Stretch);
+                    _screenMirrorEffect = new ScreenMirror(orchestrator, nanoleafClient, ScaleType.Stretch, flipType);
                 }
                 else if (_screenMirrorAlgorithm == ScreenMirrorAlgorithm.Ambilight)
                 {

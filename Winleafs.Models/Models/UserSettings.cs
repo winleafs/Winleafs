@@ -16,7 +16,7 @@ namespace Winleafs.Models.Models
     public class UserSettings
     {
         public static readonly string APPLICATIONNAME = "Winleafs";
-        public static readonly string APPLICATIONVERSION = "v1.1.0";
+        public static readonly string APPLICATIONVERSION = "v1.1.4";
 
         public static readonly string SettingsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), APPLICATIONNAME);
 
@@ -24,7 +24,7 @@ namespace Winleafs.Models.Models
         public static readonly string EffectNamePreface = "Winleafs - ";
 
         private static readonly string _settingsFileName = Path.Combine(SettingsFolder, "Settings.txt");
-        private static readonly string _latestSettingsVersion = "12";
+        private static readonly string _latestSettingsVersion = "13";
 
         private static UserSettings _settings { get; set; }
 
@@ -472,6 +472,17 @@ namespace Winleafs.Models.Models
                     eventTrigger[nameof(TriggerBase.Priority)] = triggerCounter;
                     triggerCounter++;
                 }
+            }
+
+            return jToken;
+        }
+
+        [Migration("12", "13")]
+        private static JToken Migration_12_13(JToken jToken)
+        {
+            foreach (var device in jToken["Devices"])
+            {
+                device[nameof(Device.ScreenMirrorFlip)] = (int)ScreenMirrorFlip.None;
             }
 
             return jToken;

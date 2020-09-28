@@ -138,11 +138,20 @@
   <data name="Friday" xml:space="preserve">
     <value>Friday</value>
   </data>
+  <data name="Horizontal" xml:space="preserve">
+    <value>Horizontal</value>
+  </data>
+  <data name="HorizontalVertical" xml:space="preserve">
+    <value>Horizontal &amp; vertical</value>
+  </data>
   <data name="Manual" xml:space="preserve">
     <value>Manual</value>
   </data>
   <data name="Monday" xml:space="preserve">
     <value>Monday</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>None</value>
   </data>
   <data name="ProcessEvent" xml:space="preserve">
     <value>Process event</value>
@@ -157,10 +166,10 @@
     <value>Schedule</value>
   </data>
   <data name="ScreenMirrorFit" xml:space="preserve">
-    <value>Screen Mirror fit</value>
+    <value>Fit</value>
   </data>
   <data name="ScreenMirrorStretch" xml:space="preserve">
-    <value>Screen Mirror stretch</value>
+    <value>Stretch</value>
   </data>
   <data name="SpotifyEvent" xml:space="preserve">
     <value>Spotify event</value>
@@ -185,6 +194,9 @@
   </data>
   <data name="Unknown" xml:space="preserve">
     <value>Unknown</value>
+  </data>
+  <data name="Vertical" xml:space="preserve">
+    <value>Vertical</value>
   </data>
   <data name="Wednesday" xml:space="preserve">
     <value>Wednesday</value>

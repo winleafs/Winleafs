@@ -187,6 +187,15 @@ namespace Winleafs.Wpf.Views.Options {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Flip.
+        /// </summary>
+        public static string Flip {
+            get {
+                return ResourceManager.GetString("Flip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to General.
         /// </summary>
         public static string General {

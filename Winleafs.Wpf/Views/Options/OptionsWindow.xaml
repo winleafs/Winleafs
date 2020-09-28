@@ -102,25 +102,34 @@
                     <Grid>
                         <Label Content="{x:Static local:Resources.ScreenMirrorDeviceInfo}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" Foreground="White" Margin="-1,100,0,0"/>
                         <ComboBox
-                        Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
-                        materialDesign:HintAssist.Hint="{x:Static local:Resources.Device}"
-                        materialDesign:HintAssist.Foreground="White"
-                        materialDesign:HintAssist.IsFloating="True"
-                        Foreground="White"
-                        HorizontalAlignment="Left" Margin="5,146,0,0" VerticalAlignment="Top"
-                        Width="302" SelectedItem="{Binding SelectedDevice}" ItemsSource="{Binding DeviceNames}" />
+                            Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
+                            materialDesign:HintAssist.Hint="{x:Static local:Resources.Device}"
+                            materialDesign:HintAssist.Foreground="White"
+                            materialDesign:HintAssist.IsFloating="True"
+                            Foreground="White"
+                            HorizontalAlignment="Left" Margin="5,146,0,0" VerticalAlignment="Top"
+                            Width="302" SelectedItem="{Binding SelectedDevice}" ItemsSource="{Binding DeviceNames}" />
                         <ComboBox
-                        Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
-                        materialDesign:HintAssist.Hint="{x:Static local:Resources.Algorithm}"
-                        materialDesign:HintAssist.Foreground="White"
-                        materialDesign:HintAssist.IsFloating="True"
-                        Foreground="White"
-                        HorizontalAlignment="Left" Margin="329,146,0,0" VerticalAlignment="Top" Width="302"
-                        SelectedItem="{Binding SelectedScreenMirrorAlgorithm}"
-                        ItemsSource="{Binding ScreenMirrorAlgorithms}" RenderTransformOrigin="0.537,0.206" />
+                            Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
+                            materialDesign:HintAssist.Hint="{x:Static local:Resources.Algorithm}"
+                            materialDesign:HintAssist.Foreground="White"
+                            materialDesign:HintAssist.IsFloating="True"
+                            Foreground="White"
+                            HorizontalAlignment="Left" Margin="329,146,0,0" VerticalAlignment="Top" Width="100"
+                            SelectedItem="{Binding SelectedScreenMirrorAlgorithm}"
+                            ItemsSource="{Binding ScreenMirrorAlgorithms}" RenderTransformOrigin="0.537,0.206" />
+                        <ComboBox
+                            Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
+                            materialDesign:HintAssist.Hint="{x:Static local:Resources.Flip}"
+                            materialDesign:HintAssist.Foreground="White"
+                            materialDesign:HintAssist.IsFloating="True"
+                            Foreground="White"
+                            HorizontalAlignment="Left" Margin="451,146,0,0" VerticalAlignment="Top" Width="200"
+                            SelectedItem="{Binding SelectedScreenMirrorFlip}"
+                            ItemsSource="{Binding ScreenMirrorFlips}" RenderTransformOrigin="0.537,0.206" />
                         <Button
                             x:Name="VisualizeButton" Content="{x:Static local:Resources.Visualize}"
-                            Margin="329,190,0,0" Background="{StaticResource NanoleafGreen}" Foreground="White"
+                            Margin="544,190,0,0" Background="{StaticResource NanoleafGreen}" Foreground="White"
                             BorderBrush="{x:Null}" Click="Visualize_Click" Height="30" VerticalAlignment="Top"
                             HorizontalAlignment="Left" Width="109"/>
                         <Label

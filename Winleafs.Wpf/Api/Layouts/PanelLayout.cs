@@ -42,22 +42,30 @@ namespace Winleafs.Wpf.Api.Layouts
             _layout = _nanoleafClient.LayoutEndpoint.GetLayout();
             _globalOrientation = _nanoleafClient.LayoutEndpoint.GetGlobalOrientation();
 
-            if (_layout != null)
+            if (_layout == null || _layout.NumberOfPanels <= 0)
             {
-                ConstructPanelsAsPolygons();
+                return;
+            }
 
-                //Set the device type according to the type of panels
-                switch (_layout.PanelPositions.ElementAt(0).ShapeType)
-                {
-                    case ShapeType.ContolSquarePassive:
-                    case ShapeType.ControlSquarePrimary:
-                    case ShapeType.Square:
-                        DeviceType = DeviceType.Canvas;
-                        break;
-                    case ShapeType.Triangle:
-                        DeviceType = DeviceType.Aurora;
-                        break;
-                }
+            ConstructPanelsAsPolygons();
+
+            //Set the device type according to the type of panels (which panel type occurs most)
+            switch (_layout.PanelPositions.GroupBy(panel => panel.ShapeType).OrderByDescending(group => group.Count()).First().Key)
+            {
+                case ShapeType.ContolSquarePassive:
+                case ShapeType.ControlSquarePrimary:
+                case ShapeType.Square:
+                    DeviceType = DeviceType.Canvas;
+                    break;
+                case ShapeType.Triangle:
+                    DeviceType = DeviceType.Aurora;
+                    break;
+                case ShapeType.Hexagon:
+                    DeviceType = DeviceType.Hexagon;
+                    break;
+                default:
+                    DeviceType = DeviceType.Unknown;
+                    break;
             }
         }
 
@@ -77,13 +85,19 @@ namespace Winleafs.Wpf.Api.Layouts
 
             var globalRotationTransform = new RotateTransform(_globalOrientation.Value, Math.Abs(maxX - minX) / 2, Math.Abs(maxY - minY) / 2);
 
-            //Create the triangles
+            //Create the polygons
             foreach (var panelPosition in _layout.PanelPositions)
             {
                 CreatePolygon(panelPosition.X, panelPosition.Y, panelPosition.Orientation, panelPosition.PanelId, globalRotationTransform, panelPosition.ShapeType);
             }
 
-            //Normalize the triangle positions such that the coordinates start at 0
+            //Can be empty in theory, when a device only exists of a power supply for example
+            if (!_unscaledPolygons.Any())
+            {
+                return;
+            }
+
+            //Normalize the polygon positions such that the coordinates start at 0
             double minPolygonX = _unscaledPolygons.SelectMany(p => p.Polygon.Points).Min(p => p.X);
             double minPolygonY = _unscaledPolygons.SelectMany(p => p.Polygon.Points).Min(p => p.Y);
 
@@ -104,7 +118,7 @@ namespace Winleafs.Wpf.Api.Layouts
         }
 
         /// <summary>
-        /// Draws an equilateral polygon from the given center point and rotation. Also applies the global rotation
+        /// Draws a polygon based on the shape type from the given center point and rotation. Also applies the global rotation
         /// </summary>
         private void CreatePolygon(double x, double y, double rotation, int panelId,
             Transform globalRotationTransform, ShapeType shapeType)
@@ -125,10 +139,10 @@ namespace Winleafs.Wpf.Api.Layouts
                     //  /____\
                     // B      C
 
-                    var triangleSize = _layout.SideLength;
-                    var a = new Point(x, y - ((Math.Sqrt(3) / 3) * triangleSize));
-                    var b = new Point(x - (triangleSize / 2), y + ((Math.Sqrt(3) / 6) * triangleSize));
-                    var c = new Point(x + (triangleSize / 2), y + ((Math.Sqrt(3) / 6) * triangleSize));
+                    const int triangleSideLength = 150;
+                    var a = new Point(x, y - ((Math.Sqrt(3) / 3) * triangleSideLength));
+                    var b = new Point(x - (triangleSideLength / 2), y + ((Math.Sqrt(3) / 6) * triangleSideLength));
+                    var c = new Point(x + (triangleSideLength / 2), y + ((Math.Sqrt(3) / 6) * triangleSideLength));
 
                     polygon.Points.Add(globalRotationTransform.Transform(rotateTransform.Transform(a)));
                     polygon.Points.Add(globalRotationTransform.Transform(rotateTransform.Transform(b)));
@@ -160,7 +174,8 @@ namespace Winleafs.Wpf.Api.Layouts
                     */
 
                     // This is the distance from one of the corners to the center.
-                    var distanceToCenter = _layout.SideLength / (double)2;
+                    const int squareSideLength = 100;
+                    var distanceToCenter = squareSideLength / (double)2;
                     var a = new Point(x - distanceToCenter, y + distanceToCenter);
                     var b = new Point(x - distanceToCenter, y - distanceToCenter);
                     var c = new Point(x + distanceToCenter, y - distanceToCenter);
@@ -171,6 +186,34 @@ namespace Winleafs.Wpf.Api.Layouts
                     polygon.Points.Add(globalRotationTransform.Transform(rotateTransform.Transform(d)));
                     break;
                 }
+
+                case ShapeType.Hexagon:
+                {
+                    /*      ____
+                     *     /    \
+                     *    /      \
+                     *    |       |
+                     *    |       |
+                     *    \      /
+                     *     \____/
+                     *     
+                     * A hexagon has 6 sides. Use a loop to draw a hexagon with the x,y midpoint
+                     * and its side length.
+                     */ 
+                    const int hexagonSideLength = 67;
+                    for (var currentPoint = 0; currentPoint < 6; currentPoint++)
+                    {
+                        var point = new Point(
+                            x + hexagonSideLength * (float)Math.Cos(currentPoint * 60 * Math.PI / 180f),
+                            y + hexagonSideLength * (float)Math.Sin(currentPoint * 60 * Math.PI / 180f)
+                            );
+                        polygon.Points.Add(globalRotationTransform.Transform(rotateTransform.Transform(point)));
+                    }
+                    break;
+                }
+                // If the type is unknown or an unsupported shape (e.g. power supply), return instead of making a wrong polygon
+                default:
+                    return;
             }
 
             polygon.Stroke = _borderColor;
@@ -190,13 +233,13 @@ namespace Winleafs.Wpf.Api.Layouts
         /// Returns the panels represented as <see cref="DrawablePanel"/>s scaled to fit the desired width and height.
         /// Returns null if there is no layout
         /// </summary>
-        public List<DrawablePanel> GetScaledPolygons(int width, int height, ScaleType scaleType = ScaleType.Fit)
+        public List<DrawablePanel> GetScaledPolygons(int width, int height, ScaleType scaleType, FlipType flipType)
         {
-            if (_layout == null)
+            if (_layout == null || !_unscaledPolygons.Any())
             {
                 GetLayout(); // Try to retrieve the layout one more time
 
-                if (_layout == null) // Layout retrieval failed, return null
+                if (_layout == null || !_unscaledPolygons.Any()) // Layout retrieval failed, return null
                 {
                     return null;
                 }
@@ -227,18 +270,46 @@ namespace Winleafs.Wpf.Api.Layouts
                 var polygon = new Polygon();
                 foreach (var point in panel.Polygon.Points)
                 {
-                    polygon.Points.Add(scaleTransform.Transform(point));
+                    var scaledPoint = scaleTransform.Transform(point);
+                    var flippedPoint = FlipTransform(scaledPoint, flipType, width, height);
+                    polygon.Points.Add(flippedPoint);
                 }
+
+                var scaledMidPoint = scaleTransform.Transform(panel.MidPoint);
+                var flippedMidPoint = FlipTransform(scaledMidPoint, flipType, width, height);
 
                 scaledPolygons.Add(new DrawablePanel
                 {
-                    MidPoint = scaleTransform.Transform(panel.MidPoint),
+                    MidPoint = flippedMidPoint,
                     PanelId = panel.PanelId,
                     Polygon = polygon
                 });
             }
 
             return scaledPolygons;
+        }
+
+        private Point FlipTransform(Point point, FlipType flipType, double maxX, double maxY)
+        {
+            switch (flipType)
+            {
+                case FlipType.Horizontal:
+                    point.X = maxX - point.X;
+                    break;
+                case FlipType.Vertical:
+                    point.Y = maxY - point.Y;
+                    break;
+                case FlipType.HorizontalVertical:
+                    point.X = maxX - point.X;
+                    point.Y = maxY - point.Y;
+                    break;
+                case FlipType.None:
+                    break; //Do nothing
+                default:
+                    throw new NotImplementedException($"Flipping for {nameof(FlipType)}.{flipType} not implemented.");
+            }
+
+            return point;
         }
     }
 }
