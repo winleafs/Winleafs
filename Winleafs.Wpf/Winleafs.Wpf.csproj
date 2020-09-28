@@ -32,7 +32,7 @@
       <PackageReference Include="JsonMigrator">
         <Version>1.0.1</Version>
       </PackageReference>
-      <PackageReference Include="MaterialDesignColors" Version="1.2.0" />
+      <PackageReference Include="MaterialDesignColors" Version="1.2.7" />
       <PackageReference Include="MaterialDesignExtensions" Version="3.2.0" />
       <PackageReference Include="MaterialDesignThemes" Version="3.2.0" />
       <PackageReference Include="Newtonsoft.Json">
