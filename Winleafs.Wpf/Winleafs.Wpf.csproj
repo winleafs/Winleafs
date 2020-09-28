@@ -45,7 +45,7 @@
         <Version>4.6.8</Version>
       </PackageReference>
       <PackageReference Include="NLog.Schema">
-        <Version>4.6.8</Version>
+        <Version>4.7.5</Version>
       </PackageReference>
       <PackageReference Include="Octokit">
         <Version>0.32.0</Version>
