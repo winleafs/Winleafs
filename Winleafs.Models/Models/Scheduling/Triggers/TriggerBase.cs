@@ -6,45 +6,49 @@ namespace Winleafs.Models.Models.Scheduling.Triggers
     /// <summary>
     /// Base class for all triggers
     /// </summary>
-    public abstract class TriggerBase : ITrigger, IComparable<TriggerBase>
+    public abstract class TriggerBase
     {
         public string EffectName { get; set; }
-
         public int Brightness { get; set; }
+        public TimeType TimeType { get; set; }
+        public int Hours { get; set; }
+        public int Minutes { get; set; }
+        public BeforeAfter BeforeAfter { get; set; }
+        public int ExtraHours { get; set; }
+        public int ExtraMinutes { get; set; }
 
-        public TriggerType EventTriggerType { get; set; }
-
-        public int Priority { get; set; }
-
-        public int GetBrightness()
-        {
-            return Brightness;
-        }
-
-        public abstract string GetDescription();
-
-        public string GetEffectName()
+        public virtual string GetDescription()
         {
             return EffectName;
         }
 
-        public TriggerType GetTriggerType()
+        /// <summary>
+        /// Returns a DateTime object for the actual time of this trigger, with the year, month and day set to the current date
+        /// </summary>
+        public DateTime GetActualDateTime()
         {
-            return EventTriggerType;
-        }
-
-        public int GetPriority()
-        {
-            return Priority;
+            return GetActualDateTime(DateTime.Now);
         }
 
         /// <summary>
-        /// Implement the comparable interface
-        /// to be able to use <see cref="List.Sort"/>.
+        /// Returns a DateTime object for the actual time of this trigger
         /// </summary>
-        public int CompareTo(TriggerBase other)
+        public DateTime GetActualDateTime(DateTime dateOfProgram)
         {
-            return Priority.CompareTo(other.Priority);
+            var date = new DateTime(dateOfProgram.Year, dateOfProgram.Month, dateOfProgram.Day, Hours, Minutes, 0);
+
+            if (BeforeAfter == BeforeAfter.After)
+            {
+                date = date.AddHours(ExtraHours);
+                date = date.AddMinutes(ExtraMinutes);
+            }
+            else if (BeforeAfter == BeforeAfter.Before)
+            {
+                date = date.AddHours(-ExtraHours);
+                date = date.AddMinutes(-ExtraMinutes);
+            }
+
+            return date;
         }
     }
 }

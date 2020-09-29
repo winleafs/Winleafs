@@ -57,7 +57,7 @@ namespace Winleafs.Wpf.Views.Scheduling
             {
                 Brightness = brightness,
                 EffectName = effectName,
-                EventTriggerType = TriggerType.ProcessEvent,
+                TimeType = TimeType.ProcessEvent,
                 ProcessName = processName,
                 Priority = EventTriggers.Count == 0 ? 1 : EventTriggers.Max(eventTrigger => eventTrigger.Priority) + 1
             });
@@ -114,7 +114,7 @@ namespace Winleafs.Wpf.Views.Scheduling
             {
                 Brightness = brightness,
                 EffectName = effectName,
-                EventTriggerType = TriggerType.SpotifyEvent,
+                TimeType = TimeType.SpotifyEvent,
                 PlaylistName = playlistName,
                 PlaylistId = playlistId,
                 Priority = EventTriggers.Count == 0 ? 1 : EventTriggers.Max(eventTrigger => eventTrigger.Priority) + 1

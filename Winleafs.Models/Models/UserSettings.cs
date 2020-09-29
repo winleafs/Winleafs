@@ -270,13 +270,13 @@ namespace Winleafs.Models.Models
                 {
                     foreach (var trigger in program.Triggers)
                     {
-                        switch (trigger.EventTriggerType)
+                        switch (trigger.TimeType)
                         {
-                            case TriggerType.Sunrise:
+                            case TimeType.Sunrise:
                                 trigger.Hours = sunriseHour;
                                 trigger.Minutes = sunriseMinute;
                                 break;
-                            case TriggerType.Sunset:
+                            case TimeType.Sunset:
                                 trigger.Hours = sunsetHour;
                                 trigger.Minutes = sunsetMinute;
                                 break;

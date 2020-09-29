@@ -3,7 +3,7 @@
     /// <summary>
     /// Model class for a process event trigger
     /// </summary>
-    public class ProcessEventTrigger : TriggerBase
+    public class ProcessEventTrigger : EventTrigger
     {
         public string ProcessName { get; set; }
 

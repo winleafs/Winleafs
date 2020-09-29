@@ -8,9 +8,9 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>        
         <ListBox Style="{StaticResource MaterialDesignFilterChipOutlineListBox}" x:Name="RadioButtonGroupChoiceChipOutline">
-            <ListBoxItem Width="150" FontSize="20">Fixed time</ListBoxItem>
-            <ListBoxItem IsSelected="True" Width="150" FontSize="20">Sunset</ListBoxItem>
-            <ListBoxItem Width="150" FontSize="20">Sunrise</ListBoxItem>
+            <ListBoxItem Width="200" FontSize="20">Fixed time</ListBoxItem>
+            <ListBoxItem IsSelected="True" Width="200" FontSize="20">Zonsondergang</ListBoxItem>
+            <ListBoxItem Width="200" FontSize="20">Sunrise</ListBoxItem>
         </ListBox>
     </Grid>
 </UserControl>

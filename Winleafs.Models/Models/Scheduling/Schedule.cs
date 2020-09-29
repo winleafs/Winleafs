@@ -29,7 +29,7 @@ namespace Winleafs.Models.Models.Scheduling
         /// A schedule has a list of time-independent event triggers
         /// </summary>
         [JsonProperty(ItemTypeNameHandling = TypeNameHandling.All)] //Used such that the correct class is known during serialization
-        public List<TriggerBase> EventTriggers { get; set; }
+        public List<EventTrigger> EventTriggers { get; set; }
 
         /// <summary>
         /// A list of <see cref="Device.Name"/>s to which devices this
@@ -58,7 +58,7 @@ namespace Winleafs.Models.Models.Scheduling
                 Programs.Add(new Program());
             }
 
-            EventTriggers = new List<TriggerBase>();
+            EventTriggers = new List<EventTrigger>();
             AppliesToDeviceNames = new List<string>();
         }
 

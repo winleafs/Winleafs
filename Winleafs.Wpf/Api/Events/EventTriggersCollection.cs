@@ -35,12 +35,12 @@ namespace Winleafs.Wpf.Api.Events
                 {
                     switch (eventTrigger.GetTriggerType())
                     {
-                        case TriggerType.ProcessEvent:
+                        case TimeType.ProcessEvent:
                             var processEventTrigger = (Models.Models.Scheduling.Triggers.ProcessEventTrigger)eventTrigger;
                             _eventTriggers.Add(new ProcessEventTrigger(this, processEventTrigger));
                             break;
 
-                        case TriggerType.SpotifyEvent:
+                        case TimeType.SpotifyEvent:
                             var spotifyEventTrigger = (Models.Models.Scheduling.Triggers.SpotifyEventTrigger)eventTrigger;
                             _eventTriggers.Add(new SpotifyEventTrigger(this, spotifyEventTrigger));
                             break;

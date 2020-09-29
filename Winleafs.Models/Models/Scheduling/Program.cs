@@ -37,8 +37,8 @@ namespace Winleafs.Models.Models.Scheduling
         {
             foreach (var trigger in Triggers)
             {
-                if (trigger.EventTriggerType == TriggerType.Sunrise
-                    && otherTrigger.EventTriggerType == TriggerType.Sunrise
+                if (trigger.TimeType == TimeType.Sunrise
+                    && otherTrigger.TimeType == TimeType.Sunrise
                     && trigger.BeforeAfter == otherTrigger.BeforeAfter
                     && trigger.ExtraHours == otherTrigger.ExtraHours
                     && trigger.ExtraMinutes == otherTrigger.ExtraMinutes)
@@ -46,7 +46,7 @@ namespace Winleafs.Models.Models.Scheduling
                     return true;
                 }
 
-                if (trigger.EventTriggerType == TriggerType.Sunset && otherTrigger.EventTriggerType == TriggerType.Sunset
+                if (trigger.TimeType == TimeType.Sunset && otherTrigger.TimeType == TimeType.Sunset
                     && trigger.BeforeAfter == otherTrigger.BeforeAfter
                     && trigger.ExtraHours == otherTrigger.ExtraHours
                     && trigger.ExtraMinutes == otherTrigger.ExtraMinutes)
@@ -54,8 +54,8 @@ namespace Winleafs.Models.Models.Scheduling
                     return true;
                 }
 
-                if (trigger.EventTriggerType == TriggerType.Time
-                         && otherTrigger.EventTriggerType == TriggerType.Time
+                if (trigger.TimeType == TimeType.FixedTime
+                         && otherTrigger.TimeType == TimeType.FixedTime
                         && trigger.Hours == otherTrigger.Hours
                          && trigger.Minutes == otherTrigger.Minutes)
                 {

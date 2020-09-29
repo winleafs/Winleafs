@@ -20,9 +20,9 @@ namespace Winleafs.Wpf.Views.Scheduling
     public partial class AddTimeTriggerWindow : Window, IEffectComboBoxContainer
     {
         private DayUserControl _parent;
-        private TriggerType _triggerType { get; set; }
+        private TimeType _triggerType { get; set; }
         private int _brightness { get; set; }
-        private Dictionary<string, TriggerType> _triggerTypeMapping { get; set; } //Map display values to enum values
+        private Dictionary<string, TimeType> _triggerTypeMapping { get; set; } //Map display values to enum values
 
         public int Brightness
         {
@@ -57,18 +57,18 @@ namespace Winleafs.Wpf.Views.Scheduling
         {
             _parent = parent;
 
-            _triggerTypeMapping = new Dictionary<string, TriggerType>()
+            _triggerTypeMapping = new Dictionary<string, TimeType>()
             {
-                {  EnumLocalizer.GetLocalizedEnum(TriggerType.Time), TriggerType.Time },
-                {  EnumLocalizer.GetLocalizedEnum(TriggerType.Sunrise), TriggerType.Sunrise },
-                {  EnumLocalizer.GetLocalizedEnum(TriggerType.Sunset), TriggerType.Sunset }
+                {  EnumLocalizer.GetLocalizedEnum(TimeType.FixedTime), TimeType.FixedTime },
+                {  EnumLocalizer.GetLocalizedEnum(TimeType.Sunrise), TimeType.Sunrise },
+                {  EnumLocalizer.GetLocalizedEnum(TimeType.Sunset), TimeType.Sunset }
             };
 
             DataContext = this;
 
             InitializeComponent();
 
-            SelectedTriggerType = EnumLocalizer.GetLocalizedEnum(TriggerType.Time);
+            SelectedTriggerType = EnumLocalizer.GetLocalizedEnum(TimeType.FixedTime);
 
             EffectComboBox.InitializeEffects();
             EffectComboBox.ParentUserControl = this;
@@ -76,7 +76,7 @@ namespace Winleafs.Wpf.Views.Scheduling
 
         private void TriggerTypeChanged()
         {
-            if (_triggerType == TriggerType.Time)
+            if (_triggerType == TimeType.FixedTime)
             {
                 BeforeRadioButton.Visibility = Visibility.Hidden;
                 AfterRadioButton.Visibility = Visibility.Hidden;
@@ -137,13 +137,13 @@ namespace Winleafs.Wpf.Views.Scheduling
 
             bool addSucceeded;
 
-            if (_triggerType == TriggerType.Sunrise || _triggerType == TriggerType.Sunset)
+            if (_triggerType == TimeType.Sunrise || _triggerType == TimeType.Sunset)
             {
                 var beforeAfter = GetBeforeAfter();
 
                 addSucceeded = _parent.TriggerAdded(new TimeTrigger
                 {
-                    EventTriggerType = _triggerType,
+                    TimeType = _triggerType,
                     BeforeAfter = beforeAfter,
                     Brightness = _brightness,
                     EffectName = EffectComboBox.SelectedEffect.EffectName,
@@ -157,7 +157,7 @@ namespace Winleafs.Wpf.Views.Scheduling
             {
                 addSucceeded = _parent.TriggerAdded(new TimeTrigger
                 {
-                    EventTriggerType = _triggerType,
+                    TimeType = _triggerType,
                     BeforeAfter = BeforeAfter.None,
                     Brightness = _brightness,
                     EffectName = EffectComboBox.SelectedEffect.EffectName,
@@ -177,9 +177,9 @@ namespace Winleafs.Wpf.Views.Scheduling
             Close();
         }
 
-        private static int GetMinutesForTriggerType(TriggerType type)
+        private static int GetMinutesForTriggerType(TimeType type)
         {
-            if (type == TriggerType.Sunrise && UserSettings.Settings.SunriseMinute.HasValue)
+            if (type == TimeType.Sunrise && UserSettings.Settings.SunriseMinute.HasValue)
             {
                 return UserSettings.Settings.SunriseMinute.Value;
             }
@@ -192,9 +192,9 @@ namespace Winleafs.Wpf.Views.Scheduling
             throw new InvalidTriggerTimeException();
         }
 
-        private static int GetHoursForTriggerType(TriggerType type)
+        private static int GetHoursForTriggerType(TimeType type)
         {
-            if (type == TriggerType.Sunrise && UserSettings.Settings.SunriseHour.HasValue)
+            if (type == TimeType.Sunrise && UserSettings.Settings.SunriseHour.HasValue)
             {
                 return UserSettings.Settings.SunriseHour.Value;
             }
