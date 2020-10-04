@@ -6,6 +6,10 @@ namespace Winleafs.Models.Models.Scheduling.Triggers
     {
         public int Priority { get; set; }
 
+        public TimeComponent StartTimeComponent { get; set; }
+
+        public TimeComponent EndTimeComponent { get; set; }
+
         /// <summary>
         /// Implement the comparable interface
         /// to be able to use <see cref="List.Sort"/>.

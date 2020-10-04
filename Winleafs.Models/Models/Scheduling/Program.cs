@@ -8,14 +8,14 @@ namespace Winleafs.Models.Models.Scheduling
 {
     public class Program
     {
-        public List<TimeTrigger> Triggers { get; set; }
+        public List<ScheduleTrigger> Triggers { get; set; }
 
         public Program()
         {
-            Triggers = new List<TimeTrigger>();
+            Triggers = new List<ScheduleTrigger>();
         }
 
-        public void AddTrigger(TimeTrigger trigger)
+        public void AddTrigger(ScheduleTrigger trigger)
         {
             Triggers.Add(trigger);
             ReorderTriggers();
@@ -27,37 +27,38 @@ namespace Winleafs.Models.Models.Scheduling
         public void ReorderTriggers()
         {
             var now = DateTime.Now;
-            Triggers = Triggers.OrderBy(t => t.GetActualDateTime(now)).ToList();
+            Triggers = Triggers.OrderBy(t => t.TimeComponent.GetActualDateTime(now)).ToList();
         }
 
         /// <summary>
         /// Checks whether a trigger overlaps any existing triggers timewise. Using nested ifs for readability
         /// </summary>
-        public bool TriggerOverlaps(TimeTrigger otherTrigger)
+        public bool TriggerOverlaps(ScheduleTrigger otherTrigger)
         {
+            //TODO: MOVE THIS TO A EQUALS METHOD IN TIMECOMPONENT
             foreach (var trigger in Triggers)
             {
-                if (trigger.TimeType == TimeType.Sunrise
-                    && otherTrigger.TimeType == TimeType.Sunrise
-                    && trigger.BeforeAfter == otherTrigger.BeforeAfter
-                    && trigger.ExtraHours == otherTrigger.ExtraHours
-                    && trigger.ExtraMinutes == otherTrigger.ExtraMinutes)
+                if (trigger.TimeComponent.TimeType == TimeType.Sunrise
+                    && otherTrigger.TimeComponent.TimeType == TimeType.Sunrise
+                    && trigger.TimeComponent.BeforeAfter == otherTrigger.TimeComponent.BeforeAfter
+                    && trigger.TimeComponent.ExtraHours == otherTrigger.TimeComponent.ExtraHours
+                    && trigger.TimeComponent.ExtraMinutes == otherTrigger.TimeComponent.ExtraMinutes)
                 {
                     return true;
                 }
 
-                if (trigger.TimeType == TimeType.Sunset && otherTrigger.TimeType == TimeType.Sunset
-                    && trigger.BeforeAfter == otherTrigger.BeforeAfter
-                    && trigger.ExtraHours == otherTrigger.ExtraHours
-                    && trigger.ExtraMinutes == otherTrigger.ExtraMinutes)
+                if (trigger.TimeComponent.TimeType == TimeType.Sunset && otherTrigger.TimeComponent.TimeType == TimeType.Sunset
+                    && trigger.TimeComponent.BeforeAfter == otherTrigger.TimeComponent.BeforeAfter
+                    && trigger.TimeComponent.ExtraHours == otherTrigger.TimeComponent.ExtraHours
+                    && trigger.TimeComponent.ExtraMinutes == otherTrigger.TimeComponent.ExtraMinutes)
                 {
                     return true;
                 }
 
-                if (trigger.TimeType == TimeType.FixedTime
-                         && otherTrigger.TimeType == TimeType.FixedTime
-                        && trigger.Hours == otherTrigger.Hours
-                         && trigger.Minutes == otherTrigger.Minutes)
+                if (trigger.TimeComponent.TimeType == TimeType.FixedTime
+                         && otherTrigger.TimeComponent.TimeType == TimeType.FixedTime
+                        && trigger.TimeComponent.Hours == otherTrigger.TimeComponent.Hours
+                         && trigger.TimeComponent.Minutes == otherTrigger.TimeComponent.Minutes)
                 {
                     return true;
                 }

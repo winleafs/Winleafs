@@ -270,15 +270,15 @@ namespace Winleafs.Models.Models
                 {
                     foreach (var trigger in program.Triggers)
                     {
-                        switch (trigger.TimeType)
+                        switch (trigger.TimeComponent.TimeType)
                         {
                             case TimeType.Sunrise:
-                                trigger.Hours = sunriseHour;
-                                trigger.Minutes = sunriseMinute;
+                                trigger.TimeComponent.Hours = sunriseHour;
+                                trigger.TimeComponent.Minutes = sunriseMinute;
                                 break;
                             case TimeType.Sunset:
-                                trigger.Hours = sunsetHour;
-                                trigger.Minutes = sunsetMinute;
+                                trigger.TimeComponent.Hours = sunsetHour;
+                                trigger.TimeComponent.Minutes = sunsetMinute;
                                 break;
                         }
                     }
@@ -332,7 +332,7 @@ namespace Winleafs.Models.Models
             }
         }
 
-        public TimeTrigger GetActiveTimeTriggerForDevice(string deviceName)
+        public ScheduleTrigger GetActiveTimeTriggerForDevice(string deviceName)
         {
             if (Schedules?.Any(s => s.Active && s.AppliesToDeviceNames.Contains(deviceName)) == true)
             {
@@ -469,7 +469,7 @@ namespace Winleafs.Models.Models
 
                 foreach (var eventTrigger in schedule[nameof(Schedule.EventTriggers)])
                 {
-                    eventTrigger[nameof(TriggerBase.Priority)] = triggerCounter;
+                    eventTrigger[nameof(EventTrigger.Priority)] = triggerCounter;
                     triggerCounter++;
                 }
             }

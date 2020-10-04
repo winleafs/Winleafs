@@ -135,6 +135,9 @@
   <data name="Event" xml:space="preserve">
     <value>Event</value>
   </data>
+  <data name="FixedTime" xml:space="preserve">
+    <value>Tijd</value>
+  </data>
   <data name="Friday" xml:space="preserve">
     <value>Vrijdag</value>
   </data>
@@ -185,9 +188,6 @@
   </data>
   <data name="Thursday" xml:space="preserve">
     <value>Donderdag</value>
-  </data>
-  <data name="Time" xml:space="preserve">
-    <value>Tijd</value>
   </data>
   <data name="Tuesday" xml:space="preserve">
     <value>Dinsdag</value>

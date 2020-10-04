@@ -7,9 +7,6 @@
     {
         public string ProcessName { get; set; }
 
-        public override string GetDescription()
-        {
-            return ProcessName;
-        }
+        public override string Description => ProcessName;
     }
 }

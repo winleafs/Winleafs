@@ -141,30 +141,36 @@ namespace Winleafs.Wpf.Views.Scheduling
             {
                 var beforeAfter = GetBeforeAfter();
 
-                addSucceeded = _parent.TriggerAdded(new TimeTrigger
+                addSucceeded = _parent.TriggerAdded(new ScheduleTrigger
                 {
-                    TimeType = _triggerType,
-                    BeforeAfter = beforeAfter,
+                    TimeComponent = new TimeComponent
+                    {
+                        TimeType = _triggerType,
+                        BeforeAfter = beforeAfter,
+                        ExtraHours = hours,
+                        ExtraMinutes = minutes,
+                        Hours = GetHoursForTriggerType(_triggerType),
+                        Minutes = GetMinutesForTriggerType(_triggerType)
+                    },
                     Brightness = _brightness,
                     EffectName = EffectComboBox.SelectedEffect.EffectName,
-                    ExtraHours = hours,
-                    ExtraMinutes = minutes,
-                    Hours = GetHoursForTriggerType(_triggerType),
-                    Minutes = GetMinutesForTriggerType(_triggerType)
                 });
             }
             else
             {
-                addSucceeded = _parent.TriggerAdded(new TimeTrigger
+                addSucceeded = _parent.TriggerAdded(new ScheduleTrigger
                 {
-                    TimeType = _triggerType,
-                    BeforeAfter = BeforeAfter.None,
+                    TimeComponent = new TimeComponent
+                    {
+                        TimeType = _triggerType,
+                        BeforeAfter = BeforeAfter.None,
+                        ExtraHours = 0,
+                        ExtraMinutes = 0,
+                        Hours = hours,
+                        Minutes = minutes
+                    },
                     Brightness = _brightness,
                     EffectName = EffectComboBox.SelectedEffect.EffectName,
-                    ExtraHours = 0,
-                    ExtraMinutes = 0,
-                    Hours = hours,
-                    Minutes = minutes
                 });
             }
 

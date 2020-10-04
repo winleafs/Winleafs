@@ -42,7 +42,7 @@ namespace Winleafs.Wpf.Views.Scheduling
         /// <summary>
         /// Adds a trigger to the program, returns false when overlaps and adding failed
         /// </summary>
-        public bool TriggerAdded(TimeTrigger trigger)
+        public bool TriggerAdded(ScheduleTrigger trigger)
         {
             if (!Program.TriggerOverlaps(trigger))
             {
@@ -56,7 +56,7 @@ namespace Winleafs.Wpf.Views.Scheduling
             return false;
         }
 
-        public void DeleteTrigger(TimeTrigger trigger)
+        public void DeleteTrigger(ScheduleTrigger trigger)
         {
             Program.Triggers.Remove(trigger);
 

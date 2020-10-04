@@ -15,9 +15,6 @@
         /// </summary>
         public string PlaylistName { get; set; }
 
-        public override string GetDescription()
-        {
-            return PlaylistName;
-        }
+        public override string Description => PlaylistName;
     }
 }

@@ -37,7 +37,7 @@ namespace Winleafs.Wpf.Views.MainWindows
 
             if (nextEffect != null)
             {
-                NextEffectDisplay = string.Format(MainWindows.Resources.NextEffect, EnumLocalizer.GetLocalizedEnum(nextEffect.Item1), nextEffect.Item2.GetActualDateTime().ToString("HH:mm"), nextEffect.Item2.EffectName);
+                NextEffectDisplay = string.Format(MainWindows.Resources.NextEffect, EnumLocalizer.GetLocalizedEnum(nextEffect.Item1), nextEffect.Item2.TimeComponent.GetActualDateTime().ToString("HH:mm"), nextEffect.Item2.EffectName);
             }
             else
             {

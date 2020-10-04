@@ -14,7 +14,7 @@ namespace Winleafs.Wpf.Views.Scheduling
     /// </summary>
     public partial class EventUserControl : UserControl
     {
-        public List<TriggerBase> EventTriggers { get; set; }
+        public List<EventTrigger> EventTriggers { get; set; }
 
         public EventUserControl()
         {
@@ -57,7 +57,6 @@ namespace Winleafs.Wpf.Views.Scheduling
             {
                 Brightness = brightness,
                 EffectName = effectName,
-                TimeType = TimeType.ProcessEvent,
                 ProcessName = processName,
                 Priority = EventTriggers.Count == 0 ? 1 : EventTriggers.Max(eventTrigger => eventTrigger.Priority) + 1
             });
@@ -114,7 +113,6 @@ namespace Winleafs.Wpf.Views.Scheduling
             {
                 Brightness = brightness,
                 EffectName = effectName,
-                TimeType = TimeType.SpotifyEvent,
                 PlaylistName = playlistName,
                 PlaylistId = playlistId,
                 Priority = EventTriggers.Count == 0 ? 1 : EventTriggers.Max(eventTrigger => eventTrigger.Priority) + 1
@@ -144,7 +142,7 @@ namespace Winleafs.Wpf.Views.Scheduling
             }
         }
 
-        public void DeleteTrigger(TriggerBase trigger)
+        public void DeleteTrigger(EventTrigger trigger)
         {
             EventTriggers.Remove(trigger);
 

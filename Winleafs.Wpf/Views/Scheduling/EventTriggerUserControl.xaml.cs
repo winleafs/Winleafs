@@ -1,7 +1,5 @@
 ﻿using System.Windows.Controls;
-using Winleafs.Models.Models;
 using Winleafs.Models.Models.Scheduling.Triggers;
-using Winleafs.Wpf.Helpers;
 
 namespace Winleafs.Wpf.Views.Scheduling
 {
@@ -10,7 +8,7 @@ namespace Winleafs.Wpf.Views.Scheduling
     /// </summary>
     public partial class EventTriggerUserControl : UserControl
     {
-        private TriggerBase _trigger;
+        private EventTrigger _trigger;
         private EventUserControl _parent;
 
         public string TriggerType { get; set; }
@@ -19,17 +17,17 @@ namespace Winleafs.Wpf.Views.Scheduling
         public string Brightness { get; set; }
         public int Priority { get; set; }
 
-        public EventTriggerUserControl(EventUserControl parent, TriggerBase trigger, bool highestPriority, bool lowestPriority)
+        public EventTriggerUserControl(EventUserControl parent, EventTrigger trigger, bool highestPriority, bool lowestPriority)
         {
             _trigger = trigger;
             _parent = parent;
 
             InitializeComponent();
 
-            TriggerType = EnumLocalizer.GetLocalizedEnum(trigger.GetTriggerType());
-            Description = trigger.GetDescription();
-            EffectName = trigger.GetEffectName();
-            Brightness = trigger.GetBrightness().ToString();
+            TriggerType = ""; //TODO: replace by getting the values from the type of the trigger since we no longer have the enum EnumLocalizer.GetLocalizedEnum(trigger.GetTriggerType());
+            Description = trigger.Description;
+            EffectName = trigger.EffectName;
+            Brightness = trigger.Brightness.ToString();
             Priority = trigger.Priority;
 
             if (highestPriority)
