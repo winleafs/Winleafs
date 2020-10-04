@@ -4,13 +4,41 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Winleafs.Wpf.Views.Scheduling"
+             xmlns:effects="clr-namespace:Winleafs.Wpf.Views.Effects"  
+             xmlns:resources="clr-namespace:Winleafs.Wpf.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>        
-        <ListBox Style="{StaticResource MaterialDesignFilterChipOutlineListBox}" x:Name="RadioButtonGroupChoiceChipOutline">
-            <ListBoxItem Width="200" FontSize="20">Fixed time</ListBoxItem>
-            <ListBoxItem IsSelected="True" Width="200" FontSize="20">Zonsondergang</ListBoxItem>
-            <ListBoxItem Width="200" FontSize="20">Sunrise</ListBoxItem>
-        </ListBox>
+             d:DesignHeight="150" d:DesignWidth="300">
+    <Grid>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="4" HorizontalAlignment="Center">
+            <RadioButton
+                Style="{StaticResource MaterialDesignTabRadioButton}"
+                Margin="4"
+                IsChecked="True"
+                Content="{x:Static resources:EnumResources.FixedTime}" />
+            <RadioButton
+                Style="{StaticResource MaterialDesignTabRadioButton}"
+                Margin="4"
+                IsChecked="False"
+                Content="{x:Static resources:EnumResources.Sunrise}" />
+            <RadioButton
+                Style="{StaticResource MaterialDesignTabRadioButton}"
+                Margin="4"
+                IsChecked="False"
+                Content="{x:Static resources:EnumResources.Sunset}" />
+        </StackPanel>
+        <materialDesign:TimePicker Is24Hours="True" x:Name="TimePicker" Width="150" materialDesign:HintAssist.Hint="{x:Static local:Resources.Time}" materialDesign:HintAssist.Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <StackPanel x:Name="BeforeAfterPanel" Orientation="Horizontal" VerticalAlignment="Top" Margin="4,100,4,4" HorizontalAlignment="Center">
+            <RadioButton
+                Style="{StaticResource MaterialDesignTabRadioButton}"
+                Margin="4"
+                IsChecked="False"
+                Content="{x:Static resources:EnumResources.Before}" />
+            <RadioButton
+                Style="{StaticResource MaterialDesignTabRadioButton}"
+                Margin="4"
+                IsChecked="False"
+                Content="{x:Static resources:EnumResources.After}" />
+        </StackPanel>
     </Grid>
 </UserControl>

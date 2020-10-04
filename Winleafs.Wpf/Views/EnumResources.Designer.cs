@@ -115,7 +115,7 @@ namespace Winleafs.Wpf.Views {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Time.
+        ///   Looks up a localized string similar to Fixed time.
         /// </summary>
         public static string FixedTime {
             get {

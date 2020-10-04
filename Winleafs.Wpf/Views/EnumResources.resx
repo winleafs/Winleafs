@@ -136,7 +136,7 @@
     <value>Event</value>
   </data>
   <data name="FixedTime" xml:space="preserve">
-    <value>Time</value>
+    <value>Fixed time</value>
   </data>
   <data name="Friday" xml:space="preserve">
     <value>Friday</value>
