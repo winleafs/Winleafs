@@ -20,9 +20,7 @@ namespace Winleafs.Wpf.Views.Scheduling
     public partial class AddTimeTriggerWindow : Window, IEffectComboBoxContainer
     {
         private DayUserControl _parent;
-        private TimeType _triggerType { get; set; }
         private int _brightness { get; set; }
-        private Dictionary<string, TimeType> _triggerTypeMapping { get; set; } //Map display values to enum values
 
         public int Brightness
         {
@@ -34,60 +32,16 @@ namespace Winleafs.Wpf.Views.Scheduling
             }
         }
 
-        public string SelectedTriggerType
-        {
-            get { return EnumLocalizer.GetLocalizedEnum(_triggerType); }
-            set
-            {
-                _triggerType = _triggerTypeMapping[value];
-
-                TriggerTypeChanged();
-            }
-        }
-
-        public IEnumerable<string> TriggerTypes
-        {
-            get
-            {
-                return _triggerTypeMapping.Keys;
-            }
-        }
-
         public AddTimeTriggerWindow(DayUserControl parent)
         {
             _parent = parent;
-
-            _triggerTypeMapping = new Dictionary<string, TimeType>()
-            {
-                {  EnumLocalizer.GetLocalizedEnum(TimeType.FixedTime), TimeType.FixedTime },
-                {  EnumLocalizer.GetLocalizedEnum(TimeType.Sunrise), TimeType.Sunrise },
-                {  EnumLocalizer.GetLocalizedEnum(TimeType.Sunset), TimeType.Sunset }
-            };
 
             DataContext = this;
 
             InitializeComponent();
 
-            SelectedTriggerType = EnumLocalizer.GetLocalizedEnum(TimeType.FixedTime);
-
             EffectComboBox.InitializeEffects();
             EffectComboBox.ParentUserControl = this;
-        }
-
-        private void TriggerTypeChanged()
-        {
-            if (_triggerType == TimeType.FixedTime)
-            {
-                BeforeRadioButton.Visibility = Visibility.Hidden;
-                AfterRadioButton.Visibility = Visibility.Hidden;
-                TimeLabel.Content = Scheduling.Resources.Time;
-            }
-            else
-            {
-                BeforeRadioButton.Visibility = Visibility.Visible;
-                AfterRadioButton.Visibility = Visibility.Visible;
-                TimeLabel.Content = Scheduling.Resources.ExtraTime;
-            }
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
@@ -103,54 +57,27 @@ namespace Winleafs.Wpf.Views.Scheduling
                 return;
             }
 
-            int hours;
-            int minutes;
-            try
+            if (!TimeComponent.TimePicker.SelectedTime.HasValue)
             {
-                hours = Convert.ToInt32(Hours.Text, CultureInfo.InvariantCulture);
-
-                if (hours < 0 || hours > 23)
-                {
-                    throw new ArgumentOutOfRangeException();
-                }
-            }
-            catch
-            {
-                PopupCreator.Error(Scheduling.Resources.InvalidHoursValue);
-                return;
-            }
-
-            try
-            {
-                minutes = Convert.ToInt32(Minutes.Text, CultureInfo.InvariantCulture);
-
-                if (minutes < 0 || minutes > 59)
-                {
-                    throw new ArgumentOutOfRangeException();
-                }
-            }
-            catch
-            {
-                PopupCreator.Error(Scheduling.Resources.InvalidMinutesValue);
+                PopupCreator.Error(Scheduling.Resources.InvalidTimeValue);
                 return;
             }
 
             bool addSucceeded;
+            var timeType = TimeComponent.GetTimeType();
 
-            if (_triggerType == TimeType.Sunrise || _triggerType == TimeType.Sunset)
+            if (timeType == TimeType.Sunrise || timeType == TimeType.Sunset)
             {
-                var beforeAfter = GetBeforeAfter();
-
                 addSucceeded = _parent.TriggerAdded(new ScheduleTrigger
                 {
                     TimeComponent = new TimeComponent
                     {
-                        TimeType = _triggerType,
-                        BeforeAfter = beforeAfter,
-                        ExtraHours = hours,
-                        ExtraMinutes = minutes,
-                        Hours = GetHoursForTriggerType(_triggerType),
-                        Minutes = GetMinutesForTriggerType(_triggerType)
+                        TimeType = timeType,
+                        BeforeAfter = TimeComponent.GetBeforeAfter(),
+                        ExtraHours = TimeComponent.TimePicker.SelectedTime.Value.Hour,
+                        ExtraMinutes = TimeComponent.TimePicker.SelectedTime.Value.Minute,
+                        Hours = GetHoursForTimeType(timeType),
+                        Minutes = GetMinutesForTimeType(timeType)
                     },
                     Brightness = _brightness,
                     EffectName = EffectComboBox.SelectedEffect.EffectName,
@@ -162,12 +89,12 @@ namespace Winleafs.Wpf.Views.Scheduling
                 {
                     TimeComponent = new TimeComponent
                     {
-                        TimeType = _triggerType,
+                        TimeType = timeType,
                         BeforeAfter = BeforeAfter.None,
                         ExtraHours = 0,
                         ExtraMinutes = 0,
-                        Hours = hours,
-                        Minutes = minutes
+                        Hours = TimeComponent.TimePicker.SelectedTime.Value.Hour,
+                        Minutes = TimeComponent.TimePicker.SelectedTime.Value.Minute
                     },
                     Brightness = _brightness,
                     EffectName = EffectComboBox.SelectedEffect.EffectName,
@@ -183,7 +110,7 @@ namespace Winleafs.Wpf.Views.Scheduling
             Close();
         }
 
-        private static int GetMinutesForTriggerType(TimeType type)
+        private static int GetMinutesForTimeType(TimeType type)
         {
             if (type == TimeType.Sunrise && UserSettings.Settings.SunriseMinute.HasValue)
             {
@@ -198,7 +125,7 @@ namespace Winleafs.Wpf.Views.Scheduling
             throw new InvalidTriggerTimeException();
         }
 
-        private static int GetHoursForTriggerType(TimeType type)
+        private static int GetHoursForTimeType(TimeType type)
         {
             if (type == TimeType.Sunrise && UserSettings.Settings.SunriseHour.HasValue)
             {
@@ -211,26 +138,6 @@ namespace Winleafs.Wpf.Views.Scheduling
             }
 
             throw new InvalidTriggerTimeException();
-        }
-
-        private BeforeAfter GetBeforeAfter()
-        {
-            if (BeforeRadioButton.IsChecked == true)
-            {
-                return BeforeAfter.Before;
-            }
-            else if (AfterRadioButton.IsChecked == true)
-            {
-                return BeforeAfter.After;
-            }               
-            
-            return BeforeAfter.None;
-        }
-
-        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
-        {
-            Regex regex = new Regex("[0-9][0-9]");
-            e.Handled = regex.IsMatch(e.Text);
         }
 
         public void EffectComboBoxSelectionChanged(string selectedEffect)

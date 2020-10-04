@@ -1,31 +1,33 @@
-﻿<UserControl x:Class="Winleafs.Wpf.Views.Scheduling.TimeUserControl"
+﻿<UserControl x:Class="Winleafs.Wpf.Views.Scheduling.TimeComponentUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Winleafs.Wpf.Views.Scheduling"
-             xmlns:effects="clr-namespace:Winleafs.Wpf.Views.Effects"  
              xmlns:resources="clr-namespace:Winleafs.Wpf.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="150" d:DesignWidth="300">
     <Grid>
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="4" HorizontalAlignment="Center">
+        <StackPanel x:Name="TimeTypePanel" Orientation="Horizontal" VerticalAlignment="Top" Margin="4" HorizontalAlignment="Center">
             <RadioButton
                 Style="{StaticResource MaterialDesignTabRadioButton}"
                 Margin="4"
                 IsChecked="True"
-                Content="{x:Static resources:EnumResources.FixedTime}" />
+                Content="{x:Static resources:EnumResources.FixedTime}"
+                x:Name="FixedTimeRadioButton"/>
             <RadioButton
                 Style="{StaticResource MaterialDesignTabRadioButton}"
                 Margin="4"
                 IsChecked="False"
-                Content="{x:Static resources:EnumResources.Sunrise}" />
+                Content="{x:Static resources:EnumResources.Sunrise}" 
+                x:Name="SunriseRadioButton"/>
             <RadioButton
                 Style="{StaticResource MaterialDesignTabRadioButton}"
                 Margin="4"
                 IsChecked="False"
-                Content="{x:Static resources:EnumResources.Sunset}" />
+                Content="{x:Static resources:EnumResources.Sunset}" 
+                x:Name="SunsetRadioButton"/>
         </StackPanel>
         <materialDesign:TimePicker Is24Hours="True" x:Name="TimePicker" Width="150" materialDesign:HintAssist.Hint="{x:Static local:Resources.Time}" materialDesign:HintAssist.Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <StackPanel x:Name="BeforeAfterPanel" Orientation="Horizontal" VerticalAlignment="Top" Margin="4,100,4,4" HorizontalAlignment="Center">
@@ -33,12 +35,14 @@
                 Style="{StaticResource MaterialDesignTabRadioButton}"
                 Margin="4"
                 IsChecked="False"
-                Content="{x:Static resources:EnumResources.Before}" />
+                Content="{x:Static resources:EnumResources.Before}" 
+                x:Name="BeforeRadioButton"/>
             <RadioButton
                 Style="{StaticResource MaterialDesignTabRadioButton}"
                 Margin="4"
                 IsChecked="False"
-                Content="{x:Static resources:EnumResources.After}" />
+                Content="{x:Static resources:EnumResources.After}" 
+                x:Name="AfterRadioButton"/>
         </StackPanel>
     </Grid>
 </UserControl>

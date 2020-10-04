@@ -268,20 +268,11 @@ namespace Winleafs.Wpf.Views.Scheduling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please enter a valid value for hours, between 0 and 23.
+        ///   Looks up a localized string similar to Please enter a valid value for time.
         /// </summary>
-        public static string InvalidHoursValue {
+        public static string InvalidTimeValue {
             get {
-                return ResourceManager.GetString("InvalidHoursValue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please enter a valid value for minutes, between 0 and 59.
-        /// </summary>
-        public static string InvalidMinutesValue {
-            get {
-                return ResourceManager.GetString("InvalidMinutesValue", resourceCulture);
+                return ResourceManager.GetString("InvalidTimeValue", resourceCulture);
             }
         }
         

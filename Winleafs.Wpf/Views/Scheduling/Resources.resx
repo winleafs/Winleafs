@@ -186,11 +186,8 @@
   <data name="Friday" xml:space="preserve">
     <value>Friday</value>
   </data>
-  <data name="InvalidHoursValue" xml:space="preserve">
-    <value>Please enter a valid value for hours, between 0 and 23</value>
-  </data>
-  <data name="InvalidMinutesValue" xml:space="preserve">
-    <value>Please enter a valid value for minutes, between 0 and 59</value>
+  <data name="InvalidTimeValue" xml:space="preserve">
+    <value>Please enter a valid value for time</value>
   </data>
   <data name="LocationMissing" xml:space="preserve">
     <value>Please fill in your location before creating a time based trigger</value>
