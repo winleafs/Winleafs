@@ -42,7 +42,7 @@
         <Version>4.7.5</Version>
       </PackageReference>
       <PackageReference Include="NLog.Config">
-        <Version>4.6.8</Version>
+        <Version>4.7.5</Version>
       </PackageReference>
       <PackageReference Include="NLog.Schema">
         <Version>4.7.5</Version>
@@ -54,9 +54,9 @@
         <Version>7.2.1</Version>
       </PackageReference>
       <PackageReference Include="RestSharp">
-        <Version>106.6.7</Version>
+        <Version>106.11.7</Version>
       </PackageReference>
-      <PackageReference Include="System.Drawing.Common" Version="4.6.0" />
+      <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
       <PackageReference Include="Tmds.MDns">
         <Version>0.7.0</Version>
       </PackageReference>
