@@ -65,6 +65,9 @@ namespace Winleafs.Wpf.Views.MainWindows
                 case DeviceType.Hexagon:
                     HexagonIcon.Visibility = Visibility.Visible;
                     break;
+                case DeviceType.Unknown:
+                    UnknownIcon.Visibility = Visibility.Visible;
+                    break;
                 default:
                     throw new NotImplementedException($"No icon implemented for device type {orchestrator.PanelLayout.DeviceType}");
             }

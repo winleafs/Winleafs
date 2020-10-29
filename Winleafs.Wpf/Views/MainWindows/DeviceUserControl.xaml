@@ -20,6 +20,7 @@
             <materialDesign:PackIcon x:Name="TriangleIcon" Kind="Triangle" Foreground="White" Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="13,10,0,0" Visibility="Hidden" />
             <materialDesign:PackIcon x:Name="SquareIcon" Kind="Square" Foreground="White" Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,10,0,0" Visibility="Hidden"/>
             <materialDesign:PackIcon x:Name="HexagonIcon" Kind="Hexagon" Foreground="White" Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,10,0,0" Visibility="Hidden"/>
+            <materialDesign:PackIcon x:Name="UnknownIcon" Kind="QuestionMark" Foreground="White" Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,10,0,0" Visibility="Hidden"/>
         </Grid>
     </Border>
 </UserControl>
