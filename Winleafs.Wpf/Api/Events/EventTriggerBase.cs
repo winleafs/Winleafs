@@ -36,7 +36,7 @@ namespace Winleafs.Wpf.Api.Events
             var endTime = _eventTrigger.EndTimeComponent.GetActualDateTime();
 
             //If the end time is earlier than the start time, add 1 day to the end time such that it later than the start time
-            //This can happen if the user wants to start at, for example, 23:00 and at at 4:00.
+            //This can happen if the user wants to start at, for example, 23:00 and end at 4:00.
             if (startTime > endTime)
             {
                 endTime = endTime.AddDays(1);

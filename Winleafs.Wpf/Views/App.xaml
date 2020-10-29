@@ -9,7 +9,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="DeepPurple" SecondaryColor="Lime" />
+                <materialDesign:CustomColorTheme BaseTheme="Dark" PrimaryColor="#2D2F30" SecondaryColor="#3FAE29" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
 
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/Generic.xaml" />
@@ -17,6 +17,9 @@
                 <!--Toastr notifications-->
                 <ResourceDictionary Source="pack://application:,,,/ToastNotifications.Messages;component/Themes/Default.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <SolidColorBrush x:Key="NanoleafBlack" Color="#2D2F30"/>
+            <SolidColorBrush x:Key="NanoleafGreen" Color="#3FAE29"/>
         </ResourceDictionary>
 
     </Application.Resources>

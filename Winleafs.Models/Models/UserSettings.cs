@@ -24,7 +24,7 @@ namespace Winleafs.Models.Models
         public static readonly string EffectNamePreface = "Winleafs - ";
 
         private static readonly string _settingsFileName = Path.Combine(SettingsFolder, "Settings.txt");
-        private static readonly string _latestSettingsVersion = "13";
+        private static readonly string _latestSettingsVersion = "14";
 
         private static UserSettings _settings { get; set; }
 
@@ -483,6 +483,36 @@ namespace Winleafs.Models.Models
             foreach (var device in jToken["Devices"])
             {
                 device[nameof(Device.ScreenMirrorFlip)] = (int)ScreenMirrorFlip.None;
+            }
+
+            return jToken;
+        }
+
+        [Migration("13", "14")]
+        private static JToken Migration_13_14(JToken jToken)
+        {
+            foreach (var schedule in jToken[nameof(Schedules)])
+            {
+                foreach (var program in schedule[nameof(Schedule.Programs)])
+                {
+                    //Update each time trigger to the new time component format
+                    foreach (var trigger in program[nameof(Program.Triggers)])
+                    {
+                        var eventTriggerType = trigger["EventTriggerType"].ToObject<int>();
+
+                        var timeComponent = new TimeComponent
+                        {
+                            Hours = trigger["Hours"].ToObject<int>(),
+                            Minutes = trigger["Minutes"].ToObject<int>(),
+                            ExtraHours = trigger["ExtraHours"].ToObject<int>(),
+                            ExtraMinutes = trigger["ExtraMinutes"].ToObject<int>(),
+                            BeforeAfter = (BeforeAfter)trigger["BeforeAfter"].ToObject<int>(),
+                            TimeType = eventTriggerType == 0 ? TimeType.FixedTime : (eventTriggerType == 1 ? TimeType.Sunrise : TimeType.Sunset) //Convert the old eventTriggerType to the new time type
+                        };
+
+                        trigger[nameof(ScheduleTrigger.TimeComponent)] = JToken.FromObject(timeComponent);
+                    }
+                }
             }
 
             return jToken;

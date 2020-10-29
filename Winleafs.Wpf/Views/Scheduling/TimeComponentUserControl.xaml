@@ -10,39 +10,48 @@
              d:DesignHeight="150" d:DesignWidth="300">
     <Grid>
         <StackPanel x:Name="TimeTypePanel" Orientation="Horizontal" VerticalAlignment="Top" Margin="4" HorizontalAlignment="Center">
-            <RadioButton
+        <RadioButton
                 Style="{StaticResource MaterialDesignTabRadioButton}"
                 Margin="4"
                 IsChecked="True"
                 Content="{x:Static resources:EnumResources.FixedTime}"
-                x:Name="FixedTimeRadioButton"/>
-            <RadioButton
+                x:Name="FixedTimeRadioButton"
+                Foreground="White"
+                Click="FixedTimeRadioButton_Click"/>
+        <RadioButton
                 Style="{StaticResource MaterialDesignTabRadioButton}"
                 Margin="4"
                 IsChecked="False"
                 Content="{x:Static resources:EnumResources.Sunrise}" 
-                x:Name="SunriseRadioButton"/>
+                x:Name="SunriseRadioButton"
+                Foreground="White"
+                Click="SunriseRadioButton_Click"/>
             <RadioButton
                 Style="{StaticResource MaterialDesignTabRadioButton}"
                 Margin="4"
                 IsChecked="False"
                 Content="{x:Static resources:EnumResources.Sunset}" 
-                x:Name="SunsetRadioButton"/>
+                x:Name="SunsetRadioButton"
+                Foreground="White"
+                Click="SunsetRadioButton_Click"/>
         </StackPanel>
-        <materialDesign:TimePicker Is24Hours="True" x:Name="TimePicker" Width="150" materialDesign:HintAssist.Hint="{x:Static local:Resources.Time}" materialDesign:HintAssist.Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <StackPanel x:Name="BeforeAfterPanel" Orientation="Horizontal" VerticalAlignment="Top" Margin="4,100,4,4" HorizontalAlignment="Center">
+        <!--TODO: add time validation, see example project-->
+        <materialDesign:TimePicker Is24Hours="True" x:Name="TimePicker" Width="150" materialDesign:HintAssist.Hint="{x:Static local:Resources.Time}" materialDesign:HintAssist.Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>
+        <StackPanel x:Name="BeforeAfterPanel" Orientation="Horizontal" VerticalAlignment="Top" Margin="4,100,4,4" HorizontalAlignment="Center" Visibility="Hidden">
             <RadioButton
                 Style="{StaticResource MaterialDesignTabRadioButton}"
                 Margin="4"
                 IsChecked="False"
                 Content="{x:Static resources:EnumResources.Before}" 
-                x:Name="BeforeRadioButton"/>
+                x:Name="BeforeRadioButton"
+                Foreground="White"/>
             <RadioButton
                 Style="{StaticResource MaterialDesignTabRadioButton}"
                 Margin="4"
                 IsChecked="False"
                 Content="{x:Static resources:EnumResources.After}" 
-                x:Name="AfterRadioButton"/>
+                x:Name="AfterRadioButton"
+                Foreground="White"/>
         </StackPanel>
     </Grid>
 </UserControl>

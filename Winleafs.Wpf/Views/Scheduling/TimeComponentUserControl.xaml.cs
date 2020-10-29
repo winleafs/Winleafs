@@ -45,5 +45,30 @@ namespace Winleafs.Wpf.Views.Scheduling
                 return BeforeAfter.None;
             }
         }
+
+        private void ShowBeforeAfter()
+        {
+            BeforeAfterPanel.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void HideBeforeAfter()
+        {
+            BeforeAfterPanel.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void FixedTimeRadioButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            HideBeforeAfter();
+        }
+
+        private void SunriseRadioButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            ShowBeforeAfter();
+        }
+
+        private void SunsetRadioButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            ShowBeforeAfter();
+        }
     }
 }
