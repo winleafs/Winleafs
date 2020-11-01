@@ -267,4 +267,10 @@
   <data name="ConnectToSpotify" xml:space="preserve">
     <value>Verbind eerst met Spotify voordat u een Spotify event toevoegd. Als u verbonden bent, dan is de Winleafs/Spotify server offline en kunt u het later nog een keer proberen.</value>
   </data>
+  <data name="EndTime" xml:space="preserve">
+    <value>Eindtijd (optineel)</value>
+  </data>
+  <data name="StartTime" xml:space="preserve">
+    <value>Starttijd (optioneel)</value>
+  </data>
 </root>

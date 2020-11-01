@@ -27,6 +27,7 @@ namespace Winleafs.Wpf.Views.Scheduling
             addProcessEventWindow.ShowDialog();
         }
 
+        //TODO: add check if start time is filled then end is also filled in
         public bool ProcessEventTriggerAdded(string processName, string effectName, int brightness)
         {
             if (string.IsNullOrWhiteSpace(processName))
@@ -66,6 +67,7 @@ namespace Winleafs.Wpf.Views.Scheduling
             return true;
         }
 
+        //TODO: add check if start time is filled then end is also filled in
         private void AddSpotifyEvent_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             var winleafsServerClient = new WinleafsServerClient();

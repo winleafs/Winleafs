@@ -9,8 +9,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="150" d:DesignWidth="300">
     <Grid>
-        <StackPanel x:Name="TimeTypePanel" Orientation="Horizontal" VerticalAlignment="Top" Margin="4" HorizontalAlignment="Center">
-        <RadioButton
+        <StackPanel x:Name="TimeTypePanel" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,4,0,0" HorizontalAlignment="Center">
+            <RadioButton
                 Style="{StaticResource MaterialDesignTabRadioButton}"
                 Margin="4"
                 IsChecked="True"
@@ -18,7 +18,7 @@
                 x:Name="FixedTimeRadioButton"
                 Foreground="White"
                 Click="FixedTimeRadioButton_Click"/>
-        <RadioButton
+            <RadioButton
                 Style="{StaticResource MaterialDesignTabRadioButton}"
                 Margin="4"
                 IsChecked="False"
@@ -35,7 +35,6 @@
                 Foreground="White"
                 Click="SunsetRadioButton_Click"/>
         </StackPanel>
-        <!--TODO: add time validation, see example project-->
         <materialDesign:TimePicker Is24Hours="True" x:Name="TimePicker" Width="150" materialDesign:HintAssist.Hint="{x:Static local:Resources.Time}" materialDesign:HintAssist.Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>
         <StackPanel x:Name="BeforeAfterPanel" Orientation="Horizontal" VerticalAlignment="Top" Margin="4,100,4,4" HorizontalAlignment="Center" Visibility="Hidden">
             <RadioButton
