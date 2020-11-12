@@ -46,6 +46,12 @@ We would appreciate it if you'd contact us before picking up a task so we can av
 ## Troubleshooting
 If you are experiencing problems, try deleting the settings file from %appdata%/Winleafs. Note: this removes all settings and schedules. Otherwise, you can create an issue [here](https://github.com/winleafs/Winleafs/issues/new/choose) and we will get back to you as soon as possible.
 
+### Connection issues
+Try the following if Winleafs has trouble locating your panels:
+
+- Make sure your PC is on the same 2.4 Ghz network as your panels.
+- Double check if mDNS is enabled. [See this link for instructions](https://superuser.com/questions/1330027/how-to-enable-mdns-on-windows-10-build-17134).
+
 ## Projects and APIs used
 
 - [Icanhazip](http://icanhazip.com) To retrieve your IP address
