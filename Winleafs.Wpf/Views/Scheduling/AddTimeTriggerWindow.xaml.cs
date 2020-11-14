@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text.RegularExpressions;
-using System.Windows;
-using System.Windows.Input;
+﻿using System.Windows;
 using Winleafs.Models.Enums;
 using Winleafs.Models.Exceptions;
 using Winleafs.Models.Models;
 using Winleafs.Models.Models.Scheduling.Triggers;
-using Winleafs.Wpf.Helpers;
 using Winleafs.Wpf.Views.Effects;
 using Winleafs.Wpf.Views.Popup;
 
@@ -42,6 +36,7 @@ namespace Winleafs.Wpf.Views.Scheduling
 
             EffectComboBox.InitializeEffects();
             EffectComboBox.ParentUserControl = this;
+            EffectComboBox.UpdateSelection(EffectComboBox.Effects[0].EffectName); //Select first effect by default
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
@@ -64,7 +59,7 @@ namespace Winleafs.Wpf.Views.Scheduling
             }
 
             bool addSucceeded;
-            var timeType = TimeComponent.GetTimeType();
+            var timeType = TimeComponent.TimeType;
 
             if (timeType == TimeType.Sunrise || timeType == TimeType.Sunset)
             {
@@ -73,9 +68,9 @@ namespace Winleafs.Wpf.Views.Scheduling
                     TimeComponent = new TimeComponent
                     {
                         TimeType = timeType,
-                        BeforeAfter = TimeComponent.GetBeforeAfter(),
-                        ExtraHours = TimeComponent.TimePicker.SelectedTime.Value.Hour,
-                        ExtraMinutes = TimeComponent.TimePicker.SelectedTime.Value.Minute,
+                        BeforeAfter = TimeComponent.BeforeAfter,
+                        ExtraHours = TimeComponent.TimePicker.SelectedTime.HasValue ? TimeComponent.TimePicker.SelectedTime.Value.Hour : 0,
+                        ExtraMinutes = TimeComponent.TimePicker.SelectedTime.HasValue ? TimeComponent.TimePicker.SelectedTime.Value.Minute : 0,
                         Hours = GetHoursForTimeType(timeType),
                         Minutes = GetMinutesForTimeType(timeType)
                     },

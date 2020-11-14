@@ -14,6 +14,7 @@ namespace Winleafs.Models.Models.Scheduling.Triggers
                 {
                     var extraHours = TimeComponent.ExtraHours < 10 ? $"0{TimeComponent.ExtraHours}" : TimeComponent.ExtraHours.ToString();
                     var extraMinutes = TimeComponent.ExtraMinutes < 10 ? $"0{TimeComponent.ExtraMinutes}" : TimeComponent.ExtraMinutes.ToString();
+
                     return $"({(TimeComponent.BeforeAfter == BeforeAfter.Before ? "-" : "+")} {extraHours}:{extraMinutes}) {TimeComponent.GetActualDateTime().ToString("HH:mm")}";
                 }
                 else

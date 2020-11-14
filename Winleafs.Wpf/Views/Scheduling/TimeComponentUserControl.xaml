@@ -2,55 +2,44 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Winleafs.Wpf.Views.Scheduling"
              xmlns:resources="clr-namespace:Winleafs.Wpf.Views"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"   
              mc:Ignorable="d" 
-             d:DesignHeight="150" d:DesignWidth="300">
+             d:DesignHeight="200" d:DesignWidth="330">
     <Grid>
-        <StackPanel x:Name="TimeTypePanel" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,4,0,0" HorizontalAlignment="Center">
-            <RadioButton
-                Style="{StaticResource MaterialDesignTabRadioButton}"
-                Margin="4"
-                IsChecked="True"
-                Content="{x:Static resources:EnumResources.FixedTime}"
-                x:Name="FixedTimeRadioButton"
-                Foreground="White"
-                Click="FixedTimeRadioButton_Click"/>
-            <RadioButton
-                Style="{StaticResource MaterialDesignTabRadioButton}"
-                Margin="4"
-                IsChecked="False"
-                Content="{x:Static resources:EnumResources.Sunrise}" 
-                x:Name="SunriseRadioButton"
-                Foreground="White"
-                Click="SunriseRadioButton_Click"/>
-            <RadioButton
-                Style="{StaticResource MaterialDesignTabRadioButton}"
-                Margin="4"
-                IsChecked="False"
-                Content="{x:Static resources:EnumResources.Sunset}" 
-                x:Name="SunsetRadioButton"
-                Foreground="White"
-                Click="SunsetRadioButton_Click"/>
-        </StackPanel>
-        <materialDesign:TimePicker Is24Hours="True" x:Name="TimePicker" Width="150" materialDesign:HintAssist.Hint="{x:Static local:Resources.Time}" materialDesign:HintAssist.Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>
-        <StackPanel x:Name="BeforeAfterPanel" Orientation="Horizontal" VerticalAlignment="Top" Margin="4,100,4,4" HorizontalAlignment="Center" Visibility="Hidden">
-            <RadioButton
-                Style="{StaticResource MaterialDesignTabRadioButton}"
-                Margin="4"
-                IsChecked="False"
-                Content="{x:Static resources:EnumResources.Before}" 
-                x:Name="BeforeRadioButton"
-                Foreground="White"/>
-            <RadioButton
-                Style="{StaticResource MaterialDesignTabRadioButton}"
-                Margin="4"
-                IsChecked="False"
-                Content="{x:Static resources:EnumResources.After}" 
-                x:Name="AfterRadioButton"
-                Foreground="White"/>
-        </StackPanel>
+        <materialDesign:Card Height="90" Width="90" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Background="#323435" MouseDown="FixedTime_MouseDown">
+            <Grid>
+                <materialDesign:PackIcon Kind="ClockOutline" Foreground="White" Height="40" Width="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0"/>
+                <Label Content="{x:Static resources:EnumResources.FixedTime}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,20"/>
+                <RadioButton x:Name="FixedTimeRadioButton" Style="{DynamicResource MaterialDesignLightRadioButton}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,5" Checked="FixedTimeRadioButton_Checked"/>
+            </Grid>
+        </materialDesign:Card>
+        
+        <materialDesign:Card Height="90" Width="90" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10" Background="#323435" MouseDown="Sunrise_MouseDown">
+            <Grid>
+                <materialDesign:PackIcon Kind="WeatherSunsetUp" Foreground="White" Height="40" Width="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0"/>
+                <Label Content="{x:Static resources:EnumResources.Sunrise}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,20"/>
+                <RadioButton x:Name="SunriseRadioButton" Style="{DynamicResource MaterialDesignLightRadioButton}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,5" Checked="SunriseRadioButton_Checked"/>
+            </Grid>
+        </materialDesign:Card>
+
+        <materialDesign:Card Height="90" Width="90" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Background="#323435" MouseDown="Sunset_MouseDown">
+            <Grid>
+                <materialDesign:PackIcon Kind="WeatherSunsetDown" Foreground="White" Height="40" Width="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0"/>
+                <Label Content="{x:Static resources:EnumResources.Sunset}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,20"/>
+                <RadioButton x:Name="SunsetRadioButton" Style="{DynamicResource MaterialDesignLightRadioButton}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,5" Checked="SunsetRadioButton_Checked"/>
+            </Grid>
+        </materialDesign:Card>
+
+        <Grid x:Name="ExtraTimeGrid" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,110,10,0">
+            <Label Content="{x:Static local:Resources.ExtraTime}" FontSize="18" Foreground="White"/>
+            <ComboBox x:Name="BeforeAfterComboBox" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="90,0,0,0" Width="100" SelectedItem="{Binding SelectedBeforeAfter}" ItemsSource="{Binding BeforeAfterDisplayValues}" Foreground="White" FontSize="18"/>
+            <Label Content="{x:Static resources:EnumResources.Sunset}" FontSize="18" Foreground="White" HorizontalAlignment="Left" Margin="195,0,0,0" x:Name="SunsetLabel"/>
+            <Label Content="{x:Static resources:EnumResources.Sunrise}" FontSize="18" Foreground="White" HorizontalAlignment="Left" Margin="195,0,0,0" x:Name="SunriseLabel"/>
+        </Grid>       
+        
+        <materialDesign:TimePicker Is24Hours="True" x:Name="TimePicker" Width="150" FontSize="18" materialDesign:HintAssist.Hint="{x:Static local:Resources.Time}" materialDesign:HintAssist.Foreground="White" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="White" Margin="0,155,0,0"/>
     </Grid>
 </UserControl>
