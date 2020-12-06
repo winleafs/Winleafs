@@ -11,9 +11,9 @@ namespace Winleafs.Wpf.Api.Events
 
         public int Priority => _eventTrigger.Priority;
 
-        private EventTrigger _eventTrigger;
+        private readonly EventTrigger _eventTrigger;
 
-        public EventTriggerBase(EventTrigger eventTrigger)
+        protected EventTriggerBase(EventTrigger eventTrigger)
         {
             _eventTrigger = eventTrigger;
         }

@@ -14,8 +14,9 @@ namespace Winleafs.Wpf.Views.Scheduling
     /// </summary>
     public partial class TimeComponentUserControl : UserControl
     {
-        public TimeType TimeType;
-        public BeforeAfter BeforeAfter;
+        public TimeType TimeType { get; set; }
+        public BeforeAfter BeforeAfter { get; set; }
+
         private Dictionary<string, BeforeAfter> _beforeAfterMapping { get; set; } //Map display values to enum values
 
         public string SelectedBeforeAfter
