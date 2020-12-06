@@ -42,10 +42,9 @@ namespace Winleafs.Wpf.Views.Scheduling
                 return false;
             }
 
-            if ((startTimeComponent.IsTimeSelected() && !endTimeComponent.IsTimeSelected()) ||
-                (!startTimeComponent.IsTimeSelected() && endTimeComponent.IsTimeSelected()))
+            if (!ValidateTimeComponents(startTimeComponent, endTimeComponent))
             {
-                PopupCreator.Error(Scheduling.Resources.FillBothTimeComponents);
+                //ValidateTimeComponents creates its own pop ups
                 return false;
             }
 
@@ -60,7 +59,8 @@ namespace Winleafs.Wpf.Views.Scheduling
                 }
             }
 
-            var trigger = new ProcessEventTrigger()
+            //Add the trigger
+            EventTriggers.Add(new ProcessEventTrigger()
             {
                 Brightness = brightness,
                 EffectName = effectName,
@@ -68,16 +68,7 @@ namespace Winleafs.Wpf.Views.Scheduling
                 Priority = EventTriggers.Count == 0 ? 1 : EventTriggers.Max(eventTrigger => eventTrigger.Priority) + 1,
                 StartTimeComponent = startTimeComponent.IsTimeSelected() ? startTimeComponent.AsTimeComponent() : null,
                 EndTimeComponent = endTimeComponent.IsTimeSelected() ? endTimeComponent.AsTimeComponent() : null
-            };
-
-            if (trigger.StartTimeComponent != null && trigger.StartTimeComponent.GetActualDateTime() >= trigger.EndTimeComponent.GetActualDateTime())
-            {
-                PopupCreator.Error(Scheduling.Resources.StartTimeBeforeEndTime);
-                return false;
-            }
-
-            //Add the trigger
-            EventTriggers.Add(trigger);
+            });
 
             BuildTriggerList();
 
@@ -116,10 +107,9 @@ namespace Winleafs.Wpf.Views.Scheduling
                 return false;
             }
 
-            if ((startTimeComponent.IsTimeSelected() && !endTimeComponent.IsTimeSelected()) ||
-                (!startTimeComponent.IsTimeSelected() && endTimeComponent.IsTimeSelected()))
+            if (!ValidateTimeComponents(startTimeComponent, endTimeComponent))
             {
-                PopupCreator.Error(Scheduling.Resources.FillBothTimeComponents);
+                //ValidateTimeComponents creates its own pop ups
                 return false;
             }
 
@@ -134,7 +124,8 @@ namespace Winleafs.Wpf.Views.Scheduling
                 }
             }
 
-            var trigger = new SpotifyEventTrigger()
+            //Add the trigger
+            EventTriggers.Add(new SpotifyEventTrigger()
             {
                 Brightness = brightness,
                 EffectName = effectName,
@@ -143,16 +134,7 @@ namespace Winleafs.Wpf.Views.Scheduling
                 Priority = EventTriggers.Count == 0 ? 1 : EventTriggers.Max(eventTrigger => eventTrigger.Priority) + 1,
                 StartTimeComponent = startTimeComponent.IsTimeSelected() ? startTimeComponent.AsTimeComponent() : null,
                 EndTimeComponent = endTimeComponent.IsTimeSelected() ? endTimeComponent.AsTimeComponent() : null
-            };
-
-            if (trigger.StartTimeComponent != null && trigger.StartTimeComponent.GetActualDateTime() >= trigger.EndTimeComponent.GetActualDateTime())
-            {
-                PopupCreator.Error(Scheduling.Resources.StartTimeBeforeEndTime);
-                return false;
-            }
-
-            //Add the trigger
-            EventTriggers.Add(trigger);
+            });
 
             BuildTriggerList();
 
@@ -229,6 +211,25 @@ namespace Winleafs.Wpf.Views.Scheduling
             EventTriggers[priorityOfItem - 1].Priority++; //Current item should go down in priority
 
             BuildTriggerList();
+        }
+
+        private bool ValidateTimeComponents(TimeComponentUserControl startTimeComponent, TimeComponentUserControl endTimeComponent)
+        {
+            if ((startTimeComponent.IsTimeSelected() && !endTimeComponent.IsTimeSelected()) ||
+                (!startTimeComponent.IsTimeSelected() && endTimeComponent.IsTimeSelected()))
+            {
+                PopupCreator.Error(Scheduling.Resources.FillBothTimeComponents);
+                return false;
+            }
+
+            if (startTimeComponent.IsTimeSelected() && endTimeComponent.IsTimeSelected()
+                && startTimeComponent.AsTimeComponent().GetActualDateTime() >= endTimeComponent.AsTimeComponent().GetActualDateTime())
+            {
+                PopupCreator.Error(Scheduling.Resources.StartTimeBeforeEndTime);
+                return false;
+            }
+
+            return true;
         }
     }
 }
