@@ -5,10 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Winleafs.Wpf.Views.MainWindows"
              mc:Ignorable="d" 
-             d:DesignHeight="220" d:DesignWidth="450">
+             d:DesignHeight="260" d:DesignWidth="470">
     <Grid Background="{StaticResource NanoleafBlack}">
         <ComboBox x:Name="DevicesDropdown" Margin="15,5,0,0" VerticalAlignment="Top" SelectedItem="{Binding SelectedDevice}" ItemsSource="{Binding DeviceNames}" HorizontalAlignment="Left" Width="180" Foreground="White"/>
-        <Grid x:Name="DeviceUserControlGrid" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,10,0,0" />
-        <Button Click="Quit_Click" Height="30" VerticalAlignment="Bottom" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Content="{x:Static local:Resources.Quit}" FontSize="18" Margin="5,0,5,5" Padding="0"/>
+        <Grid x:Name="DeviceUserControlGrid" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,50,0,0" Height="170"/>
+        <Button Click="Quit_Click" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Content="{x:Static local:Resources.Quit}" FontSize="18" Margin="5,5,10,5" Padding="0" Width="120"/>
     </Grid>
 </UserControl>

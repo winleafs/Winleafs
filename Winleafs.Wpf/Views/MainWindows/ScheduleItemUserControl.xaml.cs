@@ -30,7 +30,7 @@ namespace Winleafs.Wpf.Views.MainWindows
 
             if (Schedule.Active)
             {
-                Background = (Brush)new BrushConverter().ConvertFromInvariantString("#7F3F6429");
+                Card.Background = (Brush)new BrushConverter().ConvertFromInvariantString("#7F3F6429");
             }
 
             var nextEffect = schedule.GetNextTimeTrigger();
@@ -45,6 +45,7 @@ namespace Winleafs.Wpf.Views.MainWindows
             }
 
             NumberOfTriggersDisplay = string.Format(MainWindows.Resources.NumberOfTriggers, Schedule.EventTriggers.Count);
+            ActiveToggle.IsChecked = Schedule.Active;
         }
 
         private void Edit_Click(object sender, RoutedEventArgs e)
@@ -63,7 +64,18 @@ namespace Winleafs.Wpf.Views.MainWindows
 
         private void ActiveSchedule_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            _parent.ActivateSchedule(Schedule);
+            if (!Schedule.Active)
+            {
+                _parent.ActivateSchedule(Schedule);
+            }            
+        }
+
+        private void ActiveToggle_Checked(object sender, RoutedEventArgs e)
+        {
+            if (!Schedule.Active)
+            {
+                _parent.ActivateSchedule(Schedule);
+            }
         }
     }
 }
