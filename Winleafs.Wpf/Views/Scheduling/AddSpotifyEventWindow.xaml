@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Winleafs.Wpf.Views.Scheduling"
         xmlns:effects="clr-namespace:Winleafs.Wpf.Views.Effects"   
         mc:Ignorable="d"
-        Title="{x:Static local:Resources.AddSpotifyEventTitle}" Height="520" Width="660" ResizeMode="NoResize">
+        Title="{x:Static local:Resources.AddSpotifyEventTitle}" Height="525" Width="660" ResizeMode="NoResize">
     <Grid Background="{StaticResource NanoleafBlack}">
         
         <Grid.RowDefinitions>

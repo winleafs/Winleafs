@@ -55,5 +55,33 @@ namespace Winleafs.Models.Models.Scheduling.Triggers
                     break;
             }
         }
+
+        public bool Overlaps(TimeComponent otherTimeComponent)
+        {
+            if (TimeType == TimeType.Sunrise && otherTimeComponent.TimeType == TimeType.Sunrise
+                && BeforeAfter == otherTimeComponent.BeforeAfter
+                && ExtraHours == otherTimeComponent.ExtraHours
+                && ExtraMinutes == otherTimeComponent.ExtraMinutes)
+            {
+                return true;
+            }
+
+            if (TimeType == TimeType.Sunset && otherTimeComponent.TimeType == TimeType.Sunset
+                && BeforeAfter == otherTimeComponent.BeforeAfter
+                && ExtraHours == otherTimeComponent.ExtraHours
+                && ExtraMinutes == otherTimeComponent.ExtraMinutes)
+            {
+                return true;
+            }
+
+            if (TimeType == TimeType.FixedTime && otherTimeComponent.TimeType == TimeType.FixedTime
+                && Hours == otherTimeComponent.Hours
+                && Minutes == otherTimeComponent.Minutes)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

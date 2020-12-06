@@ -35,30 +35,9 @@ namespace Winleafs.Models.Models.Scheduling
         /// </summary>
         public bool TriggerOverlaps(ScheduleTrigger otherTrigger)
         {
-            //TODO: MOVE THIS TO A EQUALS METHOD IN TIMECOMPONENT
             foreach (var trigger in Triggers)
             {
-                if (trigger.TimeComponent.TimeType == TimeType.Sunrise
-                    && otherTrigger.TimeComponent.TimeType == TimeType.Sunrise
-                    && trigger.TimeComponent.BeforeAfter == otherTrigger.TimeComponent.BeforeAfter
-                    && trigger.TimeComponent.ExtraHours == otherTrigger.TimeComponent.ExtraHours
-                    && trigger.TimeComponent.ExtraMinutes == otherTrigger.TimeComponent.ExtraMinutes)
-                {
-                    return true;
-                }
-
-                if (trigger.TimeComponent.TimeType == TimeType.Sunset && otherTrigger.TimeComponent.TimeType == TimeType.Sunset
-                    && trigger.TimeComponent.BeforeAfter == otherTrigger.TimeComponent.BeforeAfter
-                    && trigger.TimeComponent.ExtraHours == otherTrigger.TimeComponent.ExtraHours
-                    && trigger.TimeComponent.ExtraMinutes == otherTrigger.TimeComponent.ExtraMinutes)
-                {
-                    return true;
-                }
-
-                if (trigger.TimeComponent.TimeType == TimeType.FixedTime
-                         && otherTrigger.TimeComponent.TimeType == TimeType.FixedTime
-                        && trigger.TimeComponent.Hours == otherTrigger.TimeComponent.Hours
-                         && trigger.TimeComponent.Minutes == otherTrigger.TimeComponent.Minutes)
+                if (trigger.TimeComponent.Overlaps(otherTrigger.TimeComponent))
                 {
                     return true;
                 }
