@@ -6,28 +6,31 @@
         xmlns:local="clr-namespace:Winleafs.Wpf.Views.Scheduling"
         xmlns:effects="clr-namespace:Winleafs.Wpf.Views.Effects"   
         mc:Ignorable="d"
-        Title="{x:Static local:Resources.AddProcessEventTitle}" Height="460" Width="620" ResizeMode="NoResize">
+        Title="{x:Static local:Resources.AddProcessEventTitle}" Height="520" Width="660" ResizeMode="NoResize">
     <Grid Background="{StaticResource NanoleafBlack}">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="195"/>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="250"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <local:StartEndTimeUserControl x:Name="StartEndTime" Grid.Row="0"/>
-
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="0">
             <Label Content="{x:Static local:Resources.ProcessName}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
-            <Button Content="{x:Static local:Resources.Cancel}" HorizontalAlignment="Left" Margin="10,0,0,10" Width="84" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Cancel_Click" Height="27" VerticalAlignment="Bottom"/>
-            <Button Content="{x:Static local:Resources.Add}" Margin="0,0,10,10" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Add_Click" HorizontalAlignment="Right" Width="84" Height="27" VerticalAlignment="Bottom"/>
             <Label Content="{x:Static local:Resources.Effect}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,96,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
             <effects:EffectComboBox x:Name="EffectComboBox" HorizontalAlignment="Left" Margin="93,86,0,0" VerticalAlignment="Top" Width="273" Height="45"/>
             <Label Content="{x:Static local:Resources.Brightness}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,141,0,0" VerticalAlignment="Top" Foreground="White"/>
-            <Label x:Name="BrightnessLabel" Content="0" HorizontalAlignment="Left" Margin="371,141,0,0" VerticalAlignment="Top" Foreground="White"/>
+            <Label x:Name="BrightnessLabel" Content="0" HorizontalAlignment="Left" Margin="405,143,0,0" VerticalAlignment="Top" Foreground="White"/>
             <Slider Margin="96,147,255,0" VerticalAlignment="Top" Minimum="0" Maximum="100" Value="{Binding Brightness}" IsSnapToTickEnabled="True" TickFrequency="5"/>
             <TextBlock HorizontalAlignment="Left" Margin="150,22,0,0" TextWrapping="Wrap" Text="{x:Static local:Resources.ProcessNameHelp}" VerticalAlignment="Top" Foreground="White" Width="270"/>
             <TextBox Height="23" Margin="10,51,217,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="{Binding ProcessName}" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White"/>
+        </Grid>
 
+        <local:StartEndTimeUserControl x:Name="StartEndTime" Grid.Row="1"/>
+
+        <Grid Grid.Row="2">
+            <Button Content="{x:Static local:Resources.Cancel}" HorizontalAlignment="Left" Margin="10,0,0,10" Width="84" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Cancel_Click" Height="27" VerticalAlignment="Bottom"/>
+            <Button Content="{x:Static local:Resources.Add}" Margin="0,0,10,10" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Add_Click" HorizontalAlignment="Right" Width="84" Height="27" VerticalAlignment="Bottom"/>
         </Grid>
     </Grid>
 </Window>

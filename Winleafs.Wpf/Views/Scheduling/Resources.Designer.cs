@@ -268,6 +268,15 @@ namespace Winleafs.Wpf.Views.Scheduling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please fill in both time components.
+        /// </summary>
+        public static string FillBothTimeComponents {
+            get {
+                return ResourceManager.GetString("FillBothTimeComponents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Friday.
         /// </summary>
         public static string Friday {
@@ -444,6 +453,15 @@ namespace Winleafs.Wpf.Views.Scheduling {
         public static string StartTime {
             get {
                 return ResourceManager.GetString("StartTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The start time must be before the end time.
+        /// </summary>
+        public static string StartTimeBeforeEndTime {
+            get {
+                return ResourceManager.GetString("StartTimeBeforeEndTime", resourceCulture);
             }
         }
         

@@ -1,7 +1,4 @@
 ﻿using System.Windows;
-using Winleafs.Models.Enums;
-using Winleafs.Models.Exceptions;
-using Winleafs.Models.Models;
 using Winleafs.Models.Models.Scheduling.Triggers;
 using Winleafs.Wpf.Views.Effects;
 using Winleafs.Wpf.Views.Popup;
@@ -58,43 +55,12 @@ namespace Winleafs.Wpf.Views.Scheduling
                 return;
             }
 
-            bool addSucceeded;
-            var timeType = TimeComponent.TimeType;
-
-            if (timeType == TimeType.Sunrise || timeType == TimeType.Sunset)
+            var addSucceeded = _parent.TriggerAdded(new ScheduleTrigger
             {
-                addSucceeded = _parent.TriggerAdded(new ScheduleTrigger
-                {
-                    TimeComponent = new TimeComponent
-                    {
-                        TimeType = timeType,
-                        BeforeAfter = TimeComponent.BeforeAfter,
-                        ExtraHours = TimeComponent.TimePicker.SelectedTime.HasValue ? TimeComponent.TimePicker.SelectedTime.Value.Hour : 0,
-                        ExtraMinutes = TimeComponent.TimePicker.SelectedTime.HasValue ? TimeComponent.TimePicker.SelectedTime.Value.Minute : 0,
-                        Hours = GetHoursForTimeType(timeType),
-                        Minutes = GetMinutesForTimeType(timeType)
-                    },
-                    Brightness = _brightness,
-                    EffectName = EffectComboBox.SelectedEffect.EffectName,
-                });
-            }
-            else
-            {
-                addSucceeded = _parent.TriggerAdded(new ScheduleTrigger
-                {
-                    TimeComponent = new TimeComponent
-                    {
-                        TimeType = timeType,
-                        BeforeAfter = BeforeAfter.None,
-                        ExtraHours = 0,
-                        ExtraMinutes = 0,
-                        Hours = TimeComponent.TimePicker.SelectedTime.Value.Hour,
-                        Minutes = TimeComponent.TimePicker.SelectedTime.Value.Minute
-                    },
-                    Brightness = _brightness,
-                    EffectName = EffectComboBox.SelectedEffect.EffectName,
-                });
-            }
+                TimeComponent = TimeComponent.AsTimeComponent(),
+                Brightness = _brightness,
+                EffectName = EffectComboBox.SelectedEffect.EffectName,
+            });
 
             if (!addSucceeded)
             {
@@ -103,36 +69,6 @@ namespace Winleafs.Wpf.Views.Scheduling
             }
 
             Close();
-        }
-
-        private static int GetMinutesForTimeType(TimeType type)
-        {
-            if (type == TimeType.Sunrise && UserSettings.Settings.SunriseMinute.HasValue)
-            {
-                return UserSettings.Settings.SunriseMinute.Value;
-            }
-
-            if (UserSettings.Settings.SunsetMinute.HasValue)
-            {
-                return UserSettings.Settings.SunsetMinute.Value;
-            }
-
-            throw new InvalidTriggerTimeException();
-        }
-
-        private static int GetHoursForTimeType(TimeType type)
-        {
-            if (type == TimeType.Sunrise && UserSettings.Settings.SunriseHour.HasValue)
-            {
-                return UserSettings.Settings.SunriseHour.Value;
-            }
-
-            if (UserSettings.Settings.SunsetHour.HasValue)
-            {
-                return UserSettings.Settings.SunsetHour.Value;
-            }
-
-            throw new InvalidTriggerTimeException();
         }
 
         public void EffectComboBoxSelectionChanged(string selectedEffect)

@@ -2,6 +2,9 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using Winleafs.Models.Enums;
+using Winleafs.Models.Exceptions;
+using Winleafs.Models.Models;
+using Winleafs.Models.Models.Scheduling.Triggers;
 using Winleafs.Wpf.Helpers;
 
 namespace Winleafs.Wpf.Views.Scheduling
@@ -123,6 +126,69 @@ namespace Winleafs.Wpf.Views.Scheduling
                     SunsetRadioButton.IsChecked = true;
                 }
             }
+        }
+
+        public TimeComponent AsTimeComponent()
+        {
+            if (TimeType == TimeType.Sunrise || TimeType == TimeType.Sunset)
+            {
+                return new TimeComponent
+                    {
+                        TimeType = TimeType,
+                        BeforeAfter = BeforeAfter,
+                        ExtraHours = TimePicker.SelectedTime.HasValue ? TimePicker.SelectedTime.Value.Hour : 0,
+                        ExtraMinutes = TimePicker.SelectedTime.HasValue ? TimePicker.SelectedTime.Value.Minute : 0,
+                        Hours = GetHoursForTimeType(TimeType),
+                        Minutes = GetMinutesForTimeType(TimeType)
+                    };
+            }
+            else
+            {
+                return new TimeComponent
+                {
+                    TimeType = TimeType,
+                    BeforeAfter = BeforeAfter.None,
+                    ExtraHours = 0,
+                    ExtraMinutes = 0,
+                    Hours = TimePicker.SelectedTime.Value.Hour,
+                    Minutes = TimePicker.SelectedTime.Value.Minute
+                };
+            }
+        }
+
+        public bool IsTimeSelected()
+        {
+            return TimePicker.SelectedTime.HasValue;
+        }
+
+        private static int GetMinutesForTimeType(TimeType type)
+        {
+            if (type == TimeType.Sunrise && UserSettings.Settings.SunriseMinute.HasValue)
+            {
+                return UserSettings.Settings.SunriseMinute.Value;
+            }
+
+            if (UserSettings.Settings.SunsetMinute.HasValue)
+            {
+                return UserSettings.Settings.SunsetMinute.Value;
+            }
+
+            throw new InvalidTriggerTimeException();
+        }
+
+        private static int GetHoursForTimeType(TimeType type)
+        {
+            if (type == TimeType.Sunrise && UserSettings.Settings.SunriseHour.HasValue)
+            {
+                return UserSettings.Settings.SunriseHour.Value;
+            }
+
+            if (UserSettings.Settings.SunsetHour.HasValue)
+            {
+                return UserSettings.Settings.SunsetHour.Value;
+            }
+
+            throw new InvalidTriggerTimeException();
         }
     }
 }

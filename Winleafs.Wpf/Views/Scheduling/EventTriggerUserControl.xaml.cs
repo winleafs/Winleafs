@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows.Controls;
 using Winleafs.Models.Models.Scheduling.Triggers;
 
 namespace Winleafs.Wpf.Views.Scheduling
@@ -8,6 +10,12 @@ namespace Winleafs.Wpf.Views.Scheduling
     /// </summary>
     public partial class EventTriggerUserControl : UserControl
     {
+        private static Dictionary<Type, string> _triggerTypeDisplay = new Dictionary<Type, string>
+        {
+            { typeof(SpotifyEventTrigger), Scheduling.Resources.SpotifyEvent },
+            { typeof(ProcessEventTrigger), Scheduling.Resources.ProcessEvent }
+        };
+
         private EventTrigger _trigger;
         private EventUserControl _parent;
 
@@ -24,7 +32,7 @@ namespace Winleafs.Wpf.Views.Scheduling
 
             InitializeComponent();
 
-            TriggerType = ""; //TODO: replace by getting the values from the type of the trigger since we no longer have the enum EnumLocalizer.GetLocalizedEnum(trigger.GetTriggerType());
+            TriggerType = _triggerTypeDisplay[trigger.GetType()];
             Description = trigger.Description;
             EffectName = trigger.EffectName;
             Brightness = trigger.Brightness.ToString();

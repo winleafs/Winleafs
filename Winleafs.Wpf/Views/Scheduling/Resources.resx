@@ -186,6 +186,9 @@
   <data name="ExtraTime" xml:space="preserve">
     <value>Extra time</value>
   </data>
+  <data name="FillBothTimeComponents" xml:space="preserve">
+    <value>Please fill in both time components</value>
+  </data>
   <data name="Friday" xml:space="preserve">
     <value>Friday</value>
   </data>
@@ -245,6 +248,9 @@
   </data>
   <data name="StartTime" xml:space="preserve">
     <value>Start time (optional)</value>
+  </data>
+  <data name="StartTimeBeforeEndTime" xml:space="preserve">
+    <value>The start time must be before the end time</value>
   </data>
   <data name="Sunday" xml:space="preserve">
     <value>Sunday</value>

@@ -27,16 +27,14 @@ namespace Winleafs.Wpf.Views.Scheduling
             addProcessEventWindow.ShowDialog();
         }
 
-        //TODO: add check if start time is filled then end is also filled in
-        public bool ProcessEventTriggerAdded(string processName, string effectName, int brightness)
+        public bool ProcessEventTriggerAdded(string processName, string effectName, int brightness, TimeComponentUserControl startTimeComponent, TimeComponentUserControl endTimeComponent)
         {
+            //Input checks
             if (string.IsNullOrWhiteSpace(processName))
             {
                 PopupCreator.Error(Scheduling.Resources.ProcessNameCanNotBeEmpty);
                 return false;
             }
-
-            processName = processName.Trim();
 
             if (string.IsNullOrEmpty(effectName))
             {
@@ -44,6 +42,14 @@ namespace Winleafs.Wpf.Views.Scheduling
                 return false;
             }
 
+            if ((startTimeComponent.IsTimeSelected() && !endTimeComponent.IsTimeSelected()) ||
+                (!startTimeComponent.IsTimeSelected() && endTimeComponent.IsTimeSelected()))
+            {
+                PopupCreator.Error(Scheduling.Resources.FillBothTimeComponents);
+                return false;
+            }
+
+            processName = processName.Trim();
             foreach (var eventTrigger in EventTriggers)
             {
                 var processEventTrigger = eventTrigger as ProcessEventTrigger;
@@ -54,20 +60,30 @@ namespace Winleafs.Wpf.Views.Scheduling
                 }
             }
 
-            EventTriggers.Add(new ProcessEventTrigger()
+            var trigger = new ProcessEventTrigger()
             {
                 Brightness = brightness,
                 EffectName = effectName,
                 ProcessName = processName,
-                Priority = EventTriggers.Count == 0 ? 1 : EventTriggers.Max(eventTrigger => eventTrigger.Priority) + 1
-            });
+                Priority = EventTriggers.Count == 0 ? 1 : EventTriggers.Max(eventTrigger => eventTrigger.Priority) + 1,
+                StartTimeComponent = startTimeComponent.IsTimeSelected() ? startTimeComponent.AsTimeComponent() : null,
+                EndTimeComponent = endTimeComponent.IsTimeSelected() ? endTimeComponent.AsTimeComponent() : null
+            };
+
+            if (trigger.StartTimeComponent != null && trigger.StartTimeComponent.GetActualDateTime() >= trigger.EndTimeComponent.GetActualDateTime())
+            {
+                PopupCreator.Error(Scheduling.Resources.StartTimeBeforeEndTime);
+                return false;
+            }
+
+            //Add the trigger
+            EventTriggers.Add(trigger);
 
             BuildTriggerList();
 
             return true;
         }
 
-        //TODO: add check if start time is filled then end is also filled in
         private void AddSpotifyEvent_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             var winleafsServerClient = new WinleafsServerClient();
@@ -85,15 +101,14 @@ namespace Winleafs.Wpf.Views.Scheduling
             }
         }
 
-        public bool SpotifyEventTriggerAdded(string playlistId, string playlistName, string effectName, int brightness)
+        public bool SpotifyEventTriggerAdded(string playlistId, string playlistName, string effectName, int brightness, TimeComponentUserControl startTimeComponent, TimeComponentUserControl endTimeComponent)
         {
+            //Input checks
             if (string.IsNullOrWhiteSpace(playlistId) || string.IsNullOrWhiteSpace(playlistName))
             {
                 PopupCreator.Error(Scheduling.Resources.PlaylistCanNotBeEmpty);
                 return false;
             }
-
-            playlistName = playlistName.Trim();
 
             if (string.IsNullOrEmpty(effectName))
             {
@@ -101,6 +116,14 @@ namespace Winleafs.Wpf.Views.Scheduling
                 return false;
             }
 
+            if ((startTimeComponent.IsTimeSelected() && !endTimeComponent.IsTimeSelected()) ||
+                (!startTimeComponent.IsTimeSelected() && endTimeComponent.IsTimeSelected()))
+            {
+                PopupCreator.Error(Scheduling.Resources.FillBothTimeComponents);
+                return false;
+            }
+
+            playlistName = playlistName.Trim();
             foreach (var eventTrigger in EventTriggers)
             {
                 var spotifyEventTrigger = eventTrigger as SpotifyEventTrigger;
@@ -111,14 +134,25 @@ namespace Winleafs.Wpf.Views.Scheduling
                 }
             }
 
-            EventTriggers.Add(new SpotifyEventTrigger()
+            var trigger = new SpotifyEventTrigger()
             {
                 Brightness = brightness,
                 EffectName = effectName,
                 PlaylistName = playlistName,
                 PlaylistId = playlistId,
-                Priority = EventTriggers.Count == 0 ? 1 : EventTriggers.Max(eventTrigger => eventTrigger.Priority) + 1
-            });
+                Priority = EventTriggers.Count == 0 ? 1 : EventTriggers.Max(eventTrigger => eventTrigger.Priority) + 1,
+                StartTimeComponent = startTimeComponent.IsTimeSelected() ? startTimeComponent.AsTimeComponent() : null,
+                EndTimeComponent = endTimeComponent.IsTimeSelected() ? endTimeComponent.AsTimeComponent() : null
+            };
+
+            if (trigger.StartTimeComponent != null && trigger.StartTimeComponent.GetActualDateTime() >= trigger.EndTimeComponent.GetActualDateTime())
+            {
+                PopupCreator.Error(Scheduling.Resources.StartTimeBeforeEndTime);
+                return false;
+            }
+
+            //Add the trigger
+            EventTriggers.Add(trigger);
 
             BuildTriggerList();
 

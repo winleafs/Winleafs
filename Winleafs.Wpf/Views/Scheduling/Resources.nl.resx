@@ -273,4 +273,10 @@
   <data name="StartTime" xml:space="preserve">
     <value>Starttijd (optioneel)</value>
   </data>
+  <data name="FillBothTimeComponents" xml:space="preserve">
+    <value>Vul beide tijdscomponenten in</value>
+  </data>
+  <data name="StartTimeBeforeEndTime" xml:space="preserve">
+    <value>De starttijd moet voor de eindtijd liggen</value>
+  </data>
 </root>
