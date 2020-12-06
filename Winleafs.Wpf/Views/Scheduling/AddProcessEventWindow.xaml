@@ -20,10 +20,10 @@
             <Label Content="{x:Static local:Resources.Effect}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,96,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
             <effects:EffectComboBox x:Name="EffectComboBox" HorizontalAlignment="Left" Margin="93,86,0,0" VerticalAlignment="Top" Width="273" Height="45"/>
             <Label Content="{x:Static local:Resources.Brightness}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,141,0,0" VerticalAlignment="Top" Foreground="White"/>
-            <Label x:Name="BrightnessLabel" Content="0" HorizontalAlignment="Left" Margin="405,143,0,0" VerticalAlignment="Top" Foreground="White"/>
-            <Slider Margin="96,147,255,0" VerticalAlignment="Top" Minimum="0" Maximum="100" Value="{Binding Brightness}" IsSnapToTickEnabled="True" TickFrequency="5"/>
+            <Label x:Name="BrightnessLabel" Content="0" HorizontalAlignment="Left" Margin="375,143,0,0" VerticalAlignment="Top" Foreground="White"/>
+            <Slider Margin="96,147,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Minimum="0" Maximum="100" Value="{Binding Brightness}" IsSnapToTickEnabled="True" TickFrequency="5" Width="270"/>
             <TextBlock HorizontalAlignment="Left" Margin="150,22,0,0" TextWrapping="Wrap" Text="{x:Static local:Resources.ProcessNameHelp}" VerticalAlignment="Top" Foreground="White" Width="270"/>
-            <TextBox Height="23" Margin="10,51,217,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="{Binding ProcessName}" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White"/>
+            <TextBox Height="23" Margin="10,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Text="{Binding ProcessName}" Background="{x:Null}" BorderThickness="0 0 0 1" Foreground="White" CaretBrush="White" Width="357"/>
         </Grid>
 
         <local:StartEndTimeUserControl x:Name="StartEndTime" Grid.Row="1"/>

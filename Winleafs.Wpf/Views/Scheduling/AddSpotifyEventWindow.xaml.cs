@@ -48,7 +48,7 @@ namespace Winleafs.Wpf.Views.Scheduling
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            if (_parent.SpotifyEventTriggerAdded(SelectedPlaylist.PlaylistId, SelectedPlaylist.PlaylistName, EffectComboBox.SelectedEffect?.EffectName, _brightness, null, null))
+            if (_parent.SpotifyEventTriggerAdded(SelectedPlaylist.PlaylistId, SelectedPlaylist.PlaylistName, EffectComboBox.SelectedEffect?.EffectName, _brightness, StartEndTime.StartTimeComponent, StartEndTime.EndTimeComponent))
             {
                 Close();
             }        

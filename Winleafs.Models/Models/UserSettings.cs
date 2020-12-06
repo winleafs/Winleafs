@@ -270,21 +270,17 @@ namespace Winleafs.Models.Models
                 {
                     foreach (var trigger in program.Triggers)
                     {
-                        switch (trigger.TimeComponent.TimeType)
-                        {
-                            case TimeType.Sunrise:
-                                trigger.TimeComponent.Hours = sunriseHour;
-                                trigger.TimeComponent.Minutes = sunriseMinute;
-                                break;
-                            case TimeType.Sunset:
-                                trigger.TimeComponent.Hours = sunsetHour;
-                                trigger.TimeComponent.Minutes = sunsetMinute;
-                                break;
-                        }
+                        trigger.TimeComponent.UpdateSunTimes(sunriseHour, sunriseMinute, sunsetHour, sunsetMinute);
                     }
                     // Puts all triggers of all programs in correct order,
                     // this is needed since the times of triggers can change due to sunrise and sunset times
                     program.ReorderTriggers();
+                }
+
+                foreach (var trigger in schedule.EventTriggers)
+                {
+                    trigger.StartTimeComponent?.UpdateSunTimes(sunriseHour, sunriseMinute, sunsetHour, sunsetMinute);
+                    trigger.EndTimeComponent?.UpdateSunTimes(sunriseHour, sunriseMinute, sunsetHour, sunsetMinute);
                 }
             }
 

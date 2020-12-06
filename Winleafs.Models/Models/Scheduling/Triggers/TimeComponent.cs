@@ -40,5 +40,20 @@ namespace Winleafs.Models.Models.Scheduling.Triggers
 
             return date;
         }
+
+        public void UpdateSunTimes(int sunriseHour, int sunriseMinute, int sunsetHour, int sunsetMinute)
+        {
+            switch (TimeType)
+            {
+                case TimeType.Sunrise:
+                    Hours = sunriseHour;
+                    Minutes = sunriseMinute;
+                    break;
+                case TimeType.Sunset:
+                    Hours = sunsetHour;
+                    Minutes = sunsetMinute;
+                    break;
+            }
+        }
     }
 }
