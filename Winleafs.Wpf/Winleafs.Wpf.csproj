@@ -158,7 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Update="NLog.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="NLog.xsd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
