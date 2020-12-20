@@ -33,10 +33,10 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
             switch (_deviceType)
             {
                 case DeviceType.Aurora:
-                    LoadPanelsForTriangles(screenBounds, panels);
+                    LoadPanelsForTriangles(panels);
                     break;
                 case DeviceType.Canvas:
-                    LoadPanelsForSquares(screenBounds, panels);
+                    LoadPanelsForSquares(panels);
                     break;
                 default:
                     throw new NotImplementedException($"Screen mirror constructor for device of type {orchestrator.PanelLayout.DeviceType} not implemented");
@@ -54,7 +54,7 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
 
             var panelsToUpdate = _panels.Take(numberOfPanelsPerIteration * 2).ToList(); //Take 2 times the number of panels, in case any color differences are not large enough
 
-            var colors = ScreenGrabber.CalculateAverageColor(panelsToUpdate.Select(panel => panel.ScreenshotArea), 0);
+            var colors = ScreenGrabber.CalculateAverageColor(panelsToUpdate.Select(panel => panel.BitmapArea), 0);
 
             if (colors == null)
             {
@@ -84,7 +84,7 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
             }
         }
 
-        private void LoadPanelsForTriangles(Rectangle screenBounds, List<DrawablePanel> panels)
+        private void LoadPanelsForTriangles(List<DrawablePanel> panels)
         {
             //Set the square size to 1/3th of the length of a side of the triangle
             var triangle = panels.FirstOrDefault().Polygon;
@@ -96,20 +96,19 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
                 var startX = (int)Math.Floor(panel.MidPoint.X - (squareSize / 2));
                 var startY = (int)Math.Floor(panel.MidPoint.Y - (squareSize / 2));
 
-                // In multi monitor setup, all screens are joined in one larger pixel area. For example, if you want to take a screenshot of the second from left monitor,
-                // you need to start at the right of the first left monitor. Hence, we need to add _screenBounds X and Y here to the location of the square we want to capture
-                var bounds = new Rectangle(screenBounds.X + startX, screenBounds.Y + startY, squareSize, squareSize);
+                //Use the absolute coordinates (starting at 0,0) instead of relative coordinates (starting at screenbounds.X, screenbounds.Y), since bitmaps start at 0,0 even if we capture a secondary monitor
+                var bitmapArea = new Rectangle(startX, startY, squareSize, squareSize);
 
                 _panels.Add(new ScreenMirrorPanel
                 {
                     PanelId = panel.PanelId,
-                    ScreenshotArea = bounds,
+                    BitmapArea = bitmapArea,
                     CurrentColor = Color.Black
                 });
             }
         }
 
-        private void LoadPanelsForSquares(Rectangle screenBounds, List<DrawablePanel> panels)
+        private void LoadPanelsForSquares(List<DrawablePanel> panels)
         {
             //Set the square size to half of the length of a side of the square,
             //We do this since the squares can be placed in a diamond shape, then the largest square that can be drawn in such a diamond shape
@@ -119,18 +118,17 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
 
             foreach (var panel in panels)
             {
-                //For each panel, draw a square around its midpoint, according to the set square size
+                //For each panel, draw a square around its midpoint, according to the set rectangle size
                 var startX = (int)Math.Floor(panel.MidPoint.X - (rectangleSize / 2));
                 var startY = (int)Math.Floor(panel.MidPoint.Y - (rectangleSize / 2));
 
-                // In multi monitor setup, all screens are joined in one larger pixel area. For example, if you want to take a screenshot of the second from left monitor,
-                // you need to start at the right of the first left monitor. Hence, we need to add _screenBounds X and Y here to the location of the square we want to capture
-                var bounds = new Rectangle(screenBounds.X + startX, screenBounds.Y + startY, rectangleSize, rectangleSize);
+                //Use the absolute coordinates (starting at 0,0) instead of relative coordinates (starting at screenbounds.X, screenbounds.Y), since bitmaps start at 0,0 even if we capture a secondary monitor
+                var bitmapArea = new Rectangle(startX, startY, rectangleSize, rectangleSize);
 
                 _panels.Add(new ScreenMirrorPanel
                 {
                     PanelId = panel.PanelId,
-                    ScreenshotArea = bounds,
+                    BitmapArea = bitmapArea,
                     CurrentColor = Color.Black
                 });
             }

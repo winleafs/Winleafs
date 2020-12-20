@@ -8,6 +8,6 @@ namespace Winleafs.Models.Models.Layouts
 
         public Color CurrentColor { get; set; }
 
-        public Rectangle ScreenshotArea { get; set; }
+        public Rectangle BitmapArea { get; set; }
     }
 }

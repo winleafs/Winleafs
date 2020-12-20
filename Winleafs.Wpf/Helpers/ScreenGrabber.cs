@@ -90,7 +90,7 @@ namespace Winleafs.Wpf.Helpers
 
                 unsafe
                 {
-                    byte* p = (byte*)(void*)Scan0;
+                    byte* pixels = (byte*)(void*)Scan0;
 
                     foreach (var area in areasToCapture)
                     {
@@ -106,9 +106,9 @@ namespace Winleafs.Wpf.Helpers
                             for (int x = area.X; x < area.X + area.Width; x++)
                             {
                                 index = (y * stride) + x * bppModifier; //Find the location of the byte of the current pixel that is being analyzed
-                                blue = p[index];
-                                green = p[index + 1];
-                                red = p[index + 2];
+                                blue = pixels[index];
+                                green = pixels[index + 1];
+                                red = pixels[index + 2];
 
                                 if (Math.Abs(red - green) > minDiversion || Math.Abs(red - blue) > minDiversion || Math.Abs(green - blue) > minDiversion)
                                 {
