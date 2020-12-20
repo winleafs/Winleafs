@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
 using System.Timers;
 using Winleafs.Models.Models;
 
@@ -13,8 +14,8 @@ namespace Winleafs.Wpf.Helpers
         private static readonly Rectangle _screenBounds;
 
         private static Bitmap _bitmap;
-        private static BitmapData _bitmapData;
-        private static int _garbageCollectionCounter;
+        private static int _bitmapStride;
+        private static byte[] _pixels;
         private static object _lockObject;
 
         static ScreenGrabber()
@@ -39,16 +40,6 @@ namespace Winleafs.Wpf.Helpers
         {
             lock (_lockObject)
             {
-                _garbageCollectionCounter++;
-
-                if (_garbageCollectionCounter >= 10)
-                {
-                    //Force a garbage collection every 10 iterations since C# does not do a good job with disposing bitmaps
-                    GC.Collect();
-
-                    _garbageCollectionCounter = 0;
-                }
-
                 //Create a new bitmap.
                 _bitmap = new Bitmap(_screenBounds.Width,
                                                _screenBounds.Height,
@@ -63,7 +54,15 @@ namespace Winleafs.Wpf.Helpers
                                             new Size(_screenBounds.Width, _screenBounds.Height),
                                             CopyPixelOperation.SourceCopy);
 
-                _bitmapData = _bitmap.LockBits(new Rectangle(0, 0, _screenBounds.Width, _screenBounds.Height), ImageLockMode.ReadOnly, _bitmap.PixelFormat);
+                //Copy the bit map to a memory safe byte array
+                var bitmapData = _bitmap.LockBits(new Rectangle(0, 0, _screenBounds.Width, _screenBounds.Height), ImageLockMode.ReadOnly, _bitmap.PixelFormat);
+
+                _bitmapStride = bitmapData.Stride;
+                _pixels = new byte[Math.Abs(bitmapData.Stride * bitmapData.Height)];
+                Marshal.Copy(bitmapData.Scan0, _pixels, 0, _pixels.Length);
+
+                //Free memory
+                _bitmap.UnlockBits(bitmapData);
             }            
         }
 
@@ -84,50 +83,41 @@ namespace Winleafs.Wpf.Helpers
             lock (_lockObject)
             {
                 int bppModifier = _bitmap.PixelFormat == PixelFormat.Format24bppRgb ? 3 : 4;
-
-                int stride = _bitmapData.Stride;
-                IntPtr Scan0 = _bitmapData.Scan0;
-
-                unsafe
+                foreach (var area in areasToCapture)
                 {
-                    byte* pixels = (byte*)(void*)Scan0;
+                    int red = 0;
+                    int green = 0;
+                    int blue = 0;
+                    int index = 0;
+                    int dropped = 0; // keep track of dropped pixels
+                    long totalRed = 0, totalGreen = 0, totalBlue = 0;
 
-                    foreach (var area in areasToCapture)
+                    for (int y = area.Y; y < area.Y + area.Height; y++)
                     {
-                        int red = 0;
-                        int green = 0;
-                        int blue = 0;
-                        int index = 0;
-                        int dropped = 0; // keep track of dropped pixels
-                        long totalRed = 0, totalGreen = 0, totalBlue = 0;
-
-                        for (int y = area.Y; y < area.Y + area.Height; y++)
+                        for (int x = area.X; x < area.X + area.Width; x++)
                         {
-                            for (int x = area.X; x < area.X + area.Width; x++)
-                            {
-                                index = (y * stride) + x * bppModifier; //Find the location of the byte of the current pixel that is being analyzed
-                                blue = pixels[index];
-                                green = pixels[index + 1];
-                                red = pixels[index + 2];
+                            index = (y * _bitmapStride) + x * bppModifier; //Find the location of the byte of the current pixel that is being analyzed
+                            blue = _pixels[index];
+                            green = _pixels[index + 1];
+                            red = _pixels[index + 2];
 
-                                if (Math.Abs(red - green) > minDiversion || Math.Abs(red - blue) > minDiversion || Math.Abs(green - blue) > minDiversion)
-                                {
-                                    totalRed += red;
-                                    totalGreen += green;
-                                    totalBlue += blue;
-                                }
-                                else
-                                {
-                                    dropped++;
-                                }
+                            if (Math.Abs(red - green) > minDiversion || Math.Abs(red - blue) > minDiversion || Math.Abs(green - blue) > minDiversion)
+                            {
+                                totalRed += red;
+                                totalGreen += green;
+                                totalBlue += blue;
+                            }
+                            else
+                            {
+                                dropped++;
                             }
                         }
-
-                        int count = area.Width * area.Height - dropped;
-                        count++; //We increase count by 1 to make sure it is not 0. The difference in color when increasing count by 1 is neglectable
-
-                        colors.Add(Color.FromArgb((int)(totalRed / count), (int)(totalGreen / count), (int)(totalBlue / count)));
                     }
+
+                    int count = area.Width * area.Height - dropped;
+                    count++; //We increase count by 1 to make sure it is not 0. The difference in color when increasing count by 1 is neglectable
+
+                    colors.Add(Color.FromArgb((int)(totalRed / count), (int)(totalGreen / count), (int)(totalBlue / count)));
                 }
             }            
 
@@ -136,8 +126,6 @@ namespace Winleafs.Wpf.Helpers
 
         public static void Start()
         {
-            _garbageCollectionCounter = 0;
-
             _timer.Start();
         }
 
