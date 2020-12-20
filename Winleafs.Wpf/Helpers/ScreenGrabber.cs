@@ -13,7 +13,7 @@ namespace Winleafs.Wpf.Helpers
         private static readonly Timer _timer;
         private static readonly Rectangle _screenBounds;
 
-        private static Bitmap _bitmap;
+        private static int _bitsPerPixel;
         private static int _bitmapStride;
         private static byte[] _pixels;
         private static object _lockObject;
@@ -41,12 +41,12 @@ namespace Winleafs.Wpf.Helpers
             lock (_lockObject)
             {
                 //Create a new bitmap.
-                _bitmap = new Bitmap(_screenBounds.Width,
+                var bitmap = new Bitmap(_screenBounds.Width,
                                                _screenBounds.Height,
                                                PixelFormat.Format32bppArgb);
 
                 // Create a graphics object from the bitmap.
-                var gfxScreenshot = Graphics.FromImage(_bitmap);
+                var gfxScreenshot = Graphics.FromImage(bitmap);
 
                 // Take the screenshot from the upper left corner to the right bottom corner.
                 gfxScreenshot.CopyFromScreen(_screenBounds.X, _screenBounds.Y,
@@ -54,15 +54,16 @@ namespace Winleafs.Wpf.Helpers
                                             new Size(_screenBounds.Width, _screenBounds.Height),
                                             CopyPixelOperation.SourceCopy);
 
-                //Copy the bit map to a memory safe byte array
-                var bitmapData = _bitmap.LockBits(new Rectangle(0, 0, _screenBounds.Width, _screenBounds.Height), ImageLockMode.ReadOnly, _bitmap.PixelFormat);
+                //Copy the bit map to a memory safe byte array and set all needed variables
+                var bitmapData = bitmap.LockBits(new Rectangle(0, 0, _screenBounds.Width, _screenBounds.Height), ImageLockMode.ReadOnly, bitmap.PixelFormat);
 
                 _bitmapStride = bitmapData.Stride;
+                _bitsPerPixel = bitmap.PixelFormat == PixelFormat.Format24bppRgb ? 3 : 4;
                 _pixels = new byte[Math.Abs(bitmapData.Stride * bitmapData.Height)];
                 Marshal.Copy(bitmapData.Scan0, _pixels, 0, _pixels.Length);
 
                 //Free memory
-                _bitmap.UnlockBits(bitmapData);
+                bitmap.UnlockBits(bitmapData);
             }            
         }
 
@@ -72,7 +73,7 @@ namespace Winleafs.Wpf.Helpers
         /// </summary>
         public static List<Color> CalculateAverageColor(IEnumerable<Rectangle> areasToCapture, int minDiversion = 50)
         {
-            if (_bitmap == null)
+            if (_pixels == null)
             {
                 //This can happen when before the first screen shot is taken when the effect is enabled
                 return null;
@@ -82,7 +83,6 @@ namespace Winleafs.Wpf.Helpers
 
             lock (_lockObject)
             {
-                int bppModifier = _bitmap.PixelFormat == PixelFormat.Format24bppRgb ? 3 : 4;
                 foreach (var area in areasToCapture)
                 {
                     int red = 0;
@@ -96,7 +96,7 @@ namespace Winleafs.Wpf.Helpers
                     {
                         for (int x = area.X; x < area.X + area.Width; x++)
                         {
-                            index = (y * _bitmapStride) + x * bppModifier; //Find the location of the byte of the current pixel that is being analyzed
+                            index = (y * _bitmapStride) + x * _bitsPerPixel; //Find the location of the byte of the current pixel that is being analyzed
                             blue = _pixels[index];
                             green = _pixels[index + 1];
                             red = _pixels[index + 2];
