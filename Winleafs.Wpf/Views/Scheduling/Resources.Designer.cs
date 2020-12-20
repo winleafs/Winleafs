@@ -241,6 +241,15 @@ namespace Winleafs.Wpf.Views.Scheduling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to End time (optional).
+        /// </summary>
+        public static string EndTime {
+            get {
+                return ResourceManager.GetString("EndTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Events.
         /// </summary>
         public static string Events {
@@ -259,6 +268,15 @@ namespace Winleafs.Wpf.Views.Scheduling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please fill in both time components.
+        /// </summary>
+        public static string FillBothTimeComponents {
+            get {
+                return ResourceManager.GetString("FillBothTimeComponents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Friday.
         /// </summary>
         public static string Friday {
@@ -268,20 +286,11 @@ namespace Winleafs.Wpf.Views.Scheduling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please enter a valid value for hours, between 0 and 23.
+        ///   Looks up a localized string similar to Please enter a valid value for time.
         /// </summary>
-        public static string InvalidHoursValue {
+        public static string InvalidTimeValue {
             get {
-                return ResourceManager.GetString("InvalidHoursValue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please enter a valid value for minutes, between 0 and 59.
-        /// </summary>
-        public static string InvalidMinutesValue {
-            get {
-                return ResourceManager.GetString("InvalidMinutesValue", resourceCulture);
+                return ResourceManager.GetString("InvalidTimeValue", resourceCulture);
             }
         }
         
@@ -435,6 +444,24 @@ namespace Winleafs.Wpf.Views.Scheduling {
         public static string SpotifyEvent {
             get {
                 return ResourceManager.GetString("SpotifyEvent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start time (optional).
+        /// </summary>
+        public static string StartTime {
+            get {
+                return ResourceManager.GetString("StartTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The start time must be before the end time.
+        /// </summary>
+        public static string StartTimeBeforeEndTime {
+            get {
+                return ResourceManager.GetString("StartTimeBeforeEndTime", resourceCulture);
             }
         }
         

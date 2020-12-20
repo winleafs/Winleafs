@@ -24,7 +24,7 @@ namespace Winleafs.Models.Models
         public static readonly string EffectNamePreface = "Winleafs - ";
 
         private static readonly string _settingsFileName = Path.Combine(SettingsFolder, "Settings.txt");
-        private static readonly string _latestSettingsVersion = "13";
+        private static readonly string _latestSettingsVersion = "14";
 
         private static UserSettings _settings { get; set; }
 
@@ -270,21 +270,17 @@ namespace Winleafs.Models.Models
                 {
                     foreach (var trigger in program.Triggers)
                     {
-                        switch (trigger.EventTriggerType)
-                        {
-                            case TriggerType.Sunrise:
-                                trigger.Hours = sunriseHour;
-                                trigger.Minutes = sunriseMinute;
-                                break;
-                            case TriggerType.Sunset:
-                                trigger.Hours = sunsetHour;
-                                trigger.Minutes = sunsetMinute;
-                                break;
-                        }
+                        trigger.TimeComponent.UpdateSunTimes(sunriseHour, sunriseMinute, sunsetHour, sunsetMinute);
                     }
                     // Puts all triggers of all programs in correct order,
                     // this is needed since the times of triggers can change due to sunrise and sunset times
                     program.ReorderTriggers();
+                }
+
+                foreach (var trigger in schedule.EventTriggers)
+                {
+                    trigger.StartTimeComponent?.UpdateSunTimes(sunriseHour, sunriseMinute, sunsetHour, sunsetMinute);
+                    trigger.EndTimeComponent?.UpdateSunTimes(sunriseHour, sunriseMinute, sunsetHour, sunsetMinute);
                 }
             }
 
@@ -332,7 +328,7 @@ namespace Winleafs.Models.Models
             }
         }
 
-        public TimeTrigger GetActiveTimeTriggerForDevice(string deviceName)
+        public ScheduleTrigger GetActiveTimeTriggerForDevice(string deviceName)
         {
             if (Schedules?.Any(s => s.Active && s.AppliesToDeviceNames.Contains(deviceName)) == true)
             {
@@ -469,7 +465,7 @@ namespace Winleafs.Models.Models
 
                 foreach (var eventTrigger in schedule[nameof(Schedule.EventTriggers)])
                 {
-                    eventTrigger[nameof(TriggerBase.Priority)] = triggerCounter;
+                    eventTrigger[nameof(EventTrigger.Priority)] = triggerCounter;
                     triggerCounter++;
                 }
             }
@@ -483,6 +479,36 @@ namespace Winleafs.Models.Models
             foreach (var device in jToken["Devices"])
             {
                 device[nameof(Device.ScreenMirrorFlip)] = (int)ScreenMirrorFlip.None;
+            }
+
+            return jToken;
+        }
+
+        [Migration("13", "14")]
+        private static JToken Migration_13_14(JToken jToken)
+        {
+            foreach (var schedule in jToken[nameof(Schedules)])
+            {
+                foreach (var program in schedule[nameof(Schedule.Programs)])
+                {
+                    //Update each time trigger to the new time component format
+                    foreach (var trigger in program[nameof(Program.Triggers)])
+                    {
+                        var eventTriggerType = trigger["EventTriggerType"].ToObject<int>();
+
+                        var timeComponent = new TimeComponent
+                        {
+                            Hours = trigger["Hours"].ToObject<int>(),
+                            Minutes = trigger["Minutes"].ToObject<int>(),
+                            ExtraHours = trigger["ExtraHours"].ToObject<int>(),
+                            ExtraMinutes = trigger["ExtraMinutes"].ToObject<int>(),
+                            BeforeAfter = (BeforeAfter)trigger["BeforeAfter"].ToObject<int>(),
+                            TimeType = eventTriggerType == 0 ? TimeType.FixedTime : (eventTriggerType == 1 ? TimeType.Sunrise : TimeType.Sunset) //Convert the old eventTriggerType to the new time type
+                        };
+
+                        trigger[nameof(ScheduleTrigger.TimeComponent)] = JToken.FromObject(timeComponent);
+                    }
+                }
             }
 
             return jToken;

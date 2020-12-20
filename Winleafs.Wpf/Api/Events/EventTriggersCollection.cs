@@ -1,4 +1,5 @@
 ﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,6 +16,8 @@ namespace Winleafs.Wpf.Api.Events
         public EventTriggerBase ActiveTrigger { get; private set; }
 
         private static Logger _logger = LogManager.GetCurrentClassLogger();
+        private static Type _spotifyTriggerType = typeof(Models.Models.Scheduling.Triggers.SpotifyEventTrigger);
+        private static Type _processTriggerType = typeof(Models.Models.Scheduling.Triggers.ProcessEventTrigger);
 
         private List<EventTriggerBase> _eventTriggers;
 
@@ -33,24 +36,22 @@ namespace Winleafs.Wpf.Api.Events
             {
                 foreach (var eventTrigger in UserSettings.Settings.ActiveSchedule.EventTriggers)
                 {
-                    switch (eventTrigger.GetTriggerType())
-                    {
-                        case TriggerType.ProcessEvent:
-                            var processEventTrigger = (Models.Models.Scheduling.Triggers.ProcessEventTrigger)eventTrigger;
-                            _eventTriggers.Add(new ProcessEventTrigger(this, processEventTrigger));
-                            break;
+                    var eventTriggerType = eventTrigger.GetType();
 
-                        case TriggerType.SpotifyEvent:
-                            var spotifyEventTrigger = (Models.Models.Scheduling.Triggers.SpotifyEventTrigger)eventTrigger;
-                            _eventTriggers.Add(new SpotifyEventTrigger(this, spotifyEventTrigger));
-                            break;
-                        
-                        //Currently not in use
-                        /*case TriggerType.Borderlands2HealthEvent:
-                            //This will never be reached currently, since users cannot add this type of event yet
-                            EventTriggers.Add(new Borderlands2HealthEventTrigger(eventTrigger, orchestrator));
-                            break;*/
+                    if (eventTriggerType == _processTriggerType)
+                    {
+                        _eventTriggers.Add(new ProcessEventTrigger(this, (Models.Models.Scheduling.Triggers.ProcessEventTrigger)eventTrigger));
                     }
+                    else if (eventTriggerType == _spotifyTriggerType)
+                    {
+                        _eventTriggers.Add(new SpotifyEventTrigger(this, (Models.Models.Scheduling.Triggers.SpotifyEventTrigger)eventTrigger));
+                    }
+
+                    //Currently not in use
+                    /*case TriggerType.Borderlands2HealthEvent:
+                        //This will never be reached currently, since users cannot add this type of event yet
+                        EventTriggers.Add(new Borderlands2HealthEventTrigger(eventTrigger, orchestrator));
+                        break;*/
                 }
             }
         }

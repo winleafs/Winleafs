@@ -177,20 +177,23 @@
   <data name="Effect" xml:space="preserve">
     <value>Effect</value>
   </data>
+  <data name="EndTime" xml:space="preserve">
+    <value>End time (optional)</value>
+  </data>
   <data name="Events" xml:space="preserve">
     <value>Events</value>
   </data>
   <data name="ExtraTime" xml:space="preserve">
     <value>Extra time</value>
   </data>
+  <data name="FillBothTimeComponents" xml:space="preserve">
+    <value>Please fill in both time components</value>
+  </data>
   <data name="Friday" xml:space="preserve">
     <value>Friday</value>
   </data>
-  <data name="InvalidHoursValue" xml:space="preserve">
-    <value>Please enter a valid value for hours, between 0 and 23</value>
-  </data>
-  <data name="InvalidMinutesValue" xml:space="preserve">
-    <value>Please enter a valid value for minutes, between 0 and 59</value>
+  <data name="InvalidTimeValue" xml:space="preserve">
+    <value>Please enter a valid value for time</value>
   </data>
   <data name="LocationMissing" xml:space="preserve">
     <value>Please fill in your location before creating a time based trigger</value>
@@ -242,6 +245,12 @@
   </data>
   <data name="SpotifyEvent" xml:space="preserve">
     <value>Spotify event</value>
+  </data>
+  <data name="StartTime" xml:space="preserve">
+    <value>Start time (optional)</value>
+  </data>
+  <data name="StartTimeBeforeEndTime" xml:space="preserve">
+    <value>The start time must be before the end time</value>
   </data>
   <data name="Sunday" xml:space="preserve">
     <value>Sunday</value>

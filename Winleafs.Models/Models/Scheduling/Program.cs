@@ -1,21 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Winleafs.Models.Enums;
 using Winleafs.Models.Models.Scheduling.Triggers;
 
 namespace Winleafs.Models.Models.Scheduling
 {
     public class Program
     {
-        public List<TimeTrigger> Triggers { get; set; }
+        public List<ScheduleTrigger> Triggers { get; set; }
 
         public Program()
         {
-            Triggers = new List<TimeTrigger>();
+            Triggers = new List<ScheduleTrigger>();
         }
 
-        public void AddTrigger(TimeTrigger trigger)
+        public void AddTrigger(ScheduleTrigger trigger)
         {
             Triggers.Add(trigger);
             ReorderTriggers();
@@ -27,37 +26,17 @@ namespace Winleafs.Models.Models.Scheduling
         public void ReorderTriggers()
         {
             var now = DateTime.Now;
-            Triggers = Triggers.OrderBy(t => t.GetActualDateTime(now)).ToList();
+            Triggers = Triggers.OrderBy(t => t.TimeComponent.GetActualDateTime(now)).ToList();
         }
 
         /// <summary>
         /// Checks whether a trigger overlaps any existing triggers timewise. Using nested ifs for readability
         /// </summary>
-        public bool TriggerOverlaps(TimeTrigger otherTrigger)
+        public bool TriggerOverlaps(ScheduleTrigger otherTrigger)
         {
             foreach (var trigger in Triggers)
             {
-                if (trigger.EventTriggerType == TriggerType.Sunrise
-                    && otherTrigger.EventTriggerType == TriggerType.Sunrise
-                    && trigger.BeforeAfter == otherTrigger.BeforeAfter
-                    && trigger.ExtraHours == otherTrigger.ExtraHours
-                    && trigger.ExtraMinutes == otherTrigger.ExtraMinutes)
-                {
-                    return true;
-                }
-
-                if (trigger.EventTriggerType == TriggerType.Sunset && otherTrigger.EventTriggerType == TriggerType.Sunset
-                    && trigger.BeforeAfter == otherTrigger.BeforeAfter
-                    && trigger.ExtraHours == otherTrigger.ExtraHours
-                    && trigger.ExtraMinutes == otherTrigger.ExtraMinutes)
-                {
-                    return true;
-                }
-
-                if (trigger.EventTriggerType == TriggerType.Time
-                         && otherTrigger.EventTriggerType == TriggerType.Time
-                        && trigger.Hours == otherTrigger.Hours
-                         && trigger.Minutes == otherTrigger.Minutes)
+                if (trigger.TimeComponent.Overlaps(otherTrigger.TimeComponent))
                 {
                     return true;
                 }

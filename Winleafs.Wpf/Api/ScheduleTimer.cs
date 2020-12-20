@@ -1,12 +1,9 @@
-﻿using System;
+﻿using NLog;
 using System.Threading.Tasks;
 using System.Timers;
-
-using NLog;
 using Winleafs.Api;
 using Winleafs.Models.Enums;
 using Winleafs.Models.Models;
-using Winleafs.Wpf.Api.Effects;
 
 namespace Winleafs.Wpf.Api
 {

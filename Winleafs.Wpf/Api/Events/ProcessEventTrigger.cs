@@ -1,5 +1,4 @@
-﻿using NLog;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Timers;
 using Winleafs.Models.Models;
@@ -16,7 +15,7 @@ namespace Winleafs.Wpf.Api.Events
         private readonly Timer _processCheckTimer;
 
         public ProcessEventTrigger(EventTriggersCollection eventTriggersCollection, Models.Models.Scheduling.Triggers.ProcessEventTrigger processEventTrigger)
-            : base(processEventTrigger.Brightness, processEventTrigger.EffectName, processEventTrigger.Priority)
+            : base(processEventTrigger)
         {
             _eventTriggersCollection = eventTriggersCollection;
             _processName = processEventTrigger.ProcessName;
@@ -43,7 +42,7 @@ namespace Winleafs.Wpf.Api.Events
         /// </summary>
         private async Task CheckProcessAsync()
         {
-            if (Process.GetProcessesByName(_processName).Length > 0)
+            if (TimeIsActive() && Process.GetProcessesByName(_processName).Length > 0)
             {
                 await _eventTriggersCollection.ActivateTrigger(Priority);
             }

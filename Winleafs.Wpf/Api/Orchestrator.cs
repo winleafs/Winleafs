@@ -172,7 +172,7 @@ namespace Winleafs.Wpf.Api
                     return EventTriggersCollection.ActiveTrigger?.EffectName;
 
                 case OperationMode.Schedule:
-                    return UserSettings.Settings.GetActiveTimeTriggerForDevice(Device.Name)?.GetEffectName();
+                    return UserSettings.Settings.GetActiveTimeTriggerForDevice(Device.Name)?.EffectName;
 
                 default:
                     return null;

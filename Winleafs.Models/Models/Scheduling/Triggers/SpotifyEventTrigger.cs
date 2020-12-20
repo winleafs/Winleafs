@@ -3,7 +3,7 @@
     /// <summary>
     /// Model class for a Spotify event trigger
     /// </summary>
-    public class SpotifyEventTrigger : TriggerBase
+    public class SpotifyEventTrigger : EventTrigger
     {
         public string PlaylistId { get; set; }
 
@@ -15,9 +15,6 @@
         /// </summary>
         public string PlaylistName { get; set; }
 
-        public override string GetDescription()
-        {
-            return PlaylistName;
-        }
+        public override string Description => PlaylistName;
     }
 }

@@ -1,7 +1,7 @@
-﻿using System.Windows.Controls;
-using Winleafs.Models.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows.Controls;
 using Winleafs.Models.Models.Scheduling.Triggers;
-using Winleafs.Wpf.Helpers;
 
 namespace Winleafs.Wpf.Views.Scheduling
 {
@@ -10,7 +10,13 @@ namespace Winleafs.Wpf.Views.Scheduling
     /// </summary>
     public partial class EventTriggerUserControl : UserControl
     {
-        private TriggerBase _trigger;
+        private static Dictionary<Type, string> _triggerTypeDisplay = new Dictionary<Type, string>
+        {
+            { typeof(SpotifyEventTrigger), Scheduling.Resources.SpotifyEvent },
+            { typeof(ProcessEventTrigger), Scheduling.Resources.ProcessEvent }
+        };
+
+        private EventTrigger _trigger;
         private EventUserControl _parent;
 
         public string TriggerType { get; set; }
@@ -19,17 +25,17 @@ namespace Winleafs.Wpf.Views.Scheduling
         public string Brightness { get; set; }
         public int Priority { get; set; }
 
-        public EventTriggerUserControl(EventUserControl parent, TriggerBase trigger, bool highestPriority, bool lowestPriority)
+        public EventTriggerUserControl(EventUserControl parent, EventTrigger trigger, bool highestPriority, bool lowestPriority)
         {
             _trigger = trigger;
             _parent = parent;
 
             InitializeComponent();
 
-            TriggerType = EnumLocalizer.GetLocalizedEnum(trigger.GetTriggerType());
-            Description = trigger.GetDescription();
-            EffectName = trigger.GetEffectName();
-            Brightness = trigger.GetBrightness().ToString();
+            TriggerType = _triggerTypeDisplay[trigger.GetType()];
+            Description = trigger.Description;
+            EffectName = trigger.EffectName;
+            Brightness = trigger.Brightness.ToString();
             Priority = trigger.Priority;
 
             if (highestPriority)

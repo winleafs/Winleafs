@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
-using Winleafs.Models.Enums;
 using Winleafs.Models.Models.Scheduling.Triggers;
 using Winleafs.Server;
-using Winleafs.Wpf.Helpers;
 using Winleafs.Wpf.Views.Popup;
 
 namespace Winleafs.Wpf.Views.Scheduling
@@ -14,7 +12,7 @@ namespace Winleafs.Wpf.Views.Scheduling
     /// </summary>
     public partial class EventUserControl : UserControl
     {
-        public List<TriggerBase> EventTriggers { get; set; }
+        public List<EventTrigger> EventTriggers { get; set; }
 
         public EventUserControl()
         {
@@ -27,15 +25,14 @@ namespace Winleafs.Wpf.Views.Scheduling
             addProcessEventWindow.ShowDialog();
         }
 
-        public bool ProcessEventTriggerAdded(string processName, string effectName, int brightness)
+        public bool ProcessEventTriggerAdded(string processName, string effectName, int brightness, TimeComponentUserControl startTimeComponent, TimeComponentUserControl endTimeComponent)
         {
+            //Input checks
             if (string.IsNullOrWhiteSpace(processName))
             {
                 PopupCreator.Error(Scheduling.Resources.ProcessNameCanNotBeEmpty);
                 return false;
             }
-
-            processName = processName.Trim();
 
             if (string.IsNullOrEmpty(effectName))
             {
@@ -43,6 +40,13 @@ namespace Winleafs.Wpf.Views.Scheduling
                 return false;
             }
 
+            if (!ValidateTimeComponents(startTimeComponent, endTimeComponent))
+            {
+                //ValidateTimeComponents creates its own pop ups
+                return false;
+            }
+
+            processName = processName.Trim();
             foreach (var eventTrigger in EventTriggers)
             {
                 var processEventTrigger = eventTrigger as ProcessEventTrigger;
@@ -53,13 +57,15 @@ namespace Winleafs.Wpf.Views.Scheduling
                 }
             }
 
+            //Add the trigger
             EventTriggers.Add(new ProcessEventTrigger()
             {
                 Brightness = brightness,
                 EffectName = effectName,
-                EventTriggerType = TriggerType.ProcessEvent,
                 ProcessName = processName,
-                Priority = EventTriggers.Count == 0 ? 1 : EventTriggers.Max(eventTrigger => eventTrigger.Priority) + 1
+                Priority = EventTriggers.Count == 0 ? 1 : EventTriggers.Max(eventTrigger => eventTrigger.Priority) + 1,
+                StartTimeComponent = startTimeComponent.IsTimeSelected() ? startTimeComponent.AsTimeComponent() : null,
+                EndTimeComponent = endTimeComponent.IsTimeSelected() ? endTimeComponent.AsTimeComponent() : null
             });
 
             BuildTriggerList();
@@ -84,15 +90,14 @@ namespace Winleafs.Wpf.Views.Scheduling
             }
         }
 
-        public bool SpotifyEventTriggerAdded(string playlistId, string playlistName, string effectName, int brightness)
+        public bool SpotifyEventTriggerAdded(string playlistId, string playlistName, string effectName, int brightness, TimeComponentUserControl startTimeComponent, TimeComponentUserControl endTimeComponent)
         {
+            //Input checks
             if (string.IsNullOrWhiteSpace(playlistId) || string.IsNullOrWhiteSpace(playlistName))
             {
                 PopupCreator.Error(Scheduling.Resources.PlaylistCanNotBeEmpty);
                 return false;
             }
-
-            playlistName = playlistName.Trim();
 
             if (string.IsNullOrEmpty(effectName))
             {
@@ -100,6 +105,13 @@ namespace Winleafs.Wpf.Views.Scheduling
                 return false;
             }
 
+            if (!ValidateTimeComponents(startTimeComponent, endTimeComponent))
+            {
+                //ValidateTimeComponents creates its own pop ups
+                return false;
+            }
+
+            playlistName = playlistName.Trim();
             foreach (var eventTrigger in EventTriggers)
             {
                 var spotifyEventTrigger = eventTrigger as SpotifyEventTrigger;
@@ -110,14 +122,16 @@ namespace Winleafs.Wpf.Views.Scheduling
                 }
             }
 
+            //Add the trigger
             EventTriggers.Add(new SpotifyEventTrigger()
             {
                 Brightness = brightness,
                 EffectName = effectName,
-                EventTriggerType = TriggerType.SpotifyEvent,
                 PlaylistName = playlistName,
                 PlaylistId = playlistId,
-                Priority = EventTriggers.Count == 0 ? 1 : EventTriggers.Max(eventTrigger => eventTrigger.Priority) + 1
+                Priority = EventTriggers.Count == 0 ? 1 : EventTriggers.Max(eventTrigger => eventTrigger.Priority) + 1,
+                StartTimeComponent = startTimeComponent.IsTimeSelected() ? startTimeComponent.AsTimeComponent() : null,
+                EndTimeComponent = endTimeComponent.IsTimeSelected() ? endTimeComponent.AsTimeComponent() : null
             });
 
             BuildTriggerList();
@@ -144,7 +158,7 @@ namespace Winleafs.Wpf.Views.Scheduling
             }
         }
 
-        public void DeleteTrigger(TriggerBase trigger)
+        public void DeleteTrigger(EventTrigger trigger)
         {
             EventTriggers.Remove(trigger);
 
@@ -195,6 +209,25 @@ namespace Winleafs.Wpf.Views.Scheduling
             EventTriggers[priorityOfItem - 1].Priority++; //Current item should go down in priority
 
             BuildTriggerList();
+        }
+
+        private bool ValidateTimeComponents(TimeComponentUserControl startTimeComponent, TimeComponentUserControl endTimeComponent)
+        {
+            if ((startTimeComponent.IsTimeSelected() && !endTimeComponent.IsTimeSelected()) ||
+                (!startTimeComponent.IsTimeSelected() && endTimeComponent.IsTimeSelected()))
+            {
+                PopupCreator.Error(Scheduling.Resources.FillBothTimeComponents);
+                return false;
+            }
+
+            if (startTimeComponent.IsTimeSelected() && endTimeComponent.IsTimeSelected()
+                && startTimeComponent.AsTimeComponent().GetActualDateTime() >= endTimeComponent.AsTimeComponent().GetActualDateTime())
+            {
+                PopupCreator.Error(Scheduling.Resources.StartTimeBeforeEndTime);
+                return false;
+            }
+
+            return true;
         }
     }
 }

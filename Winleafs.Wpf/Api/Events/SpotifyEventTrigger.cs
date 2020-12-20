@@ -14,7 +14,7 @@ namespace Winleafs.Wpf.Api.Events
         private readonly Timer _playlistCheckTimer;
 
         public SpotifyEventTrigger(EventTriggersCollection eventTriggersCollection, Models.Models.Scheduling.Triggers.SpotifyEventTrigger spotifyEventTrigger)
-            : base(spotifyEventTrigger.Brightness, spotifyEventTrigger.EffectName, spotifyEventTrigger.Priority)
+            : base(spotifyEventTrigger)
         {
             _eventTriggersCollection = eventTriggersCollection;
             _playlistId = spotifyEventTrigger.PlaylistId;
@@ -35,7 +35,7 @@ namespace Winleafs.Wpf.Api.Events
         /// </summary>
         private async Task CheckPlaylistAsync()
         {
-            if (SpotifyEventTimer.CurrentPlaylistId == _playlistId)
+            if (TimeIsActive() && SpotifyEventTimer.CurrentPlaylistId == _playlistId)
             {
                 await _eventTriggersCollection.ActivateTrigger(Priority);
             }

@@ -2,8 +2,8 @@
 {
     public enum BeforeAfter
     {
-        Before,
-        After,
-        None
+        Before = 0,
+        After = 1,
+        None = 2
     }
 }

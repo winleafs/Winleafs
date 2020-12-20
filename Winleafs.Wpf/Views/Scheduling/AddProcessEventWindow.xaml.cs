@@ -42,7 +42,7 @@ namespace Winleafs.Wpf.Views.Scheduling
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            if (_parent.ProcessEventTriggerAdded(ProcessName, EffectComboBox.SelectedEffect?.EffectName, _brightness))
+            if (_parent.ProcessEventTriggerAdded(ProcessName, EffectComboBox.SelectedEffect?.EffectName, _brightness, StartEndTime.StartTimeComponent, StartEndTime.EndTimeComponent))
             {
                 Close();
             }            

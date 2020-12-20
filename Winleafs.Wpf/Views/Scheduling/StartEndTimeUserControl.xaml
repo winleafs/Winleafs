@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="Winleafs.Wpf.Views.Scheduling.StartEndTimeUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Winleafs.Wpf.Views.Scheduling"
+             mc:Ignorable="d" 
+             d:DesignHeight="240" d:DesignWidth="660">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="330"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        
+        <Label Content="{x:Static local:Resources.StartTime}" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top" FontSize="20" Grid.Column="0" Grid.Row="0"/>
+        <Label Content="{x:Static local:Resources.EndTime}" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top" FontSize="20" Grid.Column="1" Grid.Row="0"/>
+        <local:TimeComponentUserControl x:Name="StartTimeComponent" Width="330" Height="200" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,40,0,0" Grid.Column="0" Grid.Row="0"/>
+        <local:TimeComponentUserControl x:Name="EndTimeComponent" Width="330" Height="2000" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,40,0,0" Grid.Column="1" Grid.Row="0"/>
+    </Grid>
+</UserControl>
