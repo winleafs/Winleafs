@@ -9,7 +9,7 @@
              d:DesignHeight="70" d:DesignWidth="450">
     <materialDesign:Card Name="Card" Margin="10,0,10,7" Padding="5,5,5,5" DockPanel.Dock="Left" Width="450" Background="#323435" VerticalAlignment="Stretch">
         <Grid>
-            <ToggleButton x:Name="ActiveToggle" Style="{StaticResource MaterialDesignSwitchToggleButton}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,12,0,0" Checked="ActiveToggle_Checked"/>
+            <ToggleButton x:Name="ActiveToggle" Style="{StaticResource MaterialDesignSwitchToggleButton}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,12,0,0" Checked="ActiveToggle_Checked" Unchecked="ActiveToggle_Unchecked"/>
             <Label Content="{Binding Schedule.Name}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontSize="20" Height="40" Width="260" Margin="40,5,0,0"/>
             <Button VerticalAlignment="Top" Height="35" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Click="Edit_Click" Margin="0,7,39,0" HorizontalAlignment="Right" Width="35">
                 <materialDesign:PackIcon Kind="Pencil" Foreground="White" Height="30" Width="30"/>

@@ -77,5 +77,11 @@ namespace Winleafs.Wpf.Views.MainWindows
                 _parent.ActivateSchedule(Schedule);
             }
         }
+
+        private void ActiveToggle_Unchecked(object sender, RoutedEventArgs e)
+        {
+            //Disable unchecking
+            ActiveToggle.IsChecked = true;
+        }
     }
 }
