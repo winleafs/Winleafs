@@ -132,7 +132,7 @@ namespace Winleafs.Models.Models.Scheduling
                     todaysIndex = dayIndex;
                 }
 
-                var dayOfWeek = todaysIndex == 6 ? DayOfWeek.Monday : (DayOfWeek)(todaysIndex + 1); //Convert our index back to the DayOfWeek enum
+                var dayOfWeek = todaysIndex == 6 ? DayOfWeek.Sunday : (DayOfWeek)(todaysIndex + 1); //Convert our index back to the DayOfWeek enum
                 return new Tuple<DayOfWeek, TimeTrigger>(dayOfWeek, nextTrigger);
             }
             else
