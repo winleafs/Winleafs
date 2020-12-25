@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Threading.Tasks;
 using Winleafs.Api;
 using Winleafs.Models.Models;
@@ -11,12 +10,20 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
     public class Ambilght : IScreenMirrorEffect
     {
         private readonly INanoleafClient _nanoleafClient;
-        private readonly List<Rectangle> _screenBounds;
+        private readonly List<Rectangle> _captureArea; //A list since that is what the screengrabber expects as input
 
-        public Ambilght(INanoleafClient nanoleafClient, Device device)
+        public Ambilght(INanoleafClient nanoleafClient)
         {
             _nanoleafClient = nanoleafClient;
-            _screenBounds = new List<Rectangle> { ScreenBoundsHelper.GetScreenBounds(UserSettings.Settings.ScreenMirrorMonitorIndex) };
+
+            var screenBounds = ScreenBoundsHelper.GetScreenBounds(UserSettings.Settings.ScreenMirrorMonitorIndex);
+
+            _captureArea = new List<Rectangle>
+            {
+                //Which area of the screenshot we need to look at, in the case of Ambilight, we need to look at the whole screenshot.
+                //So start at 0, 0 and then use the width and height of the screen being captured
+                new Rectangle(0, 0, screenBounds.Width, screenBounds.Height )
+            };
         }
 
         /// <summary>
@@ -27,7 +34,7 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
         /// </summary>
         public async Task ApplyEffect()
         {
-            var colors = ScreenGrabber.CalculateAverageColor(_screenBounds);
+            var colors = ScreenGrabber.CalculateAverageColor(_captureArea);
 
             if (colors == null)
             {
