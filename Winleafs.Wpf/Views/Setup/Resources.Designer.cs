@@ -97,6 +97,15 @@ namespace Winleafs.Wpf.Views.Setup {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name cannot be empty.
+        /// </summary>
+        public static string NameCannotBeEmpty {
+            get {
+                return ResourceManager.GetString("NameCannotBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pair.
         /// </summary>
         public static string Pair {

@@ -48,7 +48,12 @@ namespace Winleafs.Wpf.Views.Setup
 
         public void Finish_Click(object sender, RoutedEventArgs e)
         {
-            if (UserSettings.HasSettings() && UserSettings.Settings.Devices.Any(d => d.Name.ToLower().Equals(setupViewModel.Name)))
+            if (string.IsNullOrWhiteSpace(setupViewModel.Name))
+            {
+                PopupCreator.Error(Setup.Resources.NameCannotBeEmpty);
+                return;
+            }
+            else if (UserSettings.HasSettings() && UserSettings.Settings.Devices.Any(d => d.Name.ToLower().Equals(setupViewModel.Name)))
             {
                 PopupCreator.Error(Setup.Resources.NameAlreadyExists);
                 return;

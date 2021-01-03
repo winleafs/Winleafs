@@ -129,6 +129,9 @@
   <data name="NameAlreadyExists" xml:space="preserve">
     <value>This name already exists, choose an unique name</value>
   </data>
+  <data name="NameCannotBeEmpty" xml:space="preserve">
+    <value>Name cannot be empty</value>
+  </data>
   <data name="Pair" xml:space="preserve">
     <value>Pair</value>
   </data>
