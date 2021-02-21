@@ -62,7 +62,7 @@ namespace Winleafs.Wpf.Views.MainWindows
                 case DeviceType.Aurora:
                     TriangleIcon.Visibility = Visibility.Visible;
                     break;
-                case DeviceType.Hexagon:
+                case DeviceType.Shapes:
                     HexagonIcon.Visibility = Visibility.Visible;
                     break;
                 case DeviceType.Unknown:
