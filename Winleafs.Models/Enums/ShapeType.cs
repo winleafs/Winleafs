@@ -8,7 +8,8 @@
         ControlSquarePrimary = 3,
         ContolSquarePassive = 4,
         PowerSupply = 5,
-        Hexagon = 7,
+        ShapeHexagon = 7,
+        ShapeTriangle = 8,
         ULPController = 12
     }
 }
