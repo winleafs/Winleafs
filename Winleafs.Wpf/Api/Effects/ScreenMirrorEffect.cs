@@ -54,7 +54,14 @@ namespace Winleafs.Wpf.Api.Effects
                 _screenMirrorEffect = null;
             }
 
-            _timer = new System.Timers.Timer(100); //Refresh a panel every 10th of a second (10hz)
+            var timerRefreshRate = 1000;
+
+            if (UserSettings.Settings.ScreenMirrorRefreshRatePerSecond > 0 && UserSettings.Settings.ScreenMirrorRefreshRatePerSecond <= 10)
+            {
+                timerRefreshRate = 1000 / UserSettings.Settings.ScreenMirrorRefreshRatePerSecond;
+            }
+
+            _timer = new System.Timers.Timer(timerRefreshRate);
             _timer.Elapsed += OnTimedEvent;
             _timer.AutoReset = true;
         }

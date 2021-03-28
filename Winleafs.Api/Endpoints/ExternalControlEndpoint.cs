@@ -1,14 +1,13 @@
-﻿using System;
+﻿using RestSharp;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
-
-using RestSharp;
-
 using Winleafs.Api.Endpoints.Interfaces;
 using Winleafs.Models.Enums;
-using Winleafs.Models.Models;
 using Winleafs.Models.Models.ExternalControl;
 
 namespace Winleafs.Api.Endpoints
@@ -73,51 +72,71 @@ namespace Winleafs.Api.Endpoints
         }
 
         /// <inheritdoc />
-        public void SetPanelColor(DeviceType deviceType, int panelId, int red, int green, int blue)
+        public void SetPanelsColors(DeviceType deviceType, List<int> panelIds, List<Color> colors)
         {
             switch (deviceType)
             {
                 case DeviceType.Aurora:
-                    //Send command according to external control v1 specification
-                    SendUDPCommand(
-                        _oneAsByte, //Number of panels
-                        Convert.ToByte(panelId),
-                        _oneAsByte, //Default 1
-                        Convert.ToByte(red),
-                        Convert.ToByte(green),
-                        Convert.ToByte(blue),
-                        _zeroAsByte, //default 0
-                        _oneAsByte //transitionTime (1 = 100ms)
-                    );
-
+                    SetAuroraColors(panelIds, colors);
                     break;
                 case DeviceType.Canvas:
-                    //Send command according to external control v2 specification
-                    var panelIdBytes = BitConverter.GetBytes(panelId).Take(2); //Panel id is two bytes long
-
-                    if (BitConverter.IsLittleEndian)
-                    {
-                        //The byte array must be in big-endian notation
-                        panelIdBytes = panelIdBytes.Reverse();
-                    }                    
-
-                    SendUDPCommand(
-                        _zeroAsByte, //Number of panels
-                        _oneAsByte, //Number of panels (use 0,1 to use two bytes to set it 1 panel)
-                        panelIdBytes.ElementAt(0),
-                        panelIdBytes.ElementAt(1), //Panel Id as two bytes
-                        Convert.ToByte(red),
-                        Convert.ToByte(green),
-                        Convert.ToByte(blue),
-                        _zeroAsByte, //White value for a color
-                        _zeroAsByte, //Transition time 
-                        _oneAsByte //Transition time  (use 0,1 to use two bytes to set a transition time of 1 (1 = 100ms))
-                    );
-
+                    SetCanvasColors(panelIds, colors);
                     break;
                 default:
-                    throw new NotImplementedException($"No {nameof(SetPanelColor)} implemented for device type {deviceType.ToString()}");
+                    throw new NotImplementedException($"No {nameof(SetPanelsColors)} implemented for device type {deviceType}");
             }   
+        }
+
+        private void SetAuroraColors(List<int> panelIds, List<Color> colors)
+        {
+            const int bytesPerpanel = 7;
+            //1 byte for the number of panels, then 7 bytes per panel
+            var bytes = new byte[1 + panelIds.Count * bytesPerpanel];
+            bytes[0] = Convert.ToByte(panelIds.Count);
+
+            var byteIndex = 1;
+
+            for (var i = 0; i < panelIds.Count; i++)
+            {
+                bytes[byteIndex++] = Convert.ToByte(panelIds[i]);
+                bytes[byteIndex++] = _oneAsByte; //Default 1, nFrames
+                bytes[byteIndex++] = colors[i].R;
+                bytes[byteIndex++] = colors[i].G;
+                bytes[byteIndex++] = colors[i].B;
+                bytes[byteIndex++] = _zeroAsByte; //default 0, white value for a color
+                bytes[byteIndex++] = _oneAsByte; //transitionTime (1 = 100ms)
+            }
+
+            SendUDPCommand(bytes);
+        }
+
+        private void SetCanvasColors(List<int> panelIds, List<Color> colors)
+        {
+            const int bytesPerpanel = 8;
+            //2 bytes for the number of panels, then 8 bytes per panel
+            var bytes = new byte[2 + panelIds.Count * bytesPerpanel];
+
+            var numberOfPanelsBytes = GetTwoBytesFromInteger(panelIds.Count);
+            bytes[0] = numberOfPanelsBytes.ElementAt(0);
+            bytes[1] = numberOfPanelsBytes.ElementAt(1);
+
+            var byteIndex = 2;
+
+            for (var i = 0; i < panelIds.Count; i++)
+            {
+                var panelIdBytes = GetTwoBytesFromInteger(panelIds[i]); //Panel id is two bytes long
+
+                bytes[byteIndex++] = panelIdBytes.ElementAt(0);
+                bytes[byteIndex++] = panelIdBytes.ElementAt(1);
+                bytes[byteIndex++] = colors[i].R;
+                bytes[byteIndex++] = colors[i].G;
+                bytes[byteIndex++] = colors[i].B;
+                bytes[byteIndex++] = _zeroAsByte; //default 0, white value for a color
+                bytes[byteIndex++] = _zeroAsByte; //Transition time
+                bytes[byteIndex++] = _oneAsByte; //transitionTime (use 0,1 to use two bytes to set a transition time of 1 (1 = 100ms))
+            }
+
+            SendUDPCommand(bytes);
         }
 
         /// <summary>
@@ -131,6 +150,22 @@ namespace Winleafs.Api.Endpoints
 
             socket.SendTo(data, endpoint);
             socket.Close();
+        }
+
+        /// <summary>
+        /// Converts the given <paramref name="value"/> to a byte collection of size 2.
+        /// </summary>
+        private IEnumerable<byte> GetTwoBytesFromInteger(int value)
+        {
+            var bytes = BitConverter.GetBytes(value).Take(2); //value is two bytes long
+
+            if (BitConverter.IsLittleEndian)
+            {
+                //The byte array must be in big-endian notation
+                return bytes.Reverse();
+            }
+
+            return bytes;
         }
     }
 }

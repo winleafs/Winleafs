@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Drawing;
+using System.Threading.Tasks;
 using Winleafs.Models.Enums;
 using Winleafs.Models.Models.ExternalControl;
 
@@ -19,13 +21,10 @@ namespace Winleafs.Api.Endpoints.Interfaces
         Task PrepareForExternalControl(DeviceType deviceType, string deviceIPAddress);
 
         /// <summary>
-        /// Sets the color of an individual panel via UDP. Only works if external control is activated
+        /// Sets the color of one or more panels via UDP. Only works if external control is activated
         /// </summary>
-        /// <param name="panelId">ID of the panel</param>
-        /// <param name="red">The red RDB value</param>
-        /// <param name="green">The green RDB value</param>
-        /// <param name="blue">The blue RDB value</param>
-        /// <param name="transitionTime">The time to transition to this frame from the previous frame (must be equal or greater than 1), default 1</param>
-        void SetPanelColor(DeviceType deviceType, int panelId, int red, int green, int blue);
+        /// <param name="panelIds">List of panelIds/param>
+        /// <param name="colors">List of colors, corresponding to the <paramref name="panelIds"/></param>
+        void SetPanelsColors(DeviceType deviceType, List<int> panelIds, List<Color> colors);
     }
 }
