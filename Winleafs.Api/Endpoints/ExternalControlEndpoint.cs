@@ -77,17 +77,18 @@ namespace Winleafs.Api.Endpoints
             switch (deviceType)
             {
                 case DeviceType.Aurora:
-                    SetAuroraColors(panelIds, colors);
+                    SetExternalV1Colors(panelIds, colors);
                     break;
                 case DeviceType.Canvas:
-                    SetCanvasColors(panelIds, colors);
+                case DeviceType.Shapes:
+                    SetExternalV2Colors(panelIds, colors);
                     break;
                 default:
                     throw new NotImplementedException($"No {nameof(SetPanelsColors)} implemented for device type {deviceType}");
             }   
         }
 
-        private void SetAuroraColors(List<int> panelIds, List<Color> colors)
+        private void SetExternalV1Colors(List<int> panelIds, List<Color> colors)
         {
             const int bytesPerpanel = 7;
             //1 byte for the number of panels, then 7 bytes per panel
@@ -110,7 +111,7 @@ namespace Winleafs.Api.Endpoints
             SendUDPCommand(bytes);
         }
 
-        private void SetCanvasColors(List<int> panelIds, List<Color> colors)
+        private void SetExternalV2Colors(List<int> panelIds, List<Color> colors)
         {
             const int bytesPerpanel = 8;
             //2 bytes for the number of panels, then 8 bytes per panel

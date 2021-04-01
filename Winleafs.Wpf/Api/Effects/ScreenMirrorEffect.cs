@@ -15,7 +15,7 @@ namespace Winleafs.Wpf.Api.Effects
 {
     public class ScreenMirrorEffect : ICustomEffect
     {
-        public static readonly HashSet<DeviceType> SupportedDeviceTypes = new HashSet<DeviceType> { DeviceType.Aurora, DeviceType.Canvas };
+        public static readonly HashSet<DeviceType> SupportedDeviceTypes = new HashSet<DeviceType> { DeviceType.Aurora, DeviceType.Canvas, DeviceType.Shapes };
 
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
         
