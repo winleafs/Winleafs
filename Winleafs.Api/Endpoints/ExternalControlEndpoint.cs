@@ -19,8 +19,8 @@ namespace Winleafs.Api.Endpoints
 
         private static readonly byte _zeroAsByte = Convert.ToByte(0);
         private static readonly byte _oneAsByte = Convert.ToByte(1);
-        private static readonly string _canvasStreamIPProtocol = "udp";
-        private static readonly int _canvasStreamPort = 60222;
+        private static readonly string _streamProtocol = "udp";
+        private static readonly int _canvasShapesStreamPort = 60222;
 
         /// <inheritdoc />
         public ExternalControlEndpoint(NanoleafClient client)
@@ -38,6 +38,7 @@ namespace Winleafs.Api.Endpoints
                 case DeviceType.Aurora:
                     return await SendRequestAsync<ExternalControlInfo>(BaseUrl, Method.PUT, body: "{\"write\": {\"command\": \"display\", \"animType\": \"extControl\"}}");
                 case DeviceType.Canvas:
+                case DeviceType.Shapes:
                     return await SendRequestAsync<ExternalControlInfo>(BaseUrl, Method.PUT, body: "{\"write\": {\"command\": \"display\", \"animType\": \"extControl\", \"extControlVersion\": \"v2\"}}");
                 default:
                     throw new NotImplementedException($"No external control info implemented for device type {deviceType.ToString()}");
@@ -56,13 +57,14 @@ namespace Winleafs.Api.Endpoints
                     _externalControlInfo = await GetExternalControlInfoAsync(deviceType);
                     break;
                 case DeviceType.Canvas:
+                case DeviceType.Shapes:
                     await GetExternalControlInfoAsync(deviceType);
 
                     _externalControlInfo = new ExternalControlInfo
                     {
                         StreamIPAddress = deviceIPAddress,
-                        StreamIProtocol = _canvasStreamIPProtocol,
-                        StreamPort = _canvasStreamPort
+                        StreamIProtocol = _streamProtocol,
+                        StreamPort = _canvasShapesStreamPort
                     };
                     break;
                 default:
