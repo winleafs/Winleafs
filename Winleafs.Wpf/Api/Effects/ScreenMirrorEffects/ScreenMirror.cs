@@ -39,6 +39,9 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
                 case DeviceType.Canvas:
                     LoadPanelsForSquares(panels);
                     break;
+                case DeviceType.Shapes:
+                    LoadPanelsForShapes(panels);
+                    break;
                 default:
                     throw new NotImplementedException($"Screen mirror constructor for device of type {orchestrator.PanelLayout.DeviceType} not implemented");
             }
@@ -97,6 +100,41 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
 
                 //Use the absolute coordinates (starting at 0,0) instead of relative coordinates (starting at screenbounds.X, screenbounds.Y), since bitmaps start at 0,0 even if we capture a secondary monitor
                 var bitmapArea = new Rectangle(startX, startY, rectangleSize, rectangleSize);
+
+                _panelAreas.Add(bitmapArea);
+                _panelIds.Add(panel.PanelId);
+            }
+        }
+
+        //Shapes can be either a triangle or a hexagon, depending on the number of points in the polygon
+        //(do not rely on Enums.ShapeType since then we would have to handle many cases)
+        private void LoadPanelsForShapes(List<DrawablePanel> panels)
+        {
+            foreach (var panel in panels)
+            {
+                var polygon = panels.FirstOrDefault().Polygon;
+
+                int squareSize;
+                if (polygon.Points.Count == 6)
+                {
+                    //It is a hexagon
+                    //We get the maximum intersection length of a polygon by getting the distance between the first and fourth point
+                    //Then divide by two to not go over the boundaries of the hexagon
+                    squareSize = (int)Math.Floor(System.Windows.Point.Subtract(polygon.Points[0], polygon.Points[3]).Length / 2);
+                }
+                else
+                {
+                    //It is a triangle
+                    //Set the square size to 1/3th of the length of a side of the triangle
+                    squareSize = (int)Math.Floor(System.Windows.Point.Subtract(polygon.Points[0], polygon.Points[1]).Length / 3);
+                }
+
+                //For each panel, draw a square around its midpoint, according to the set square size
+                var startX = (int)Math.Floor(panel.MidPoint.X - (squareSize / 2));
+                var startY = (int)Math.Floor(panel.MidPoint.Y - (squareSize / 2));
+
+                //Use the absolute coordinates (starting at 0,0) instead of relative coordinates (starting at screenbounds.X, screenbounds.Y), since bitmaps start at 0,0 even if we capture a secondary monitor
+                var bitmapArea = new Rectangle(startX, startY, squareSize, squareSize);
 
                 _panelAreas.Add(bitmapArea);
                 _panelIds.Add(panel.PanelId);
