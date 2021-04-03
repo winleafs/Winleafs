@@ -112,7 +112,7 @@ namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
         {
             foreach (var panel in panels)
             {
-                var polygon = panels.FirstOrDefault().Polygon;
+                var polygon = panel.Polygon;
 
                 int squareSize;
                 if (polygon.Points.Count == 6)
