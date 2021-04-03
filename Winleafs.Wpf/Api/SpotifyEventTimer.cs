@@ -25,7 +25,6 @@ namespace Winleafs.Wpf.Api
             _timer = new Timer(_timerMilliseconds);
             _timer.Elapsed += OnTimedEvent;
             _timer.AutoReset = true;
-            _timer.Enabled = true;
 
             _winleafsServerClient = new WinleafsServerClient();
         }

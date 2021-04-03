@@ -8,6 +8,7 @@
         xmlns:controls="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
+        Closed="Window_Closed"
         Title="{x:Static local:Resources.WinleafsOptions}" Height="670" Width="820" ResizeMode="CanMinimize">
 
     <Window.Resources>

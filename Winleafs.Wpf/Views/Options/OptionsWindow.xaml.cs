@@ -530,5 +530,13 @@ namespace Winleafs.Wpf.Views.Options
                 MonitorCanvas.Children.Add(textBlock);
             }
         }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            //In the case the user has a schedule with Spotify events, lost connection and just reconnected using the Options window,
+            //Reinitialize the SpotifyEventTimer. Call this function on all close events, even if the user click cancel or the X button.
+            //Initialize also stops the timer if there is no connection, in case the user just disconnected.
+            SpotifyEventTimer.Initialize();
+        }
     }
 }
