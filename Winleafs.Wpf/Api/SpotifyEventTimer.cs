@@ -50,14 +50,24 @@ namespace Winleafs.Wpf.Api
 
         public static void Initialize()
         {
-            if (UserSettings.Settings.ActiveSchedule != null && UserSettings.Settings.ActiveSchedule.HasSpotifyTriggers())
+            try
             {
-                OnTimedEvent(null, null);
-                _timer.Start();
+                if (UserSettings.Settings.ActiveSchedule != null &&
+                    UserSettings.Settings.ActiveSchedule.HasSpotifyTriggers() &&
+                    _winleafsServerClient.SpotifyEndpoint.IsConnected())
+                {
+                    OnTimedEvent(null, null);
+                    _timer.Start();
+                }
+                else
+                {
+                    _timer.Stop();
+                }
             }
-            else
+            catch (Exception ex)
             {
                 _timer.Stop();
+                Logger.Warn(ex, "Error during checking if the user is connected to Spotify");
             }
         }
     }
