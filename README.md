@@ -9,7 +9,7 @@
 Installers can be found on the [release page](https://github.com/StijnOostdam/Winleafs/releases).
 
 ## Features
-- Supports both Aurora and Canvas
+- Supports Aurora, Canvas and Shapes
 - Make multiple weekly schedules for your Nanoleaf lights
 - Supports multiple devices simultaneously
 - Add time based triggers to automatically set your lights to an effect and brightness at your chosen time
