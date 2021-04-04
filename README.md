@@ -34,7 +34,7 @@ You can also make a fork of this project and pick up a task from our projects bo
 We would appreciate it if you'd contact us before picking up a task so we can avoid doing double work.
 
 ## Showcase
-![Screenshot](Media/Screenshot1.jpg)
+![Screenshot](Media/Screenshot.jpg)
 ![Screenshot](Media/Screenshot2.jpg)
 
 ### Screen Mirror
