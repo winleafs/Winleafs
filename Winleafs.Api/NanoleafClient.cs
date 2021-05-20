@@ -60,26 +60,26 @@ namespace Winleafs.Api
 
         private IEffectsEndpoint _effectsEndpoint;
 
-        public IEffectsEndpoint EffectsEndpoint => _effectsEndpoint ?? (_effectsEndpoint = new EffectsEndpoint(this));
+        public IEffectsEndpoint EffectsEndpoint => _effectsEndpoint ??= new EffectsEndpoint(this);
 
         private IAuthorizationEndpoint _authorizationEndpoint;
 
-        public IAuthorizationEndpoint AuthorizationEndpoint => _authorizationEndpoint ?? (_authorizationEndpoint = new AuthorizationEndpoint(this));
+        public IAuthorizationEndpoint AuthorizationEndpoint => _authorizationEndpoint ??= new AuthorizationEndpoint(this);
 
         private IStateEndpoint _stateEndpoint;
 
-        public IStateEndpoint StateEndpoint => _stateEndpoint ?? (_stateEndpoint = new StateEndpoint(this));
+        public IStateEndpoint StateEndpoint => _stateEndpoint ??= new StateEndpoint(this);
 
         private ILayoutEndpoint _layoutEndpoint;
 
-        public ILayoutEndpoint LayoutEndpoint => _layoutEndpoint ?? (_layoutEndpoint = new LayoutEndpoint(this));
+        public ILayoutEndpoint LayoutEndpoint => _layoutEndpoint ??= new LayoutEndpoint(this);
 
         private IIdentifyEndpoint _identifyEndpoint;
 
-        public IIdentifyEndpoint IdentifyEndpoint => _identifyEndpoint ?? (_identifyEndpoint = new IdentifyEndpoint(this));
+        public IIdentifyEndpoint IdentifyEndpoint => _identifyEndpoint ??= new IdentifyEndpoint(this);
 
         private IExternalControlEndpoint _externalControlEndpoint;
 
-        public IExternalControlEndpoint ExternalControlEndpoint => _externalControlEndpoint ?? (_externalControlEndpoint = new ExternalControlEndpoint(this));
+        public IExternalControlEndpoint ExternalControlEndpoint => _externalControlEndpoint ??= new ExternalControlEndpoint(this);
     }
 }

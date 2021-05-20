@@ -19,45 +19,45 @@ namespace Winleafs.Api.Endpoints
             Client = client;
         }
 
-	    /// <inheritdoc />
-	    public async Task<IEnumerable<string>> GetEffectsListAsync()
+        /// <inheritdoc />
+        public async Task<IEnumerable<string>> GetEffectsListAsync()
         {
             return await SendRequestAsync<List<string>>($"{BaseUrl}/effectsList", Method.GET).ConfigureAwait(false);
         }
 
-	    /// <inheritdoc />
-	    public IEnumerable<string> GetEffectsList()
-		{
+        /// <inheritdoc />
+        public IEnumerable<string> GetEffectsList()
+        {
             return SendRequest<List<string>>($"{BaseUrl}/effectsList", Method.GET);
         }
 
-	    /// <inheritdoc />
-	    public Task<string> GetSelectedEffectAsync()
+        /// <inheritdoc />
+        public Task<string> GetSelectedEffectAsync()
         {
             throw new NotImplementedException();
         }
 
-	    /// <inheritdoc />
-	    public string GetSelectedEffect()
-		{
+        /// <inheritdoc />
+        public string GetSelectedEffect()
+        {
             throw new NotImplementedException();
         }
 
-	    /// <inheritdoc />
-	    public Task SetSelectedEffectAsync(string effectName)
+        /// <inheritdoc />
+        public Task SetSelectedEffectAsync(string effectName)
         {
-            return SendRequestAsync(BaseUrl, Method.PUT, body: "{\"select\": \"" + effectName + "\"}");
+            return SendRequestAsync(BaseUrl, Method.PUT, body: new { select = effectName });
         }
 
-	    /// <inheritdoc />
-	    public void SetSelectedEffect(string effectName)
-		{
-            SendRequest(BaseUrl, Method.PUT, body: "{\"select\": \"" + effectName + "\"}");
+        /// <inheritdoc />
+        public void SetSelectedEffect(string effectName)
+        {
+            SendRequest(BaseUrl, Method.PUT, body: new { select = effectName});
         }
 
 
-	    /// <inheritdoc />
-	    public Task<Effect> GetEffectDetailsAsync(string effectName)
+        /// <inheritdoc />
+        public Task<Effect> GetEffectDetailsAsync(string effectName)
         {
             if (string.IsNullOrEmpty(effectName))
             {
@@ -67,9 +67,9 @@ namespace Winleafs.Api.Endpoints
             return SendRequestAsync<Effect>(BaseUrl, Method.PUT, CreateWriteEffectCommand(effectName));
         }
 
-	    /// <inheritdoc />
-	    public Effect GetEffectDetails(string effectName)
-		{
+        /// <inheritdoc />
+        public Effect GetEffectDetails(string effectName)
+        {
             if (string.IsNullOrEmpty(effectName))
             {
                 return null;
@@ -78,9 +78,16 @@ namespace Winleafs.Api.Endpoints
             return SendRequest<Effect>(BaseUrl, Method.PUT, CreateWriteEffectCommand(effectName));
         }
 
-        private string CreateWriteEffectCommand(string effectName)
+        private static object CreateWriteEffectCommand(string effectName)
         {
-            return "{\"write\" : {\"command\" : \"request\", \"animName\" : \"" + effectName + "\"}}";
+            return new
+            {
+                write = new
+                {
+                    command = "request",
+                    animName = effectName
+                }
+            };
         }
-	}
+    }
 }

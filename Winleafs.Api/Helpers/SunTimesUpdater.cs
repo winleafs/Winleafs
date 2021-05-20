@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-
 using Polly;
-
-using Winleafs.Api.Endpoints;
 using Winleafs.External;
 using Winleafs.Models.Models;
 
@@ -18,19 +15,21 @@ namespace Winleafs.Api.Helpers
         /// </summary>
         public static void UpdateSunTimes()
         {
-            if (UserSettings.Settings.Latitude.HasValue && UserSettings.Settings.Longitude.HasValue)
+            if (!UserSettings.Settings.Latitude.HasValue || !UserSettings.Settings.Longitude.HasValue)
             {
-                var policy = Policy
-                    .Handle<Exception>()
-                    .WaitAndRetry(
-                        5,
-                        retryAttempt =>
+                return;
+            }
+
+            var policy = Policy
+                .Handle<Exception>()
+                .WaitAndRetry(
+                    5,
+                    retryAttempt =>
                         TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
 
-                //TODO: add logging on failure, see Step 2 in https://github.com/App-vNext/Polly
+            //TODO: add logging on failure, see Step 2 in https://github.com/App-vNext/Polly
 
-                policy.Execute(() => RequestSunTimes());
-            }
+            policy.Execute(RequestSunTimes);
         }
 
         private static async Task RequestSunTimes()

@@ -15,12 +15,12 @@ namespace Winleafs.Api.Endpoints
     public class ExternalControlEndpoint : NanoleafEndpoint, IExternalControlEndpoint
     {
         private const string BaseUrl = "effects";
-        private ExternalControlInfo _externalControlInfo;
+        private const string StreamProtocol = "udp";
+        private const int CanvasShapesStreamPort = 60222;
 
+        private ExternalControlInfo _externalControlInfo;
         private static readonly byte _zeroAsByte = Convert.ToByte(0);
         private static readonly byte _oneAsByte = Convert.ToByte(1);
-        private static readonly string _streamProtocol = "udp";
-        private static readonly int _canvasShapesStreamPort = 60222;
 
         /// <inheritdoc />
         public ExternalControlEndpoint(NanoleafClient client)
@@ -33,16 +33,18 @@ namespace Winleafs.Api.Endpoints
         {
             //For Aurora, we will use external control version 1 by passing no version
             //For Canvas, we will use external control version 2 by passing that version
-            switch (deviceType)
+            return (deviceType) switch
             {
-                case DeviceType.Aurora:
-                    return await SendRequestAsync<ExternalControlInfo>(BaseUrl, Method.PUT, body: "{\"write\": {\"command\": \"display\", \"animType\": \"extControl\"}}");
-                case DeviceType.Canvas:
-                case DeviceType.Shapes:
-                    return await SendRequestAsync<ExternalControlInfo>(BaseUrl, Method.PUT, body: "{\"write\": {\"command\": \"display\", \"animType\": \"extControl\", \"extControlVersion\": \"v2\"}}");
-                default:
-                    throw new NotImplementedException($"No external control info implemented for device type {deviceType.ToString()}");
-            }            
+                DeviceType.Aurora => await SendRequestAsync<ExternalControlInfo>(BaseUrl, Method.PUT,
+                    body: "{\"write\": {\"command\": \"display\", \"animType\": \"extControl\"}}"),
+                DeviceType.Canvas => await SendRequestAsync<ExternalControlInfo>(BaseUrl, Method.PUT,
+                    body:
+                    "{\"write\": {\"command\": \"display\", \"animType\": \"extControl\", \"extControlVersion\": \"v2\"}}"),
+                DeviceType.Shapes => await SendRequestAsync<ExternalControlInfo>(BaseUrl, Method.PUT,
+                    body:
+                    "{\"write\": {\"command\": \"display\", \"animType\": \"extControl\", \"extControlVersion\": \"v2\"}}"),
+                _ => throw new NotImplementedException()
+            };
         }
 
         /// <inheritdoc />
@@ -63,12 +65,14 @@ namespace Winleafs.Api.Endpoints
                     _externalControlInfo = new ExternalControlInfo
                     {
                         StreamIPAddress = deviceIPAddress,
-                        StreamIProtocol = _streamProtocol,
-                        StreamPort = _canvasShapesStreamPort
+                        StreamIProtocol = StreamProtocol,
+                        StreamPort = CanvasShapesStreamPort
                     };
                     break;
+                case DeviceType.Unknown:
+                    break;
                 default:
-                    throw new NotImplementedException($"No external control preparation implemented for device type {deviceType.ToString()}");
+                    throw new NotImplementedException($"No external control preparation implemented for device type {deviceType}");
             }
             
         }
@@ -85,16 +89,18 @@ namespace Winleafs.Api.Endpoints
                 case DeviceType.Shapes:
                     SetExternalV2Colors(panelIds, colors);
                     break;
+                case DeviceType.Unknown:
+                    break;
                 default:
                     throw new NotImplementedException($"No {nameof(SetPanelsColors)} implemented for device type {deviceType}");
             }   
         }
 
-        private void SetExternalV1Colors(List<int> panelIds, List<Color> colors)
+        private void SetExternalV1Colors(IReadOnlyList<int> panelIds, IReadOnlyList<Color> colors)
         {
-            const int bytesPerpanel = 7;
+            const int bytesPerPanel = 7;
             //1 byte for the number of panels, then 7 bytes per panel
-            var bytes = new byte[1 + panelIds.Count * bytesPerpanel];
+            var bytes = new byte[1 + panelIds.Count * bytesPerPanel];
             bytes[0] = Convert.ToByte(panelIds.Count);
 
             var byteIndex = 1;
@@ -113,11 +119,11 @@ namespace Winleafs.Api.Endpoints
             SendUDPCommand(bytes);
         }
 
-        private void SetExternalV2Colors(List<int> panelIds, List<Color> colors)
+        private void SetExternalV2Colors(IReadOnlyList<int> panelIds, IReadOnlyList<Color> colors)
         {
-            const int bytesPerpanel = 8;
+            const int bytesPerPanel = 8;
             //2 bytes for the number of panels, then 8 bytes per panel
-            var bytes = new byte[2 + panelIds.Count * bytesPerpanel];
+            var bytes = new byte[2 + panelIds.Count * bytesPerPanel];
 
             var numberOfPanelsBytes = GetTwoBytesFromInteger(panelIds.Count);
             bytes[0] = numberOfPanelsBytes.ElementAt(0);
@@ -158,17 +164,11 @@ namespace Winleafs.Api.Endpoints
         /// <summary>
         /// Converts the given <paramref name="value"/> to a byte collection of size 2.
         /// </summary>
-        private IEnumerable<byte> GetTwoBytesFromInteger(int value)
+        private static IEnumerable<byte> GetTwoBytesFromInteger(int value)
         {
-            var bytes = BitConverter.GetBytes(value).Take(2); //value is two bytes long
-
-            if (BitConverter.IsLittleEndian)
-            {
-                //The byte array must be in big-endian notation
-                return bytes.Reverse();
-            }
-
-            return bytes;
+            //value is two bytes long
+            var bytes = BitConverter.GetBytes(value).Take(2);
+            return BitConverter.IsLittleEndian ? bytes.Reverse() : bytes;
         }
     }
 }

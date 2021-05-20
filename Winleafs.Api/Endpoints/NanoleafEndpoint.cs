@@ -12,7 +12,7 @@ namespace Winleafs.Api.Endpoints
     /// </summary>
     public abstract class NanoleafEndpoint
     {
-        private static Logger _logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
         protected NanoleafClient Client { get; set; }
 
@@ -75,7 +75,7 @@ namespace Winleafs.Api.Endpoints
                 LogRequest(request, method, body);
             }
 
-            var response = await restClient.ExecuteTaskAsync(request).ConfigureAwait(false);
+            var response = await restClient.ExecuteAsync(request).ConfigureAwait(false);
 
             if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.NoContent)
             {
@@ -131,14 +131,14 @@ namespace Winleafs.Api.Endpoints
         {
             _logger.Info(
                 $"Sending following request to Nanoleaf: Address: {Client.BaseUri}, " +
-                $"URL: {request.Resource}, Method: {method.ToString()}, " +
+                $"URL: {request.Resource}, Method: {method}, " +
                 $"Body: {(body != null ? body.ToString() : "")}");
         }
 
         protected void LogError(IRestResponse response)
         {
             _logger.Warn($"Nanoleaf request failed, statuscode: {(int)response.StatusCode} " +
-                         $"{response.StatusCode.ToString()}, status description: " +
+                         $"{response.StatusCode}, status description: " +
                          $"{response.StatusDescription}, content: {response.Content}");
         }
     }
