@@ -40,7 +40,7 @@ namespace Winleafs.Models.Models.Scheduling.Triggers
 
         /// <summary>
         /// Implement the comparable interface
-        /// to be able to use <see cref="List.Sort"/>.
+        /// to be able to use <see cref="System.Collections.Generic.List{T}.Sort()"/>.
         /// </summary>
         public int CompareTo(TriggerBase other)
         {

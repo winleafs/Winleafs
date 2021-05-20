@@ -26,8 +26,7 @@ namespace Winleafs.Models.Models.Scheduling
         /// </summary>
         public void ReorderTriggers()
         {
-            var now = DateTime.Now;
-            Triggers = Triggers.OrderBy(t => t.GetActualDateTime(now)).ToList();
+            Triggers = Triggers.OrderBy(timeTrigger => timeTrigger.GetActualDateTime(DateTime.Now)).ToList();
         }
 
         /// <summary>
@@ -35,35 +34,36 @@ namespace Winleafs.Models.Models.Scheduling
         /// </summary>
         public bool TriggerOverlaps(TimeTrigger otherTrigger)
         {
-            foreach (var trigger in Triggers)
-            {
-                if (trigger.EventTriggerType == TriggerType.Sunrise
-                    && otherTrigger.EventTriggerType == TriggerType.Sunrise
-                    && trigger.BeforeAfter == otherTrigger.BeforeAfter
-                    && trigger.ExtraHours == otherTrigger.ExtraHours
-                    && trigger.ExtraMinutes == otherTrigger.ExtraMinutes)
-                {
-                    return true;
-                }
+            return Triggers.Any(trigger =>
+                IsEqualOnSunrise(trigger, otherTrigger)
+                || IsEqualOnSunset(trigger, otherTrigger)
+                || IsEqualOnTime(trigger, otherTrigger));
+        }
 
-                if (trigger.EventTriggerType == TriggerType.Sunset && otherTrigger.EventTriggerType == TriggerType.Sunset
-                    && trigger.BeforeAfter == otherTrigger.BeforeAfter
-                    && trigger.ExtraHours == otherTrigger.ExtraHours
-                    && trigger.ExtraMinutes == otherTrigger.ExtraMinutes)
-                {
-                    return true;
-                }
+        private static bool IsEqualOnSunrise(TimeTrigger trigger, TimeTrigger otherTrigger)
+        {
+            return trigger.EventTriggerType == TriggerType.Sunrise
+                   && otherTrigger.EventTriggerType == TriggerType.Sunrise
+                   && trigger.BeforeAfter == otherTrigger.BeforeAfter
+                   && trigger.ExtraHours == otherTrigger.ExtraHours
+                   && trigger.ExtraMinutes == otherTrigger.ExtraMinutes;
+        }
 
-                if (trigger.EventTriggerType == TriggerType.Time
-                         && otherTrigger.EventTriggerType == TriggerType.Time
-                        && trigger.Hours == otherTrigger.Hours
-                         && trigger.Minutes == otherTrigger.Minutes)
-                {
-                    return true;
-                }
-            }
+        private static bool IsEqualOnSunset(TimeTrigger trigger, TimeTrigger otherTrigger)
+        {
+            return trigger.EventTriggerType == TriggerType.Sunset
+                   && otherTrigger.EventTriggerType == TriggerType.Sunset
+                   && trigger.BeforeAfter == otherTrigger.BeforeAfter
+                   && trigger.ExtraHours == otherTrigger.ExtraHours
+                   && trigger.ExtraMinutes == otherTrigger.ExtraMinutes;
+        }
 
-            return false;
+        private static bool IsEqualOnTime(TimeTrigger trigger, TimeTrigger otherTrigger)
+        {
+            return trigger.EventTriggerType == TriggerType.Time
+                   && otherTrigger.EventTriggerType == TriggerType.Time
+                   && trigger.Hours == otherTrigger.Hours
+                   && trigger.Minutes == otherTrigger.Minutes;
         }
     }
 }

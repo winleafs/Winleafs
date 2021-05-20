@@ -4,6 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Winleafs.Models</RootNamespace>
     <AssemblyName>Winleafs.Models</AssemblyName>
+    <LangVersion>9</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>

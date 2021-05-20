@@ -14,8 +14,11 @@ namespace Winleafs.Models.Models
     public class Device
     {
         public string Name { get; set; }
+
         public string AuthToken { get; set; }
+
         public int Port { get; set; }
+
         public string IPAddress { get; set; }
 
         /// <summary>
@@ -31,6 +34,7 @@ namespace Winleafs.Models.Models
         public List<Effect> Effects { get; set; }
 
         public string ManualEffect { get; set; }
+
         public int ManualBrightness { get; set; }
 
         public PercentageProfile PercentageProfile { get;set;}

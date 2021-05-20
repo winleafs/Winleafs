@@ -26,16 +26,16 @@ namespace Winleafs.Models.Models.Effects
         public string PluginType { get; set; }
 
         [JsonProperty("transTime")]
-        public NanoRange TransitionTime { get; set; }
+        public NanoleafRange TransitionTime { get; set; }
 
         [JsonProperty("delayTime")]
-        public NanoRange DelayTime { get; set; }
+        public NanoleafRange DelayTime { get; set; }
 
         [JsonProperty("explodeFactor")]
         public int ExplodeFactor { get; set; }
 
         [JsonProperty("brightnessRange")]
-        public NanoRange Brightness { get; set; }
+        public NanoleafRange Brightness { get; set; }
 
         [JsonProperty("direction")]
         public string Direction { get; set; }
@@ -65,20 +65,12 @@ namespace Winleafs.Models.Models.Effects
         /// an <see cref="EffectType"/>.
         /// </summary>
         [JsonIgnore]
-        public EffectType EffectType
+        public EffectType EffectType => PluginType?.ToLower() switch
         {
-            get
-            {
-                switch (PluginType?.ToLower())
-                {
-                    case "color":
-                        return EffectType.Color;
-                    case "rhythm":
-                        return EffectType.Rhythm;
-                    default:
-                        return EffectType.Unknown;
-                }
-            }
-        }
+
+            "color" => EffectType.Color,
+            "rhythm" => EffectType.Rhythm,
+            _ => EffectType.Unknown
+        };
     }
 }

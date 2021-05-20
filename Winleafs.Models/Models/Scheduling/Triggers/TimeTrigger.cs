@@ -7,9 +7,13 @@ namespace Winleafs.Models.Models.Scheduling.Triggers
     public class TimeTrigger : TriggerBase
     {
         public int Hours { get; set; }
+
         public int Minutes { get; set; }
+
         public BeforeAfter BeforeAfter { get; set; }
+
         public int ExtraHours { get; set; }
+
         public int ExtraMinutes { get; set; }
 
         public override string GetDescription()
@@ -22,7 +26,7 @@ namespace Winleafs.Models.Models.Scheduling.Triggers
             }
             else
             {
-                return $"{GetActualDateTime().ToString("HH:mm")}";
+                return $"{GetActualDateTime():HH:mm}";
             }
         }
 
@@ -41,15 +45,20 @@ namespace Winleafs.Models.Models.Scheduling.Triggers
         {
             var date = new DateTime(dateOfProgram.Year, dateOfProgram.Month, dateOfProgram.Day, Hours, Minutes, 0);
 
-            if (BeforeAfter == BeforeAfter.After)
+            switch (BeforeAfter)
             {
-                date = date.AddHours(ExtraHours);
-                date = date.AddMinutes(ExtraMinutes);
-            }
-            else if (BeforeAfter == BeforeAfter.Before)
-            {
-                date = date.AddHours(-ExtraHours);
-                date = date.AddMinutes(-ExtraMinutes);
+                case BeforeAfter.After:
+                    date = date.AddHours(ExtraHours);
+                    date = date.AddMinutes(ExtraMinutes);
+                    break;
+                case BeforeAfter.Before:
+                    date = date.AddHours(-ExtraHours);
+                    date = date.AddMinutes(-ExtraMinutes);
+                    break;
+                case BeforeAfter.None:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
             return date;

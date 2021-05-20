@@ -62,18 +62,6 @@ namespace Winleafs.Models.Models.Scheduling
             AppliesToDeviceNames = new List<string>();
         }
 
-        private bool ScheduleHasTriggers()
-        {
-            return Programs.Any(program => program.Triggers.Any());
-        }
-
-        private int GetTodaysProgramIndex()
-        {
-            var dayOfWeek = DateTime.Now.DayOfWeek; //Sunday = 0
-
-            return dayOfWeek == DayOfWeek.Sunday ? 6 : (int)dayOfWeek - 1;
-        }
-
         public TimeTrigger GetActiveTimeTrigger()
         {
             if (ScheduleHasTriggers())
@@ -141,38 +129,6 @@ namespace Winleafs.Models.Models.Scheduling
             }
         }
 
-        private TimeTrigger GetCurrentTimeTriggerForProgram(DateTime now, DateTime dateOfProgram, Program program)
-        {
-            TimeTrigger currentTrigger = null;
-
-            //This assumes Triggers are sorted in ascending time order
-            for (var i = 0; i < program.Triggers.Count; i++)
-            {
-                if (now.Ticks > program.Triggers[i].GetActualDateTime(dateOfProgram).Ticks)
-                {
-                    currentTrigger = program.Triggers[i];
-                }
-            }
-
-            return currentTrigger;
-        }
-
-        private TimeTrigger GetNextTimeTriggerForProgram(DateTime now, DateTime dateOfProgram, Program program)
-        {
-            TimeTrigger nextTrigger = null;
-
-            //This assumes Triggers are sorted in ascending time order
-            for (var i = program.Triggers.Count - 1; i >= 0; i--)
-            {
-                if (now.Ticks < program.Triggers[i].GetActualDateTime(dateOfProgram).Ticks)
-                {
-                    nextTrigger = program.Triggers[i];
-                }
-            }
-
-            return nextTrigger;
-        }
-
         /// <summary>
         /// Deletes any trigger in the schedule which effect name is
         /// contained within the given <paramref name="effectNames"/>.
@@ -211,6 +167,48 @@ namespace Winleafs.Models.Models.Scheduling
         public bool HasSpotifyTriggers()
         {
             return EventTriggers.Any(eventTrigger => eventTrigger is SpotifyEventTrigger);
+        }
+
+
+        private bool ScheduleHasTriggers()
+        {
+            return Programs.Any(program => program.Triggers.Any());
+        }
+
+        private static int GetTodaysProgramIndex()
+        {
+            var dayOfWeek = DateTime.Now.DayOfWeek; //Sunday = 0
+
+            return dayOfWeek == DayOfWeek.Sunday ? 6 : (int)dayOfWeek - 1;
+        }
+
+        private static TimeTrigger GetCurrentTimeTriggerForProgram(DateTime now, DateTime dateOfProgram, Program program)
+        {
+            TimeTrigger currentTrigger = null;
+
+            //This assumes Triggers are sorted in ascending time order
+            foreach (var timeTrigger in program.Triggers.Where(timeTrigger => now.Ticks > timeTrigger.GetActualDateTime(dateOfProgram).Ticks))
+            {
+                currentTrigger = timeTrigger;
+            }
+
+            return currentTrigger;
+        }
+
+        private static TimeTrigger GetNextTimeTriggerForProgram(DateTime now, DateTime dateOfProgram, Program program)
+        {
+            TimeTrigger nextTrigger = null;
+
+            //This assumes Triggers are sorted in ascending time order
+            for (var i = program.Triggers.Count - 1; i >= 0; i--)
+            {
+                if (now.Ticks < program.Triggers[i].GetActualDateTime(dateOfProgram).Ticks)
+                {
+                    nextTrigger = program.Triggers[i];
+                }
+            }
+
+            return nextTrigger;
         }
     }
 }
