@@ -73,15 +73,16 @@ namespace Winleafs.Server.Endpoints
                 LogRequest(request, method, body);
             }
 
-            var response = await restClient.ExecuteTaskAsync(request).ConfigureAwait(false);
+            var response = await restClient.ExecuteAsync(request).ConfigureAwait(false);
 
-            if (response.StatusCode != HttpStatusCode.OK)
+            if (response.StatusCode == HttpStatusCode.OK)
             {
-                LogError(response);
-                throw new WinleafsServerException("Error during request to Winleafs server");
+                return returnType == null ? null : JsonConvert.DeserializeObject(response.Content, returnType);
             }
 
-            return returnType == null ? null : JsonConvert.DeserializeObject(response.Content, returnType);
+            LogError(response);
+            throw new WinleafsServerException("Error during request to Winleafs server");
+
         }
 
         /// <summary>
@@ -126,14 +127,14 @@ namespace Winleafs.Server.Endpoints
         {
             _logger.Info(
                 $"Sending following request Winleafs Server: Address: {Client.BaseUri}, " +
-                $"URL: {request.Resource}, Method: {method.ToString()}, " +
+                $"URL: {request.Resource}, Method: {method}, " +
                 $"Body: {(body != null ? body.ToString() : "")}");
         }
 
         protected void LogError(IRestResponse response)
         {
             _logger.Warn($"Winleafs server request failed, statuscode: {(int)response.StatusCode} " +
-                         $"{response.StatusCode.ToString()}, status description: " +
+                         $"{response.StatusCode}, status description: " +
                          $"{response.StatusDescription}, content: {response.Content}");
         }
     }

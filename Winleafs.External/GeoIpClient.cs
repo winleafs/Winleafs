@@ -32,7 +32,7 @@ namespace Winleafs.External
             var ip = await GetIpASync();
             var client = new RestClient(GeopIpUri);
             var request = new RestRequest($"json/{ip}");
-            var response = await client.ExecuteTaskAsync(request);
+            var response = await client.ExecuteAsync(request);
             if (!response.IsSuccessful || string.IsNullOrWhiteSpace(response.Content))
             {
                 return null;
@@ -41,12 +41,12 @@ namespace Winleafs.External
             return JsonConvert.DeserializeObject<GeoIpResult>(response.Content);
         }
 
-        private string GetIp()
+        private static string GetIp()
         {
             return new WebClient().DownloadString(IPAPI);
         }
 
-        private Task<string> GetIpASync()
+        private static Task<string> GetIpASync()
         {
             return new WebClient().DownloadStringTaskAsync(IPAPI);
         }

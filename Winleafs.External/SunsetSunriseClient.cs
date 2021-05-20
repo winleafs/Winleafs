@@ -14,7 +14,7 @@ namespace Winleafs.External
         {
             var client = new RestClient("https://api.sunrise-sunset.org");
             var request = new RestRequest($"/json?lat={Format(lat)}&lng={Format(lon)}", Method.GET);
-            var response = await client.ExecuteTaskAsync(request).ConfigureAwait(false);
+            var response = await client.ExecuteAsync(request).ConfigureAwait(false);
             var jsonObject = JObject.Parse(response.Content);
             return jsonObject["results"].ToObject<SunsetTimes>();
         }
