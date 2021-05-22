@@ -14,4 +14,8 @@
     <ProjectReference Include="..\Winleafs.Models\Winleafs.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Exceptions\" />
+  </ItemGroup>
+
 </Project>

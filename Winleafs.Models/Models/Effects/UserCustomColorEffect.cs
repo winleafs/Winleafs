@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace Winleafs.Models.Models.Effects
 {
@@ -20,7 +21,12 @@ namespace Winleafs.Models.Models.Effects
         /// </summary>
         public override bool Equals(object obj)
         {
-            return EffectName == ((UserCustomColorEffect)obj).EffectName;
+            if (obj is not UserCustomColorEffect userCustomCollorEffect)
+            {
+                return false;
+            }
+
+            return EffectName == userCustomCollorEffect.EffectName;
         }
 
         public override int GetHashCode()

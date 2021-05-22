@@ -2,7 +2,7 @@
 
 namespace Winleafs.Models.Models.Effects
 {
-    public class NanoRange
+    public class NanoleafRange
     {
         [JsonProperty("maxValue")]
         public int MaxValue { get; set; }

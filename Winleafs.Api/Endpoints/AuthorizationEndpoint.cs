@@ -27,7 +27,7 @@ namespace Winleafs.Api.Endpoints
         {
             var client = new RestClient(Client.BaseUri);
             var request = new RestRequest("api/v1/new", Method.POST);
-            var response = await client.ExecuteTaskAsync(request).ConfigureAwait(false);
+            var response = await client.ExecuteAsync(request).ConfigureAwait(false);
 
             var jObject = JObject.Parse(response.Content);
             Client.Token = jObject["auth_token"].ToString();

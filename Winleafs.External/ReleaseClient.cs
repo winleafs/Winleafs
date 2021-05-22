@@ -7,21 +7,23 @@ namespace Winleafs.External
 {
     public class ReleaseClient : IReleaseClient
     {
-        private const string USERNAME = "StijnOostdam";
-        private const string REPOSITORY_NAME = "Winleafs";
+        private const string Username = "Winleafs";
+        private const string RepsitoryName = "Winleafs";
 
         /// <inheritdoc />
         public async Task<string> GetLatestVersion(bool usePreRelease = false)
         {
             var githubClient = new GitHubClient(new ProductHeaderValue("winleafs"));
-            if (usePreRelease)
+            if (!usePreRelease)
             {
-                var releases = await githubClient.Repository.Release.GetAll(USERNAME, REPOSITORY_NAME);
-                var release = releases.OrderByDescending(x => x.CreatedAt).First();
-                return release.TagName;
+                return (await githubClient.Repository.Release.GetLatest(Username, RepsitoryName).ConfigureAwait(false))
+                    .TagName;
             }
 
-            return (await githubClient.Repository.Release.GetLatest(USERNAME, REPOSITORY_NAME).ConfigureAwait(false)).TagName;
+            var releases = await githubClient.Repository.Release.GetAll(Username, RepsitoryName).ConfigureAwait(false);
+            var release = releases.OrderByDescending(x => x.CreatedAt).First();
+            return release.TagName;
+
         }
     }
 }
