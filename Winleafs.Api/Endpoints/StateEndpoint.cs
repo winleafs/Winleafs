@@ -196,7 +196,7 @@ namespace Winleafs.Api.Endpoints
 
 		public Task SetStateAsync(bool state)
         {
-            return SendRequestAsync(BaseUrl, Method.PUT, body: new {on = new {value = state.ToString().ToLower()}});
+            return SendRequestAsync(BaseUrl, Method.PUT, body: new {on = new {value = state}});
         }
 
 		public void SetStateWithStateCheck(bool state)
