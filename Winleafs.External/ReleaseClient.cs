@@ -7,7 +7,7 @@ namespace Winleafs.External
 {
     public class ReleaseClient : IReleaseClient
     {
-        private const string Username = "StijnOostdam";
+        private const string Username = "Winleafs";
         private const string RepsitoryName = "Winleafs";
 
         /// <inheritdoc />

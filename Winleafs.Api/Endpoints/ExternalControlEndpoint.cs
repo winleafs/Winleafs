@@ -36,14 +36,10 @@ namespace Winleafs.Api.Endpoints
             return (deviceType) switch
             {
                 DeviceType.Aurora => await SendRequestAsync<ExternalControlInfo>(BaseUrl, Method.PUT,
-                    body: "{\"write\": {\"command\": \"display\", \"animType\": \"extControl\"}}"),
-                DeviceType.Canvas => await SendRequestAsync<ExternalControlInfo>(BaseUrl, Method.PUT,
-                    body:
-                    "{\"write\": {\"command\": \"display\", \"animType\": \"extControl\", \"extControlVersion\": \"v2\"}}"),
-                DeviceType.Shapes => await SendRequestAsync<ExternalControlInfo>(BaseUrl, Method.PUT,
-                    body:
-                    "{\"write\": {\"command\": \"display\", \"animType\": \"extControl\", \"extControlVersion\": \"v2\"}}"),
-                _ => throw new NotImplementedException()
+                    body: new { write = new { command = "display", animType = "extControl" } }).ConfigureAwait(false),
+                DeviceType.Canvas => await CreateExternalControlV2Body().ConfigureAwait(false),
+                DeviceType.Shapes => await CreateExternalControlV2Body().ConfigureAwait(false),
+                _ => throw new NotImplementedException($"No External Control exists for device of type {deviceType}")
             };
         }
 
@@ -169,6 +165,12 @@ namespace Winleafs.Api.Endpoints
             //value is two bytes long
             var bytes = BitConverter.GetBytes(value).Take(2);
             return BitConverter.IsLittleEndian ? bytes.Reverse() : bytes;
+        }
+
+        private Task<ExternalControlInfo> CreateExternalControlV2Body()
+        {
+            return SendRequestAsync<ExternalControlInfo>(BaseUrl, Method.PUT,
+                body: new {write = new {command = "display", animType = "extControl", extControlVersion = "v2"}});
         }
     }
 }
