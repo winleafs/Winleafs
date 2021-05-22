@@ -9,6 +9,7 @@
 Installers can be found on the [release page](https://github.com/StijnOostdam/Winleafs/releases).
 
 ## Features
+
 - Supports Aurora, Canvas and Shapes
 - Make multiple weekly schedules for your Nanoleaf lights
 - Supports multiple devices simultaneously
@@ -27,7 +28,7 @@ TODOs and future features can be found on the [GitHub projects board](https://gi
 
 ## Support
 
-You can [donate to us using Paypal](https://www.paypal.me/winleafs). 
+You can [donate to us using Paypal](https://www.paypal.me/winleafs).
 Note: all donations will go towards buying more Nanoleaf products for *"Testing purposes"*.
 
 You can also make a fork of this project and pick up a task from our projects board.
@@ -44,13 +45,31 @@ We would appreciate it if you'd contact us before picking up a task so we can av
 - [Screen mirror](https://www.youtube.com/watch?v=iT_jQnQLVQA)
 
 ## Troubleshooting
-If you are experiencing problems, try deleting the settings file from %appdata%/Winleafs. Note: this removes all settings and schedules. Otherwise, you can create an issue [here](https://github.com/winleafs/Winleafs/issues/new/choose) and we will get back to you as soon as possible.
+
+### Screen mirror is not working on my video streaming service
+
+Streaming services try to prevent screenshots and videos being made off their
+content to protect the copyrighted content. Winleafs uses screenshot-like
+technology to determine what colors should be displayed to the Nanoleaf devices.
+Because of the copyright protection blacking out the video, Winleafs can not properly
+determine the correct color.
+
+From testing, we have noticed that Chrome is most likely to block content while
+Firefox does not.
 
 ### Connection issues
+
 Try the following if Winleafs has trouble locating your panels:
 
 - Make sure your PC is on the same 2.4 Ghz network as your panels.
 - Double check if mDNS is enabled. [See this link for instructions](https://superuser.com/questions/1330027/how-to-enable-mdns-on-windows-10-build-17134).
+
+### General issues
+
+If you are experiencing problems, try deleting the settings file from %appdata%/Winleafs.
+Note: this removes all settings and schedules. Otherwise, you can create an
+issue [here](https://github.com/winleafs/Winleafs/issues/new/choose) and we will
+get back to you as soon as possible.
 
 ## Projects and APIs used
 
