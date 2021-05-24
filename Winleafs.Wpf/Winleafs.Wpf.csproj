@@ -3,6 +3,9 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
+    <RootNamespace>Winleafs.Wpf</RootNamespace>
+    <AssemblyName>Winleafs.Wpf</AssemblyName>
+    <LangVersion>9</LangVersion>
     <LangVersion>8</LangVersion>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>

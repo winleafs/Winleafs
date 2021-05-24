@@ -2,6 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>Winleafs.Server</RootNamespace>
+    <AssemblyName>Winleafs.Server</AssemblyName>
+    <LangVersion>9</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
