@@ -1,21 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>Winleafs.Models</RootNamespace>
     <AssemblyName>Winleafs.Models</AssemblyName>
     <LangVersion>9</LangVersion>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Models\Events\**" />
-    <EmbeddedResource Remove="Models\Events\**" />
-    <None Remove="Models\Events\**" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="JsonMigrator" Version="1.0.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NLog" Version="4.7.10" />
   </ItemGroup>
 
