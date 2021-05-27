@@ -1,5 +1,6 @@
 ﻿using RestSharp;
 using System.Threading.Tasks;
+using Winleafs.Api.DTOs;
 using Winleafs.Api.Endpoints.Interfaces;
 using Winleafs.Models.Models.Layouts;
 
@@ -10,7 +11,7 @@ namespace Winleafs.Api.Endpoints
 		private const string BaseEndpoint = "panelLayout";
 
 		/// <inheritdoc />
-		public LayoutEndpoint(NanoleafClient client)
+		public LayoutEndpoint(ClientDto client)
 		{
 			Client = client;
 		}

@@ -1,4 +1,5 @@
 ﻿using System;
+using Winleafs.Api.DTOs;
 
 namespace Winleafs.Api.Test
 {
@@ -6,7 +7,7 @@ namespace Winleafs.Api.Test
     {
         static void Main(string[] args)
         {
-            var nanoLeafClient = new NanoleafClient("192.168.178.160", 16021);
+            var nanoLeafClient = new NanoleafClient(new ClientDto("192.168.178.160", 16021));
             Console.WriteLine("Authorizing..");
             nanoLeafClient.AuthorizationEndpoint.GetAuthTokenAsync().GetAwaiter().GetResult();
             Console.WriteLine("Authorized!");

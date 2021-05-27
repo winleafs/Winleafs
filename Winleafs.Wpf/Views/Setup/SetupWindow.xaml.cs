@@ -11,6 +11,7 @@ using Tmds.MDns;
 
 using Winleafs.Wpf.ViewModels;
 using NLog;
+using Winleafs.Api.DTOs;
 
 namespace Winleafs.Wpf.Views.Setup
 {
@@ -28,7 +29,7 @@ namespace Winleafs.Wpf.Views.Setup
 
         private SetupViewModel setupViewModel;
         private List<Device> discoveredDevices;
-        private NanoleafClient nanoleafClient;
+        private INanoleafClient nanoleafClient;
         private Device selectedDevice;
         private MainWindow _parent;
 
@@ -161,7 +162,7 @@ namespace Winleafs.Wpf.Views.Setup
 
                 selectedDevice = (Device)DiscoverDevice.Devices.SelectedItem;
 
-                nanoleafClient = new NanoleafClient(selectedDevice.IPAddress, selectedDevice.Port);
+                nanoleafClient = ClientFactory.Instance.Get(selectedDevice);
             }
         }
 

@@ -30,7 +30,7 @@ namespace Winleafs.Wpf.Api.Layouts
 
         public PanelLayout(Device device)
         {
-            _nanoleafClient = NanoleafClient.GetClientForDevice(device);
+            _nanoleafClient = ClientFactory.Instance.Get(device);
 
             _unscaledPolygons = new List<DrawablePanel>();
 

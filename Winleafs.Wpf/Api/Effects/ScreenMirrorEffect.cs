@@ -44,7 +44,7 @@ namespace Winleafs.Wpf.Api.Effects
                 }
                 else if (_screenMirrorAlgorithm == ScreenMirrorAlgorithm.Ambilight)
                 {
-                    _screenMirrorEffect = new Ambilght(nanoleafClient);
+                    _screenMirrorEffect = new Ambilight(nanoleafClient);
                 }
             }
             catch (Exception e)

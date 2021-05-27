@@ -6,6 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
+using Winleafs.Api.DTOs;
+using Winleafs.Api.DTOs.ExternalControl;
+using Winleafs.Api.DTOs.Shared;
 using Winleafs.Api.Endpoints.Interfaces;
 using Winleafs.Models.Enums;
 using Winleafs.Models.Models.ExternalControl;
@@ -23,7 +26,7 @@ namespace Winleafs.Api.Endpoints
         private static readonly byte _oneAsByte = Convert.ToByte(1);
 
         /// <inheritdoc />
-        public ExternalControlEndpoint(NanoleafClient client)
+        public ExternalControlEndpoint(ClientDto client)
         {
             Client = client;
         }
@@ -36,7 +39,7 @@ namespace Winleafs.Api.Endpoints
             return (deviceType) switch
             {
                 DeviceType.Aurora => await SendRequestAsync<ExternalControlInfo>(BaseUrl, Method.PUT,
-                    body: new { write = new { command = "display", animType = "extControl" } }).ConfigureAwait(false),
+                    body: new ExternalControlDto("v1")).ConfigureAwait(false),
                 DeviceType.Canvas => await CreateExternalControlV2Body().ConfigureAwait(false),
                 DeviceType.Shapes => await CreateExternalControlV2Body().ConfigureAwait(false),
                 _ => throw new NotImplementedException($"No External Control exists for device of type {deviceType}")
@@ -52,11 +55,11 @@ namespace Winleafs.Api.Endpoints
             switch (deviceType)
             {
                 case DeviceType.Aurora:
-                    _externalControlInfo = await GetExternalControlInfoAsync(deviceType);
+                    _externalControlInfo = await GetExternalControlInfoAsync(deviceType).ConfigureAwait(false);
                     break;
                 case DeviceType.Canvas:
                 case DeviceType.Shapes:
-                    await GetExternalControlInfoAsync(deviceType);
+                    await GetExternalControlInfoAsync(deviceType).ConfigureAwait(false);
 
                     _externalControlInfo = new ExternalControlInfo
                     {
@@ -64,8 +67,6 @@ namespace Winleafs.Api.Endpoints
                         StreamIProtocol = StreamProtocol,
                         StreamPort = CanvasShapesStreamPort
                     };
-                    break;
-                case DeviceType.Unknown:
                     break;
                 default:
                     throw new NotImplementedException($"No external control preparation implemented for device type {deviceType}");
@@ -170,7 +171,7 @@ namespace Winleafs.Api.Endpoints
         private Task<ExternalControlInfo> CreateExternalControlV2Body()
         {
             return SendRequestAsync<ExternalControlInfo>(BaseUrl, Method.PUT,
-                body: new {write = new {command = "display", animType = "extControl", extControlVersion = "v2"}});
+                body: new ExternalControlDto("v2"));
         }
     }
 }

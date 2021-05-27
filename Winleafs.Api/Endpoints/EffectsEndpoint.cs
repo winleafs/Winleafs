@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using RestSharp;
-
+using Winleafs.Api.DTOs;
+using Winleafs.Api.DTOs.Effects;
 using Winleafs.Api.Endpoints.Interfaces;
 using Winleafs.Models.Models.Effects;
 
@@ -14,7 +15,7 @@ namespace Winleafs.Api.Endpoints
         private const string BaseUrl = "effects";
 
         /// <inheritdoc />
-        public EffectsEndpoint(NanoleafClient client)
+        public EffectsEndpoint(ClientDto client)
         {
             Client = client;
         }
@@ -46,13 +47,13 @@ namespace Winleafs.Api.Endpoints
         /// <inheritdoc />
         public Task SetSelectedEffectAsync(string effectName)
         {
-            return SendRequestAsync(BaseUrl, Method.PUT, body: new { select = effectName });
+            return SendRequestAsync(BaseUrl, Method.PUT, body: new SelectEffectDto(effectName));
         }
 
         /// <inheritdoc />
         public void SetSelectedEffect(string effectName)
         {
-            SendRequest(BaseUrl, Method.PUT, body: new { select = effectName});
+            SendRequest(BaseUrl, Method.PUT, body: new SelectEffectDto(effectName));
         }
 
 
@@ -64,7 +65,7 @@ namespace Winleafs.Api.Endpoints
                 return Task.FromResult((Effect)null);
             }
 
-            return SendRequestAsync<Effect>(BaseUrl, Method.PUT, CreateWriteEffectCommand(effectName));
+            return SendRequestAsync<Effect>(BaseUrl, Method.PUT, new GetEffectDetailsDto(effectName));
         }
 
         /// <inheritdoc />
@@ -75,19 +76,7 @@ namespace Winleafs.Api.Endpoints
                 return null;
             }
 
-            return SendRequest<Effect>(BaseUrl, Method.PUT, CreateWriteEffectCommand(effectName));
-        }
-
-        private static object CreateWriteEffectCommand(string effectName)
-        {
-            return new
-            {
-                write = new
-                {
-                    command = "request",
-                    animName = effectName
-                }
-            };
+            return SendRequest<Effect>(BaseUrl, Method.PUT, new GetEffectDetailsDto(effectName));
         }
     }
 }

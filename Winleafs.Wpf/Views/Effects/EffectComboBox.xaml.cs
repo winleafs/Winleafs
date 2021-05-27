@@ -80,7 +80,7 @@ namespace Winleafs.Wpf.Views.Effects
             var effects = new List<EffectComboBoxItemViewModel>();
 
             //Take any client. Since the dropdown will only display effects shared accross all devices, it does not matter which lights we use to query the effects
-            var nanoleafClient = NanoleafClient.GetClientForDevice(orchestrators.First().Device);
+            var nanoleafClient = ClientFactory.Instance.Get(orchestrators.First().Device);
 
             foreach (var customEffect in customEffects)
             {

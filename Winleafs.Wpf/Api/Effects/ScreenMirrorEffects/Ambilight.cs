@@ -7,12 +7,12 @@ using Winleafs.Wpf.Helpers;
 
 namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
 {
-    public class Ambilght : IScreenMirrorEffect
+    public class Ambilight : IScreenMirrorEffect
     {
         private readonly INanoleafClient _nanoleafClient;
         private readonly List<Rectangle> _captureArea; //A list since that is what the screengrabber expects as input
 
-        public Ambilght(INanoleafClient nanoleafClient)
+        public Ambilight(INanoleafClient nanoleafClient)
         {
             _nanoleafClient = nanoleafClient;
 

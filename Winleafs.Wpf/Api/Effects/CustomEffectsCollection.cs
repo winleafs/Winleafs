@@ -16,7 +16,7 @@ namespace Winleafs.Wpf.Api.Effects
         /// <param name="orchestrator">The orchestrator instance currently in use.</param>
         public CustomEffectsCollection(Orchestrator orchestrator)
         {
-            var nanoleafClient = NanoleafClient.GetClientForDevice(orchestrator.Device);
+            var nanoleafClient = ClientFactory.Instance.Get(orchestrator.Device);
 
             _customEffects = new Dictionary<string, ICustomEffect>();
 

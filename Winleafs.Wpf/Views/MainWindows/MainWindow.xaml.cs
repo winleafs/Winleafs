@@ -290,7 +290,7 @@ namespace Winleafs.Wpf.Views.MainWindows
             {
                 foreach (var device in UserSettings.Settings.Devices)
                 {
-                    var nanoleafClient = NanoleafClient.GetClientForDevice(device);
+                    var nanoleafClient = ClientFactory.Instance.Get(device);
                     var effects = await nanoleafClient.EffectsEndpoint.GetEffectsListAsync();
                     var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(device);
 
