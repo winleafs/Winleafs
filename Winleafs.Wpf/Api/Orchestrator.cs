@@ -92,7 +92,7 @@ namespace Winleafs.Wpf.Api
 
             try
             {
-                var client = NanoleafClient.GetClientForDevice(Device);
+                var client = ClientFactory.Instance.Get(Device);
 
                 //DO NOT change the order of disabling effects, then setting brightness and then enabling effects
                 if (_customEffects.HasActiveEffects(effectName))

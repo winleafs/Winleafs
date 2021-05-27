@@ -1,38 +1,44 @@
 ﻿using System.Threading.Tasks;
-
-using Newtonsoft.Json.Linq;
-
+using Newtonsoft.Json;
 using RestSharp;
-
+using RestSharp.Serializers.NewtonsoftJson;
+using Winleafs.Api.DTOs;
+using Winleafs.Api.DTOs.Authentication;
 using Winleafs.Api.Endpoints.Interfaces;
 
 namespace Winleafs.Api.Endpoints
 {
-    public class AuthorizationEndpoint : NanoleafEndpoint, IAuthorizationEndpoint
-    {
-        /// <inheritdoc />
-        public AuthorizationEndpoint(NanoleafClient client)
-        {
-            Client = client;
-        }
+	public class AuthorizationEndpoint : NanoleafEndpoint, IAuthorizationEndpoint
+	{
+		/// <inheritdoc />
+		public AuthorizationEndpoint(ClientDto client)
+		{
+			Client = client;
+		}
 
-        /// <inheritdoc />
-        public string GetAuthToken()
+		/// <inheritdoc />
+		public string GetAuthToken()
 		{
 			return GetAuthTokenAsync().ConfigureAwait(false).GetAwaiter().GetResult();
 		}
 
-        /// <inheritdoc />
-        public async Task<string> GetAuthTokenAsync()
-        {
-            var client = new RestClient(Client.BaseUri);
-            var request = new RestRequest("api/v1/new", Method.POST);
-            var response = await client.ExecuteAsync(request).ConfigureAwait(false);
+		/// <inheritdoc />
+		public async Task<string> GetAuthTokenAsync()
+		{
+			var client = new RestClient($"http://{Client.Ip}:{Client.Port}");
+			client.UseNewtonsoftJson();
+			var request = new RestRequest("api/v1/new", Method.POST);
+			var response = await client.ExecuteAsync<AuthenticationDto>(request).ConfigureAwait(false);
 
-            var jObject = JObject.Parse(response.Content);
-            Client.Token = jObject["auth_token"].ToString();
 
-            return Client.Token;
-        }
-    }
+			if (!response.IsSuccessful)
+			{
+				return null;
+			}
+
+			Client.AuthenticationToken = response.Data.AuthenticationToken;
+
+			return Client.AuthenticationToken;
+		}
+	}
 }

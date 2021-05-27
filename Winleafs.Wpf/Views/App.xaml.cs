@@ -161,7 +161,7 @@ namespace Winleafs.Wpf.Views
                     UserSettings.Settings.ActiveSchedule.AppliesToDeviceNames.Contains(device.Name) &&
                     UserSettings.Settings.ActiveSchedule.TurnOffAtApplicationShutdown)
                 {
-                    var client = NanoleafClient.GetClientForDevice(device);
+                    var client = ClientFactory.Instance.Get(device);
                     await client.StateEndpoint.SetStateWithStateCheckAsync(false);
                 }
             }

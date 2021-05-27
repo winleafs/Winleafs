@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using NLog;
 using RestSharp;
+using RestSharp.Serializers.NewtonsoftJson;
+using Winleafs.Api.DTOs;
 
 namespace Winleafs.Api.Endpoints
 {
@@ -14,7 +16,7 @@ namespace Winleafs.Api.Endpoints
     {
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
-        protected NanoleafClient Client { get; set; }
+        protected ClientDto Client { get; set; }
 
         // 2 Second default timeout.
         protected int Timeout { get; set; } = 2000;
@@ -59,8 +61,9 @@ namespace Winleafs.Api.Endpoints
         protected async Task<object> SendRequestAsync(string endpoint, Method method,
             Type returnType = null, object body = null, bool disableLogging = false)
         {
-            var restClient = new RestClient(Client.BaseUri);
-            var request = new RestRequest(GetUrlForRequest(endpoint), method)
+            var restClient = new RestClient(Client.BaseUrl);
+            restClient.UseNewtonsoftJson();
+            var request = new RestRequest(endpoint, method)
             {
                 Timeout = Timeout
             };
@@ -96,8 +99,9 @@ namespace Winleafs.Api.Endpoints
         /// <returns>The wanted result.</returns>
         protected object SendRequest(string endpoint, Method method, Type returnType = null, object body = null, bool disableLogging = false)
         {
-            var restClient = new RestClient(Client.BaseUri);
-            var request = new RestRequest(GetUrlForRequest(endpoint), method)
+            var restClient = new RestClient(Client.BaseUrl);
+            restClient.UseNewtonsoftJson();
+            var request = new RestRequest(endpoint, method)
             {
                 Timeout = Timeout //Set timeout to 2 seconds
             };
@@ -122,15 +126,11 @@ namespace Winleafs.Api.Endpoints
             return returnType == null ? null : JsonConvert.DeserializeObject(response.Content, returnType);
         }
 
-        protected string GetUrlForRequest(string endpoint)
-        {
-            return $"api/v1/{Client.Token}/{endpoint}";
-        }
 
         protected void LogRequest(RestRequest request, Method method, object body)
         {
             _logger.Info(
-                $"Sending following request to Nanoleaf: Address: {Client.BaseUri}, " +
+                $"Sending following request to Nanoleaf: Address: {Client.BaseUrl}, " +
                 $"URL: {request.Resource}, Method: {method}, " +
                 $"Body: {(body != null ? body.ToString() : "")}");
         }

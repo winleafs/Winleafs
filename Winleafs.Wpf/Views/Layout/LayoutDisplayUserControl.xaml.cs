@@ -171,7 +171,7 @@ namespace Winleafs.Wpf.Views.Layout
                     //Only retrieve palette if it is not known yet
                     if (effect?.Palette == null)
                     {
-                        var client = NanoleafClient.GetClientForDevice(UserSettings.Settings.ActiveDevice);
+                        var client = ClientFactory.Instance.Get(UserSettings.Settings.ActiveDevice);
                         effect = client.EffectsEndpoint.GetEffectDetails(effectName);
 
                         if (effect != null)
