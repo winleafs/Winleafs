@@ -114,7 +114,7 @@ namespace Winleafs.Wpf.Views.Setup
         {
             if (!UserSettings.HasSettings() || !UserSettings.Settings.Devices.Any(d => d.IPAddress.Equals(e.Announcement.Addresses.First().ToString())))
             { //Only add devices that not have been added before
-                _logger.Info($"Discovered following device: {e.Announcement.Hostname}, IPs: {e.Announcement.Addresses}, Port: {e.Announcement.Port}");
+                _logger.Info($"Discovered following device: {e.Announcement.Hostname}, IPs: {string.Join(",", e.Announcement.Addresses.Select(ip => ip.ToString()))}, Port: {e.Announcement.Port}");
 
                 discoveredDevices.Add(new Device
                 {
@@ -160,8 +160,9 @@ namespace Winleafs.Wpf.Views.Setup
                 DiscoverDevice.Visibility = Visibility.Hidden;
 
                 selectedDevice = (Device)DiscoverDevice.Devices.SelectedItem;
+				_logger.Info($"Selected following device: {selectedDevice.IPAddress}:{selectedDevice.Port}");
 
-                nanoleafClient = new NanoleafClient(selectedDevice.IPAddress, selectedDevice.Port);
+				nanoleafClient = new NanoleafClient(selectedDevice.IPAddress, selectedDevice.Port);
             }
         }
 
