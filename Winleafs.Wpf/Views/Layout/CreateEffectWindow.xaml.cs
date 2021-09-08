@@ -71,16 +71,16 @@ namespace Winleafs.Wpf.Views.Layout
 
 			for (var i = 0; i < _profile.Steps.Count; i++)
 			{
-				//FrameList.Children.Add(new StepItemUserControl(this, i + 1, _profile.Steps[i]));
+				FrameList.Children.Add(new FrameUserControl(this, i + 1, _profile.Steps[i]));
 			}
 		}
 
-		public void HighlightPanles(HashSet<int> panelIds)
+		public void HighlightPanels(HashSet<int> panelIds)
         {
             LayoutDisplay.HighlightPanels(panelIds);
         }
 
-        public void UnhighlightPanles(HashSet<int> panelIds)
+        public void UnhighlightPanels(HashSet<int> panelIds)
         {
             LayoutDisplay.UnhighlightPanels(panelIds);
         }
