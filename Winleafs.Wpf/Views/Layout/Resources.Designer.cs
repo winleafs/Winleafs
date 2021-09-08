@@ -79,6 +79,33 @@ namespace Winleafs.Wpf.Views.Layout {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create effect.
+        /// </summary>
+        public static string CreateEffectWindow {
+            get {
+                return ResourceManager.GetString("CreateEffectWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Frame.
+        /// </summary>
+        public static string Frame {
+            get {
+                return ResourceManager.GetString("Frame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Frames.
+        /// </summary>
+        public static string Frames {
+            get {
+                return ResourceManager.GetString("Frames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The percentage profile is used for effects that set a certain percentage (such as health bars). Click on panels that you want to include in a step and then click on the plus button. Do this until all panels are added or you are satisfied..
         /// </summary>
         public static string Info {
