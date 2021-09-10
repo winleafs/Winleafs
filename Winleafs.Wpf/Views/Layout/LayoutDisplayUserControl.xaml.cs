@@ -26,7 +26,8 @@ namespace Winleafs.Wpf.Views.Layout
         private static readonly SolidColorBrush _selectedBorderColor = Brushes.LightSteelBlue;
         private static readonly SolidColorBrush _borderColor = (SolidColorBrush)Application.Current.FindResource("NanoleafBlack");
 
-        public HashSet<int> SelectedPanelIds { get; set; }
+		public HashSet<int> PanelIds { get; set; }
+		public HashSet<int> SelectedPanelIds { get; set; }
 
         private static readonly Random _random = new Random();
 
@@ -48,7 +49,8 @@ namespace Winleafs.Wpf.Views.Layout
             InitializeComponent();
 
             CanvasArea.MouseDown += CanvasClicked;
-            SelectedPanelIds = new HashSet<int>();
+			PanelIds = new HashSet<int>();
+			SelectedPanelIds = new HashSet<int>();
             _lockedPanelIds = new HashSet<int>();
             _highlightOriginalColors = new Dictionary<int, Brush>();
 
@@ -123,6 +125,7 @@ namespace Winleafs.Wpf.Views.Layout
             foreach (var polygon in _polygons)
             {
                 CanvasArea.Children.Add(polygon.Polygon);
+				PanelIds.Add(polygon.PanelId);
             }
 
             UpdateColors();
@@ -240,10 +243,20 @@ namespace Winleafs.Wpf.Views.Layout
                 return;
             }
 
-            polygon.Stroke = _selectedBorderColor;
-            polygon.StrokeThickness = 2;
+			if (SelectedPanelIds.Contains(selectedPanelId))
+			{
+				polygon.Stroke = _borderColor;
+				polygon.StrokeThickness = 2;
 
-            SelectedPanelIds.Add(selectedPanelId);
+				SelectedPanelIds.Remove(selectedPanelId);
+			}
+			else
+			{
+				polygon.Stroke = _selectedBorderColor;
+				polygon.StrokeThickness = 2;
+
+				SelectedPanelIds.Add(selectedPanelId);
+			}
         }
 
         private void CanvasClicked(object sender, MouseButtonEventArgs e)

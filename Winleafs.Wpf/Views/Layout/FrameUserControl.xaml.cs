@@ -1,5 +1,5 @@
 ﻿using System.Windows.Controls;
-using Winleafs.Models.Models.Layouts;
+using models = Winleafs.Models.Models.Layouts;
 
 namespace Winleafs.Wpf.Views.Layout
 {
@@ -11,14 +11,14 @@ namespace Winleafs.Wpf.Views.Layout
         public string Description { get; set; }
 
         private CreateEffectWindow _parent;
-        private PercentageStep _percentageStep;
+        private models.Frame _frame;
 
-        public FrameUserControl(CreateEffectWindow parent, int stepNumber, PercentageStep percentageStep)
+        public FrameUserControl(CreateEffectWindow parent, int frameNumber, models.Frame frame)
         {
             _parent = parent;
-            _percentageStep = percentageStep;
+            _frame = frame;
 
-            Description = $"{Layout.Resources.Frame} {stepNumber}";
+            Description = $"{Layout.Resources.Frame} {frameNumber}";
 
             InitializeComponent();
             DataContext = this;
@@ -26,17 +26,17 @@ namespace Winleafs.Wpf.Views.Layout
 
         private void Delete_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            _parent.DeleteStep(_percentageStep);
+            _parent.DeleteFrame(_frame);
         }
 
-        private void Grid_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            _parent.HighlightPanels(_percentageStep.PanelIds);
-        }
+		private void Grid_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+		{
+			//_parent.HighlightPanels(_frame.PanelIds);
+		}
 
-        private void Grid_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            _parent.UnhighlightPanels(_percentageStep.PanelIds);
-        }
-    }
+		private void Grid_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+		{
+			//_parent.UnhighlightPanels(_frame.PanelIds);
+		}
+	}
 }

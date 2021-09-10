@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows;
 using Winleafs.Models.Models;
 using Winleafs.Models.Models.Layouts;
@@ -12,7 +13,7 @@ namespace Winleafs.Wpf.Views.Layout
     /// </summary>
     public partial class CreateEffectWindow : Window
     {
-        private PercentageProfile _profile;
+        private CustomEffect _customEffect;
 
         public CreateEffectWindow()
         {
@@ -23,21 +24,16 @@ namespace Winleafs.Wpf.Views.Layout
 			LayoutDisplay.DrawLayout();
             LayoutDisplay.DisableColorTimer();
 
-            if (UserSettings.Settings.ActiveDevice.PercentageProfile != null)
+            if (UserSettings.Settings.ActiveDevice.CustomEffect != null)
             {
-                var serialized = JsonConvert.SerializeObject(UserSettings.Settings.ActiveDevice.PercentageProfile); //Deep copy the profile when editing
-                _profile = JsonConvert.DeserializeObject<PercentageProfile>(serialized);
+                var serialized = JsonConvert.SerializeObject(UserSettings.Settings.ActiveDevice.CustomEffect); //Deep copy the custom effect when editing
+                _customEffect = JsonConvert.DeserializeObject<CustomEffect>(serialized);
 
-                //BuildStepList();
-
-                foreach (var step in _profile.Steps)
-                {
-                    LayoutDisplay.LockPanels(step.PanelIds);
-                }
+				BuildFrameList();
             }
             else
             {
-                _profile = new PercentageProfile();
+                _customEffect = new CustomEffect();
             }
         }
 
@@ -48,18 +44,18 @@ namespace Winleafs.Wpf.Views.Layout
                 return;
             }
             
-            var newStep = new PercentageStep();
+            var frame = new Frame();
 
-            foreach (var panelId in LayoutDisplay.SelectedPanelIds)
+            foreach (var panelId in LayoutDisplay.PanelIds)
             {
-                newStep.PanelIds.Add(panelId);
+                frame.PanelColors.Add(panelId, Color.Black);
             }                
 
-            _profile.Steps.Add(newStep);
+            _customEffect.Frames.Add(frame);
 
             BuildFrameList();
 
-            LayoutDisplay.LockPanels(LayoutDisplay.SelectedPanelIds);
+            //LayoutDisplay.LockPanels(LayoutDisplay.SelectedPanelIds);
 
             LayoutDisplay.ClearSelectedPanels();
             
@@ -69,9 +65,9 @@ namespace Winleafs.Wpf.Views.Layout
 		{
 			FrameList.Children.Clear();
 
-			for (var i = 0; i < _profile.Steps.Count; i++)
+			for (var i = 0; i < _customEffect.Frames.Count; i++)
 			{
-				FrameList.Children.Add(new FrameUserControl(this, i + 1, _profile.Steps[i]));
+				FrameList.Children.Add(new FrameUserControl(this, i + 1, _customEffect.Frames[i]));
 			}
 		}
 
@@ -85,12 +81,12 @@ namespace Winleafs.Wpf.Views.Layout
             LayoutDisplay.UnhighlightPanels(panelIds);
         }
 
-        public void DeleteStep(PercentageStep step)
+        public void DeleteFrame(Frame frame)
         {
-            LayoutDisplay.UnlockPanels(step.PanelIds);
+            //LayoutDisplay.UnlockPanels(step.PanelIds);
 
-            _profile.Steps.Remove(step);
-            //BuildStepList();
+            _customEffect.Frames.Remove(frame);
+            BuildFrameList();
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
@@ -100,9 +96,9 @@ namespace Winleafs.Wpf.Views.Layout
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            if (_profile.Steps.Count > 0)
+            if (_customEffect.Frames.Count > 0)
             {
-                UserSettings.Settings.ActiveDevice.PercentageProfile = _profile;
+                UserSettings.Settings.ActiveDevice.CustomEffect = _customEffect;
                 UserSettings.Settings.SaveSettings();
 
                 Close();
