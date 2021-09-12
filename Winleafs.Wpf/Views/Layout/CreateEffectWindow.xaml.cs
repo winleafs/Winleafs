@@ -1,9 +1,11 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Drawing;
+using System.Linq;
 using System.Windows;
+using System.Windows.Media;
 using Winleafs.Models.Models;
 using Winleafs.Models.Models.Layouts;
+using Winleafs.Wpf.Api.Layouts;
 using Winleafs.Wpf.Views.Popup;
 
 namespace Winleafs.Wpf.Views.Layout
@@ -14,8 +16,11 @@ namespace Winleafs.Wpf.Views.Layout
     public partial class CreateEffectWindow : Window
     {
         private CustomEffect _customEffect;
+		private Frame _currentFrame;
+		private Color _currentColor = Colors.White;
+		private SolidColorBrush _currentBrush;
 
-        public CreateEffectWindow()
+		public CreateEffectWindow()
         {
             InitializeComponent();
 
@@ -23,6 +28,8 @@ namespace Winleafs.Wpf.Views.Layout
 			LayoutDisplay.InitializeResizeTimer();
 			LayoutDisplay.DrawLayout();
             LayoutDisplay.DisableColorTimer();
+			LayoutDisplay.PanelClicked += LayoutDisplay_PanelClicked;
+			ColorPicker.SelectedColor = _currentColor;
 
             if (UserSettings.Settings.ActiveDevice.CustomEffect != null)
             {
@@ -30,6 +37,7 @@ namespace Winleafs.Wpf.Views.Layout
                 _customEffect = JsonConvert.DeserializeObject<CustomEffect>(serialized);
 
 				BuildFrameList();
+				BuildPallete();
             }
             else
             {
@@ -37,27 +45,51 @@ namespace Winleafs.Wpf.Views.Layout
             }
         }
 
-        private void Plus_Click(object sender, RoutedEventArgs e)
+		private void LayoutDisplay_PanelClicked(object sender, System.EventArgs e)
+		{
+			var drawablePanel = sender as DrawablePanel;
+
+			if (drawablePanel != null)
+			{
+				drawablePanel.Polygon.Fill = _currentBrush;
+
+				//Convert from System.Windows.Media to System.Drawing.Color and update the Frame
+				_currentFrame.PanelColors[drawablePanel.PanelId] = 
+					System.Drawing.Color.FromArgb(_currentColor.A, _currentColor.R, _currentColor.G, _currentColor.B);
+			}
+		}
+
+		public void FrameSelected(Frame frame)
+		{
+			//TODO Consider whether the pallette to be added will have a collection of Brushes that will
+			//enable building a separate dictiobnary of panelId->Brush
+			_currentFrame = frame;
+			//LayoutDisplay.UpdateColors(_currentFrame.PanelColors);
+		}
+
+		private void Plus_Click(object sender, RoutedEventArgs e)
         {
-            if (LayoutDisplay.SelectedPanelIds.Count <= 0)
-            {
-                return;
-            }
-            
-            var frame = new Frame();
+			//Copy the previous frame's panel colors where we can
+			var prevFrame = _customEffect.Frames.LastOrDefault();
+            var newFrame = new Frame();
 
             foreach (var panelId in LayoutDisplay.PanelIds)
             {
-                frame.PanelColors.Add(panelId, Color.Black);
+				var color = System.Drawing.Color.Black;
+				if (prevFrame != null && prevFrame.PanelColors.TryGetValue(panelId, out var prevColor))
+				{
+					color = prevColor;
+				}
+
+				newFrame.PanelColors.Add(panelId, color);
             }                
 
-            _customEffect.Frames.Add(frame);
+			//Add the frame to the effect and the displayed list
+            _customEffect.Frames.Add(newFrame);
+			FrameList.Children.Add(new FrameUserControl(this, _customEffect.Frames.Count, newFrame));
+			//BuildFrameList();
 
-            BuildFrameList();
-
-            //LayoutDisplay.LockPanels(LayoutDisplay.SelectedPanelIds);
-
-            LayoutDisplay.ClearSelectedPanels();
+			//LayoutDisplay.ClearSelectedPanels();
             
         }
 
@@ -71,23 +103,20 @@ namespace Winleafs.Wpf.Views.Layout
 			}
 		}
 
-		public void HighlightPanels(HashSet<int> panelIds)
-        {
-            LayoutDisplay.HighlightPanels(panelIds);
-        }
+		private void BuildPallete()
+		{
+			var colorsUsed = _customEffect.Frames.SelectMany(f => f.PanelColors.Values).OrderBy(c => c.GetHue()).Distinct();
 
-        public void UnhighlightPanels(HashSet<int> panelIds)
-        {
-            LayoutDisplay.UnhighlightPanels(panelIds);
-        }
 
-        public void DeleteFrame(Frame frame)
-        {
-            //LayoutDisplay.UnlockPanels(step.PanelIds);
+		}
 
-            _customEffect.Frames.Remove(frame);
-            BuildFrameList();
-        }
+        //public void DeleteFrame(Frame frame)
+        //{
+        //    //LayoutDisplay.UnlockPanels(step.PanelIds);
+
+        //    _customEffect.Frames.Remove(frame);
+        //    BuildFrameList();
+        //}
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {

@@ -24,10 +24,10 @@ namespace Winleafs.Wpf.Views.Layout
             DataContext = this;
         }
 
-        private void Delete_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            _parent.DeleteFrame(_frame);
-        }
+        //private void Delete_Click(object sender, System.Windows.RoutedEventArgs e)
+        //{
+        //    _parent.DeleteFrame(_frame);
+        //}
 
 		private void Grid_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
 		{
@@ -37,6 +37,11 @@ namespace Winleafs.Wpf.Views.Layout
 		private void Grid_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
 		{
 			//_parent.UnhighlightPanels(_frame.PanelIds);
+		}
+
+		private void Grid_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+		{
+			_parent.FrameSelected(_frame);
 		}
 	}
 }

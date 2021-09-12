@@ -8,8 +8,8 @@
              d:DesignHeight="40" d:DesignWidth="200">
     <Grid MouseEnter="Grid_MouseEnter" MouseLeave="Grid_MouseLeave">
         <Label Content="{Binding Description}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontSize="20" Height="40" Width="156"/>
-        <Button VerticalAlignment="Top" Height="35" Background="{x:Null}" BorderBrush="{x:Null}" Click="Delete_Click" Margin="0,2,4,0" HorizontalAlignment="Right" Width="35">
-            <materialDesign:PackIcon Kind="Delete" />
+        <Button Padding="0" VerticalAlignment="Top" Height="35" Background="{x:Null}" BorderBrush="{x:Null}" Click="Delete_Click" Margin="0,2,4,0" HorizontalAlignment="Right" Width="35">
+            <materialDesign:PackIcon Kind="Delete" Foreground="White" Height="30" Width="30"/>
         </Button>
     </Grid>
 </UserControl>

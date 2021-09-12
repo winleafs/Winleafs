@@ -79,6 +79,15 @@ namespace Winleafs.Wpf.Views.Layout {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Colors Used.
+        /// </summary>
+        public static string ColorsUsed {
+            get {
+                return ResourceManager.GetString("ColorsUsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create effect.
         /// </summary>
         public static string CreateEffectWindow {

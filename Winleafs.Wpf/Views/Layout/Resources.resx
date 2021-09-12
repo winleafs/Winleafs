@@ -123,6 +123,9 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="ColorsUsed" xml:space="preserve">
+    <value>Colors Used</value>
+  </data>
   <data name="CreateEffectWindow" xml:space="preserve">
     <value>Create effect</value>
   </data>
