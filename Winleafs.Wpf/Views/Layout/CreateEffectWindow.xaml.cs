@@ -19,6 +19,7 @@ namespace Winleafs.Wpf.Views.Layout
 		private Frame _currentFrame;
 		private Color _currentColor = Colors.White;
 		private SolidColorBrush _currentBrush;
+		private Dictionary<int, SolidColorBrush> _pallete;
 
 		public CreateEffectWindow()
         {
@@ -36,14 +37,16 @@ namespace Winleafs.Wpf.Views.Layout
                 var serialized = JsonConvert.SerializeObject(UserSettings.Settings.ActiveDevice.CustomEffect); //Deep copy the custom effect when editing
                 _customEffect = JsonConvert.DeserializeObject<CustomEffect>(serialized);
 
-				BuildFrameList();
-				BuildPallete();
             }
             else
             {
                 _customEffect = new CustomEffect();
+				_customEffect.Frames.Add(new Frame());
             }
-        }
+
+			BuildFrameList();
+			BuildPallete();
+		}
 
 		private void LayoutDisplay_PanelClicked(object sender, System.EventArgs e)
 		{
@@ -101,13 +104,29 @@ namespace Winleafs.Wpf.Views.Layout
 			{
 				FrameList.Children.Add(new FrameUserControl(this, i + 1, _customEffect.Frames[i]));
 			}
+
+			_currentFrame = _customEffect.Frames.Last();
 		}
 
 		private void BuildPallete()
 		{
 			var colorsUsed = _customEffect.Frames.SelectMany(f => f.PanelColors.Values).OrderBy(c => c.GetHue()).Distinct();
 
+			ColorPicker.StandardColors.Clear();
+			_pallete = new Dictionary<int, SolidColorBrush>();
+			
+			foreach (var color in colorsUsed)
+			{
+				var mediaColor = Color.FromArgb(color.A, color.R, color.G, color.B);
+				ColorPicker.StandardColors.Add(new Xceed.Wpf.Toolkit.ColorItem(mediaColor, string.Empty));
+				_pallete.Add(color.ToArgb(), new SolidColorBrush(mediaColor));
+			}
+		}
 
+		private void AddColorToPallete(Color color)
+		{
+			ColorPicker.StandardColors.Add(new Xceed.Wpf.Toolkit.ColorItem(color, string.Empty));
+			//_pallete.Add(color., new SolidColorBrush(mediaColor));
 		}
 
         //public void DeleteFrame(Frame frame)
