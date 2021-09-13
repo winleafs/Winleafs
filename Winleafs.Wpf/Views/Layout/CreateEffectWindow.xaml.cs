@@ -6,6 +6,7 @@ using System.Windows.Media;
 using Winleafs.Models.Models;
 using Winleafs.Models.Models.Layouts;
 using Winleafs.Wpf.Api.Layouts;
+using Winleafs.Wpf.Helpers;
 using Winleafs.Wpf.Views.Popup;
 
 namespace Winleafs.Wpf.Views.Layout
@@ -17,9 +18,9 @@ namespace Winleafs.Wpf.Views.Layout
     {
         private CustomEffect _customEffect;
 		private Frame _currentFrame;
-		private Color _currentColor = Colors.White;
-		private SolidColorBrush _currentBrush;
-		private Dictionary<int, SolidColorBrush> _pallete;
+		//private Color _currentColor = Colors.White;
+		//private SolidColorBrush _currentBrush;
+		private Dictionary<uint, SolidColorBrush> _pallete;
 
 		public CreateEffectWindow()
         {
@@ -29,8 +30,9 @@ namespace Winleafs.Wpf.Views.Layout
 			LayoutDisplay.InitializeResizeTimer();
 			LayoutDisplay.DrawLayout();
             LayoutDisplay.DisableColorTimer();
+			LayoutDisplay.MultiSelectEnabled = false;
 			LayoutDisplay.PanelClicked += LayoutDisplay_PanelClicked;
-			ColorPicker.SelectedColor = _currentColor;
+			ColorPicker.SelectedColor = Colors.White;
 
             if (UserSettings.Settings.ActiveDevice.CustomEffect != null)
             {
@@ -42,10 +44,45 @@ namespace Winleafs.Wpf.Views.Layout
             {
                 _customEffect = new CustomEffect();
 				_customEffect.Frames.Add(new Frame());
-            }
+			}
 
 			BuildFrameList();
 			BuildPallete();
+
+			FrameSelected(_customEffect.Frames[0]);
+		}
+
+		//private void ColorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+		//{
+		//	if (e.NewValue != null)
+		//	{
+		//		_currentColor = e.NewValue.Value;
+				
+		//		//Try to find a brush for the selecyted color
+		//		var argb = MediaColorConverter.ToInt(_currentColor);
+
+		//		if (!_pallete.TryGetValue(argb, out var brush))
+		//		{
+		//			brush = new SolidColorBrush(_currentColor);
+		//		}
+		//		_currentBrush = brush;
+		//	}
+		//}
+
+		public void FrameSelected(Frame frame)
+		{
+			//TODO Consider whether the pallette to be added will have a collection of Brushes that will
+			//enable building a separate dictiobnary of panelId->Brush
+			_currentFrame = frame;
+
+			var panelToBrushMap = new Dictionary<int, SolidColorBrush>();
+
+			foreach (var panel in _currentFrame.PanelColors)
+			{
+				panelToBrushMap.Add(panel.Key, _pallete[panel.Value]);
+			}
+			LayoutDisplay.PanelToBrushMap = panelToBrushMap;
+			LayoutDisplay.UpdateColors();
 		}
 
 		private void LayoutDisplay_PanelClicked(object sender, System.EventArgs e)
@@ -54,31 +91,37 @@ namespace Winleafs.Wpf.Views.Layout
 
 			if (drawablePanel != null)
 			{
-				drawablePanel.Polygon.Fill = _currentBrush;
+				var color = ColorPicker.SelectedColor ?? Colors.Black;
 
-				//Convert from System.Windows.Media to System.Drawing.Color and update the Frame
-				_currentFrame.PanelColors[drawablePanel.PanelId] = 
-					System.Drawing.Color.FromArgb(_currentColor.A, _currentColor.R, _currentColor.G, _currentColor.B);
+				//Try to find a brush for the selected color
+				var argb = MediaColorConverter.ToRgb(color);
+
+				if (!_pallete.TryGetValue(argb, out var brush))
+				{
+					brush = new SolidColorBrush(color);
+					AddColorToPallete(color, brush);
+				}
+				
+				// Color the panel and update the color for the panel on the Frame
+				drawablePanel.Polygon.Fill = brush;
+				_currentFrame.PanelColors[drawablePanel.PanelId] = MediaColorConverter.ToRgb(color);
 			}
 		}
 
-		public void FrameSelected(Frame frame)
+		private void Plus_Click(object sender, RoutedEventArgs e)
 		{
-			//TODO Consider whether the pallette to be added will have a collection of Brushes that will
-			//enable building a separate dictiobnary of panelId->Brush
-			_currentFrame = frame;
-			//LayoutDisplay.UpdateColors(_currentFrame.PanelColors);
+			AddNewFrame();
 		}
 
-		private void Plus_Click(object sender, RoutedEventArgs e)
-        {
-			//Copy the previous frame's panel colors where we can
+		private void AddNewFrame()
+		{ 
+			// Copy the previous frame's panel colors where we can
 			var prevFrame = _customEffect.Frames.LastOrDefault();
             var newFrame = new Frame();
 
             foreach (var panelId in LayoutDisplay.PanelIds)
             {
-				var color = System.Drawing.Color.Black;
+				uint color = 0;
 				if (prevFrame != null && prevFrame.PanelColors.TryGetValue(panelId, out var prevColor))
 				{
 					color = prevColor;
@@ -90,10 +133,8 @@ namespace Winleafs.Wpf.Views.Layout
 			//Add the frame to the effect and the displayed list
             _customEffect.Frames.Add(newFrame);
 			FrameList.Children.Add(new FrameUserControl(this, _customEffect.Frames.Count, newFrame));
-			//BuildFrameList();
 
-			//LayoutDisplay.ClearSelectedPanels();
-            
+			FrameSelected(newFrame);
         }
 
 		private void BuildFrameList()
@@ -110,23 +151,23 @@ namespace Winleafs.Wpf.Views.Layout
 
 		private void BuildPallete()
 		{
-			var colorsUsed = _customEffect.Frames.SelectMany(f => f.PanelColors.Values).OrderBy(c => c.GetHue()).Distinct();
+			var colorsUsed = _customEffect.Frames.SelectMany(f => f.PanelColors.Values).Distinct();
 
 			ColorPicker.StandardColors.Clear();
-			_pallete = new Dictionary<int, SolidColorBrush>();
+			_pallete = new Dictionary<uint, SolidColorBrush>();
 			
-			foreach (var color in colorsUsed)
+			foreach (var argb in colorsUsed)
 			{
-				var mediaColor = Color.FromArgb(color.A, color.R, color.G, color.B);
+				var mediaColor = MediaColorConverter.FromRgb(argb);
 				ColorPicker.StandardColors.Add(new Xceed.Wpf.Toolkit.ColorItem(mediaColor, string.Empty));
-				_pallete.Add(color.ToArgb(), new SolidColorBrush(mediaColor));
+				_pallete.Add(argb, new SolidColorBrush(mediaColor));
 			}
 		}
 
-		private void AddColorToPallete(Color color)
+		private void AddColorToPallete(Color color, SolidColorBrush brush)
 		{
 			ColorPicker.StandardColors.Add(new Xceed.Wpf.Toolkit.ColorItem(color, string.Empty));
-			//_pallete.Add(color., new SolidColorBrush(mediaColor));
+			_pallete.Add(MediaColorConverter.ToRgb(color), brush);
 		}
 
         //public void DeleteFrame(Frame frame)

@@ -16,19 +16,21 @@ using Winleafs.Wpf.Helpers;
 
 namespace Winleafs.Wpf.Views.Layout
 {
-    /// <summary>
-    /// Interaction logic for LayoutDisplay.xaml
-    /// </summary>
-    public partial class LayoutDisplayUserControl : UserControl
-    {
-        private static readonly SolidColorBrush _lockedBorderColor = Brushes.Red;
-        private static readonly SolidColorBrush _highLightColor = Brushes.OrangeRed;
-        private static readonly SolidColorBrush _selectedBorderColor = Brushes.LightSteelBlue;
-        private static readonly SolidColorBrush _borderColor = (SolidColorBrush)Application.Current.FindResource("NanoleafBlack");
+	/// <summary>
+	/// Interaction logic for LayoutDisplay.xaml
+	/// </summary>
+	public partial class LayoutDisplayUserControl : UserControl
+	{
+		private static readonly SolidColorBrush _lockedBorderColor = Brushes.Red;
+		private static readonly SolidColorBrush _highLightColor = Brushes.OrangeRed;
+		private static readonly SolidColorBrush _selectedBorderColor = Brushes.LightSteelBlue;
+		private static readonly SolidColorBrush _borderColor = (SolidColorBrush)Application.Current.FindResource("NanoleafBlack");
 
 		public HashSet<int> PanelIds { get; set; }
 		public HashSet<int> SelectedPanelIds { get; set; }
 		public event EventHandler PanelClicked;
+		public bool MultiSelectEnabled { get; set; } = true;
+		public Dictionary<int, SolidColorBrush> PanelToBrushMap { get; set; }
 
 		private static readonly Random _random = new Random();
 
@@ -136,7 +138,7 @@ namespace Winleafs.Wpf.Views.Layout
         {
             DrawLayout();
         }
-
+		
         public void UpdateColors()
         {
             if (UserSettings.Settings.ActiveDevice == null || _drawablePanels == null)
@@ -147,7 +149,24 @@ namespace Winleafs.Wpf.Views.Layout
             //Run code on main thread since we update the UI
             Dispatcher.Invoke(new Action(() =>
             {
-                var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice);
+				if (PanelToBrushMap != null)
+				{
+					foreach (var drawablePanel in _drawablePanels)
+					{
+						if (PanelToBrushMap.TryGetValue(drawablePanel.PanelId, out var brush))
+						{
+							drawablePanel.Polygon.Fill = brush;
+						}
+						else
+						{
+							drawablePanel.Polygon.Fill = Brushes.LightSlateGray;
+						}
+					}
+
+					return;
+				}
+
+				var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice);
 
                 //Get colors of current effect, we can display colors for nanoleaf effects or custom color effects
                 var effectName = orchestrator.GetActiveEffectName();
@@ -168,7 +187,8 @@ namespace Winleafs.Wpf.Views.Layout
                         colors = new List<SolidColorBrush>() { new SolidColorBrush(Color.FromArgb(customColorEffect.Color.A, customColorEffect.Color.R, customColorEffect.Color.G, customColorEffect.Color.B)) };
                     }
                 }
-                else
+                
+				else
                 {
                     var effect = UserSettings.Settings.ActiveDevice.Effects.FirstOrDefault(effect => effect.Name == effectName);
 
@@ -244,19 +264,27 @@ namespace Winleafs.Wpf.Views.Layout
                 return;
             }
 
-			if (SelectedPanelIds.Contains(selectedPanelId))
+			if (PanelClicked != null)
 			{
-				polygon.Stroke = _borderColor;
-				polygon.StrokeThickness = 2;
-
-				SelectedPanelIds.Remove(selectedPanelId);
+				PanelClicked.Invoke(selectedPanel, new EventArgs());
 			}
-			else
-			{
-				polygon.Stroke = _selectedBorderColor;
-				polygon.StrokeThickness = 2;
 
-				SelectedPanelIds.Add(selectedPanelId);
+			if (MultiSelectEnabled)
+			{
+				if (SelectedPanelIds.Contains(selectedPanelId))
+				{
+					polygon.Stroke = _borderColor;
+					polygon.StrokeThickness = 2;
+
+					SelectedPanelIds.Remove(selectedPanelId);
+				}
+				else
+				{
+					polygon.Stroke = _selectedBorderColor;
+					polygon.StrokeThickness = 2;
+
+					SelectedPanelIds.Add(selectedPanelId);
+				}
 			}
         }
 
