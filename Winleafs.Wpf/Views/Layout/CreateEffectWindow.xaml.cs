@@ -38,15 +38,14 @@ namespace Winleafs.Wpf.Views.Layout
             {
                 var serialized = JsonConvert.SerializeObject(UserSettings.Settings.ActiveDevice.CustomEffect); //Deep copy the custom effect when editing
                 _customEffect = JsonConvert.DeserializeObject<CustomEffect>(serialized);
-
-            }
+				BuildFrameList();
+			}
             else
             {
                 _customEffect = new CustomEffect();
-				_customEffect.Frames.Add(new Frame());
+				AddNewFrame();
 			}
-
-			BuildFrameList();
+			
 			BuildPallete();
 
 			FrameSelected(_customEffect.Frames[0]);
@@ -110,10 +109,12 @@ namespace Winleafs.Wpf.Views.Layout
 
 		private void Plus_Click(object sender, RoutedEventArgs e)
 		{
-			AddNewFrame();
+			var frame = AddNewFrame();
+
+			FrameSelected(frame);
 		}
 
-		private void AddNewFrame()
+		private Frame AddNewFrame()
 		{ 
 			// Copy the previous frame's panel colors where we can
 			var prevFrame = _customEffect.Frames.LastOrDefault();
@@ -134,12 +135,13 @@ namespace Winleafs.Wpf.Views.Layout
             _customEffect.Frames.Add(newFrame);
 			FrameList.Children.Add(new FrameUserControl(this, _customEffect.Frames.Count, newFrame));
 
-			FrameSelected(newFrame);
+			return newFrame;
         }
 
 		private void BuildFrameList()
 		{
 			FrameList.Children.Clear();
+
 
 			for (var i = 0; i < _customEffect.Frames.Count; i++)
 			{
@@ -156,11 +158,11 @@ namespace Winleafs.Wpf.Views.Layout
 			ColorPicker.StandardColors.Clear();
 			_pallete = new Dictionary<uint, SolidColorBrush>();
 			
-			foreach (var argb in colorsUsed)
+			foreach (var rgb in colorsUsed)
 			{
-				var mediaColor = MediaColorConverter.FromRgb(argb);
+				var mediaColor = MediaColorConverter.FromRgb(rgb);
 				ColorPicker.StandardColors.Add(new Xceed.Wpf.Toolkit.ColorItem(mediaColor, string.Empty));
-				_pallete.Add(argb, new SolidColorBrush(mediaColor));
+				_pallete.Add(rgb, new SolidColorBrush(mediaColor));
 			}
 		}
 
