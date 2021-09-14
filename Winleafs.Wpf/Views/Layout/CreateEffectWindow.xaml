@@ -23,15 +23,31 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Margin="10,10,0,0" TextWrapping="Wrap" Text="{x:Static local:Resources.Info}" Foreground="White" />
-            <Label Grid.Row="1" Content="{x:Static local:Resources.Frames}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="10,10,0,0" Foreground="White" FontSize="20" Height="37" />
-            <Button Grid.Row="1" Margin="0,10,10,0" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Height="32" HorizontalAlignment="Right" Width="48" Click="Plus_Click">
-                <materialDesign:PackIcon Kind="Plus" />
-            </Button>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" >
+                <Label Content="{x:Static local:Resources.Frames}" ContentStringFormat="{}{0}:" Margin="5,10,5,0" Foreground="White" FontSize="20" Height="37" />
+                <Button Margin="0,10,0,0" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Height="32" Width="48" Click="AddFrame_Click">
+                    <materialDesign:PackIcon Kind="Plus" />
+                </Button>
+                <Button Margin="10,10,10,0" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Height="32" Width="48" Click="RemoveFrame_Click">
+                    <materialDesign:PackIcon Kind="Minus" />
+                </Button>
+            </StackPanel>
             <StackPanel x:Name="FrameList" Grid.Row="2" Margin="10,10,10,10" />
             <Button Grid.Row="3" Content="{x:Static local:Resources.Cancel}" HorizontalAlignment="Left" Margin="10,0,0,12" VerticalAlignment="Bottom" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Cancel_Click"/>
             <Button Grid.Row="3" Content="{x:Static local:Resources.Save}" HorizontalAlignment="Right" Margin="0,0,10,12" VerticalAlignment="Bottom" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Add_Click"/>
         </Grid>
         <local:LayoutDisplayUserControl x:Name="LayoutDisplay" Grid.Column="1" />
-        <xctk:ColorPicker x:Name="ColorPicker" Grid.Column="2" Margin="0,33,0,0" Height="25" VerticalAlignment="Top" Width="250" IsOpen="true" StandardColorsHeader="{x:Static local:Resources.ColorsUsed}" />
+        <StackPanel Grid.Column="2">
+            <Label Content="Selected Color" ContentStringFormat="{}{0}:" Margin="5,10,0,0" Foreground="White" FontSize="20" Height="37" />
+            <xctk:ColorPicker x:Name="ColorPicker" Grid.Row="0" Margin="5,0,0,0" Height="25" VerticalAlignment="Top" Width="250" StandardColorsHeader="{x:Static local:Resources.ColorsUsed}" />
+            <StackPanel Grid.Row="1" Margin="5,10,5,0"  Orientation="Horizontal" >
+                <Label Content="Transition time" ContentStringFormat="{}{0}:" Foreground="White" FontSize="20" Height="37" />
+                <TextBox x:Name="TransitionTextBox" HorizontalAlignment="Right" FontSize="20" Width="40" Background="White" PreviewTextInput="TransitionTextBox_PreviewTextInput" Text="1" MaxLength="4"/>
+                <Label Content="s" Foreground="White" FontSize="20" Height="37" />
+            </StackPanel>
+            <Button Grid.Row="2" Content="Play " HorizontalAlignment="Left" Margin="10,10,0,12" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Play_Click"/>
+        </StackPanel>
+
+
     </Grid>
 </Window>

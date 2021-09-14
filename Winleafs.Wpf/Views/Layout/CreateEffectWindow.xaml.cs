@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Media;
 using Winleafs.Models.Models;
@@ -21,6 +22,7 @@ namespace Winleafs.Wpf.Views.Layout
 		//private Color _currentColor = Colors.White;
 		//private SolidColorBrush _currentBrush;
 		private Dictionary<uint, SolidColorBrush> _pallete;
+		private static readonly Regex _regex = new Regex("[^0-9.]"); //regex that matches disallowed text
 
 		public CreateEffectWindow()
         {
@@ -70,8 +72,6 @@ namespace Winleafs.Wpf.Views.Layout
 
 		public void FrameSelected(Frame frame)
 		{
-			//TODO Consider whether the pallette to be added will have a collection of Brushes that will
-			//enable building a separate dictiobnary of panelId->Brush
 			_currentFrame = frame;
 
 			var panelToBrushMap = new Dictionary<int, SolidColorBrush>();
@@ -92,26 +92,37 @@ namespace Winleafs.Wpf.Views.Layout
 			{
 				var color = ColorPicker.SelectedColor ?? Colors.Black;
 
-				//Try to find a brush for the selected color
-				var argb = MediaColorConverter.ToRgb(color);
+				// Try to find a brush for the selected color
+				var rgb = MediaColorConverter.ToRgb(color);
 
-				if (!_pallete.TryGetValue(argb, out var brush))
+				if (!_pallete.TryGetValue(rgb, out var brush))
 				{
-					brush = new SolidColorBrush(color);
+					{
+						brush = new SolidColorBrush(color);
+					}
 					AddColorToPallete(color, brush);
 				}
-				
+
 				// Color the panel and update the color for the panel on the Frame
-				drawablePanel.Polygon.Fill = brush;
-				_currentFrame.PanelColors[drawablePanel.PanelId] = MediaColorConverter.ToRgb(color);
+				// Display black (unlit panel) as a gray
+				drawablePanel.Polygon.Fill = rgb == 0 ? Brushes.LightSlateGray : brush;
+				_currentFrame.PanelColors[drawablePanel.PanelId] = rgb;
 			}
 		}
 
-		private void Plus_Click(object sender, RoutedEventArgs e)
+		private void AddFrame_Click(object sender, RoutedEventArgs e)
 		{
 			var frame = AddNewFrame();
 
 			FrameSelected(frame);
+		}
+
+		private void RemoveFrame_Click(object sender, RoutedEventArgs e)
+		{
+			if (_customEffect.Frames.Count > 1)
+			{
+				_customEffect.Frames.RemoveAt(_customEffect.Frames.Count - 1);
+			}
 		}
 
 		private Frame AddNewFrame()
@@ -199,5 +210,22 @@ namespace Winleafs.Wpf.Views.Layout
                 PopupCreator.Error(Layout.Resources.AtLeast1Step);
             }
         }
-    }
+
+		private void Play_Click(object sender, RoutedEventArgs e)
+		{
+			
+
+			if (float.TryParse(TransitionTextBox.Text, out var transitionSecs) && transitionSecs > 0)
+			{
+				//TODO Play the animation
+			}
+		}
+
+		private void TransitionTextBox_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+		{
+			e.Handled = _regex.IsMatch(e.Text);
+		}
+		
+	
+	}
 }
