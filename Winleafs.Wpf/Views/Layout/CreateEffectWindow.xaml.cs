@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Media;
 using Winleafs.Models.Models;
 using Winleafs.Models.Models.Layouts;
+using Winleafs.Wpf.Api.Effects;
 using Winleafs.Wpf.Api.Layouts;
 using Winleafs.Wpf.Helpers;
 using Winleafs.Wpf.Views.Popup;
@@ -21,7 +22,7 @@ namespace Winleafs.Wpf.Views.Layout
 		private Frame _currentFrame;
 		//private Color _currentColor = Colors.White;
 		//private SolidColorBrush _currentBrush;
-		private Dictionary<uint, SolidColorBrush> _pallete;
+		private Dictionary<uint, SolidColorBrush> _rgbToBrushMap;
 		private static readonly Regex _regex = new Regex("[^0-9.]"); //regex that matches disallowed text
 
 		public CreateEffectWindow()
@@ -78,7 +79,7 @@ namespace Winleafs.Wpf.Views.Layout
 
 			foreach (var panel in _currentFrame.PanelColors)
 			{
-				panelToBrushMap.Add(panel.Key, _pallete[panel.Value]);
+				panelToBrushMap.Add(panel.Key, _rgbToBrushMap[panel.Value]);
 			}
 			LayoutDisplay.PanelToBrushMap = panelToBrushMap;
 			LayoutDisplay.UpdateColors();
@@ -95,17 +96,15 @@ namespace Winleafs.Wpf.Views.Layout
 				// Try to find a brush for the selected color
 				var rgb = MediaColorConverter.ToRgb(color);
 
-				if (!_pallete.TryGetValue(rgb, out var brush))
+				if (!_rgbToBrushMap.TryGetValue(rgb, out var brush))
 				{
-					{
-						brush = new SolidColorBrush(color);
-					}
-					AddColorToPallete(color, brush);
+					brush = new SolidColorBrush(color);
+					AddToRgbToBrushMap(color, brush);
 				}
 
 				// Color the panel and update the color for the panel on the Frame
 				// Display black (unlit panel) as a gray
-				drawablePanel.Polygon.Fill = rgb == 0 ? Brushes.LightSlateGray : brush;
+				drawablePanel.Polygon.Fill = _rgbToBrushMap[rgb];
 				_currentFrame.PanelColors[drawablePanel.PanelId] = rgb;
 			}
 		}
@@ -153,7 +152,6 @@ namespace Winleafs.Wpf.Views.Layout
 		{
 			FrameList.Children.Clear();
 
-
 			for (var i = 0; i < _customEffect.Frames.Count; i++)
 			{
 				FrameList.Children.Add(new FrameUserControl(this, i + 1, _customEffect.Frames[i]));
@@ -167,29 +165,21 @@ namespace Winleafs.Wpf.Views.Layout
 			var colorsUsed = _customEffect.Frames.SelectMany(f => f.PanelColors.Values).Distinct();
 
 			ColorPicker.StandardColors.Clear();
-			_pallete = new Dictionary<uint, SolidColorBrush>();
+			_rgbToBrushMap = new Dictionary<uint, SolidColorBrush>();
 			
 			foreach (var rgb in colorsUsed)
 			{
 				var mediaColor = MediaColorConverter.FromRgb(rgb);
 				ColorPicker.StandardColors.Add(new Xceed.Wpf.Toolkit.ColorItem(mediaColor, string.Empty));
-				_pallete.Add(rgb, new SolidColorBrush(mediaColor));
+				_rgbToBrushMap.Add(rgb, new SolidColorBrush(mediaColor));
 			}
 		}
 
-		private void AddColorToPallete(Color color, SolidColorBrush brush)
+		private void AddToRgbToBrushMap(Color color, SolidColorBrush brush)
 		{
 			ColorPicker.StandardColors.Add(new Xceed.Wpf.Toolkit.ColorItem(color, string.Empty));
-			_pallete.Add(MediaColorConverter.ToRgb(color), brush);
+			_rgbToBrushMap.Add(MediaColorConverter.ToRgb(color), brush.Color == Colors.Black ? Brushes.LightSlateGray : brush);
 		}
-
-        //public void DeleteFrame(Frame frame)
-        //{
-        //    //LayoutDisplay.UnlockPanels(step.PanelIds);
-
-        //    _customEffect.Frames.Remove(frame);
-        //    BuildFrameList();
-        //}
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
@@ -213,11 +203,10 @@ namespace Winleafs.Wpf.Views.Layout
 
 		private void Play_Click(object sender, RoutedEventArgs e)
 		{
-			
-
 			if (float.TryParse(TransitionTextBox.Text, out var transitionSecs) && transitionSecs > 0)
 			{
-				//TODO Play the animation
+				var customEffectCommandBuilder = new CustomEffectCommandBuilder(_customEffect);
+				customEffectCommandBuilder.Build(transitionSecs);
 			}
 		}
 

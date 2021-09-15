@@ -27,7 +27,7 @@ namespace Winleafs.Wpf.Api.Effects
 			var customEffectCommand = new CustomEffectCommand();
 			customEffectCommand.Command = "add";
 			customEffectCommand.AnimName = Name;
-			
+			_transitionTime = (int)Math.Floor(transitionTime * 10);
 
 			BuildBody(customEffectCommand);
 
@@ -66,7 +66,8 @@ namespace Winleafs.Wpf.Api.Effects
 			{
 				animData.Append(BuildPanelAnimData(panelId));
 			}
-			//TODO Build animdata
+
+			customEffectCommand.AnimData = animData.ToString();
 		}
 
 		private string BuildPanelAnimData(int panelId)
@@ -109,10 +110,10 @@ namespace Winleafs.Wpf.Api.Effects
 				prevRgb = rgb;
 			}
 
-			//prepend panelId; numframes
+			// Prepend panelId numframes
 			return string.Format("{0} {1}{2}", panelId, totalFrames, sb);
 		}
-		//numPanels;
+		//numPanels; 
 		//panelId0; numFrames0; RGBWT01; RGBWT02; ... RGBWT0n(0);
 		//panelId1; numFrames1; RGBWT11; RGBWT12; ... RGBWT1n(1); ... ...
 		//panelIdN; numFramesN; RGBWTN1; RGBWTN2; ... RGBWTNn(N);

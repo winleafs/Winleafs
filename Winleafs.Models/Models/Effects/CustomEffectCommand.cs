@@ -22,7 +22,7 @@ namespace Winleafs.Models.Models.Effects
         public string AnimType { get; set; } //custom, static
 
         [JsonProperty("animData")]
-        public string AniimData { get; set; }
+        public string AnimData { get; set; }
 
         [JsonProperty("loop")]
         public bool Loop { get; set; }
