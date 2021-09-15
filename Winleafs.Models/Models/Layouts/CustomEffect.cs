@@ -13,6 +13,11 @@ namespace Winleafs.Models.Models.Layouts
         public bool IsStatic { get; set; }
 
         /// <summary>
+        /// True if the animation is played repeatedly
+        /// </summary>
+        public bool IsLoop { get; set; }
+
+        /// <summary>
         /// A series of frames each specifying the color for each panel
         /// </summary>
         public IList<Frame> Frames { get; set; }

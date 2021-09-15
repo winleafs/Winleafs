@@ -12,11 +12,14 @@ namespace Winleafs.Models.Models.Effects
         [JsonProperty("command")]
         public string Command { get; set; } // add, update, display
 
-        [JsonProperty("vrsion")]
+        [JsonProperty("version")]
         public string Version { get; } = "1.0";
 
+        [JsonProperty("animName")]
+        public string AnimName { get; set; }
+
         [JsonProperty("animType")]
-        public string AnimType { get; } //custom, static
+        public string AnimType { get; set; } //custom, static
 
         [JsonProperty("animData")]
         public string AniimData { get; set; }
