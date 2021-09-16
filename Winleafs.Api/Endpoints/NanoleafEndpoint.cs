@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using NLog;
 using RestSharp;
+using RestSharp.Serializers.NewtonsoftJson;
 
 namespace Winleafs.Api.Endpoints
 {
@@ -60,6 +61,7 @@ namespace Winleafs.Api.Endpoints
             Type returnType = null, object body = null, bool disableLogging = false)
         {
             var restClient = new RestClient(Client.BaseUri);
+            
             var request = new RestRequest(GetUrlForRequest(endpoint), method)
             {
                 Timeout = Timeout
@@ -67,6 +69,7 @@ namespace Winleafs.Api.Endpoints
 
             if (body != null)
             {
+                restClient.UseNewtonsoftJson();
                 request.AddJsonBody(body);
             }
 
@@ -97,6 +100,7 @@ namespace Winleafs.Api.Endpoints
         protected object SendRequest(string endpoint, Method method, Type returnType = null, object body = null, bool disableLogging = false)
         {
             var restClient = new RestClient(Client.BaseUri);
+            
             var request = new RestRequest(GetUrlForRequest(endpoint), method)
             {
                 Timeout = Timeout //Set timeout to 2 seconds
@@ -104,6 +108,7 @@ namespace Winleafs.Api.Endpoints
 
             if (body != null)
             {
+                restClient.UseNewtonsoftJson();
                 request.AddJsonBody(body);
             }
 

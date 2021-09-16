@@ -126,6 +126,9 @@
   <data name="ColorsUsed" xml:space="preserve">
     <value>Colors Used</value>
   </data>
+  <data name="CreateEffectInfo" xml:space="preserve">
+    <value>Here you can create either a static image by colouring the panels for a single frame, or an animation by adding more frames and colouring the panels in each frame. The transition time specifies the time between each frame.</value>
+  </data>
   <data name="CreateEffectWindow" xml:space="preserve">
     <value>Create effect</value>
   </data>
@@ -141,8 +144,14 @@
   <data name="InfoTitle" xml:space="preserve">
     <value>Info</value>
   </data>
+  <data name="Loop" xml:space="preserve">
+    <value>Loop</value>
+  </data>
   <data name="PercentageProfileWindow" xml:space="preserve">
     <value>Percentage profile</value>
+  </data>
+  <data name="PlayAnimation" xml:space="preserve">
+    <value>Play On Device</value>
   </data>
   <data name="Redraw" xml:space="preserve">
     <value>Redraw</value>
@@ -150,10 +159,19 @@
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="SelectedColor" xml:space="preserve">
+    <value>Selected Color</value>
+  </data>
   <data name="Step" xml:space="preserve">
     <value>Step</value>
   </data>
   <data name="Steps" xml:space="preserve">
     <value>Steps</value>
+  </data>
+  <data name="TransitionTime" xml:space="preserve">
+    <value>Transition Time</value>
+  </data>
+  <data name="ValidTransistionTime" xml:space="preserve">
+    <value>Please enter a valid transtition time.</value>
   </data>
 </root>

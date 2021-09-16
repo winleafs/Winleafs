@@ -28,6 +28,6 @@ namespace Winleafs.Models.Models.Effects
         public bool Loop { get; set; }
 
         [JsonProperty("palette")]
-        public List<Palette> Palette { get; set; }
+        public IList<Palette> Palette { get; set; } = new List<Palette>();
     }
 }

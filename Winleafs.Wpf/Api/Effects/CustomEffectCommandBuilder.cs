@@ -60,7 +60,7 @@ namespace Winleafs.Wpf.Api.Effects
 			}
 
 			var animData = new StringBuilder();
-			animData.AppendFormat("{0}; n", _customEffect.Frames[0].PanelColors.Count);
+			animData.Append(_customEffect.Frames[0].PanelColors.Count);
 
 			foreach (var panelId in _customEffect.Frames[0].PanelColors.Keys)
 			{
@@ -76,19 +76,19 @@ namespace Winleafs.Wpf.Api.Effects
 			uint? prevRgb = null;
 
 			var totalFrames = 0;
-			var frameCount = 0;
+			var sameColorFrameCount = 0;
 
 			foreach (var rgb in _customEffect.Frames.Select(f => f.PanelColors[panelId]))
 			{
 				if (prevRgb == null || rgb != prevRgb.Value)
 				{
-					if (prevRgb != null)
+					if (prevRgb != null && sameColorFrameCount > 0)
 					{
 						sb.AppendFormat(" {0} {1} {2} 0 {3}",
 						(prevRgb >> 16) & 255,
 						(prevRgb >> 8) & 255,
 						prevRgb & 255,
-						frameCount * _transitionTime);
+						sameColorFrameCount * _transitionTime);
 
 						totalFrames++;
 					}
@@ -99,19 +99,19 @@ namespace Winleafs.Wpf.Api.Effects
 						rgb & 255,
 						_transitionTime);
 
-					frameCount = 0;
+					sameColorFrameCount = 0;
 					totalFrames++;
 				}
 				else
 				{
-					frameCount++;
+					sameColorFrameCount++;
 				}
 
 				prevRgb = rgb;
 			}
 
 			// Prepend panelId numframes
-			return string.Format("{0} {1}{2}", panelId, totalFrames, sb);
+			return string.Format(" {0} {1}{2}", panelId, totalFrames, sb);
 		}
 		//numPanels; 
 		//panelId0; numFrames0; RGBWT01; RGBWT02; ... RGBWT0n(0);

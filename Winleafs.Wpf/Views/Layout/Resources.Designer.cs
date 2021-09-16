@@ -88,6 +88,15 @@ namespace Winleafs.Wpf.Views.Layout {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Here you can create either a static image by colouring the panels for a single frame, or an animation by adding more frames and colouring the panels in each frame. The transition time specifies the time between each frame..
+        /// </summary>
+        public static string CreateEffectInfo {
+            get {
+                return ResourceManager.GetString("CreateEffectInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create effect.
         /// </summary>
         public static string CreateEffectWindow {
@@ -133,11 +142,29 @@ namespace Winleafs.Wpf.Views.Layout {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loop.
+        /// </summary>
+        public static string Loop {
+            get {
+                return ResourceManager.GetString("Loop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Percentage profile.
         /// </summary>
         public static string PercentageProfileWindow {
             get {
                 return ResourceManager.GetString("PercentageProfileWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Play On Device.
+        /// </summary>
+        public static string PlayAnimation {
+            get {
+                return ResourceManager.GetString("PlayAnimation", resourceCulture);
             }
         }
         
@@ -160,6 +187,15 @@ namespace Winleafs.Wpf.Views.Layout {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Selected Color.
+        /// </summary>
+        public static string SelectedColor {
+            get {
+                return ResourceManager.GetString("SelectedColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Step.
         /// </summary>
         public static string Step {
@@ -174,6 +210,24 @@ namespace Winleafs.Wpf.Views.Layout {
         public static string Steps {
             get {
                 return ResourceManager.GetString("Steps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transition Time.
+        /// </summary>
+        public static string TransitionTime {
+            get {
+                return ResourceManager.GetString("TransitionTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a valid transtition time..
+        /// </summary>
+        public static string ValidTransistionTime {
+            get {
+                return ResourceManager.GetString("ValidTransistionTime", resourceCulture);
             }
         }
     }

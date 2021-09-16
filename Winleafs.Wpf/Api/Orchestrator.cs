@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Winleafs.Api;
 using Winleafs.Models.Enums;
 using Winleafs.Models.Models;
+using Winleafs.Models.Models.Effects;
 using Winleafs.Wpf.Api.Effects;
 using Winleafs.Wpf.Api.Events;
 using Winleafs.Wpf.Api.Layouts;
@@ -131,10 +132,41 @@ namespace Winleafs.Wpf.Api
             }
         }
 
-        /// <summary>
-        /// Returns the list of custom effects for the device
-        /// </summary>
-        public List<ICustomEffect> GetCustomEffects()
+		/// <summary>
+		/// Executes custom effect command
+		/// Activates an effect by name and brightness. This can be a custom effect (e.g. screen mirror) or a effect available on the Nanoleaf device
+		/// First deactivates any custom effects before enabling the new effect
+		/// </summary>
+		public async Task ExecuteCustomEffectCommand(CustomEffectCommand customEffectCommand)
+		{
+			_logger.Info($"Orchestrator is executing a custom effect command for device {Device.IPAddress}");
+
+			try
+			{
+				var client = NanoleafClient.GetClientForDevice(Device);
+
+				//DO NOT change the order of disabling effects, then setting brightness and then enabling effects
+				//if (_customEffects.HasActiveEffects(effectName))
+				//{
+				//	await _customEffects.DeactivateAllEffects();
+				//}
+				
+				//await client.StateEndpoint.SetBrightnessAsync(brightness);
+				await client.EffectsEndpoint.WriteCustomEffectCommandAsync(customEffectCommand);
+
+				//Finally, trigger effect changed callback
+				TriggerEffectChangedCallbacks();
+			}
+			catch (Exception e)
+			{
+				_logger.Error(e, $"Executing custom effect command for device {Device.Name}");
+			}
+		}
+
+		/// <summary>
+		/// Returns the list of custom effects for the device
+		/// </summary>
+		public List<ICustomEffect> GetCustomEffects()
         {
             return _customEffects.GetCustomEffects();
         }

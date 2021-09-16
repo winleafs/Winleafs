@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using Winleafs.Models.Models;
 using Winleafs.Models.Models.Layouts;
+using Winleafs.Wpf.Api;
 using Winleafs.Wpf.Api.Effects;
 using Winleafs.Wpf.Api.Layouts;
 using Winleafs.Wpf.Helpers;
@@ -53,24 +55,7 @@ namespace Winleafs.Wpf.Views.Layout
 
 			FrameSelected(_customEffect.Frames[0]);
 		}
-
-		//private void ColorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
-		//{
-		//	if (e.NewValue != null)
-		//	{
-		//		_currentColor = e.NewValue.Value;
 				
-		//		//Try to find a brush for the selecyted color
-		//		var argb = MediaColorConverter.ToInt(_currentColor);
-
-		//		if (!_pallete.TryGetValue(argb, out var brush))
-		//		{
-		//			brush = new SolidColorBrush(_currentColor);
-		//		}
-		//		_currentBrush = brush;
-		//	}
-		//}
-
 		public void FrameSelected(Frame frame)
 		{
 			_currentFrame = frame;
@@ -188,25 +173,26 @@ namespace Winleafs.Wpf.Views.Layout
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            if (_customEffect.Frames.Count > 0)
-            {
                 UserSettings.Settings.ActiveDevice.CustomEffect = _customEffect;
                 UserSettings.Settings.SaveSettings();
-
-                Close();
-            }
-            else
-            {
-                PopupCreator.Error(Layout.Resources.AtLeast1Step);
-            }
         }
 
-		private void Play_Click(object sender, RoutedEventArgs e)
+		private async void Play_Click(object sender, RoutedEventArgs e)
 		{
 			if (float.TryParse(TransitionTextBox.Text, out var transitionSecs) && transitionSecs > 0)
 			{
+				_customEffect.IsLoop = LoopCheckBox.IsChecked ?? false;
 				var customEffectCommandBuilder = new CustomEffectCommandBuilder(_customEffect);
-				customEffectCommandBuilder.Build(transitionSecs);
+				var customEffectCommand = customEffectCommandBuilder.Build(transitionSecs);
+
+				var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice);
+
+				//TODO async so as not hang UI thread, but consider ContinueWith to handle errors
+				await orchestrator.ExecuteCustomEffectCommand(customEffectCommand);
+			}
+			else
+			{
+				PopupCreator.Error(Layout.Resources.ValidTransistionTime);
 			}
 		}
 
@@ -214,7 +200,5 @@ namespace Winleafs.Wpf.Views.Layout
 		{
 			e.Handled = _regex.IsMatch(e.Text);
 		}
-		
-	
 	}
 }
