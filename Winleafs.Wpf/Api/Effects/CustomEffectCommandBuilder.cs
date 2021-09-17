@@ -21,7 +21,7 @@ namespace Winleafs.Wpf.Api.Effects
 			_customEffect = customEffect;
 		}
 
-		public CustomEffectCommand Build(float transitionTime, string Name)
+		public CustomEffectCommand BuildAddCommand(float transitionTime, string Name)
 		{
 			// If a name has been passed the custom effect will be added to the device
 			var customEffectCommand = new CustomEffectCommand();
@@ -34,7 +34,7 @@ namespace Winleafs.Wpf.Api.Effects
 			return customEffectCommand;
 		}
 
-		public CustomEffectCommand Build(float transitionTime)
+		public CustomEffectCommand BuildDisplayCommand(float transitionTime)
 		{
 			// If no name has been passed the custom effect will just be dispayed on the device
 			var customEffectCommand = new CustomEffectCommand();
@@ -68,6 +68,10 @@ namespace Winleafs.Wpf.Api.Effects
 			}
 
 			customEffectCommand.AnimData = animData.ToString();
+
+			//TODO set pallete so used colurs are displayed in apps
+			//var rgbs = _customEffect.Frames.SelectMany(f => f.PanelColors.Values).Distinct();
+
 		}
 
 		private string BuildPanelAnimData(int panelId)

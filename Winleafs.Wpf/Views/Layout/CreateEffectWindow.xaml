@@ -42,25 +42,48 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Label Grid.Row="0" Content="{x:Static local:Resources.SelectedColor}" ContentStringFormat="{}{0}:" Margin="5,10,0,0" Foreground="White" FontSize="20" Height="37" />
-            <xctk:ColorPicker x:Name="ColorPicker" Grid.Row="1" Margin="5,0,0,0" Height="25" VerticalAlignment="Top" Width="250" StandardColorsHeader="{x:Static local:Resources.ColorsUsed}" />
+            <xctk:ColorPicker x:Name="ColorPicker" Grid.Row="1" Margin="5,0,5,0" Height="25" StandardColorsHeader="{x:Static local:Resources.ColorsUsed}" />
             <StackPanel Grid.Row="2" Margin="5,10,5,0"  Orientation="Horizontal" >
                 <Label Content="{x:Static local:Resources.TransitionTime}" ContentStringFormat="{}{0}:" Foreground="White" FontSize="20" Height="37" />
                 <TextBox x:Name="TransitionTextBox" HorizontalAlignment="Right" FontSize="20" Width="40" Background="White" PreviewTextInput="TransitionTextBox_PreviewTextInput" Text="1" MaxLength="4"/>
                 <Label Content="s" Foreground="White" FontSize="20" Height="37" />
             </StackPanel>
-            <CheckBox x:Name="LoopCheckBox" Grid.Row="3" Content="{x:Static local:Resources.Loop}" ContentStringFormat="{}:{0}" FlowDirection="RightToLeft" HorizontalAlignment="Left" IsChecked="True" Margin="5,10,0,0" Foreground="White" FontSize="20" Height="37" >
+            <CheckBox x:Name="LoopCheckBox" Grid.Row="3" Content="{x:Static local:Resources.Loop}" ContentStringFormat="{}:{0}" FlowDirection="RightToLeft" HorizontalAlignment="Left" IsChecked="True" Margin="10,10,0,0" Foreground="White" FontSize="20" Height="37" >
                 <CheckBox.Resources>
                     <Style TargetType="{x:Type Path}">
                         <Setter Property="FlowDirection" Value="LeftToRight" />
                     </Style>
                 </CheckBox.Resources>
             </CheckBox>
-            <Button Grid.Row="4" Content="{x:Static local:Resources.PlayAnimation}" HorizontalAlignment="Left" Margin="10,10,0,12" Width="140" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Play_Click"/>
-            <Button Grid.Row="5" Content="{x:Static local:Resources.Cancel}" HorizontalAlignment="Left" Margin="10,0,0,12" VerticalAlignment="Bottom" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Cancel_Click"/>
-            <Button Grid.Row="5" Content="{x:Static local:Resources.Save}" HorizontalAlignment="Right" Margin="0,0,10,12" VerticalAlignment="Bottom" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Add_Click"/>
+            <Button Grid.Row="4" Margin="0,30,0,0" Width="160" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="PlayOnDevice_Click" >
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Play" />
+                    <TextBlock Text="{x:Static local:Resources.PlayOnDevice}" Margin="8 0 0 0"></TextBlock>
+                </StackPanel>
+            </Button>
+            <Button Grid.Row="5" Margin="0,30,0,0" Width="160" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="SaveProgress_Click">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="FloppyDisc" />
+                    <TextBlock Text="{x:Static local:Resources.SaveProgress}" Margin="8 0 0 0"></TextBlock>
+            </StackPanel>
+            </Button>
+            <Button Grid.Row="6" Margin="0,30,0,0" Width="160" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="SaveToDevice_Click">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Leaf" />
+                    <TextBlock Text="{x:Static local:Resources.SaveToDevice}" Margin="8 0 0 0"></TextBlock>
+                </StackPanel>
+            </Button>
+            <StackPanel Grid.Row="7" Margin="5,10,5,0" Orientation="Horizontal" >
+                <Label Content="{x:Static local:Resources.WithName}" ContentStringFormat="{}{0}:" Foreground="White" FontSize="20" Height="37" />
+                <TextBox x:Name="NameTextBox" Width="140" FontSize="20" Background="White" MaxLength="20"/>
+            </StackPanel>
+            <Button Grid.Row="8" Content="{x:Static local:Resources.Cancel}" HorizontalAlignment="Right" Margin="10,0,0,12" VerticalAlignment="Bottom" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Cancel_Click"/>
         </Grid>
     </Grid>
 </Window>

@@ -162,9 +162,9 @@ namespace Winleafs.Wpf.Views.Layout {
         /// <summary>
         ///   Looks up a localized string similar to Play On Device.
         /// </summary>
-        public static string PlayAnimation {
+        public static string PlayOnDevice {
             get {
-                return ResourceManager.GetString("PlayAnimation", resourceCulture);
+                return ResourceManager.GetString("PlayOnDevice", resourceCulture);
             }
         }
         
@@ -183,6 +183,24 @@ namespace Winleafs.Wpf.Views.Layout {
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Progress.
+        /// </summary>
+        public static string SaveProgress {
+            get {
+                return ResourceManager.GetString("SaveProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save To Device.
+        /// </summary>
+        public static string SaveToDevice {
+            get {
+                return ResourceManager.GetString("SaveToDevice", resourceCulture);
             }
         }
         
@@ -228,6 +246,15 @@ namespace Winleafs.Wpf.Views.Layout {
         public static string ValidTransistionTime {
             get {
                 return ResourceManager.GetString("ValidTransistionTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to With Name.
+        /// </summary>
+        public static string WithName {
+            get {
+                return ResourceManager.GetString("WithName", resourceCulture);
             }
         }
     }

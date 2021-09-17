@@ -215,7 +215,7 @@ namespace Winleafs.Wpf.Views.Layout
                     }
                 }
 
-                if (colors == null)
+                if (colors == null || !colors.Any())
                 {
                     foreach (var drawablePanel in _drawablePanels)
                     {

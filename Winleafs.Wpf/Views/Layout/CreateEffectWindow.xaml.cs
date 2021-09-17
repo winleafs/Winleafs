@@ -168,22 +168,42 @@ namespace Winleafs.Wpf.Views.Layout
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
+			//TODO Check for losing changes
             Close();
         }
 
-        private void Add_Click(object sender, RoutedEventArgs e)
+        private void SaveProgress_Click(object sender, RoutedEventArgs e)
         {
                 UserSettings.Settings.ActiveDevice.CustomEffect = _customEffect;
                 UserSettings.Settings.SaveSettings();
         }
 
-		private async void Play_Click(object sender, RoutedEventArgs e)
+		private async void PlayOnDevice_Click(object sender, RoutedEventArgs e)
 		{
 			if (float.TryParse(TransitionTextBox.Text, out var transitionSecs) && transitionSecs > 0)
 			{
 				_customEffect.IsLoop = LoopCheckBox.IsChecked ?? false;
 				var customEffectCommandBuilder = new CustomEffectCommandBuilder(_customEffect);
-				var customEffectCommand = customEffectCommandBuilder.Build(transitionSecs);
+				var customEffectCommand = customEffectCommandBuilder.BuildDisplayCommand(transitionSecs);
+
+				var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice);
+
+				//TODO async so as not hang UI thread, but consider ContinueWith to handle errors
+				await orchestrator.ExecuteCustomEffectCommand(customEffectCommand);
+			}
+			else
+			{
+				PopupCreator.Error(Layout.Resources.ValidTransistionTime);
+			}
+		}
+
+		private async void SaveToDevice_Click(object sender, RoutedEventArgs e)
+		{
+			if (float.TryParse(TransitionTextBox.Text, out var transitionSecs) && transitionSecs > 0 && NameTextBox.Text.Trim().Length > 2)
+			{
+				_customEffect.IsLoop = LoopCheckBox.IsChecked ?? false;
+				var customEffectCommandBuilder = new CustomEffectCommandBuilder(_customEffect);
+				var customEffectCommand = customEffectCommandBuilder.BuildAddCommand(transitionSecs, NameTextBox.Text.Trim());
 
 				var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice);
 

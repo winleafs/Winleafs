@@ -22,6 +22,11 @@ namespace Winleafs.Wpf.Views.Effects
             //Remove duplicate colors, palettes from Nanoleaf can contain the same color multiple times
             var colors = dataContext.Colors.Distinct();
 
+			if (!colors.Any())
+			{
+				return;
+			}
+
             var borderParts = new int[colors.Count()];
 
             //Divide the border into equal sized parts
