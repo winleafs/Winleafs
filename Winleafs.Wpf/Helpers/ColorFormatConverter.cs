@@ -1,24 +1,25 @@
 ﻿using System;
 using System.Drawing;
+using Winleafs.Models.Models.Effects;
 
 namespace Winleafs.Wpf.Helpers
 {
-    public static class HsbToRgbConverter
+    public static class ColorFormatConverter
     {
-        public static System.Windows.Media.Color ConvertToMediaColor(float hue, float saturation, float brightness)
+        public static System.Windows.Media.Color ToMediaColor(float hue, float saturation, float brightness)
         {
-            var color = Convert(hue, saturation, brightness);
+            var color = ToDrawingColor(hue, saturation, brightness);
             return System.Windows.Media.Color.FromArgb(color.A, color.R, color.G, color.B);
         }
 
         /// <summary>
-        /// Converts HSB values to RGB Color object
+        /// Converts HSB values to Drawing Color object
         /// </summary>
         /// <param name="hue">Hue between 0 and 360</param>
         /// <param name="saturation">Saturation between 0 and 100</param>
         /// <param name="brightness">Brightness between 0 and 100</param>
         /// Source: http://www.splinter.com.au/converting-hsv-to-rgb-colour-using-c/
-        public static Color Convert(float hue, float saturation, float brightness)
+        public static Color ToDrawingColor(float hue, float saturation, float brightness)
         {
             //Normalize input
             saturation = saturation / 100;
@@ -105,5 +106,79 @@ namespace Winleafs.Wpf.Helpers
             if (i > 255) return 255;
             return i;
         }
-    }
+
+		public static uint ToRgb(System.Windows.Media.Color color)
+		{
+			var rgb = (uint)(color.R << 16);
+			rgb += (uint)(color.G << 8);
+			rgb += (uint)color.B;
+
+			return rgb;
+		}
+
+		public static System.Windows.Media.Color ToMediaColor(uint argb)
+		{
+			var b = (byte)(argb & 255);
+			var g = (byte)((argb >> 8) & 255);
+			var r = (byte)((argb >> 16) & 255);
+
+			return System.Windows.Media.Color.FromArgb(255, r, g, b);
+		}
+
+		public static Palette ToPalette(uint Rgb)
+		{
+			double delta, min;
+			double h = 0, s, v;
+
+			var mediaColor = ToMediaColor(Rgb);
+			min = Math.Min(Math.Min(mediaColor.R, mediaColor.G), mediaColor.B);
+			v = Math.Max(Math.Max(mediaColor.R, mediaColor.G), mediaColor.B);
+			delta = v - min;
+
+			if (v == 0.0)
+			{
+				s = 0;
+			}
+			else
+			{
+				s = delta / v;
+			}
+
+			if (s == 0)
+			{
+				h = 0.0;
+			}
+
+			else
+			{
+				if (mediaColor.R == v)
+				{
+					h = (mediaColor.G - mediaColor.B) / delta;
+				}
+				else if (mediaColor.G == v)
+				{
+                    h = 2 + ((mediaColor.B - mediaColor.R) / delta);
+                }
+				else if (mediaColor.B == v)
+				{
+					h = 4 + (mediaColor.R - mediaColor.G) / delta;
+				}
+
+				h *= 60;
+
+				if (h < 0.0)
+				{
+                    h += 360;
+                }
+			}
+
+			var palette = new Palette
+			{
+				Hue = (int)Math.Floor(h),
+				Saturation = (int)Math.Floor(s),
+				Brightness = (int)Math.Floor(v / 255)
+			};
+			return palette;
+		}
+	}
 }

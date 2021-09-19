@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -15,17 +16,31 @@ using Winleafs.Wpf.Views.Popup;
 
 namespace Winleafs.Wpf.Views.Layout
 {
+
     /// <summary>
     /// Interaction logic for PercentageProfileWindow.xaml
     /// </summary>
     public partial class CreateEffectWindow : Window
     {
-        private CustomEffect _customEffect;
+		public class FrameListItem
+		{
+			public FrameListItem(Frame frame, int ordinal)
+			{
+				Frame = frame;
+				Name = Name = $"{Layout.Resources.Frame} {ordinal}";
+			}
+
+			public string Name { get; set; }
+			public Frame Frame { get; set; }
+		}
+
+		private IList<FrameListItem> _frameListItems;
+		private CustomEffect _customEffect;
 		private Frame _currentFrame;
 		//private Color _currentColor = Colors.White;
 		//private SolidColorBrush _currentBrush;
 		private Dictionary<uint, SolidColorBrush> _rgbToBrushMap;
-		private static readonly Regex _regex = new Regex("[^0-9.]"); //regex that matches disallowed text
+		private static readonly Regex _numericRegex = new Regex("[^0-9.]"); 
 
 		public CreateEffectWindow()
         {
@@ -43,32 +58,34 @@ namespace Winleafs.Wpf.Views.Layout
             {
                 var serialized = JsonConvert.SerializeObject(UserSettings.Settings.ActiveDevice.CustomEffect); //Deep copy the custom effect when editing
                 _customEffect = JsonConvert.DeserializeObject<CustomEffect>(serialized);
-				BuildFrameList();
 			}
             else
             {
                 _customEffect = new CustomEffect();
-				AddNewFrame();
 			}
-			
-			BuildPallete();
 
-			FrameSelected(_customEffect.Frames[0]);
+			BuildRgbToBrushMap();
+
+			BuildFrameList();
+
+			
+
+			//FrameSelected(_customEffect.Frames[0]);
 		}
 				
-		public void FrameSelected(Frame frame)
-		{
-			_currentFrame = frame;
+		//public void FrameSelected(Frame frame)
+		//{
+		//	_currentFrame = frame;
 
-			var panelToBrushMap = new Dictionary<int, SolidColorBrush>();
+		//	var panelToBrushMap = new Dictionary<int, SolidColorBrush>();
 
-			foreach (var panel in _currentFrame.PanelColors)
-			{
-				panelToBrushMap.Add(panel.Key, _rgbToBrushMap[panel.Value]);
-			}
-			LayoutDisplay.PanelToBrushMap = panelToBrushMap;
-			LayoutDisplay.UpdateColors();
-		}
+		//	foreach (var panel in _currentFrame.PanelColors)
+		//	{
+		//		panelToBrushMap.Add(panel.Key, _rgbToBrushMap[panel.Value]);
+		//	}
+		//	LayoutDisplay.PanelToBrushMap = panelToBrushMap;
+		//	LayoutDisplay.UpdateColors();
+		//}
 
 		private void LayoutDisplay_PanelClicked(object sender, System.EventArgs e)
 		{
@@ -79,16 +96,14 @@ namespace Winleafs.Wpf.Views.Layout
 				var color = ColorPicker.SelectedColor ?? Colors.Black;
 
 				// Try to find a brush for the selected color
-				var rgb = MediaColorConverter.ToRgb(color);
+				var rgb = ColorFormatConverter.ToRgb(color);
 
 				if (!_rgbToBrushMap.TryGetValue(rgb, out var brush))
 				{
-					brush = new SolidColorBrush(color);
-					AddToRgbToBrushMap(color, brush);
+					AddToRgbToBrushMap(color);
 				}
 
 				// Color the panel and update the color for the panel on the Frame
-				// Display black (unlit panel) as a gray
 				drawablePanel.Polygon.Fill = _rgbToBrushMap[rgb];
 				_currentFrame.PanelColors[drawablePanel.PanelId] = rgb;
 			}
@@ -96,17 +111,45 @@ namespace Winleafs.Wpf.Views.Layout
 
 		private void AddFrame_Click(object sender, RoutedEventArgs e)
 		{
-			var frame = AddNewFrame();
-
-			FrameSelected(frame);
+			AddNewFrame();
 		}
 
 		private void RemoveFrame_Click(object sender, RoutedEventArgs e)
 		{
-			if (_customEffect.Frames.Count > 1)
+			if (FrameListBox.Items.Count < 2)
 			{
-				_customEffect.Frames.RemoveAt(_customEffect.Frames.Count - 1);
+				return;
 			}
+
+			var lastFrameListItem = _frameListItems.Last(); 
+
+			// If the last item is selected, select the one before it 
+			if (FrameListBox.SelectedIndex == FrameListBox.Items.Count - 1)
+			{
+				FrameListBox.SelectedIndex--;
+			}
+
+			_frameListItems.Remove(lastFrameListItem);
+			_customEffect.Frames.Remove(lastFrameListItem.Frame);
+		}
+
+		private void FrameListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+		{
+			var selectedFrame = (FrameListBox.SelectedItem as FrameListItem)?.Frame;
+			if (selectedFrame == null)
+			{
+				return;
+			}
+
+			_currentFrame = selectedFrame; 
+			var panelToBrushMap = new Dictionary<int, SolidColorBrush>();
+
+			foreach (var panel in _currentFrame.PanelColors)
+			{
+				panelToBrushMap.Add(panel.Key, _rgbToBrushMap[panel.Value]);
+			}
+			LayoutDisplay.PanelToBrushMap = panelToBrushMap;
+			LayoutDisplay.UpdateColors();
 		}
 
 		private Frame AddNewFrame()
@@ -126,44 +169,51 @@ namespace Winleafs.Wpf.Views.Layout
 				newFrame.PanelColors.Add(panelId, color);
             }                
 
-			//Add the frame to the effect and the displayed list
+			// Add the frame to the effect and the displayed list and select it
             _customEffect.Frames.Add(newFrame);
-			FrameList.Children.Add(new FrameUserControl(this, _customEffect.Frames.Count, newFrame));
+			var newFrameListItem = new FrameListItem(newFrame, _frameListItems.Count + 1);
+			_frameListItems.Add(newFrameListItem);
+			FrameListBox.SelectedItem = newFrameListItem;
 
 			return newFrame;
         }
 
 		private void BuildFrameList()
 		{
-			FrameList.Children.Clear();
+			_frameListItems = new ObservableCollection<FrameListItem>();
 
 			for (var i = 0; i < _customEffect.Frames.Count; i++)
 			{
-				FrameList.Children.Add(new FrameUserControl(this, i + 1, _customEffect.Frames[i]));
+				_frameListItems.Add(new FrameListItem(_customEffect.Frames[i], i));
 			}
 
-			_currentFrame = _customEffect.Frames.Last();
+			FrameListBox.ItemsSource = _frameListItems;
+
+			if (_customEffect.Frames.Count == 0)
+			{
+				AddNewFrame();
+			}
+
+			FrameListBox.SelectedItem = _frameListItems.First();
 		}
 
-		private void BuildPallete()
+		private void BuildRgbToBrushMap()
 		{
-			var colorsUsed = _customEffect.Frames.SelectMany(f => f.PanelColors.Values).Distinct();
+			var colorsUsed = _customEffect.Frames.SelectMany(f => f.PanelColors.Values).Append(0U).Distinct();
 
 			ColorPicker.StandardColors.Clear();
 			_rgbToBrushMap = new Dictionary<uint, SolidColorBrush>();
 			
 			foreach (var rgb in colorsUsed)
 			{
-				var mediaColor = MediaColorConverter.FromRgb(rgb);
-				ColorPicker.StandardColors.Add(new Xceed.Wpf.Toolkit.ColorItem(mediaColor, string.Empty));
-				_rgbToBrushMap.Add(rgb, new SolidColorBrush(mediaColor));
+				AddToRgbToBrushMap(ColorFormatConverter.ToMediaColor(rgb));
 			}
 		}
 
-		private void AddToRgbToBrushMap(Color color, SolidColorBrush brush)
+		private void AddToRgbToBrushMap(Color color)
 		{
 			ColorPicker.StandardColors.Add(new Xceed.Wpf.Toolkit.ColorItem(color, string.Empty));
-			_rgbToBrushMap.Add(MediaColorConverter.ToRgb(color), brush.Color == Colors.Black ? Brushes.LightSlateGray : brush);
+			_rgbToBrushMap.Add(ColorFormatConverter.ToRgb(color), color == Colors.Black ? Brushes.LightSlateGray : new SolidColorBrush(color));
 		}
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
@@ -182,43 +232,53 @@ namespace Winleafs.Wpf.Views.Layout
 		{
 			if (float.TryParse(TransitionTextBox.Text, out var transitionSecs) && transitionSecs > 0)
 			{
-				_customEffect.IsLoop = LoopCheckBox.IsChecked ?? false;
-				var customEffectCommandBuilder = new CustomEffectCommandBuilder(_customEffect);
-				var customEffectCommand = customEffectCommandBuilder.BuildDisplayCommand(transitionSecs);
-
-				var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice);
-
-				//TODO async so as not hang UI thread, but consider ContinueWith to handle errors
-				await orchestrator.ExecuteCustomEffectCommand(customEffectCommand);
-			}
-			else
-			{
 				PopupCreator.Error(Layout.Resources.ValidTransistionTime);
+				return;
 			}
+
+			_customEffect.IsLoop = LoopCheckBox.IsChecked ?? false;
+			var customEffectCommandBuilder = new CustomEffectCommandBuilder(_customEffect);
+			var customEffectCommand = customEffectCommandBuilder.BuildDisplayCommand(transitionSecs);
+
+			var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice);
+
+			//TODO async so as not hang UI thread, but consider ContinueWith to handle errors
+			//which are lost by the use of async void
+			await orchestrator.ExecuteCustomEffectCommand(customEffectCommand);
 		}
 
 		private async void SaveToDevice_Click(object sender, RoutedEventArgs e)
 		{
-			if (float.TryParse(TransitionTextBox.Text, out var transitionSecs) && transitionSecs > 0 && NameTextBox.Text.Trim().Length > 2)
-			{
-				_customEffect.IsLoop = LoopCheckBox.IsChecked ?? false;
-				var customEffectCommandBuilder = new CustomEffectCommandBuilder(_customEffect);
-				var customEffectCommand = customEffectCommandBuilder.BuildAddCommand(transitionSecs, NameTextBox.Text.Trim());
+			//Always save progress as well
+			UserSettings.Settings.ActiveDevice.CustomEffect = _customEffect;
+			UserSettings.Settings.SaveSettings();
 
-				var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice);
-
-				//TODO async so as not hang UI thread, but consider ContinueWith to handle errors
-				await orchestrator.ExecuteCustomEffectCommand(customEffectCommand);
-			}
-			else
+			if (float.TryParse(TransitionTextBox.Text, out var transitionSecs) && transitionSecs > 0)
 			{
 				PopupCreator.Error(Layout.Resources.ValidTransistionTime);
+				return;
 			}
+
+			if (NameTextBox.Text.Trim().Length < 1)
+			{
+				PopupCreator.Error(Layout.Resources.ValidName);
+				return;
+			}
+			
+			_customEffect.IsLoop = LoopCheckBox.IsChecked ?? false;
+			var customEffectCommandBuilder = new CustomEffectCommandBuilder(_customEffect);
+			var customEffectCommand = customEffectCommandBuilder.BuildAddCommand(transitionSecs, NameTextBox.Text.Trim());
+
+			var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice);
+
+			//TODO async so as not hang UI thread, but consider ContinueWith to handle errors
+			//which are lost by the use of async void
+			await orchestrator.ExecuteCustomEffectCommand(customEffectCommand);
 		}
 
 		private void TransitionTextBox_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
 		{
-			e.Handled = _regex.IsMatch(e.Text);
+			e.Handled = _numericRegex.IsMatch(e.Text);
 		}
 	}
 }

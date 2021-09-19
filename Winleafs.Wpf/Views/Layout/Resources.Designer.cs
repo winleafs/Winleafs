@@ -241,6 +241,15 @@ namespace Winleafs.Wpf.Views.Layout {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter a name for the effect.
+        /// </summary>
+        public static string ValidName {
+            get {
+                return ResourceManager.GetString("ValidName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter a valid transtition time..
         /// </summary>
         public static string ValidTransistionTime {

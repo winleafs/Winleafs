@@ -111,7 +111,7 @@ namespace Winleafs.Wpf.Views.Layout
             
             _drawablePanels = _panelLayout.GetScaledPolygons((int)ActualWidth, (int)ActualHeight, ScaleType.Fit, FlipType.None);
 
-            if (_drawablePanels == null || !_drawablePanels.Any())
+            if (_drawablePanels == null || _drawablePanels.Count == 0)
             {
                 return;
             }
@@ -210,7 +210,7 @@ namespace Winleafs.Wpf.Views.Layout
                     {
                         colors = effect.Palette.Select(hsb =>
                         new SolidColorBrush(
-                            HsbToRgbConverter.ConvertToMediaColor(hsb.Hue, hsb.Saturation, hsb.Brightness)
+                            ColorFormatConverter.ToMediaColor(hsb.Hue, hsb.Saturation, hsb.Brightness)
                             )).ToList();
                     }
                 }

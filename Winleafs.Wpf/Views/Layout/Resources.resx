@@ -177,6 +177,9 @@
   <data name="TransitionTime" xml:space="preserve">
     <value>Transition Time</value>
   </data>
+  <data name="ValidName" xml:space="preserve">
+    <value>Please enter a name for the effect</value>
+  </data>
   <data name="ValidTransistionTime" xml:space="preserve">
     <value>Please enter a valid transtition time.</value>
   </data>
