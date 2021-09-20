@@ -37,8 +37,6 @@ namespace Winleafs.Wpf.Views.Layout
 		private IList<FrameListItem> _frameListItems;
 		private CustomEffect _customEffect;
 		private Frame _currentFrame;
-		//private Color _currentColor = Colors.White;
-		//private SolidColorBrush _currentBrush;
 		private Dictionary<uint, SolidColorBrush> _rgbToBrushMap;
 		private static readonly Regex _numericRegex = new Regex("[^0-9.]"); 
 
@@ -67,26 +65,8 @@ namespace Winleafs.Wpf.Views.Layout
 			BuildRgbToBrushMap();
 
 			BuildFrameList();
-
-			
-
-			//FrameSelected(_customEffect.Frames[0]);
 		}
 				
-		//public void FrameSelected(Frame frame)
-		//{
-		//	_currentFrame = frame;
-
-		//	var panelToBrushMap = new Dictionary<int, SolidColorBrush>();
-
-		//	foreach (var panel in _currentFrame.PanelColors)
-		//	{
-		//		panelToBrushMap.Add(panel.Key, _rgbToBrushMap[panel.Value]);
-		//	}
-		//	LayoutDisplay.PanelToBrushMap = panelToBrushMap;
-		//	LayoutDisplay.UpdateColors();
-		//}
-
 		private void LayoutDisplay_PanelClicked(object sender, System.EventArgs e)
 		{
 			var drawablePanel = sender as DrawablePanel;
@@ -230,7 +210,7 @@ namespace Winleafs.Wpf.Views.Layout
 
 		private async void PlayOnDevice_Click(object sender, RoutedEventArgs e)
 		{
-			if (float.TryParse(TransitionTextBox.Text, out var transitionSecs) && transitionSecs > 0)
+			if (!float.TryParse(TransitionTextBox.Text, out var transitionSecs))
 			{
 				PopupCreator.Error(Layout.Resources.ValidTransistionTime);
 				return;
@@ -253,7 +233,7 @@ namespace Winleafs.Wpf.Views.Layout
 			UserSettings.Settings.ActiveDevice.CustomEffect = _customEffect;
 			UserSettings.Settings.SaveSettings();
 
-			if (float.TryParse(TransitionTextBox.Text, out var transitionSecs) && transitionSecs > 0)
+			if (!float.TryParse(TransitionTextBox.Text, out var transitionSecs))
 			{
 				PopupCreator.Error(Layout.Resources.ValidTransistionTime);
 				return;
