@@ -24,7 +24,7 @@ namespace Winleafs.Wpf.Api.Effects
 
 		public CustomEffectCommand BuildAddCommand(float transitionTime, string Name)
 		{
-			// If a name has been passed the custom effect will be added to the device
+			//If a name has been passed the custom effect will be added to the device
 			var customEffectCommand = new CustomEffectCommand();
 			customEffectCommand.Command = "add";
 			customEffectCommand.AnimName = Name;
@@ -37,7 +37,7 @@ namespace Winleafs.Wpf.Api.Effects
 
 		public CustomEffectCommand BuildDisplayCommand(float transitionTime)
 		{
-			// If no name has been passed the custom effect will just be dispayed on the device
+			//If no name has been passed the custom effect will just be dispayed on the device
 			var customEffectCommand = new CustomEffectCommand();
 			customEffectCommand.Command = "display";
 			_transitionTime = (int)Math.Floor(transitionTime * 10);
@@ -70,7 +70,7 @@ namespace Winleafs.Wpf.Api.Effects
 
 			customEffectCommand.AnimData = animData.ToString();
 
-			// Set pallete so used colurs are displayed in apps (docs say max of 20)
+			//Set pallete so used colurs are displayed in apps (docs say max of 20)
 			var rgbs = _customEffect.Frames.SelectMany(f => f.PanelColors.Values).Distinct().Take(20);
 			foreach(var rgb in rgbs)
 			{
@@ -126,7 +126,7 @@ namespace Winleafs.Wpf.Api.Effects
 				prevRgb = rgb;
 			}
 
-			// Prepend panelId numframes
+			//Prepend panelId numframes
 			return string.Format(" {0} {1}{2}", panelId, totalFrames, sb);
 		}
 		

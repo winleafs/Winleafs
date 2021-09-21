@@ -17,28 +17,18 @@ using Winleafs.Wpf.Views.Popup;
 namespace Winleafs.Wpf.Views.Layout
 {
 
-    /// <summary>
-    /// Interaction logic for PercentageProfileWindow.xaml
-    /// </summary>
-    public partial class CreateEffectWindow : Window
+	/// <summary>
+	/// Interaction logic for CreateEffectWindow.xaml
+	/// </summary>
+	public partial class CreateEffectWindow : Window
     {
-		public class FrameListItem
-		{
-			public FrameListItem(Frame frame, int ordinal)
-			{
-				Frame = frame;
-				Name = Name = $"{Layout.Resources.Frame} {ordinal}";
-			}
-
-			public string Name { get; set; }
-			public Frame Frame { get; set; }
-		}
 
 		private IList<FrameListItem> _frameListItems;
 		private CustomEffect _customEffect;
 		private Frame _currentFrame;
 		private Dictionary<uint, SolidColorBrush> _rgbToBrushMap;
-		private static readonly Regex _numericRegex = new Regex("[^0-9.]"); 
+		private static readonly Regex _numericRegex = new Regex("[^0-9.]");
+		private static readonly string _frameNameFormat = Layout.Resources.Frame + " {0}";
 
 		public CreateEffectWindow()
         {
@@ -75,7 +65,7 @@ namespace Winleafs.Wpf.Views.Layout
 			{
 				var color = ColorPicker.SelectedColor ?? Colors.Black;
 
-				// Try to find a brush for the selected color
+				//Try to find a brush for the selected color
 				var rgb = ColorFormatConverter.ToRgb(color);
 
 				if (!_rgbToBrushMap.TryGetValue(rgb, out var brush))
@@ -83,7 +73,7 @@ namespace Winleafs.Wpf.Views.Layout
 					AddToRgbToBrushMap(color);
 				}
 
-				// Color the panel and update the color for the panel on the Frame
+				//Color the panel and update the color for the panel on the Frame
 				drawablePanel.Polygon.Fill = _rgbToBrushMap[rgb];
 				_currentFrame.PanelColors[drawablePanel.PanelId] = rgb;
 			}
@@ -96,6 +86,7 @@ namespace Winleafs.Wpf.Views.Layout
 
 		private void RemoveFrame_Click(object sender, RoutedEventArgs e)
 		{
+			//Always leave 1 frame
 			if (FrameListBox.Items.Count < 2)
 			{
 				return;
@@ -103,7 +94,7 @@ namespace Winleafs.Wpf.Views.Layout
 
 			var lastFrameListItem = _frameListItems.Last(); 
 
-			// If the last item is selected, select the one before it 
+			//If the last item is selected, select the one before it 
 			if (FrameListBox.SelectedIndex == FrameListBox.Items.Count - 1)
 			{
 				FrameListBox.SelectedIndex--;
@@ -121,20 +112,24 @@ namespace Winleafs.Wpf.Views.Layout
 				return;
 			}
 
-			_currentFrame = selectedFrame; 
+			_currentFrame = selectedFrame;
+			
+			// Create a map of panels to the brushes to color them
 			var panelToBrushMap = new Dictionary<int, SolidColorBrush>();
 
 			foreach (var panel in _currentFrame.PanelColors)
 			{
 				panelToBrushMap.Add(panel.Key, _rgbToBrushMap[panel.Value]);
 			}
+
+			//Update the panels with the map
 			LayoutDisplay.PanelToBrushMap = panelToBrushMap;
 			LayoutDisplay.UpdateColors();
 		}
 
-		private Frame AddNewFrame()
+		private void AddNewFrame()
 		{ 
-			// Copy the previous frame's panel colors where we can
+			//Copy the previous frame's panel colors where we can
 			var prevFrame = _customEffect.Frames.LastOrDefault();
             var newFrame = new Frame();
 
@@ -151,11 +146,9 @@ namespace Winleafs.Wpf.Views.Layout
 
 			// Add the frame to the effect and the displayed list and select it
             _customEffect.Frames.Add(newFrame);
-			var newFrameListItem = new FrameListItem(newFrame, _frameListItems.Count + 1);
+			var newFrameListItem = new FrameListItem(newFrame, string.Format(_frameNameFormat, _frameListItems.Count + 1));
 			_frameListItems.Add(newFrameListItem);
 			FrameListBox.SelectedItem = newFrameListItem;
-
-			return newFrame;
         }
 
 		private void BuildFrameList()
@@ -164,11 +157,12 @@ namespace Winleafs.Wpf.Views.Layout
 
 			for (var i = 0; i < _customEffect.Frames.Count; i++)
 			{
-				_frameListItems.Add(new FrameListItem(_customEffect.Frames[i], i));
+				_frameListItems.Add(new FrameListItem(_customEffect.Frames[i], string.Format(_frameNameFormat, i + 1)));
 			}
 
 			FrameListBox.ItemsSource = _frameListItems;
 
+			//Always show at least 1 frame in the list
 			if (_customEffect.Frames.Count == 0)
 			{
 				AddNewFrame();
@@ -179,11 +173,14 @@ namespace Winleafs.Wpf.Views.Layout
 
 		private void BuildRgbToBrushMap()
 		{
+			//Get the colours used across all teh frames, and make sure black (not lit) is included
 			var colorsUsed = _customEffect.Frames.SelectMany(f => f.PanelColors.Values).Append(0U).Distinct();
 
+			//Add the colors used to the color picker control
 			ColorPicker.StandardColors.Clear();
 			_rgbToBrushMap = new Dictionary<uint, SolidColorBrush>();
 			
+			//Create a map of color to brush so that brushes can be reused
 			foreach (var rgb in colorsUsed)
 			{
 				AddToRgbToBrushMap(ColorFormatConverter.ToMediaColor(rgb));
@@ -204,8 +201,8 @@ namespace Winleafs.Wpf.Views.Layout
 
         private void SaveProgress_Click(object sender, RoutedEventArgs e)
         {
-                UserSettings.Settings.ActiveDevice.CustomEffect = _customEffect;
-                UserSettings.Settings.SaveSettings();
+            UserSettings.Settings.ActiveDevice.CustomEffect = _customEffect;
+            UserSettings.Settings.SaveSettings();
         }
 
 		private async void PlayOnDevice_Click(object sender, RoutedEventArgs e)
@@ -258,6 +255,7 @@ namespace Winleafs.Wpf.Views.Layout
 
 		private void TransitionTextBox_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
 		{
+			//Validate the text entered is numeric
 			e.Handled = _numericRegex.IsMatch(e.Text);
 		}
 	}
