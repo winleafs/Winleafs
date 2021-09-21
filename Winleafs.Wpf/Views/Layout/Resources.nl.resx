@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AtLeast1Step" xml:space="preserve">
     <value>Voeg tenminste 1 stap toe</value>
@@ -123,14 +123,35 @@
   <data name="Cancel" xml:space="preserve">
     <value>Annuleren</value>
   </data>
+  <data name="ColorsUsed" xml:space="preserve">
+    <value>Colors Used</value>
+  </data>
+  <data name="CreateEffectInfo" xml:space="preserve">
+    <value>Here you can create either a static image by colouring the panels for a single frame, or an animation by adding more frames and colouring the panels in each frame. The transition time specifies the time between each frame.</value>
+  </data>
+  <data name="CreateEffectWindow" xml:space="preserve">
+    <value>Create effect</value>
+  </data>
+  <data name="Frame" xml:space="preserve">
+    <value>Frame</value>
+  </data>
+  <data name="Frames" xml:space="preserve">
+    <value>Frames</value>
+  </data>
   <data name="Info" xml:space="preserve">
     <value>Het percentageprofiel wordt gebruikt om effecten te weergeven die een percentage hebben, zoals bijvoorbeeld een HP balk. Klik op panelen die je in een stap wilt hebben en daarna op de plus knop om de stap toe te voegen. Doe dit totdat alle panelen in een stap zitten of totdat je er tevreden mee bent.</value>
   </data>
   <data name="InfoTitle" xml:space="preserve">
     <value>Info</value>
   </data>
+  <data name="Loop" xml:space="preserve">
+    <value>Loop</value>
+  </data>
   <data name="PercentageProfileWindow" xml:space="preserve">
     <value>Percentageprofiel</value>
+  </data>
+  <data name="PlayOnDevice" xml:space="preserve">
+    <value>Play On Device</value>
   </data>
   <data name="Redraw" xml:space="preserve">
     <value>Hertekenen</value>
@@ -138,10 +159,31 @@
   <data name="Save" xml:space="preserve">
     <value>Opslaan</value>
   </data>
+  <data name="SaveProgress" xml:space="preserve">
+    <value>Save Progress</value>
+  </data>
+  <data name="SaveToDevice" xml:space="preserve">
+    <value>Save To Device</value>
+  </data>
+  <data name="SelectedColor" xml:space="preserve">
+    <value>Selected Color</value>
+  </data>
   <data name="Step" xml:space="preserve">
     <value>Stap</value>
   </data>
   <data name="Steps" xml:space="preserve">
     <value>Stappen</value>
+  </data>
+  <data name="TransitionTime" xml:space="preserve">
+    <value>Transition Time</value>
+  </data>
+  <data name="ValidName" xml:space="preserve">
+    <value>Please enter a name for the effect</value>
+  </data>
+  <data name="ValidTransistionTime" xml:space="preserve">
+    <value>Please enter a valid transtition time.</value>
+  </data>
+  <data name="WithName" xml:space="preserve">
+    <value>With Name</value>
   </data>
 </root>
