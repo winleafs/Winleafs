@@ -60,13 +60,7 @@
                 <TextBox x:Name="TransitionTextBox" HorizontalAlignment="Right" FontSize="20" Width="40" Background="White" PreviewTextInput="TransitionTextBox_PreviewTextInput" Text="1" MaxLength="4"/>
                 <Label Content="s" Foreground="White" FontSize="20" Height="37" />
             </StackPanel>
-            <CheckBox x:Name="LoopCheckBox" Grid.Row="3" Content="{x:Static local:Resources.Loop}" ContentStringFormat="{}:{0}" FlowDirection="RightToLeft" HorizontalAlignment="Left" IsChecked="True" Margin="10,10,0,0" Foreground="White" FontSize="20" Height="37" >
-                <CheckBox.Resources>
-                    <Style TargetType="{x:Type Path}">
-                        <Setter Property="FlowDirection" Value="LeftToRight" />
-                    </Style>
-                </CheckBox.Resources>
-            </CheckBox>
+            <CheckBox x:Name="LoopCheckBox" Grid.Row="3" Content="{x:Static local:Resources.Loop}" ContentStringFormat="{}:{0}" FlowDirection="RightToLeft" HorizontalAlignment="Left" IsChecked="True" Margin="10,10,0,0" Foreground="White" FontSize="20" Height="37" />
             <Button Grid.Row="4" Margin="0,30,0,0" Width="160" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="PlayOnDevice_Click" >
                 <StackPanel Orientation="Horizontal">
                     <materialDesign:PackIcon Kind="Play" />

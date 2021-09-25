@@ -14,7 +14,7 @@ namespace Winleafs.Wpf.Api.Effects
 	/// </summary>
 	public class CustomEffectCommandBuilder
 	{
-		private CustomEffect _customEffect;
+		private readonly CustomEffect _customEffect;
 		private int _transitionTime;
 
 		public CustomEffectCommandBuilder(CustomEffect customEffect)
@@ -22,25 +22,29 @@ namespace Winleafs.Wpf.Api.Effects
 			_customEffect = customEffect;
 		}
 
-		public CustomEffectCommand BuildAddCommand(float transitionTime, string Name)
+		public CustomEffectCommand BuildAddCommand(float transitionSecs, string name)
 		{
 			//If a name has been passed the custom effect will be added to the device
 			var customEffectCommand = new CustomEffectCommand();
 			customEffectCommand.Command = "add";
-			customEffectCommand.AnimName = Name;
-			_transitionTime = (int)Math.Floor(transitionTime * 10);
+			customEffectCommand.AnimName = name;
+			
+			//Convert seconds to tenths of a second, the time unit used by commands
+			_transitionTime = (int)Math.Floor(transitionSecs * 10);
 
 			BuildBody(customEffectCommand);
 
 			return customEffectCommand;
 		}
 
-		public CustomEffectCommand BuildDisplayCommand(float transitionTime)
+		public CustomEffectCommand BuildDisplayCommand(float transitionSecs)
 		{
 			//If no name has been passed the custom effect will just be dispayed on the device
 			var customEffectCommand = new CustomEffectCommand();
 			customEffectCommand.Command = "display";
-			_transitionTime = (int)Math.Floor(transitionTime * 10);
+
+			//Convert seconds to tenths of a second, the time unit used by commands
+			_transitionTime = (int)Math.Floor(transitionSecs * 10);
 
 			BuildBody(customEffectCommand);
 
@@ -49,7 +53,6 @@ namespace Winleafs.Wpf.Api.Effects
 
 		private void BuildBody(CustomEffectCommand customEffectCommand)
 		{
-
 			if (_customEffect.IsStatic)
 			{
 				customEffectCommand.AnimType = "static";
@@ -101,9 +104,9 @@ namespace Winleafs.Wpf.Api.Effects
 					if (prevRgb != null && sameColorFrameCount > 0)
 					{
 						sb.AppendFormat(" {0} {1} {2} 0 {3}",
-						(prevRgb >> 16) & 255,
-						(prevRgb >> 8) & 255,
-						prevRgb & 255,
+						(prevRgb >> 16) & 255,	// Get the value for red by shifting 2 bytes right
+						(prevRgb >> 8) & 255,	// Get the value for green by shifting one byte right
+						prevRgb & 255,			// Get the value for blue by taking the lowest byte
 						sameColorFrameCount * _transitionTime);
 
 						totalFrames++;

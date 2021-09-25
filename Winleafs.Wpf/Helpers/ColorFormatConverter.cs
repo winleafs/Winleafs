@@ -118,67 +118,69 @@ namespace Winleafs.Wpf.Helpers
 
 		public static System.Windows.Media.Color ToMediaColor(uint argb)
 		{
-			var b = (byte)(argb & 255);
-			var g = (byte)((argb >> 8) & 255);
-			var r = (byte)((argb >> 16) & 255);
+			var blue = (byte)(argb & 255);          // mask the lowest byte to get blue
+			var green = (byte)((argb >> 8) & 255);  // shift 1 byte right then mask it to get green
+			var red = (byte)((argb >> 16) & 255);   // shift 2 bytes right then mask it to get red
 
-			return System.Windows.Media.Color.FromArgb(255, r, g, b);
+			return System.Windows.Media.Color.FromArgb(255, red, green, blue);
 		}
 
 		public static Palette ToPalette(uint Rgb)
 		{
-			double delta, min;
-			double h = 0, s, v;
+			double delta;
+			double min;
+			double hue = 0.0;
+			double saturation;
+			double brightness;
 
 			var mediaColor = ToMediaColor(Rgb);
 			min = Math.Min(Math.Min(mediaColor.R, mediaColor.G), mediaColor.B);
-			v = Math.Max(Math.Max(mediaColor.R, mediaColor.G), mediaColor.B);
-			delta = v - min;
+			brightness = Math.Max(Math.Max(mediaColor.R, mediaColor.G), mediaColor.B);
+			delta = brightness - min;
 
-			if (v == 0.0)
+			if (brightness == 0.0)
 			{
-				s = 0;
+				saturation = 0;
 			}
 			else
 			{
-				s = delta / v;
+				saturation = delta / brightness;
 			}
 
-			if (s == 0)
+			if (saturation == 0)
 			{
-				h = 0.0;
+				hue = 0.0;
 			}
 
 			else
 			{
-				if (mediaColor.R == v)
+				if (mediaColor.R == brightness)
 				{
-					h = (mediaColor.G - mediaColor.B) / delta;
+					hue = (mediaColor.G - mediaColor.B) / delta;
 				}
-				else if (mediaColor.G == v)
+				else if (mediaColor.G == brightness)
 				{
-                    h = 2 + ((mediaColor.B - mediaColor.R) / delta);
+                    hue = 2 + ((mediaColor.B - mediaColor.R) / delta);
                 }
-				else if (mediaColor.B == v)
+				else if (mediaColor.B == brightness)
 				{
-					h = 4 + (mediaColor.R - mediaColor.G) / delta;
+					hue = 4 + (mediaColor.R - mediaColor.G) / delta;
 				}
 
-				h *= 60;
+				hue *= 60;
 
-				if (h < 0.0)
+				if (hue < 0.0)
 				{
-                    h += 360;
+                    hue += 360;
                 }
 			}
 
-			var palette = new Palette
+			return new Palette
 			{
-				Hue = (int)Math.Floor(h),
-				Saturation = (int)Math.Floor(s),
-				Brightness = (int)Math.Floor(v / 255)
+				Hue = (int)Math.Floor(hue),
+				Saturation = (int)Math.Floor(saturation),
+				Brightness = (int)Math.Floor(brightness / 255)
 			};
-			return palette;
 		}
 	}
 }

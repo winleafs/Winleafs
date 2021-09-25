@@ -139,7 +139,14 @@ namespace Winleafs.Wpf.Api
 		/// </summary>
 		public async Task ExecuteCustomEffectCommand(CustomEffectCommand customEffectCommand)
 		{
-			_logger.Info($"Orchestrator is executing a custom effect command for device {Device.IPAddress}");
+			if (customEffectCommand.Command == "display")
+			{
+				_logger.Info($"Orchestrator is executing a custom effect display command for device {Device.IPAddress}");
+			}
+			else
+			{
+				_logger.Info($"Orchestrator is executing a custom effect command for device {Device.IPAddress} to {customEffectCommand.Command} the effect called {customEffectCommand.AnimName}");
+			}
 
 			try
 			{
