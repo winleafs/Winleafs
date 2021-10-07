@@ -26,8 +26,12 @@ namespace Winleafs.Wpf.Views.Layout
 		private CustomEffect _customEffect;
 		private Frame _currentFrame;
 		private Dictionary<uint, SolidColorBrush> _rgbToBrushMap;
+		private int _currentBrightness;
+		private string _currentEffect;
+
 		private static readonly Regex _numericRegex = new Regex("[^0-9.]");
 		private static readonly string _frameNameFormat = Layout.Resources.Frame + " {0}";
+
 
 		public CreateEffectWindow()
 		{
@@ -215,8 +219,29 @@ namespace Winleafs.Wpf.Views.Layout
 			var customEffectCommand = customEffectCommandBuilder.BuildDisplayCommand(transitionSecs);
 
 			var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice);
+			
+			//Save the current brightness and effect so that we can reactivate it when stop is clicked
+			_currentBrightness = orchestrator.GetActiveBrightness();
+			_currentEffect = orchestrator.GetActiveEffectName();
 
 			await orchestrator.ExecuteCustomEffectCommand(customEffectCommand);
+
+			//Change the button to a stop button
+			PlayButton.Visibility = Visibility.Collapsed;
+			StopButton.Visibility = Visibility.Visible;
+		}
+
+		private async void Stop_Click(object sender, RoutedEventArgs e)
+		{
+			if (_currentEffect.Length > 0)
+			{
+				var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice);
+				await orchestrator.ActivateEffect(_currentEffect, _currentBrightness);
+			}
+
+			//Change the button to a play button
+			PlayButton.Visibility = Visibility.Visible;
+			StopButton.Visibility = Visibility.Collapsed;
 		}
 
 		private async void SaveToDevice_Click(object sender, RoutedEventArgs e)
