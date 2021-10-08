@@ -95,16 +95,21 @@ namespace Winleafs.Wpf.Views.Layout
 				return;
 			}
 
-			var lastFrameListItem = _frameListItems.Last();
-
-			//If the last item is selected, select the one before it 
-			if (FrameListBox.SelectedIndex == FrameListBox.Items.Count - 1)
+			var selectedIndex = FrameListBox.SelectedIndex;
+			var currentFrameListItem = FrameListBox.SelectedItem as FrameListItem;
+			if (currentFrameListItem != null)
 			{
-				FrameListBox.SelectedIndex--;
+				_customEffect.Frames.Remove(currentFrameListItem.Frame);
 			}
 
-			_frameListItems.Remove(lastFrameListItem);
-			_customEffect.Frames.Remove(lastFrameListItem.Frame);
+			BuildFrameList();
+
+			//Select the frame after the one deleted
+			if (selectedIndex >= FrameListBox.Items.Count)
+			{
+				selectedIndex = FrameListBox.Items.Count - 1;
+			}
+			FrameListBox.SelectedIndex = selectedIndex;
 		}
 
 		private void FrameListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -233,7 +238,7 @@ namespace Winleafs.Wpf.Views.Layout
 
 		private async void Stop_Click(object sender, RoutedEventArgs e)
 		{
-			if (_currentEffect.Length > 0)
+			if (!string.IsNullOrEmpty(_currentEffect))
 			{
 				var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice);
 				await orchestrator.ActivateEffect(_currentEffect, _currentBrightness);
