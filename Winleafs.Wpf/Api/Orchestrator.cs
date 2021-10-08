@@ -152,13 +152,14 @@ namespace Winleafs.Wpf.Api
 			{
 				var client = NanoleafClient.GetClientForDevice(Device);
 
+				//This code is currently commented out as it doesn't seem necessary (at least for Shapes and firmware v6.12)
 				//DO NOT change the order of disabling effects, then setting brightness and then enabling effects
 				//if (_customEffects.HasActiveEffects(effectName))
 				//{
 				//	await _customEffects.DeactivateAllEffects();
-				//}
-				
+				//}			
 				//await client.StateEndpoint.SetBrightnessAsync(brightness);
+
 				await client.EffectsEndpoint.WriteCustomEffectCommandAsync(customEffectCommand);
 
 				//Finally, trigger effect changed callback
