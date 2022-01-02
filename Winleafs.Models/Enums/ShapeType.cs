@@ -10,6 +10,7 @@
         PowerSupply = 5,
         ShapeHexagon = 7,
         ShapeTriangle = 8,
+        ShapeMiniTriangle = 9,
         ULPController = 12
     }
 }
