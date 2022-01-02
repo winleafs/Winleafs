@@ -39,6 +39,8 @@ namespace Winleafs.Models.Models
 
         public PercentageProfile PercentageProfile { get;set;}
 
+        public CustomEffect CustomEffect { get; set; }
+
         public ScreenMirrorAlgorithm ScreenMirrorAlgorithm { get; set; }
 
         public ScreenMirrorFlip ScreenMirrorFlip { get; set; }

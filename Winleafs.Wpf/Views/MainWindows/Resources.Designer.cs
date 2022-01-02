@@ -115,6 +115,15 @@ namespace Winleafs.Wpf.Views.MainWindows {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create effect.
+        /// </summary>
+        public static string CreateEffect {
+            get {
+                return ResourceManager.GetString("CreateEffect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete confirmation.
         /// </summary>
         public static string DeleteConfirmation {

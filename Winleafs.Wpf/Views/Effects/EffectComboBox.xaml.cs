@@ -129,7 +129,7 @@ namespace Winleafs.Wpf.Views.Effects
                     {
                         EffectName = effectWithPalette.Name,
                         Width = (int)Width,
-                        Colors = effectWithPalette.Palette.Select(palette => HsbToRgbConverter.ConvertToMediaColor(palette.Hue, palette.Saturation, palette.Brightness)),
+                        Colors = effectWithPalette.Palette.Select(palette => Helpers.ColorFormatConverter.ToMediaColor(palette.Hue, palette.Saturation, palette.Brightness)),
                         EffectType = effectWithPalette.EffectType
                     });
                 }

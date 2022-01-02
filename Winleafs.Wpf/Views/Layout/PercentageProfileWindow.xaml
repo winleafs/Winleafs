@@ -4,14 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Winleafs.Wpf.Views.Layout"
+         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="{x:Static local:Resources.PercentageProfileWindow}" Height="828" Width="1020" ResizeMode="CanMinimize">
     <Grid Background="{StaticResource NanoleafBlack}">
         <Label Content="{x:Static local:Resources.Steps}" ContentStringFormat="{}{0}:" HorizontalAlignment="Left" Margin="0,0,0,585" Foreground="White" FontSize="20" Height="37" VerticalAlignment="Bottom"/>
         <local:LayoutDisplayUserControl x:Name="LayoutDisplay" Width="800" Height="800" VerticalAlignment="Top" HorizontalAlignment="Right"/>
         <StackPanel x:Name="StepList" HorizontalAlignment="Left" Width="190" Margin="0,0,0,47" Height="533" VerticalAlignment="Bottom"/>
-        <Button HorizontalAlignment="Left" Width="35" Background="{x:Null}" BorderBrush="{x:Null}" Click="Plus_Click" Margin="165,0,0,585" Height="35" VerticalAlignment="Bottom">
-            <Image Source="../../Icons/appbar.add.png"></Image>
+        <Button Margin="165,0,0,585" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Height="32" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="48" Click="Plus_Click">
+            <materialDesign:PackIcon Kind="Plus" />
         </Button>
         <Button Content="{x:Static local:Resources.Cancel}" HorizontalAlignment="Left" Margin="10,0,0,12" VerticalAlignment="Bottom" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Cancel_Click"/>
         <Button Content="{x:Static local:Resources.Save}" HorizontalAlignment="Left" Margin="106,0,0,12" VerticalAlignment="Bottom" Width="84" Height="27" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Click="Add_Click"/>

@@ -27,7 +27,13 @@
                         <TextBlock Text="{x:Static mainWindows:Resources.AddDevice}" Margin="8 0 0 0"></TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Margin="155,10,0,0" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Height="32" VerticalAlignment="Top" HorizontalAlignment="Left" Width="140" Click="Reload_Click">
+                <Button Margin="155,10,0,0" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Height="32" VerticalAlignment="Top" HorizontalAlignment="Left" Width="140" Click="CreateEffect_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Plus" />
+                        <TextBlock Text="{x:Static mainWindows:Resources.CreateEffect}" Margin="8 0 0 0"></TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Margin="300,10,0,0" Background="{StaticResource NanoleafGreen}" Foreground="White" BorderBrush="{x:Null}" Height="32" VerticalAlignment="Top" HorizontalAlignment="Left" Width="140" Click="Reload_Click">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Refresh" />
                         <TextBlock Text="{x:Static mainWindows:Resources.ReloadEffects}" Margin="8 0 0 0"></TextBlock>

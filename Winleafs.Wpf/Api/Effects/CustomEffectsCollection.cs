@@ -22,7 +22,7 @@ namespace Winleafs.Wpf.Api.Effects
 
             var customColorEffects = UserSettings.Settings.CustomEffects;
 
-            if (customColorEffects != null && customColorEffects.Any())
+            if (customColorEffects != null && customColorEffects.Count > 0)
             {
                 foreach (var customColorEffect in customColorEffects)
                 {

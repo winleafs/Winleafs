@@ -379,8 +379,14 @@ namespace Winleafs.Wpf.Views.MainWindows
             percentageProfileWindow.Show();
         }
 
-        #region Open window from other process
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+		private void CreateEffect_Click(object sender, RoutedEventArgs e)
+		{
+			var createEffectWindow = new CreateEffectWindow();
+			createEffectWindow.Show();
+		}
+
+		#region Open window from other process
+		private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             var hwndSource = HwndSource.FromHwnd(new WindowInteropHelper(this).Handle);
             hwndSource.AddHook(new HwndSourceHook(WndProc));

@@ -44,5 +44,15 @@ namespace Winleafs.Api.Endpoints.Interfaces
 
 	    /// <inheritdoc cref="GetEffectDetailsAsync"/>
 		Effect GetEffectDetails(string effectName);
+
+        /// <summary>
+        /// Send a command for a custom effect.
+        /// </summary>
+        /// <param name="customAnimationCommand">The custom effect command to be sent.</param>
+        /// <returns>The details about the effect.</returns>
+        Task WriteCustomEffectCommandAsync(CustomEffectCommand customEffectCommand);
+
+        /// <inheritdoc cref="WriteCustomEffectCommandAsync"/>
+        void WriteCustomEffectCommand(CustomEffectCommand customEffectCommand);
     }
 }

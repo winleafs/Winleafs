@@ -79,6 +79,51 @@ namespace Winleafs.Wpf.Views.Layout {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Colors Used.
+        /// </summary>
+        public static string ColorsUsed {
+            get {
+                return ResourceManager.GetString("ColorsUsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Here you can create either a static image by colouring the panels for a single frame, or an animation by adding more frames and colouring the panels in each frame. The transition time specifies the time between each frame..
+        /// </summary>
+        public static string CreateEffectInfo {
+            get {
+                return ResourceManager.GetString("CreateEffectInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create effect.
+        /// </summary>
+        public static string CreateEffectWindow {
+            get {
+                return ResourceManager.GetString("CreateEffectWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Frame.
+        /// </summary>
+        public static string Frame {
+            get {
+                return ResourceManager.GetString("Frame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Frames.
+        /// </summary>
+        public static string Frames {
+            get {
+                return ResourceManager.GetString("Frames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The percentage profile is used for effects that set a certain percentage (such as health bars). Click on panels that you want to include in a step and then click on the plus button. Do this until all panels are added or you are satisfied..
         /// </summary>
         public static string Info {
@@ -97,11 +142,29 @@ namespace Winleafs.Wpf.Views.Layout {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loop.
+        /// </summary>
+        public static string Loop {
+            get {
+                return ResourceManager.GetString("Loop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Percentage profile.
         /// </summary>
         public static string PercentageProfileWindow {
             get {
                 return ResourceManager.GetString("PercentageProfileWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Play On Device.
+        /// </summary>
+        public static string PlayOnDevice {
+            get {
+                return ResourceManager.GetString("PlayOnDevice", resourceCulture);
             }
         }
         
@@ -124,6 +187,33 @@ namespace Winleafs.Wpf.Views.Layout {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save Progress.
+        /// </summary>
+        public static string SaveProgress {
+            get {
+                return ResourceManager.GetString("SaveProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save To Device.
+        /// </summary>
+        public static string SaveToDevice {
+            get {
+                return ResourceManager.GetString("SaveToDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selected Color.
+        /// </summary>
+        public static string SelectedColor {
+            get {
+                return ResourceManager.GetString("SelectedColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Step.
         /// </summary>
         public static string Step {
@@ -138,6 +228,51 @@ namespace Winleafs.Wpf.Views.Layout {
         public static string Steps {
             get {
                 return ResourceManager.GetString("Steps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stop.
+        /// </summary>
+        public static string Stop {
+            get {
+                return ResourceManager.GetString("Stop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transition Time.
+        /// </summary>
+        public static string TransitionTime {
+            get {
+                return ResourceManager.GetString("TransitionTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a name for the effect.
+        /// </summary>
+        public static string ValidName {
+            get {
+                return ResourceManager.GetString("ValidName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a valid transtition time..
+        /// </summary>
+        public static string ValidTransistionTime {
+            get {
+                return ResourceManager.GetString("ValidTransistionTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to With Name.
+        /// </summary>
+        public static string WithName {
+            get {
+                return ResourceManager.GetString("WithName", resourceCulture);
             }
         }
     }
