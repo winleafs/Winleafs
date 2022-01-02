@@ -62,6 +62,7 @@ namespace Winleafs.Wpf.Api.Layouts
                     break;
                 case ShapeType.ShapeHexagon:
                 case ShapeType.ShapeTriangle:
+				case ShapeType.ShapeMiniTriangle:
                     DeviceType = DeviceType.Shapes;
                     break;
                 default:
@@ -143,7 +144,12 @@ namespace Winleafs.Wpf.Api.Layouts
                     polygon = CreateRotatedTriangle(x, y, rotateTransform, globalRotationTransform, 135);
                     break;
                 }
-                case ShapeType.ControlSquarePrimary:
+				case ShapeType.ShapeMiniTriangle:
+				{
+					polygon = CreateRotatedTriangle(x, y, rotateTransform, globalRotationTransform, 68);
+					break;
+				}
+				case ShapeType.ControlSquarePrimary:
                 case ShapeType.ContolSquarePassive:
                 case ShapeType.Square:
                 {
