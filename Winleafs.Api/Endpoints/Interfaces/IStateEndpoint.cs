@@ -1,8 +1,7 @@
 ﻿using System.Threading.Tasks;
+using Winleafs.Models.State;
 
-using Winleafs.Models.Models.State;
-
-namespace Winleafs.Api.Endpoints.Interfaces
+namespace Winleafs.Nanoleaf.Endpoints.Interfaces
 {
 	public interface IStateEndpoint
 	{

@@ -1,8 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-
-using Winleafs.Models.Models.Scheduling;
+using Winleafs.Models.Scheduling;
 using Winleafs.Wpf.Helpers;
 
 namespace Winleafs.Wpf.Views.MainWindows

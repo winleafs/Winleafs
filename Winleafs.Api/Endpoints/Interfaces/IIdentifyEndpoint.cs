@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Winleafs.Api.Endpoints.Interfaces
+namespace Winleafs.Nanoleaf.Endpoints.Interfaces
 {
     public interface IIdentifyEndpoint
     {

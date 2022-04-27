@@ -1,5 +1,5 @@
 ﻿using System.Windows.Controls;
-using Winleafs.Models.Models.Layouts;
+using Winleafs.Models.Layouts;
 
 namespace Winleafs.Wpf.Views.Layout
 {

@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using Polly;
 using Winleafs.External;
-using Winleafs.Models.Models;
+using Winleafs.Models;
 
-namespace Winleafs.Api.Helpers
+namespace Winleafs.Nanoleaf.Helpers
 {
     public static class SunTimesUpdater
     {

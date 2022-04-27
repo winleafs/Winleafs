@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Winleafs.Models.Models;
+using Winleafs.Models;
 
 namespace Winleafs.Wpf.Views.MainWindows
 {

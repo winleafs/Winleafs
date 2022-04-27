@@ -1,21 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>Winleafs.Server</RootNamespace>
-    <AssemblyName>Winleafs.Server</AssemblyName>
-    <LangVersion>9</LangVersion>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<RootNamespace>Winleafs.Server</RootNamespace>
+		<AssemblyName>Winleafs.Server</AssemblyName>
+		<LangVersion>9</LangVersion>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="NLog" Version="4.7.10" />
-    <PackageReference Include="RestSharp" Version="106.12.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+		<PackageReference Include="NLog" Version="4.7.10" />
+		<PackageReference Include="RestSharp" Version="106.12.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Winleafs.Models\Winleafs.Models.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Winleafs.Models\Winleafs.Models.csproj" />
+	</ItemGroup>
 
 
 </Project>

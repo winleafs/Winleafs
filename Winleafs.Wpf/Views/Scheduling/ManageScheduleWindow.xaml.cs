@@ -2,13 +2,12 @@
 using System.Windows;
 
 using Winleafs.Models.Enums;
-using Winleafs.Models.Models.Scheduling;
-
 using Newtonsoft.Json;
 
 using Winleafs.Wpf.Views.MainWindows;
-using Winleafs.Models.Models;
 using System.Linq;
+using Winleafs.Models;
+using Winleafs.Models.Scheduling;
 using Winleafs.Wpf.Views.Popup;
 
 namespace Winleafs.Wpf.Views.Scheduling

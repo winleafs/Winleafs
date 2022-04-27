@@ -1,6 +1,5 @@
 ﻿using System.Windows.Controls;
-using Winleafs.Models.Models;
-using Winleafs.Models.Models.Scheduling.Triggers;
+using Winleafs.Models.Scheduling.Triggers;
 using Winleafs.Wpf.Helpers;
 
 namespace Winleafs.Wpf.Views.Scheduling

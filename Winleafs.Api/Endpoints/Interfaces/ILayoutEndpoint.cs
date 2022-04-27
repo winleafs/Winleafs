@@ -1,8 +1,7 @@
 ﻿using System.Threading.Tasks;
+using Winleafs.Models.Layouts;
 
-using Winleafs.Models.Models.Layouts;
-
-namespace Winleafs.Api.Endpoints.Interfaces
+namespace Winleafs.Nanoleaf.Endpoints.Interfaces
 {
     public interface ILayoutEndpoint
     {

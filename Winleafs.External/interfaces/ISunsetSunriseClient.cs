@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using Winleafs.Models.Models.Sunset;
+using Winleafs.Models.Sunset;
 
 namespace Winleafs.External.interfaces
 {

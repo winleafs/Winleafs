@@ -1,16 +1,16 @@
-﻿using RestSharp;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
-using Winleafs.Api.Endpoints.Interfaces;
+using RestSharp;
 using Winleafs.Models.Enums;
-using Winleafs.Models.Models.ExternalControl;
+using Winleafs.Models.ExternalControl;
+using Winleafs.Nanoleaf.Endpoints.Interfaces;
 
-namespace Winleafs.Api.Endpoints
+namespace Winleafs.Nanoleaf.Endpoints
 {
     public class ExternalControlEndpoint : NanoleafEndpoint, IExternalControlEndpoint
     {

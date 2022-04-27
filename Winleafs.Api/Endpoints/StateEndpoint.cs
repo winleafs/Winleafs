@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-
 using RestSharp;
+using Winleafs.Models.State;
+using Winleafs.Nanoleaf.Endpoints.Interfaces;
 
-using Winleafs.Api.Endpoints.Interfaces;
-using Winleafs.Models.Models.State;
-
-namespace Winleafs.Api.Endpoints
+namespace Winleafs.Nanoleaf.Endpoints
 {
     public class StateEndpoint : NanoleafEndpoint, IStateEndpoint
     {

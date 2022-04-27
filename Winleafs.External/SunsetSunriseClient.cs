@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using Winleafs.External.interfaces;
-using Winleafs.Models.Models.Sunset;
+using Winleafs.Models.Sunset;
 
 namespace Winleafs.External
 {

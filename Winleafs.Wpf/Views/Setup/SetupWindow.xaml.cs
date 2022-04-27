@@ -2,15 +2,12 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-
-using Winleafs.Api;
-
-using Winleafs.Models.Models;
-
 using Tmds.MDns;
 
 using Winleafs.Wpf.ViewModels;
 using NLog;
+using Winleafs.Models;
+using Winleafs.Nanoleaf;
 
 namespace Winleafs.Wpf.Views.Setup
 {

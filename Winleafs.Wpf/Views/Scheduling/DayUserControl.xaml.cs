@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-
-using Winleafs.Models.Models;
-using Winleafs.Models.Models.Scheduling;
-using Winleafs.Models.Models.Scheduling.Triggers;
+using Winleafs.Models;
+using Winleafs.Models.Scheduling;
+using Winleafs.Models.Scheduling.Triggers;
 
 namespace Winleafs.Wpf.Views.Scheduling
 {

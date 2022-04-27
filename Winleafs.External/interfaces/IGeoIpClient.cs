@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using Winleafs.Models.Models.GeoIp;
+using Winleafs.Models.GeoIp;
 
 namespace Winleafs.External.interfaces
 {

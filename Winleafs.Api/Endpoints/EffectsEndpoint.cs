@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
 using RestSharp;
+using Winleafs.Models.Effects;
+using Winleafs.Nanoleaf.Endpoints.Interfaces;
 
-using Winleafs.Api.Endpoints.Interfaces;
-using Winleafs.Models.Models.Effects;
-
-namespace Winleafs.Api.Endpoints
+namespace Winleafs.Nanoleaf.Endpoints
 {
     public class EffectsEndpoint : NanoleafEndpoint, IEffectsEndpoint
     {

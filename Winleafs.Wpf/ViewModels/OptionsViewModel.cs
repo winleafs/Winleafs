@@ -2,8 +2,8 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using Winleafs.Models.Effects;
 using Winleafs.Models.Enums;
-using Winleafs.Models.Models.Effects;
 using Winleafs.Wpf.Helpers;
 using Winleafs.Wpf.Views.Options;
 

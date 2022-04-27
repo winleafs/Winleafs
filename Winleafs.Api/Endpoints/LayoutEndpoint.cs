@@ -1,10 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using System.Threading.Tasks;
 using RestSharp;
-using System.Threading.Tasks;
-using Winleafs.Api.Endpoints.Interfaces;
-using Winleafs.Models.Models.Layouts;
+using Winleafs.Models.Layouts;
+using Winleafs.Nanoleaf.Endpoints.Interfaces;
 
-namespace Winleafs.Api.Endpoints
+namespace Winleafs.Nanoleaf.Endpoints
 {
 	public class LayoutEndpoint : NanoleafEndpoint, ILayoutEndpoint
 	{

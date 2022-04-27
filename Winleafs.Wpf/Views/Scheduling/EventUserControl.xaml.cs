@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows.Controls;
 using Winleafs.Models.Enums;
-using Winleafs.Models.Models.Scheduling.Triggers;
+using Winleafs.Models.Scheduling.Triggers;
 using Winleafs.Server;
 using Winleafs.Wpf.Helpers;
 using Winleafs.Wpf.Views.Popup;

@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 using NLog;
 using RestSharp;
 
-namespace Winleafs.Api.Endpoints
+namespace Winleafs.Nanoleaf.Endpoints
 {
     /// <summary>
     /// A class used to easily send requests to the Nanoleaf device.

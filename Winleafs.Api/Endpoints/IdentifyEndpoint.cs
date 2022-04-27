@@ -1,10 +1,8 @@
 ﻿using System.Threading.Tasks;
-
 using RestSharp;
+using Winleafs.Nanoleaf.Endpoints.Interfaces;
 
-using Winleafs.Api.Endpoints.Interfaces;
-
-namespace Winleafs.Api.Endpoints
+namespace Winleafs.Nanoleaf.Endpoints
 {
     public class IdentifyEndpoint : NanoleafEndpoint, IIdentifyEndpoint
     {

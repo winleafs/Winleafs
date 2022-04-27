@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Windows;
-using Winleafs.Models.Models;
-using Winleafs.Models.Models.Layouts;
+using Winleafs.Models;
+using Winleafs.Models.Layouts;
 using Winleafs.Wpf.Views.Popup;
 
 namespace Winleafs.Wpf.Views.Layout

@@ -3,8 +3,8 @@ using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using Winleafs.Models;
 using Winleafs.Models.Enums;
-using Winleafs.Models.Models;
 using Winleafs.Wpf.Api;
 
 namespace Winleafs.Wpf.Views.MainWindows

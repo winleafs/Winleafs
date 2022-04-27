@@ -2,9 +2,9 @@
 using System.Drawing;
 using System.Threading.Tasks;
 using Winleafs.Models.Enums;
-using Winleafs.Models.Models.ExternalControl;
+using Winleafs.Models.ExternalControl;
 
-namespace Winleafs.Api.Endpoints.Interfaces
+namespace Winleafs.Nanoleaf.Endpoints.Interfaces
 {
     public interface IExternalControlEndpoint
     {

@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-
-using Winleafs.Models.Models;
+using Winleafs.Models;
 
 namespace Winleafs.Wpf.ViewModels
 {

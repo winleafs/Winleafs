@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Winleafs.Models.Models;
+using Winleafs.Models;
 using Winleafs.Server.Endpoints.Interfaces;
 
 namespace Winleafs.Server.Endpoints
