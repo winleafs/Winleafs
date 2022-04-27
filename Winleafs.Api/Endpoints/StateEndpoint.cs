@@ -10,199 +10,197 @@ namespace Winleafs.Nanoleaf.Endpoints
     {
         private const string BaseUrl = "state";
 
-	    /// <inheritdoc />
-	    public StateEndpoint(NanoleafClient client)
+        public StateEndpoint(NanoleafConnection connection) : base(connection)
         {
-            Client = client;
         }
 
-	    /// <inheritdoc />
+        /// <inheritdoc />
 	    public StateModel GetBrightness()
-		{
-			throw new NotImplementedException();
-		}
-
-	    /// <inheritdoc />
-	    public Task<StateModel> GetBrightnessAsync()
         {
             throw new NotImplementedException();
         }
 
-	    /// <inheritdoc />
-	    public string GetColorMode()
-		{
-			throw new NotImplementedException();
-		}
-
-	    /// <inheritdoc />
-	    public Task<string> GetColorModeAsync()
+        /// <inheritdoc />
+        public Task<StateModel> GetBrightnessAsync()
         {
             throw new NotImplementedException();
         }
 
-	    /// <inheritdoc />
-	    public StateModel GetColorTemperature()
-		{
-			throw new NotImplementedException();
-		}
-
-	    /// <inheritdoc />
-	    public Task<StateModel> GetColorTemperatureAsync()
+        /// <inheritdoc />
+        public string GetColorMode()
         {
             throw new NotImplementedException();
         }
 
-	    /// <inheritdoc />
-	    public StateModel GetHue()
-		{
-			throw new NotImplementedException();
-		}
-
-	    /// <inheritdoc />
-	    public Task<StateModel> GetHueAsync()
+        /// <inheritdoc />
+        public Task<string> GetColorModeAsync()
         {
             throw new NotImplementedException();
         }
 
-	    /// <inheritdoc />
-	    public StateModel GetSaturation()
-		{
-			throw new NotImplementedException();
-		}
-
-	    /// <inheritdoc />
-	    public Task<StateModel> GetSaturationAsync()
+        /// <inheritdoc />
+        public StateModel GetColorTemperature()
         {
             throw new NotImplementedException();
         }
 
-	    /// <inheritdoc />
-	    public OnOffModel GetState()
-		{
-			return GetStateAsync().ConfigureAwait(false).GetAwaiter().GetResult();
-		}
+        /// <inheritdoc />
+        public Task<StateModel> GetColorTemperatureAsync()
+        {
+            throw new NotImplementedException();
+        }
 
-	    /// <inheritdoc />
-	    public async Task<OnOffModel> GetStateAsync()
+        /// <inheritdoc />
+        public StateModel GetHue()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
+        public Task<StateModel> GetHueAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
+        public StateModel GetSaturation()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
+        public Task<StateModel> GetSaturationAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
+        public OnOffModel GetState()
+        {
+            return GetStateAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+        }
+
+        /// <inheritdoc />
+        public async Task<OnOffModel> GetStateAsync()
         {
             return await SendRequestAsync<OnOffModel>($"{BaseUrl}/on", Method.GET);
         }
 
-	    /// <inheritdoc />
-	    public void IncrementBrightness(int increment)
-		{
-			throw new NotImplementedException();
-		}
-
-	    /// <inheritdoc />
-	    public Task IncrementBrightnessAsync(int increment)
+        /// <inheritdoc />
+        public void IncrementBrightness(int increment)
         {
             throw new NotImplementedException();
         }
 
-	    /// <inheritdoc />
-	    public Task IncrementColorTemperatureAsync(int increment)
+        /// <inheritdoc />
+        public Task IncrementBrightnessAsync(int increment)
         {
             throw new NotImplementedException();
         }
 
-	    /// <inheritdoc />
-	    public void IncrementColorTemperature(int increment)
-		{
-			throw new NotImplementedException();
-		}
-
-	    /// <inheritdoc />
-	    public void IncrementHue(int increment)
-		{
-			throw new NotImplementedException();
-		}
-
-	    /// <inheritdoc />
-	    public Task IncrementHueAsync(int increment)
+        /// <inheritdoc />
+        public Task IncrementColorTemperatureAsync(int increment)
         {
             throw new NotImplementedException();
         }
 
-	    /// <inheritdoc />
-	    public void IncrementSaturation(int increment)
-		{
-			throw new NotImplementedException();
-		}
-
-	    /// <inheritdoc />
-	    public Task IncrementSaturationAsync(int increment)
+        /// <inheritdoc />
+        public void IncrementColorTemperature(int increment)
         {
             throw new NotImplementedException();
         }
 
-	    /// <inheritdoc />
-	    public void SetBrightness(int value, int? duration = null)
-		{
-			SetBrightnessAsync(value, duration).ConfigureAwait(false).GetAwaiter().GetResult();
-		}
+        /// <inheritdoc />
+        public void IncrementHue(int increment)
+        {
+            throw new NotImplementedException();
+        }
 
-	    /// <inheritdoc />
-	    public Task SetBrightnessAsync(int value, int? duration = null)
+        /// <inheritdoc />
+        public Task IncrementHueAsync(int increment)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
+        public void IncrementSaturation(int increment)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
+        public Task IncrementSaturationAsync(int increment)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
+        public void SetBrightness(int value, int? duration = null)
+        {
+            SetBrightnessAsync(value, duration).ConfigureAwait(false).GetAwaiter().GetResult();
+        }
+
+        /// <inheritdoc />
+        public Task SetBrightnessAsync(int value, int? duration = null)
         {
             if (duration.HasValue)
             {
-                return SendRequestAsync(BaseUrl, Method.PUT, body: new { brightness  = new {value, duration}});
+                return SendRequestAsync(BaseUrl, Method.PUT, body: new { brightness = new { value, duration } });
             }
             else
             {
-                return SendRequestAsync(BaseUrl, Method.PUT, body: new { brightness = new { value }});
+                return SendRequestAsync(BaseUrl, Method.PUT, body: new { brightness = new { value } });
             }
         }
 
-	    /// <inheritdoc />
-	    public void SetColorTemperature(int value)
-		{
+        /// <inheritdoc />
+        public void SetColorTemperature(int value)
+        {
             SetColorTemperatureAsync(value).ConfigureAwait(false).GetAwaiter().GetResult();
-		}
-
-	    /// <inheritdoc />
-	    public Task SetColorTemperatureAsync(int value)
-        {
-            return SendRequestAsync(BaseUrl, Method.PUT, body: new {ct = new {value}});
         }
 
-		public void SetHue(int value)
-		{
-			SetHueAsync(value).ConfigureAwait(false).GetAwaiter().GetResult();
-		}
-
-		public Task SetHueAsync(int value)
+        /// <inheritdoc />
+        public Task SetColorTemperatureAsync(int value)
         {
-            return SendRequestAsync(BaseUrl, Method.PUT, body: new {hue = new {value}});
+            return SendRequestAsync(BaseUrl, Method.PUT, body: new { ct = new { value } });
         }
 
-		public void SetSaturation(int value)
-		{
+        public void SetHue(int value)
+        {
+            SetHueAsync(value).ConfigureAwait(false).GetAwaiter().GetResult();
+        }
+
+        public Task SetHueAsync(int value)
+        {
+            return SendRequestAsync(BaseUrl, Method.PUT, body: new { hue = new { value } });
+        }
+
+        public void SetSaturation(int value)
+        {
             SetSaturationAsync(value).ConfigureAwait(false).GetAwaiter().GetResult();
-		}
-
-		public Task SetSaturationAsync(int value)
-        {
-            return SendRequestAsync(BaseUrl, Method.PUT, body: new { sat = new { value }});
         }
 
-		public void SetState(bool state)
-		{
-			SetStateAsync(state).ConfigureAwait(false).GetAwaiter().GetResult();
-		}
-
-		public Task SetStateAsync(bool state)
+        public Task SetSaturationAsync(int value)
         {
-            return SendRequestAsync(BaseUrl, Method.PUT, body: new {on = new {value = state}});
+            return SendRequestAsync(BaseUrl, Method.PUT, body: new { sat = new { value } });
         }
 
-		public void SetStateWithStateCheck(bool state)
-		{
-			SetStateWithStateCheckAsync(state).ConfigureAwait(false).GetAwaiter().GetResult();
-		}
+        public void SetState(bool state)
+        {
+            SetStateAsync(state).ConfigureAwait(false).GetAwaiter().GetResult();
+        }
 
-		public async Task SetStateWithStateCheckAsync(bool state)
+        public Task SetStateAsync(bool state)
+        {
+            return SendRequestAsync(BaseUrl, Method.PUT, body: new { on = new { value = state } });
+        }
+
+        public void SetStateWithStateCheck(bool state)
+        {
+            SetStateWithStateCheckAsync(state).ConfigureAwait(false).GetAwaiter().GetResult();
+        }
+
+        public async Task SetStateWithStateCheckAsync(bool state)
         {
             var currentState = (await GetStateAsync())?.IsTurnedOn;
 
@@ -221,8 +219,8 @@ namespace Winleafs.Nanoleaf.Endpoints
         {
             return SendRequestAsync(BaseUrl, Method.PUT, body: new
             {
-                sat = new {value = saturation},
-                hue = new {value = hue}
+                sat = new { value = saturation },
+                hue = new { value = hue }
             }, disableLogging: disableLogging);
         }
 
@@ -231,13 +229,13 @@ namespace Winleafs.Nanoleaf.Endpoints
             SetHueSaturationAndBrightnessAsync(hue, saturation, brightness).ConfigureAwait(false).GetAwaiter().GetResult();
         }
 
-	    public Task SetHueSaturationAndBrightnessAsync(int hue, int saturation, int brightness, bool disableLogging = false)
+        public Task SetHueSaturationAndBrightnessAsync(int hue, int saturation, int brightness, bool disableLogging = false)
         {
             return SendRequestAsync(BaseUrl, Method.PUT, body: new
             {
-				sat = new { value = saturation },
-				hue = new { value = hue},
-				brightness = new { value = brightness }
+                sat = new { value = saturation },
+                hue = new { value = hue },
+                brightness = new { value = brightness }
             }, disableLogging: disableLogging);
         }
     }

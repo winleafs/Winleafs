@@ -2,11 +2,11 @@
 {
     public abstract class EventTriggerBase
     {
-        public EventTriggerBase(int _brightness, string _effectName, int _priority)
+        public EventTriggerBase(int brightness, string effectName, int priority)
         {
-            Brightness = _brightness;
-            EffectName = _effectName;
-            Priority = _priority;
+            Brightness = brightness;
+            EffectName = effectName;
+            Priority = priority;
         }
 
         public int Brightness { get; set; }

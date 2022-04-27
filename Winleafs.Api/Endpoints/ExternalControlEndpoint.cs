@@ -22,10 +22,8 @@ namespace Winleafs.Nanoleaf.Endpoints
         private static readonly byte _zeroAsByte = Convert.ToByte(0);
         private static readonly byte _oneAsByte = Convert.ToByte(1);
 
-        /// <inheritdoc />
-        public ExternalControlEndpoint(NanoleafClient client)
+        public ExternalControlEndpoint(NanoleafConnection connection) : base(connection)
         {
-            Client = client;
         }
 
         /// <inheritdoc />
@@ -70,7 +68,7 @@ namespace Winleafs.Nanoleaf.Endpoints
                 default:
                     throw new NotImplementedException($"No external control preparation implemented for device type {deviceType}");
             }
-            
+
         }
 
         /// <inheritdoc />
@@ -89,7 +87,7 @@ namespace Winleafs.Nanoleaf.Endpoints
                     break;
                 default:
                     throw new NotImplementedException($"No {nameof(SetPanelsColors)} implemented for device type {deviceType}");
-            }   
+            }
         }
 
         private void SetExternalV1Colors(IReadOnlyList<int> panelIds, IReadOnlyList<Color> colors)
@@ -170,7 +168,7 @@ namespace Winleafs.Nanoleaf.Endpoints
         private Task<ExternalControlInfo> CreateExternalControlV2Body()
         {
             return SendRequestAsync<ExternalControlInfo>(BaseUrl, Method.PUT,
-                body: new {write = new {command = "display", animType = "extControl", extControlVersion = "v2"}});
+                body: new { write = new { command = "display", animType = "extControl", extControlVersion = "v2" } });
         }
     }
 }

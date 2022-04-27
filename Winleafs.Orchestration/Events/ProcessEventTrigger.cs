@@ -33,7 +33,7 @@ namespace Winleafs.Orchestration.Events
 
         private void CheckProcess(object source, ElapsedEventArgs e)
         {
-            Task.Run(() => CheckProcessAsync());
+            Task.Run(CheckProcessAsync);
         }
 
         /// <summary>

@@ -71,7 +71,7 @@ namespace Winleafs.Orchestration
                     {
                         _logger.Info($"Scheduler turning device {_device.IPAddress} off");
 
-                        var client = NanoleafClient.GetClientForDevice(_device);
+                        var client = NanoleafClientFactory.Create(_device);
 
                         //There are no triggers so the lights can be turned off if it is not off already
                         await client.StateEndpoint.SetStateWithStateCheckAsync(false);

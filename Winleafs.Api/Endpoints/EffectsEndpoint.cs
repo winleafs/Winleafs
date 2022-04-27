@@ -11,10 +11,8 @@ namespace Winleafs.Nanoleaf.Endpoints
     {
         private const string BaseUrl = "effects";
 
-        /// <inheritdoc />
-        public EffectsEndpoint(NanoleafClient client)
+        public EffectsEndpoint(NanoleafConnection connection) : base(connection)
         {
-            Client = client;
         }
 
         /// <inheritdoc />
@@ -50,7 +48,7 @@ namespace Winleafs.Nanoleaf.Endpoints
         /// <inheritdoc />
         public void SetSelectedEffect(string effectName)
         {
-            SendRequest(BaseUrl, Method.PUT, body: new { select = effectName});
+            SendRequest(BaseUrl, Method.PUT, body: new { select = effectName });
         }
 
 

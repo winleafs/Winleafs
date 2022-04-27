@@ -14,14 +14,14 @@ namespace Winleafs.Orchestration.Events
     {
         public EventTriggerBase ActiveTrigger { get; private set; }
 
-        private static Logger _logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
-        private List<EventTriggerBase> _eventTriggers;
+        private readonly List<EventTriggerBase> _eventTriggers;
 
         //We can use the priority of an event trigger as unique identifier here, since no events can have equal priority
-        private HashSet<int> _activeTriggersPriorities;
+        private readonly HashSet<int> _activeTriggersPriorities;
 
-        private Device _device;
+        private readonly Device _device;
 
         public EventTriggersCollection(Device device)
         {
@@ -29,28 +29,30 @@ namespace Winleafs.Orchestration.Events
             _activeTriggersPriorities = new HashSet<int>();
             _device = device;
 
-            if (UserSettings.Settings.ActiveSchedule != null && UserSettings.Settings.ActiveSchedule.AppliesToDeviceNames.Contains(device.Name))
+            if (UserSettings.Settings.ActiveSchedule == null ||
+                !UserSettings.Settings.ActiveSchedule.AppliesToDeviceNames.Contains(device.Name))
             {
-                foreach (var eventTrigger in UserSettings.Settings.ActiveSchedule.EventTriggers)
-                {
-                    switch (eventTrigger.GetTriggerType())
-                    {
-                        case TriggerType.ProcessEvent:
-                            var processEventTrigger = (Models.Scheduling.Triggers.ProcessEventTrigger)eventTrigger;
-                            _eventTriggers.Add(new ProcessEventTrigger(this, processEventTrigger));
-                            break;
+                return;
+            }
 
-                        case TriggerType.SpotifyEvent:
-                            var spotifyEventTrigger = (Models.Scheduling.Triggers.SpotifyEventTrigger)eventTrigger;
-                            _eventTriggers.Add(new SpotifyEventTrigger(this, spotifyEventTrigger));
-                            break;
-                        
+            foreach (var eventTrigger in UserSettings.Settings.ActiveSchedule.EventTriggers)
+            {
+                switch (eventTrigger.GetTriggerType())
+                {
+                    case TriggerType.ProcessEvent:
+                        var processEventTrigger = (Models.Scheduling.Triggers.ProcessEventTrigger)eventTrigger;
+                        _eventTriggers.Add(new ProcessEventTrigger(this, processEventTrigger));
+                        break;
+
+                    case TriggerType.SpotifyEvent:
+                        var spotifyEventTrigger = (Models.Scheduling.Triggers.SpotifyEventTrigger)eventTrigger;
+                        _eventTriggers.Add(new SpotifyEventTrigger(this, spotifyEventTrigger));
+                        break;
                         //Currently not in use
                         /*case TriggerType.Borderlands2HealthEvent:
-                            //This will never be reached currently, since users cannot add this type of event yet
-                            EventTriggers.Add(new Borderlands2HealthEventTrigger(eventTrigger, orchestrator));
-                            break;*/
-                    }
+                                //This will never be reached currently, since users cannot add this type of event yet
+                                EventTriggers.Add(new Borderlands2HealthEventTrigger(eventTrigger, orchestrator));
+                                break;*/
                 }
             }
         }

@@ -16,330 +16,330 @@ using Winleafs.Wpf.Helpers;
 
 namespace Winleafs.Wpf.Views.Layout
 {
-    /// <summary>
-    /// Interaction logic for LayoutDisplay.xaml
-    /// </summary>
-    public partial class LayoutDisplayUserControl : UserControl
-    {
-        private static readonly SolidColorBrush _lockedBorderColor = Brushes.Red;
-        private static readonly SolidColorBrush _highLightColor = Brushes.OrangeRed;
-        private static readonly SolidColorBrush _selectedBorderColor = Brushes.LightSteelBlue;
-        private static readonly SolidColorBrush _borderColor = (SolidColorBrush)Application.Current.FindResource("NanoleafBlack");
+	/// <summary>
+	/// Interaction logic for LayoutDisplay.xaml
+	/// </summary>
+	public partial class LayoutDisplayUserControl : UserControl
+	{
+		private static readonly SolidColorBrush _lockedBorderColor = Brushes.Red;
+		private static readonly SolidColorBrush _highLightColor = Brushes.OrangeRed;
+		private static readonly SolidColorBrush _selectedBorderColor = Brushes.LightSteelBlue;
+		private static readonly SolidColorBrush _borderColor = (SolidColorBrush)Application.Current.FindResource("NanoleafBlack");
 
-        public HashSet<int> SelectedPanelIds { get; set; }
+		public HashSet<int> SelectedPanelIds { get; set; }
 
-        private static readonly Random _random = new Random();
+		private static readonly Random _random = new Random();
 
-        private List<DrawablePanel> _polygons;
-        private bool _panelsClickable;
-        private HashSet<int> _lockedPanelIds;
-        private Dictionary<int, Brush> _highlightOriginalColors; //This dictionary saves the original colors of the triangles when highlighting
+		private List<DrawablePanel> _polygons;
+		private bool _panelsClickable;
+		private HashSet<int> _lockedPanelIds;
+		private Dictionary<int, Brush> _highlightOriginalColors; //This dictionary saves the original colors of the triangles when highlighting
 
-        //Timer to update the colors periodically to update with schedule
-        private Timer _colorTimer;
+		//Timer to update the colors periodically to update with schedule
+		private Timer _colorTimer;
 
-        //Timer to detect when user is done resizing
-        private Timer _resizeTimer;
+		//Timer to detect when user is done resizing
+		private Timer _resizeTimer;
 
-        private PanelLayout _panelLayout;
+		private PanelLayout _panelLayout;
 
-        public LayoutDisplayUserControl()
-        {
-            InitializeComponent();
+		public LayoutDisplayUserControl()
+		{
+			InitializeComponent();
 
-            CanvasArea.MouseDown += CanvasClicked;
-            SelectedPanelIds = new HashSet<int>();
-            _lockedPanelIds = new HashSet<int>();
-            _highlightOriginalColors = new Dictionary<int, Brush>();
+			CanvasArea.MouseDown += CanvasClicked;
+			SelectedPanelIds = new HashSet<int>();
+			_lockedPanelIds = new HashSet<int>();
+			_highlightOriginalColors = new Dictionary<int, Brush>();
 
-            _panelsClickable = false;
+			_panelsClickable = false;
 
-            _colorTimer = new Timer(30000); //Update the colors every 30 seconds
-            _colorTimer.Elapsed += OnTimedEvent;
-            _colorTimer.AutoReset = true;
-            _colorTimer.Enabled = true;
-            _colorTimer.Start();
-        }
+			_colorTimer = new Timer(30000); //Update the colors every 30 seconds
+			_colorTimer.Elapsed += OnTimedEvent;
+			_colorTimer.AutoReset = true;
+			_colorTimer.Enabled = true;
+			_colorTimer.Start();
+		}
 
-        /// <remarks>
-        /// Initialize the timer later such that the resize event is not called on start up
-        /// </remarks>
-        public void InitializeResizeTimer()
-        {
-            _resizeTimer = new Timer(250);
-            _resizeTimer.Elapsed += ResizeComplete;
-            _colorTimer.Enabled = false;
-        }
+		/// <remarks>
+		/// Initialize the timer later such that the resize event is not called on start up
+		/// </remarks>
+		public void InitializeResizeTimer()
+		{
+			_resizeTimer = new Timer(250);
+			_resizeTimer.Elapsed += ResizeComplete;
+			_colorTimer.Enabled = false;
+		}
 
-        public void DisableColorTimer()
-        {
-            _colorTimer.Stop();
-        }
+		public void DisableColorTimer()
+		{
+			_colorTimer.Stop();
+		}
 
-        public void EnableClick()
-        {
-            _panelsClickable = true;
-        }
+		public void EnableClick()
+		{
+			_panelsClickable = true;
+		}
 
-        /// <summary>
-        /// Draws the layout and gives the polygons colors
-        /// </summary>
-        /// <param name="resetLayout">
-        /// If true, the panel layout is always requested from the panels
-        /// even if it has been retrieved before.
-        /// </param>
-        public void DrawLayout(bool resetLayout = false)
-        {
-            CanvasArea.Children.Clear();
+		/// <summary>
+		/// Draws the layout and gives the polygons colors
+		/// </summary>
+		/// <param name="resetLayout">
+		/// If true, the panel layout is always requested from the panels
+		/// even if it has been retrieved before.
+		/// </param>
+		public void DrawLayout(bool resetLayout = false)
+		{
+			CanvasArea.Children.Clear();
 
-            if (resetLayout || _panelLayout == null)
-            {
-                var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice);
+			if (resetLayout || _panelLayout == null)
+			{
+				var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice);
 
-                if (orchestrator == null)
-                {
-                    return;
-                }
+				if (orchestrator == null)
+				{
+					return;
+				}
 
-                _panelLayout = orchestrator.PanelLayout;
-            }
-            
-            _polygons = _panelLayout.GetScaledPolygons((int)ActualWidth, (int)ActualHeight, ScaleType.Fit, FlipType.None);
+				_panelLayout = orchestrator.PanelLayout;
+			}
 
-            if (_polygons == null || !_polygons.Any())
-            {
-                return;
-            }
+			_polygons = _panelLayout.GetScaledPolygons((int)ActualWidth, (int)ActualHeight, ScaleType.Fit, FlipType.None);
 
-            if (_panelsClickable)
-            {
-                foreach (var polygon in _polygons)
-                {
-                    polygon.Polygon.MouseDown += PolygonClicked;
-                }
-            }           
+			if (_polygons == null || !_polygons.Any())
+			{
+				return;
+			}
 
-            //Draw the triangles
-            foreach (var polygon in _polygons)
-            {
-                CanvasArea.Children.Add(polygon.Polygon);
-            }
+			if (_panelsClickable)
+			{
+				foreach (var polygon in _polygons)
+				{
+					polygon.Polygon.MouseDown += PolygonClicked;
+				}
+			}
 
-            UpdateColors();
-        }
+			//Draw the triangles
+			foreach (var polygon in _polygons)
+			{
+				CanvasArea.Children.Add(polygon.Polygon);
+			}
 
-        private void Redraw_Click(object sender, RoutedEventArgs e)
-        {
-            DrawLayout();
-        }
+			UpdateColors();
+		}
 
-        public void UpdateColors()
-        {
-            if (UserSettings.Settings.ActiveDevice == null || _polygons == null)
-            {
-                return;
-            }     
+		private void Redraw_Click(object sender, RoutedEventArgs e)
+		{
+			DrawLayout();
+		}
 
-            //Run code on main thread since we update the UI
-            Dispatcher.Invoke(new Action(() =>
-            {
-                var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice);
+		public void UpdateColors()
+		{
+			if (UserSettings.Settings.ActiveDevice == null || _polygons == null)
+			{
+				return;
+			}
 
-                //Get colors of current effect, we can display colors for nanoleaf effects or custom color effects
-                var effectName = orchestrator.GetActiveEffectName();
+			//Run code on main thread since we update the UI
+			Dispatcher.Invoke(new Action(() =>
+			{
+				var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice);
 
-                ICustomEffect customEffect = null;
+				//Get colors of current effect, we can display colors for nanoleaf effects or custom color effects
+				var effectName = orchestrator.GetActiveEffectName();
 
-                if (effectName != null)
-                {
-                    customEffect = orchestrator.GetCustomEffectFromName(effectName);
-                }
+				ICustomEffect customEffect = null;
 
-                List<SolidColorBrush> colors = null;
+				if (effectName != null)
+				{
+					customEffect = orchestrator.GetCustomEffectFromName(effectName);
+				}
 
-                if (customEffect != null)
-                {
-                    if (customEffect is CustomColorEffect customColorEffect)
-                    {
-                        colors = new List<SolidColorBrush>() { new SolidColorBrush(Color.FromArgb(customColorEffect.Color.A, customColorEffect.Color.R, customColorEffect.Color.G, customColorEffect.Color.B)) };
-                    }
-                }
-                else
-                {
-                    var effect = UserSettings.Settings.ActiveDevice.Effects.FirstOrDefault(effect => effect.Name == effectName);
+				List<SolidColorBrush> colors = null;
 
-                    //Only retrieve palette if it is not known yet
-                    if (effect?.Palette == null)
-                    {
-                        var client = NanoleafClient.GetClientForDevice(UserSettings.Settings.ActiveDevice);
-                        effect = client.EffectsEndpoint.GetEffectDetails(effectName);
+				if (customEffect != null)
+				{
+					if (customEffect is CustomColorEffect customColorEffect)
+					{
+						colors = new List<SolidColorBrush>() { new SolidColorBrush(Color.FromArgb(customColorEffect.Color.A, customColorEffect.Color.R, customColorEffect.Color.G, customColorEffect.Color.B)) };
+					}
+				}
+				else
+				{
+					var effect = UserSettings.Settings.ActiveDevice.Effects.FirstOrDefault(effect => effect.Name == effectName);
 
-                        if (effect != null)
-                        {
-                            //Update the effect such that the palette is known in the future
-                            UserSettings.Settings.ActiveDevice.UpdateEffect(effect);
-                        }
+					//Only retrieve palette if it is not known yet
+					if (effect?.Palette == null)
+					{
+						var client = NanoleafClientFactory.Create(UserSettings.Settings.ActiveDevice);
+						effect = client.EffectsEndpoint.GetEffectDetails(effectName);
 
-                    }                    
+						if (effect != null)
+						{
+							//Update the effect such that the palette is known in the future
+							UserSettings.Settings.ActiveDevice.UpdateEffect(effect);
+						}
 
-                    if (effect != null)
-                    {
-                        colors = effect.Palette.Select(hsb =>
-                        new SolidColorBrush(
-                            HsbToRgbConverter.ConvertToMediaColor(hsb.Hue, hsb.Saturation, hsb.Brightness)
-                            )).ToList();
-                    }
-                }
+					}
 
-                if (colors == null)
-                {
-                    foreach (var polygon in _polygons)
-                    {
-                        polygon.Polygon.Fill = Brushes.LightSlateGray;
-                    }
-                }
-                else
-                {
-                    foreach (var polygon in _polygons)
-                    {
-                        polygon.Polygon.Fill = colors[_random.Next(colors.Count)];
-                    }
-                }
-            }));
-        }
+					if (effect != null)
+					{
+						colors = effect.Palette.Select(hsb =>
+						new SolidColorBrush(
+							HsbToRgbConverter.ConvertToMediaColor(hsb.Hue, hsb.Saturation, hsb.Brightness)
+							)).ToList();
+					}
+				}
 
-        private void OnTimedEvent(object source, ElapsedEventArgs e)
-        {
-            UpdateColors();
-        }
+				if (colors == null)
+				{
+					foreach (var polygon in _polygons)
+					{
+						polygon.Polygon.Fill = Brushes.LightSlateGray;
+					}
+				}
+				else
+				{
+					foreach (var polygon in _polygons)
+					{
+						polygon.Polygon.Fill = colors[_random.Next(colors.Count)];
+					}
+				}
+			}));
+		}
 
-        private void PolygonClicked(object sender, MouseButtonEventArgs e)
-        {
-            if (_polygons == null)
-            {
-                return;
-            }
+		private void OnTimedEvent(object source, ElapsedEventArgs e)
+		{
+			UpdateColors();
+		}
 
-            if (!_panelsClickable)
-            {
-                return;
-            }
+		private void PolygonClicked(object sender, MouseButtonEventArgs e)
+		{
+			if (_polygons == null)
+			{
+				return;
+			}
 
-            var polygon = (Polygon)sender;
-            var selectedPanel = _polygons.FirstOrDefault(t => t.Polygon == polygon);
+			if (!_panelsClickable)
+			{
+				return;
+			}
 
-            if (selectedPanel == null)
-            {
-                return;
-            }
+			var polygon = (Polygon)sender;
+			var selectedPanel = _polygons.FirstOrDefault(t => t.Polygon == polygon);
 
-            var selectedPanelId = selectedPanel.PanelId;
+			if (selectedPanel == null)
+			{
+				return;
+			}
 
-            if (_lockedPanelIds.Contains(selectedPanelId))
-            {
-                return;
-            }
+			var selectedPanelId = selectedPanel.PanelId;
 
-            polygon.Stroke = _selectedBorderColor;
-            polygon.StrokeThickness = 2;
+			if (_lockedPanelIds.Contains(selectedPanelId))
+			{
+				return;
+			}
 
-            SelectedPanelIds.Add(selectedPanelId);
-        }
+			polygon.Stroke = _selectedBorderColor;
+			polygon.StrokeThickness = 2;
 
-        private void CanvasClicked(object sender, MouseButtonEventArgs e)
-        {
-            //if the user clicks anywhere other then on the panels, reset the current selection
-            if (e.OriginalSource == CanvasArea)
-            {
-                if (SelectedPanelIds.Count > 0)
-                {
-                    ClearSelectedPanels();
-                }
-            }
-        }
+			SelectedPanelIds.Add(selectedPanelId);
+		}
 
-        public void ClearSelectedPanels()
-        {
-            SelectedPanelIds.Clear();
+		private void CanvasClicked(object sender, MouseButtonEventArgs e)
+		{
+			//if the user clicks anywhere other then on the panels, reset the current selection
+			if (e.OriginalSource == CanvasArea)
+			{
+				if (SelectedPanelIds.Count > 0)
+				{
+					ClearSelectedPanels();
+				}
+			}
+		}
 
-            foreach (var polygon in _polygons)
-            {
-                if (!_lockedPanelIds.Contains(polygon.PanelId))
-                {
-                    polygon.Polygon.Stroke = _borderColor;
-                    polygon.Polygon.StrokeThickness = 2;
-                }
-            }
-        }
+		public void ClearSelectedPanels()
+		{
+			SelectedPanelIds.Clear();
 
-        public void LockPanels(HashSet<int> panelIds)
-        {
-            foreach (var panelId in panelIds)
-            {
-                var polygon = _polygons.FirstOrDefault(t => t.PanelId == panelId).Polygon;
+			foreach (var polygon in _polygons)
+			{
+				if (!_lockedPanelIds.Contains(polygon.PanelId))
+				{
+					polygon.Polygon.Stroke = _borderColor;
+					polygon.Polygon.StrokeThickness = 2;
+				}
+			}
+		}
 
-                polygon.Stroke = _lockedBorderColor;
-                polygon.StrokeThickness = 2;
+		public void LockPanels(HashSet<int> panelIds)
+		{
+			foreach (var panelId in panelIds)
+			{
+				var polygon = _polygons.FirstOrDefault(t => t.PanelId == panelId).Polygon;
 
-                _lockedPanelIds.Add(panelId);
-            }
-        }
+				polygon.Stroke = _lockedBorderColor;
+				polygon.StrokeThickness = 2;
 
-        public void UnlockPanels(HashSet<int> panelIds)
-        {
-            foreach (var panelId in panelIds)
-            {
-                var polygon = _polygons.FirstOrDefault(t => t.PanelId == panelId).Polygon;
+				_lockedPanelIds.Add(panelId);
+			}
+		}
 
-                polygon.Stroke = _borderColor;
-                polygon.StrokeThickness = 2;
+		public void UnlockPanels(HashSet<int> panelIds)
+		{
+			foreach (var panelId in panelIds)
+			{
+				var polygon = _polygons.FirstOrDefault(t => t.PanelId == panelId).Polygon;
 
-                _lockedPanelIds.Remove(panelId);
-            }
-        }
+				polygon.Stroke = _borderColor;
+				polygon.StrokeThickness = 2;
 
-        public void HighlightPanels(HashSet<int> panelIds)
-        {
-            foreach (var panelId in panelIds)
-            {
-                var polygon = _polygons.FirstOrDefault(t => t.PanelId == panelId).Polygon;
+				_lockedPanelIds.Remove(panelId);
+			}
+		}
 
-                _highlightOriginalColors.Add(panelId, polygon.Fill);
+		public void HighlightPanels(HashSet<int> panelIds)
+		{
+			foreach (var panelId in panelIds)
+			{
+				var polygon = _polygons.FirstOrDefault(t => t.PanelId == panelId).Polygon;
 
-                polygon.Fill = _highLightColor;
-            }
-        }
+				_highlightOriginalColors.Add(panelId, polygon.Fill);
 
-        public void UnhighlightPanels(HashSet<int> panelIds)
-        {
-            foreach (var panelId in panelIds)
-            {
-                var polygon = _polygons.FirstOrDefault(t => t.PanelId == panelId).Polygon;
+				polygon.Fill = _highLightColor;
+			}
+		}
 
-                polygon.Fill = _highlightOriginalColors[panelId];
+		public void UnhighlightPanels(HashSet<int> panelIds)
+		{
+			foreach (var panelId in panelIds)
+			{
+				var polygon = _polygons.FirstOrDefault(t => t.PanelId == panelId).Polygon;
 
-                _highlightOriginalColors.Remove(panelId);
-            }
-        }
+				polygon.Fill = _highlightOriginalColors[panelId];
 
-        #region Resizing
-        private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            if (_resizeTimer != null)
-            {
-                _resizeTimer.Stop();
-                _resizeTimer.Start();
-            }
-        }
+				_highlightOriginalColors.Remove(panelId);
+			}
+		}
 
-        private void ResizeComplete(object sender, ElapsedEventArgs e)
-        {
-            _resizeTimer.Stop();
-            Dispatcher.Invoke(new Action(() =>
-            {
-                DrawLayout();
-            }));
-        }
-        #endregion
-    }
+		#region Resizing
+		private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
+		{
+			if (_resizeTimer != null)
+			{
+				_resizeTimer.Stop();
+				_resizeTimer.Start();
+			}
+		}
+
+		private void ResizeComplete(object sender, ElapsedEventArgs e)
+		{
+			_resizeTimer.Stop();
+			Dispatcher.Invoke(new Action(() =>
+			{
+				DrawLayout();
+			}));
+		}
+		#endregion
+	}
 }

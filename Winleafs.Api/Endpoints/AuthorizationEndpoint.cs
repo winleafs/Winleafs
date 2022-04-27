@@ -7,29 +7,29 @@ namespace Winleafs.Nanoleaf.Endpoints
 {
     public class AuthorizationEndpoint : NanoleafEndpoint, IAuthorizationEndpoint
     {
-        /// <inheritdoc />
-        public AuthorizationEndpoint(NanoleafClient client)
+        public AuthorizationEndpoint(NanoleafConnection connection) : base(connection)
         {
-            Client = client;
         }
 
         /// <inheritdoc />
         public string GetAuthToken()
-		{
-			return GetAuthTokenAsync().ConfigureAwait(false).GetAwaiter().GetResult();
-		}
+        {
+            return GetAuthTokenAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+        }
 
         /// <inheritdoc />
         public async Task<string> GetAuthTokenAsync()
         {
-            var client = new RestClient(Client.BaseUri);
+            var client = new RestClient(Connection.Uri);
             var request = new RestRequest("api/v1/new", Method.POST);
             var response = await client.ExecuteAsync(request).ConfigureAwait(false);
 
             var jObject = JObject.Parse(response.Content);
-            Client.Token = jObject["auth_token"].ToString();
+            Connection.Token = jObject["auth_token"].ToString();
 
-            return Client.Token;
+            return Connection.Token;
         }
+
+
     }
 }

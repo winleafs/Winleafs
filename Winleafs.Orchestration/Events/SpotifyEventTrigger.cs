@@ -27,7 +27,7 @@ namespace Winleafs.Orchestration.Events
 
         private void CheckProcess(object source, ElapsedEventArgs e)
         {
-            Task.Run(() => CheckPlaylistAsync());
+            Task.Run(CheckPlaylistAsync);
         }
 
         /// <summary>

@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFramework>net6.0-windows7.0</TargetFramework>
+		<TargetFramework>net6.0-windows8.0</TargetFramework>
 		<RootNamespace>Winleafs.Wpf</RootNamespace>
 		<AssemblyName>Winleafs.Wpf</AssemblyName>
 		<LangVersion>8</LangVersion>
@@ -11,7 +11,6 @@
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<ApplicationIcon>Icons\icon.ico</ApplicationIcon>
-		<SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
 	</PropertyGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Winleafs.Api\Winleafs.Nanoleaf.csproj" />

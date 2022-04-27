@@ -6,10 +6,8 @@ namespace Winleafs.Nanoleaf.Endpoints
 {
     public class IdentifyEndpoint : NanoleafEndpoint, IIdentifyEndpoint
     {
-        /// <inheritdoc />
-        public IdentifyEndpoint(NanoleafClient client)
+        public IdentifyEndpoint(NanoleafConnection connection) : base(connection)
         {
-            Client = client;
         }
 
         /// <inheritdoc />

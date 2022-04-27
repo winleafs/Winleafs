@@ -42,7 +42,7 @@ namespace Winleafs.Orchestration
             _effectChangedCallbacks = new List<Action>();
 
             // Custom effect initialization must come after panel layout initialization as custom screen mirror effect needs the panel layout
-            _customEffects = new CustomEffectsCollection(this); 
+            _customEffects = new CustomEffectsCollection(this);
 
             if (device.OperationMode == OperationMode.Schedule)
             {
@@ -78,7 +78,7 @@ namespace Winleafs.Orchestration
             if (Device.OperationMode == OperationMode.Schedule)
             {
                 ScheduleTimer.StartTimer(sync);
-            }          
+            }
 
             return true;
         }
@@ -93,7 +93,7 @@ namespace Winleafs.Orchestration
 
             try
             {
-                var client = NanoleafClient.GetClientForDevice(Device);
+                var client = NanoleafClientFactory.Create(Device);
 
                 //DO NOT change the order of disabling effects, then setting brightness and then enabling effects
                 if (_customEffects.HasActiveEffects(effectName))
