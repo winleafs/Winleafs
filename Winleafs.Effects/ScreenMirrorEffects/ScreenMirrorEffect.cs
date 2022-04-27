@@ -1,8 +1,4 @@
 ﻿using NLog;
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Timers;
 using Winleafs.Models;
 using Winleafs.Models.Enums;
@@ -15,8 +11,6 @@ namespace Winleafs.Wpf.Api.Effects
 {
     public class ScreenMirrorEffect : ICustomEffect
     {
-
-
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
         private readonly INanoleafClient _nanoleafClient;
@@ -36,29 +30,24 @@ namespace Winleafs.Wpf.Api.Effects
 
             try
             {
-                if (_screenMirrorAlgorithm == ScreenMirrorAlgorithm.ScreenMirrorFit)
+                _screenMirrorEffect = _screenMirrorAlgorithm switch
                 {
-                    _screenMirrorEffect = new ScreenMirror(_panelLayout, nanoleafClient, ScaleType.Fit, flipType);
-                }
-                else if (_screenMirrorAlgorithm == ScreenMirrorAlgorithm.ScreenMirrorStretch)
-                {
-                    _screenMirrorEffect = new ScreenMirror(_panelLayout, nanoleafClient, ScaleType.Stretch, flipType);
-                }
-                else if (_screenMirrorAlgorithm == ScreenMirrorAlgorithm.Ambilight)
-                {
-                    _screenMirrorEffect = new Ambilght(nanoleafClient);
-                }
+                    ScreenMirrorAlgorithm.ScreenMirrorFit => new ScreenMirror(_panelLayout, nanoleafClient, ScaleType.Fit, flipType),
+                    ScreenMirrorAlgorithm.ScreenMirrorStretch => new ScreenMirror(_panelLayout, nanoleafClient, ScaleType.Stretch, flipType),
+                    ScreenMirrorAlgorithm.Ambilight => new Ambilght(nanoleafClient),
+                    _ => null
+                };
             }
             catch (Exception e)
             {
                 // It is possible that the user adjusted his/her screens and therefore we get an error when initializing the effect
-                _logger.Error(e, $"Something went wrong initializing the screen mirror effect for device {_device.ToString()}");
+                _logger.Error(e, $"Something went wrong initializing the screen mirror effect for device {_device}");
                 _screenMirrorEffect = null;
             }
 
             var timerRefreshRate = 1000;
 
-            if (UserSettings.Settings.ScreenMirrorRefreshRatePerSecond > 0 && UserSettings.Settings.ScreenMirrorRefreshRatePerSecond <= 10)
+            if (UserSettings.Settings.ScreenMirrorRefreshRatePerSecond is > 0 and <= 10)
             {
                 timerRefreshRate = 1000 / UserSettings.Settings.ScreenMirrorRefreshRatePerSecond;
             }
@@ -84,9 +73,9 @@ namespace Winleafs.Wpf.Api.Effects
             {
                 await _screenMirrorEffect.ApplyEffect();
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                _logger.Error(e, $"Unexpected error for screen mirror with algorithm {_screenMirrorAlgorithm}");
+                _logger.Error(exception, $"Unexpected error for screen mirror with algorithm {_screenMirrorAlgorithm}");
 
                 //Deactivate on error, we do not want to keep applying screen mirror effects when there is one error.
                 await Deactivate();

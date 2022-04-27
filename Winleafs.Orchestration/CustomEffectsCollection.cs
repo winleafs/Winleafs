@@ -23,13 +23,10 @@ namespace Winleafs.Wpf.Api.Effects
 
             var customColorEffects = UserSettings.Settings.CustomEffects;
 
-            if (customColorEffects != null && customColorEffects.Any())
+            if (customColorEffects?.Count > 0)
             {
-                foreach (var customColorEffect in customColorEffects)
-                {
-                    var effect = new CustomColorEffect(nanoleafClient, customColorEffect.Color, customColorEffect.EffectName);
-                    _customEffects.Add(effect.GetName(), effect);
-                }
+                _customEffects = customColorEffects.Select(customColorEffect => new CustomColorEffect(nanoleafClient, customColorEffect.Color, customColorEffect.EffectName))
+                    .ToDictionary(x => x.GetName(), x => x as ICustomEffect);
             }
 
             //We will not translate effect names since their names are identifiers
@@ -63,12 +60,7 @@ namespace Winleafs.Wpf.Api.Effects
 
         public ICustomEffect GetCustomEffect(string effectName)
         {
-            if (string.IsNullOrWhiteSpace(effectName))
-            {
-                return null;
-            }
-
-            return _customEffects[effectName];
+            return string.IsNullOrWhiteSpace(effectName) ? null : _customEffects[effectName];
         }
 
         /// <summary>

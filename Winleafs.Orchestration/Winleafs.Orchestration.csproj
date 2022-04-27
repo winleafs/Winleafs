@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<TargetFramework>net6.0-windows</TargetFramework>
 		<UseWPF>true</UseWPF>
-		<Nullable>enable</Nullable>
+		<Nullable>disable</Nullable>
 	</PropertyGroup>
 
 	<ItemGroup>
