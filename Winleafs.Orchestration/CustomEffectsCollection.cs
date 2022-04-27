@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Winleafs.Effects.ScreenMirrorEffects;
 using Winleafs.Models;
 using Winleafs.Nanoleaf;
 
@@ -31,14 +32,13 @@ namespace Winleafs.Wpf.Api.Effects
                 }
             }
 
-            // TODO: Reimplement
             //We will not translate effect names since their names are identifiers
-            //if (ScreenMirrorEffect.SupportedDeviceTypes.Contains(orchestrator.PanelLayout.DeviceType))
-            //{
-            //    //Only add screen mirror to supported devices
-            //    var screenMirrorEffect = new ScreenMirrorEffect(orchestrator, nanoleafClient);
-            //    _customEffects.Add(screenMirrorEffect.GetName(), screenMirrorEffect);
-            //}
+            if (ScreenMirrrorSupportDeviceTypes.Types.Contains(orchestrator.PanelLayout.DeviceType))
+            {
+                //Only add screen mirror to supported devices
+                var screenMirrorEffect = new ScreenMirrorEffect(orchestrator.Device, orchestrator.PanelLayout, nanoleafClient);
+                _customEffects.Add(screenMirrorEffect.GetName(), screenMirrorEffect);
+            }
 
             var turnOffEffect = new TurnOffEffect(nanoleafClient);
             _customEffects.Add(turnOffEffect.GetName(), turnOffEffect);
@@ -106,9 +106,7 @@ namespace Winleafs.Wpf.Api.Effects
         /// </summary>
         public bool HasActiveScreenMirrorEffect()
         {
-            return false;
-            // TODO Reimplement
-            //return _customEffects.Values.Any(customEffect => customEffect.IsActive() && customEffect is ScreenMirrorEffect);
+            return _customEffects.Values.Any(customEffect => customEffect.IsActive() && customEffect is ScreenMirrorEffect);
         }
     }
 }

@@ -13,6 +13,7 @@ namespace Winleafs.Wpf.Helpers
     {
         private static readonly Timer _timer;
         private static readonly Rectangle _screenBounds;
+        private static int _instanceCount = 0;
 
         private static int _bitsPerPixel;
         private static int _bitmapStride;
@@ -127,11 +128,19 @@ namespace Winleafs.Wpf.Helpers
 
         public static void Start()
         {
+            Interlocked.Increment(ref _instanceCount);
             _timer.Start();
         }
 
         public static void Stop()
         {
+            Interlocked.Decrement(ref _instanceCount);
+
+            if (_instanceCount > 0)
+            {
+                return;
+            }
+
             //Force a garbage collection to clean up the last bitmaps
             GC.Collect();
 

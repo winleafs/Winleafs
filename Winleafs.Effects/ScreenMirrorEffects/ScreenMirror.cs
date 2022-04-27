@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Threading.Tasks;
-using Winleafs.Models;
+﻿using Winleafs.Models;
 using Winleafs.Models.Enums;
 using Winleafs.Nanoleaf;
 using Winleafs.Nanoleaf.Endpoints.Interfaces;
