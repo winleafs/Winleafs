@@ -1,11 +1,11 @@
-﻿using NLog;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using NLog;
 using Winleafs.Models;
 using Winleafs.Models.Enums;
 
-namespace Winleafs.Wpf.Api.Events
+namespace Winleafs.Orchestration.Events
 {
     /// <summary>
     /// Collection of event triggers for a device.

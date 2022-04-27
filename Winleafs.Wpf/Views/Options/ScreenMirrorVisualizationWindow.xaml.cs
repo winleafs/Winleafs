@@ -5,10 +5,11 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using Winleafs.Effects.Helpers;
+using Winleafs.Layouts;
 using Winleafs.Models;
 using Winleafs.Models.Enums;
-using Winleafs.Wpf.Api;
-using Winleafs.Wpf.Api.Layouts;
+using Winleafs.Orchestration;
 using Winleafs.Wpf.Helpers;
 
 namespace Winleafs.Wpf.Views.Options

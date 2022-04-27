@@ -1,4 +1,4 @@
-﻿namespace Winleafs.Wpf.Api.Layouts
+﻿namespace Winleafs.Layouts
 {
     public enum ScaleType
     {

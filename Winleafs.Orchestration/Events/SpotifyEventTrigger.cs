@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Timers;
 
-namespace Winleafs.Wpf.Api.Events
+namespace Winleafs.Orchestration.Events
 {
     /// <summary>
     /// Event trigger that is activated when a Spotify playlist is played

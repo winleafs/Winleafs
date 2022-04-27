@@ -1,4 +1,4 @@
-﻿namespace Winleafs.Wpf.Api.Events
+﻿namespace Winleafs.Orchestration.Events
 {
     public abstract class EventTriggerBase
     {

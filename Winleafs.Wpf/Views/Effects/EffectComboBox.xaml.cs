@@ -4,12 +4,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Winleafs.Effects;
 using Winleafs.Models;
 using Winleafs.Models.Effects;
 using Winleafs.Models.Enums;
 using Winleafs.Nanoleaf;
-using Winleafs.Wpf.Api;
-using Winleafs.Wpf.Api.Effects;
+using Winleafs.Orchestration;
 using Winleafs.Wpf.Helpers;
 using Winleafs.Wpf.ViewModels;
 

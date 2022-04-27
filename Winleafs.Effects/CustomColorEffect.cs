@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Winleafs.Models.Effects;
+﻿using Winleafs.Models.Effects;
 using Winleafs.Nanoleaf;
 using Color = System.Drawing.Color;
 
-namespace Winleafs.Wpf.Api.Effects
+namespace Winleafs.Effects
 {
     public class CustomColorEffect : ICustomEffect
     {

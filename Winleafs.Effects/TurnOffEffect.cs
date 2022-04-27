@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Winleafs.Models;
+﻿using Winleafs.Models;
 using Winleafs.Nanoleaf;
 
-namespace Winleafs.Wpf.Api.Effects
+namespace Winleafs.Effects
 {
     public class TurnOffEffect : ICustomEffect
     {

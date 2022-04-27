@@ -1,14 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Timers;
-
 using NLog;
 using Winleafs.Models;
 using Winleafs.Models.Enums;
 using Winleafs.Nanoleaf;
-using Winleafs.Wpf.Api.Effects;
 
-namespace Winleafs.Wpf.Api
+namespace Winleafs.Orchestration
 {
     public class ScheduleTimer
     {

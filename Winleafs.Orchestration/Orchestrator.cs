@@ -1,15 +1,16 @@
-﻿using NLog;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using NLog;
+using Winleafs.Effects;
+using Winleafs.Effects.ScreenMirrorEffects;
+using Winleafs.Layouts;
 using Winleafs.Models;
 using Winleafs.Models.Enums;
 using Winleafs.Nanoleaf;
-using Winleafs.Wpf.Api.Effects;
-using Winleafs.Wpf.Api.Events;
-using Winleafs.Wpf.Api.Layouts;
+using Winleafs.Orchestration.Events;
 
-namespace Winleafs.Wpf.Api
+namespace Winleafs.Orchestration
 {
     /// <summary>
     /// Class that orchestrates which effects and events should be played per device

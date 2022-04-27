@@ -1,6 +1,6 @@
 ﻿using System.Windows.Shapes;
 
-namespace Winleafs.Wpf.Api.Layouts
+namespace Winleafs.Layouts
 {
     public class DrawablePanel
     {

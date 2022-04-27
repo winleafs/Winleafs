@@ -8,11 +8,11 @@ using Winleafs.Wpf.ViewModels;
 using NLog;
 using Winleafs.Models;
 using Winleafs.Nanoleaf;
+using Winleafs.Orchestration;
 
 namespace Winleafs.Wpf.Views.Setup
 {
     using Winleafs.Models.Enums;
-    using Winleafs.Wpf.Api;
     using Winleafs.Wpf.Views.MainWindows;
     using Winleafs.Wpf.Views.Popup;
 

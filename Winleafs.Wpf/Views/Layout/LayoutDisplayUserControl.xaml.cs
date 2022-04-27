@@ -7,11 +7,11 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using Winleafs.Effects;
+using Winleafs.Layouts;
 using Winleafs.Models;
 using Winleafs.Nanoleaf;
-using Winleafs.Wpf.Api;
-using Winleafs.Wpf.Api.Effects;
-using Winleafs.Wpf.Api.Layouts;
+using Winleafs.Orchestration;
 using Winleafs.Wpf.Helpers;
 
 namespace Winleafs.Wpf.Views.Layout

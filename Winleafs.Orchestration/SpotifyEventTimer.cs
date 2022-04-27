@@ -1,11 +1,11 @@
-﻿using NLog;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using System.Timers;
+using NLog;
 using Winleafs.Models;
 using Winleafs.Server;
 
-namespace Winleafs.Wpf.Api
+namespace Winleafs.Orchestration
 {
     /// <summary>
     /// Static class used by Spotify events to check which playlist is active

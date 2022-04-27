@@ -1,7 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using Winleafs.Wpf.Helpers;
+﻿
 
 /*
 Memory address locations:
@@ -29,7 +26,7 @@ Memory address locations:
 }
 */
 
-namespace Winleafs.Wpf.Api.Events
+namespace Winleafs.Orchestration.Events
 {
     /*public class Borderlands2HealthEventTrigger : BaseProcessPercentageEventTrigger
     {

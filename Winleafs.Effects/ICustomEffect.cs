@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
-using System.Threading.Tasks;
+﻿using System.Diagnostics.CodeAnalysis;
 using Winleafs.Models.Enums;
 
-namespace Winleafs.Wpf.Api.Effects
+namespace Winleafs.Effects
 {
     public interface ICustomEffect
     {

@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
-using System.Threading.Tasks;
+﻿using Winleafs.Effects.Helpers;
 using Winleafs.Models;
 using Winleafs.Nanoleaf;
-using Winleafs.Wpf.Helpers;
 
-namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
+namespace Winleafs.Effects.ScreenMirrorEffects
 {
     public class Ambilght : IScreenMirrorEffect
     {

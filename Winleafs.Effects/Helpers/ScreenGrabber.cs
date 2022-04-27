@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
+﻿using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.Timers;
 using Winleafs.Models;
 using Timer = System.Timers.Timer;
 
-namespace Winleafs.Wpf.Helpers
+namespace Winleafs.Effects.Helpers
 {
     public static class ScreenGrabber
     {

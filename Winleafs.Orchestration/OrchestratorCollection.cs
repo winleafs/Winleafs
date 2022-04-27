@@ -4,7 +4,7 @@ using System.Linq;
 using Winleafs.Models;
 using Winleafs.Models.Enums;
 
-namespace Winleafs.Wpf.Api
+namespace Winleafs.Orchestration
 {
     /// <summary>
     /// Collection class for all orchestrator of all devices

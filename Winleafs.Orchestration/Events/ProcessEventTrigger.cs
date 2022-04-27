@@ -1,10 +1,9 @@
-﻿using NLog;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Timers;
 using Winleafs.Models;
 
-namespace Winleafs.Wpf.Api.Events
+namespace Winleafs.Orchestration.Events
 {
     /// <summary>
     /// Event trigger that is activated when a certain process starts

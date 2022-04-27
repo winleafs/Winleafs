@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Winleafs.Effects;
 using Winleafs.Effects.ScreenMirrorEffects;
 using Winleafs.Models;
 using Winleafs.Nanoleaf;
 
-namespace Winleafs.Wpf.Api.Effects
+namespace Winleafs.Orchestration
 {
     public class CustomEffectsCollection
     {

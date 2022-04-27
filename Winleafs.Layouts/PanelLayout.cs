@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Winleafs.Models;
@@ -9,7 +6,7 @@ using Winleafs.Models.Enums;
 using Winleafs.Models.Layouts;
 using Winleafs.Nanoleaf;
 
-namespace Winleafs.Wpf.Api.Layouts
+namespace Winleafs.Layouts
 {
     public class PanelLayout
     {

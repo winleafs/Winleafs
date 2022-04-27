@@ -1,7 +1,6 @@
-﻿using System;
-using Winleafs.Models.Enums;
+﻿using Winleafs.Models.Enums;
 
-namespace Winleafs.Wpf.Api.Layouts
+namespace Winleafs.Layouts
 {
     public enum FlipType
     {

@@ -1,11 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
+﻿using System.Runtime.InteropServices;
 using WindowsDisplayAPI.DisplayConfig;
 
-namespace Winleafs.Wpf.Helpers
+namespace Winleafs.Effects.Helpers
 {
     public static class ScreenBoundsHelper
     {

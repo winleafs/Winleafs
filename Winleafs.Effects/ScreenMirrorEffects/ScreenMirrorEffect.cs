@@ -1,13 +1,12 @@
-﻿using NLog;
-using System.Timers;
+﻿using System.Timers;
+using NLog;
+using Winleafs.Effects.Helpers;
+using Winleafs.Layouts;
 using Winleafs.Models;
 using Winleafs.Models.Enums;
 using Winleafs.Nanoleaf;
-using Winleafs.Wpf.Api.Effects.ScreenMirrorEffects;
-using Winleafs.Wpf.Api.Layouts;
-using Winleafs.Wpf.Helpers;
 
-namespace Winleafs.Wpf.Api.Effects
+namespace Winleafs.Effects.ScreenMirrorEffects
 {
     public class ScreenMirrorEffect : ICustomEffect
     {

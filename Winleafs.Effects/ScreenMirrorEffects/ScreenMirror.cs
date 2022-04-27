@@ -1,11 +1,11 @@
-﻿using Winleafs.Models;
+﻿using Winleafs.Effects.Helpers;
+using Winleafs.Layouts;
+using Winleafs.Models;
 using Winleafs.Models.Enums;
 using Winleafs.Nanoleaf;
 using Winleafs.Nanoleaf.Endpoints.Interfaces;
-using Winleafs.Wpf.Api.Layouts;
-using Winleafs.Wpf.Helpers;
 
-namespace Winleafs.Wpf.Api.Effects.ScreenMirrorEffects
+namespace Winleafs.Effects.ScreenMirrorEffects
 {
     public class ScreenMirror : IScreenMirrorEffect
     {
