@@ -7,77 +7,82 @@ using Winleafs.Wpf.ViewModels;
 
 namespace Winleafs.Wpf.Views.Effects
 {
-    /// <summary>
-    /// Interaction logic for EffectComboBoxItem.xaml
-    /// </summary>
-    public partial class EffectComboBoxItem : UserControl
-    {
-        public EffectComboBoxItem()
-        {
-            InitializeComponent();
-        }
+	/// <summary>
+	/// Interaction logic for EffectComboBoxItem.xaml
+	/// </summary>
+	public partial class EffectComboBoxItem : UserControl
+	{
+		public EffectComboBoxItem()
+		{
+			InitializeComponent();
+		}
 
-        private void DrawColoredBorder(EffectComboBoxItemViewModel dataContext)
-        {
-            //Remove duplicate colors, palettes from Nanoleaf can contain the same color multiple times
-            var colors = dataContext.Colors.Distinct();
+		private void DrawColoredBorder(EffectComboBoxItemViewModel dataContext)
+		{
+			//Remove duplicate colors, palettes from Nanoleaf can contain the same color multiple times
+			var colors = dataContext.Colors.Distinct();
 
-            var borderParts = new int[colors.Count()];
+			if (!colors.Any())
+			{
+				return;
+			}
 
-            //Divide the border into equal sized parts
-            for (var i = 0; i < colors.Count(); i++)
-            {
-                borderParts[i] = dataContext.Width / colors.Count();
-            }
+			var borderParts = new int[colors.Count()];
 
-            //Divide up the remainder
-            for (var i = 0; i < dataContext.Width % colors.Count(); i++)
-            {
-                borderParts[i] += 1;
-            }
+			//Divide the border into equal sized parts
+			for (var i = 0; i < colors.Count(); i++)
+			{
+				borderParts[i] = dataContext.Width / colors.Count();
+			}
 
-            //Create the borders
-            var marginLeft = 0;
-            var marginRight = dataContext.Width;
+			//Divide up the remainder
+			for (var i = 0; i < dataContext.Width % colors.Count(); i++)
+			{
+				borderParts[i] += 1;
+			}
 
-            for (var i = 0; i < colors.Count(); i++)
-            {
-                ContentGrid.Children.Add(new Border
-                {
-                    BorderBrush = new SolidColorBrush(colors.ElementAt(i)),
-                    BorderThickness = new Thickness(0, 8, 0, 0),
-                    Margin = new Thickness(marginLeft, 0, marginRight - borderParts[i], 0)
-                });
+			//Create the borders
+			var marginLeft = 0;
+			var marginRight = dataContext.Width;
 
-                marginLeft += borderParts[i];
-                marginRight -= borderParts[i];
-            }        
-        }
+			for (var i = 0; i < colors.Count(); i++)
+			{
+				ContentGrid.Children.Add(new Border
+				{
+					BorderBrush = new SolidColorBrush(colors.ElementAt(i)),
+					BorderThickness = new Thickness(0, 8, 0, 0),
+					Margin = new Thickness(marginLeft, 0, marginRight - borderParts[i], 0)
+				});
 
-        private void SetIcon(EffectComboBoxItemViewModel dataContext)
-        {
-            //Display icons when the effect is either color or rhythm
-            switch (dataContext.EffectType)
-            {
-                case EffectType.Color:
-                    ColorIcon.Visibility = Visibility.Visible;
-                    break;
-                case EffectType.Rhythm:
-                    RhythmIcon.Visibility = Visibility.Visible;
-                    break;
-            }
-        }
+				marginLeft += borderParts[i];
+				marginRight -= borderParts[i];
+			}
+		}
 
-        private void UserControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if (DataContext is EffectComboBoxItemViewModel)
-            {
-                //Cast is safe since we always now this is the type of the data context
-                var dataContext = (EffectComboBoxItemViewModel)DataContext;
+		private void SetIcon(EffectComboBoxItemViewModel dataContext)
+		{
+			//Display icons when the effect is either color or rhythm
+			switch (dataContext.EffectType)
+			{
+				case EffectType.Color:
+					ColorIcon.Visibility = Visibility.Visible;
+					break;
+				case EffectType.Rhythm:
+					RhythmIcon.Visibility = Visibility.Visible;
+					break;
+			}
+		}
 
-                DrawColoredBorder(dataContext);
-                SetIcon(dataContext);
-            }
-        }
-    }
+		private void UserControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+		{
+			if (DataContext is EffectComboBoxItemViewModel)
+			{
+				//Cast is safe since we always now this is the type of the data context
+				var dataContext = (EffectComboBoxItemViewModel)DataContext;
+
+				DrawColoredBorder(dataContext);
+				SetIcon(dataContext);
+			}
+		}
+	}
 }

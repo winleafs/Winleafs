@@ -285,6 +285,12 @@ namespace Winleafs.Wpf.Views.MainWindows
 			public event EventHandler CanExecuteChanged;
 		}
 
+		private void CreateEffect_Click(object sender, RoutedEventArgs e)
+		{
+			var createEffectWindow = new CreateEffectWindow();
+			createEffectWindow.Show();
+		}
+
 		private async void Reload_Click(object sender, RoutedEventArgs e)
 		{
 			try

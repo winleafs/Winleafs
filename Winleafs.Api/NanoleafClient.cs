@@ -21,8 +21,6 @@ namespace Winleafs.Nanoleaf
 
     public class NanoleafClient : INanoleafClient
     {
-        private readonly NanoleafConnection _connection;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="NanoleafClient"/> class.
         /// </summary>
@@ -31,19 +29,25 @@ namespace Winleafs.Nanoleaf
         /// <param name="token">The access token to access the device's API.</param>
         public NanoleafClient(string ip, int port, string token = null)
         {
-            _connection = new NanoleafConnection(new Uri($"http://{ip}:{port}"), token);
+            var connection = new NanoleafConnection(new Uri($"http://{ip}:{port}"), token);
+            EffectsEndpoint = new EffectsEndpoint(connection);
+            AuthorizationEndpoint = new AuthorizationEndpoint(connection);
+            StateEndpoint = new StateEndpoint(connection);
+            IdentifyEndpoint = new IdentifyEndpoint(connection);
+            LayoutEndpoint = new LayoutEndpoint(connection);
+            ExternalControlEndpoint = new ExternalControlEndpoint(connection);
         }
 
-        public IEffectsEndpoint EffectsEndpoint => new EffectsEndpoint(_connection);
+        public IEffectsEndpoint EffectsEndpoint { get; }
 
-        public IAuthorizationEndpoint AuthorizationEndpoint => new AuthorizationEndpoint(_connection);
+        public IAuthorizationEndpoint AuthorizationEndpoint { get; }
 
-        public IStateEndpoint StateEndpoint => new StateEndpoint(_connection);
+        public IStateEndpoint StateEndpoint { get; }
 
-        public ILayoutEndpoint LayoutEndpoint => new LayoutEndpoint(_connection);
+        public ILayoutEndpoint LayoutEndpoint { get; }
 
-        public IIdentifyEndpoint IdentifyEndpoint => new IdentifyEndpoint(_connection);
+        public IIdentifyEndpoint IdentifyEndpoint { get; }
 
-        public IExternalControlEndpoint ExternalControlEndpoint => new ExternalControlEndpoint(_connection);
+        public IExternalControlEndpoint ExternalControlEndpoint { get; }
     }
 }

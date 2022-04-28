@@ -78,9 +78,9 @@
 			<DependentUpon>EnumResources.resx</DependentUpon>
 		</Compile>
 		<Compile Update="Views\Layout\Resources.Designer.cs">
-			<DesignTime>True</DesignTime>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>Resources.resx</DependentUpon>
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		  <DependentUpon>Resources.resx</DependentUpon>
 		</Compile>
 		<Compile Update="Views\MainWindows\Resources.Designer.cs">
 			<DesignTime>True</DesignTime>

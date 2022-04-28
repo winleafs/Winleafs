@@ -74,6 +74,18 @@ namespace Winleafs.Nanoleaf.Endpoints
             return SendRequest<Effect>(BaseUrl, Method.PUT, CreateWriteEffectCommand(effectName));
         }
 
+        /// <inheritdoc />
+        public void WriteCustomEffectCommand(CustomEffectCommand customEffectCommand)
+        {
+            SendRequest(BaseUrl, Method.PUT, body: CreateWriteAnimationCommand(customEffectCommand));
+        }
+
+        /// <inheritdoc />
+        public async Task WriteCustomEffectCommandAsync(CustomEffectCommand customEffectCommand)
+        {
+            await SendRequestAsync(BaseUrl, Method.PUT, body: CreateWriteAnimationCommand(customEffectCommand));
+        }
+
         private static object CreateWriteEffectCommand(string effectName)
         {
             return new
@@ -83,6 +95,14 @@ namespace Winleafs.Nanoleaf.Endpoints
                     command = "request",
                     animName = effectName
                 }
+            };
+        }
+
+        private static object CreateWriteAnimationCommand(CustomEffectCommand customAnimationCommand)
+        {
+            return new
+            {
+                write = customAnimationCommand
             };
         }
     }

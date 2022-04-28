@@ -32,7 +32,9 @@ namespace Winleafs.Models
 
         public int ManualBrightness { get; set; }
 
-        public PercentageProfile PercentageProfile { get;set;}
+        public PercentageProfile PercentageProfile { get; set; }
+
+        public CustomEffect CustomEffect { get; set; }
 
         public ScreenMirrorAlgorithm ScreenMirrorAlgorithm { get; set; }
 

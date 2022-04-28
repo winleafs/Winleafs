@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Net;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using NLog;
 using RestSharp;
+using RestSharp.Serializers.NewtonsoftJson;
 
 namespace Winleafs.Nanoleaf.Endpoints
 {
@@ -66,6 +66,7 @@ namespace Winleafs.Nanoleaf.Endpoints
             Type returnType = null, object body = null, bool disableLogging = false)
         {
             var restClient = new RestClient(Connection.Uri);
+            restClient.UseNewtonsoftJson();
             var request = new RestRequest(GetUrlForRequest(endpoint), method)
             {
                 Timeout = Timeout

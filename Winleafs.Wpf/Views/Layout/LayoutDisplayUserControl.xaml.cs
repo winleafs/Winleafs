@@ -26,11 +26,15 @@ namespace Winleafs.Wpf.Views.Layout
 		private static readonly SolidColorBrush _selectedBorderColor = Brushes.LightSteelBlue;
 		private static readonly SolidColorBrush _borderColor = (SolidColorBrush)Application.Current.FindResource("NanoleafBlack");
 
+		public HashSet<int> PanelIds { get; set; }
 		public HashSet<int> SelectedPanelIds { get; set; }
+		public event EventHandler PanelClicked;
+		public bool MultiSelectEnabled { get; set; } = true;
+		public Dictionary<int, SolidColorBrush> PanelToBrushMap { get; set; }
 
 		private static readonly Random _random = new Random();
 
-		private List<DrawablePanel> _polygons;
+		private List<DrawablePanel> _drawablePanels;
 		private bool _panelsClickable;
 		private HashSet<int> _lockedPanelIds;
 		private Dictionary<int, Brush> _highlightOriginalColors; //This dictionary saves the original colors of the triangles when highlighting
@@ -43,11 +47,14 @@ namespace Winleafs.Wpf.Views.Layout
 
 		private PanelLayout _panelLayout;
 
+
+
 		public LayoutDisplayUserControl()
 		{
 			InitializeComponent();
 
 			CanvasArea.MouseDown += CanvasClicked;
+			PanelIds = new HashSet<int>();
 			SelectedPanelIds = new HashSet<int>();
 			_lockedPanelIds = new HashSet<int>();
 			_highlightOriginalColors = new Dictionary<int, Brush>();
@@ -104,23 +111,23 @@ namespace Winleafs.Wpf.Views.Layout
 				_panelLayout = orchestrator.PanelLayout;
 			}
 
-			_polygons = _panelLayout.GetScaledPolygons((int)ActualWidth, (int)ActualHeight, ScaleType.Fit, FlipType.None);
+			_drawablePanels = _panelLayout.GetScaledPolygons((int)ActualWidth, (int)ActualHeight, ScaleType.Fit, FlipType.None);
 
-			if (_polygons == null || !_polygons.Any())
+			if (_drawablePanels == null || !_drawablePanels.Any())
 			{
 				return;
 			}
 
 			if (_panelsClickable)
 			{
-				foreach (var polygon in _polygons)
+				foreach (var polygon in _drawablePanels)
 				{
 					polygon.Polygon.MouseDown += PolygonClicked;
 				}
 			}
 
 			//Draw the triangles
-			foreach (var polygon in _polygons)
+			foreach (var polygon in _drawablePanels)
 			{
 				CanvasArea.Children.Add(polygon.Polygon);
 			}
@@ -135,7 +142,7 @@ namespace Winleafs.Wpf.Views.Layout
 
 		public void UpdateColors()
 		{
-			if (UserSettings.Settings.ActiveDevice == null || _polygons == null)
+			if (UserSettings.Settings.ActiveDevice == null || _drawablePanels == null)
 			{
 				return;
 			}
@@ -143,6 +150,23 @@ namespace Winleafs.Wpf.Views.Layout
 			//Run code on main thread since we update the UI
 			Dispatcher.Invoke(new Action(() =>
 			{
+				if (PanelToBrushMap != null)
+				{
+					foreach (var drawablePanel in _drawablePanels)
+					{
+						if (PanelToBrushMap.TryGetValue(drawablePanel.PanelId, out var brush))
+						{
+							drawablePanel.Polygon.Fill = brush;
+						}
+						else
+						{
+							drawablePanel.Polygon.Fill = Brushes.LightSlateGray;
+						}
+					}
+
+					return;
+				}
+
 				var orchestrator = OrchestratorCollection.GetOrchestratorForDevice(UserSettings.Settings.ActiveDevice);
 
 				//Get colors of current effect, we can display colors for nanoleaf effects or custom color effects
@@ -191,16 +215,16 @@ namespace Winleafs.Wpf.Views.Layout
 					}
 				}
 
-				if (colors == null)
+				if (colors == null || !colors.Any())
 				{
-					foreach (var polygon in _polygons)
+					foreach (var polygon in _drawablePanels)
 					{
 						polygon.Polygon.Fill = Brushes.LightSlateGray;
 					}
 				}
 				else
 				{
-					foreach (var polygon in _polygons)
+					foreach (var polygon in _drawablePanels)
 					{
 						polygon.Polygon.Fill = colors[_random.Next(colors.Count)];
 					}
@@ -215,7 +239,7 @@ namespace Winleafs.Wpf.Views.Layout
 
 		private void PolygonClicked(object sender, MouseButtonEventArgs e)
 		{
-			if (_polygons == null)
+			if (_drawablePanels == null)
 			{
 				return;
 			}
@@ -226,7 +250,7 @@ namespace Winleafs.Wpf.Views.Layout
 			}
 
 			var polygon = (Polygon)sender;
-			var selectedPanel = _polygons.FirstOrDefault(t => t.Polygon == polygon);
+			var selectedPanel = _drawablePanels.FirstOrDefault(t => t.Polygon == polygon);
 
 			if (selectedPanel == null)
 			{
@@ -238,6 +262,29 @@ namespace Winleafs.Wpf.Views.Layout
 			if (_lockedPanelIds.Contains(selectedPanelId))
 			{
 				return;
+			}
+
+			if (PanelClicked != null)
+			{
+				PanelClicked.Invoke(selectedPanel, new EventArgs());
+			}
+
+			if (MultiSelectEnabled)
+			{
+				if (SelectedPanelIds.Contains(selectedPanelId))
+				{
+					polygon.Stroke = _borderColor;
+					polygon.StrokeThickness = 2;
+
+					SelectedPanelIds.Remove(selectedPanelId);
+				}
+				else
+				{
+					polygon.Stroke = _selectedBorderColor;
+					polygon.StrokeThickness = 2;
+
+					SelectedPanelIds.Add(selectedPanelId);
+				}
 			}
 
 			polygon.Stroke = _selectedBorderColor;
@@ -262,7 +309,7 @@ namespace Winleafs.Wpf.Views.Layout
 		{
 			SelectedPanelIds.Clear();
 
-			foreach (var polygon in _polygons)
+			foreach (var polygon in _drawablePanels)
 			{
 				if (!_lockedPanelIds.Contains(polygon.PanelId))
 				{
@@ -276,7 +323,7 @@ namespace Winleafs.Wpf.Views.Layout
 		{
 			foreach (var panelId in panelIds)
 			{
-				var polygon = _polygons.FirstOrDefault(t => t.PanelId == panelId).Polygon;
+				var polygon = _drawablePanels.FirstOrDefault(t => t.PanelId == panelId).Polygon;
 
 				polygon.Stroke = _lockedBorderColor;
 				polygon.StrokeThickness = 2;
@@ -289,7 +336,7 @@ namespace Winleafs.Wpf.Views.Layout
 		{
 			foreach (var panelId in panelIds)
 			{
-				var polygon = _polygons.FirstOrDefault(t => t.PanelId == panelId).Polygon;
+				var polygon = _drawablePanels.FirstOrDefault(t => t.PanelId == panelId).Polygon;
 
 				polygon.Stroke = _borderColor;
 				polygon.StrokeThickness = 2;
@@ -302,7 +349,7 @@ namespace Winleafs.Wpf.Views.Layout
 		{
 			foreach (var panelId in panelIds)
 			{
-				var polygon = _polygons.FirstOrDefault(t => t.PanelId == panelId).Polygon;
+				var polygon = _drawablePanels.FirstOrDefault(t => t.PanelId == panelId).Polygon;
 
 				_highlightOriginalColors.Add(panelId, polygon.Fill);
 
@@ -314,7 +361,7 @@ namespace Winleafs.Wpf.Views.Layout
 		{
 			foreach (var panelId in panelIds)
 			{
-				var polygon = _polygons.FirstOrDefault(t => t.PanelId == panelId).Polygon;
+				var polygon = _drawablePanels.FirstOrDefault(t => t.PanelId == panelId).Polygon;
 
 				polygon.Fill = _highlightOriginalColors[panelId];
 

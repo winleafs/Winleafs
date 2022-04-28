@@ -9,7 +9,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="WindowsDisplayAPI" Version="1.3.0.13" />
+		<PackageReference Include="WindowsDisplayAPI" Version="1.3.0.13" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -20,4 +20,4 @@
 		<ProjectReference Include="..\Winleafs.Server\Winleafs.Server.csproj" />
 	</ItemGroup>
 
-</Project>
+		</Project>

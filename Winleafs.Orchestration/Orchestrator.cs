@@ -6,6 +6,7 @@ using Winleafs.Effects;
 using Winleafs.Effects.ScreenMirrorEffects;
 using Winleafs.Layouts;
 using Winleafs.Models;
+using Winleafs.Models.Effects;
 using Winleafs.Models.Enums;
 using Winleafs.Nanoleaf;
 using Winleafs.Orchestration.Events;
@@ -132,6 +133,44 @@ namespace Winleafs.Orchestration
             }
         }
 
+        /// <summary>
+        /// Executes custom effect command
+        /// Activates an effect by name and brightness. This can be a custom effect (e.g. screen mirror) or a effect available on the Nanoleaf device
+        /// First deactivates any custom effects before enabling the new effect
+        /// </summary>
+        public async Task ExecuteCustomEffectCommand(CustomEffectCommand customEffectCommand)
+        {
+            if (customEffectCommand.Command == "display")
+            {
+                _logger.Info($"Orchestrator is executing a custom effect display command for device {Device.IPAddress}");
+            }
+            else
+            {
+                _logger.Info($"Orchestrator is executing a custom effect command for device {Device.IPAddress} to {customEffectCommand.Command} the effect called {customEffectCommand.AnimName}");
+            }
+
+            try
+            {
+                var client = NanoleafClientFactory.Create(Device);
+
+                //This code is currently commented out as it doesn't seem necessary (at least for Shapes and firmware v6.12)
+                //DO NOT change the order of disabling effects, then setting brightness and then enabling effects
+                //if (_customEffects.HasActiveEffects(effectName))
+                //{
+                //	await _customEffects.DeactivateAllEffects();
+                //}
+                //await client.StateEndpoint.SetBrightnessAsync(brightness);
+
+                await client.EffectsEndpoint.WriteCustomEffectCommandAsync(customEffectCommand);
+
+                //Finally, trigger effect changed callback
+                TriggerEffectChangedCallbacks();
+            }
+            catch (Exception e)
+            {
+                _logger.Error(e, $"Executing custom effect command for device {Device.Name}");
+            }
+        }
         /// <summary>
         /// Returns the list of custom effects for the device
         /// </summary>
