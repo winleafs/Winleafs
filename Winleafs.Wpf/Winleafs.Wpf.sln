@@ -33,11 +33,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5 Tests", "5 Tests", "{5D33
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6 Dev", "6 Dev", "{1D6C5E07-BF5A-47BF-BDD2-4BCE065210FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Winleafs.Effects", "..\Winleafs.Effects\Winleafs.Effects.csproj", "{1631863B-FCF1-4B80-AB4E-2DA51C902241}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Winleafs.Effects", "..\Winleafs.Effects\Winleafs.Effects.csproj", "{1631863B-FCF1-4B80-AB4E-2DA51C902241}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Winleafs.Layouts", "..\Winleafs.Layouts\Winleafs.Layouts.csproj", "{8181AC32-73D0-4488-81E7-EAE2661CC074}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Winleafs.Layouts", "..\Winleafs.Layouts\Winleafs.Layouts.csproj", "{8181AC32-73D0-4488-81E7-EAE2661CC074}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Winleafs.Orchestration", "..\Winleafs.Orchestration\Winleafs.Orchestration.csproj", "{FC5652B3-8564-4DB9-9FBC-9B3CB37D3D6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Winleafs.Orchestration", "..\Winleafs.Orchestration\Winleafs.Orchestration.csproj", "{FC5652B3-8564-4DB9-9FBC-9B3CB37D3D6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Winleafs.Nanoleaf.Detection", "..\Winleafs.Nanoleaf.Detection\Winleafs.Nanoleaf.Detection.csproj", "{9BF4FC26-815C-4E36-8AE2-FEB0A920C33B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -125,6 +127,14 @@ Global
 		{FC5652B3-8564-4DB9-9FBC-9B3CB37D3D6C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FC5652B3-8564-4DB9-9FBC-9B3CB37D3D6C}.Release|x86.ActiveCfg = Release|Any CPU
 		{FC5652B3-8564-4DB9-9FBC-9B3CB37D3D6C}.Release|x86.Build.0 = Release|Any CPU
+		{9BF4FC26-815C-4E36-8AE2-FEB0A920C33B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BF4FC26-815C-4E36-8AE2-FEB0A920C33B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BF4FC26-815C-4E36-8AE2-FEB0A920C33B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9BF4FC26-815C-4E36-8AE2-FEB0A920C33B}.Debug|x86.Build.0 = Debug|Any CPU
+		{9BF4FC26-815C-4E36-8AE2-FEB0A920C33B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BF4FC26-815C-4E36-8AE2-FEB0A920C33B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BF4FC26-815C-4E36-8AE2-FEB0A920C33B}.Release|x86.ActiveCfg = Release|Any CPU
+		{9BF4FC26-815C-4E36-8AE2-FEB0A920C33B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -140,6 +150,7 @@ Global
 		{1631863B-FCF1-4B80-AB4E-2DA51C902241} = {089B9C6D-57AC-461F-99B5-7B83A41BF58B}
 		{8181AC32-73D0-4488-81E7-EAE2661CC074} = {089B9C6D-57AC-461F-99B5-7B83A41BF58B}
 		{FC5652B3-8564-4DB9-9FBC-9B3CB37D3D6C} = {089B9C6D-57AC-461F-99B5-7B83A41BF58B}
+		{9BF4FC26-815C-4E36-8AE2-FEB0A920C33B} = {A630776E-B52F-4BF0-A90E-4CCB953FE8B9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {80386817-4CBF-4EC3-A38E-31251DEB6BF9}
